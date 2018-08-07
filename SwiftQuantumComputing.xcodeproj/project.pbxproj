@@ -32,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FF593C67211A22C700FA6D8F /* Marbles.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Marbles.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftQuantumComputing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftQuantumComputing.h; sourceTree = "<group>"; };
 		FF65E3B9211A181900AA0BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing */,
 				FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputingTests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
+				FF593C67211A22C700FA6D8F /* Marbles.playground */,
 			);
 			sourceTree = "<group>";
 		};
