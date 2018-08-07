@@ -1,0 +1,496 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FF65E3BF211A181900AA0BD2 /* SwiftQuantumComputing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */; };
+		FF65E3C6211A181900AA0BD2 /* SwiftQuantumComputing.h in Headers */ = {isa = PBXBuildFile; fileRef = FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FFE1D70A211A1AEB00A50D9C /* Polar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D705211A1AEB00A50D9C /* Polar.swift */; };
+		FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D706211A1AEB00A50D9C /* Complex.swift */; };
+		FFE1D70C211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */; };
+		FFE1D70D211A1AEB00A50D9C /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D708211A1AEB00A50D9C /* Vector.swift */; };
+		FFE1D70E211A1AEB00A50D9C /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D709211A1AEB00A50D9C /* Matrix.swift */; };
+		FFE1D714211A1B2700A50D9C /* ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */; };
+		FFE1D715211A1B2700A50D9C /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D710211A1B2700A50D9C /* MatrixTests.swift */; };
+		FFE1D716211A1B2700A50D9C /* VectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D711211A1B2700A50D9C /* VectorTests.swift */; };
+		FFE1D717211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */; };
+		FFE1D718211A1B2700A50D9C /* PolarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D713211A1B2700A50D9C /* PolarTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FF65E3C0211A181900AA0BD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FF65E3AC211A181900AA0BD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FF65E3B4211A181900AA0BD2;
+			remoteInfo = SwiftQuantumComputing;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftQuantumComputing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftQuantumComputing.h; sourceTree = "<group>"; };
+		FF65E3B9211A181900AA0BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftQuantumComputingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF65E3C5211A181900AA0BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFE1D705211A1AEB00A50D9C /* Polar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polar.swift; sourceTree = "<group>"; };
+		FFE1D706211A1AEB00A50D9C /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
+		FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "__CLPK_doublecomplex+Complex.swift"; sourceTree = "<group>"; };
+		FFE1D708211A1AEB00A50D9C /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
+		FFE1D709211A1AEB00A50D9C /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexTests.swift; sourceTree = "<group>"; };
+		FFE1D710211A1B2700A50D9C /* MatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
+		FFE1D711211A1B2700A50D9C /* VectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorTests.swift; sourceTree = "<group>"; };
+		FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "__CLPK_doublecomplex+ComplexTests.swift"; sourceTree = "<group>"; };
+		FFE1D713211A1B2700A50D9C /* PolarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FF65E3B1211A181900AA0BD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FF65E3BB211A181900AA0BD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF65E3BF211A181900AA0BD2 /* SwiftQuantumComputing.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FF65E3AB211A181800AA0BD2 = {
+			isa = PBXGroup;
+			children = (
+				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing */,
+				FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputingTests */,
+				FF65E3B6211A181900AA0BD2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FF65E3B6211A181900AA0BD2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */,
+				FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputingTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing */ = {
+			isa = PBXGroup;
+			children = (
+				FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */,
+				FFE1D706211A1AEB00A50D9C /* Complex.swift */,
+				FFE1D709211A1AEB00A50D9C /* Matrix.swift */,
+				FFE1D705211A1AEB00A50D9C /* Polar.swift */,
+				FFE1D708211A1AEB00A50D9C /* Vector.swift */,
+				FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */,
+				FF65E3B9211A181900AA0BD2 /* Info.plist */,
+			);
+			path = SwiftQuantumComputing;
+			sourceTree = "<group>";
+		};
+		FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputingTests */ = {
+			isa = PBXGroup;
+			children = (
+				FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */,
+				FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */,
+				FFE1D710211A1B2700A50D9C /* MatrixTests.swift */,
+				FFE1D713211A1B2700A50D9C /* PolarTests.swift */,
+				FFE1D711211A1B2700A50D9C /* VectorTests.swift */,
+				FF65E3C5211A181900AA0BD2 /* Info.plist */,
+			);
+			path = SwiftQuantumComputingTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		FF65E3B2211A181900AA0BD2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF65E3C6211A181900AA0BD2 /* SwiftQuantumComputing.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing" */;
+			buildPhases = (
+				FF65E3B0211A181900AA0BD2 /* Sources */,
+				FF65E3B1211A181900AA0BD2 /* Frameworks */,
+				FF65E3B2211A181900AA0BD2 /* Headers */,
+				FF65E3B3211A181900AA0BD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftQuantumComputing;
+			productName = SwiftQuantumComputing;
+			productReference = FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FF65E3BD211A181900AA0BD2 /* SwiftQuantumComputingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF65E3CC211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputingTests" */;
+			buildPhases = (
+				FF65E3BA211A181900AA0BD2 /* Sources */,
+				FF65E3BB211A181900AA0BD2 /* Frameworks */,
+				FF65E3BC211A181900AA0BD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FF65E3C1211A181900AA0BD2 /* PBXTargetDependency */,
+			);
+			name = SwiftQuantumComputingTests;
+			productName = SwiftQuantumComputingTests;
+			productReference = FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FF65E3AC211A181900AA0BD2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Enrique de la Torre";
+				TargetAttributes = {
+					FF65E3B4211A181900AA0BD2 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
+					};
+					FF65E3BD211A181900AA0BD2 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = FF65E3AF211A181900AA0BD2 /* Build configuration list for PBXProject "SwiftQuantumComputing" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FF65E3AB211A181800AA0BD2;
+			productRefGroup = FF65E3B6211A181900AA0BD2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing */,
+				FF65E3BD211A181900AA0BD2 /* SwiftQuantumComputingTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FF65E3B3211A181900AA0BD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FF65E3BC211A181900AA0BD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FF65E3B0211A181900AA0BD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */,
+				FFE1D70E211A1AEB00A50D9C /* Matrix.swift in Sources */,
+				FFE1D70A211A1AEB00A50D9C /* Polar.swift in Sources */,
+				FFE1D70D211A1AEB00A50D9C /* Vector.swift in Sources */,
+				FFE1D70C211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FF65E3BA211A181900AA0BD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFE1D717211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift in Sources */,
+				FFE1D715211A1B2700A50D9C /* MatrixTests.swift in Sources */,
+				FFE1D714211A1B2700A50D9C /* ComplexTests.swift in Sources */,
+				FFE1D716211A1B2700A50D9C /* VectorTests.swift in Sources */,
+				FFE1D718211A1B2700A50D9C /* PolarTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FF65E3C1211A181900AA0BD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing */;
+			targetProxy = FF65E3C0211A181900AA0BD2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FF65E3C7211A181900AA0BD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FF65E3C8211A181900AA0BD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FF65E3CA211A181900AA0BD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SwiftQuantumComputing/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FF65E3CB211A181900AA0BD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = SwiftQuantumComputing/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FF65E3CD211A181900AA0BD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SwiftQuantumComputingTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FF65E3CE211A181900AA0BD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SwiftQuantumComputingTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FF65E3AF211A181900AA0BD2 /* Build configuration list for PBXProject "SwiftQuantumComputing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF65E3C7211A181900AA0BD2 /* Debug */,
+				FF65E3C8211A181900AA0BD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF65E3CA211A181900AA0BD2 /* Debug */,
+				FF65E3CB211A181900AA0BD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF65E3CC211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF65E3CD211A181900AA0BD2 /* Debug */,
+				FF65E3CE211A181900AA0BD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FF65E3AC211A181900AA0BD2 /* Project object */;
+}
