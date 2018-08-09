@@ -93,11 +93,7 @@
 		FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing */ = {
 			isa = PBXGroup;
 			children = (
-				FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */,
-				FFE1D706211A1AEB00A50D9C /* Complex.swift */,
-				FFE1D709211A1AEB00A50D9C /* Matrix.swift */,
-				FFE1D705211A1AEB00A50D9C /* Polar.swift */,
-				FFE1D708211A1AEB00A50D9C /* Vector.swift */,
+				FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */,
 				FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */,
 				FF65E3B9211A181900AA0BD2 /* Info.plist */,
 			);
@@ -107,14 +103,34 @@
 		FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputingTests */ = {
 			isa = PBXGroup;
 			children = (
+				FF7C9BBD211CB7D7008D8897 /* ComplexVectorSpace */,
+				FF65E3C5211A181900AA0BD2 /* Info.plist */,
+			);
+			path = SwiftQuantumComputingTests;
+			sourceTree = "<group>";
+		};
+		FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */ = {
+			isa = PBXGroup;
+			children = (
+				FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */,
+				FFE1D706211A1AEB00A50D9C /* Complex.swift */,
+				FFE1D709211A1AEB00A50D9C /* Matrix.swift */,
+				FFE1D705211A1AEB00A50D9C /* Polar.swift */,
+				FFE1D708211A1AEB00A50D9C /* Vector.swift */,
+			);
+			path = ComplexVectorSpace;
+			sourceTree = "<group>";
+		};
+		FF7C9BBD211CB7D7008D8897 /* ComplexVectorSpace */ = {
+			isa = PBXGroup;
+			children = (
 				FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */,
 				FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */,
 				FFE1D710211A1B2700A50D9C /* MatrixTests.swift */,
 				FFE1D713211A1B2700A50D9C /* PolarTests.swift */,
 				FFE1D711211A1B2700A50D9C /* VectorTests.swift */,
-				FF65E3C5211A181900AA0BD2 /* Info.plist */,
 			);
-			path = SwiftQuantumComputingTests;
+			path = ComplexVectorSpace;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
