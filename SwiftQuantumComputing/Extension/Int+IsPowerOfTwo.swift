@@ -1,5 +1,5 @@
 //
-//  Gate.swift
+//  Int+IsPowerOfTwo.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 11/08/2018.
@@ -20,38 +20,8 @@
 
 import Foundation
 
-// MARK: - Main body
-
-struct Gate {
-
-    // MARK: - Private properties
-
-    private let matrix: Matrix
-
-    // MARK: - Init methods
-
-    init?(matrix: Matrix) {
-        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            return nil
-        }
-
-        self.matrix = matrix
-    }
-
-    // MARK: - Public methods
-
-    func apply(to vector: Vector) -> Vector? {
-        return (matrix * vector)
-    }
-}
-
-// MARK: - Private body
-
-private extension Gate {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let accuracy = 0.001
+extension Int {
+    var isPowerOfTwo: Bool {
+        return (self > 0) && (self & (self - 1) == 0)
     }
 }

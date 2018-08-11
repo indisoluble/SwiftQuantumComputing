@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF1AAFE2211F372800D3666A /* GateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE1211F372800D3666A /* GateFactory.swift */; };
+		FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */; };
+		FF1AAFE8211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE7211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift */; };
+		FF1AAFEA211F502F00D3666A /* GateFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE9211F502F00D3666A /* GateFactoryTests.swift */; };
+		FF1AAFF1211F66D400D3666A /* Int+Pow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFF0211F66D400D3666A /* Int+Pow.swift */; };
+		FF1AAFF3211F6E1000D3666A /* Int+Log2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */; };
 		FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2CD9F9211E177500EA7E86 /* Register.swift */; };
 		FF5C6638211E455800FBCC5A /* Gate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6637211E455800FBCC5A /* Gate.swift */; };
 		FF5C663A211E474200FBCC5A /* GateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6639211E474200FBCC5A /* GateTests.swift */; };
@@ -36,6 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FF1AAFE1211F372800D3666A /* GateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateFactory.swift; sourceTree = "<group>"; };
+		FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+IsPowerOfTwo.swift"; sourceTree = "<group>"; };
+		FF1AAFE7211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+IsPowerOfTwoTests.swift"; sourceTree = "<group>"; };
+		FF1AAFE9211F502F00D3666A /* GateFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateFactoryTests.swift; sourceTree = "<group>"; };
+		FF1AAFF0211F66D400D3666A /* Int+Pow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Pow.swift"; sourceTree = "<group>"; };
+		FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Log2.swift"; sourceTree = "<group>"; };
 		FF2CD9F9211E177500EA7E86 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		FF593C67211A22C700FA6D8F /* Marbles.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Marbles.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF593C68211A249F00FA6D8F /* QuantumSystem.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = QuantumSystem.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -78,6 +90,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF1AAFDF211F284F00D3666A /* Gate */ = {
+			isa = PBXGroup;
+			children = (
+				FF5C6637211E455800FBCC5A /* Gate.swift */,
+				FF1AAFE1211F372800D3666A /* GateFactory.swift */,
+			);
+			path = Gate;
+			sourceTree = "<group>";
+		};
+		FF1AAFE0211F286100D3666A /* Gate */ = {
+			isa = PBXGroup;
+			children = (
+				FF1AAFE9211F502F00D3666A /* GateFactoryTests.swift */,
+				FF5C6639211E474200FBCC5A /* GateTests.swift */,
+			);
+			path = Gate;
+			sourceTree = "<group>";
+		};
+		FF1AAFEC211F61AF00D3666A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */,
+				FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */,
+				FF1AAFF0211F66D400D3666A /* Int+Pow.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FF1AAFED211F61CB00D3666A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FF1AAFE7211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		FF65E3AB211A181800AA0BD2 = {
 			isa = PBXGroup;
 			children = (
@@ -102,7 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */,
-				FF5C6637211E455800FBCC5A /* Gate.swift */,
+				FF1AAFEC211F61AF00D3666A /* Extension */,
+				FF1AAFDF211F284F00D3666A /* Gate */,
 				FF2CD9F9211E177500EA7E86 /* Register.swift */,
 				FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */,
 				FF65E3B9211A181900AA0BD2 /* Info.plist */,
@@ -114,7 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				FF7C9BBD211CB7D7008D8897 /* ComplexVectorSpace */,
-				FF5C6639211E474200FBCC5A /* GateTests.swift */,
+				FF1AAFED211F61CB00D3666A /* Extension */,
+				FF1AAFE0211F286100D3666A /* Gate */,
 				FF8BD4AB211E28DA00F01FF8 /* RegisterTests.swift */,
 				FF65E3C5211A181900AA0BD2 /* Info.plist */,
 			);
@@ -255,10 +305,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */,
+				FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */,
+				FF1AAFF3211F6E1000D3666A /* Int+Log2.swift in Sources */,
 				FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */,
 				FF5C6638211E455800FBCC5A /* Gate.swift in Sources */,
 				FFE1D70E211A1AEB00A50D9C /* Matrix.swift in Sources */,
 				FFE1D70A211A1AEB00A50D9C /* Polar.swift in Sources */,
+				FF1AAFF1211F66D400D3666A /* Int+Pow.swift in Sources */,
+				FF1AAFE2211F372800D3666A /* GateFactory.swift in Sources */,
 				FFE1D70D211A1AEB00A50D9C /* Vector.swift in Sources */,
 				FFE1D70C211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift in Sources */,
 			);
@@ -269,12 +323,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFE1D717211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift in Sources */,
+				FF1AAFE8211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift in Sources */,
 				FFE1D715211A1B2700A50D9C /* MatrixTests.swift in Sources */,
 				FF8BD4AC211E28DA00F01FF8 /* RegisterTests.swift in Sources */,
 				FFE1D714211A1B2700A50D9C /* ComplexTests.swift in Sources */,
 				FFE1D716211A1B2700A50D9C /* VectorTests.swift in Sources */,
 				FF5C663A211E474200FBCC5A /* GateTests.swift in Sources */,
 				FFE1D718211A1B2700A50D9C /* PolarTests.swift in Sources */,
+				FF1AAFEA211F502F00D3666A /* GateFactoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

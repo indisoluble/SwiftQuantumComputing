@@ -78,6 +78,24 @@ class MatrixTests: XCTestCase {
         XCTAssertTrue(matrix.isHermitian)
     }
 
+    func testNonSquareMatrix_isSquare_returnFalse() {
+        // Given
+        let complex = Complex(real: 0, imag: 0)
+        let matrix = Matrix([[complex], [complex]])!
+
+        // Then
+        XCTAssertFalse(matrix.isSquare)
+    }
+
+    func testSquareMatrix_isSquare_returnTrue() {
+        // Given
+        let complex = Complex(real: 0, imag: 0)
+        let matrix = Matrix([[complex, complex], [complex, complex]])!
+
+        // Then
+        XCTAssertTrue(matrix.isSquare)
+    }
+
     func testAnyMatrix_first_returnExpectedValue() {
         // Given
         let expectedValue = Complex(real: 10, imag: 10)

@@ -88,7 +88,7 @@ private extension Register {
             return nil
         }
 
-        let count = Int(pow(Double(2), Double(qubitCount)))
+        let count = Int.pow(2, qubitCount)
         var elements = Array(repeating: Complex(0), count: count)
         elements[0] = Complex(1)
 
