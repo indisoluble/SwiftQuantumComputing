@@ -29,6 +29,10 @@
 		FFE1D716211A1B2700A50D9C /* VectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D711211A1B2700A50D9C /* VectorTests.swift */; };
 		FFE1D717211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */; };
 		FFE1D718211A1B2700A50D9C /* PolarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D713211A1B2700A50D9C /* PolarTests.swift */; };
+		FFFE7E9721209F18006FCAF1 /* NotGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFE7E9621209F18006FCAF1 /* NotGateFactory.swift */; };
+		FFFE7E992120A20E006FCAF1 /* ControlledNotGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFE7E982120A20E006FCAF1 /* ControlledNotGateFactory.swift */; };
+		FFFE7E9B2120A491006FCAF1 /* HadamardGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFE7E9A2120A491006FCAF1 /* HadamardGateFactory.swift */; };
+		FFFE7E9D2120B06F006FCAF1 /* PhaseShiftGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFE7E9C2120B06F006FCAF1 /* PhaseShiftGateFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,10 @@
 		FFE1D711211A1B2700A50D9C /* VectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorTests.swift; sourceTree = "<group>"; };
 		FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "__CLPK_doublecomplex+ComplexTests.swift"; sourceTree = "<group>"; };
 		FFE1D713211A1B2700A50D9C /* PolarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarTests.swift; sourceTree = "<group>"; };
+		FFFE7E9621209F18006FCAF1 /* NotGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotGateFactory.swift; sourceTree = "<group>"; };
+		FFFE7E982120A20E006FCAF1 /* ControlledNotGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledNotGateFactory.swift; sourceTree = "<group>"; };
+		FFFE7E9A2120A491006FCAF1 /* HadamardGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HadamardGateFactory.swift; sourceTree = "<group>"; };
+		FFFE7E9C2120B06F006FCAF1 /* PhaseShiftGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseShiftGateFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +101,12 @@
 		FF1AAFDF211F284F00D3666A /* Gate */ = {
 			isa = PBXGroup;
 			children = (
+				FFFE7E982120A20E006FCAF1 /* ControlledNotGateFactory.swift */,
 				FF5C6637211E455800FBCC5A /* Gate.swift */,
 				FF1AAFE1211F372800D3666A /* GateFactory.swift */,
+				FFFE7E9A2120A491006FCAF1 /* HadamardGateFactory.swift */,
+				FFFE7E9621209F18006FCAF1 /* NotGateFactory.swift */,
+				FFFE7E9C2120B06F006FCAF1 /* PhaseShiftGateFactory.swift */,
 			);
 			path = Gate;
 			sourceTree = "<group>";
@@ -305,12 +317,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */,
+				FFFE7E9D2120B06F006FCAF1 /* PhaseShiftGateFactory.swift in Sources */,
+				FFFE7E9721209F18006FCAF1 /* NotGateFactory.swift in Sources */,
 				FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */,
 				FF1AAFF3211F6E1000D3666A /* Int+Log2.swift in Sources */,
 				FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */,
+				FFFE7E9B2120A491006FCAF1 /* HadamardGateFactory.swift in Sources */,
 				FF5C6638211E455800FBCC5A /* Gate.swift in Sources */,
 				FFE1D70E211A1AEB00A50D9C /* Matrix.swift in Sources */,
 				FFE1D70A211A1AEB00A50D9C /* Polar.swift in Sources */,
+				FFFE7E992120A20E006FCAF1 /* ControlledNotGateFactory.swift in Sources */,
 				FF1AAFF1211F66D400D3666A /* Int+Pow.swift in Sources */,
 				FF1AAFE2211F372800D3666A /* GateFactory.swift in Sources */,
 				FFE1D70D211A1AEB00A50D9C /* Vector.swift in Sources */,
