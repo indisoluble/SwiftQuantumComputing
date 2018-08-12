@@ -43,6 +43,10 @@ public struct Matrix {
         return rows.first!.first!
     }
 
+    var isSquare: Bool {
+        return (rowCount == columnCount)
+    }
+
     subscript(row: Int, column: Int) -> Complex {
         return rows[row][column]
     }
