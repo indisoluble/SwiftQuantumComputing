@@ -89,4 +89,67 @@ class RegisterTests: XCTestCase {
         let expectedResult = Register(vector: Vector([Complex(0), Complex(1)])!)
         XCTAssertEqual(result, expectedResult)
     }
+
+    func testAnyRegisterAndRepeatedQubits_measure_returnNil() {
+        // Given
+        let register = Register(qubitCount: 3)!
+
+        // Then
+        XCTAssertNil(register.measure(qubits: 0, 0))
+    }
+
+    func testAnyRegisterAndQubitsOutOfBound_measure_returnNil() {
+        // Given
+        let register = Register(qubitCount: 3)!
+
+        // Then
+        XCTAssertNil(register.measure(qubits: 0, 100))
+    }
+
+    func testAnyRegisterAndUnsortedQubits_measure_returnNil() {
+        // Given
+        let register = Register(qubitCount: 3)!
+
+        // Then
+        XCTAssertNil(register.measure(qubits: 1, 0))
+    }
+
+    func testAnyRegisterAndOneQubit_measure_returnExpectedProbabilities() {
+        // Given
+        let prob = (1 / sqrt(5))
+        let vector = Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
+                             Complex(prob), Complex(0), Complex(0), Complex(prob)])!
+        let register = Register(vector: vector)!
+
+        // When
+        let measures = register.measure(qubits: 0)!
+
+        // Then
+        let expectedMeasures = [(Double(3) / Double(5)), (Double(2) / Double(5))]
+
+        XCTAssertEqual(measures.count, expectedMeasures.count)
+        for index in 0..<measures.count {
+            XCTAssertEqual(measures[index], expectedMeasures[index], accuracy: 0.001)
+        }
+    }
+
+    func testAnyRegisterAndTwoQubits_measure_returnExpectedProbabilities() {
+        // Given
+        let prob = (1 / sqrt(5))
+        let vector = Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
+                             Complex(prob), Complex(0), Complex(0), Complex(prob)])!
+        let register = Register(vector: vector)!
+
+        // When
+        let measures = register.measure(qubits: 0, 1)!
+
+        // Then
+        let expectedMeasures = [(Double(1) / Double(5)), (Double(2) / Double(5)),
+                                (Double(1) / Double(5)), (Double(1) / Double(5))]
+
+        XCTAssertEqual(measures.count, expectedMeasures.count)
+        for index in 0..<measures.count {
+            XCTAssertEqual(measures[index], expectedMeasures[index], accuracy: 0.001)
+        }
+    }
 }

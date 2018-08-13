@@ -29,6 +29,8 @@
 		FFE1D716211A1B2700A50D9C /* VectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D711211A1B2700A50D9C /* VectorTests.swift */; };
 		FFE1D717211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */; };
 		FFE1D718211A1B2700A50D9C /* PolarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D713211A1B2700A50D9C /* PolarTests.swift */; };
+		FFE8FAA12121F54F005686FE /* Int+Derived.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8FAA02121F54F005686FE /* Int+Derived.swift */; };
+		FFE8FAA3212205BE005686FE /* Int+DerivedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */; };
 		FFFE7E9721209F18006FCAF1 /* NotGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFE7E9621209F18006FCAF1 /* NotGateFactory.swift */; };
 		FFFE7E992120A20E006FCAF1 /* ControlledNotGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFE7E982120A20E006FCAF1 /* ControlledNotGateFactory.swift */; };
 		FFFE7E9B2120A491006FCAF1 /* HadamardGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFE7E9A2120A491006FCAF1 /* HadamardGateFactory.swift */; };
@@ -73,6 +75,8 @@
 		FFE1D711211A1B2700A50D9C /* VectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorTests.swift; sourceTree = "<group>"; };
 		FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "__CLPK_doublecomplex+ComplexTests.swift"; sourceTree = "<group>"; };
 		FFE1D713211A1B2700A50D9C /* PolarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarTests.swift; sourceTree = "<group>"; };
+		FFE8FAA02121F54F005686FE /* Int+Derived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Derived.swift"; sourceTree = "<group>"; };
+		FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DerivedTests.swift"; sourceTree = "<group>"; };
 		FFFE7E9621209F18006FCAF1 /* NotGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotGateFactory.swift; sourceTree = "<group>"; };
 		FFFE7E982120A20E006FCAF1 /* ControlledNotGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledNotGateFactory.swift; sourceTree = "<group>"; };
 		FFFE7E9A2120A491006FCAF1 /* HadamardGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HadamardGateFactory.swift; sourceTree = "<group>"; };
@@ -123,6 +127,7 @@
 		FF1AAFEC211F61AF00D3666A /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FFE8FAA02121F54F005686FE /* Int+Derived.swift */,
 				FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */,
 				FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */,
 				FF1AAFF0211F66D400D3666A /* Int+Pow.swift */,
@@ -133,6 +138,7 @@
 		FF1AAFED211F61CB00D3666A /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */,
 				FF1AAFE7211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift */,
 			);
 			path = Extension;
@@ -321,6 +327,7 @@
 				FFFE7E9721209F18006FCAF1 /* NotGateFactory.swift in Sources */,
 				FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */,
 				FF1AAFF3211F6E1000D3666A /* Int+Log2.swift in Sources */,
+				FFE8FAA12121F54F005686FE /* Int+Derived.swift in Sources */,
 				FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */,
 				FFFE7E9B2120A491006FCAF1 /* HadamardGateFactory.swift in Sources */,
 				FF5C6638211E455800FBCC5A /* Gate.swift in Sources */,
@@ -343,6 +350,7 @@
 				FFE1D715211A1B2700A50D9C /* MatrixTests.swift in Sources */,
 				FF8BD4AC211E28DA00F01FF8 /* RegisterTests.swift in Sources */,
 				FFE1D714211A1B2700A50D9C /* ComplexTests.swift in Sources */,
+				FFE8FAA3212205BE005686FE /* Int+DerivedTests.swift in Sources */,
 				FFE1D716211A1B2700A50D9C /* VectorTests.swift in Sources */,
 				FF5C663A211E474200FBCC5A /* GateTests.swift in Sources */,
 				FFE1D718211A1B2700A50D9C /* PolarTests.swift in Sources */,

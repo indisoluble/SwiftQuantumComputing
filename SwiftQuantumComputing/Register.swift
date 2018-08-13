@@ -61,6 +61,25 @@ struct Register {
 
         return Register(vector: nextVector)
     }
+
+    func measure(qubits: Int...) -> [Double]? {
+        guard areQubitsValid(qubits) else {
+            return nil
+        }
+
+        let qubitCount = Int.log2(vector.count)
+        let reversedBitPositions = qubits.map { qubitCount - $0 - 1 }
+        let bitPositions = Array(reversedBitPositions.reversed())
+
+        let raw = measurements
+        let indexed = (0..<raw.count).map { (rawIndex) -> (index: Int, measure: Double) in
+            return (rawIndex.derived(takingBitsAt: bitPositions), raw[rawIndex])
+        }
+
+        return (0..<Int.pow(2, qubits.count)).map { (index) -> Double in
+            return indexed.reduce(0) { $0 + ($1.index == index ? $1.measure : 0) }
+        }
+    }
 }
 
 // MARK: - Equatable methods
@@ -79,6 +98,28 @@ private extension Register {
 
     enum Constants {
         static let accuracy = 0.001
+    }
+
+    // MARK: - Private methods
+
+    func areQubitsValid(_ qubits: [Int]) -> Bool {
+        return (!areQubitsRepeated(qubits) &&
+            !areQubitsOutOfBound(qubits) &&
+            areQubitsSorted(qubits))
+    }
+
+    func areQubitsRepeated(_ qubits: [Int]) -> Bool {
+        return (qubits.count != Set(qubits).count)
+    }
+
+    func areQubitsOutOfBound(_ qubits: [Int]) -> Bool {
+        let qubitCount = Int.log2(vector.count)
+
+        return (qubits.index(where: { $0 >= qubitCount }) != nil)
+    }
+
+    func areQubitsSorted(_ qubits: [Int]) -> Bool {
+        return (qubits == qubits.sorted())
     }
 
     // MARK: - Private class methods
