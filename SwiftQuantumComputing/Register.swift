@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct Register {
+public struct Register {
 
     // MARK: - Public properties
 
@@ -36,7 +36,7 @@ struct Register {
 
     // MARK: - Init methods
 
-    init?(qubitCount: Int) {
+    public init?(qubitCount: Int) {
         guard let groundState = Register.makeGroundState(qubitCount: qubitCount) else {
             return nil
         }
@@ -54,7 +54,7 @@ struct Register {
 
     // MARK: - Public methods
 
-    func applying(_ gate: Gate) -> Register? {
+    public func applying(_ gate: Gate) -> Register? {
         guard let nextVector = gate.apply(to: vector) else {
             return nil
         }
@@ -62,7 +62,7 @@ struct Register {
         return Register(vector: nextVector)
     }
 
-    func measure(qubits: Int...) -> [Double]? {
+    public func measure(qubits: Int...) -> [Double]? {
         guard areQubitsValid(qubits) else {
             return nil
         }
@@ -79,6 +79,16 @@ struct Register {
         return (0..<Int.pow(2, qubits.count)).map { (index) -> Double in
             return indexed.reduce(0) { $0 + ($1.index == index ? $1.measure : 0) }
         }
+    }
+}
+
+// MARK: - CustomStringConvertible methods
+
+extension Register: CustomStringConvertible {
+    public var description: String {
+        let roundedMeasurements = measurements.map { String(format: "%.2f", $0) }
+
+        return ("[" + roundedMeasurements.joined(separator: ", ") + "]")
     }
 }
 

@@ -48,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DeutschAlgorithm.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF1AAFE1211F372800D3666A /* GateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateFactory.swift; sourceTree = "<group>"; };
 		FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+IsPowerOfTwo.swift"; sourceTree = "<group>"; };
 		FF1AAFE7211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+IsPowerOfTwoTests.swift"; sourceTree = "<group>"; };
@@ -150,6 +151,7 @@
 				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing */,
 				FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputingTests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
+				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
 				FF593C67211A22C700FA6D8F /* Marbles.playground */,
 				FF593C68211A249F00FA6D8F /* QuantumSystem.playground */,
 			);

@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct Gate {
+public struct Gate {
 
     // MARK: - Private properties
 
