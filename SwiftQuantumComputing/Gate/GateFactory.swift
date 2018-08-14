@@ -56,7 +56,7 @@ public struct GateFactory {
             return nil
         }
 
-        let extended = makeExtendedMatrix(inputs: inputs)
+        let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })
         return Gate(matrix: extended)
     }
 }
@@ -97,23 +97,23 @@ private extension GateFactory {
         return (inputs.count == matrixQubitCount)
     }
 
-    func makeExtendedMatrix(inputs: [Int]) -> Matrix {
-        guard let (index, input) = firstInputNotAlignedToBaseMatrix(inputs) else {
+    func makeExtendedMatrix(indices: [Int]) -> Matrix {
+        guard let (pos, index) = firstIndexNotAlignedToBaseMatrix(indices) else {
             return makeExtendedMatrixWithBaseMatrixOnTopLeftCorner()
         }
 
-        let swappedInput = (input - 1)
-        var swappedInputs = inputs.map { ($0 == swappedInput) ? input : $0 }
-        swappedInputs[index] = swappedInput
+        let swappedIndex = (index - 1)
+        var swappedIndices = indices.map { ($0 == swappedIndex) ? index : $0 }
+        swappedIndices[pos] = swappedIndex
 
-        let extended = makeExtendedMatrix(inputs: swappedInputs)
-        let swap = makeSwapMatrix(input: swappedInput)
+        let extended = makeExtendedMatrix(indices: swappedIndices)
+        let swap = makeSwapMatrix(index: swappedIndex)
 
         return (swap * (extended * swap)!)!
     }
 
-    func firstInputNotAlignedToBaseMatrix(_ inputs: [Int]) -> (index: Int, input: Int)? {
-        return zip((0..<inputs.count), inputs).first(where: !=)
+    func firstIndexNotAlignedToBaseMatrix(_ indices: [Int]) -> (pos: Int, index: Int)? {
+        return zip((0..<indices.count), indices).first(where: !=)
     }
 
     func makeExtendedMatrixWithBaseMatrixOnTopLeftCorner() -> Matrix {
@@ -133,8 +133,8 @@ private extension GateFactory {
         }
     }
 
-    func makeSwapMatrix(input: Int) -> Matrix {
-        let topQubitCount = input
+    func makeSwapMatrix(index: Int) -> Matrix {
+        let topQubitCount = index
         let swapQubitCount = Int.log2(Constants.baseSwap.rowCount)
         let bottomQubitCount = (qubitCount - topQubitCount - swapQubitCount)
 

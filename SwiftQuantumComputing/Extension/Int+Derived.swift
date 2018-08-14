@@ -30,7 +30,7 @@ extension Int {
 
             return binary[binary.index(binary.startIndex, offsetBy: index)]
         }
-        let subBinary = String(characters.reversed())
+        let subBinary = String(characters)
 
         return Int(strtoul(subBinary, nil, 2))
     }

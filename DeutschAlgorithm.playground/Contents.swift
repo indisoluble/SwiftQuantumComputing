@@ -8,13 +8,13 @@ func isFunctionConstant(_ uf: Matrix) -> Bool {
     let oracle = GateFactory(qubitCount: qubitCount, baseMatrix: uf)!
 
     var register = Register(qubitCount: qubitCount)!
-    register = register.applying(not.makeGate(input: 1)!)!
-    register = register.applying(hadamard.makeGate(input: 0)!)!
+    register = register.applying(not.makeGate(input: 0)!)!
     register = register.applying(hadamard.makeGate(input: 1)!)!
-    register = register.applying(oracle.makeGate(inputs: 0, 1)!)!
     register = register.applying(hadamard.makeGate(input: 0)!)!
+    register = register.applying(oracle.makeGate(inputs: 1, 0)!)!
+    register = register.applying(hadamard.makeGate(input: 1)!)!
 
-    let measure = register.measure(qubits: 0)!
+    let measure = register.measure(qubits: 1)!
 
     return (abs(1 - measure[0]) < 0.001)
 }
