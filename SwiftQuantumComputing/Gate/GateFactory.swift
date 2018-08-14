@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct GateFactory {
+public struct GateFactory {
 
     // MARK: - Private properties
 
@@ -31,7 +31,7 @@ struct GateFactory {
 
     // MARK: - Init methods
 
-    init?(qubitCount: Int, baseMatrix: Matrix) {
+    public init?(qubitCount: Int, baseMatrix: Matrix) {
         guard baseMatrix.isSquare else {
             return nil
         }
@@ -51,7 +51,7 @@ struct GateFactory {
 
     // MARK: - Public methods
 
-    func makeGate(inputs: Int...) -> Gate? {
+    public func makeGate(inputs: Int...) -> Gate? {
         guard areInputsValid(inputs) else {
             return nil
         }

@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct HadamardGateFactory {
+public struct HadamardGateFactory {
 
     // MARK: - Private properties
 
@@ -30,7 +30,7 @@ struct HadamardGateFactory {
 
     // MARK: - Init methods
 
-    init?(qubitCount: Int) {
+    public init?(qubitCount: Int) {
         let baseMatrix = Constants.baseHadamard
         guard let factory = GateFactory(qubitCount: qubitCount, baseMatrix: baseMatrix) else {
             return nil
@@ -41,7 +41,7 @@ struct HadamardGateFactory {
 
     // MARK: - Public methods
 
-    func makeGate(input: Int) -> Gate? {
+    public func makeGate(input: Int) -> Gate? {
         return factory.makeGate(inputs: input)
     }
 }
