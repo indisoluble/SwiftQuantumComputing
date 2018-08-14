@@ -30,22 +30,22 @@ class Int_DerivedTests: XCTestCase {
 
     func testTwoAndTwoSortedPositions_derived_returnExpectedValue() {
         // Then
-        XCTAssertEqual(2.derived(takingBitsAt: [1, 2]), 1)
+        XCTAssertEqual(2.derived(takingBitsAt: [2, 1]), 1)
     }
 
     func testTwoAndTwoInvertedPositions_derived_returnExpectedValue() {
         // Then
-        XCTAssertEqual(2.derived(takingBitsAt: [2, 1]), 2)
+        XCTAssertEqual(2.derived(takingBitsAt: [1, 2]), 2)
     }
 
     func testFiftySevenAndTwoSortedPositions_derived_returnExpectedValue() {
         // Then
-        XCTAssertEqual(57.derived(takingBitsAt: [1, 3]), 2)
+        XCTAssertEqual(57.derived(takingBitsAt: [3, 1]), 2)
     }
 
     func testFortyTwoAndTwoInvertedPositions_derived_returnExpectedValue() {
         // Then
-        XCTAssertEqual(42.derived(takingBitsAt: [4, 1]), 2)
+        XCTAssertEqual(42.derived(takingBitsAt: [1, 4]), 2)
     }
 
     func testAnyNumberAndPositionOutOfRange_derived_returnZero() {
@@ -55,6 +55,6 @@ class Int_DerivedTests: XCTestCase {
 
     func testFortyTwoTwoInvertedPositionAndOneOutOfRange_derived_returnExpectedValue() {
         // Then
-        XCTAssertEqual(42.derived(takingBitsAt: [2, 1, 1000]), 2)
+        XCTAssertEqual(42.derived(takingBitsAt: [1000, 1, 2]), 2)
     }
 }

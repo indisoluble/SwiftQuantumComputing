@@ -90,7 +90,7 @@ class GateFactoryTests: XCTestCase {
         let factory = GateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)!
 
         // Then
-        XCTAssertNil(factory.makeGate(inputs: 0, 1, 2))
+        XCTAssertNil(factory.makeGate(inputs: 2, 1, 0))
     }
 
     func testAnyFactoryAndLessInputsThanGateTakes_makeGate_returnNil() {
@@ -106,7 +106,7 @@ class GateFactoryTests: XCTestCase {
         let factory = GateFactory(qubitCount: 2, baseMatrix: validMatrix)!
 
         // When
-        let gate = factory.makeGate(inputs: 0, 1)
+        let gate = factory.makeGate(inputs: 1, 0)
 
         // Then
         let expectedGate = Gate(matrix: validMatrix)!
@@ -118,7 +118,7 @@ class GateFactoryTests: XCTestCase {
         let factory = GateFactory(qubitCount: 2, baseMatrix: validMatrix)!
 
         // When
-        let gate = factory.makeGate(inputs: 1, 0)
+        let gate = factory.makeGate(inputs: 0, 1)
 
         // Then
         let expectedElements = [
@@ -136,7 +136,7 @@ class GateFactoryTests: XCTestCase {
         let factory = GateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)!
 
         // When
-        let gate = factory.makeGate(inputs: 2, 0)
+        let gate = factory.makeGate(inputs: 0, 2)
 
         // Then
         let expectedElements = [
@@ -158,7 +158,7 @@ class GateFactoryTests: XCTestCase {
         let factory = GateFactory(qubitCount: 4, baseMatrix: validMatrix)!
 
         // When
-        let gate = factory.makeGate(inputs: 1, 2)
+        let gate = factory.makeGate(inputs: 2, 1)
 
         // Then
         let expectedElements = [

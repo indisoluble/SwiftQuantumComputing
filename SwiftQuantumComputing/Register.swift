@@ -67,13 +67,9 @@ public struct Register {
             return nil
         }
 
-        let qubitCount = Int.log2(vector.count)
-        let reversedBitPositions = qubits.map { qubitCount - $0 - 1 }
-        let bitPositions = Array(reversedBitPositions.reversed())
-
         let raw = measurements
         let indexed = (0..<raw.count).map { (rawIndex) -> (index: Int, measure: Double) in
-            return (rawIndex.derived(takingBitsAt: bitPositions), raw[rawIndex])
+            return (rawIndex.derived(takingBitsAt: qubits), raw[rawIndex])
         }
 
         return (0..<Int.pow(2, qubits.count)).map { (index) -> Double in
@@ -129,7 +125,7 @@ private extension Register {
     }
 
     func areQubitsSorted(_ qubits: [Int]) -> Bool {
-        return (qubits == qubits.sorted())
+        return (qubits == qubits.sorted(by: >))
     }
 
     // MARK: - Private class methods
