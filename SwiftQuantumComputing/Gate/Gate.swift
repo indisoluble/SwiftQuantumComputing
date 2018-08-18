@@ -2,7 +2,7 @@
 //  Gate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 11/08/2018.
+//  Created by Enrique de la Torre on 19/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,46 +20,22 @@
 
 import Foundation
 
-// MARK: - Main body
-
-public struct Gate {
-
-    // MARK: - Private properties
-
-    private let matrix: Matrix
-
-    // MARK: - Init methods
-
-    init?(matrix: Matrix) {
-        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            return nil
-        }
-
-        self.matrix = matrix
-    }
-
-    // MARK: - Public methods
-
-    func apply(to vector: Vector) -> Vector? {
-        return (matrix * vector)
-    }
+enum GateError: Error {
+    case applyNotImplemented
+    case unableToApply
 }
 
-// MARK: - Equatable methods
-
-extension Gate: Equatable {
-    public static func ==(lhs: Gate, rhs: Gate) -> Bool {
-        return (lhs.matrix == rhs.matrix)
-    }
+protocol Gate {
+    func apply(to register: Register, target: Int) throws -> Register
+    func apply(to register: Register, target: Int, control: Int) throws -> Register
 }
 
-// MARK: - Private body
+extension Gate {
+    func apply(to register: Register, target: Int) throws -> Register {
+        throw GateError.applyNotImplemented
+    }
 
-private extension Gate {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let accuracy = 0.001
+    func apply(to register: Register, target: Int, control: Int) throws -> Register {
+        throw GateError.applyNotImplemented
     }
 }

@@ -55,23 +55,23 @@ class RegisterTests: XCTestCase {
         XCTAssertNotNil(Register(qubitCount: 1))
     }
 
-    func testAnyRegisterAndGateWithDifferentSizeThanRegister_applying_returnNil() {
+    func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_returnNil() {
         // Given
         let register = Register(qubitCount: 2)!
 
         let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
-        let gate = Gate(matrix: matrix)!
+        let gate = RegisterGate(matrix: matrix)!
 
         // Then
         XCTAssertNil(register.applying(gate))
     }
 
-    func testAnyRegisterAndGateWithSameSizeThanRegister_applying_returnExpectedRegister() {
+    func testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister() {
         // Given
         let register = Register(qubitCount: 1)!
 
         let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
-        let gate = Gate(matrix: matrix)!
+        let gate = RegisterGate(matrix: matrix)!
 
         // When
         let result = register.applying(gate)
@@ -157,10 +157,10 @@ class RegisterTests: XCTestCase {
         // Given
         let qubitCount = 2
         var register = Register(qubitCount: qubitCount)!
-        let gate = NotGateFactory(qubitCount: qubitCount)!.makeGate(input: 0)!
+        let gate = NotGate(qubitCount: qubitCount)!
 
         // When
-        register = register.applying(gate)!
+        register = try! gate.apply(to: register, target: 0)
 
         // Then
         let expectedMeasurements = [Double(0), Double(1), Double(0), Double(0)]

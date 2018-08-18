@@ -1,5 +1,5 @@
 //
-//  GateFactory.swift
+//  RegisterGateFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 11/08/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-public struct GateFactory {
+public struct RegisterGateFactory {
 
     // MARK: - Private properties
 
@@ -51,19 +51,19 @@ public struct GateFactory {
 
     // MARK: - Public methods
 
-    public func makeGate(inputs: Int...) -> Gate? {
+    public func makeGate(inputs: Int...) -> RegisterGate? {
         guard areInputsValid(inputs) else {
             return nil
         }
 
         let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })
-        return Gate(matrix: extended)
+        return RegisterGate(matrix: extended)
     }
 }
 
 // MARK: - Private body
 
-private extension GateFactory {
+private extension RegisterGateFactory {
 
     // MARK: - Constants
 

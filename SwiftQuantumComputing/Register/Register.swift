@@ -54,7 +54,7 @@ public struct Register {
 
     // MARK: - Public methods
 
-    public func applying(_ gate: Gate) -> Register? {
+    public func applying(_ gate: RegisterGate) -> Register? {
         guard let nextVector = gate.apply(to: vector) else {
             return nil
         }

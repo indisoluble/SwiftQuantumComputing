@@ -1,5 +1,5 @@
 //
-//  ControlledNotGateFactory.swift
+//  ControlledNotGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 12/08/2018.
@@ -22,33 +22,44 @@ import Foundation
 
 // MARK: - Main body
 
-struct ControlledNotGateFactory {
+struct ControlledNotGate {
 
     // MARK: - Private properties
 
-    private let factory: GateFactory
+    private let factory: RegisterGateFactory
 
     // MARK: - Init methods
 
     init?(qubitCount: Int) {
         let baseMatrix = Constants.baseCNot
-        guard let factory = GateFactory(qubitCount: qubitCount, baseMatrix: baseMatrix) else {
-            return nil
+        guard let factory = RegisterGateFactory(qubitCount: qubitCount,
+                                                baseMatrix: baseMatrix) else {
+                                                return nil
         }
 
         self.factory = factory
     }
+}
 
-    // MARK: - Public methods
+// MARK: - Gate methods
 
-    func makeGate(controlInput: Int, targetInput: Int) -> Gate? {
-        return factory.makeGate(inputs: controlInput, targetInput)
+extension ControlledNotGate: Gate {
+    func apply(to register: Register, target: Int, control: Int) throws -> Register {
+        guard let gate = factory.makeGate(inputs: control, target) else {
+            throw GateError.unableToApply
+        }
+
+        guard let nextRegister = register.applying(gate) else {
+            throw GateError.unableToApply
+        }
+
+        return nextRegister
     }
 }
 
 // MARK: - Private body
 
-private extension ControlledNotGateFactory {
+private extension ControlledNotGate {
 
     // MARK: - Constants
 

@@ -1,5 +1,5 @@
 //
-//  HadamardGateFactory.swift
+//  NotGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 12/08/2018.
@@ -22,38 +22,48 @@ import Foundation
 
 // MARK: - Main body
 
-public struct HadamardGateFactory {
+public struct NotGate {
 
     // MARK: - Private properties
 
-    private let factory: GateFactory
+    private let factory: RegisterGateFactory
 
     // MARK: - Init methods
 
     public init?(qubitCount: Int) {
-        let baseMatrix = Constants.baseHadamard
-        guard let factory = GateFactory(qubitCount: qubitCount, baseMatrix: baseMatrix) else {
-            return nil
+        let baseMatrix = Constants.baseNot
+        guard let factory = RegisterGateFactory(qubitCount: qubitCount,
+                                                baseMatrix: baseMatrix) else {
+                                                return nil
         }
 
         self.factory = factory
     }
+}
 
-    // MARK: - Public methods
+// MARK: - Gate methods
 
-    public func makeGate(input: Int) -> Gate? {
-        return factory.makeGate(inputs: input)
+extension NotGate: Gate {
+    public func apply(to register: Register, target: Int) throws -> Register {
+        guard let gate = factory.makeGate(inputs: target) else {
+            throw GateError.unableToApply
+        }
+
+        guard let nextRegister = register.applying(gate) else {
+            throw GateError.unableToApply
+        }
+
+        return nextRegister
     }
 }
 
 // MARK: - Private body
 
-private extension HadamardGateFactory {
+private extension NotGate {
 
     // MARK: - Constants
 
     enum Constants {
-        static let baseHadamard = (Complex(1 / sqrt(2)) * Matrix([[Complex(1), Complex(1)],
-                                                                  [Complex(1), Complex(-1)]])!)
+        static let baseNot = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
     }
 }

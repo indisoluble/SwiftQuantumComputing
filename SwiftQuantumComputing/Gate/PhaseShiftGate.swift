@@ -1,5 +1,5 @@
 //
-//  PhaseShiftGateFactory.swift
+//  PhaseShiftGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 12/08/2018.
@@ -22,27 +22,38 @@ import Foundation
 
 // MARK: - Main body
 
-struct PhaseShiftGateFactory {
+struct PhaseShiftGate {
 
     // MARK: - Private properties
 
-    private let factory: GateFactory
+    private let factory: RegisterGateFactory
 
     // MARK: - Init methods
 
     init?(qubitCount: Int, radians: Double) {
         let baseMatrix = Matrix([[Complex(1), Complex(0)],
                                  [Complex(0), Complex(real: cos(radians), imag: sin(radians))]])!
-        guard let factory = GateFactory(qubitCount: qubitCount, baseMatrix: baseMatrix) else {
-            return nil
+        guard let factory = RegisterGateFactory(qubitCount: qubitCount,
+                                                baseMatrix: baseMatrix) else {
+                                                return nil
         }
 
         self.factory = factory
     }
+}
 
-    // MARK: - Public methods
+// MARK: - Gate methods
 
-    func makeGate(input: Int) -> Gate? {
-        return factory.makeGate(inputs: input)
+extension PhaseShiftGate: Gate {
+    func apply(to register: Register, target: Int) throws -> Register {
+        guard let gate = factory.makeGate(inputs: target) else {
+            throw GateError.unableToApply
+        }
+
+        guard let nextRegister = register.applying(gate) else {
+            throw GateError.unableToApply
+        }
+
+        return nextRegister
     }
 }
