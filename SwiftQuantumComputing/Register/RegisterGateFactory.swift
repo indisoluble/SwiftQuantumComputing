@@ -51,7 +51,7 @@ public struct RegisterGateFactory {
 
     // MARK: - Public methods
 
-    public func makeGate(inputs: Int...) -> RegisterGate? {
+    public func makeGate(inputs: [Int]) -> RegisterGate? {
         guard areInputsValid(inputs) else {
             return nil
         }
@@ -78,9 +78,9 @@ private extension RegisterGateFactory {
     // MARK: - Private methods
 
     func areInputsValid(_ inputs: [Int]) -> Bool {
-        return (!areInputsRepeated(inputs) &&
-            !areInputsOutOfBound(inputs) &&
-            doesInputCountMatchBaseMatrixQubitCount(inputs))
+        return (doesInputCountMatchBaseMatrixQubitCount(inputs) &&
+            !areInputsRepeated(inputs) &&
+            !areInputsOutOfBound(inputs))
     }
 
     func areInputsRepeated(_ inputs: [Int]) -> Bool {

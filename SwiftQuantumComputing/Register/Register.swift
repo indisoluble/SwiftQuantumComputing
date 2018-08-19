@@ -24,15 +24,13 @@ import Foundation
 
 public struct Register {
 
-    // MARK: - Public properties
-
-    var measurements: [Double] {
-        return (0..<vector.count).map { vector[$0].squaredModulus }
-    }
-
     // MARK: - Private properties
 
     private let vector: Vector
+
+    private var measurements: [Double] {
+        return (0..<vector.count).map { vector[$0].squaredModulus }
+    }
 
     // MARK: - Init methods
 
@@ -50,31 +48,6 @@ public struct Register {
         }
 
         self.vector = vector
-    }
-
-    // MARK: - Public methods
-
-    public func applying(_ gate: RegisterGate) -> Register? {
-        guard let nextVector = gate.apply(to: vector) else {
-            return nil
-        }
-
-        return Register(vector: nextVector)
-    }
-
-    public func measure(qubits: Int...) -> [Double]? {
-        guard areQubitsValid(qubits) else {
-            return nil
-        }
-
-        let raw = measurements
-        let indexed = (0..<raw.count).map { (rawIndex) -> (index: Int, measure: Double) in
-            return (rawIndex.derived(takingBitsAt: qubits), raw[rawIndex])
-        }
-
-        return (0..<Int.pow(2, qubits.count)).map { (index) -> Double in
-            return indexed.reduce(0) { $0 + ($1.index == index ? $1.measure : 0) }
-        }
     }
 }
 
@@ -96,6 +69,33 @@ extension Register: Equatable {
     }
 }
 
+// MARK: - CircuitRegister methods
+
+extension Register: CircuitRegister {
+    public func applying(_ gate: RegisterGate) -> Register? {
+        guard let nextVector = gate.apply(to: vector) else {
+            return nil
+        }
+
+        return Register(vector: nextVector)
+    }
+
+    public func measure(qubits: [Int]) -> [Double]? {
+        guard areQubitsValid(qubits) else {
+            return nil
+        }
+
+        let raw = measurements
+        let indexed = (0..<raw.count).map { (rawIndex) -> (index: Int, measure: Double) in
+            return (rawIndex.derived(takingBitsAt: qubits), raw[rawIndex])
+        }
+
+        return (0..<Int.pow(2, qubits.count)).map { (index) -> Double in
+            return indexed.reduce(0) { $0 + ($1.index == index ? $1.measure : 0) }
+        }
+    }
+}
+
 // MARK: - Private body
 
 private extension Register {
@@ -109,7 +109,8 @@ private extension Register {
     // MARK: - Private methods
 
     func areQubitsValid(_ qubits: [Int]) -> Bool {
-        return (!areQubitsRepeated(qubits) &&
+        return ((qubits.count > 0) &&
+            !areQubitsRepeated(qubits) &&
             !areQubitsOutOfBound(qubits) &&
             areQubitsSorted(qubits))
     }

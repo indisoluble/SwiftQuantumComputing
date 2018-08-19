@@ -3,18 +3,14 @@ import SwiftQuantumComputing
 func isFunctionConstant(_ uf: Matrix) -> Bool {
     let qubitCount = 2
 
-    let not = NotGate(qubitCount: qubitCount)!
-    let hadamard = HadamardGate(qubitCount: qubitCount)!
-    let oracle = RegisterGateFactory(qubitCount: qubitCount, baseMatrix: uf)!
+    var circuit = CircuitFactory.makeCircuit(qubitCount: qubitCount)!
+    circuit = circuit.applyingNotGate(to: 0)!
+    circuit = circuit.applyingHadamardGate(to: 1)!
+    circuit = circuit.applyingHadamardGate(to: 0)!
+    circuit = circuit.applyingGate(builtWith: uf, inputs: 1, 0)!
+    circuit = circuit.applyingHadamardGate(to: 1)!
 
-    var register = Register(qubitCount: qubitCount)!
-    register = try! not.apply(to: register, target: 0)
-    register = try! hadamard.apply(to: register, target: 1)
-    register = try! hadamard.apply(to: register, target: 0)
-    register = register.applying(oracle.makeGate(inputs: 1, 0)!)!
-    register = try! hadamard.apply(to: register, target: 1)
-
-    let measure = register.measure(qubits: 1)!
+    let measure = circuit.measure(qubits: 1)!
 
     return (abs(1 - measure[0]) < 0.001)
 }

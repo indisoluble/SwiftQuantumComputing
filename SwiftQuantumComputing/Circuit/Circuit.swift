@@ -1,8 +1,8 @@
 //
-//  Gate.swift
+//  Circuit.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 19/08/2018.
+//  Created by Enrique de la Torre on 22/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,22 +20,7 @@
 
 import Foundation
 
-enum GateError: Error {
-    case applyNotImplemented
-    case unableToApply
-}
-
-protocol Gate {
-    func apply(to register: Register, target: Int) throws -> Register
-    func apply(to register: Register, target: Int, control: Int) throws -> Register
-}
-
-extension Gate {
-    func apply(to register: Register, target: Int) throws -> Register {
-        throw GateError.applyNotImplemented
-    }
-
-    func apply(to register: Register, target: Int, control: Int) throws -> Register {
-        throw GateError.applyNotImplemented
-    }
+public protocol Circuit {
+    func applyingGate(builtWith matrix: Matrix, inputs: Int...) -> Self?
+    func measure(qubits: Int...) -> [Double]?
 }
