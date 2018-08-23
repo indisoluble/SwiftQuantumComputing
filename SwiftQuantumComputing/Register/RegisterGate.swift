@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-public struct RegisterGate {
+struct RegisterGate {
 
     // MARK: - Private properties
 
@@ -48,7 +48,7 @@ public struct RegisterGate {
 // MARK: - Equatable methods
 
 extension RegisterGate: Equatable {
-    public static func ==(lhs: RegisterGate, rhs: RegisterGate) -> Bool {
+    static func ==(lhs: RegisterGate, rhs: RegisterGate) -> Bool {
         return (lhs.matrix == rhs.matrix)
     }
 }

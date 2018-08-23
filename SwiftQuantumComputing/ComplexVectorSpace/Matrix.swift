@@ -31,23 +31,23 @@ public struct Matrix {
         return (self == self.adjointed())
     }
 
+    public var isSquare: Bool {
+        return (rowCount == columnCount)
+    }
+
     public var rowCount: Int {
         return rows.count
     }
 
-    var columnCount: Int {
+    public var columnCount: Int {
         return rows.first!.count
     }
 
-    var first: Complex {
+    public var first: Complex {
         return rows.first!.first!
     }
 
-    var isSquare: Bool {
-        return (rowCount == columnCount)
-    }
-
-    subscript(row: Int, column: Int) -> Complex {
+    public subscript(row: Int, column: Int) -> Complex {
         return rows[row][column]
     }
 
@@ -140,20 +140,20 @@ public struct Matrix {
         return Array(zip(w, vectors))
     }
 
-    func transposed() -> Matrix {
+    public func transposed() -> Matrix {
         let initial = Array(repeating: [] as [Complex], count: columnCount)
         let result = rows.reduce(initial) { zip($0, $1).map { $0 + [$1] } }
 
         return Matrix(validRows: result)
     }
 
-    func conjugated() -> Matrix {
+    public func conjugated() -> Matrix {
         let result = rows.map { $0.map { $0.conjugated() } }
 
         return Matrix(validRows: result)
     }
 
-    func adjointed() -> Matrix {
+    public func adjointed() -> Matrix {
         return conjugated().transposed()
     }
 
@@ -172,7 +172,7 @@ public struct Matrix {
         return Matrix(elements)
     }
 
-    static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
+    public static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
         let matrices = lhs.rows.map { $0.map{ $0 * rhs } }
 
         let acc = Array(repeating: [] as [Complex], count: rhs.rowCount)

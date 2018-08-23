@@ -46,7 +46,7 @@ extension SpecificCircuitGateFactory: Equatable {
 // MARK: - CircuitGateFactory methods
 
 extension SpecificCircuitGateFactory: CircuitGateFactory {
-    public func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
+    func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
         guard let factory = RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix) else {
             return nil
         }

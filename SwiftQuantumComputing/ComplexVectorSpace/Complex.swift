@@ -34,7 +34,7 @@ public struct Complex {
         return (pow(real, 2) + pow(imag, 2))
     }
 
-    var modulus: Double {
+    public var modulus: Double {
         return sqrt(squaredModulus)
     }
 
@@ -49,22 +49,18 @@ public struct Complex {
         self.init(real: real, imag: 0)
     }
 
-    init(_ real: Int) {
+    public init(_ real: Int) {
         self.init(real: Double(real), imag: 0)
     }
 
-    init(_ polar: Polar) {
+    public init(_ polar: Polar) {
         let real = (polar.magnitude * cos(polar.phase))
         let imag = (polar.magnitude * sin(polar.phase))
 
         self.init(real: real, imag: imag)
     }
 
-    init(_ complex: __CLPK_doublecomplex) {
-        self.init(real: complex.r, imag: complex.i)
-    }
-
-    init?(_ matrix: Matrix) {
+    public init?(_ matrix: Matrix) {
         guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
             return nil
         }
@@ -74,9 +70,13 @@ public struct Complex {
         self.init(real: complex.real, imag: complex.imag)
     }
 
+    init(_ complex: __CLPK_doublecomplex) {
+        self.init(real: complex.r, imag: complex.i)
+    }
+
     // MARK: - Public methods
 
-    func conjugated() -> Complex {
+    public func conjugated() -> Complex {
         return Complex(real: real, imag: -imag)
     }
 }
@@ -100,32 +100,32 @@ extension Complex: Equatable {
 // MARK: - Overloaded operators
 
 extension Complex {
-    static prefix func -(complex: Complex) -> Complex {
+    public static prefix func -(complex: Complex) -> Complex {
         return Complex(real: -complex.real, imag: -complex.imag)
     }
 
-    static func +(lhs: Complex, rhs: Complex) -> Complex {
+    public static func +(lhs: Complex, rhs: Complex) -> Complex {
         let real = (lhs.real + rhs.real)
         let imag = (lhs.imag + rhs.imag)
 
         return Complex(real: real, imag: imag)
     }
 
-    static func -(lhs: Complex, rhs: Complex) -> Complex {
+    public static func -(lhs: Complex, rhs: Complex) -> Complex {
         let real = (lhs.real - rhs.real)
         let imag = (lhs.imag - rhs.imag)
 
         return Complex(real: real, imag: imag)
     }
 
-    static func *(lhs: Complex, rhs: Complex) -> Complex {
+    public static func *(lhs: Complex, rhs: Complex) -> Complex {
         let real = ((lhs.real * rhs.real) - (lhs.imag * rhs.imag))
         let imag = ((lhs.real * rhs.imag) + (rhs.real * lhs.imag))
 
         return Complex(real: real, imag: imag)
     }
 
-    static func /(lhs: Complex, rhs: Complex) -> Complex {
+    public static func /(lhs: Complex, rhs: Complex) -> Complex {
         let denominator = rhs.squaredModulus
 
         let real = (((lhs.real * rhs.real) + (lhs.imag * rhs.imag)) / denominator)

@@ -26,7 +26,7 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    func applyingPhaseShiftGate(builtWith radians: Double, to target: Int) -> Circuit? {
+    public func applyingPhaseShiftGate(builtWith radians: Double, to target: Int) -> Circuit? {
         let matrix = Matrix([[Complex(1), Complex(0)],
                              [Complex(0), Complex(real: cos(radians), imag: sin(radians))]])!
 

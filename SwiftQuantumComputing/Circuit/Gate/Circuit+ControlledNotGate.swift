@@ -26,7 +26,7 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    func applyingControlledNotGate(to target: Int, controlledBy control: Int) -> Circuit? {
+    public func applyingControlledNotGate(to target: Int, controlledBy control: Int) -> Circuit? {
         let cNot = Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
                            [Complex(0), Complex(1), Complex(0), Complex(0)],
                            [Complex(0), Complex(0), Complex(0), Complex(1)],
