@@ -22,21 +22,21 @@ import Foundation
 
 // MARK: - Main body
 
-struct Polar {
+public struct Polar {
 
     // MARK: - Public properties
 
-    let magnitude: Double
-    let phase: Double
+    public let magnitude: Double
+    public let phase: Double
 
     // MARK: - Init methods
 
-    init(magnitude: Double, phase: Double) {
+    public init(magnitude: Double, phase: Double) {
         self.magnitude = magnitude
         self.phase = phase
     }
 
-    init(_ complex: Complex) {
+    public init(_ complex: Complex) {
         let magnitude = complex.modulus
         let phase = atan(complex.imag / complex.real)
 
@@ -45,7 +45,7 @@ struct Polar {
 
     // MARK: - Public methods
 
-    func normalized() -> Polar {
+    public func normalized() -> Polar {
         let angleCircunference = (2 * Double.pi)
 
         var normalizedPhase = phase.truncatingRemainder(dividingBy: angleCircunference)
@@ -60,7 +60,7 @@ struct Polar {
 // MARK: - CustomStringConvertible methods
 
 extension Polar: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         return "(\(magnitude),\(phase)rad)"
     }
 }
@@ -68,14 +68,14 @@ extension Polar: CustomStringConvertible {
 // MARK: - Overloaded operators
 
 extension Polar {
-    static func *(lhs: Polar, rhs: Polar) -> Polar {
+    public static func *(lhs: Polar, rhs: Polar) -> Polar {
         let magnitude = (lhs.magnitude * rhs.magnitude)
         let phase = (lhs.phase + rhs.phase)
 
         return Polar(magnitude: magnitude, phase: phase)
     }
 
-    static func /(lhs: Polar, rhs: Polar) -> Polar {
+    public static func /(lhs: Polar, rhs: Polar) -> Polar {
         let magnitude = (lhs.magnitude / rhs.magnitude)
         let phase = (lhs.phase - rhs.phase)
 

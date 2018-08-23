@@ -22,21 +22,19 @@ import Foundation
 
 // MARK: - Main body
 
-public struct Register {
-
-    // MARK: - Public properties
-
-    var measurements: [Double] {
-        return (0..<vector.count).map { vector[$0].squaredModulus }
-    }
+struct Register {
 
     // MARK: - Private properties
 
     private let vector: Vector
 
+    private var measurements: [Double] {
+        return (0..<vector.count).map { vector[$0].squaredModulus }
+    }
+
     // MARK: - Init methods
 
-    public init?(qubitCount: Int) {
+    init?(qubitCount: Int) {
         guard let groundState = Register.makeGroundState(qubitCount: qubitCount) else {
             return nil
         }
@@ -51,10 +49,30 @@ public struct Register {
 
         self.vector = vector
     }
+}
 
-    // MARK: - Public methods
+// MARK: - CustomStringConvertible methods
 
-    public func applying(_ gate: Gate) -> Register? {
+extension Register: CustomStringConvertible {
+    var description: String {
+        let roundedMeasurements = measurements.map { String(format: "%.2f", $0) }
+
+        return ("[" + roundedMeasurements.joined(separator: ", ") + "]")
+    }
+}
+
+// MARK: - Equatable methods
+
+extension Register: Equatable {
+    static func ==(lhs: Register, rhs: Register) -> Bool {
+        return (lhs.vector == rhs.vector)
+    }
+}
+
+// MARK: - CircuitRegister methods
+
+extension Register: CircuitRegister {
+    func applying(_ gate: RegisterGate) -> Register? {
         guard let nextVector = gate.apply(to: vector) else {
             return nil
         }
@@ -62,7 +80,7 @@ public struct Register {
         return Register(vector: nextVector)
     }
 
-    public func measure(qubits: Int...) -> [Double]? {
+    func measure(qubits: [Int]) -> [Double]? {
         guard areQubitsValid(qubits) else {
             return nil
         }
@@ -75,24 +93,6 @@ public struct Register {
         return (0..<Int.pow(2, qubits.count)).map { (index) -> Double in
             return indexed.reduce(0) { $0 + ($1.index == index ? $1.measure : 0) }
         }
-    }
-}
-
-// MARK: - CustomStringConvertible methods
-
-extension Register: CustomStringConvertible {
-    public var description: String {
-        let roundedMeasurements = measurements.map { String(format: "%.2f", $0) }
-
-        return ("[" + roundedMeasurements.joined(separator: ", ") + "]")
-    }
-}
-
-// MARK: - Equatable methods
-
-extension Register: Equatable {
-    public static func ==(lhs: Register, rhs: Register) -> Bool {
-        return (lhs.vector == rhs.vector)
     }
 }
 
@@ -109,7 +109,8 @@ private extension Register {
     // MARK: - Private methods
 
     func areQubitsValid(_ qubits: [Int]) -> Bool {
-        return (!areQubitsRepeated(qubits) &&
+        return ((qubits.count > 0) &&
+            !areQubitsRepeated(qubits) &&
             !areQubitsOutOfBound(qubits) &&
             areQubitsSorted(qubits))
     }

@@ -1,5 +1,5 @@
 //
-//  GateTests.swift
+//  RegisterGateTests.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 11/08/2018.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class GateTests: XCTestCase {
+class RegisterGateTests: XCTestCase {
 
     // MARK: - Tests
 
@@ -36,22 +36,22 @@ class GateTests: XCTestCase {
                              [complex, complex, complex]])!
 
         // Then
-        XCTAssertNil(Gate(matrix: matrix))
+        XCTAssertNil(RegisterGate(matrix: matrix))
     }
 
-    func testUnitaryMatrix_init_returnGate() {
+    func testUnitaryMatrix_init_returnRegisterGate() {
         // Given
         let matrix = Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
                              [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])!
 
         // Then
-        XCTAssertNotNil(Gate(matrix: matrix))
+        XCTAssertNotNil(RegisterGate(matrix: matrix))
     }
 
-    func testAnyGateAndVectorWithDifferentSizeThanGate_apply_returnNil() {
+    func testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_returnNil() {
         // Given
         let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
-        let gate = Gate(matrix: matrix)!
+        let gate = RegisterGate(matrix: matrix)!
 
         let vector = Vector([Complex(1), Complex(0), Complex(0)])!
 
@@ -59,10 +59,10 @@ class GateTests: XCTestCase {
         XCTAssertNil(gate.apply(to: vector))
     }
 
-    func testAnyGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector() {
+    func testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector() {
         // Given
         let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
-        let gate = Gate(matrix: matrix)!
+        let gate = RegisterGate(matrix: matrix)!
 
         let vector = Vector([Complex(1), Complex(0)])!
 

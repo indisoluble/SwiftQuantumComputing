@@ -1,8 +1,8 @@
 //
-//  HadamardGateFactory.swift
+//  RegisterGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 12/08/2018.
+//  Created by Enrique de la Torre on 11/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,38 +22,44 @@ import Foundation
 
 // MARK: - Main body
 
-public struct HadamardGateFactory {
+struct RegisterGate {
 
     // MARK: - Private properties
 
-    private let factory: GateFactory
+    private let matrix: Matrix
 
     // MARK: - Init methods
 
-    public init?(qubitCount: Int) {
-        let baseMatrix = Constants.baseHadamard
-        guard let factory = GateFactory(qubitCount: qubitCount, baseMatrix: baseMatrix) else {
+    init?(matrix: Matrix) {
+        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
             return nil
         }
 
-        self.factory = factory
+        self.matrix = matrix
     }
 
     // MARK: - Public methods
 
-    public func makeGate(input: Int) -> Gate? {
-        return factory.makeGate(inputs: input)
+    func apply(to vector: Vector) -> Vector? {
+        return (matrix * vector)
+    }
+}
+
+// MARK: - Equatable methods
+
+extension RegisterGate: Equatable {
+    static func ==(lhs: RegisterGate, rhs: RegisterGate) -> Bool {
+        return (lhs.matrix == rhs.matrix)
     }
 }
 
 // MARK: - Private body
 
-private extension HadamardGateFactory {
+private extension RegisterGate {
 
     // MARK: - Constants
 
     enum Constants {
-        static let baseHadamard = (Complex(1 / sqrt(2)) * Matrix([[Complex(1), Complex(1)],
-                                                                  [Complex(1), Complex(-1)]])!)
+        static let accuracy = 0.001
     }
 }
