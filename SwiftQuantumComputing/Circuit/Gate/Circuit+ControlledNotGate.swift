@@ -1,8 +1,8 @@
 //
-//  Gate.swift
+//  Circuit+ControlledNotGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 11/08/2018.
+//  Created by Enrique de la Torre on 22/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,44 +22,16 @@ import Foundation
 
 // MARK: - Main body
 
-public struct Gate {
-
-    // MARK: - Private properties
-
-    private let matrix: Matrix
-
-    // MARK: - Init methods
-
-    init?(matrix: Matrix) {
-        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            return nil
-        }
-
-        self.matrix = matrix
-    }
+extension Circuit {
 
     // MARK: - Public methods
 
-    func apply(to vector: Vector) -> Vector? {
-        return (matrix * vector)
-    }
-}
+    public func applyingControlledNotGate(to target: Int, controlledBy control: Int) -> Circuit? {
+        let cNot = Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
+                           [Complex(0), Complex(1), Complex(0), Complex(0)],
+                           [Complex(0), Complex(0), Complex(0), Complex(1)],
+                           [Complex(0), Complex(0), Complex(1), Complex(0)]])!
 
-// MARK: - Equatable methods
-
-extension Gate: Equatable {
-    public static func ==(lhs: Gate, rhs: Gate) -> Bool {
-        return (lhs.matrix == rhs.matrix)
-    }
-}
-
-// MARK: - Private body
-
-private extension Gate {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let accuracy = 0.001
+        return applyingGate(builtWith: cNot, inputs: control, target)
     }
 }

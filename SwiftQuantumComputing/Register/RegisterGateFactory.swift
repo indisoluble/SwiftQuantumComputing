@@ -1,5 +1,5 @@
 //
-//  GateFactory.swift
+//  RegisterGateFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 11/08/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-public struct GateFactory {
+struct RegisterGateFactory {
 
     // MARK: - Private properties
 
@@ -31,7 +31,7 @@ public struct GateFactory {
 
     // MARK: - Init methods
 
-    public init?(qubitCount: Int, baseMatrix: Matrix) {
+    init?(qubitCount: Int, baseMatrix: Matrix) {
         guard baseMatrix.isSquare else {
             return nil
         }
@@ -51,19 +51,19 @@ public struct GateFactory {
 
     // MARK: - Public methods
 
-    public func makeGate(inputs: Int...) -> Gate? {
+    func makeGate(inputs: [Int]) -> RegisterGate? {
         guard areInputsValid(inputs) else {
             return nil
         }
 
         let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })
-        return Gate(matrix: extended)
+        return RegisterGate(matrix: extended)
     }
 }
 
 // MARK: - Private body
 
-private extension GateFactory {
+private extension RegisterGateFactory {
 
     // MARK: - Constants
 
@@ -78,9 +78,9 @@ private extension GateFactory {
     // MARK: - Private methods
 
     func areInputsValid(_ inputs: [Int]) -> Bool {
-        return (!areInputsRepeated(inputs) &&
-            !areInputsOutOfBound(inputs) &&
-            doesInputCountMatchBaseMatrixQubitCount(inputs))
+        return (doesInputCountMatchBaseMatrixQubitCount(inputs) &&
+            !areInputsRepeated(inputs) &&
+            !areInputsOutOfBound(inputs))
     }
 
     func areInputsRepeated(_ inputs: [Int]) -> Bool {

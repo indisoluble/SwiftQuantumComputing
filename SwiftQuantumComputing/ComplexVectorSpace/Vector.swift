@@ -26,20 +26,20 @@ public struct Vector {
 
     // MARK: - Public properties
 
-    public subscript(index: Int) -> Complex {
-        return matrix[index,0]
-    }
-
     public var squaredNorm: Double {
         return Vector.innerProduct(self, self)!.real
     }
 
-    var norm: Double {
+    public var norm: Double {
         return squaredNorm.squareRoot()
     }
 
-    var count: Int {
+    public var count: Int {
         return matrix.rowCount
+    }
+
+    public subscript(index: Int) -> Complex {
+        return matrix[index,0]
     }
 
     // MARK: - Private properties

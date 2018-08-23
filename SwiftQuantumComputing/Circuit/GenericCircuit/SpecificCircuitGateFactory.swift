@@ -1,8 +1,8 @@
 //
-//  NotGateFactory.swift
+//  SpecificCircuitGateFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 12/08/2018.
+//  Created by Enrique de la Torre on 22/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,37 +22,35 @@ import Foundation
 
 // MARK: - Main body
 
-public struct NotGateFactory {
+struct SpecificCircuitGateFactory {
 
     // MARK: - Private properties
 
-    private let factory: GateFactory
+    private let qubitCount: Int
 
     // MARK: - Init methods
 
-    public init?(qubitCount: Int) {
-        let baseMatrix = Constants.baseNot
-        guard let factory = GateFactory(qubitCount: qubitCount, baseMatrix: baseMatrix) else {
-            return nil
-        }
-
-        self.factory = factory
-    }
-
-    // MARK: - Public methods
-
-    public func makeGate(input: Int) -> Gate? {
-        return factory.makeGate(inputs: input)
+    init(qubitCount: Int) {
+        self.qubitCount = qubitCount
     }
 }
 
-// MARK: - Private body
+// MARK: - Equatable methods
 
-private extension NotGateFactory {
+extension SpecificCircuitGateFactory: Equatable {
+    static func ==(lhs: SpecificCircuitGateFactory, rhs: SpecificCircuitGateFactory) -> Bool {
+        return (lhs.qubitCount == rhs.qubitCount)
+    }
+}
 
-    // MARK: - Constants
+// MARK: - CircuitGateFactory methods
 
-    enum Constants {
-        static let baseNot = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
+extension SpecificCircuitGateFactory: CircuitGateFactory {
+    func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
+        guard let factory = RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix) else {
+            return nil
+        }
+
+        return factory.makeGate(inputs: inputs)
     }
 }
