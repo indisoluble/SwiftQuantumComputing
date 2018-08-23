@@ -24,18 +24,14 @@ print(uf)
 
 let qubitCount = 2
 
-let not = NotGateFactory(qubitCount: qubitCount)!
-let hadamard = HadamardGateFactory(qubitCount: qubitCount)!
-let oracle = GateFactory(qubitCount: qubitCount, baseMatrix: uf)!
+var circuit = CircuitFactory.makeCircuit(qubitCount: qubitCount)!
+circuit = circuit.applyingNotGate(to: 0)!
+circuit = circuit.applyingHadamardGate(to: 1)!
+circuit = circuit.applyingHadamardGate(to: 0)!
+circuit = circuit.applyingGate(builtWith: uf, inputs: 1, 0)!
+circuit = circuit.applyingHadamardGate(to: 1)!
 
-var register = Register(qubitCount: qubitCount)!
-register = register.applying(not.makeGate(input: 0)!)!
-register = register.applying(hadamard.makeGate(input: 1)!)!
-register = register.applying(hadamard.makeGate(input: 0)!)!
-register = register.applying(oracle.makeGate(inputs: 1, 0)!)!
-register = register.applying(hadamard.makeGate(input: 1)!)!
-
-let measure = register.measure(qubits: 1)!
+let measure = circuit.measure(qubits: 1)!
 
 print("Is it constant? \((abs(1 - measure[0]) < 0.001))")
 ```
