@@ -1,8 +1,8 @@
 //
-//  Circuit+PhaseShiftGate.swift
+//  Matrix+PhaseShift.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 26/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,14 +22,12 @@ import Foundation
 
 // MARK: - Main body
 
-extension Circuit {
+extension Matrix {
 
-    // MARK: - Public methods
+    // MARK: - Public class methods
 
-    public func applyingPhaseShiftGate(builtWith radians: Double, to target: Int) -> Circuit? {
-        let matrix = Matrix([[Complex(1), Complex(0)],
-                             [Complex(0), Complex(real: cos(radians), imag: sin(radians))]])!
-
-        return applyingGate(builtWith: matrix, inputs: [target])
+    public static func makePhaseShift(radians: Double) -> Matrix {
+        return Matrix([[Complex(1), Complex(0)],
+                       [Complex(0), Complex(real: cos(radians), imag: sin(radians))]])!
     }
 }

@@ -20,14 +20,14 @@
 
 import Foundation
 
+// MARK: - Types
+
+typealias ExtendedCircuitGateFactory = CircuitGateFactory & Equatable
+typealias ExtendedCircuitRegister = CircuitRegister & CustomStringConvertible & Equatable
+
 // MARK: - Main body
 
-struct GenericCircuit <R, F> where
-    R: CircuitRegister,
-    R: CustomStringConvertible,
-    R: Equatable,
-    F: CircuitGateFactory,
-    F: Equatable {
+struct GenericCircuit <R, F> where R: ExtendedCircuitRegister, F: ExtendedCircuitGateFactory {
 
     // MARK: - Private properties
 

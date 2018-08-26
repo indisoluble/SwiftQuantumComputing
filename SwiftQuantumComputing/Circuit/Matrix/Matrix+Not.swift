@@ -1,8 +1,8 @@
 //
-//  Circuit+HadamardGate.swift
+//  Matrix+Not.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 26/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,14 +22,11 @@ import Foundation
 
 // MARK: - Main body
 
-extension Circuit {
+extension Matrix {
 
-    // MARK: - Public methods
+    // MARK: - Public class methods
 
-    public func applyingHadamardGate(to target: Int) -> Circuit? {
-        let hadamard = (Complex(1 / sqrt(2)) * Matrix([[Complex(1), Complex(1)],
-                                                       [Complex(1), Complex(-1)]])!)
-
-        return applyingGate(builtWith: hadamard, inputs: [target])
+    public static func makeNot() -> Matrix {
+        return Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
     }
 }
