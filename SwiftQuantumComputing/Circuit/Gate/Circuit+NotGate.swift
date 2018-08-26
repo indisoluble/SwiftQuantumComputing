@@ -29,6 +29,6 @@ extension Circuit {
     public func applyingNotGate(to target: Int) -> Circuit? {
         let not = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
 
-        return applyingGate(builtWith: not, inputs: target)
+        return applyingGate(builtWith: not, inputs: [target])
     }
 }

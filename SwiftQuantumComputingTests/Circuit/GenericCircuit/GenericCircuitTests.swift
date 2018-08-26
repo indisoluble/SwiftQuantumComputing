@@ -48,7 +48,7 @@ class GenericCircuitTests: XCTestCase {
         let inputs = [0, 1]
 
         // When
-        let nextCircuit = circuit.applyingGate(builtWith: matrix, inputs: inputs[0], inputs[1])
+        let nextCircuit = circuit.applyingGate(builtWith: matrix, inputs: inputs)
 
         // Then
         let expectedCircuit = GenericCircuit(register: nextRegister, factory: factory)

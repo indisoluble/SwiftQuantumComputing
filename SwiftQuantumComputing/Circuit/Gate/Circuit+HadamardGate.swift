@@ -30,6 +30,6 @@ extension Circuit {
         let hadamard = (Complex(1 / sqrt(2)) * Matrix([[Complex(1), Complex(1)],
                                                        [Complex(1), Complex(-1)]])!)
 
-        return applyingGate(builtWith: hadamard, inputs: target)
+        return applyingGate(builtWith: hadamard, inputs: [target])
     }
 }

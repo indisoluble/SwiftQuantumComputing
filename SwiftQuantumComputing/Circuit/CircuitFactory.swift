@@ -26,7 +26,7 @@ public struct CircuitFactory {
 
     // MARK: - Public class methods
 
-    public static func makeCircuit(qubitCount: Int) -> Circuit? {
+    public static func makeEmptyCircuit(qubitCount: Int) -> Circuit? {
         guard let register = Register(qubitCount: qubitCount) else {
             return nil
         }
@@ -34,5 +34,39 @@ public struct CircuitFactory {
         let factory = SpecificCircuitGateFactory(qubitCount: qubitCount)
 
         return GenericCircuit(register: register, factory: factory)
+    }
+
+    public static func makeRandomlyGeneratedCircuit(qubitCount: Int,
+                                                    gateCount: Int,
+                                                    gateMatrices: [Matrix]) -> Circuit? {
+        guard ((qubitCount >= 0) && (gateCount >= 0)) else {
+            return nil
+        }
+
+        let qubits = Array(0..<qubitCount)
+        
+        let gates = (0..<gateCount).map { (_) -> (matrix: Matrix, inputs: [Int])? in
+            guard let matrix = gateMatrices.randomElement() else {
+                return nil
+            }
+
+            let matrixQubitCount = Int.log2(matrix.rowCount)
+
+            var inputs = qubits.shuffled()
+            if (matrixQubitCount < qubitCount) {
+                inputs = Array(inputs[..<matrixQubitCount])
+            }
+
+            return (matrix, inputs)
+        }
+
+        let emptyCircuit = makeEmptyCircuit(qubitCount: qubitCount)
+        return gates.reduce(emptyCircuit) { (circuit, gate) -> Circuit? in
+            guard let (matrix, inputs) = gate else {
+                return circuit
+            }
+
+            return circuit?.applyingGate(builtWith: matrix, inputs: inputs)
+        }
     }
 }

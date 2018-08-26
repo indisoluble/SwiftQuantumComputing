@@ -61,7 +61,7 @@ extension GenericCircuit: Equatable {
 // MARK: - Circuit methods
 
 extension GenericCircuit: Circuit {
-    func applyingGate(builtWith matrix: Matrix, inputs: Int...) -> GenericCircuit? {
+    func applyingGate(builtWith matrix: Matrix, inputs: [Int]) -> GenericCircuit? {
         guard let gate = factory.makeGate(matrix: matrix, inputs: inputs) else {
             return nil
         }

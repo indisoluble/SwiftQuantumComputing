@@ -1,8 +1,8 @@
 //
-//  Circuit+PhaseShiftGate.swift
+//  Array+Shuffled.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 26/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,19 @@
 
 import Foundation
 
-// MARK: - Main body
+extension Array {
+    func shuffled() -> Array {
+        var array = self
 
-extension Circuit {
+        for i in 0..<count {
+            let remaining = (count - i)
+            let randomIndex = Int(arc4random_uniform(UInt32(remaining)))
 
-    // MARK: - Public methods
+            let element = array[randomIndex]
+            array.remove(at: randomIndex)
+            array.append(element)
+        }
 
-    public func applyingPhaseShiftGate(builtWith radians: Double, to target: Int) -> Circuit? {
-        let matrix = Matrix([[Complex(1), Complex(0)],
-                             [Complex(0), Complex(real: cos(radians), imag: sin(radians))]])!
-
-        return applyingGate(builtWith: matrix, inputs: [target])
+        return array
     }
 }

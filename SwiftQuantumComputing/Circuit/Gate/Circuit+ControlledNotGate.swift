@@ -32,6 +32,6 @@ extension Circuit {
                            [Complex(0), Complex(0), Complex(0), Complex(1)],
                            [Complex(0), Complex(0), Complex(1), Complex(0)]])!
 
-        return applyingGate(builtWith: cNot, inputs: control, target)
+        return applyingGate(builtWith: cNot, inputs: [control, target])
     }
 }

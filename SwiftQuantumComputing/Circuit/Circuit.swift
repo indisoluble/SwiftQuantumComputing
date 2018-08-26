@@ -21,6 +21,6 @@
 import Foundation
 
 public protocol Circuit {
-    func applyingGate(builtWith matrix: Matrix, inputs: Int...) -> Self?
+    func applyingGate(builtWith matrix: Matrix, inputs: [Int]) -> Self?
     func measure(qubits: Int...) -> [Double]?
 }
