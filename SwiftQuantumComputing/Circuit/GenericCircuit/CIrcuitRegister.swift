@@ -21,6 +21,8 @@
 import Foundation
 
 protocol CircuitRegister {
+    var qubitCount: Int { get }
+    
     func applying(_ gate: RegisterGate) -> Self?
     func measure(qubits: [Int]) -> [Double]?
 }

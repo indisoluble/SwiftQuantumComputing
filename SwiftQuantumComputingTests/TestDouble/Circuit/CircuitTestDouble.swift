@@ -1,8 +1,8 @@
 //
-//  CircuitRegisterTestDouble.swift
+//  CircuitTestDouble.swift
 //  SwiftQuantumComputingTests
 //
-//  Created by Enrique de la Torre on 23/08/2018.
+//  Created by Enrique de la Torre on 28/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,56 +24,42 @@ import Foundation
 
 // MARK: - Main body
 
-final class CircuitRegisterTestDouble {
+final class CircuitTestDouble {
 
     // MARK: - Public properties
 
     private (set) var qubitCountCount = 0
     var qubitCountResult = 0
 
-    private (set) var applyingCount = 0
-    private (set) var lastApplyingGate: RegisterGate?
-    var applyingResult: CircuitRegisterTestDouble?
+    private (set) var applyingGateCount = 0
+    private (set) var lastApplyingGateMatrix: Matrix?
+    private (set) var lastApplyingGateInputs: [Int]?
+    var applyingGateResult: CircuitTestDouble?
 
     private (set) var measureCount = 0
     private (set) var lastMeasureQubits: [Int]?
     var measureResult: [Double]?
 }
 
-// MARK: - CustomStringConvertible methods
+// MARK: - Circuit methods
 
-extension CircuitRegisterTestDouble: CustomStringConvertible {
-    var description: String {
-        return ""
-    }
-}
-
-// MARK: - Equatable methods
-
-extension CircuitRegisterTestDouble: Equatable {
-    static func ==(lhs: CircuitRegisterTestDouble, rhs: CircuitRegisterTestDouble) -> Bool {
-        return (lhs === rhs)
-    }
-}
-
-// MARK: - CircuitRegister methods
-
-extension CircuitRegisterTestDouble: CircuitRegister {
+extension CircuitTestDouble: Circuit {
     var qubitCount: Int {
         qubitCountCount += 1
 
         return qubitCountResult
     }
 
-    func applying(_ gate: RegisterGate) -> CircuitRegisterTestDouble? {
-        applyingCount += 1
+    func applyingGate(builtWith matrix: Matrix, inputs: [Int]) -> CircuitTestDouble? {
+        applyingGateCount += 1
 
-        lastApplyingGate = gate
+        lastApplyingGateMatrix = matrix
+        lastApplyingGateInputs = inputs
 
-        return applyingResult
+        return applyingGateResult
     }
 
-    func measure(qubits: [Int]) -> [Double]? {
+    func measure(qubits: Int...) -> [Double]? {
         measureCount += 1
 
         lastMeasureQubits = qubits
