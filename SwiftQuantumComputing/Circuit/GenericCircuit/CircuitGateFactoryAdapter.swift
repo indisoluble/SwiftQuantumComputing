@@ -1,5 +1,5 @@
 //
-//  SpecificCircuitGateFactory.swift
+//  CircuitGateFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 22/08/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct SpecificCircuitGateFactory {
+struct CircuitGateFactoryAdapter {
 
     // MARK: - Private properties
 
@@ -37,15 +37,15 @@ struct SpecificCircuitGateFactory {
 
 // MARK: - Equatable methods
 
-extension SpecificCircuitGateFactory: Equatable {
-    static func ==(lhs: SpecificCircuitGateFactory, rhs: SpecificCircuitGateFactory) -> Bool {
+extension CircuitGateFactoryAdapter: Equatable {
+    static func ==(lhs: CircuitGateFactoryAdapter, rhs: CircuitGateFactoryAdapter) -> Bool {
         return (lhs.qubitCount == rhs.qubitCount)
     }
 }
 
 // MARK: - CircuitGateFactory methods
 
-extension SpecificCircuitGateFactory: CircuitGateFactory {
+extension CircuitGateFactoryAdapter: CircuitGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
         guard let factory = RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix) else {
             return nil

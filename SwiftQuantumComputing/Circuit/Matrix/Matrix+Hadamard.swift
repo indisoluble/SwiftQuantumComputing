@@ -1,8 +1,8 @@
 //
-//  CircuitRegister.swift
+//  Matrix+Hadamard.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 26/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +20,14 @@
 
 import Foundation
 
-protocol CircuitRegister {
-    var qubitCount: Int { get }
-    
-    func applying(_ gate: RegisterGate) -> Self?
-    func measure(qubits: [Int]) -> [Double]?
+// MARK: - Main body
+
+extension Matrix {
+
+    // MARK: - Public class methods
+
+    public static func makeHadamard() -> Matrix {
+        return (Complex(1 / sqrt(2)) * Matrix([[Complex(1), Complex(1)],
+                                               [Complex(1), Complex(-1)]])!)
+    }
 }

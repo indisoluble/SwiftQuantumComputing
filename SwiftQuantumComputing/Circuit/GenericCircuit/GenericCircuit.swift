@@ -20,14 +20,14 @@
 
 import Foundation
 
+// MARK: - Types
+
+typealias ExtendedCircuitGateFactory = CircuitGateFactory & Equatable
+typealias ExtendedCircuitRegister = CircuitRegister & CustomStringConvertible & Equatable
+
 // MARK: - Main body
 
-struct GenericCircuit <R, F> where
-    R: CircuitRegister,
-    R: CustomStringConvertible,
-    R: Equatable,
-    F: CircuitGateFactory,
-    F: Equatable {
+struct GenericCircuit <R, F> where R: ExtendedCircuitRegister, F: ExtendedCircuitGateFactory {
 
     // MARK: - Private properties
 
@@ -61,7 +61,11 @@ extension GenericCircuit: Equatable {
 // MARK: - Circuit methods
 
 extension GenericCircuit: Circuit {
-    func applyingGate(builtWith matrix: Matrix, inputs: Int...) -> GenericCircuit? {
+    var qubitCount: Int {
+        return register.qubitCount
+    }
+
+    func applyingGate(builtWith matrix: Matrix, inputs: [Int]) -> GenericCircuit? {
         guard let gate = factory.makeGate(matrix: matrix, inputs: inputs) else {
             return nil
         }

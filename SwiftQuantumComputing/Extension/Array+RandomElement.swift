@@ -1,8 +1,8 @@
 //
-//  Circuit+HadamardGate.swift
+//  Array+RandomElement.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 26/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,13 @@
 
 import Foundation
 
-// MARK: - Main body
+extension Array {
+    func randomElement() -> Element? {
+        guard !isEmpty else {
+            return nil
+        }
 
-extension Circuit {
-
-    // MARK: - Public methods
-
-    public func applyingHadamardGate(to target: Int) -> Circuit? {
-        let hadamard = (Complex(1 / sqrt(2)) * Matrix([[Complex(1), Complex(1)],
-                                                       [Complex(1), Complex(-1)]])!)
-
-        return applyingGate(builtWith: hadamard, inputs: target)
+        let index = Int(arc4random_uniform(UInt32(count)))
+        return self[index]
     }
 }

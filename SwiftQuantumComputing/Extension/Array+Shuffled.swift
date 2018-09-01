@@ -1,8 +1,8 @@
 //
-//  CircuitRegister.swift
+//  Array+Shuffled.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 26/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +20,19 @@
 
 import Foundation
 
-protocol CircuitRegister {
-    var qubitCount: Int { get }
-    
-    func applying(_ gate: RegisterGate) -> Self?
-    func measure(qubits: [Int]) -> [Double]?
+extension Array {
+    func shuffled() -> Array {
+        var array = self
+
+        for i in 0..<count {
+            let remaining = (count - i)
+            let randomIndex = Int(arc4random_uniform(UInt32(remaining)))
+
+            let element = array[randomIndex]
+            array.remove(at: randomIndex)
+            array.append(element)
+        }
+
+        return array
+    }
 }
