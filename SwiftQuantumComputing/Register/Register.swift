@@ -72,6 +72,10 @@ extension Register: Equatable {
 // MARK: - CircuitRegister methods
 
 extension Register: CircuitRegister {
+    var qubitCount: Int {
+        return Int.log2(vector.count)
+    }
+
     func applying(_ gate: RegisterGate) -> Register? {
         guard let nextVector = gate.apply(to: vector) else {
             return nil
@@ -120,7 +124,7 @@ private extension Register {
     }
 
     func areQubitsOutOfBound(_ qubits: [Int]) -> Bool {
-        let qubitCount = Int.log2(vector.count)
+        let qubitCount = self.qubitCount
 
         return (qubits.index(where: { $0 >= qubitCount }) != nil)
     }

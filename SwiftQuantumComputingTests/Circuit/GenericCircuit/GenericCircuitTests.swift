@@ -33,6 +33,21 @@ class GenericCircuitTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testAnyGenericCircuit_qubitCount_forwardCallToRegister() {
+        // Given
+        let expectedQubitCount = 10
+        register.qubitCountResult = expectedQubitCount
+        
+        let circuit = GenericCircuit(register: register, factory: factory)
+
+        // When
+        let qubitCount = circuit.qubitCount
+
+        // Then
+        XCTAssertEqual(register.qubitCountCount, 1)
+        XCTAssertEqual(qubitCount, expectedQubitCount)
+    }
+
     func testAnyGenericCircuit_applyingGate_executeExpectedMethodsOnDependenciesAndReturnExpectedData() {
         // Given
         let matrix = Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
@@ -48,7 +63,7 @@ class GenericCircuitTests: XCTestCase {
         let inputs = [0, 1]
 
         // When
-        let nextCircuit = circuit.applyingGate(builtWith: matrix, inputs: inputs[0], inputs[1])
+        let nextCircuit = circuit.applyingGate(builtWith: matrix, inputs: inputs)
 
         // Then
         let expectedCircuit = GenericCircuit(register: nextRegister, factory: factory)

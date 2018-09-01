@@ -1,5 +1,5 @@
 //
-//  CircuitRegister.swift
+//  Circuit+HadamardGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 22/08/2018.
@@ -20,9 +20,13 @@
 
 import Foundation
 
-protocol CircuitRegister {
-    var qubitCount: Int { get }
-    
-    func applying(_ gate: RegisterGate) -> Self?
-    func measure(qubits: [Int]) -> [Double]?
+// MARK: - Main body
+
+extension Circuit {
+
+    // MARK: - Public methods
+
+    public func applyingHadamardGate(to target: Int) -> Self? {
+        return applyingGate(builtWith: Matrix.makeHadamard(), inputs: [target])
+    }
 }

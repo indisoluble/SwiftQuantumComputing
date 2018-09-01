@@ -26,13 +26,21 @@ public struct CircuitFactory {
 
     // MARK: - Public class methods
 
-    public static func makeCircuit(qubitCount: Int) -> Circuit? {
+    public static func makeEmptyCircuit(qubitCount: Int) -> Circuit? {
         guard let register = Register(qubitCount: qubitCount) else {
             return nil
         }
 
-        let factory = SpecificCircuitGateFactory(qubitCount: qubitCount)
+        let factory = CircuitGateFactoryAdapter(qubitCount: qubitCount)
 
         return GenericCircuit(register: register, factory: factory)
+    }
+
+    public static func makeRandomlyGeneratedCircuit(qubitCount: Int,
+                                                    depth: Int,
+                                                    gateMatrices: [Matrix]) -> Circuit? {
+        let emptyCircuit = makeEmptyCircuit(qubitCount: qubitCount)
+
+        return emptyCircuit?.randomlyApplyingGates(builtWith: gateMatrices, depth: depth)
     }
 }

@@ -1,8 +1,8 @@
 //
-//  Circuit+ControlledNotGate.swift
+//  Matrix+PhaseShift.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 26/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,16 +22,12 @@ import Foundation
 
 // MARK: - Main body
 
-extension Circuit {
+extension Matrix {
 
-    // MARK: - Public methods
+    // MARK: - Public class methods
 
-    public func applyingControlledNotGate(to target: Int, controlledBy control: Int) -> Circuit? {
-        let cNot = Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
-                           [Complex(0), Complex(1), Complex(0), Complex(0)],
-                           [Complex(0), Complex(0), Complex(0), Complex(1)],
-                           [Complex(0), Complex(0), Complex(1), Complex(0)]])!
-
-        return applyingGate(builtWith: cNot, inputs: control, target)
+    public static func makePhaseShift(radians: Double) -> Matrix {
+        return Matrix([[Complex(1), Complex(0)],
+                       [Complex(0), Complex(real: cos(radians), imag: sin(radians))]])!
     }
 }
