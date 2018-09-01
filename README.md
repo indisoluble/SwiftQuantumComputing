@@ -1,5 +1,8 @@
 # A Quantum Computing experiment based on Swift
 
+[![CI Status](https://travis-ci.org/indisoluble/SwiftQuantumComputing.svg)](https://travis-ci.org/indisoluble/SwiftQuantumComputing)
+[![codecov.io](https://codecov.io/github/indisoluble/SwiftQuantumComputing/coverage.svg)](https://codecov.io/github/indisoluble/SwiftQuantumComputing)
+
 In this repository you can find a simple quantum circuit simulator written in Swift.
 
 Over time and as I learn more about quantum computing, I will add more Swift code to experiment with these concepts.

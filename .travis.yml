@@ -1,0 +1,8 @@
+language: swift
+osx_image: xcode9.4
+script:
+  - set -o pipefail
+  - xcodebuild -scheme SwiftQuantumComputing -project SwiftQuantumComputing.xcodeproj -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone SE,OS=11.4' build test | xcpretty
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -J 'SwiftQuantumComputing'
+
