@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF11ED4B213C65C200EDDA81 /* Circuit+OracleGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF11ED4A213C65C200EDDA81 /* Circuit+OracleGate.swift */; };
 		FF1A502F212997090023313E /* GenericCircuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1A502E212997090023313E /* GenericCircuit.swift */; };
 		FF1AAFE2211F372800D3666A /* RegisterGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE1211F372800D3666A /* RegisterGateFactory.swift */; };
 		FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FF11ED4A213C65C200EDDA81 /* Circuit+OracleGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+OracleGate.swift"; sourceTree = "<group>"; };
 		FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DeutschAlgorithm.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF1A502E212997090023313E /* GenericCircuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCircuit.swift; sourceTree = "<group>"; };
 		FF1AAFE1211F372800D3666A /* RegisterGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGateFactory.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				FF3EAC7D212DEA96007AF61E /* Circuit+ControlledNotGate.swift */,
 				FF3EAC7F212DEB10007AF61E /* Circuit+HadamardGate.swift */,
 				FF3EAC81212DECA5007AF61E /* Circuit+NotGate.swift */,
+				FF11ED4A213C65C200EDDA81 /* Circuit+OracleGate.swift */,
 				FF3EAC83212DED0B007AF61E /* Circuit+PhaseShiftGate.swift */,
 				FFA711B021348FF100CE51A1 /* Circuit+Random.swift */,
 				FF3EAC93212E06F0007AF61E /* CircuitFactory.swift */,
@@ -448,6 +451,7 @@
 				FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */,
 				FFC35E3A2132F1DC009A3A9E /* Array+RandomElement.swift in Sources */,
 				FF3EAC94212E06F0007AF61E /* CircuitFactory.swift in Sources */,
+				FF11ED4B213C65C200EDDA81 /* Circuit+OracleGate.swift in Sources */,
 				FF1AAFF3211F6E1000D3666A /* Int+Log2.swift in Sources */,
 				FF3EAC84212DED0B007AF61E /* Circuit+PhaseShiftGate.swift in Sources */,
 				FFFEFD2B21333EDB0063B559 /* Matrix+ControlledNot.swift in Sources */,

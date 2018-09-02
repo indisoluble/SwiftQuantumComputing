@@ -7,7 +7,7 @@ func isFunctionConstant(_ uf: Matrix) -> Bool {
     circuit = circuit.applyingNotGate(to: 0)!
     circuit = circuit.applyingHadamardGate(to: 1)!
     circuit = circuit.applyingHadamardGate(to: 0)!
-    circuit = circuit.applyingGate(builtWith: uf, inputs: [1, 0])!
+    circuit = circuit.applyingOracleGate(builtWith: uf, inputs: 1, 0)!
     circuit = circuit.applyingHadamardGate(to: 1)!
 
     let measure = circuit.measure(qubits: 1)!
