@@ -29,7 +29,7 @@ class GenericCircuitTests: XCTestCase {
     // MARK: - Properties
 
     let register = CircuitRegisterTestDouble()
-    let factory = CircuitGateFactoryTestDouble()
+    let factory = CircuitRegisterGateFactoryTestDouble()
 
     // MARK: - Tests
 

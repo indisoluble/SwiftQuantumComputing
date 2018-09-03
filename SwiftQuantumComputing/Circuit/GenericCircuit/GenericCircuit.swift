@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Types
 
-typealias ExtendedCircuitGateFactory = CircuitGateFactory & Equatable
+typealias ExtendedCircuitGateFactory = CircuitRegisterGateFactory & Equatable
 typealias ExtendedCircuitRegister = CircuitRegister & CustomStringConvertible & Equatable
 
 // MARK: - Main body

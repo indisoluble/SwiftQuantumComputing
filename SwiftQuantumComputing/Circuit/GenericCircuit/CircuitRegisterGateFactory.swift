@@ -1,5 +1,5 @@
 //
-//  CircuitGateFactory.swift
+//  CircuitRegisterGateFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 22/08/2018.
@@ -20,6 +20,6 @@
 
 import Foundation
 
-protocol CircuitGateFactory {
+protocol CircuitRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate?
 }

@@ -31,7 +31,7 @@ public struct CircuitFactory {
             return nil
         }
 
-        let factory = CircuitGateFactoryAdapter(qubitCount: qubitCount)
+        let factory = CircuitRegisterGateFactoryAdapter(qubitCount: qubitCount)
 
         return GenericCircuit(register: register, factory: factory)
     }
