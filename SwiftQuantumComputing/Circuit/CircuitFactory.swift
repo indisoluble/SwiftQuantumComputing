@@ -38,9 +38,9 @@ public struct CircuitFactory {
 
     public static func makeRandomlyGeneratedCircuit(qubitCount: Int,
                                                     depth: Int,
-                                                    gateMatrices: [Matrix]) -> Circuit? {
+                                                    gates: [CircuitGate]) -> Circuit? {
         let emptyCircuit = makeEmptyCircuit(qubitCount: qubitCount)
 
-        return emptyCircuit?.randomlyApplyingGates(builtWith: gateMatrices, depth: depth)
+        return emptyCircuit?.randomlyApplyingGates(gates, depth: depth)
     }
 }

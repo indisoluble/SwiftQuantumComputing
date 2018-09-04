@@ -27,6 +27,6 @@ extension Circuit {
     // MARK: - Public methods
 
     public func applyingPhaseShiftGate(builtWith radians: Double, to target: Int) -> Self? {
-        return applyingGate(builtWith: Matrix.makePhaseShift(radians: radians), inputs: [target])
+        return applyingGate(CircuitGate.makePhaseShift(radians: radians), inputs: [target])
     }
 }

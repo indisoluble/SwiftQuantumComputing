@@ -65,12 +65,12 @@ extension GenericCircuit: Circuit {
         return register.qubitCount
     }
 
-    func applyingGate(builtWith matrix: Matrix, inputs: [Int]) -> GenericCircuit? {
-        guard let gate = factory.makeGate(matrix: matrix, inputs: inputs) else {
+    func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> GenericCircuit? {
+        guard let registerGate = factory.makeGate(matrix: gate.matrix, inputs: inputs) else {
             return nil
         }
 
-        guard let nextRegister = register.applying(gate) else {
+        guard let nextRegister = register.applying(registerGate) else {
             return nil
         }
 

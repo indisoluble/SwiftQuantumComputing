@@ -52,18 +52,19 @@ class GenericCircuitTests: XCTestCase {
         // Given
         let matrix = Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
                              [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])!
-        let gate = RegisterGate(matrix: matrix)!
-        factory.makeGateResult = gate
+        let registerGate = RegisterGate(matrix: matrix)!
+        factory.makeGateResult = registerGate
 
         let nextRegister = CircuitRegisterTestDouble()
         register.applyingResult = nextRegister
 
         let circuit = GenericCircuit(register: register, factory: factory)
 
+        let gate = CircuitGate(matrix: matrix)
         let inputs = [0, 1]
 
         // When
-        let nextCircuit = circuit.applyingGate(builtWith: matrix, inputs: inputs)
+        let nextCircuit = circuit.applyingGate(gate, inputs: inputs)
 
         // Then
         let expectedCircuit = GenericCircuit(register: nextRegister, factory: factory)
@@ -72,7 +73,7 @@ class GenericCircuitTests: XCTestCase {
         XCTAssertEqual(factory.lastMakeGateMatrix, matrix)
         XCTAssertEqual(factory.lastMakeGateInputs, inputs)
         XCTAssertEqual(register.applyingCount, 1)
-        XCTAssertEqual(register.lastApplyingGate, gate)
+        XCTAssertEqual(register.lastApplyingGate, registerGate)
         XCTAssertEqual(nextCircuit, expectedCircuit)
     }
 

@@ -1,8 +1,8 @@
 //
-//  Circuit+OracleGate.swift
+//  CircuitGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 02/09/2018.
+//  Created by Enrique de la Torre on 04/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,9 @@ import Foundation
 
 // MARK: - Main body
 
-extension Circuit {
+public struct CircuitGate {
 
-    // MARK: - Public methods
+    // MARK: - Public properties
 
-    public func applyingOracleGate(builtWith matrix: Matrix, inputs: Int...) -> Self? {
-        return applyingGate(CircuitGate(matrix: matrix), inputs: inputs)
-    }
+    let matrix: Matrix
 }

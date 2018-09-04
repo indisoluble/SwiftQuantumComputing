@@ -23,6 +23,6 @@ import Foundation
 public protocol Circuit {
     var qubitCount: Int { get }
 
-    func applyingGate(builtWith matrix: Matrix, inputs: [Int]) -> Self?
+    func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> Self?
     func measure(qubits: Int...) -> [Double]?
 }
