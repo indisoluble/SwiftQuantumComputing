@@ -27,6 +27,7 @@ extension CircuitGate {
     // MARK: - Public class methods
 
     public static func makePhaseShift(radians: Double) -> CircuitGate {
-        return CircuitGate(matrix: Matrix.makePhaseShift(radians: radians))
+        return CircuitGate(matrix: Matrix.makePhaseShift(radians: radians),
+                           describer: CircuitPhaseShiftGateDescriber(radians: radians))
     }
 }

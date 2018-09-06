@@ -1,8 +1,8 @@
 //
-//  CircuitGate+Hadamard.swift
+//  CircuitGate+Oracle.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 04/09/2018.
+//  Created by Enrique de la Torre on 05/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ extension CircuitGate {
 
     // MARK: - Public class methods
 
-    public static func makeHadamard() -> CircuitGate {
-        return CircuitGate(matrix: Matrix.makeHadamard(), describer: CircuitHadamardGateDescriber())
+    public static func makeOracle(matrix: Matrix) -> CircuitGate {
+        return CircuitGate(matrix: matrix, describer: CircuitOracleGateDescriber())
     }
 }

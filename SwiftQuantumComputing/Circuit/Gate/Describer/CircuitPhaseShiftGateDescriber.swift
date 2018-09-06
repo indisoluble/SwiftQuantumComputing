@@ -1,8 +1,8 @@
 //
-//  CircuitGate+Hadamard.swift
+//  CircuitPhaseShiftGateDescriber.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 04/09/2018.
+//  Created by Enrique de la Torre on 05/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,27 @@ import Foundation
 
 // MARK: - Main body
 
-extension CircuitGate {
+struct CircuitPhaseShiftGateDescriber {
 
-    // MARK: - Public class methods
+    // MARK: - Private properties
 
-    public static func makeHadamard() -> CircuitGate {
-        return CircuitGate(matrix: Matrix.makeHadamard(), describer: CircuitHadamardGateDescriber())
+    private let radians: Double
+
+    // MARK: - Init methods
+
+    init(radians: Double) {
+        self.radians = radians
+    }
+}
+
+// MARK: - CircuitGateDescribable methods
+
+extension CircuitPhaseShiftGateDescriber: CircuitGateDescribable {
+    var gateDescription: String {
+        return String(format: "R(%.2f)", radians)
+    }
+
+    func parameters(in inputs: [Int]) -> (targets: [Int], controls: [Int]) {
+        return (targets: inputs, controls: [])
     }
 }

@@ -27,6 +27,6 @@ extension Circuit {
     // MARK: - Public methods
 
     public func applyingOracleGate(builtWith matrix: Matrix, inputs: Int...) -> Self? {
-        return applyingGate(CircuitGate(matrix: matrix), inputs: inputs)
+        return applyingGate(CircuitGate.makeOracle(matrix: matrix), inputs: inputs)
     }
 }

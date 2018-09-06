@@ -1,8 +1,8 @@
 //
-//  CircuitRegisterGateFactoryTestDouble.swift
+//  CircuitGateDescribableTestDouble.swift
 //  SwiftQuantumComputingTests
 //
-//  Created by Enrique de la Torre on 23/08/2018.
+//  Created by Enrique de la Torre on 05/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,25 +24,29 @@ import Foundation
 
 // MARK: - Main body
 
-final class CircuitRegisterGateFactoryTestDouble {
+final class CircuitGateDescribableTestDouble {
 
     // MARK: - Public properties
 
-    private (set) var makeGateCount = 0
-    private (set) var lastMakeGateMatrix: Matrix?
-    private (set) var lastMakeGateInputs: [Int]?
-    var makeGateResult: RegisterGate?
+    private (set) var gateDescriptionCount = 0
+    var gateDescriptionResult = ""
+
+    private (set) var parametersCount = 0
+    var parametersResult = (targets: [] as [Int], controls: [] as [Int])
 }
 
-// MARK: - CircuitGateFactory methods
+// MARK: - CircuitGateDescribable methods
 
-extension CircuitRegisterGateFactoryTestDouble: CircuitRegisterGateFactory {
-    func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
-        makeGateCount += 1
+extension CircuitGateDescribableTestDouble: CircuitGateDescribable {
+    var gateDescription: String {
+        gateDescriptionCount += 1
 
-        lastMakeGateMatrix = matrix
-        lastMakeGateInputs = inputs
+        return gateDescriptionResult
+    }
 
-        return makeGateResult
+    func parameters(in inputs: [Int]) -> (targets: [Int], controls: [Int]) {
+        parametersCount += 1
+
+        return parametersResult
     }
 }

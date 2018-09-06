@@ -20,30 +20,30 @@
 
 import Foundation
 
-// MARK: - Types
-
-typealias ExtendedCircuitRegister = CircuitRegister & CustomStringConvertible
-
 // MARK: - Main body
 
-struct GenericCircuit <R, F> where R: ExtendedCircuitRegister, F: CircuitRegisterGateFactory {
+struct GenericCircuit <R, F, D> where R: CircuitRegister,
+                                      F: CircuitRegisterGateFactory,
+                                      D: CircuitDescription {
 
     // MARK: - Public properties
 
     let register: R
     let factory: F
+    let circuitDescription: D
 
     // MARK: - Init methods
 
-    init(register: R, factory: F) {
+    init(register: R, factory: F, circuitDescription: D) {
         self.register = register
         self.factory = factory
+        self.circuitDescription = circuitDescription
     }
 }
 
 // MARK: - CustomStringConvertible methods
 
-extension GenericCircuit: CustomStringConvertible {
+extension GenericCircuit: CustomStringConvertible where R: CustomStringConvertible {
     var description: String {
         return register.description
     }
@@ -65,7 +65,11 @@ extension GenericCircuit: Circuit {
             return nil
         }
 
-        return GenericCircuit(register: nextRegister, factory: factory)
+        let nextDescription = circuitDescription.applyingDescriber(gate.describer, inputs: inputs)
+
+        return GenericCircuit(register: nextRegister,
+                              factory: factory,
+                              circuitDescription: nextDescription)
     }
 
     func measure(qubits: Int...) -> [Double]? {

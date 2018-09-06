@@ -27,4 +27,5 @@ public struct CircuitGate {
     // MARK: - Public properties
 
     let matrix: Matrix
+    let describer: CircuitGateDescribable
 }

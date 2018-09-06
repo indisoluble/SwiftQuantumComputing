@@ -1,8 +1,8 @@
 //
-//  CircuitGate+Hadamard.swift
+//  CircuitNotGateDescriber.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 04/09/2018.
+//  Created by Enrique de la Torre on 05/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,16 @@ import Foundation
 
 // MARK: - Main body
 
-extension CircuitGate {
+struct CircuitNotGateDescriber {}
 
-    // MARK: - Public class methods
+// MARK: - CircuitGateDescribable methods
 
-    public static func makeHadamard() -> CircuitGate {
-        return CircuitGate(matrix: Matrix.makeHadamard(), describer: CircuitHadamardGateDescriber())
+extension CircuitNotGateDescriber: CircuitGateDescribable {
+    var gateDescription: String {
+        return "NOT"
+    }
+
+    func parameters(in inputs: [Int]) -> (targets: [Int], controls: [Int]) {
+        return (targets: inputs, controls: [])
     }
 }

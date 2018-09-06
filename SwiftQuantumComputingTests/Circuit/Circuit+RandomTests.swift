@@ -36,7 +36,7 @@ class Circuit_RandomTests: XCTestCase {
         let randomGate: (() -> CircuitGate?) = {
             randomGateCount += 1
 
-            return CircuitGate(matrix: Matrix.makeNot())
+            return CircuitGate.makeNot()
         }
 
         var shuffledQubitsCount = 0
@@ -68,7 +68,7 @@ class Circuit_RandomTests: XCTestCase {
         let randomGate: (() -> CircuitGate?) = {
             randomGateCount += 1
 
-            return CircuitGate(matrix: Matrix.makeNot())
+            return CircuitGate.makeNot()
         }
 
         var shuffledQubitsCount = 0
@@ -133,7 +133,7 @@ class Circuit_RandomTests: XCTestCase {
         let qubits = [0, 1]
         let depth = 10
 
-        var expectedMatrices: [Matrix] = []
+        var expectedGates: [CircuitGate] = []
         var expectedQubitsArray: [[Int]] = []
 
         var isEven = true
@@ -142,7 +142,7 @@ class Circuit_RandomTests: XCTestCase {
             circuit.applyingGateResult = circuits[0]
             circuits.insert(circuit, at: 0)
 
-            expectedMatrices.append(isEven ? Matrix.makeControlledNot() : Matrix.makeNot())
+            expectedGates.append(isEven ? CircuitGate.makeControlledNot() : CircuitGate.makeNot())
             expectedQubitsArray.append(isEven ? qubits : [qubits.first!])
 
             isEven = !isEven
@@ -150,10 +150,10 @@ class Circuit_RandomTests: XCTestCase {
 
         var randomGateCount = 0
         let randomGate: (() -> CircuitGate?) = {
-            let matrix = expectedMatrices[randomGateCount]
+            let gate = expectedGates[randomGateCount]
             randomGateCount += 1
 
-            return CircuitGate(matrix: matrix)
+            return gate
         }
 
         var shuffledQubitsCount = 0
@@ -174,7 +174,7 @@ class Circuit_RandomTests: XCTestCase {
 
         for i in 0..<depth {
             XCTAssertEqual(circuits[i].applyingGateCount, 1)
-            XCTAssertEqual(circuits[i].lastApplyingGateGate?.matrix, expectedMatrices[i])
+            XCTAssertEqual(circuits[i].lastApplyingGateGate?.matrix, expectedGates[i].matrix)
             XCTAssertEqual(circuits[i].lastApplyingGateInputs, expectedQubitsArray[i])
         }
 

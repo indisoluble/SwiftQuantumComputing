@@ -38,6 +38,17 @@
 		FF8BD4AC211E28DA00F01FF8 /* RegisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8BD4AB211E28DA00F01FF8 /* RegisterTests.swift */; };
 		FFA711B121348FF100CE51A1 /* Circuit+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA711B021348FF100CE51A1 /* Circuit+Random.swift */; };
 		FFB0D228212E0A650093BB3B /* Circuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB0D227212E0A650093BB3B /* Circuit.swift */; };
+		FFB69B7D21406EAB009A1176 /* CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B7C21406EAB009A1176 /* CircuitDescription.swift */; };
+		FFB69B7F21407086009A1176 /* CircuitGateDescribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B7E21407086009A1176 /* CircuitGateDescribable.swift */; };
+		FFB69B8121407439009A1176 /* CircuitControlledNotGateDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B8021407439009A1176 /* CircuitControlledNotGateDescriber.swift */; };
+		FFB69B83214074BC009A1176 /* CircuitHadamardGateDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B82214074BC009A1176 /* CircuitHadamardGateDescriber.swift */; };
+		FFB69B85214074CB009A1176 /* CircuitNotGateDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B84214074CB009A1176 /* CircuitNotGateDescriber.swift */; };
+		FFB69B87214074E4009A1176 /* CircuitPhaseShiftGateDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B86214074E4009A1176 /* CircuitPhaseShiftGateDescriber.swift */; };
+		FFB69B89214078DF009A1176 /* CircuitStringDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B88214078DF009A1176 /* CircuitStringDescription.swift */; };
+		FFB69B8B21407B10009A1176 /* CircuitOracleGateDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B8A21407B10009A1176 /* CircuitOracleGateDescriber.swift */; };
+		FFB69B8D21407C83009A1176 /* CircuitGate+Oracle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B8C21407C83009A1176 /* CircuitGate+Oracle.swift */; };
+		FFB69B912140808C009A1176 /* CircuitDescriptionTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B902140808C009A1176 /* CircuitDescriptionTestDouble.swift */; };
+		FFB69B932140817A009A1176 /* CircuitGateDescribableTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B922140817A009A1176 /* CircuitGateDescribableTestDouble.swift */; };
 		FFC35E3A2132F1DC009A3A9E /* Array+RandomElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E392132F1DC009A3A9E /* Array+RandomElement.swift */; };
 		FFC35E3C2132F4F3009A3A9E /* Array+Shuffled.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E3B2132F4F3009A3A9E /* Array+Shuffled.swift */; };
 		FFE1D70A211A1AEB00A50D9C /* Polar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D705211A1AEB00A50D9C /* Polar.swift */; };
@@ -109,6 +120,17 @@
 		FF8BD4AB211E28DA00F01FF8 /* RegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTests.swift; sourceTree = "<group>"; };
 		FFA711B021348FF100CE51A1 /* Circuit+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+Random.swift"; sourceTree = "<group>"; };
 		FFB0D227212E0A650093BB3B /* Circuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuit.swift; sourceTree = "<group>"; };
+		FFB69B7C21406EAB009A1176 /* CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDescription.swift; sourceTree = "<group>"; };
+		FFB69B7E21407086009A1176 /* CircuitGateDescribable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitGateDescribable.swift; sourceTree = "<group>"; };
+		FFB69B8021407439009A1176 /* CircuitControlledNotGateDescriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitControlledNotGateDescriber.swift; sourceTree = "<group>"; };
+		FFB69B82214074BC009A1176 /* CircuitHadamardGateDescriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitHadamardGateDescriber.swift; sourceTree = "<group>"; };
+		FFB69B84214074CB009A1176 /* CircuitNotGateDescriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitNotGateDescriber.swift; sourceTree = "<group>"; };
+		FFB69B86214074E4009A1176 /* CircuitPhaseShiftGateDescriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitPhaseShiftGateDescriber.swift; sourceTree = "<group>"; };
+		FFB69B88214078DF009A1176 /* CircuitStringDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitStringDescription.swift; sourceTree = "<group>"; };
+		FFB69B8A21407B10009A1176 /* CircuitOracleGateDescriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitOracleGateDescriber.swift; sourceTree = "<group>"; };
+		FFB69B8C21407C83009A1176 /* CircuitGate+Oracle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitGate+Oracle.swift"; sourceTree = "<group>"; };
+		FFB69B902140808C009A1176 /* CircuitDescriptionTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDescriptionTestDouble.swift; sourceTree = "<group>"; };
+		FFB69B922140817A009A1176 /* CircuitGateDescribableTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitGateDescribableTestDouble.swift; sourceTree = "<group>"; };
 		FFC35E392132F1DC009A3A9E /* Array+RandomElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RandomElement.swift"; sourceTree = "<group>"; };
 		FFC35E3B2132F4F3009A3A9E /* Array+Shuffled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Shuffled.swift"; sourceTree = "<group>"; };
 		FFE1D705211A1AEB00A50D9C /* Polar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polar.swift; sourceTree = "<group>"; };
@@ -151,6 +173,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF01B947214406B200C087D3 /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				FFB69B7C21406EAB009A1176 /* CircuitDescription.swift */,
+				FFB69B88214078DF009A1176 /* CircuitStringDescription.swift */,
+			);
+			path = Description;
+			sourceTree = "<group>";
+		};
+		FF01B94821440C0C00C087D3 /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				FFB69B902140808C009A1176 /* CircuitDescriptionTestDouble.swift */,
+			);
+			path = Description;
+			sourceTree = "<group>";
+		};
 		FF1AAFE0211F286100D3666A /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,10 +225,13 @@
 		FF27F454213F207C00CD8734 /* Gate */ = {
 			isa = PBXGroup;
 			children = (
+				FFB69B7B21406E96009A1176 /* Describer */,
+				FF3EAC85212DEE6B007AF61E /* Matrix */,
 				FF27F455213F212900CD8734 /* CircuitGate.swift */,
 				FF27F45B213F26CA00CD8734 /* CircuitGate+ControlledNot.swift */,
 				FF27F45D213F26E600CD8734 /* CircuitGate+Hadamard.swift */,
 				FF27F45F213F271D00CD8734 /* CircuitGate+Not.swift */,
+				FFB69B8C21407C83009A1176 /* CircuitGate+Oracle.swift */,
 				FF27F461213F273900CD8734 /* CircuitGate+PhaseShift.swift */,
 			);
 			path = Gate;
@@ -208,9 +250,9 @@
 		FF3EAC7C212DEA51007AF61E /* Circuit */ = {
 			isa = PBXGroup;
 			children = (
+				FF01B947214406B200C087D3 /* Description */,
 				FF27F454213F207C00CD8734 /* Gate */,
 				FFB0D226212E0A240093BB3B /* GenericCircuit */,
-				FF3EAC85212DEE6B007AF61E /* Matrix */,
 				FFB0D227212E0A650093BB3B /* Circuit.swift */,
 				FF3EAC7D212DEA96007AF61E /* Circuit+ControlledNotGate.swift */,
 				FF3EAC7F212DEB10007AF61E /* Circuit+HadamardGate.swift */,
@@ -316,6 +358,35 @@
 			path = GenericCircuit;
 			sourceTree = "<group>";
 		};
+		FFB69B7B21406E96009A1176 /* Describer */ = {
+			isa = PBXGroup;
+			children = (
+				FFB69B8021407439009A1176 /* CircuitControlledNotGateDescriber.swift */,
+				FFB69B7E21407086009A1176 /* CircuitGateDescribable.swift */,
+				FFB69B82214074BC009A1176 /* CircuitHadamardGateDescriber.swift */,
+				FFB69B84214074CB009A1176 /* CircuitNotGateDescriber.swift */,
+				FFB69B8A21407B10009A1176 /* CircuitOracleGateDescriber.swift */,
+				FFB69B86214074E4009A1176 /* CircuitPhaseShiftGateDescriber.swift */,
+			);
+			path = Describer;
+			sourceTree = "<group>";
+		};
+		FFB69B8E21408071009A1176 /* Gate */ = {
+			isa = PBXGroup;
+			children = (
+				FFB69B8F2140807B009A1176 /* Describer */,
+			);
+			path = Gate;
+			sourceTree = "<group>";
+		};
+		FFB69B8F2140807B009A1176 /* Describer */ = {
+			isa = PBXGroup;
+			children = (
+				FFB69B922140817A009A1176 /* CircuitGateDescribableTestDouble.swift */,
+			);
+			path = Describer;
+			sourceTree = "<group>";
+		};
 		FFED68FD212F289800D46D68 /* TestDouble */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +398,8 @@
 		FFED68FE212F28A100D46D68 /* Circuit */ = {
 			isa = PBXGroup;
 			children = (
+				FF01B94821440C0C00C087D3 /* Description */,
+				FFB69B8E21408071009A1176 /* Gate */,
 				FFED68FF212F28AF00D46D68 /* GenericCircuit */,
 				FF265D652135DD6A00179F75 /* CircuitTestDouble.swift */,
 			);
@@ -476,22 +549,30 @@
 				FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */,
 				FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */,
 				FFC35E3A2132F1DC009A3A9E /* Array+RandomElement.swift in Sources */,
+				FFB69B87214074E4009A1176 /* CircuitPhaseShiftGateDescriber.swift in Sources */,
+				FFB69B85214074CB009A1176 /* CircuitNotGateDescriber.swift in Sources */,
 				FF3EAC94212E06F0007AF61E /* CircuitFactory.swift in Sources */,
 				FF11ED4B213C65C200EDDA81 /* Circuit+OracleGate.swift in Sources */,
+				FFB69B7F21407086009A1176 /* CircuitGateDescribable.swift in Sources */,
 				FF27F460213F271D00CD8734 /* CircuitGate+Not.swift in Sources */,
 				FF1AAFF3211F6E1000D3666A /* Int+Log2.swift in Sources */,
+				FFB69B89214078DF009A1176 /* CircuitStringDescription.swift in Sources */,
 				FF3EAC84212DED0B007AF61E /* Circuit+PhaseShiftGate.swift in Sources */,
 				FFFEFD2B21333EDB0063B559 /* Matrix+ControlledNot.swift in Sources */,
+				FFB69B7D21406EAB009A1176 /* CircuitDescription.swift in Sources */,
 				FF3EAC87212DEF8D007AF61E /* CIrcuitRegister.swift in Sources */,
 				FFE8FAA12121F54F005686FE /* Int+Derived.swift in Sources */,
 				FFC35E3C2132F4F3009A3A9E /* Array+Shuffled.swift in Sources */,
 				FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */,
+				FFB69B8B21407B10009A1176 /* CircuitOracleGateDescriber.swift in Sources */,
+				FFB69B8121407439009A1176 /* CircuitControlledNotGateDescriber.swift in Sources */,
 				FFFEFD3121333F140063B559 /* Matrix+PhaseShift.swift in Sources */,
 				FF5C6638211E455800FBCC5A /* RegisterGate.swift in Sources */,
 				FFE1D70E211A1AEB00A50D9C /* Matrix.swift in Sources */,
 				FFE1D70A211A1AEB00A50D9C /* Polar.swift in Sources */,
 				FF3EAC89212DF602007AF61E /* CircuitRegisterGateFactory.swift in Sources */,
 				FF1AAFF1211F66D400D3666A /* Int+Pow.swift in Sources */,
+				FFB69B83214074BC009A1176 /* CircuitHadamardGateDescriber.swift in Sources */,
 				FFFEFD2D21333EED0063B559 /* Matrix+Hadamard.swift in Sources */,
 				FF3EAC80212DEB10007AF61E /* Circuit+HadamardGate.swift in Sources */,
 				FFA711B121348FF100CE51A1 /* Circuit+Random.swift in Sources */,
@@ -500,6 +581,7 @@
 				FF1AAFE2211F372800D3666A /* RegisterGateFactory.swift in Sources */,
 				FFE1D70D211A1AEB00A50D9C /* Vector.swift in Sources */,
 				FF3EAC90212DF9E4007AF61E /* CircuitRegisterGateFactoryAdapter.swift in Sources */,
+				FFB69B8D21407C83009A1176 /* CircuitGate+Oracle.swift in Sources */,
 				FF27F462213F273900CD8734 /* CircuitGate+PhaseShift.swift in Sources */,
 				FFE1D70C211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift in Sources */,
 				FFFEFD2F21333EFD0063B559 /* Matrix+Not.swift in Sources */,
@@ -521,6 +603,8 @@
 				FFED6909212F2DE600D46D68 /* GenericCircuitTests.swift in Sources */,
 				FF5C663A211E474200FBCC5A /* RegisterGateTests.swift in Sources */,
 				FFE1D718211A1B2700A50D9C /* PolarTests.swift in Sources */,
+				FFB69B932140817A009A1176 /* CircuitGateDescribableTestDouble.swift in Sources */,
+				FFB69B912140808C009A1176 /* CircuitDescriptionTestDouble.swift in Sources */,
 				FF265D642135DC9700179F75 /* Circuit+RandomTests.swift in Sources */,
 				FFED6903212F292000D46D68 /* CircuitRegisterTestDouble.swift in Sources */,
 				FF1AAFEA211F502F00D3666A /* RegisterGateFactoryTests.swift in Sources */,
