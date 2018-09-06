@@ -22,17 +22,16 @@ import Foundation
 
 // MARK: - Types
 
-typealias ExtendedCircuitGateFactory = CircuitRegisterGateFactory & Equatable
-typealias ExtendedCircuitRegister = CircuitRegister & CustomStringConvertible & Equatable
+typealias ExtendedCircuitRegister = CircuitRegister & CustomStringConvertible
 
 // MARK: - Main body
 
-struct GenericCircuit <R, F> where R: ExtendedCircuitRegister, F: ExtendedCircuitGateFactory {
+struct GenericCircuit <R, F> where R: ExtendedCircuitRegister, F: CircuitRegisterGateFactory {
 
-    // MARK: - Private properties
+    // MARK: - Public properties
 
-    private let register: R
-    private let factory: F
+    let register: R
+    let factory: F
 
     // MARK: - Init methods
 
@@ -47,14 +46,6 @@ struct GenericCircuit <R, F> where R: ExtendedCircuitRegister, F: ExtendedCircui
 extension GenericCircuit: CustomStringConvertible {
     var description: String {
         return register.description
-    }
-}
-
-// MARK: - Equatable methods
-
-extension GenericCircuit: Equatable {
-    static func ==(lhs: GenericCircuit, rhs: GenericCircuit) -> Bool {
-        return ((lhs.register == rhs.register) && (lhs.factory == rhs.factory))
     }
 }
 

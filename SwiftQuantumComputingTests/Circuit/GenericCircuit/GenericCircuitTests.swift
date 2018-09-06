@@ -67,14 +67,13 @@ class GenericCircuitTests: XCTestCase {
         let nextCircuit = circuit.applyingGate(gate, inputs: inputs)
 
         // Then
-        let expectedCircuit = GenericCircuit(register: nextRegister, factory: factory)
-
         XCTAssertEqual(factory.makeGateCount, 1)
         XCTAssertEqual(factory.lastMakeGateMatrix, matrix)
         XCTAssertEqual(factory.lastMakeGateInputs, inputs)
         XCTAssertEqual(register.applyingCount, 1)
         XCTAssertEqual(register.lastApplyingGate, registerGate)
-        XCTAssertEqual(nextCircuit, expectedCircuit)
+        XCTAssertEqual(nextCircuit?.register, nextRegister)
+        XCTAssertEqual(nextCircuit?.factory, factory)
     }
 
     func testAnyGenericCircuit_measure_forwardCallToRegisterAndReturnExpectedData() {
