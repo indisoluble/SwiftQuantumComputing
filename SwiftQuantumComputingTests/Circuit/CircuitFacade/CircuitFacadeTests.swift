@@ -1,5 +1,5 @@
 //
-//  GenericCircuitTests.swift
+//  CircuitFacadeTests.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 23/08/2018.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class GenericCircuitTests: XCTestCase {
+class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -37,14 +37,14 @@ class GenericCircuitTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyGenericCircuit_qubitCount_forwardCallToRegister() {
+    func testAnyCircuit_qubitCount_forwardCallToRegister() {
         // Given
         let expectedQubitCount = 10
         register.qubitCountResult = expectedQubitCount
         
-        let circuit = GenericCircuit(register: register,
-                                     factory: factory,
-                                     circuitDescription: circuitDescription)
+        let circuit = CircuitFacade(register: register,
+                                    factory: factory,
+                                    circuitDescription: circuitDescription)
 
         // When
         let qubitCount = circuit.qubitCount
@@ -54,13 +54,13 @@ class GenericCircuitTests: XCTestCase {
         XCTAssertEqual(qubitCount, expectedQubitCount)
     }
 
-    func testGenericCircuitWithFactoryThatReturnNil_applyingGate_returnNil() {
+    func testCircuitWithFactoryThatReturnNil_applyingGate_returnNil() {
         // Given
         factory.makeGateResult = nil
 
-        let circuit = GenericCircuit(register: register,
-                                     factory: factory,
-                                     circuitDescription: circuitDescription)
+        let circuit = CircuitFacade(register: register,
+                                    factory: factory,
+                                    circuitDescription: circuitDescription)
 
         let gate = CircuitGate(matrix: matrix, describer: describer)
         let inputs = [0, 1]
@@ -77,16 +77,16 @@ class GenericCircuitTests: XCTestCase {
         XCTAssertNil(nextCircuit)
     }
 
-    func testGenericCircuitWithRegisterThatReturnNil_applyingGate_returnNil() {
+    func testCircuitWithRegisterThatReturnNil_applyingGate_returnNil() {
         // Given
         let registerGate = RegisterGate(matrix: matrix)!
         factory.makeGateResult = registerGate
 
         register.applyingResult = nil
 
-        let circuit = GenericCircuit(register: register,
-                                     factory: factory,
-                                     circuitDescription: circuitDescription)
+        let circuit = CircuitFacade(register: register,
+                                    factory: factory,
+                                    circuitDescription: circuitDescription)
 
         let gate = CircuitGate(matrix: matrix, describer: describer)
         let inputs = [0, 1]
@@ -103,7 +103,7 @@ class GenericCircuitTests: XCTestCase {
         XCTAssertNil(nextCircuit)
     }
 
-    func testAnyGenericCircuit_applyingGate_executeExpectedMethodsOnDependenciesAndReturnExpectedData() {
+    func testAnyCircuit_applyingGate_executeExpectedMethodsOnDependenciesAndReturnExpectedData() {
         // Given
         let registerGate = RegisterGate(matrix: matrix)!
         factory.makeGateResult = registerGate
@@ -114,9 +114,9 @@ class GenericCircuitTests: XCTestCase {
         let nextDescription = CircuitDescriptionTestDouble()
         circuitDescription.applyingDescriberResult = nextDescription
 
-        let circuit = GenericCircuit(register: register,
-                                     factory: factory,
-                                     circuitDescription: circuitDescription)
+        let circuit = CircuitFacade(register: register,
+                                    factory: factory,
+                                    circuitDescription: circuitDescription)
 
         let gate = CircuitGate(matrix: matrix, describer: describer)
         let inputs = [0, 1]
@@ -134,19 +134,22 @@ class GenericCircuitTests: XCTestCase {
         let lastApplyingDescriberDescriber = circuitDescription.lastApplyingDescriberDescriber as? CircuitGateDescribableTestDouble
         XCTAssertTrue(lastApplyingDescriberDescriber === describer)
         XCTAssertEqual(circuitDescription.lastApplyingDescriberInputs, inputs)
-        XCTAssertTrue(nextCircuit?.register === nextRegister)
-        XCTAssertTrue(nextCircuit?.factory === factory)
-        XCTAssertTrue(nextCircuit?.circuitDescription === nextDescription)
+        let resultRegister = nextCircuit?.register as? CircuitRegisterTestDouble
+        XCTAssertTrue(resultRegister === nextRegister)
+        let resultFactory = nextCircuit?.factory as? CircuitRegisterGateFactoryTestDouble
+        XCTAssertTrue(resultFactory === factory)
+        let resultCircuitDescription = nextCircuit?.circuitDescription as? CircuitDescriptionTestDouble
+        XCTAssertTrue(resultCircuitDescription === nextDescription)
     }
 
-    func testAnyGenericCircuit_measure_forwardCallToRegisterAndReturnExpectedData() {
+    func testAnyCircuit_measure_forwardCallToRegisterAndReturnExpectedData() {
         // Given
         let expectedMeasures = [Double(10), Double(20)]
         register.measureResult = expectedMeasures
 
-        let circuit = GenericCircuit(register: register,
-                                     factory: factory,
-                                     circuitDescription: circuitDescription)
+        let circuit = CircuitFacade(register: register,
+                                    factory: factory,
+                                    circuitDescription: circuitDescription)
 
         let qubits = [0, 1]
 

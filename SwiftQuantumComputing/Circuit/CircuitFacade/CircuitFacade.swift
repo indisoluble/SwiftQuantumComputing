@@ -1,5 +1,5 @@
 //
-//  GenericCircuit.swift
+//  CircuitFacade.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 19/08/2018.
@@ -22,19 +22,23 @@ import Foundation
 
 // MARK: - Main body
 
-struct GenericCircuit <R, F, D> where R: CircuitRegister,
-                                      F: CircuitRegisterGateFactory,
-                                      D: CircuitDescription {
+struct CircuitFacade {
+
+    // MARK: - Types
+
+    typealias ExtendedCircuitRegister = (CircuitRegister & CustomStringConvertible)
 
     // MARK: - Public properties
 
-    let register: R
-    let factory: F
-    let circuitDescription: D
+    let register: ExtendedCircuitRegister
+    let factory: CircuitRegisterGateFactory
+    let circuitDescription: CircuitDescription
 
     // MARK: - Init methods
 
-    init(register: R, factory: F, circuitDescription: D) {
+    init(register: ExtendedCircuitRegister,
+         factory: CircuitRegisterGateFactory,
+         circuitDescription: CircuitDescription) {
         self.register = register
         self.factory = factory
         self.circuitDescription = circuitDescription
@@ -43,7 +47,7 @@ struct GenericCircuit <R, F, D> where R: CircuitRegister,
 
 // MARK: - CustomStringConvertible methods
 
-extension GenericCircuit: CustomStringConvertible where R: CustomStringConvertible {
+extension CircuitFacade: CustomStringConvertible {
     var description: String {
         return register.description
     }
@@ -51,12 +55,12 @@ extension GenericCircuit: CustomStringConvertible where R: CustomStringConvertib
 
 // MARK: - Circuit methods
 
-extension GenericCircuit: Circuit {
+extension CircuitFacade: Circuit {
     var qubitCount: Int {
         return register.qubitCount
     }
 
-    func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> GenericCircuit? {
+    func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> CircuitFacade? {
         guard let registerGate = factory.makeGate(matrix: gate.matrix, inputs: inputs) else {
             return nil
         }
@@ -67,9 +71,9 @@ extension GenericCircuit: Circuit {
 
         let nextDescription = circuitDescription.applyingDescriber(gate.describer, inputs: inputs)
 
-        return GenericCircuit(register: nextRegister,
-                              factory: factory,
-                              circuitDescription: nextDescription)
+        return CircuitFacade(register: nextRegister,
+                             factory: factory,
+                             circuitDescription: nextDescription)
     }
 
     func measure(qubits: Int...) -> [Double]? {

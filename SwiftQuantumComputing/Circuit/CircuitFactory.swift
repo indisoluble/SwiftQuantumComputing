@@ -34,7 +34,7 @@ public struct CircuitFactory {
         let factory = CircuitRegisterGateFactoryAdapter(qubitCount: qubitCount)
         let description = CircuitStringDescription()
 
-        return GenericCircuit(register: register, factory: factory, circuitDescription: description)
+        return CircuitFacade(register: register, factory: factory, circuitDescription: description)
     }
 
     public static func makeRandomlyGeneratedCircuit(qubitCount: Int,
