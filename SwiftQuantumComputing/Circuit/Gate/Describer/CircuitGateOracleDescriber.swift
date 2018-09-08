@@ -1,5 +1,5 @@
 //
-//  CircuitOracleGateDescriber.swift
+//  CircuitGateOracleDescriber.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 05/09/2018.
@@ -22,17 +22,13 @@ import Foundation
 
 // MARK: - Main body
 
-struct CircuitOracleGateDescriber {}
+struct CircuitGateOracleDescriber {}
 
 // MARK: - CircuitGateDescribable methods
 
-extension CircuitOracleGateDescriber: CircuitGateDescribable {
-    var gateDescription: String {
-        return "U"
-    }
-
-    func parameters(in inputs: [Int]) -> (targets: [Int], controls: [Int]) {
-        return (targets: inputs, controls: [])
+extension CircuitGateOracleDescriber: CircuitGateDescribable {
+    func gateDescription(with inputs: [Int]) -> CircuitGateDescription {
+        return .oracle(inputs: inputs)
     }
 }
 

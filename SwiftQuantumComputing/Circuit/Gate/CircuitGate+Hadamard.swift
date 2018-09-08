@@ -27,6 +27,9 @@ extension CircuitGate {
     // MARK: - Public class methods
 
     public static func makeHadamard() -> CircuitGate {
-        return CircuitGate(matrix: Matrix.makeHadamard(), describer: CircuitHadamardGateDescriber())
+        let matrix = Matrix.makeHadamard()
+        let describer = CircuitGateHadamardDescriber()
+
+        return CircuitGate(matrix: matrix, describer: describer)
     }
 }

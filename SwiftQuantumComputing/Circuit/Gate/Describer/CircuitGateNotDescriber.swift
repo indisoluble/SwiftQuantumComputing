@@ -1,5 +1,5 @@
 //
-//  CircuitPhaseShiftGateDescriber.swift
+//  CircuitGateNotDescriber.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 05/09/2018.
@@ -22,27 +22,12 @@ import Foundation
 
 // MARK: - Main body
 
-struct CircuitPhaseShiftGateDescriber {
-
-    // MARK: - Private properties
-
-    private let radians: Double
-
-    // MARK: - Init methods
-
-    init(radians: Double) {
-        self.radians = radians
-    }
-}
+struct CircuitGateNotDescriber {}
 
 // MARK: - CircuitGateDescribable methods
 
-extension CircuitPhaseShiftGateDescriber: CircuitGateDescribable {
-    var gateDescription: String {
-        return String(format: "R(%.2f)", radians)
-    }
-
-    func parameters(in inputs: [Int]) -> (targets: [Int], controls: [Int]) {
-        return (targets: inputs, controls: [])
+extension CircuitGateNotDescriber: CircuitGateDescribable {
+    func gateDescription(with inputs: [Int]) -> CircuitGateDescription {
+        return .not(target: inputs[0])
     }
 }

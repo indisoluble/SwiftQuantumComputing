@@ -1,5 +1,5 @@
 //
-//  CircuitHadamardGateDescriber.swift
+//  CircuitGateControlledNotDescriber.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 05/09/2018.
@@ -22,16 +22,19 @@ import Foundation
 
 // MARK: - Main body
 
-struct CircuitHadamardGateDescriber {}
+struct CircuitGateControlledNotDescriber {
+
+    // MARK: - Public class methods
+
+    static func inputsWith(target: Int, control: Int) -> [Int] {
+        return [control, target]
+    }
+}
 
 // MARK: - CircuitGateDescribable methods
 
-extension CircuitHadamardGateDescriber: CircuitGateDescribable {
-    var gateDescription: String {
-        return "H"
-    }
-
-    func parameters(in inputs: [Int]) -> (targets: [Int], controls: [Int]) {
-        return (targets: inputs, controls: [])
+extension CircuitGateControlledNotDescriber: CircuitGateDescribable {
+    func gateDescription(with inputs: [Int]) -> CircuitGateDescription {
+        return .controlledNot(target: inputs[1], control: inputs[0])
     }
 }

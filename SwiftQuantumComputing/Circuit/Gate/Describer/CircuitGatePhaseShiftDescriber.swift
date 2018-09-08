@@ -1,6 +1,6 @@
 //
-//  CircuitGateDescribableTestDouble.swift
-//  SwiftQuantumComputingTests
+//  CircuitGatePhaseShiftDescriber.swift
+//  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 05/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
@@ -20,24 +20,25 @@
 
 import Foundation
 
-@testable import SwiftQuantumComputing
-
 // MARK: - Main body
 
-final class CircuitGateDescribableTestDouble {
+struct CircuitGatePhaseShiftDescriber {
 
-    // MARK: - Public properties
+    // MARK: - Private properties
 
-    private (set) var gateDescriptionCount = 0
-    var gateDescriptionResult = CircuitGateDescription.not(target: 0)
+    private let radians: Double
+
+    // MARK: - Init methods
+
+    init(radians: Double) {
+        self.radians = radians
+    }
 }
 
 // MARK: - CircuitGateDescribable methods
 
-extension CircuitGateDescribableTestDouble: CircuitGateDescribable {
+extension CircuitGatePhaseShiftDescriber: CircuitGateDescribable {
     func gateDescription(with inputs: [Int]) -> CircuitGateDescription {
-        gateDescriptionCount += 1
-
-        return gateDescriptionResult
+        return .phaseShift(radians: radians, target: inputs[0])
     }
 }

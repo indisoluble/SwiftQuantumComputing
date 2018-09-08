@@ -27,18 +27,19 @@ struct CircuitFacade {
     // MARK: - Types
 
     typealias ExtendedCircuitRegister = (CircuitRegister & CustomStringConvertible)
+    typealias ExtendedCircuitDescription = (CircuitDescription & CustomPlaygroundDisplayConvertible)
 
     // MARK: - Public properties
 
     let register: ExtendedCircuitRegister
     let factory: CircuitRegisterGateFactory
-    let circuitDescription: CircuitDescription
+    let circuitDescription: ExtendedCircuitDescription
 
     // MARK: - Init methods
 
     init(register: ExtendedCircuitRegister,
          factory: CircuitRegisterGateFactory,
-         circuitDescription: CircuitDescription) {
+         circuitDescription: ExtendedCircuitDescription) {
         self.register = register
         self.factory = factory
         self.circuitDescription = circuitDescription
@@ -50,6 +51,14 @@ struct CircuitFacade {
 extension CircuitFacade: CustomStringConvertible {
     var description: String {
         return register.description
+    }
+}
+
+// MARK: - CustomPlaygroundDisplayConvertible methods
+
+extension CircuitFacade: CustomPlaygroundDisplayConvertible {
+    var playgroundDescription: Any {
+        return circuitDescription.playgroundDescription
     }
 }
 

@@ -20,6 +20,8 @@
 
 import Foundation
 
+// MARK: - Protocol definition
+
 protocol CircuitDescription {
     func applyingDescriber(_ describer: CircuitGateDescribable, inputs: [Int]) -> Self
 }

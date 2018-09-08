@@ -27,6 +27,9 @@ extension CircuitGate {
     // MARK: - Public class methods
 
     public static func makeControlledNot() -> CircuitGate {
-        return CircuitGate(matrix: Matrix.makeControlledNot(), describer: CircuitNotGateDescriber())
+        let matrix = Matrix.makeControlledNot()
+        let describer = CircuitGateControlledNotDescriber()
+
+        return CircuitGate(matrix: matrix, describer: describer)
     }
 }

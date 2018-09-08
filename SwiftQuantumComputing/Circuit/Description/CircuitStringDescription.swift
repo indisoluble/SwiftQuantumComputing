@@ -22,13 +22,39 @@ import Foundation
 
 // MARK: - Main body
 
-struct CircuitStringDescription {}
+struct CircuitStringDescription {
+
+    // MARK: - Public properties
+
+    let description: String
+
+    // MARK: - Init methods
+
+    init() {
+        self.init(description: "")
+    }
+
+    init(description: String) {
+        self.description = description
+    }
+}
+
+// MARK: - CustomPlaygroundDisplayConvertible methods
+
+extension CircuitStringDescription: CustomPlaygroundDisplayConvertible {
+    var playgroundDescription: Any {
+        return description
+    }
+}
 
 // MARK: - CircuitDescription methods
 
 extension CircuitStringDescription: CircuitDescription {
     func applyingDescriber(_ describer: CircuitGateDescribable,
                            inputs: [Int]) -> CircuitStringDescription {
-        return CircuitStringDescription()
+        let gateDescription = describer.gateDescription(with: inputs).toString()
+        let next = (description.isEmpty ? gateDescription : description + "\n" + gateDescription)
+
+        return CircuitStringDescription(description: next)
     }
 }

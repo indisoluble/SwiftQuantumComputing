@@ -20,8 +20,8 @@
 
 import Foundation
 
-protocol CircuitGateDescribable {
-    var gateDescription: String { get }
+// MARK: - Protocol definition
 
-    func parameters(in inputs: [Int]) -> (targets: [Int], controls: [Int])
+protocol CircuitGateDescribable {
+    func gateDescription(with inputs: [Int]) -> CircuitGateDescription
 }

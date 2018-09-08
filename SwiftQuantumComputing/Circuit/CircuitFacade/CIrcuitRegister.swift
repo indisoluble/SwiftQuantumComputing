@@ -20,6 +20,8 @@
 
 import Foundation
 
+// MARK: - Protocol definition
+
 protocol CircuitRegister {
     var qubitCount: Int { get }
     

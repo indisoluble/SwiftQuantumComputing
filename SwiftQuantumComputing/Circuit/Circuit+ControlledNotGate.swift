@@ -27,8 +27,9 @@ extension Circuit {
     // MARK: - Public methods
 
     public func applyingControlledNotGate(to target: Int, controlledBy control: Int) -> Self? {
-        let inputs = CircuitControlledNotGateDescriber.inputsWith(target: target, control: control)
+        let gate = CircuitGate.makeControlledNot()
+        let inputs = CircuitGateControlledNotDescriber.inputsWith(target: target, control: control)
 
-        return applyingGate(CircuitGate.makeControlledNot(), inputs: inputs)
+        return applyingGate(gate, inputs: inputs)
     }
 }

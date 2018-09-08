@@ -1,8 +1,8 @@
 //
-//  CircuitNotGateDescriber.swift
+//  CircuitGateDescription.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 05/09/2018.
+//  Created by Enrique de la Torre on 08/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,18 +20,12 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Types
 
-struct CircuitNotGateDescriber {}
-
-// MARK: - CircuitGateDescribable methods
-
-extension CircuitNotGateDescriber: CircuitGateDescribable {
-    var gateDescription: String {
-        return "NOT"
-    }
-
-    func parameters(in inputs: [Int]) -> (targets: [Int], controls: [Int]) {
-        return (targets: inputs, controls: [])
-    }
+enum CircuitGateDescription {
+    case controlledNot(target: Int, control: Int)
+    case hadamard(target: Int)
+    case not(target: Int)
+    case oracle(inputs: [Int])
+    case phaseShift(radians: Double, target: Int)
 }

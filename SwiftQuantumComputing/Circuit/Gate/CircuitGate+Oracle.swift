@@ -27,6 +27,8 @@ extension CircuitGate {
     // MARK: - Public class methods
 
     public static func makeOracle(matrix: Matrix) -> CircuitGate {
-        return CircuitGate(matrix: matrix, describer: CircuitOracleGateDescriber())
+        let describer = CircuitGateOracleDescriber()
+        
+        return CircuitGate(matrix: matrix, describer: describer)
     }
 }

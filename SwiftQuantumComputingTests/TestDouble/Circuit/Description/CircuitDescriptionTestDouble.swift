@@ -34,6 +34,14 @@ final class CircuitDescriptionTestDouble {
     var applyingDescriberResult: CircuitDescriptionTestDouble?
 }
 
+// MARK: - CustomPlaygroundDisplayConvertible methods
+
+extension CircuitDescriptionTestDouble: CustomPlaygroundDisplayConvertible {
+    var playgroundDescription: Any {
+        return ""
+    }
+}
+
 // MARK: - CircuitDescription methods
 
 extension CircuitDescriptionTestDouble: CircuitDescription {

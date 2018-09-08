@@ -20,6 +20,8 @@
 
 import Foundation
 
+// MARK: - Protocol definition
+
 protocol CircuitRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate?
 }
