@@ -26,7 +26,7 @@ extension Matrix {
 
     // MARK: - Public class methods
 
-    public static func makeNot() -> Matrix {
+    static func makeNot() -> Matrix {
         return Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
     }
 }
