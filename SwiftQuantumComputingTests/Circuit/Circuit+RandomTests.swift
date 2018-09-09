@@ -32,11 +32,11 @@ class Circuit_RandomTests: XCTestCase {
         // Given
         let circuit = CircuitTestDouble()
 
-        var randomMatrixCount = 0
-        let randomMatrix: (() -> Matrix?) = {
-            randomMatrixCount += 1
+        var randomGateCount = 0
+        let randomGate: (() -> CircuitGate?) = {
+            randomGateCount += 1
 
-            return Matrix.makeNot()
+            return CircuitGate.makeNot()
         }
 
         var shuffledQubitsCount = 0
@@ -49,12 +49,12 @@ class Circuit_RandomTests: XCTestCase {
         let depth = -1
 
         // When
-        let result = circuit.applyingGates(randomlySelectedWith: randomMatrix,
+        let result = circuit.applyingGates(randomlySelectedWith: randomGate,
                                            on: shuffledQubits,
                                            depth: depth)
 
         // Then
-        XCTAssertEqual(randomMatrixCount, 0)
+        XCTAssertEqual(randomGateCount, 0)
         XCTAssertEqual(shuffledQubitsCount, 0)
         XCTAssertEqual(circuit.applyingGateCount, 0)
         XCTAssertNil(result)
@@ -64,11 +64,11 @@ class Circuit_RandomTests: XCTestCase {
         // Given
         let circuit = CircuitTestDouble()
 
-        var randomMatrixCount = 0
-        let randomMatrix: (() -> Matrix?) = {
-            randomMatrixCount += 1
+        var randomGateCount = 0
+        let randomGate: (() -> CircuitGate?) = {
+            randomGateCount += 1
 
-            return Matrix.makeNot()
+            return CircuitGate.makeNot()
         }
 
         var shuffledQubitsCount = 0
@@ -81,12 +81,12 @@ class Circuit_RandomTests: XCTestCase {
         let depth = 0
 
         // When
-        let result = circuit.applyingGates(randomlySelectedWith: randomMatrix,
+        let result = circuit.applyingGates(randomlySelectedWith: randomGate,
                                            on: shuffledQubits,
                                            depth: depth)
 
         // Then
-        XCTAssertEqual(randomMatrixCount, 0)
+        XCTAssertEqual(randomGateCount, 0)
         XCTAssertEqual(shuffledQubitsCount, 0)
         XCTAssertEqual(circuit.applyingGateCount, 0)
         XCTAssertTrue(result === circuit)
@@ -96,11 +96,11 @@ class Circuit_RandomTests: XCTestCase {
         // Given
         let circuit = CircuitTestDouble()
 
-        var randomMatrixCount = 0
-        let randomMatrix: (() -> Matrix?) = {
-            randomMatrixCount += 1
+        var randomGateCount = 0
+        let randomGate: (() -> CircuitGate?) = {
+            randomGateCount += 1
 
-            return nil as Matrix?
+            return nil as CircuitGate?
         }
 
         var shuffledQubitsCount = 0
@@ -114,12 +114,12 @@ class Circuit_RandomTests: XCTestCase {
 
         // When
 
-        let result = circuit.applyingGates(randomlySelectedWith: randomMatrix,
+        let result = circuit.applyingGates(randomlySelectedWith: randomGate,
                                            on: shuffledQubits,
                                            depth: depth)
 
         // Then
-        XCTAssertEqual(randomMatrixCount, depth)
+        XCTAssertEqual(randomGateCount, depth)
         XCTAssertEqual(shuffledQubitsCount, 0)
         XCTAssertEqual(circuit.applyingGateCount, 0)
         XCTAssertTrue(result === circuit)
@@ -133,7 +133,7 @@ class Circuit_RandomTests: XCTestCase {
         let qubits = [0, 1]
         let depth = 10
 
-        var expectedMatrices: [Matrix] = []
+        var expectedGates: [CircuitGate] = []
         var expectedQubitsArray: [[Int]] = []
 
         var isEven = true
@@ -142,18 +142,18 @@ class Circuit_RandomTests: XCTestCase {
             circuit.applyingGateResult = circuits[0]
             circuits.insert(circuit, at: 0)
 
-            expectedMatrices.append(isEven ? Matrix.makeControlledNot() : Matrix.makeNot())
+            expectedGates.append(isEven ? CircuitGate.makeControlledNot() : CircuitGate.makeNot())
             expectedQubitsArray.append(isEven ? qubits : [qubits.first!])
 
             isEven = !isEven
         }
 
-        var randomMatrixCount = 0
-        let randomMatrix: (() -> Matrix?) = {
-            let matrix = expectedMatrices[randomMatrixCount]
-            randomMatrixCount += 1
+        var randomGateCount = 0
+        let randomGate: (() -> CircuitGate?) = {
+            let gate = expectedGates[randomGateCount]
+            randomGateCount += 1
 
-            return matrix
+            return gate
         }
 
         var shuffledQubitsCount = 0
@@ -164,17 +164,17 @@ class Circuit_RandomTests: XCTestCase {
         }
 
         // When
-        let result = circuits[0].applyingGates(randomlySelectedWith: randomMatrix,
+        let result = circuits[0].applyingGates(randomlySelectedWith: randomGate,
                                                on: shuffledQubits,
                                                depth: depth)
 
         // Then
-        XCTAssertEqual(randomMatrixCount, depth)
+        XCTAssertEqual(randomGateCount, depth)
         XCTAssertEqual(shuffledQubitsCount, depth)
 
         for i in 0..<depth {
             XCTAssertEqual(circuits[i].applyingGateCount, 1)
-            XCTAssertEqual(circuits[i].lastApplyingGateMatrix, expectedMatrices[i])
+            XCTAssertEqual(circuits[i].lastApplyingGateGate?.matrix, expectedGates[i].matrix)
             XCTAssertEqual(circuits[i].lastApplyingGateInputs, expectedQubitsArray[i])
         }
 

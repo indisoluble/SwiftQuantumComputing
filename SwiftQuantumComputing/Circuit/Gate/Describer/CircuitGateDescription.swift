@@ -1,8 +1,8 @@
 //
-//  Matrix+ControlledNot.swift
+//  CircuitGateDescription.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 26/08/2018.
+//  Created by Enrique de la Torre on 08/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,12 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Types
 
-extension Matrix {
-
-    // MARK: - Public class methods
-
-    public static func makeControlledNot() -> Matrix {
-        return Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
-                       [Complex(0), Complex(1), Complex(0), Complex(0)],
-                       [Complex(0), Complex(0), Complex(0), Complex(1)],
-                       [Complex(0), Complex(0), Complex(1), Complex(0)]])!
-    }
+enum CircuitGateDescription {
+    case controlledNot(target: Int, control: Int)
+    case hadamard(target: Int)
+    case not(target: Int)
+    case oracle(inputs: [Int])
+    case phaseShift(radians: Double, target: Int)
 }

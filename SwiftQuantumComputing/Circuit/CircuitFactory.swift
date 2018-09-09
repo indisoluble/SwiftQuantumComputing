@@ -31,16 +31,17 @@ public struct CircuitFactory {
             return nil
         }
 
-        let factory = CircuitGateFactoryAdapter(qubitCount: qubitCount)
+        let factory = CircuitRegisterGateFactoryAdapter(qubitCount: qubitCount)
+        let description = CircuitStringDescription()
 
-        return GenericCircuit(register: register, factory: factory)
+        return CircuitFacade(register: register, factory: factory, circuitDescription: description)
     }
 
     public static func makeRandomlyGeneratedCircuit(qubitCount: Int,
                                                     depth: Int,
-                                                    gateMatrices: [Matrix]) -> Circuit? {
+                                                    gates: [CircuitGate]) -> Circuit? {
         let emptyCircuit = makeEmptyCircuit(qubitCount: qubitCount)
 
-        return emptyCircuit?.randomlyApplyingGates(builtWith: gateMatrices, depth: depth)
+        return emptyCircuit?.randomlyApplyingGates(gates, depth: depth)
     }
 }

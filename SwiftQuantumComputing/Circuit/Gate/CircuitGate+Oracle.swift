@@ -1,8 +1,8 @@
 //
-//  Matrix+Not.swift
+//  CircuitGate+Oracle.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 26/08/2018.
+//  Created by Enrique de la Torre on 05/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,13 @@ import Foundation
 
 // MARK: - Main body
 
-extension Matrix {
+extension CircuitGate {
 
     // MARK: - Public class methods
 
-    public static func makeNot() -> Matrix {
-        return Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
+    public static func makeOracle(matrix: Matrix) -> CircuitGate {
+        let describer = CircuitGateOracleDescriber()
+        
+        return CircuitGate(matrix: matrix, describer: describer)
     }
 }

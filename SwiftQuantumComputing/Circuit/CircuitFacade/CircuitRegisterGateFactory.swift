@@ -1,5 +1,5 @@
 //
-//  Circuit.swift
+//  CircuitRegisterGateFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 22/08/2018.
@@ -22,9 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-public protocol Circuit {
-    var qubitCount: Int { get }
-
-    func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> Self?
-    func measure(qubits: Int...) -> [Double]?
+protocol CircuitRegisterGateFactory {
+    func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate?
 }

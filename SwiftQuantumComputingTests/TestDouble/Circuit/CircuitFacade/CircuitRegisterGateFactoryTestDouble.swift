@@ -1,5 +1,5 @@
 //
-//  CircuitGateFactoryTestDouble.swift
+//  CircuitRegisterGateFactoryTestDouble.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 23/08/2018.
@@ -24,7 +24,7 @@ import Foundation
 
 // MARK: - Main body
 
-final class CircuitGateFactoryTestDouble {
+final class CircuitRegisterGateFactoryTestDouble {
 
     // MARK: - Public properties
 
@@ -34,17 +34,9 @@ final class CircuitGateFactoryTestDouble {
     var makeGateResult: RegisterGate?
 }
 
-// MARK: - Equatable methods
-
-extension CircuitGateFactoryTestDouble: Equatable {
-    static func ==(lhs: CircuitGateFactoryTestDouble, rhs: CircuitGateFactoryTestDouble) -> Bool {
-        return (lhs === rhs)
-    }
-}
-
 // MARK: - CircuitGateFactory methods
 
-extension CircuitGateFactoryTestDouble: CircuitGateFactory {
+extension CircuitRegisterGateFactoryTestDouble: CircuitRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
         makeGateCount += 1
 

@@ -26,42 +26,42 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    public func randomlyApplyingGates(builtWith matrices: [Matrix], depth: Int) -> Self? {
+    public func randomlyApplyingGates(_ gates: [CircuitGate], depth: Int) -> Self? {
         let qubits = Array(0..<self.qubitCount)
 
-        return applyingGates(randomlySelectedWith: { matrices.randomElement() },
+        return applyingGates(randomlySelectedWith: { gates.randomElement() },
                              on: { qubits.shuffled() },
                              depth: depth)
     }
 
-    func applyingGates(randomlySelectedWith randomMatrix:(() -> Matrix?),
+    func applyingGates(randomlySelectedWith randomGate:(() -> CircuitGate?),
                        on shuffledQubits:(() -> [Int]),
                        depth: Int) -> Self? {
         guard (depth >= 0) else {
             return nil
         }
 
-        let gates = (0..<depth).map { (_) -> (matrix: Matrix, inputs: [Int])? in
-            guard let matrix = randomMatrix() else {
+        let tuples = (0..<depth).map { (_) -> (CircuitGate, [Int])? in
+            guard let gate = randomGate() else {
                 return nil
             }
 
-            let matrixQubitCount = Int.log2(matrix.rowCount)
+            let matrixQubitCount = Int.log2(gate.matrix.rowCount)
 
             var inputs = shuffledQubits()
             if (matrixQubitCount < inputs.count) {
                 inputs = Array(inputs[..<matrixQubitCount])
             }
 
-            return (matrix, inputs)
+            return (gate, inputs)
         }
 
-        return gates.reduce(self) { (circuit, gate) -> Self? in
-            guard let (matrix, inputs) = gate else {
+        return tuples.reduce(self) { (circuit, tuple) -> Self? in
+            guard let (gate, inputs) = tuple else {
                 return circuit
             }
 
-            return circuit?.applyingGate(builtWith: matrix, inputs: inputs)
+            return circuit?.applyingGate(gate, inputs: inputs)
         }
     }
 }
