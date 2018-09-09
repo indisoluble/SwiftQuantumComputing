@@ -1,8 +1,8 @@
 //
-//  Matrix+PhaseShift.swift
-//  SwiftQuantumComputing
+//  CircuitGateDescribableTestDouble.swift
+//  SwiftQuantumComputingTests
 //
-//  Created by Enrique de la Torre on 26/08/2018.
+//  Created by Enrique de la Torre on 05/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,14 +20,24 @@
 
 import Foundation
 
+@testable import SwiftQuantumComputing
+
 // MARK: - Main body
 
-extension Matrix {
+final class CircuitGateDescribableTestDouble {
 
-    // MARK: - Public class methods
+    // MARK: - Public properties
 
-    public static func makePhaseShift(radians: Double) -> Matrix {
-        return Matrix([[Complex(1), Complex(0)],
-                       [Complex(0), Complex(real: cos(radians), imag: sin(radians))]])!
+    private (set) var gateDescriptionCount = 0
+    var gateDescriptionResult = CircuitGateDescription.not(target: 0)
+}
+
+// MARK: - CircuitGateDescribable methods
+
+extension CircuitGateDescribableTestDouble: CircuitGateDescribable {
+    func gateDescription(with inputs: [Int]) -> CircuitGateDescription {
+        gateDescriptionCount += 1
+
+        return gateDescriptionResult
     }
 }

@@ -1,8 +1,8 @@
 //
-//  CircuitRegister.swift
+//  CircuitGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 04/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +20,12 @@
 
 import Foundation
 
-protocol CircuitRegister {
-    var qubitCount: Int { get }
-    
-    func applying(_ gate: RegisterGate) -> Self?
-    func measure(qubits: [Int]) -> [Double]?
+// MARK: - Main body
+
+public struct CircuitGate {
+
+    // MARK: - Public properties
+
+    let matrix: Matrix
+    let describer: CircuitGateDescribable
 }

@@ -48,14 +48,6 @@ extension CircuitRegisterTestDouble: CustomStringConvertible {
     }
 }
 
-// MARK: - Equatable methods
-
-extension CircuitRegisterTestDouble: Equatable {
-    static func ==(lhs: CircuitRegisterTestDouble, rhs: CircuitRegisterTestDouble) -> Bool {
-        return (lhs === rhs)
-    }
-}
-
 // MARK: - CircuitRegister methods
 
 extension CircuitRegisterTestDouble: CircuitRegister {

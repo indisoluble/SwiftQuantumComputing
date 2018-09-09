@@ -1,8 +1,8 @@
 //
-//  Matrix+Hadamard.swift
+//  CircuitGateOracleDescriber.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 26/08/2018.
+//  Created by Enrique de la Torre on 05/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,12 +22,13 @@ import Foundation
 
 // MARK: - Main body
 
-extension Matrix {
+struct CircuitGateOracleDescriber {}
 
-    // MARK: - Public class methods
+// MARK: - CircuitGateDescribable methods
 
-    public static func makeHadamard() -> Matrix {
-        return (Complex(1 / sqrt(2)) * Matrix([[Complex(1), Complex(1)],
-                                               [Complex(1), Complex(-1)]])!)
+extension CircuitGateOracleDescriber: CircuitGateDescribable {
+    func gateDescription(with inputs: [Int]) -> CircuitGateDescription {
+        return .oracle(inputs: inputs)
     }
 }
+

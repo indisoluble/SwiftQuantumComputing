@@ -1,8 +1,8 @@
 //
-//  Circuit.swift
+//  CircuitGateControlledNotDescriber.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 05/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,21 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-public protocol Circuit {
-    var qubitCount: Int { get }
+struct CircuitGateControlledNotDescriber {
 
-    func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> Self?
-    func measure(qubits: Int...) -> [Double]?
+    // MARK: - Public class methods
+
+    static func inputsWith(target: Int, control: Int) -> [Int] {
+        return [control, target]
+    }
+}
+
+// MARK: - CircuitGateDescribable methods
+
+extension CircuitGateControlledNotDescriber: CircuitGateDescribable {
+    func gateDescription(with inputs: [Int]) -> CircuitGateDescription {
+        return .controlledNot(target: inputs[1], control: inputs[0])
+    }
 }

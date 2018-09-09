@@ -27,6 +27,6 @@ extension Circuit {
     // MARK: - Public methods
 
     public func applyingHadamardGate(to target: Int) -> Self? {
-        return applyingGate(builtWith: Matrix.makeHadamard(), inputs: [target])
+        return applyingGate(CircuitGate.makeHadamard(), inputs: [target])
     }
 }

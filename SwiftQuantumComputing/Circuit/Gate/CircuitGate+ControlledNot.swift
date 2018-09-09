@@ -1,8 +1,8 @@
 //
-//  Circuit.swift
+//  CircuitGate+ControlledNot.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 04/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,16 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-public protocol Circuit {
-    var qubitCount: Int { get }
+extension CircuitGate {
 
-    func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> Self?
-    func measure(qubits: Int...) -> [Double]?
+    // MARK: - Public class methods
+
+    public static func makeControlledNot() -> CircuitGate {
+        let matrix = Matrix.makeControlledNot()
+        let describer = CircuitGateControlledNotDescriber()
+
+        return CircuitGate(matrix: matrix, describer: describer)
+    }
 }
