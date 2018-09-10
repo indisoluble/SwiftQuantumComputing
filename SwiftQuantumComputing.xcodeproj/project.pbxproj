@@ -180,9 +180,8 @@
 		FF01B947214406B200C087D3 /* Description */ = {
 			isa = PBXGroup;
 			children = (
+				FF9D088D21470FA10071F5C7 /* String */,
 				FFB69B7C21406EAB009A1176 /* CircuitDescription.swift */,
-				FFB69B88214078DF009A1176 /* CircuitStringDescription.swift */,
-				FFF85A092144648900E04838 /* CircuitGateDescription+CircuitStringDescription.swift */,
 			);
 			path = Description;
 			sourceTree = "<group>";
@@ -350,6 +349,15 @@
 				FFE1D711211A1B2700A50D9C /* VectorTests.swift */,
 			);
 			path = ComplexVectorSpace;
+			sourceTree = "<group>";
+		};
+		FF9D088D21470FA10071F5C7 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				FFB69B88214078DF009A1176 /* CircuitStringDescription.swift */,
+				FFF85A092144648900E04838 /* CircuitGateDescription+CircuitStringDescription.swift */,
+			);
+			path = String;
 			sourceTree = "<group>";
 		};
 		FFB0D226212E0A240093BB3B /* CircuitFacade */ = {
