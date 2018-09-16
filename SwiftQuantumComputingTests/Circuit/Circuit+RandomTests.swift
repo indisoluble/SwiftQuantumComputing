@@ -36,7 +36,7 @@ class Circuit_RandomTests: XCTestCase {
         let randomGate: (() -> CircuitGate?) = {
             randomGateCount += 1
 
-            return CircuitGate.makeNot()
+            return CircuitGate.makePhaseShift(radians: 0)
         }
 
         var shuffledQubitsCount = 0
@@ -68,7 +68,7 @@ class Circuit_RandomTests: XCTestCase {
         let randomGate: (() -> CircuitGate?) = {
             randomGateCount += 1
 
-            return CircuitGate.makeNot()
+            return CircuitGate.makeHadamard()
         }
 
         var shuffledQubitsCount = 0
