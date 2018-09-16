@@ -18,3 +18,5 @@ For a more detailed example, check `DeutschAlgorithm.playground`.
 Or you can automatically create a circuit adding at random the gates in a list:
 
 ![Randomly generated circuit](./Images/RandomCircuit.jpg)
+
+Check `RandomCircuit.playground` for an extended example.
