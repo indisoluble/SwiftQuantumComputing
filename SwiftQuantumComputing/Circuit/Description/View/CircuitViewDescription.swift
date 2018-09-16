@@ -26,7 +26,15 @@ struct CircuitViewDescription {
 
     // MARK: - Private properties
 
-    private let layers: [[Position]]
+    private let layers: [[CircuitViewPosition]]
+
+    private var layerCount: Int {
+        return layers.count
+    }
+
+    private var qubitCount: Int {
+        return layers.first!.count
+    }
 
     // MARK: - Init methods
 
@@ -35,13 +43,33 @@ struct CircuitViewDescription {
             return nil
         }
 
-        let layer = (0..<qubitCount).map { Position.qubit(index: $0) }
+        let layer = (0..<qubitCount).map { CircuitViewPosition.qubit(index: $0) }
 
         self.init(layers: [layer])
     }
 
-    private init(layers: [[Position]]) {
+    private init(layers: [[CircuitViewPosition]]) {
         self.layers = layers
+    }
+}
+
+// MARK: - CustomPlaygroundDisplayConvertible methods
+
+extension CircuitViewDescription: CustomPlaygroundDisplayConvertible {
+    var playgroundDescription: Any {
+        let container = makeContainerView()
+        let layerStack = makeLayerStack(container: container)
+
+        for layer in layers {
+            let positions = layer.map { $0.makePositionView(size: Constants.positionSize) }
+            let positionStack = makePositionStack(positions: positions)
+
+            layerStack.addArrangedSubview(positionStack)
+        }
+
+        container.addSubview(layerStack)
+
+        return container
     }
 }
 
@@ -50,19 +78,8 @@ struct CircuitViewDescription {
 extension CircuitViewDescription: CircuitDescription {
     func applyingDescriber(_ describer: CircuitGateDescribable,
                            inputs: [Int]) -> CircuitViewDescription {
-        var layer: [Position] = []
-        switch describer.gateDescription(with: inputs) {
-        case .hadamard(let target):
-            layer = makeHadamardLayer(target: target)
-        case .not(let target):
-            layer = makeNotLayer(target: target)
-        case .phaseShift(let radians, let target):
-            layer = makePhaseShiftLayer(radians: radians, target: target)
-        case .controlledNot(let target, let control):
-            layer = makeControlledNotLayer(target: target, control: control)
-        case .oracle(let inputs):
-            layer = makeOracleLayer(inputs: inputs)
-        }
+        let gateDescription = describer.gateDescription(with: inputs)
+        let layer = gateDescription.makeLayer(qubitCount: qubitCount)
 
         return CircuitViewDescription(layers: layers + [layer])
     }
@@ -72,88 +89,35 @@ extension CircuitViewDescription: CircuitDescription {
 
 private extension CircuitViewDescription {
 
-    // MARK: - Types
+    // MARK: - Constants
 
-    enum Position {
-        case qubit(index: Int)
-        case lineHorizontal
-        case crossedLines
-        case hadamard
-        case not
-        case phaseShift(radians: Double)
-        case controlledNotDown
-        case controlledNotUp
-        case controlUp
-        case controlDown
-        case oracle
-        case oracleTop(inputs: [Int])
-        case oracleBottom
-        case oracleMiddleConnected
-        case oracleMiddleUnconnected
+    enum Constants {
+        static let positionSize = CGSize(width: 80, height: 80)
     }
 
     // MARK: - Private methods
 
-    func makeHadamardLayer(target: Int) -> [Position] {
-        var layer = makeEmptyLayer()
-        layer[target] = .hadamard
+    func makeContainerView() -> UIView {
+        let width = (CGFloat(layerCount) * Constants.positionSize.width)
+        let height = (CGFloat(qubitCount) * Constants.positionSize.height)
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
 
-        return layer
+        return UIView(frame: frame)
     }
 
-    func makeNotLayer(target: Int) -> [Position] {
-        var layer = makeEmptyLayer()
-        layer[target] = .not
+    func makeLayerStack(container: UIView) -> UIStackView {
+        let stack = UIStackView(frame: container.bounds)
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
 
-        return layer
+        return stack
     }
 
-    func makePhaseShiftLayer(radians: Double, target: Int) -> [Position] {
-        var layer = makeEmptyLayer()
-        layer[target] = .phaseShift(radians: radians)
+    func makePositionStack(positions: [UIView]) -> UIStackView {
+        let stack = UIStackView(arrangedSubviews: positions)
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
 
-        return layer
-    }
-
-    func makeControlledNotLayer(target: Int, control: Int) -> [Position] {
-        var layer = makeEmptyLayer()
-
-        let isTargetOnTop = (target < control)
-        layer[target] = (isTargetOnTop ? .controlledNotDown : .controlledNotUp)
-        layer[control] = (isTargetOnTop ? .controlUp : .controlDown)
-
-        let step = (isTargetOnTop ? 1 : -1)
-        for index in stride(from: (target + step), to: control, by: step) {
-            layer[index] = .crossedLines
-        }
-
-        return layer
-    }
-
-    func makeOracleLayer(inputs: [Int]) -> [Position] {
-        var layer = makeEmptyLayer()
-        guard inputs.count > 1 else {
-            layer[inputs[0]] = .oracle
-
-            return layer
-        }
-
-        let sortedInputs = inputs.sorted()
-        let first = sortedInputs.first!
-        let last = sortedInputs.last!
-
-        layer[first] = .oracleTop(inputs: inputs)
-        for index in (first + 1)..<last {
-            let isInputConnected = sortedInputs.contains(index)
-
-            layer[index] = (isInputConnected ? .oracleMiddleConnected : .oracleMiddleUnconnected)
-        }
-        layer[last] = .oracleBottom
-
-        return layer
-    }
-
-    func makeEmptyLayer() -> [Position] {
-        return Array(repeating: Position.lineHorizontal, count: layers.first!.count)
+        return stack
     }
 }

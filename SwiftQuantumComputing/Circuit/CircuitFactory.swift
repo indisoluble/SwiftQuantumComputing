@@ -32,7 +32,7 @@ public struct CircuitFactory {
         }
 
         let factory = CircuitRegisterGateFactoryAdapter(qubitCount: qubitCount)
-        let description = CircuitStringDescription()
+        let description = CircuitViewDescription(qubitCount: qubitCount)!
 
         return CircuitFacade(register: register, factory: factory, circuitDescription: description)
     }
