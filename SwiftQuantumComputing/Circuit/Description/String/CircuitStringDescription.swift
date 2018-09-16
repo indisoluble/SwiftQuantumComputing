@@ -34,7 +34,7 @@ struct CircuitStringDescription {
         self.init(description: "")
     }
 
-    init(description: String) {
+    private init(description: String) {
         self.description = description
     }
 }
