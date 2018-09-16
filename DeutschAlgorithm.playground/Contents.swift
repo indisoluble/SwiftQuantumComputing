@@ -5,8 +5,8 @@ func isFunctionConstant(_ uf: Matrix) -> Bool {
 
     var circuit = CircuitFactory.makeEmptyCircuit(qubitCount: qubitCount)!
     circuit = circuit.applyingNotGate(to: 0)!
-    circuit = circuit.applyingHadamardGate(to: 1)!
     circuit = circuit.applyingHadamardGate(to: 0)!
+    circuit = circuit.applyingHadamardGate(to: 1)!
     circuit = circuit.applyingOracleGate(builtWith: uf, inputs: 1, 0)!
     circuit = circuit.applyingHadamardGate(to: 1)!
 
