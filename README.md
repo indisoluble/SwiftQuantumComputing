@@ -11,49 +11,10 @@ The code written so far is mostly based on the content of: [Quantum Computing fo
 
 To create a circuit gate by gate:
 
-```swift
-import SwiftQuantumComputing
-
-print("Deutsch's Algorithm")
-print("Function: (f(0) = 1, f(1) = 0)")
-let uf = Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)],
-                 [Complex(1), Complex(0), Complex(0), Complex(0)],
-                 [Complex(0), Complex(0), Complex(1), Complex(0)],
-                 [Complex(0), Complex(0), Complex(0), Complex(1)]])!
-print("Uf:")
-print(uf)
-
-var circuit = CircuitFactory.makeEmptyCircuit(qubitCount: 2)!
-circuit = circuit.applyingNotGate(to: 0)!
-circuit = circuit.applyingHadamardGate(to: 1)!
-circuit = circuit.applyingHadamardGate(to: 0)!
-circuit = circuit.applyingOracleGate(builtWith: uf, inputs: 1, 0)!
-circuit = circuit.applyingHadamardGate(to: 1)!
-
-let measure = circuit.measure(qubits: 1)!
-
-print("Is it constant? \(abs(1 - measure[0]) < 0.001)")
-print()
-```
+![Deutsch's Algorithm](./images/DeutschAlgorithm.jpg)
 
 For a more detailed example, check `DeutschAlgorithm.playground`.
 
 Or you can automatically create a circuit adding at random the gates in a list:
 
-```swift
-import SwiftQuantumComputing
-
-let uf = Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)],
-                 [Complex(1), Complex(0), Complex(0), Complex(0)],
-                 [Complex(0), Complex(0), Complex(1), Complex(0)],
-                 [Complex(0), Complex(0), Complex(0), Complex(1)]])!
-
-let gates = [CircuitGate.makeNot(), CircuitGate.makeHadamard(), CircuitGate.makeOracle(matrix: uf)]
-
-let circuit = CircuitFactory.makeRandomlyGeneratedCircuit(qubitCount: 2, depth: 5, gates: gates)!
-
-print("Measures: \(circuit.measure(qubits: 1, 0)!)")
-print()
-```
-
-Notice that `circuit` conforms to `CustomPlaygroundDisplayConvertible` so you can print on screen the list of gates applied to a `Circuit` instance.
+![Randomly generated circuit](./images/RandomCircuit.jpg)
