@@ -1,8 +1,8 @@
 //
-//  CircuitViewPosition.swift
-//  SwiftQuantumComputing
+//  CircuitViewDescriptionTests.swift
+//  SwiftQuantumComputingTests
 //
-//  Created by Enrique de la Torre on 15/09/2018.
+//  Created by Enrique de la Torre on 16/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,24 +18,18 @@
 // limitations under the License.
 //
 
-import Foundation
+import XCTest
 
-// MARK: - Types
+@testable import SwiftQuantumComputing
 
-enum CircuitViewPosition: Equatable {
-    case qubit(index: Int)
-    case lineHorizontal
-    case crossedLines
-    case hadamard
-    case not
-    case phaseShift(radians: Double)
-    case controlledNotDown
-    case controlledNotUp
-    case controlUp
-    case controlDown
-    case oracle
-    case oracleTop(inputs: [Int])
-    case oracleBottom
-    case oracleMiddleConnected
-    case oracleMiddleUnconnected
-} 
+// MARK: - Main body
+
+class CircuitViewDescriptionTests: XCTestCase {
+
+    // MARK: - Tests
+
+    func testZeroQubits_init_returnNil() {
+        // Then
+        XCTAssertNil(CircuitViewDescription(qubitCount: 0))
+    }
+}
