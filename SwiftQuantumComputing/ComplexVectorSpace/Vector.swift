@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -46,10 +47,18 @@ public struct Vector {
 
     private let matrix: Matrix
 
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
+
     // MARK: - Init methods
 
     public init?(_ elements: [Complex]) {
         guard let matrix = Matrix([elements]) else {
+            os_log("init failed: unable to build matrix with provided elements",
+                   log: Vector.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -72,6 +81,10 @@ public struct Vector {
 
     public static func innerProduct(_ lhs: Vector, _ rhs: Vector) -> Complex? {
         guard let matrix = (lhs.matrix.adjointed() * rhs.matrix) else {
+            os_log("innerProduct failed: can not multiple provided vectors",
+                   log: Vector.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -100,6 +113,10 @@ extension Vector: Equatable {
 extension Vector {
     public static func *(lhs: Matrix, rhs: Vector) -> Vector? {
         guard let matrix = (lhs * rhs.matrix) else {
+            os_log("* failed: can not multiple matrix by vector",
+                   log: Vector.logger,
+                   type: .debug)
+
             return nil
         }
 

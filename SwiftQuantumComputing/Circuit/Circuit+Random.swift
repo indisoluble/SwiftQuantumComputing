@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -38,6 +39,10 @@ extension Circuit {
                        on shuffledQubits:(() -> [Int]),
                        depth: Int) -> Self? {
         guard (depth >= 0) else {
+            os_log("applyingGates failed: pass depth bigger than 0",
+                   log: LoggerFactory.makeLogger(),
+                   type: .debug)
+
             return nil
         }
 

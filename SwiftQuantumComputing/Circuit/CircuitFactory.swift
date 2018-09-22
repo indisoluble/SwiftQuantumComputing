@@ -19,15 +19,24 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
 public struct CircuitFactory {
 
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
+
     // MARK: - Public class methods
 
     public static func makeEmptyCircuit(qubitCount: Int) -> Circuit? {
         guard let register = Register(qubitCount: qubitCount) else {
+            os_log("makeEmptyCircuit failed: unable to build initial register",
+                   log: logger,
+                   type: .debug)
+
             return nil
         }
 

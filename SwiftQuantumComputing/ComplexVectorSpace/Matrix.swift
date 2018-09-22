@@ -55,20 +55,32 @@ public struct Matrix {
 
     private let rows: [[Complex]]
 
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
+
     // MARK: - Init methods
 
     public init?(_ rows: [[Complex]]) {
         guard let firstRow = rows.first else {
+            os_log("init failed: do not pass an empty array", log: Matrix.logger, type: .debug)
+
             return nil
         }
 
         let numColumns = firstRow.count
         guard (numColumns > 0) else {
+            os_log("init failed: sub-arrays must not be empty", log: Matrix.logger, type: .debug)
+
             return nil
         }
 
         let sameCountOnEachRow = rows.reduce(true) { $0 && ($1.count == numColumns) }
         guard sameCountOnEachRow else {
+            os_log("init failed: sub-arrays have to have same size",
+                   log: Matrix.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -95,6 +107,10 @@ public struct Matrix {
 
     public func hermitianEigens() -> [(eigenvalue: Double, eigenvector: Vector)]? {
         guard isHermitian else {
+            os_log("hermitianEigens failed: matrix is not hermitian",
+                   log: Matrix.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -130,6 +146,10 @@ public struct Matrix {
 
         // Validate results
         if (info > 0) {
+            os_log("hermitianEigens failed: algorithm failed to converge",
+                   log: Matrix.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -161,6 +181,10 @@ public struct Matrix {
 
     public static func makeIdentity(count: Int) -> Matrix? {
         guard (count > 0) else {
+            os_log("makeIdentity failed: pass count bigger than 0",
+                   log: Matrix.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -209,10 +233,18 @@ extension Matrix {
 
     public static func +(lhs: Matrix, rhs: Matrix) -> Matrix? {
         guard (lhs.rowCount == rhs.rowCount) else {
+            os_log("+ failed: both matrices have to have same number of rows",
+                   log: Matrix.logger,
+                   type: .debug)
+
             return nil
         }
 
         guard (lhs.columnCount == rhs.columnCount) else {
+            os_log("+ failed: both matrices have to have same number of columns",
+                   log: Matrix.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -229,6 +261,10 @@ extension Matrix {
 
     public static func *(lhs: Matrix, rhs: Matrix) -> Matrix? {
         guard (lhs.columnCount == rhs.rowCount) else {
+            os_log("* failed: left matrix column count have to be equal to right matrix row count",
+                   log: Matrix.logger,
+                   type: .debug)
+
             return nil
         }
 

@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -32,10 +33,16 @@ struct Register {
         return (0..<vector.count).map { vector[$0].squaredModulus }
     }
 
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
+
     // MARK: - Init methods
 
     init?(qubitCount: Int) {
         guard let groundState = Register.makeGroundState(qubitCount: qubitCount) else {
+            os_log("init failed: use qubit count bigger than 0", log: Register.logger, type: .debug)
+
             return nil
         }
 
@@ -44,6 +51,10 @@ struct Register {
 
     init?(vector: Vector) {
         guard Register.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
+            os_log("init failed: addition of square modulus is not equal to 1",
+                   log: Register.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -78,6 +89,10 @@ extension Register: CircuitRegister {
 
     func applying(_ gate: RegisterGate) -> Register? {
         guard let nextVector = gate.apply(to: vector) else {
+            os_log("applying failed: gate can not be applied to this register",
+                   log: Register.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -86,6 +101,10 @@ extension Register: CircuitRegister {
 
     func measure(qubits: [Int]) -> [Double]? {
         guard areQubitsValid(qubits) else {
+            os_log("measure failed: provide sorted list of unique qubits",
+                   log: Register.logger,
+                   type: .debug)
+
             return nil
         }
 

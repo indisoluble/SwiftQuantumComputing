@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -28,10 +29,16 @@ struct RegisterGate {
 
     private let matrix: Matrix
 
+    // MARK: - Private class methods
+
+    private static let logger = LoggerFactory.makeLogger()
+
     // MARK: - Init methods
 
     init?(matrix: Matrix) {
         guard matrix.isUnitary(accuracy: Constants.accuracy) else {
+            os_log("init failed: matrix is not unitary", log: RegisterGate.logger, type: .debug)
+
             return nil
         }
 
