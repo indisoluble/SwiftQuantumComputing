@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -27,6 +28,10 @@ struct CircuitRegisterGateFactoryAdapter {
     // MARK: - Private properties
 
     private let qubitCount: Int
+
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Init methods
 
@@ -49,6 +54,10 @@ extension CircuitRegisterGateFactoryAdapter: Equatable {
 extension CircuitRegisterGateFactoryAdapter: CircuitRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
         guard let factory = RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix) else {
+            os_log("makeGate failed: unable to build a gate factory",
+                   log: CircuitRegisterGateFactoryAdapter.logger,
+                   type: .debug)
+
             return nil
         }
 

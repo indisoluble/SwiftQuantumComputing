@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -29,19 +30,35 @@ struct RegisterGateFactory {
     private let qubitCount: Int
     private let baseMatrix: Matrix
 
+    // MARK: - Private class methods
+
+    private static let logger = LoggerFactory.makeLogger()
+
     // MARK: - Init methods
 
     init?(qubitCount: Int, baseMatrix: Matrix) {
         guard baseMatrix.isSquare else {
+            os_log("init failed: matrix is not square",
+                   log: RegisterGateFactory.logger,
+                   type: .debug)
+
             return nil
         }
 
         guard baseMatrix.rowCount.isPowerOfTwo else {
+            os_log("init failed: matrix row count has to be a power of 2",
+                   log: RegisterGateFactory.logger,
+                   type: .debug)
+
             return nil
         }
 
         let matrixQubitCount = Int.log2(baseMatrix.rowCount)
         guard (matrixQubitCount <= qubitCount) else {
+            os_log("init failed: matrix handles more qubits than are available",
+                   log: RegisterGateFactory.logger,
+                   type: .debug)
+
             return nil
         }
 
@@ -53,6 +70,10 @@ struct RegisterGateFactory {
 
     func makeGate(inputs: [Int]) -> RegisterGate? {
         guard areInputsValid(inputs) else {
+            os_log("makeGate failed: provide as many unique qubits as required by the matrix",
+                   log: RegisterGateFactory.logger,
+                   type: .debug)
+
             return nil
         }
 

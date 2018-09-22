@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -34,6 +35,10 @@ struct CircuitFacade {
     let register: ExtendedCircuitRegister
     let factory: CircuitRegisterGateFactory
     let circuitDescription: ExtendedCircuitDescription
+
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Init methods
 
@@ -71,10 +76,18 @@ extension CircuitFacade: Circuit {
 
     func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> CircuitFacade? {
         guard let registerGate = factory.makeGate(matrix: gate.matrix, inputs: inputs) else {
+            os_log("applyingGate failed: Unable to build next gate",
+                   log: CircuitFacade.logger,
+                   type: .debug)
+
             return nil
         }
 
         guard let nextRegister = register.applying(registerGate) else {
+            os_log("applyingGate failed: unable to produce next register with new gate",
+                   log: CircuitFacade.logger,
+                   type: .debug)
+
             return nil
         }
 

@@ -38,6 +38,10 @@ public struct Complex {
         return sqrt(squaredModulus)
     }
 
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
+
     // MARK: - Init methods
 
     public init(real: Double, imag: Double) {
@@ -62,6 +66,8 @@ public struct Complex {
 
     public init?(_ matrix: Matrix) {
         guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
+            os_log("init failed: use 1x1 matrix", log: Complex.logger, type: .debug)
+
             return nil
         }
 
