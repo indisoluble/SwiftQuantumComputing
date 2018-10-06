@@ -78,6 +78,7 @@
 		FF9BBE7C214ECEDB00AD1F78 /* CircuitGateDescription+CircuitViewPositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE7B214ECEDB00AD1F78 /* CircuitGateDescription+CircuitViewPositionTests.swift */; };
 		FF9D0893214714DD0071F5C7 /* CircuitViewDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9D0892214714DD0071F5C7 /* CircuitViewDescription.swift */; };
 		FFA711B121348FF100CE51A1 /* Circuit+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA711B021348FF100CE51A1 /* Circuit+Random.swift */; };
+		FFACDD142169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFACDD132169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift */; };
 		FFB0D228212E0A650093BB3B /* Circuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB0D227212E0A650093BB3B /* Circuit.swift */; };
 		FFB42BE92156823E00792F78 /* LoggerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB42BE82156823E00792F78 /* LoggerFactory.swift */; };
 		FFB69B7D21406EAB009A1176 /* CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B7C21406EAB009A1176 /* CircuitDescription.swift */; };
@@ -212,6 +213,7 @@
 		FF9BBE7B214ECEDB00AD1F78 /* CircuitGateDescription+CircuitViewPositionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitGateDescription+CircuitViewPositionTests.swift"; sourceTree = "<group>"; };
 		FF9D0892214714DD0071F5C7 /* CircuitViewDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitViewDescription.swift; sourceTree = "<group>"; };
 		FFA711B021348FF100CE51A1 /* Circuit+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+Random.swift"; sourceTree = "<group>"; };
+		FFACDD132169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift"; sourceTree = "<group>"; };
 		FFB0D227212E0A650093BB3B /* Circuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuit.swift; sourceTree = "<group>"; };
 		FFB42BE82156823E00792F78 /* LoggerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerFactory.swift; sourceTree = "<group>"; };
 		FFB69B7C21406EAB009A1176 /* CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDescription.swift; sourceTree = "<group>"; };
@@ -380,10 +382,23 @@
 			path = Matrix;
 			sourceTree = "<group>";
 		};
+		FF64C321216902FD000C2ABD /* SwiftQuantumComputing */ = {
+			isa = PBXGroup;
+			children = (
+				FF3EAC7C212DEA51007AF61E /* Circuit */,
+				FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */,
+				FF1AAFEC211F61AF00D3666A /* Extension */,
+				FF34BAD22128B2D50057A803 /* Register */,
+				FFB42BE82156823E00792F78 /* LoggerFactory.swift */,
+			);
+			path = SwiftQuantumComputing;
+			sourceTree = "<group>";
+		};
 		FF65E3AB211A181800AA0BD2 = {
 			isa = PBXGroup;
 			children = (
-				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing */,
+				FF64C321216902FD000C2ABD /* SwiftQuantumComputing */,
+				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing_iOS */,
 				FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputingTests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
 				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
@@ -402,18 +417,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing */ = {
+		FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				FF3EAC7C212DEA51007AF61E /* Circuit */,
-				FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */,
-				FF1AAFEC211F61AF00D3666A /* Extension */,
-				FF34BAD22128B2D50057A803 /* Register */,
-				FFB42BE82156823E00792F78 /* LoggerFactory.swift */,
+				FFACDD102169075F00A466BE /* Circuit */,
 				FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */,
 				FF65E3B9211A181900AA0BD2 /* Info.plist */,
 			);
-			path = SwiftQuantumComputing;
+			path = SwiftQuantumComputing_iOS;
 			sourceTree = "<group>";
 		};
 		FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputingTests */ = {
@@ -502,10 +513,34 @@
 		FF9D08912147148E0071F5C7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FFBCD5E3214DBB670047020B /* PositionView */,
 				FF960F33214D28E900C0282D /* CircuitGateDescription+CircuitViewPosition.swift */,
 				FF9D0892214714DD0071F5C7 /* CircuitViewDescription.swift */,
 				FF960F31214D27E900C0282D /* CircuitViewPosition.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FFACDD102169075F00A466BE /* Circuit */ = {
+			isa = PBXGroup;
+			children = (
+				FFACDD112169076B00A466BE /* Description */,
+			);
+			path = Circuit;
+			sourceTree = "<group>";
+		};
+		FFACDD112169076B00A466BE /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				FFACDD122169077600A466BE /* View */,
+			);
+			path = Description;
+			sourceTree = "<group>";
+		};
+		FFACDD122169077600A466BE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FFBCD5E3214DBB670047020B /* PositionView */,
+				FFACDD132169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift */,
 				FFBCD5E1214DB6D90047020B /* CircuitViewPosition+PositionView.swift */,
 			);
 			path = View;
@@ -824,6 +859,7 @@
 				FF3EAC80212DEB10007AF61E /* Circuit+HadamardGate.swift in Sources */,
 				FFA711B121348FF100CE51A1 /* Circuit+Random.swift in Sources */,
 				FF9BBE54214E979A00AD1F78 /* OracleBottomPositionView.swift in Sources */,
+				FFACDD142169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift in Sources */,
 				FF3EAC7E212DEA96007AF61E /* Circuit+ControlledNotGate.swift in Sources */,
 				FFF85A0A2144648900E04838 /* CircuitGateDescription+CircuitStringDescription.swift in Sources */,
 				FFB0D228212E0A650093BB3B /* Circuit.swift in Sources */,
@@ -1016,7 +1052,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftQuantumComputing/Info.plist;
+				INFOPLIST_FILE = SwiftQuantumComputing_iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1042,7 +1078,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftQuantumComputing/Info.plist;
+				INFOPLIST_FILE = SwiftQuantumComputing_iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
