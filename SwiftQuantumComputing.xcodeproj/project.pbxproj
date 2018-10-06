@@ -27,6 +27,85 @@
 		FF3EAC89212DF602007AF61E /* CircuitRegisterGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC88212DF602007AF61E /* CircuitRegisterGateFactory.swift */; };
 		FF3EAC90212DF9E4007AF61E /* CircuitRegisterGateFactoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC8F212DF9E4007AF61E /* CircuitRegisterGateFactoryAdapter.swift */; };
 		FF3EAC94212E06F0007AF61E /* CircuitFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC93212E06F0007AF61E /* CircuitFactory.swift */; };
+		FF46EDB1216924050044C3CA /* CircuitFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFED6908212F2DE600D46D68 /* CircuitFacadeTests.swift */; };
+		FF46EDB2216924130044C3CA /* CircuitGateDescription+CircuitViewPositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE7B214ECEDB00AD1F78 /* CircuitGateDescription+CircuitViewPositionTests.swift */; };
+		FF46EDB3216924130044C3CA /* CircuitViewDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE79214ECC9200AD1F78 /* CircuitViewDescriptionTests.swift */; };
+		FF46EDB42169241E0044C3CA /* CircuitGateControlledNotDescriberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE6D214EC2C800AD1F78 /* CircuitGateControlledNotDescriberTests.swift */; };
+		FF46EDB52169241E0044C3CA /* CircuitGateHadamardDescriberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE6F214EC67100AD1F78 /* CircuitGateHadamardDescriberTests.swift */; };
+		FF46EDB62169241E0044C3CA /* CircuitGateNotDescriberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE71214EC6E400AD1F78 /* CircuitGateNotDescriberTests.swift */; };
+		FF46EDB72169241E0044C3CA /* CircuitGateOracleDescriberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE73214EC74600AD1F78 /* CircuitGateOracleDescriberTests.swift */; };
+		FF46EDB82169241E0044C3CA /* CircuitGatePhaseShiftDescriberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE75214EC7D500AD1F78 /* CircuitGatePhaseShiftDescriberTests.swift */; };
+		FF46EDB9216924370044C3CA /* Circuit+ControlledNotGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE61214EB9FA00AD1F78 /* Circuit+ControlledNotGateTests.swift */; };
+		FF46EDBA216924370044C3CA /* Circuit+HadamardGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE63214EBC3700AD1F78 /* Circuit+HadamardGateTests.swift */; };
+		FF46EDBB216924370044C3CA /* Circuit+NotGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE65214EBCC200AD1F78 /* Circuit+NotGateTests.swift */; };
+		FF46EDBC216924370044C3CA /* Circuit+OracleGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE67214EBD6A00AD1F78 /* Circuit+OracleGateTests.swift */; };
+		FF46EDBD216924370044C3CA /* Circuit+PhaseShiftGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE69214EBF1000AD1F78 /* Circuit+PhaseShiftGateTests.swift */; };
+		FF46EDBE216924370044C3CA /* Circuit+RandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF265D632135DC9700179F75 /* Circuit+RandomTests.swift */; };
+		FF46EDBF216924510044C3CA /* __CLPK_doublecomplex+ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */; };
+		FF46EDC0216924510044C3CA /* ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */; };
+		FF46EDC1216924510044C3CA /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D710211A1B2700A50D9C /* MatrixTests.swift */; };
+		FF46EDC2216924510044C3CA /* PolarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D713211A1B2700A50D9C /* PolarTests.swift */; };
+		FF46EDC3216924510044C3CA /* VectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D711211A1B2700A50D9C /* VectorTests.swift */; };
+		FF46EDC42169245C0044C3CA /* Int+DerivedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */; };
+		FF46EDC52169245C0044C3CA /* Int+IsPowerOfTwoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE7211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift */; };
+		FF46EDC6216924640044C3CA /* RegisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8BD4AB211E28DA00F01FF8 /* RegisterTests.swift */; };
+		FF46EDC7216924640044C3CA /* RegisterGateFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE9211F502F00D3666A /* RegisterGateFactoryTests.swift */; };
+		FF46EDC8216924640044C3CA /* RegisterGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6639211E474200FBCC5A /* RegisterGateTests.swift */; };
+		FF46EDC92169246F0044C3CA /* CircuitRegisterGateFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFED6900212F28C700D46D68 /* CircuitRegisterGateFactoryTestDouble.swift */; };
+		FF46EDCA2169246F0044C3CA /* CircuitRegisterTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFED6902212F292000D46D68 /* CircuitRegisterTestDouble.swift */; };
+		FF46EDCB216924760044C3CA /* CircuitDescriptionTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B902140808C009A1176 /* CircuitDescriptionTestDouble.swift */; };
+		FF46EDCC2169247A0044C3CA /* CircuitGateDescribableTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B922140817A009A1176 /* CircuitGateDescribableTestDouble.swift */; };
+		FF46EDCD2169247F0044C3CA /* CircuitTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF265D652135DD6A00179F75 /* CircuitTestDouble.swift */; };
+		FF46EDCE216924C30044C3CA /* CircuitFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1A502E212997090023313E /* CircuitFacade.swift */; };
+		FF46EDCF216924C30044C3CA /* CircuitRegisterGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC88212DF602007AF61E /* CircuitRegisterGateFactory.swift */; };
+		FF46EDD0216924C30044C3CA /* CircuitRegisterGateFactoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC8F212DF9E4007AF61E /* CircuitRegisterGateFactoryAdapter.swift */; };
+		FF46EDD1216924C30044C3CA /* CIrcuitRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC86212DEF8D007AF61E /* CIrcuitRegister.swift */; };
+		FF46EDD2216924D00044C3CA /* CircuitStringDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B88214078DF009A1176 /* CircuitStringDescription.swift */; };
+		FF46EDD3216924D00044C3CA /* CircuitGateDescription+CircuitStringDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF85A092144648900E04838 /* CircuitGateDescription+CircuitStringDescription.swift */; };
+		FF46EDD4216924D80044C3CA /* CircuitGateDescription+CircuitViewPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF960F33214D28E900C0282D /* CircuitGateDescription+CircuitViewPosition.swift */; };
+		FF46EDD5216924D80044C3CA /* CircuitViewDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9D0892214714DD0071F5C7 /* CircuitViewDescription.swift */; };
+		FF46EDD6216924D80044C3CA /* CircuitViewPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF960F31214D27E900C0282D /* CircuitViewPosition.swift */; };
+		FF46EDD7216924DF0044C3CA /* CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B7C21406EAB009A1176 /* CircuitDescription.swift */; };
+		FF46EDD8216924E70044C3CA /* CircuitGateControlledNotDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B8021407439009A1176 /* CircuitGateControlledNotDescriber.swift */; };
+		FF46EDD9216924E70044C3CA /* CircuitGateDescribable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B7E21407086009A1176 /* CircuitGateDescribable.swift */; };
+		FF46EDDA216924E70044C3CA /* CircuitGateDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF85A0721445F3700E04838 /* CircuitGateDescription.swift */; };
+		FF46EDDB216924E70044C3CA /* CircuitGateHadamardDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B82214074BC009A1176 /* CircuitGateHadamardDescriber.swift */; };
+		FF46EDDC216924E70044C3CA /* CircuitGateNotDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B84214074CB009A1176 /* CircuitGateNotDescriber.swift */; };
+		FF46EDDD216924E70044C3CA /* CircuitGateOracleDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B8A21407B10009A1176 /* CircuitGateOracleDescriber.swift */; };
+		FF46EDDE216924E70044C3CA /* CircuitGatePhaseShiftDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B86214074E4009A1176 /* CircuitGatePhaseShiftDescriber.swift */; };
+		FF46EDDF216924EE0044C3CA /* Matrix+ControlledNot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEFD2A21333EDB0063B559 /* Matrix+ControlledNot.swift */; };
+		FF46EDE0216924EE0044C3CA /* Matrix+Hadamard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEFD2C21333EED0063B559 /* Matrix+Hadamard.swift */; };
+		FF46EDE1216924EE0044C3CA /* Matrix+Not.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEFD2E21333EFD0063B559 /* Matrix+Not.swift */; };
+		FF46EDE2216924EE0044C3CA /* Matrix+PhaseShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEFD3021333F140063B559 /* Matrix+PhaseShift.swift */; };
+		FF46EDE3216924F50044C3CA /* CircuitGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF27F455213F212900CD8734 /* CircuitGate.swift */; };
+		FF46EDE4216924F50044C3CA /* CircuitGate+ControlledNot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF85A0F214472AC00E04838 /* CircuitGate+ControlledNot.swift */; };
+		FF46EDE5216924F50044C3CA /* CircuitGate+Hadamard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF85A0C214472AC00E04838 /* CircuitGate+Hadamard.swift */; };
+		FF46EDE6216924F50044C3CA /* CircuitGate+Not.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF85A0D214472AC00E04838 /* CircuitGate+Not.swift */; };
+		FF46EDE7216924F50044C3CA /* CircuitGate+Oracle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF85A0B214472AC00E04838 /* CircuitGate+Oracle.swift */; };
+		FF46EDE8216924F50044C3CA /* CircuitGate+PhaseShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF85A0E214472AC00E04838 /* CircuitGate+PhaseShift.swift */; };
+		FF46EDE9216925040044C3CA /* Circuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB0D227212E0A650093BB3B /* Circuit.swift */; };
+		FF46EDEA216925040044C3CA /* Circuit+ControlledNotGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC7D212DEA96007AF61E /* Circuit+ControlledNotGate.swift */; };
+		FF46EDEB216925040044C3CA /* Circuit+HadamardGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC7F212DEB10007AF61E /* Circuit+HadamardGate.swift */; };
+		FF46EDEC216925040044C3CA /* Circuit+NotGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC81212DECA5007AF61E /* Circuit+NotGate.swift */; };
+		FF46EDED216925040044C3CA /* Circuit+OracleGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF11ED4A213C65C200EDDA81 /* Circuit+OracleGate.swift */; };
+		FF46EDEE216925040044C3CA /* Circuit+PhaseShiftGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC83212DED0B007AF61E /* Circuit+PhaseShiftGate.swift */; };
+		FF46EDEF216925040044C3CA /* Circuit+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA711B021348FF100CE51A1 /* Circuit+Random.swift */; };
+		FF46EDF0216925040044C3CA /* CircuitFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC93212E06F0007AF61E /* CircuitFactory.swift */; };
+		FF46EDF1216925100044C3CA /* __CLPK_doublecomplex+Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */; };
+		FF46EDF2216925100044C3CA /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D706211A1AEB00A50D9C /* Complex.swift */; };
+		FF46EDF3216925100044C3CA /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D709211A1AEB00A50D9C /* Matrix.swift */; };
+		FF46EDF4216925100044C3CA /* Polar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D705211A1AEB00A50D9C /* Polar.swift */; };
+		FF46EDF5216925100044C3CA /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D708211A1AEB00A50D9C /* Vector.swift */; };
+		FF46EDF6216925180044C3CA /* Array+RandomElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E392132F1DC009A3A9E /* Array+RandomElement.swift */; };
+		FF46EDF7216925180044C3CA /* Array+Shuffled.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E3B2132F4F3009A3A9E /* Array+Shuffled.swift */; };
+		FF46EDF8216925180044C3CA /* Int+Derived.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8FAA02121F54F005686FE /* Int+Derived.swift */; };
+		FF46EDF9216925180044C3CA /* Int+IsPowerOfTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */; };
+		FF46EDFA216925180044C3CA /* Int+Log2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */; };
+		FF46EDFB216925180044C3CA /* Int+Pow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFF0211F66D400D3666A /* Int+Pow.swift */; };
+		FF46EDFC216925200044C3CA /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2CD9F9211E177500EA7E86 /* Register.swift */; };
+		FF46EDFD216925200044C3CA /* RegisterGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6637211E455800FBCC5A /* RegisterGate.swift */; };
+		FF46EDFE216925200044C3CA /* RegisterGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE1211F372800D3666A /* RegisterGateFactory.swift */; };
+		FF46EDFF216925280044C3CA /* LoggerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB42BE82156823E00792F78 /* LoggerFactory.swift */; };
 		FF5C6638211E455800FBCC5A /* RegisterGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6637211E455800FBCC5A /* RegisterGate.swift */; };
 		FF5C663A211E474200FBCC5A /* RegisterGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6639211E474200FBCC5A /* RegisterGateTests.swift */; };
 		FF65E3BF211A181900AA0BD2 /* SwiftQuantumComputing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */; };
@@ -78,6 +157,7 @@
 		FF9BBE7C214ECEDB00AD1F78 /* CircuitGateDescription+CircuitViewPositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE7B214ECEDB00AD1F78 /* CircuitGateDescription+CircuitViewPositionTests.swift */; };
 		FF9D0893214714DD0071F5C7 /* CircuitViewDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9D0892214714DD0071F5C7 /* CircuitViewDescription.swift */; };
 		FFA711B121348FF100CE51A1 /* Circuit+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA711B021348FF100CE51A1 /* Circuit+Random.swift */; };
+		FFACDD142169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFACDD132169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift */; };
 		FFB0D228212E0A650093BB3B /* Circuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB0D227212E0A650093BB3B /* Circuit.swift */; };
 		FFB42BE92156823E00792F78 /* LoggerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB42BE82156823E00792F78 /* LoggerFactory.swift */; };
 		FFB69B7D21406EAB009A1176 /* CircuitDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B7C21406EAB009A1176 /* CircuitDescription.swift */; };
@@ -90,6 +170,8 @@
 		FFB69B8B21407B10009A1176 /* CircuitGateOracleDescriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B8A21407B10009A1176 /* CircuitGateOracleDescriber.swift */; };
 		FFB69B912140808C009A1176 /* CircuitDescriptionTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B902140808C009A1176 /* CircuitDescriptionTestDouble.swift */; };
 		FFB69B932140817A009A1176 /* CircuitGateDescribableTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB69B922140817A009A1176 /* CircuitGateDescribableTestDouble.swift */; };
+		FFBA23F521691E0F003E5727 /* SwiftQuantumComputing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */; };
+		FFBA23FC21691E0F003E5727 /* SwiftQuantumComputing.h in Headers */ = {isa = PBXBuildFile; fileRef = FFBA23EE21691E0F003E5727 /* SwiftQuantumComputing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FFBCD5E2214DB6D90047020B /* CircuitViewPosition+PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCD5E1214DB6D90047020B /* CircuitViewPosition+PositionView.swift */; };
 		FFBCD5E5214DBBA60047020B /* LineHorizontalPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */; };
 		FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */; };
@@ -131,6 +213,13 @@
 			remoteGlobalIDString = FF65E3B4211A181900AA0BD2;
 			remoteInfo = SwiftQuantumComputing;
 		};
+		FFBA23F621691E0F003E5727 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FF65E3AC211A181900AA0BD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FFBA23EB21691E0F003E5727;
+			remoteInfo = SwiftQuantumComputing_macOS;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -162,7 +251,7 @@
 		FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftQuantumComputing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftQuantumComputing.h; sourceTree = "<group>"; };
 		FF65E3B9211A181900AA0BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftQuantumComputingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftQuantumComputing_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF65E3C5211A181900AA0BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FF6B12F2214EEEBA00A206B1 /* RandomCircuit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RandomCircuit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF8BD4AB211E28DA00F01FF8 /* RegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTests.swift; sourceTree = "<group>"; };
@@ -212,6 +301,7 @@
 		FF9BBE7B214ECEDB00AD1F78 /* CircuitGateDescription+CircuitViewPositionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitGateDescription+CircuitViewPositionTests.swift"; sourceTree = "<group>"; };
 		FF9D0892214714DD0071F5C7 /* CircuitViewDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitViewDescription.swift; sourceTree = "<group>"; };
 		FFA711B021348FF100CE51A1 /* Circuit+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+Random.swift"; sourceTree = "<group>"; };
+		FFACDD132169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift"; sourceTree = "<group>"; };
 		FFB0D227212E0A650093BB3B /* Circuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuit.swift; sourceTree = "<group>"; };
 		FFB42BE82156823E00792F78 /* LoggerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerFactory.swift; sourceTree = "<group>"; };
 		FFB69B7C21406EAB009A1176 /* CircuitDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDescription.swift; sourceTree = "<group>"; };
@@ -224,6 +314,11 @@
 		FFB69B8A21407B10009A1176 /* CircuitGateOracleDescriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitGateOracleDescriber.swift; sourceTree = "<group>"; };
 		FFB69B902140808C009A1176 /* CircuitDescriptionTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDescriptionTestDouble.swift; sourceTree = "<group>"; };
 		FFB69B922140817A009A1176 /* CircuitGateDescribableTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitGateDescribableTestDouble.swift; sourceTree = "<group>"; };
+		FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftQuantumComputing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFBA23EE21691E0F003E5727 /* SwiftQuantumComputing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftQuantumComputing.h; sourceTree = "<group>"; };
+		FFBA23EF21691E0F003E5727 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFBA23F421691E0F003E5727 /* SwiftQuantumComputing_macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftQuantumComputing_macOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFBA23FB21691E0F003E5727 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFBCD5E1214DB6D90047020B /* CircuitViewPosition+PositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitViewPosition+PositionView.swift"; sourceTree = "<group>"; };
 		FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineHorizontalPositionView.xib; sourceTree = "<group>"; };
 		FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineHorizontalPositionView.swift; sourceTree = "<group>"; };
@@ -270,6 +365,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF65E3BF211A181900AA0BD2 /* SwiftQuantumComputing.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFBA23E921691E0F003E5727 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFBA23F121691E0F003E5727 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFBA23F521691E0F003E5727 /* SwiftQuantumComputing.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,11 +490,27 @@
 			path = Matrix;
 			sourceTree = "<group>";
 		};
+		FF64C321216902FD000C2ABD /* SwiftQuantumComputing */ = {
+			isa = PBXGroup;
+			children = (
+				FF3EAC7C212DEA51007AF61E /* Circuit */,
+				FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */,
+				FF1AAFEC211F61AF00D3666A /* Extension */,
+				FF34BAD22128B2D50057A803 /* Register */,
+				FFB42BE82156823E00792F78 /* LoggerFactory.swift */,
+			);
+			path = SwiftQuantumComputing;
+			sourceTree = "<group>";
+		};
 		FF65E3AB211A181800AA0BD2 = {
 			isa = PBXGroup;
 			children = (
-				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing */,
-				FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputingTests */,
+				FF64C321216902FD000C2ABD /* SwiftQuantumComputing */,
+				FFBA23AE21691690003E5727 /* SwiftQuantumComputingTests */,
+				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing_iOS */,
+				FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests */,
+				FFBA23ED21691E0F003E5727 /* SwiftQuantumComputing_macOS */,
+				FFBA23F821691E0F003E5727 /* SwiftQuantumComputing_macOSTests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
 				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
 				FF593C67211A22C700FA6D8F /* Marbles.playground */,
@@ -397,36 +523,29 @@
 			isa = PBXGroup;
 			children = (
 				FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */,
-				FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputingTests.xctest */,
+				FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests.xctest */,
+				FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */,
+				FFBA23F421691E0F003E5727 /* SwiftQuantumComputing_macOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing */ = {
+		FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				FF3EAC7C212DEA51007AF61E /* Circuit */,
-				FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */,
-				FF1AAFEC211F61AF00D3666A /* Extension */,
-				FF34BAD22128B2D50057A803 /* Register */,
-				FFB42BE82156823E00792F78 /* LoggerFactory.swift */,
+				FFACDD102169075F00A466BE /* Circuit */,
 				FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */,
 				FF65E3B9211A181900AA0BD2 /* Info.plist */,
 			);
-			path = SwiftQuantumComputing;
+			path = SwiftQuantumComputing_iOS;
 			sourceTree = "<group>";
 		};
-		FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputingTests */ = {
+		FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				FFED6904212F2D4C00D46D68 /* Circuit */,
-				FF7C9BBD211CB7D7008D8897 /* ComplexVectorSpace */,
-				FF1AAFED211F61CB00D3666A /* Extension */,
-				FF1AAFE0211F286100D3666A /* Register */,
-				FFED68FD212F289800D46D68 /* TestDouble */,
 				FF65E3C5211A181900AA0BD2 /* Info.plist */,
 			);
-			path = SwiftQuantumComputingTests;
+			path = SwiftQuantumComputing_iOSTests;
 			sourceTree = "<group>";
 		};
 		FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */ = {
@@ -502,10 +621,34 @@
 		FF9D08912147148E0071F5C7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FFBCD5E3214DBB670047020B /* PositionView */,
 				FF960F33214D28E900C0282D /* CircuitGateDescription+CircuitViewPosition.swift */,
 				FF9D0892214714DD0071F5C7 /* CircuitViewDescription.swift */,
 				FF960F31214D27E900C0282D /* CircuitViewPosition.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FFACDD102169075F00A466BE /* Circuit */ = {
+			isa = PBXGroup;
+			children = (
+				FFACDD112169076B00A466BE /* Description */,
+			);
+			path = Circuit;
+			sourceTree = "<group>";
+		};
+		FFACDD112169076B00A466BE /* Description */ = {
+			isa = PBXGroup;
+			children = (
+				FFACDD122169077600A466BE /* View */,
+			);
+			path = Description;
+			sourceTree = "<group>";
+		};
+		FFACDD122169077600A466BE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FFBCD5E3214DBB670047020B /* PositionView */,
+				FFACDD132169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift */,
 				FFBCD5E1214DB6D90047020B /* CircuitViewPosition+PositionView.swift */,
 			);
 			path = View;
@@ -550,6 +693,35 @@
 				FFB69B922140817A009A1176 /* CircuitGateDescribableTestDouble.swift */,
 			);
 			path = Describer;
+			sourceTree = "<group>";
+		};
+		FFBA23AE21691690003E5727 /* SwiftQuantumComputingTests */ = {
+			isa = PBXGroup;
+			children = (
+				FFED6904212F2D4C00D46D68 /* Circuit */,
+				FF7C9BBD211CB7D7008D8897 /* ComplexVectorSpace */,
+				FF1AAFED211F61CB00D3666A /* Extension */,
+				FF1AAFE0211F286100D3666A /* Register */,
+				FFED68FD212F289800D46D68 /* TestDouble */,
+			);
+			path = SwiftQuantumComputingTests;
+			sourceTree = "<group>";
+		};
+		FFBA23ED21691E0F003E5727 /* SwiftQuantumComputing_macOS */ = {
+			isa = PBXGroup;
+			children = (
+				FFBA23EE21691E0F003E5727 /* SwiftQuantumComputing.h */,
+				FFBA23EF21691E0F003E5727 /* Info.plist */,
+			);
+			path = SwiftQuantumComputing_macOS;
+			sourceTree = "<group>";
+		};
+		FFBA23F821691E0F003E5727 /* SwiftQuantumComputing_macOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				FFBA23FB21691E0F003E5727 /* Info.plist */,
+			);
+			path = SwiftQuantumComputing_macOSTests;
 			sourceTree = "<group>";
 		};
 		FFBCD5E3214DBB670047020B /* PositionView */ = {
@@ -654,12 +826,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FFBA23E721691E0F003E5727 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFBA23FC21691E0F003E5727 /* SwiftQuantumComputing.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing */ = {
+		FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing" */;
+			buildConfigurationList = FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_iOS" */;
 			buildPhases = (
 				FF65E3B0211A181900AA0BD2 /* Sources */,
 				FF65E3B1211A181900AA0BD2 /* Frameworks */,
@@ -670,14 +850,14 @@
 			);
 			dependencies = (
 			);
-			name = SwiftQuantumComputing;
+			name = SwiftQuantumComputing_iOS;
 			productName = SwiftQuantumComputing;
 			productReference = FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		FF65E3BD211A181900AA0BD2 /* SwiftQuantumComputingTests */ = {
+		FF65E3BD211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FF65E3CC211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputingTests" */;
+			buildConfigurationList = FF65E3CC211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_iOSTests" */;
 			buildPhases = (
 				FF65E3BA211A181900AA0BD2 /* Sources */,
 				FF65E3BB211A181900AA0BD2 /* Frameworks */,
@@ -688,9 +868,45 @@
 			dependencies = (
 				FF65E3C1211A181900AA0BD2 /* PBXTargetDependency */,
 			);
-			name = SwiftQuantumComputingTests;
+			name = SwiftQuantumComputing_iOSTests;
 			productName = SwiftQuantumComputingTests;
-			productReference = FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputingTests.xctest */;
+			productReference = FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FFBA23EB21691E0F003E5727 /* SwiftQuantumComputing_macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFBA240121691E0F003E5727 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_macOS" */;
+			buildPhases = (
+				FFBA23E721691E0F003E5727 /* Headers */,
+				FFBA23E821691E0F003E5727 /* Sources */,
+				FFBA23E921691E0F003E5727 /* Frameworks */,
+				FFBA23EA21691E0F003E5727 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftQuantumComputing_macOS;
+			productName = SwiftQuantumComputing_macOS;
+			productReference = FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FFBA23F321691E0F003E5727 /* SwiftQuantumComputing_macOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFBA240221691E0F003E5727 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_macOSTests" */;
+			buildPhases = (
+				FFBA23F021691E0F003E5727 /* Sources */,
+				FFBA23F121691E0F003E5727 /* Frameworks */,
+				FFBA23F221691E0F003E5727 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FFBA23F721691E0F003E5727 /* PBXTargetDependency */,
+			);
+			name = SwiftQuantumComputing_macOSTests;
+			productName = SwiftQuantumComputing_macOSTests;
+			productReference = FFBA23F421691E0F003E5727 /* SwiftQuantumComputing_macOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -699,7 +915,7 @@
 		FF65E3AC211A181900AA0BD2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Enrique de la Torre";
 				TargetAttributes = {
@@ -710,6 +926,12 @@
 					FF65E3BD211A181900AA0BD2 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1000;
+					};
+					FFBA23EB21691E0F003E5727 = {
+						CreatedOnToolsVersion = 10.0;
+					};
+					FFBA23F321691E0F003E5727 = {
+						CreatedOnToolsVersion = 10.0;
 					};
 				};
 			};
@@ -725,8 +947,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing */,
-				FF65E3BD211A181900AA0BD2 /* SwiftQuantumComputingTests */,
+				FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing_iOS */,
+				FF65E3BD211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests */,
+				FFBA23EB21691E0F003E5727 /* SwiftQuantumComputing_macOS */,
+				FFBA23F321691E0F003E5727 /* SwiftQuantumComputing_macOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -755,6 +979,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FF65E3BC211A181900AA0BD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFBA23EA21691E0F003E5727 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFBA23F221691E0F003E5727 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -824,6 +1062,7 @@
 				FF3EAC80212DEB10007AF61E /* Circuit+HadamardGate.swift in Sources */,
 				FFA711B121348FF100CE51A1 /* Circuit+Random.swift in Sources */,
 				FF9BBE54214E979A00AD1F78 /* OracleBottomPositionView.swift in Sources */,
+				FFACDD142169086600A466BE /* CircuitViewDescription+CustomPlaygroundDisplayConvertible.swift in Sources */,
 				FF3EAC7E212DEA96007AF61E /* Circuit+ControlledNotGate.swift in Sources */,
 				FFF85A0A2144648900E04838 /* CircuitGateDescription+CircuitStringDescription.swift in Sources */,
 				FFB0D228212E0A650093BB3B /* Circuit.swift in Sources */,
@@ -875,13 +1114,111 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FFBA23E821691E0F003E5727 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF46EDDF216924EE0044C3CA /* Matrix+ControlledNot.swift in Sources */,
+				FF46EDF2216925100044C3CA /* Complex.swift in Sources */,
+				FF46EDF5216925100044C3CA /* Vector.swift in Sources */,
+				FF46EDDD216924E70044C3CA /* CircuitGateOracleDescriber.swift in Sources */,
+				FF46EDF7216925180044C3CA /* Array+Shuffled.swift in Sources */,
+				FF46EDF6216925180044C3CA /* Array+RandomElement.swift in Sources */,
+				FF46EDF1216925100044C3CA /* __CLPK_doublecomplex+Complex.swift in Sources */,
+				FF46EDD7216924DF0044C3CA /* CircuitDescription.swift in Sources */,
+				FF46EDFB216925180044C3CA /* Int+Pow.swift in Sources */,
+				FF46EDD1216924C30044C3CA /* CIrcuitRegister.swift in Sources */,
+				FF46EDFF216925280044C3CA /* LoggerFactory.swift in Sources */,
+				FF46EDEC216925040044C3CA /* Circuit+NotGate.swift in Sources */,
+				FF46EDD5216924D80044C3CA /* CircuitViewDescription.swift in Sources */,
+				FF46EDEE216925040044C3CA /* Circuit+PhaseShiftGate.swift in Sources */,
+				FF46EDD9216924E70044C3CA /* CircuitGateDescribable.swift in Sources */,
+				FF46EDE5216924F50044C3CA /* CircuitGate+Hadamard.swift in Sources */,
+				FF46EDED216925040044C3CA /* Circuit+OracleGate.swift in Sources */,
+				FF46EDE4216924F50044C3CA /* CircuitGate+ControlledNot.swift in Sources */,
+				FF46EDE0216924EE0044C3CA /* Matrix+Hadamard.swift in Sources */,
+				FF46EDF8216925180044C3CA /* Int+Derived.swift in Sources */,
+				FF46EDFD216925200044C3CA /* RegisterGate.swift in Sources */,
+				FF46EDF3216925100044C3CA /* Matrix.swift in Sources */,
+				FF46EDD4216924D80044C3CA /* CircuitGateDescription+CircuitViewPosition.swift in Sources */,
+				FF46EDEB216925040044C3CA /* Circuit+HadamardGate.swift in Sources */,
+				FF46EDE1216924EE0044C3CA /* Matrix+Not.swift in Sources */,
+				FF46EDCF216924C30044C3CA /* CircuitRegisterGateFactory.swift in Sources */,
+				FF46EDF4216925100044C3CA /* Polar.swift in Sources */,
+				FF46EDF0216925040044C3CA /* CircuitFactory.swift in Sources */,
+				FF46EDD0216924C30044C3CA /* CircuitRegisterGateFactoryAdapter.swift in Sources */,
+				FF46EDD6216924D80044C3CA /* CircuitViewPosition.swift in Sources */,
+				FF46EDD2216924D00044C3CA /* CircuitStringDescription.swift in Sources */,
+				FF46EDCE216924C30044C3CA /* CircuitFacade.swift in Sources */,
+				FF46EDE3216924F50044C3CA /* CircuitGate.swift in Sources */,
+				FF46EDFE216925200044C3CA /* RegisterGateFactory.swift in Sources */,
+				FF46EDDB216924E70044C3CA /* CircuitGateHadamardDescriber.swift in Sources */,
+				FF46EDF9216925180044C3CA /* Int+IsPowerOfTwo.swift in Sources */,
+				FF46EDDE216924E70044C3CA /* CircuitGatePhaseShiftDescriber.swift in Sources */,
+				FF46EDD8216924E70044C3CA /* CircuitGateControlledNotDescriber.swift in Sources */,
+				FF46EDFC216925200044C3CA /* Register.swift in Sources */,
+				FF46EDE8216924F50044C3CA /* CircuitGate+PhaseShift.swift in Sources */,
+				FF46EDEA216925040044C3CA /* Circuit+ControlledNotGate.swift in Sources */,
+				FF46EDFA216925180044C3CA /* Int+Log2.swift in Sources */,
+				FF46EDE7216924F50044C3CA /* CircuitGate+Oracle.swift in Sources */,
+				FF46EDD3216924D00044C3CA /* CircuitGateDescription+CircuitStringDescription.swift in Sources */,
+				FF46EDDC216924E70044C3CA /* CircuitGateNotDescriber.swift in Sources */,
+				FF46EDDA216924E70044C3CA /* CircuitGateDescription.swift in Sources */,
+				FF46EDEF216925040044C3CA /* Circuit+Random.swift in Sources */,
+				FF46EDE6216924F50044C3CA /* CircuitGate+Not.swift in Sources */,
+				FF46EDE2216924EE0044C3CA /* Matrix+PhaseShift.swift in Sources */,
+				FF46EDE9216925040044C3CA /* Circuit.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFBA23F021691E0F003E5727 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF46EDBA216924370044C3CA /* Circuit+HadamardGateTests.swift in Sources */,
+				FF46EDCA2169246F0044C3CA /* CircuitRegisterTestDouble.swift in Sources */,
+				FF46EDB62169241E0044C3CA /* CircuitGateNotDescriberTests.swift in Sources */,
+				FF46EDB42169241E0044C3CA /* CircuitGateControlledNotDescriberTests.swift in Sources */,
+				FF46EDBB216924370044C3CA /* Circuit+NotGateTests.swift in Sources */,
+				FF46EDC2216924510044C3CA /* PolarTests.swift in Sources */,
+				FF46EDC42169245C0044C3CA /* Int+DerivedTests.swift in Sources */,
+				FF46EDB3216924130044C3CA /* CircuitViewDescriptionTests.swift in Sources */,
+				FF46EDCC2169247A0044C3CA /* CircuitGateDescribableTestDouble.swift in Sources */,
+				FF46EDC92169246F0044C3CA /* CircuitRegisterGateFactoryTestDouble.swift in Sources */,
+				FF46EDC1216924510044C3CA /* MatrixTests.swift in Sources */,
+				FF46EDBF216924510044C3CA /* __CLPK_doublecomplex+ComplexTests.swift in Sources */,
+				FF46EDC3216924510044C3CA /* VectorTests.swift in Sources */,
+				FF46EDB1216924050044C3CA /* CircuitFacadeTests.swift in Sources */,
+				FF46EDB2216924130044C3CA /* CircuitGateDescription+CircuitViewPositionTests.swift in Sources */,
+				FF46EDC0216924510044C3CA /* ComplexTests.swift in Sources */,
+				FF46EDB82169241E0044C3CA /* CircuitGatePhaseShiftDescriberTests.swift in Sources */,
+				FF46EDBD216924370044C3CA /* Circuit+PhaseShiftGateTests.swift in Sources */,
+				FF46EDBC216924370044C3CA /* Circuit+OracleGateTests.swift in Sources */,
+				FF46EDCD2169247F0044C3CA /* CircuitTestDouble.swift in Sources */,
+				FF46EDCB216924760044C3CA /* CircuitDescriptionTestDouble.swift in Sources */,
+				FF46EDBE216924370044C3CA /* Circuit+RandomTests.swift in Sources */,
+				FF46EDB72169241E0044C3CA /* CircuitGateOracleDescriberTests.swift in Sources */,
+				FF46EDC7216924640044C3CA /* RegisterGateFactoryTests.swift in Sources */,
+				FF46EDC8216924640044C3CA /* RegisterGateTests.swift in Sources */,
+				FF46EDC6216924640044C3CA /* RegisterTests.swift in Sources */,
+				FF46EDB9216924370044C3CA /* Circuit+ControlledNotGateTests.swift in Sources */,
+				FF46EDC52169245C0044C3CA /* Int+IsPowerOfTwoTests.swift in Sources */,
+				FF46EDB52169241E0044C3CA /* CircuitGateHadamardDescriberTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		FF65E3C1211A181900AA0BD2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing */;
+			target = FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing_iOS */;
 			targetProxy = FF65E3C0211A181900AA0BD2 /* PBXContainerItemProxy */;
+		};
+		FFBA23F721691E0F003E5727 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FFBA23EB21691E0F003E5727 /* SwiftQuantumComputing_macOS */;
+			targetProxy = FFBA23F621691E0F003E5727 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1016,7 +1353,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftQuantumComputing/Info.plist;
+				INFOPLIST_FILE = SwiftQuantumComputing_iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1024,7 +1361,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "${PROJECT_NAME}";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -1042,7 +1379,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftQuantumComputing/Info.plist;
+				INFOPLIST_FILE = SwiftQuantumComputing_iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1050,7 +1387,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "${PROJECT_NAME}";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1062,13 +1399,13 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SwiftQuantumComputingTests/Info.plist;
+				INFOPLIST_FILE = SwiftQuantumComputing_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputingTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.indisoluble.SwiftQuantumComputing-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1080,16 +1417,118 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SwiftQuantumComputingTests/Info.plist;
+				INFOPLIST_FILE = SwiftQuantumComputing_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputingTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.indisoluble.SwiftQuantumComputing-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FFBA23FD21691E0F003E5727 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = SwiftQuantumComputing_macOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
+				PRODUCT_NAME = "${PROJECT_NAME}";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		FFBA23FE21691E0F003E5727 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = SwiftQuantumComputing_macOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
+				PRODUCT_NAME = "${PROJECT_NAME}";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
+		FFBA23FF21691E0F003E5727 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SwiftQuantumComputing_macOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.indisoluble.SwiftQuantumComputing-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		FFBA240021691E0F003E5727 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SwiftQuantumComputing_macOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.indisoluble.SwiftQuantumComputing-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1105,7 +1544,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing" */ = {
+		FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FF65E3CA211A181900AA0BD2 /* Debug */,
@@ -1114,11 +1553,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FF65E3CC211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputingTests" */ = {
+		FF65E3CC211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FF65E3CD211A181900AA0BD2 /* Debug */,
 				FF65E3CE211A181900AA0BD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFBA240121691E0F003E5727 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFBA23FD21691E0F003E5727 /* Debug */,
+				FFBA23FE21691E0F003E5727 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFBA240221691E0F003E5727 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_macOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFBA23FF21691E0F003E5727 /* Debug */,
+				FFBA240021691E0F003E5727 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
