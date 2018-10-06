@@ -657,9 +657,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing */ = {
+		FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing" */;
+			buildConfigurationList = FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_iOS" */;
 			buildPhases = (
 				FF65E3B0211A181900AA0BD2 /* Sources */,
 				FF65E3B1211A181900AA0BD2 /* Frameworks */,
@@ -670,7 +670,7 @@
 			);
 			dependencies = (
 			);
-			name = SwiftQuantumComputing;
+			name = SwiftQuantumComputing_iOS;
 			productName = SwiftQuantumComputing;
 			productReference = FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */;
 			productType = "com.apple.product-type.framework";
@@ -725,7 +725,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing */,
+				FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing_iOS */,
 				FF65E3BD211A181900AA0BD2 /* SwiftQuantumComputingTests */,
 			);
 		};
@@ -880,7 +880,7 @@
 /* Begin PBXTargetDependency section */
 		FF65E3C1211A181900AA0BD2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing */;
+			target = FF65E3B4211A181900AA0BD2 /* SwiftQuantumComputing_iOS */;
 			targetProxy = FF65E3C0211A181900AA0BD2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1024,7 +1024,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "${PROJECT_NAME}";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -1050,7 +1050,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "${PROJECT_NAME}";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1105,7 +1105,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing" */ = {
+		FF65E3C9211A181900AA0BD2 /* Build configuration list for PBXNativeTarget "SwiftQuantumComputing_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FF65E3CA211A181900AA0BD2 /* Debug */,

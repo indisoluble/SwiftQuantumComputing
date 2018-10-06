@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FF65E3B4211A181900AA0BD2"
                BuildableName = "SwiftQuantumComputing.framework"
-               BlueprintName = "SwiftQuantumComputing"
+               BlueprintName = "SwiftQuantumComputing_iOS"
                ReferencedContainer = "container:SwiftQuantumComputing.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,7 +45,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FF65E3B4211A181900AA0BD2"
             BuildableName = "SwiftQuantumComputing.framework"
-            BlueprintName = "SwiftQuantumComputing"
+            BlueprintName = "SwiftQuantumComputing_iOS"
             ReferencedContainer = "container:SwiftQuantumComputing.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -67,7 +67,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FF65E3B4211A181900AA0BD2"
             BuildableName = "SwiftQuantumComputing.framework"
-            BlueprintName = "SwiftQuantumComputing"
+            BlueprintName = "SwiftQuantumComputing_iOS"
             ReferencedContainer = "container:SwiftQuantumComputing.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -85,7 +85,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FF65E3B4211A181900AA0BD2"
             BuildableName = "SwiftQuantumComputing.framework"
-            BlueprintName = "SwiftQuantumComputing"
+            BlueprintName = "SwiftQuantumComputing_iOS"
             ReferencedContainer = "container:SwiftQuantumComputing.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
