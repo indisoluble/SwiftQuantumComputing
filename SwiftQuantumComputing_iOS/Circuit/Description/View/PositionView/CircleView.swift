@@ -18,7 +18,7 @@
 // limitations under the License.
 //
 
-import UIKit
+import Foundation
 
 // MARK: - Main body
 

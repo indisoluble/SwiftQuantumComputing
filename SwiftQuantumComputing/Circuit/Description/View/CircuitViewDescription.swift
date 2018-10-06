@@ -24,15 +24,11 @@ import Foundation
 
 struct CircuitViewDescription {
 
-    // MARK: - Private properties
+    // MARK: - Public properties
 
-    private let layers: [[CircuitViewPosition]]
+    let layers: [[CircuitViewPosition]]
 
-    private var layerCount: Int {
-        return layers.count
-    }
-
-    private var qubitCount: Int {
+    var qubitCount: Int {
         return layers.first!.count
     }
 
@@ -53,26 +49,6 @@ struct CircuitViewDescription {
     }
 }
 
-// MARK: - CustomPlaygroundDisplayConvertible methods
-
-extension CircuitViewDescription: CustomPlaygroundDisplayConvertible {
-    var playgroundDescription: Any {
-        let container = makeContainerView()
-        let layerStack = makeLayerStack(container: container)
-
-        for layer in layers {
-            let positions = layer.map { $0.makePositionView(size: Constants.positionSize) }
-            let positionStack = makePositionStack(positions: positions)
-
-            layerStack.addArrangedSubview(positionStack)
-        }
-
-        container.addSubview(layerStack)
-
-        return container
-    }
-}
-
 // MARK: - CircuitDescription methods
 
 extension CircuitViewDescription: CircuitDescription {
@@ -82,42 +58,5 @@ extension CircuitViewDescription: CircuitDescription {
         let layer = gateDescription.makeLayer(qubitCount: qubitCount)
 
         return CircuitViewDescription(layers: layers + [layer])
-    }
-}
-
-// MARK: - Private body
-
-private extension CircuitViewDescription {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let positionSize = CGSize(width: 80, height: 80)
-    }
-
-    // MARK: - Private methods
-
-    func makeContainerView() -> UIView {
-        let width = (CGFloat(layerCount) * Constants.positionSize.width)
-        let height = (CGFloat(qubitCount) * Constants.positionSize.height)
-        let frame = CGRect(x: 0, y: 0, width: width, height: height)
-
-        return UIView(frame: frame)
-    }
-
-    func makeLayerStack(container: UIView) -> UIStackView {
-        let stack = UIStackView(frame: container.bounds)
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-
-        return stack
-    }
-
-    func makePositionStack(positions: [UIView]) -> UIStackView {
-        let stack = UIStackView(arrangedSubviews: positions)
-        stack.axis = .vertical
-        stack.distribution = .fillEqually
-
-        return stack
     }
 }
