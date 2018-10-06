@@ -20,9 +20,17 @@
 
 import Foundation
 
+// MARK: - Types
+
+#if os(macOS)
+typealias SQCView = NSView
+#else
+typealias SQCView = UIView
+#endif
+
 // MARK: - Main body
 
-class PositionView: UIView {
+class PositionView: SQCView {
 
     // MARK: - Init methods
 
@@ -50,9 +58,18 @@ private extension PositionView {
         let className = packageName.split(separator: ".").last!
 
         let bundle = Bundle(for: type(of: self))
-        let nib = bundle.loadNibNamed(String(className), owner: self, options: nil)!
 
-        let view = nib.first as! UIView
+        #if os(macOS)
+        var objects: NSArray?
+        bundle.loadNibNamed(String(className), owner: self, topLevelObjects: &objects)
+
+        let nib = objects!
+        #else
+        let nib = bundle.loadNibNamed(String(className), owner: self, options: nil)!
+        #endif
+
+        let view = nib.filter { $0 is SQCView }.first as! SQCView
+
         addSubview(view)
     }
 }

@@ -177,6 +177,7 @@
 		FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */; };
 		FFC35E3A2132F1DC009A3A9E /* Array+RandomElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E392132F1DC009A3A9E /* Array+RandomElement.swift */; };
 		FFC35E3C2132F4F3009A3A9E /* Array+Shuffled.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E3B2132F4F3009A3A9E /* Array+Shuffled.swift */; };
+		FFDEDF1B216968F4005590B4 /* PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE25214E749200AD1F78 /* PositionView.swift */; };
 		FFE1D70A211A1AEB00A50D9C /* Polar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D705211A1AEB00A50D9C /* Polar.swift */; };
 		FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D706211A1AEB00A50D9C /* Complex.swift */; };
 		FFE1D70C211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */; };
@@ -621,6 +622,7 @@
 		FF9D08912147148E0071F5C7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FFDEDF1A216968BD005590B4 /* PositionView */,
 				FF960F33214D28E900C0282D /* CircuitGateDescription+CircuitViewPosition.swift */,
 				FF9D0892214714DD0071F5C7 /* CircuitViewDescription.swift */,
 				FF960F31214D27E900C0282D /* CircuitViewPosition.swift */,
@@ -756,9 +758,16 @@
 				FF9BBE51214E969300AD1F78 /* OracleTopPositionView.xib */,
 				FF9BBE3B214E816D00AD1F78 /* PhaseShiftPositionView.swift */,
 				FF9BBE3D214E818200AD1F78 /* PhaseShiftPositionView.xib */,
-				FF9BBE25214E749200AD1F78 /* PositionView.swift */,
 				FF9BBE37214E7BD600AD1F78 /* QubitPositionView.swift */,
 				FF9BBE39214E7C2400AD1F78 /* QubitPositionView.xib */,
+			);
+			path = PositionView;
+			sourceTree = "<group>";
+		};
+		FFDEDF1A216968BD005590B4 /* PositionView */ = {
+			isa = PBXGroup;
+			children = (
+				FF9BBE25214E749200AD1F78 /* PositionView.swift */,
 			);
 			path = PositionView;
 			sourceTree = "<group>";
@@ -1141,6 +1150,7 @@
 				FF46EDFD216925200044C3CA /* RegisterGate.swift in Sources */,
 				FF46EDF3216925100044C3CA /* Matrix.swift in Sources */,
 				FF46EDD4216924D80044C3CA /* CircuitGateDescription+CircuitViewPosition.swift in Sources */,
+				FFDEDF1B216968F4005590B4 /* PositionView.swift in Sources */,
 				FF46EDEB216925040044C3CA /* Circuit+HadamardGate.swift in Sources */,
 				FF46EDE1216924EE0044C3CA /* Matrix+Not.swift in Sources */,
 				FF46EDCF216924C30044C3CA /* CircuitRegisterGateFactory.swift in Sources */,
