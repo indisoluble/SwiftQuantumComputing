@@ -34,8 +34,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FF65E3BD211A181900AA0BD2"
-               BuildableName = "SwiftQuantumComputingTests.xctest"
-               BlueprintName = "SwiftQuantumComputingTests"
+               BuildableName = "SwiftQuantumComputing_iOSTests.xctest"
+               BlueprintName = "SwiftQuantumComputing_iOSTests"
                ReferencedContainer = "container:SwiftQuantumComputing.xcodeproj">
             </BuildableReference>
          </TestableReference>
