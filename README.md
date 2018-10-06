@@ -2,6 +2,7 @@
 
 [![CI Status](https://travis-ci.org/indisoluble/SwiftQuantumComputing.svg)](https://travis-ci.org/indisoluble/SwiftQuantumComputing)
 [![codecov.io](https://codecov.io/github/indisoluble/SwiftQuantumComputing/coverage.svg)](https://codecov.io/github/indisoluble/SwiftQuantumComputing)
+![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS-lightgrey.svg)
 
 In this repository you can find a simple quantum circuit simulator written in Swift.
 
@@ -20,3 +21,5 @@ Or you can automatically create a circuit adding at random the gates in a list:
 ![Randomly generated circuit](./Images/RandomCircuit.jpg)
 
 Check `RandomCircuit.playground` for an extended example.
+
+**NOTICE:** Only on *iOS*, a `Circuit` instance is presented as you can see above; on *macOS*, a textual representation is shown instead.
