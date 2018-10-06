@@ -114,7 +114,7 @@ class CircuitGateDescription_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.oracleMiddleUnconnected,
             CircuitViewPosition.oracleMiddleConnected,
             CircuitViewPosition.oracleMiddleUnconnected,
-            CircuitViewPosition.oracleBottom,
+            CircuitViewPosition.oracleBottom(inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)

@@ -28,10 +28,11 @@ extension CircuitViewDescription: CustomPlaygroundDisplayConvertible {
         let layerStack = makeLayerStack(container: container)
 
         for layer in layers {
-            let positions = layer.map { $0.makePositionView(size: Constants.positionSize) }
-            let positionStack = makePositionStack(positions: positions)
+            let positions = layer.reversed()
+            let views = positions.map { $0.makePositionView(size: Constants.positionSize) }
+            let viewStack = makePositionStack(positions: views)
 
-            layerStack.addArrangedSubview(positionStack)
+            layerStack.addArrangedSubview(viewStack)
         }
 
         container.addSubview(layerStack)

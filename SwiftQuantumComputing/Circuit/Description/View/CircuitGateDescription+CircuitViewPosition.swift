@@ -106,7 +106,7 @@ private extension CircuitGateDescription {
 
             layer[index] = (isInputConnected ? .oracleMiddleConnected : .oracleMiddleUnconnected)
         }
-        layer[last] = .oracleBottom
+        layer[last] = .oracleBottom(inputs: inputs)
 
         return layer
     }
