@@ -35,7 +35,7 @@ enum CircuitViewPosition: Equatable {
     case controlDown
     case oracle
     case oracleTop(inputs: [Int])
-    case oracleBottom(inputs: [Int])
+    case oracleBottom
     case oracleMiddleConnected
     case oracleMiddleUnconnected
 } 

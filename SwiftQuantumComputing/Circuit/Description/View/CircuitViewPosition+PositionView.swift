@@ -49,22 +49,22 @@ extension CircuitViewPosition {
 
             return view
         case .controlledNotDown:
-            return ControlledNotUpPositionView(frame: frame)
-        case .controlledNotUp:
             return ControlledNotDownPositionView(frame: frame)
+        case .controlledNotUp:
+            return ControlledNotUpPositionView(frame: frame)
         case .controlUp:
-            return ControlDownPositionView(frame: frame)
-        case .controlDown:
             return ControlUpPositionView(frame: frame)
+        case .controlDown:
+            return ControlDownPositionView(frame: frame)
         case .oracle:
             return OraclePositionView(frame: frame)
-        case .oracleTop:
-            return OracleBottomPositionView(frame: frame)
-        case .oracleBottom(let inputs):
+        case .oracleTop(let inputs):
             let view = OracleTopPositionView(frame: frame)
             view.showInputs(inputs)
 
             return view
+        case .oracleBottom:
+            return OracleBottomPositionView(frame: frame)
         case .oracleMiddleConnected:
             return OracleMiddleConnectedPositionView(frame: frame)
         case .oracleMiddleUnconnected:
