@@ -76,11 +76,11 @@ private extension CircuitGateDescription {
                                 control: Int) -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
 
-        let isTargetOnTop = (target < control)
+        let isTargetOnTop = (target > control)
         layer[target] = (isTargetOnTop ? .controlledNotDown : .controlledNotUp)
         layer[control] = (isTargetOnTop ? .controlUp : .controlDown)
 
-        let step = (isTargetOnTop ? 1 : -1)
+        let step = (isTargetOnTop ? -1 : 1)
         for index in stride(from: (target + step), to: control, by: step) {
             layer[index] = .crossedLines
         }
@@ -100,13 +100,13 @@ private extension CircuitGateDescription {
         let first = sortedInputs.first!
         let last = sortedInputs.last!
 
-        layer[first] = .oracleTop(inputs: inputs)
+        layer[first] = .oracleBottom
         for index in (first + 1)..<last {
             let isInputConnected = sortedInputs.contains(index)
 
             layer[index] = (isInputConnected ? .oracleMiddleConnected : .oracleMiddleUnconnected)
         }
-        layer[last] = .oracleBottom
+        layer[last] = .oracleTop(inputs: inputs)
 
         return layer
     }

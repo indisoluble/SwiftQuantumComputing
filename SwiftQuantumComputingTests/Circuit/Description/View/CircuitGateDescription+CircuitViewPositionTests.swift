@@ -39,9 +39,9 @@ class CircuitGateDescription_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.controlledNotDown,
+            CircuitViewPosition.controlledNotUp,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlUp,
+            CircuitViewPosition.controlDown,
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -110,11 +110,11 @@ class CircuitGateDescription_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleTop(inputs: inputs),
+            CircuitViewPosition.oracleBottom,
             CircuitViewPosition.oracleMiddleUnconnected,
             CircuitViewPosition.oracleMiddleConnected,
             CircuitViewPosition.oracleMiddleUnconnected,
-            CircuitViewPosition.oracleBottom,
+            CircuitViewPosition.oracleTop(inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)

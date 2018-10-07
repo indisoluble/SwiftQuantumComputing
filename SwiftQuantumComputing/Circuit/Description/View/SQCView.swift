@@ -1,8 +1,8 @@
 //
-//  QubitPositionView.swift
+//  SQCView.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 16/09/2018.
+//  Created by Enrique de la Torre on 07/10/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,17 +20,10 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Types
 
-final class QubitPositionView: PositionView {
-
-    // MARK: - Outlets
-
-    @IBOutlet weak var label: UILabel!
-
-    // MARK: - Public methods
-
-    func showIndex(_ index: Int) {
-        label.text = "q\(index) : |0>"
-    }
-}
+#if os(macOS)
+typealias SQCView = NSView
+#else
+typealias SQCView = UIView
+#endif

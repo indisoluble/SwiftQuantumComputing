@@ -1,5 +1,5 @@
 //
-//  PhaseShiftPositionView.swift
+//  QubitPositionView.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 16/09/2018.
@@ -22,15 +22,4 @@ import Foundation
 
 // MARK: - Main body
 
-final class PhaseShiftPositionView: PositionView {
-
-    // MARK: - Outlets
-
-    @IBOutlet weak var label: UILabel!
-
-    // MARK: - Public methods
-
-    func showRadians(_ radians: Double) {
-        label.text = String(format: "R(%.2f)", radians)
-    }
-}
+final class QubitPositionView: PositionTextView {}

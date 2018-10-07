@@ -24,11 +24,15 @@ import Foundation
 
 struct CircuitViewDescription {
 
-    // MARK: - Public properties
+    // MARK: - Private properties
 
-    let layers: [[CircuitViewPosition]]
+    private let layers: [[CircuitViewPosition]]
 
-    var qubitCount: Int {
+    private var layerCount: Int {
+        return layers.count
+    }
+
+    private var qubitCount: Int {
         return layers.first!.count
     }
 
@@ -49,6 +53,35 @@ struct CircuitViewDescription {
     }
 }
 
+// MARK: - CustomPlaygroundDisplayConvertible methods
+
+extension CircuitViewDescription: CustomPlaygroundDisplayConvertible {
+    var playgroundDescription: Any {
+        let container = makeContainerView()
+
+        for hPos in 0..<layerCount {
+            let positions = layers[hPos]
+            let positionsCount = positions.count
+
+            for vPos in 0..<positionsCount {
+                let view = positions[vPos].makePositionView(size: Constants.positionSize)
+
+                #if os(macOS)
+                let yMultiplier = CGFloat(vPos)
+                #else
+                let yMultiplier = CGFloat(positionsCount - vPos - 1)
+                #endif
+                view.frame.origin = CGPoint(x: CGFloat(hPos) * Constants.positionSize.width,
+                                            y: yMultiplier * Constants.positionSize.height)
+
+                container.addSubview(view)
+            }
+        }
+
+        return container
+    }
+}
+
 // MARK: - CircuitDescription methods
 
 extension CircuitViewDescription: CircuitDescription {
@@ -58,5 +91,26 @@ extension CircuitViewDescription: CircuitDescription {
         let layer = gateDescription.makeLayer(qubitCount: qubitCount)
 
         return CircuitViewDescription(layers: layers + [layer])
+    }
+}
+
+// MARK: - Private body
+
+private extension CircuitViewDescription {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let positionSize = CGSize(width: 80, height: 80)
+    }
+
+    // MARK: - Private methods
+
+    func makeContainerView() -> SQCView {
+        let width = (CGFloat(layerCount) * Constants.positionSize.width)
+        let height = (CGFloat(qubitCount) * Constants.positionSize.height)
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
+
+        return SQCView(frame: frame)
     }
 }
