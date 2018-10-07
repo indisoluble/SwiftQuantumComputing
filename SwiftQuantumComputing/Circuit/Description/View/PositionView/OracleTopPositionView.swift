@@ -1,5 +1,5 @@
 //
-//  QubitPositionView.swift
+//  OracleTopPositionView.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 16/09/2018.
@@ -22,15 +22,4 @@ import Foundation
 
 // MARK: - Main body
 
-final class QubitPositionView: PositionView {
-
-    // MARK: - Outlets
-
-    @IBOutlet weak var label: UILabel!
-
-    // MARK: - Public methods
-
-    func showIndex(_ index: Int) {
-        label.text = "q\(index) : |0>"
-    }
-}
+final class OracleTopPositionView: PositionTextView {}
