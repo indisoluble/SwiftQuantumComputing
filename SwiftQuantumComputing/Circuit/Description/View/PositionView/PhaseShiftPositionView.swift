@@ -1,5 +1,5 @@
 //
-//  OracleTopPositionView.swift
+//  PhaseShiftPositionView.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 16/09/2018.
@@ -22,15 +22,4 @@ import Foundation
 
 // MARK: - Main body
 
-final class OracleTopPositionView: PositionView {
-
-    // MARK: - Outlets
-
-    @IBOutlet weak var label: UILabel!
-
-    // MARK: - Public methods
-
-    func showInputs(_ inputs: [Int]) {
-        label.text = "U(\(inputs.map { String($0) }.joined(separator: ",")))"
-    }
-}
+final class PhaseShiftPositionView: PositionTextView {}

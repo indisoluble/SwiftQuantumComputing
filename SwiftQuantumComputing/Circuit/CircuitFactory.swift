@@ -41,12 +41,7 @@ public struct CircuitFactory {
         }
 
         let factory = CircuitRegisterGateFactoryAdapter(qubitCount: qubitCount)
-
-        #if os(macOS)
-        let description = CircuitStringDescription()
-        #else
         let description = CircuitViewDescription(qubitCount: qubitCount)!
-        #endif
 
         return CircuitFacade(register: register, factory: factory, circuitDescription: description)
     }

@@ -1,5 +1,5 @@
 //
-//  PositionView.swift
+//  OracleTopPositionView.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 16/09/2018.
@@ -22,37 +22,4 @@ import Foundation
 
 // MARK: - Main body
 
-class PositionView: UIView {
-
-    // MARK: - Init methods
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        commonInit()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-
-        commonInit()
-    }
-}
-
-// MARK: - Private body
-
-private extension PositionView {
-
-    // MARK: - Private methods
-
-    func commonInit() {
-        let packageName = NSStringFromClass(type(of: self))
-        let className = packageName.split(separator: ".").last!
-
-        let bundle = Bundle(for: type(of: self))
-        let nib = bundle.loadNibNamed(String(className), owner: self, options: nil)!
-
-        let view = nib.first as! UIView
-        addSubview(view)
-    }
-}
+final class OracleTopPositionView: PositionTextView {}

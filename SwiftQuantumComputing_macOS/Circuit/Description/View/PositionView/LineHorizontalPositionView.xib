@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="LineHorizontalPositionView" customModule="SwiftQuantumComputing" customModuleProvider="target"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="igt-hg-Bgp">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <subviews>
+                <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8gJ-1a-6Oe">
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                    <view key="contentView" id="XP1-F0-Ik7">
+                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ltg-eG-TpW">
+                                <rect key="frame" x="0.0" y="39" width="80" height="2"/>
+                                <view key="contentView" id="LL4-N4-wIp">
+                                    <rect key="frame" x="0.0" y="0.0" width="80" height="2"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="K1G-Pp-btI"/>
+                                </constraints>
+                                <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ltg-eG-TpW" secondAttribute="trailing" id="OkT-jR-YWR"/>
+                            <constraint firstItem="ltg-eG-TpW" firstAttribute="leading" secondItem="XP1-F0-Ik7" secondAttribute="leading" id="aId-CN-ovC"/>
+                            <constraint firstItem="ltg-eG-TpW" firstAttribute="centerY" secondItem="XP1-F0-Ik7" secondAttribute="centerY" id="uj7-NJ-P3G"/>
+                        </constraints>
+                    </view>
+                    <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="fillColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </box>
+            </subviews>
+            <constraints>
+                <constraint firstItem="8gJ-1a-6Oe" firstAttribute="top" secondItem="igt-hg-Bgp" secondAttribute="top" id="0He-MK-zZi"/>
+                <constraint firstAttribute="bottom" secondItem="8gJ-1a-6Oe" secondAttribute="bottom" id="0ls-ab-b8O"/>
+                <constraint firstItem="8gJ-1a-6Oe" firstAttribute="leading" secondItem="igt-hg-Bgp" secondAttribute="leading" id="X5T-9n-twy"/>
+                <constraint firstAttribute="trailing" secondItem="8gJ-1a-6Oe" secondAttribute="trailing" id="Xbx-EP-4fZ"/>
+            </constraints>
+        </customView>
+    </objects>
+</document>

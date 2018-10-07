@@ -21,5 +21,3 @@ Or you can automatically create a circuit adding at random the gates in a list:
 ![Randomly generated circuit](./Images/RandomCircuit.jpg)
 
 Check `RandomCircuit.playground` for an extended example.
-
-**NOTICE:** Only on *iOS*, a `Circuit` instance is presented as you can see above; on *macOS*, a textual representation is shown instead.
