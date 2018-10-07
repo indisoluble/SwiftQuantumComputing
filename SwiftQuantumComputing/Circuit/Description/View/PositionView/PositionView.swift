@@ -20,14 +20,6 @@
 
 import Foundation
 
-// MARK: - Types
-
-#if os(macOS)
-typealias SQCView = NSView
-#else
-typealias SQCView = UIView
-#endif
-
 // MARK: - Main body
 
 class PositionView: SQCView {
