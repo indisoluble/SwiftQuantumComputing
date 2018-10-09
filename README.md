@@ -13,12 +13,12 @@ The code written so far is mostly based on the content of: [Quantum Computing fo
 
 To create a circuit gate by gate:
 
-![Deutsch's Algorithm](./Images/DeutschAlgorithm.jpg)
+![Deutsch's Algorithm](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/DeutschAlgorithm.jpg)
 
 For a more detailed example, check `DeutschAlgorithm.playground`.
 
 Or you can automatically create a circuit adding at random the gates in a list:
 
-![Randomly generated circuit](./Images/RandomCircuit.jpg)
+![Randomly generated circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/RandomCircuit.jpg)
 
 Check `RandomCircuit.playground` for an extended example.
