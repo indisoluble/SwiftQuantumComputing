@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SwiftQuantumComputing"
-  s.version      = "3.5.0"
+  s.version      = "3.5.1"
   s.summary      = "A quantum circuit simulator."
   s.description  = <<-DESC
   A quantum circuit simulator written in Swift.
