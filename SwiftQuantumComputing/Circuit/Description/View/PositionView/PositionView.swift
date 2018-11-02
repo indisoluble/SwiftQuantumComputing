@@ -63,5 +63,10 @@ private extension PositionView {
         let view = nib.filter { $0 is SQCView }.first as! SQCView
 
         addSubview(view)
+
+        view.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0).isActive = true
+        view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
+        view.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
+        view.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
     }
 }
