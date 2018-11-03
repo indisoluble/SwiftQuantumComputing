@@ -18,18 +18,14 @@
 // limitations under the License.
 //
 
-import Accelerate
 import Foundation
+import os.log
 
 // MARK: - Main body
 
 public struct Matrix {
 
     // MARK: - Public properties
-
-    public var isHermitian: Bool {
-        return (self == self.adjointed())
-    }
 
     public var isSquare: Bool {
         return (rowCount == columnCount)
@@ -105,61 +101,6 @@ public struct Matrix {
         return (lhsIsIdentity && rhsIsIdentity)
     }
 
-    public func hermitianEigens() -> [(eigenvalue: Double, eigenvector: Vector)]? {
-        guard isHermitian else {
-            os_log("hermitianEigens failed: matrix is not hermitian",
-                   log: Matrix.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        var jobz = Int8(86) // V: Compute eigenvalues and eigenvectors
-        var uplo = Int8(76) // L: Lower triangular part
-
-        var n = Int32(rowCount)
-        var lda = Int32(rowCount)
-        var info = Int32()
-
-        var w = Array(repeating: Double(), count: rowCount)
-        var a = transposed().rows.reduce([]) { $0 + $1.map { __CLPK_doublecomplex($0) } }
-
-        // Get optimal workspace
-        var tmpWork = __CLPK_doublecomplex()
-        var lengthTmpWork = Int32(-1)
-        var tmpRWork = Double()
-        var lengthTmpRWork = Int32(-1)
-        var tmpIWork = Int32()
-        var lengthTmpIWork = Int32(-1)
-
-        zheevd_(&jobz, &uplo, &n, &a, &lda, &w, &tmpWork, &lengthTmpWork, &tmpRWork, &lengthTmpRWork, &tmpIWork, &lengthTmpIWork, &info)
-
-        // Compute eigenvalues & eigenvectors
-        var lengthWork = Int32(tmpWork.r)
-        var work = Array(repeating: __CLPK_doublecomplex(), count: Int(lengthWork))
-        var lengthRWork = Int32(tmpRWork)
-        var rWork = Array(repeating: Double(), count: Int(lengthRWork))
-        var lengthIWork = tmpIWork
-        var iWork = Array(repeating: Int32(), count: Int(lengthIWork))
-
-        zheevd_(&jobz, &uplo, &n, &a, &lda, &w, &work, &lengthWork, &rWork, &lengthRWork, &iWork, &lengthIWork, &info)
-
-        // Validate results
-        if (info > 0) {
-            os_log("hermitianEigens failed: algorithm failed to converge",
-                   log: Matrix.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        let indexes = stride(from: 0, to: a.count, by: rowCount)
-        let columns = indexes.map { a[$0..<($0 + rowCount)].map { Complex($0) } }
-        let vectors = columns.map { Vector($0)! }
-
-        return Array(zip(w, vectors))
-    }
-
     public func transposed() -> Matrix {
         let initial = Array(repeating: [] as [Complex], count: columnCount)
         let result = rows.reduce(initial) { zip($0, $1).map { $0 + [$1] } }
@@ -225,34 +166,6 @@ extension Matrix: Equatable {
 // MARK: - Overloaded operators
 
 extension Matrix {
-    public static prefix func -(matrix: Matrix) -> Matrix {
-        let elements = matrix.rows.map { $0.map(-) }
-
-        return Matrix(validRows: elements)
-    }
-
-    public static func +(lhs: Matrix, rhs: Matrix) -> Matrix? {
-        guard (lhs.rowCount == rhs.rowCount) else {
-            os_log("+ failed: both matrices have to have same number of rows",
-                   log: Matrix.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        guard (lhs.columnCount == rhs.columnCount) else {
-            os_log("+ failed: both matrices have to have same number of columns",
-                   log: Matrix.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        let elements = zip(lhs.rows, rhs.rows).map { zip($0, $1).map(+) }
-
-        return Matrix(validRows: elements)
-    }
-
     public static func *(complex: Complex, matrix: Matrix) -> Matrix {
         let elements = matrix.rows.map { $0.map { complex * $0 } }
 

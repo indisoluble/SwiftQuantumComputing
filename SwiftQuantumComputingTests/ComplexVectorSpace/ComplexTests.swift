@@ -18,7 +18,6 @@
 // limitations under the License.
 //
 
-import Accelerate
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -43,18 +42,6 @@ class ComplexTests: XCTestCase {
 
         // Then
         XCTAssertEqual(Complex(number), Complex(real: number, imag: 0))
-    }
-
-    func testAnyDoubleComplex_init_returnExpectedComplexNumber() {
-        // Given
-        let doubleComplex = __CLPK_doublecomplex(r: 10, i: 10)
-
-        // When
-        let complex = Complex(doubleComplex)
-
-        // Then
-        let expectedComplex = Complex(real: 10, imag: 10)
-        XCTAssertEqual(complex, expectedComplex)
     }
 
     func testNotOneByOneMatrix_init_returnNil() {

@@ -18,8 +18,8 @@
 // limitations under the License.
 //
 
-import Accelerate
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -67,10 +67,6 @@ public struct Complex {
         let complex = matrix.first
 
         self.init(real: complex.real, imag: complex.imag)
-    }
-
-    init(_ complex: __CLPK_doublecomplex) {
-        self.init(real: complex.r, imag: complex.i)
     }
 
     // MARK: - Public methods
