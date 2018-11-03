@@ -34,10 +34,6 @@ public struct Complex {
         return (pow(real, 2) + pow(imag, 2))
     }
 
-    public var modulus: Double {
-        return sqrt(squaredModulus)
-    }
-
     // MARK: - Private class properties
 
     private static let logger = LoggerFactory.makeLogger()
@@ -95,10 +91,6 @@ extension Complex: Equatable {
 // MARK: - Overloaded operators
 
 extension Complex {
-    public static prefix func -(complex: Complex) -> Complex {
-        return Complex(real: -complex.real, imag: -complex.imag)
-    }
-
     public static func +(lhs: Complex, rhs: Complex) -> Complex {
         let real = (lhs.real + rhs.real)
         let imag = (lhs.imag + rhs.imag)
@@ -106,25 +98,9 @@ extension Complex {
         return Complex(real: real, imag: imag)
     }
 
-    public static func -(lhs: Complex, rhs: Complex) -> Complex {
-        let real = (lhs.real - rhs.real)
-        let imag = (lhs.imag - rhs.imag)
-
-        return Complex(real: real, imag: imag)
-    }
-
     public static func *(lhs: Complex, rhs: Complex) -> Complex {
         let real = ((lhs.real * rhs.real) - (lhs.imag * rhs.imag))
         let imag = ((lhs.real * rhs.imag) + (rhs.real * lhs.imag))
-
-        return Complex(real: real, imag: imag)
-    }
-
-    public static func /(lhs: Complex, rhs: Complex) -> Complex {
-        let denominator = rhs.squaredModulus
-
-        let real = (((lhs.real * rhs.real) + (lhs.imag * rhs.imag)) / denominator)
-        let imag = (((rhs.real * lhs.imag) - (lhs.real * rhs.imag)) / denominator)
 
         return Complex(real: real, imag: imag)
     }
