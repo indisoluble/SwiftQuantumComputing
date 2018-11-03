@@ -45,19 +45,6 @@ class ComplexTests: XCTestCase {
         XCTAssertEqual(Complex(number), Complex(real: number, imag: 0))
     }
 
-    func testAnyPolarNumber_init_returnExpectedComplexNumber() {
-        // Given
-        let polar = Polar(magnitude: sqrt(2), phase: (Double.pi / 4))
-
-        // When
-        let result = Complex(polar)
-
-        // Then
-        let expectedResult = Complex(real: 1, imag: 1)
-        XCTAssertEqual(result.real, expectedResult.real, accuracy: 0.001)
-        XCTAssertEqual(result.imag, expectedResult.imag, accuracy: 0.001)
-    }
-
     func testAnyDoubleComplex_init_returnExpectedComplexNumber() {
         // Given
         let doubleComplex = __CLPK_doublecomplex(r: 10, i: 10)

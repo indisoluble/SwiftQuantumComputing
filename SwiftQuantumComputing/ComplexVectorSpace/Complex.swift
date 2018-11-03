@@ -57,13 +57,6 @@ public struct Complex {
         self.init(real: Double(real), imag: 0)
     }
 
-    public init(_ polar: Polar) {
-        let real = (polar.magnitude * cos(polar.phase))
-        let imag = (polar.magnitude * sin(polar.phase))
-
-        self.init(real: real, imag: imag)
-    }
-
     public init?(_ matrix: Matrix) {
         guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
             os_log("init failed: use 1x1 matrix", log: Complex.logger, type: .debug)

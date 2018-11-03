@@ -46,7 +46,6 @@
 		FF46EDBF216924510044C3CA /* __CLPK_doublecomplex+ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */; };
 		FF46EDC0216924510044C3CA /* ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */; };
 		FF46EDC1216924510044C3CA /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D710211A1B2700A50D9C /* MatrixTests.swift */; };
-		FF46EDC2216924510044C3CA /* PolarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D713211A1B2700A50D9C /* PolarTests.swift */; };
 		FF46EDC3216924510044C3CA /* VectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D711211A1B2700A50D9C /* VectorTests.swift */; };
 		FF46EDC42169245C0044C3CA /* Int+DerivedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */; };
 		FF46EDC52169245C0044C3CA /* Int+IsPowerOfTwoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE7211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift */; };
@@ -96,7 +95,6 @@
 		FF46EDF1216925100044C3CA /* __CLPK_doublecomplex+Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */; };
 		FF46EDF2216925100044C3CA /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D706211A1AEB00A50D9C /* Complex.swift */; };
 		FF46EDF3216925100044C3CA /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D709211A1AEB00A50D9C /* Matrix.swift */; };
-		FF46EDF4216925100044C3CA /* Polar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D705211A1AEB00A50D9C /* Polar.swift */; };
 		FF46EDF5216925100044C3CA /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D708211A1AEB00A50D9C /* Vector.swift */; };
 		FF46EDF6216925180044C3CA /* Array+RandomElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E392132F1DC009A3A9E /* Array+RandomElement.swift */; };
 		FF46EDF7216925180044C3CA /* Array+Shuffled.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E3B2132F4F3009A3A9E /* Array+Shuffled.swift */; };
@@ -212,7 +210,6 @@
 		FFC35E3A2132F1DC009A3A9E /* Array+RandomElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E392132F1DC009A3A9E /* Array+RandomElement.swift */; };
 		FFC35E3C2132F4F3009A3A9E /* Array+Shuffled.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC35E3B2132F4F3009A3A9E /* Array+Shuffled.swift */; };
 		FFDEDF1B216968F4005590B4 /* PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE25214E749200AD1F78 /* PositionView.swift */; };
-		FFE1D70A211A1AEB00A50D9C /* Polar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D705211A1AEB00A50D9C /* Polar.swift */; };
 		FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D706211A1AEB00A50D9C /* Complex.swift */; };
 		FFE1D70C211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */; };
 		FFE1D70D211A1AEB00A50D9C /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D708211A1AEB00A50D9C /* Vector.swift */; };
@@ -221,7 +218,6 @@
 		FFE1D715211A1B2700A50D9C /* MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D710211A1B2700A50D9C /* MatrixTests.swift */; };
 		FFE1D716211A1B2700A50D9C /* VectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D711211A1B2700A50D9C /* VectorTests.swift */; };
 		FFE1D717211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */; };
-		FFE1D718211A1B2700A50D9C /* PolarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D713211A1B2700A50D9C /* PolarTests.swift */; };
 		FFE8FAA12121F54F005686FE /* Int+Derived.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8FAA02121F54F005686FE /* Int+Derived.swift */; };
 		FFE8FAA3212205BE005686FE /* Int+DerivedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */; };
 		FFED6901212F28C700D46D68 /* CircuitRegisterGateFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFED6900212F28C700D46D68 /* CircuitRegisterGateFactoryTestDouble.swift */; };
@@ -375,7 +371,6 @@
 		FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineHorizontalPositionView.swift; sourceTree = "<group>"; };
 		FFC35E392132F1DC009A3A9E /* Array+RandomElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RandomElement.swift"; sourceTree = "<group>"; };
 		FFC35E3B2132F4F3009A3A9E /* Array+Shuffled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Shuffled.swift"; sourceTree = "<group>"; };
-		FFE1D705211A1AEB00A50D9C /* Polar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polar.swift; sourceTree = "<group>"; };
 		FFE1D706211A1AEB00A50D9C /* Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Complex.swift; sourceTree = "<group>"; };
 		FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "__CLPK_doublecomplex+Complex.swift"; sourceTree = "<group>"; };
 		FFE1D708211A1AEB00A50D9C /* Vector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
@@ -384,7 +379,6 @@
 		FFE1D710211A1B2700A50D9C /* MatrixTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatrixTests.swift; sourceTree = "<group>"; };
 		FFE1D711211A1B2700A50D9C /* VectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VectorTests.swift; sourceTree = "<group>"; };
 		FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "__CLPK_doublecomplex+ComplexTests.swift"; sourceTree = "<group>"; };
-		FFE1D713211A1B2700A50D9C /* PolarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarTests.swift; sourceTree = "<group>"; };
 		FFE8FAA02121F54F005686FE /* Int+Derived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Derived.swift"; sourceTree = "<group>"; };
 		FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DerivedTests.swift"; sourceTree = "<group>"; };
 		FFED6900212F28C700D46D68 /* CircuitRegisterGateFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitRegisterGateFactoryTestDouble.swift; sourceTree = "<group>"; };
@@ -651,7 +645,6 @@
 				FFE1D707211A1AEB00A50D9C /* __CLPK_doublecomplex+Complex.swift */,
 				FFE1D706211A1AEB00A50D9C /* Complex.swift */,
 				FFE1D709211A1AEB00A50D9C /* Matrix.swift */,
-				FFE1D705211A1AEB00A50D9C /* Polar.swift */,
 				FFE1D708211A1AEB00A50D9C /* Vector.swift */,
 			);
 			path = ComplexVectorSpace;
@@ -663,7 +656,6 @@
 				FFE1D712211A1B2700A50D9C /* __CLPK_doublecomplex+ComplexTests.swift */,
 				FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */,
 				FFE1D710211A1B2700A50D9C /* MatrixTests.swift */,
-				FFE1D713211A1B2700A50D9C /* PolarTests.swift */,
 				FFE1D711211A1B2700A50D9C /* VectorTests.swift */,
 			);
 			path = ComplexVectorSpace;
@@ -1173,7 +1165,6 @@
 				FFFEFD3121333F140063B559 /* Matrix+PhaseShift.swift in Sources */,
 				FF5C6638211E455800FBCC5A /* RegisterGate.swift in Sources */,
 				FFE1D70E211A1AEB00A50D9C /* Matrix.swift in Sources */,
-				FFE1D70A211A1AEB00A50D9C /* Polar.swift in Sources */,
 				FF3EAC89212DF602007AF61E /* CircuitRegisterGateFactory.swift in Sources */,
 				FF1AAFF1211F66D400D3666A /* Int+Pow.swift in Sources */,
 				FFB69B83214074BC009A1176 /* CircuitGateHadamardDescriber.swift in Sources */,
@@ -1221,7 +1212,6 @@
 				FFE1D716211A1B2700A50D9C /* VectorTests.swift in Sources */,
 				FFED6909212F2DE600D46D68 /* CircuitFacadeTests.swift in Sources */,
 				FF5C663A211E474200FBCC5A /* RegisterGateTests.swift in Sources */,
-				FFE1D718211A1B2700A50D9C /* PolarTests.swift in Sources */,
 				FFB69B932140817A009A1176 /* CircuitGateDescribableTestDouble.swift in Sources */,
 				FF9BBE74214EC74600AD1F78 /* CircuitGateOracleDescriberTests.swift in Sources */,
 				FFB69B912140808C009A1176 /* CircuitDescriptionTestDouble.swift in Sources */,
@@ -1276,7 +1266,6 @@
 				FF46EDE1216924EE0044C3CA /* Matrix+Not.swift in Sources */,
 				FF46EDCF216924C30044C3CA /* CircuitRegisterGateFactory.swift in Sources */,
 				FFB5B56A216A5249009C59FC /* PhaseShiftPositionView.swift in Sources */,
-				FF46EDF4216925100044C3CA /* Polar.swift in Sources */,
 				FF663D3E216A25DD002298BA /* HadamardPositionView.swift in Sources */,
 				FF46EDF0216925040044C3CA /* CircuitFactory.swift in Sources */,
 				FF663D3B216A2470002298BA /* CrossedLinesPositionView.swift in Sources */,
@@ -1322,7 +1311,6 @@
 				FF46EDB62169241E0044C3CA /* CircuitGateNotDescriberTests.swift in Sources */,
 				FF46EDB42169241E0044C3CA /* CircuitGateControlledNotDescriberTests.swift in Sources */,
 				FF46EDBB216924370044C3CA /* Circuit+NotGateTests.swift in Sources */,
-				FF46EDC2216924510044C3CA /* PolarTests.swift in Sources */,
 				FF46EDC42169245C0044C3CA /* Int+DerivedTests.swift in Sources */,
 				FF46EDB3216924130044C3CA /* CircuitViewDescriptionTests.swift in Sources */,
 				FF46EDCC2169247A0044C3CA /* CircuitGateDescribableTestDouble.swift in Sources */,
