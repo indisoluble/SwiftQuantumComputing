@@ -1,17 +1,5 @@
 import SwiftQuantumComputing
 
-func likelihoodOfFindingAParticle(at index: Int, with ket: Vector) -> Double {
-    return ket.normalized()[index].squaredModulus
-}
-
-func transitionAmplitude(from first: Vector, to second: Vector) -> Complex? {
-    return Vector.innerProduct(second.normalized(), first.normalized())
-}
-
-func probabilityOfTransitioning(from first: Vector, to second: Vector) -> Double? {
-    return transitionAmplitude(from: first, to: second)?.squaredModulus
-}
-
 func mean(of observable: Matrix, on state: Vector) -> Double? {
     guard observable.isHermitian else {
         print("\(observable) is not hermitian")
@@ -56,30 +44,6 @@ func evolveState(_ state: Vector, with unitaries: [Matrix]) -> Vector? {
         return (unitary * partial)
     }
 }
-
-let elements = [
-    Complex(real: -3, imag: -1),
-    Complex(real: 0, imag: -2),
-    Complex(real: 0, imag: 1),
-    Complex(real: 2, imag: 0)
-]
-let ket = Vector(elements)!
-print("ket:")
-print(ket)
-
-let likelihood = likelihoodOfFindingAParticle(at: 2, with: ket)
-print("likelihood: \(likelihood)")
-
-let first = Vector([Complex(real: 1, imag: 0), Complex(real: 0, imag: -1)])!
-print("first:")
-print(first)
-
-let second = Vector([Complex(real: 0, imag: 1), Complex(real: 1, imag: 0)])!
-print("second:")
-print(second)
-
-let probability = probabilityOfTransitioning(from: first, to: second)!
-print("probability: \(probability)")
 
 let observable = Matrix([[Complex(real: 1, imag: 0), Complex(real: 0, imag: -1)],
                          [Complex(real: 0, imag: 1), Complex(real: 2, imag: 0)]])!
