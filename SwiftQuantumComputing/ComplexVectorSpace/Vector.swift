@@ -31,10 +31,6 @@ public struct Vector {
         return Vector.innerProduct(self, self)!.real
     }
 
-    public var norm: Double {
-        return squaredNorm.squareRoot()
-    }
-
     public var count: Int {
         return matrix.rowCount
     }
@@ -67,14 +63,6 @@ public struct Vector {
 
     private init(matrix: Matrix) {
         self.matrix = matrix
-    }
-
-    // MARK: - Public methods
-
-    public func normalized() -> Vector {
-        let normalizedMatrix = (Complex(1 / norm) * matrix)
-
-        return Vector(matrix: normalizedMatrix)
     }
 
     // MARK: - Public class methods

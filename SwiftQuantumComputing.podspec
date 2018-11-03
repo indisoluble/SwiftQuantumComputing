@@ -21,6 +21,4 @@ Pod::Spec.new do |s|
 
   s.ios.resources = "SwiftQuantumComputing_iOS/**/*.xib"
   s.osx.resources = "SwiftQuantumComputing_macOS/**/*.xib"
-
-  s.frameworks = 'Accelerate'
 end

@@ -18,7 +18,6 @@
 // limitations under the License.
 //
 
-import Accelerate
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -43,31 +42,6 @@ class ComplexTests: XCTestCase {
 
         // Then
         XCTAssertEqual(Complex(number), Complex(real: number, imag: 0))
-    }
-
-    func testAnyPolarNumber_init_returnExpectedComplexNumber() {
-        // Given
-        let polar = Polar(magnitude: sqrt(2), phase: (Double.pi / 4))
-
-        // When
-        let result = Complex(polar)
-
-        // Then
-        let expectedResult = Complex(real: 1, imag: 1)
-        XCTAssertEqual(result.real, expectedResult.real, accuracy: 0.001)
-        XCTAssertEqual(result.imag, expectedResult.imag, accuracy: 0.001)
-    }
-
-    func testAnyDoubleComplex_init_returnExpectedComplexNumber() {
-        // Given
-        let doubleComplex = __CLPK_doublecomplex(r: 10, i: 10)
-
-        // When
-        let complex = Complex(doubleComplex)
-
-        // Then
-        let expectedComplex = Complex(real: 10, imag: 10)
-        XCTAssertEqual(complex, expectedComplex)
     }
 
     func testNotOneByOneMatrix_init_returnNil() {
@@ -99,17 +73,6 @@ class ComplexTests: XCTestCase {
         XCTAssertEqual(result, 5)
     }
 
-    func testAnyComplexNumber_modulus_returnExpectecValue() {
-        // Given
-        let complex = Complex(real: 2, imag: 1)
-
-        // When
-        let result = complex.modulus
-
-        // Then
-        XCTAssertEqual(result, sqrt(5))
-    }
-
     func testAnyComplexNumber_conjugated_returnExpectecValue() {
         // Given
         let complex = Complex(real: 2, imag: 1)
@@ -119,18 +82,6 @@ class ComplexTests: XCTestCase {
 
         // Then
         let expectedResult = Complex(real: 2, imag: -1)
-        XCTAssertEqual(result, expectedResult)
-    }
-
-    func testAnyComplexNumber_unaryMinus_returnExpectedCompleNumber() {
-        // Given
-        let complex = Complex(real: 1, imag: 1)
-
-        // When
-        let result = -complex
-
-        // Then
-        let expectedResult = Complex(real: -1, imag: -1)
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -147,19 +98,6 @@ class ComplexTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
-    func testTwoComplexNumbers_subtract_returnExpectedCompleNumber() {
-        // Given
-        let lhs = Complex(real: 3, imag: -1)
-        let rhs = Complex(real: 1, imag: 4)
-
-        // When
-        let result = (lhs - rhs)
-
-        // Then
-        let expectedResult = Complex(real: 2, imag: -5)
-        XCTAssertEqual(result, expectedResult)
-    }
-
     func testTwoComplexNumbers_multiply_returnExpectedCompleNumber() {
         // Given
         let lhs = Complex(real: 3, imag: -1)
@@ -170,19 +108,6 @@ class ComplexTests: XCTestCase {
 
         // Then
         let expectedResult = Complex(real: 7, imag: 11)
-        XCTAssertEqual(result, expectedResult)
-    }
-
-    func testTwoComplexNumbers_divide_returnExpectedCompleNumber() {
-        // Given
-        let lhs = Complex(real: -2, imag: 1)
-        let rhs = Complex(real: 1, imag: 2)
-
-        // When
-        let result = (lhs / rhs)
-
-        // Then
-        let expectedResult = Complex(real: 0, imag: 1)
         XCTAssertEqual(result, expectedResult)
     }
 }
