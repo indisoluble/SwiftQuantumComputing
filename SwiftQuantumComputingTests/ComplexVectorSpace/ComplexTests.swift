@@ -85,19 +85,6 @@ class ComplexTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
-    func testTwoComplexNumbers_add_returnExpectedCompleNumber() {
-        // Given
-        let lhs = Complex(real: 3, imag: -1)
-        let rhs = Complex(real: 1, imag: 4)
-
-        // When
-        let result = (lhs + rhs)
-
-        // Then
-        let expectedResult = Complex(real: 4, imag: 3)
-        XCTAssertEqual(result, expectedResult)
-    }
-
     func testTwoComplexNumbers_multiply_returnExpectedCompleNumber() {
         // Given
         let lhs = Complex(real: 3, imag: -1)

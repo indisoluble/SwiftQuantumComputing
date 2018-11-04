@@ -91,13 +91,6 @@ extension Complex: Equatable {
 // MARK: - Overloaded operators
 
 extension Complex {
-    public static func +(lhs: Complex, rhs: Complex) -> Complex {
-        let real = (lhs.real + rhs.real)
-        let imag = (lhs.imag + rhs.imag)
-
-        return Complex(real: real, imag: imag)
-    }
-
     public static func *(lhs: Complex, rhs: Complex) -> Complex {
         let real = ((lhs.real * rhs.real) - (lhs.imag * rhs.imag))
         let imag = ((lhs.real * rhs.imag) + (rhs.real * lhs.imag))
