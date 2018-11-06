@@ -50,7 +50,9 @@ public struct Vector {
     // MARK: - Init methods
 
     public init?(_ elements: [Complex]) {
-        guard let matrix = Matrix([elements]) else {
+        let rows = elements.map { [$0] }
+
+        guard let matrix = Matrix(rows) else {
             os_log("init failed: unable to build matrix with provided elements",
                    log: Vector.logger,
                    type: .debug)
@@ -58,7 +60,7 @@ public struct Vector {
             return nil
         }
 
-        self.init(matrix: matrix.transposed())
+        self.init(matrix: matrix)
     }
 
     private init(matrix: Matrix) {
@@ -68,7 +70,7 @@ public struct Vector {
     // MARK: - Public class methods
 
     public static func innerProduct(_ lhs: Vector, _ rhs: Vector) -> Complex? {
-        guard let matrix = (lhs.matrix.adjointed() * rhs.matrix) else {
+        guard let matrix = (Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix) else {
             os_log("innerProduct failed: can not multiple provided vectors",
                    log: Vector.logger,
                    type: .debug)

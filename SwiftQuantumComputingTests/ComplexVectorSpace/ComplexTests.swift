@@ -73,18 +73,6 @@ class ComplexTests: XCTestCase {
         XCTAssertEqual(result, 5)
     }
 
-    func testAnyComplexNumber_conjugated_returnExpectecValue() {
-        // Given
-        let complex = Complex(real: 2, imag: 1)
-
-        // When
-        let result = complex.conjugated()
-
-        // Then
-        let expectedResult = Complex(real: 2, imag: -1)
-        XCTAssertEqual(result, expectedResult)
-    }
-
     func testTwoComplexNumbers_multiply_returnExpectedCompleNumber() {
         // Given
         let lhs = Complex(real: 3, imag: -1)

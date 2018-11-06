@@ -35,16 +35,16 @@ public struct Matrix {
     }
 
     public var first: Complex {
-        return columns.first!
+        return elements.first!
     }
 
     public subscript(row: Int, column: Int) -> Complex {
-        return columns[(column * rowCount) + row]
+        return elements[(column * rowCount) + row]
     }
 
     // MARK: - Private properties
 
-    private let columns: [Complex]
+    private let elements: [Complex]
 
     // MARK: - Private class properties
 
@@ -75,15 +75,18 @@ public struct Matrix {
             return nil
         }
 
-        let columns = Matrix.serializedByColumn(rows: rows, columnCount: columnCount)
+        let rowCount = rows.count
+        let elements = Matrix.serializedRowsByColumn(rows,
+                                                     rowCount: rowCount,
+                                                     columnCount: columnCount)
 
-        self.init(rowCount: rows.count, columnCount: columnCount, columns: columns)
+        self.init(rowCount: rowCount, columnCount: columnCount, elements: elements)
     }
 
-    private init(rowCount: Int, columnCount: Int, columns: [Complex]) {
+    private init(rowCount: Int, columnCount: Int, elements: [Complex]) {
         self.rowCount = rowCount
         self.columnCount = columnCount
-        self.columns = columns
+        self.elements = elements
     }
 
     // MARK: - Public methods
@@ -98,27 +101,6 @@ public struct Matrix {
 
         matrix = Matrix.multiply(lhs: self, lhsTrans: CblasConjTrans, rhs: self)
         return matrix.isEqual(identity, accuracy: accuracy)
-    }
-
-    public func transposed() -> Matrix {
-        var result: [Complex] = []
-        for row in 0..<rowCount {
-            for column in 0..<columnCount {
-                result.append(self[row, column])
-            }
-        }
-
-        return Matrix(rowCount: columnCount, columnCount: rowCount, columns: result)
-    }
-
-    public func conjugated() -> Matrix {
-        let result = columns.map { $0.conjugated() }
-
-        return Matrix(rowCount: rowCount, columnCount: columnCount, columns: result)
-    }
-
-    public func adjointed() -> Matrix {
-        return conjugated().transposed()
     }
 
     // MARK: - Public class methods
@@ -137,7 +119,7 @@ public struct Matrix {
             columns[(i * count) + i] = Complex(1)
         }
 
-        return Matrix(rowCount: count, columnCount: count, columns: columns)
+        return Matrix(rowCount: count, columnCount: count, elements: columns)
     }
 
     public static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
@@ -153,11 +135,11 @@ public struct Matrix {
                 let rhsColumn = (column % rhs.columnCount)
                 let rhsRow = (row % rhs.rowCount)
 
-                tensor.append(lhs[lhsRow, lhsColumn] * rhs[rhsRow, rhsColumn])
+                tensor.append(lhs[lhsRow,lhsColumn] * rhs[rhsRow,rhsColumn])
             }
         }
 
-        return Matrix(rowCount: tensorRowCount, columnCount: tensorColumnCount, columns: tensor)
+        return Matrix(rowCount: tensorRowCount, columnCount: tensorColumnCount, elements: tensor)
     }
 }
 
@@ -165,7 +147,7 @@ public struct Matrix {
 
 extension Matrix: CustomStringConvertible {
     public var description: String {
-        var txt = "["
+        var txt = "[\n"
         for row in 0..<rowCount {
             txt += "["
             for column in 0..<columnCount {
@@ -183,29 +165,58 @@ extension Matrix: CustomStringConvertible {
 
 extension Matrix: Equatable {
     public static func ==(lhs: Matrix, rhs: Matrix) -> Bool {
-        return (lhs.columns == rhs.columns)
+        return (lhs.elements == rhs.elements)
     }
 }
 
 // MARK: - Overloaded operators
 
 extension Matrix {
-    public static func *(complex: Complex, matrix: Matrix) -> Matrix {
-        let elements = matrix.columns.map { complex * $0 }
 
-        return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, columns: elements)
+    // MARK: - Types
+
+    public enum Transformation {
+        case none(_ matrix: Matrix)
+        case adjointed(_ matrix: Matrix)
+    }
+
+    // MARK: - Public operators
+
+    public static func *(complex: Complex, matrix: Matrix) -> Matrix {
+        let columns = matrix.elements.map { complex * $0 }
+
+        return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, elements: columns)
     }
 
     public static func *(lhs: Matrix, rhs: Matrix) -> Matrix? {
-        guard (lhs.columnCount == rhs.rowCount) else {
-            os_log("* failed: left matrix column count have to be equal to right matrix row count",
+        return (Transformation.none(lhs) * rhs)
+    }
+
+    public static func *(lhsTransformation: Transformation, rhs: Matrix) -> Matrix? {
+        var lhs: Matrix!
+        var lhsTrans = CblasNoTrans
+        var areDimensionsValid = false
+
+        switch lhsTransformation {
+        case .none(let matrix):
+            lhs = matrix
+            lhsTrans = CblasNoTrans
+            areDimensionsValid = (matrix.columnCount == rhs.rowCount)
+        case .adjointed(let matrix):
+            lhs = matrix
+            lhsTrans = CblasConjTrans
+            areDimensionsValid = (matrix.rowCount == rhs.rowCount)
+        }
+
+        guard areDimensionsValid else {
+            os_log("* failed: matrices do not have valid dimensions",
                    log: Matrix.logger,
                    type: .debug)
 
             return nil
         }
 
-        return multiply(lhs: lhs, rhs: rhs)
+        return Matrix.multiply(lhs: lhs, lhsTrans: lhsTrans, rhs: rhs)
     }
 }
 
@@ -220,53 +231,61 @@ private extension Matrix {
             return false
         }
 
-        return zip(self.columns, matrix.columns).reduce(true) {
-            let lhs = $1.0
-            let rhs = $1.1
+        return elements.elementsEqual(matrix.elements) {
+            let realInRange = (abs($0.real - $1.real) <= accuracy)
+            let imagInRange = (abs($0.imag - $1.imag) <= accuracy)
 
-            let realInRange = (abs(lhs.real - rhs.real) <= accuracy)
-            let imagInRange = (abs(lhs.imag - rhs.imag) <= accuracy)
-
-            return ($0 && (realInRange && imagInRange))
+            return (realInRange && imagInRange)
         }
     }
 
     // MARK: - Private class methods
 
-    static func serializedByColumn(rows: [[Complex]], columnCount: Int) -> [Complex] {
-        let initial = Array(repeating: [] as [Complex], count: columnCount)
-        let groupedByColumn = rows.reduce(initial) { zip($0, $1).map { $0 + [$1] } }
+    static func serializedRowsByColumn(_ rows: [[Complex]],
+                                       rowCount: Int,
+                                       columnCount: Int) -> [Complex] {
+        var elements: [Complex] = []
 
-        let serialized = groupedByColumn.reduce([], +)
+        for column in 0..<columnCount {
+            for row in 0..<rowCount {
+                elements.append(rows[row][column])
+            }
+        }
 
-        return serialized
+        return elements
     }
 
     static func multiply(lhs: Matrix,
                          lhsTrans: CBLAS_TRANSPOSE = CblasNoTrans,
                          rhs: Matrix,
                          rhsTrans: CBLAS_TRANSPOSE = CblasNoTrans) -> Matrix {
+        let m = (lhsTrans == CblasNoTrans ? lhs.rowCount : lhs.columnCount)
+        let n = (rhsTrans == CblasNoTrans ? rhs.columnCount : rhs.rowCount)
+        let k = (lhsTrans == CblasNoTrans ? lhs.columnCount : lhs.rowCount)
         var alpha = Complex(1)
-        var aBuffer = lhs.columns
-        var bBuffer = rhs.columns
+        var aBuffer = lhs.elements
+        let lda = lhs.rowCount
+        var bBuffer = rhs.elements
+        let ldb = rhs.rowCount
         var beta = Complex(0)
-        var cBuffer = Array(repeating: Complex(0), count: lhs.rowCount * rhs.columnCount)
+        var cBuffer = Array(repeating: Complex(0), count: (m * n))
+        let ldc = m
 
         cblas_zgemm(CblasColMajor,
                     lhsTrans,
                     rhsTrans,
-                    Int32(lhs.rowCount),
-                    Int32(rhs.columnCount),
-                    Int32(lhs.columnCount),
+                    Int32(m),
+                    Int32(n),
+                    Int32(k),
                     &alpha,
                     &aBuffer,
-                    Int32(lhs.rowCount),
+                    Int32(lda),
                     &bBuffer,
-                    Int32(rhs.rowCount),
+                    Int32(ldb),
                     &beta,
                     &cBuffer,
-                    Int32(lhs.rowCount))
+                    Int32(ldc))
 
-        return Matrix(rowCount: lhs.rowCount, columnCount: rhs.columnCount, columns: cBuffer)
+        return Matrix(rowCount: m, columnCount: n, elements: cBuffer)
     }
 }

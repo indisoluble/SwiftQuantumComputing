@@ -64,12 +64,6 @@ public struct Complex {
 
         self.init(real: complex.real, imag: complex.imag)
     }
-
-    // MARK: - Public methods
-
-    public func conjugated() -> Complex {
-        return Complex(real: real, imag: -imag)
-    }
 }
 
 // MARK: - CustomStringConvertible methods

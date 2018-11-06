@@ -106,62 +106,6 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix[1,1], expectedValue)
     }
 
-    func testAnyMatrix_transposed_returnExpectedMatrix() {
-        // Given
-        let elements = [
-            [Complex(real: 1, imag: 1), Complex(real: 1, imag: 2), Complex(real: 1, imag: 3)],
-            [Complex(real: 2, imag: 1), Complex(real: 2, imag: 2), Complex(real: 2, imag: 3)]
-        ]
-        let matrix = Matrix(elements)!
-
-        // When
-        let result = matrix.transposed()
-
-        // Then
-        let expectedResult = Matrix([[Complex(real: 1, imag: 1), Complex(real: 2, imag: 1)],
-                                     [Complex(real: 1, imag: 2), Complex(real: 2, imag: 2)],
-                                     [Complex(real: 1, imag: 3), Complex(real: 2, imag: 3)]])
-        XCTAssertEqual(result, expectedResult)
-    }
-
-    func testAnyMatrix_conjugated_returnExpectedMatrix() {
-        // Given
-        let elements = [
-            [Complex(real: 1, imag: 1), Complex(real: 1, imag: 2), Complex(real: 1, imag: 3)],
-            [Complex(real: 2, imag: 1), Complex(real: 2, imag: 2), Complex(real: 2, imag: 3)]
-        ]
-        let matrix = Matrix(elements)!
-
-        // When
-        let result = matrix.conjugated()
-
-        // Then
-        let expectedElements = [
-            [Complex(real: 1, imag: -1), Complex(real: 1, imag: -2), Complex(real: 1, imag: -3)],
-            [Complex(real: 2, imag: -1), Complex(real: 2, imag: -2), Complex(real: 2, imag: -3)]
-        ]
-        let expectedResult = Matrix(expectedElements)
-        XCTAssertEqual(result, expectedResult)
-    }
-
-    func testAnyMatrix_adjointed_returnExpectedMatrix() {
-        // Given
-        let elements = [
-            [Complex(real: 1, imag: 1), Complex(real: 1, imag: 2), Complex(real: 1, imag: 3)],
-            [Complex(real: 2, imag: 1), Complex(real: 2, imag: 2), Complex(real: 2, imag: 3)]
-        ]
-        let matrix = Matrix(elements)!
-
-        // When
-        let result = matrix.adjointed()
-
-        // Then
-        let expectedResult = Matrix([[Complex(real: 1, imag: -1), Complex(real: 2, imag: -1)],
-                                     [Complex(real: 1, imag: -2), Complex(real: 2, imag: -2)],
-                                     [Complex(real: 1, imag: -3), Complex(real: 2, imag: -3)]])
-        XCTAssertEqual(result, expectedResult)
-    }
-
     func testNonSquareMatrix_isUnitary_returnFalse() {
         // Given
         let complex = Complex(real: 1, imag: 0)
