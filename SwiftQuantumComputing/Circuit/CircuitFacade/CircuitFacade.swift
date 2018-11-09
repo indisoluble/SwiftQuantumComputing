@@ -30,7 +30,7 @@ struct CircuitFacade {
     typealias ExtendedCircuitRegister = (CircuitRegister & CustomStringConvertible)
     typealias ExtendedCircuitDescription = (CircuitDescription & CustomPlaygroundDisplayConvertible)
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     let register: ExtendedCircuitRegister
     let factory: CircuitRegisterGateFactory
@@ -40,7 +40,7 @@ struct CircuitFacade {
 
     private static let logger = LoggerFactory.makeLogger()
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
     init(register: ExtendedCircuitRegister,
          factory: CircuitRegisterGateFactory,

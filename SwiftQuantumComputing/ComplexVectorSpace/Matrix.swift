@@ -25,20 +25,20 @@ import Foundation
 
 public struct Matrix {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
-    public let rowCount: Int
-    public let columnCount: Int
+    let rowCount: Int
+    let columnCount: Int
 
-    public var isSquare: Bool {
+    var isSquare: Bool {
         return (rowCount == columnCount)
     }
 
-    public var first: Complex {
+    var first: Complex {
         return elements.first!
     }
 
-    public subscript(row: Int, column: Int) -> Complex {
+    subscript(row: Int, column: Int) -> Complex {
         return elements[(column * rowCount) + row]
     }
 
@@ -50,7 +50,7 @@ public struct Matrix {
 
     private static let logger = LoggerFactory.makeLogger()
 
-    // MARK: - Init methods
+    // MARK: - Public init methods
 
     public init?(_ rows: [[Complex]]) {
         guard let firstRow = rows.first else {
@@ -83,15 +83,17 @@ public struct Matrix {
         self.init(rowCount: rowCount, columnCount: columnCount, elements: elements)
     }
 
+    // MARK: - Private init methods
+
     private init(rowCount: Int, columnCount: Int, elements: [Complex]) {
         self.rowCount = rowCount
         self.columnCount = columnCount
         self.elements = elements
     }
 
-    // MARK: - Public methods
+    // MARK: - Internal methods
 
-    public func isUnitary(accuracy: Double) -> Bool {
+    func isUnitary(accuracy: Double) -> Bool {
         let identity = Matrix.makeIdentity(count: rowCount)!
 
         var matrix = Matrix.multiply(lhs: self, rhs: self, rhsTrans: CblasConjTrans)
@@ -103,9 +105,9 @@ public struct Matrix {
         return matrix.isEqual(identity, accuracy: accuracy)
     }
 
-    // MARK: - Public class methods
+    // MARK: - Internal class methods
 
-    public static func makeIdentity(count: Int) -> Matrix? {
+    static func makeIdentity(count: Int) -> Matrix? {
         guard (count > 0) else {
             os_log("makeIdentity failed: pass count bigger than 0",
                    log: Matrix.logger,
@@ -122,7 +124,7 @@ public struct Matrix {
         return Matrix(rowCount: count, columnCount: count, elements: columns)
     }
 
-    public static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
+    static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
         var tensor: [Complex] = []
 
         let tensorRowCount = (lhs.rowCount * rhs.rowCount)
@@ -177,24 +179,24 @@ extension Matrix {
 
     // MARK: - Types
 
-    public enum Transformation {
+    enum Transformation {
         case none(_ matrix: Matrix)
         case adjointed(_ matrix: Matrix)
     }
 
-    // MARK: - Public operators
+    // MARK: - Internal operators
 
-    public static func *(complex: Complex, matrix: Matrix) -> Matrix {
+    static func *(complex: Complex, matrix: Matrix) -> Matrix {
         let columns = matrix.elements.map { complex * $0 }
 
         return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, elements: columns)
     }
 
-    public static func *(lhs: Matrix, rhs: Matrix) -> Matrix? {
+    static func *(lhs: Matrix, rhs: Matrix) -> Matrix? {
         return (Transformation.none(lhs) * rhs)
     }
 
-    public static func *(lhsTransformation: Transformation, rhs: Matrix) -> Matrix? {
+    static func *(lhsTransformation: Transformation, rhs: Matrix) -> Matrix? {
         var lhs: Matrix!
         var lhsTrans = CblasNoTrans
         var areDimensionsValid = false

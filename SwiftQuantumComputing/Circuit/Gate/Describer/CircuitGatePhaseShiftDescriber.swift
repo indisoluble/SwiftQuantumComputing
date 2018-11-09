@@ -28,7 +28,7 @@ struct CircuitGatePhaseShiftDescriber {
 
     private let radians: Double
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
     init(radians: Double) {
         self.radians = radians

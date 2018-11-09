@@ -24,7 +24,7 @@ import Foundation
 
 extension Matrix {
 
-    // MARK: - Public class methods
+    // MARK: - Internal class methods
 
     static func makeControlledNot() -> Matrix {
         return Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],

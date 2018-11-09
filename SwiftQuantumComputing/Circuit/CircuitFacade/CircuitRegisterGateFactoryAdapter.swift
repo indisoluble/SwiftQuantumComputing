@@ -33,7 +33,7 @@ struct CircuitRegisterGateFactoryAdapter {
 
     private static let logger = LoggerFactory.makeLogger()
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
     init(qubitCount: Int) {
         self.qubitCount = qubitCount

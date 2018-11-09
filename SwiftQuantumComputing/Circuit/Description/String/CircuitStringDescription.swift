@@ -24,15 +24,17 @@ import Foundation
 
 struct CircuitStringDescription {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     let description: String
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
     init() {
         self.init(description: "")
     }
+
+    // MARK: - Private init methods
 
     private init(description: String) {
         self.description = description

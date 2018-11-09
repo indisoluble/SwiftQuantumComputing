@@ -24,7 +24,7 @@ import Foundation
 
 class PositionTextView: PositionView {
 
-    // MARK: - Outlets
+    // MARK: - Internal outlets
 
     #if os(macOS)
     @IBOutlet weak var label: NSTextField!
@@ -32,7 +32,7 @@ class PositionTextView: PositionView {
     @IBOutlet weak var label: UILabel!
     #endif
 
-    // MARK: - Public methods
+    // MARK: - Internal methods
 
     func showInputs(_ inputs: [Int]) {
         showText("U(\(inputs.map { String($0) }.joined(separator: ",")))")

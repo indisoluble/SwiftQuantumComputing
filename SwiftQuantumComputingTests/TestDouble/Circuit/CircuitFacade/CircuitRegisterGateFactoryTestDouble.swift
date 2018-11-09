@@ -26,7 +26,7 @@ import Foundation
 
 final class CircuitRegisterGateFactoryTestDouble {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     private (set) var makeGateCount = 0
     private (set) var lastMakeGateMatrix: Matrix?
