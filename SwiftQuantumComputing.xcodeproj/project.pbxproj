@@ -272,7 +272,6 @@
 		FF3EAC88212DF602007AF61E /* CircuitRegisterGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitRegisterGateFactory.swift; sourceTree = "<group>"; };
 		FF3EAC8F212DF9E4007AF61E /* CircuitRegisterGateFactoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitRegisterGateFactoryAdapter.swift; sourceTree = "<group>"; };
 		FF3EAC93212E06F0007AF61E /* CircuitFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFactory.swift; sourceTree = "<group>"; };
-		FF593C67211A22C700FA6D8F /* Marbles.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Marbles.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF5C6637211E455800FBCC5A /* RegisterGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGate.swift; sourceTree = "<group>"; };
 		FF5C6639211E474200FBCC5A /* RegisterGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGateTests.swift; sourceTree = "<group>"; };
 		FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftQuantumComputing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -551,7 +550,6 @@
 				FFBA23F821691E0F003E5727 /* SwiftQuantumComputing_macOSTests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
 				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
-				FF593C67211A22C700FA6D8F /* Marbles.playground */,
 				FF6B12F2214EEEBA00A206B1 /* RandomCircuit.playground */,
 			);
 			sourceTree = "<group>";
