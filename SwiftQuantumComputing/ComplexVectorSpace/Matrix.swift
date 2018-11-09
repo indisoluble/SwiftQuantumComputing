@@ -124,8 +124,10 @@ public struct Matrix {
 
     public static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
         var tensor: [Complex] = []
+
         let tensorRowCount = (lhs.rowCount * rhs.rowCount)
         let tensorColumnCount = (lhs.columnCount * rhs.columnCount)
+        tensor.reserveCapacity(tensorRowCount * tensorColumnCount)
 
         for column in 0..<tensorColumnCount {
             for row in 0..<tensorRowCount {
@@ -245,6 +247,7 @@ private extension Matrix {
                                        rowCount: Int,
                                        columnCount: Int) -> [Complex] {
         var elements: [Complex] = []
+        elements.reserveCapacity(rowCount * columnCount)
 
         for column in 0..<columnCount {
             for row in 0..<rowCount {
