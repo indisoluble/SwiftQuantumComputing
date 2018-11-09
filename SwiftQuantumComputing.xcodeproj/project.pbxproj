@@ -124,6 +124,8 @@
 		FF663D41216A2630002298BA /* LineHorizontalPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */; };
 		FF663D43216A2678002298BA /* NotPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF663D42216A2678002298BA /* NotPositionView.xib */; };
 		FF663D44216A2697002298BA /* NotPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE2F214E78E700AD1F78 /* NotPositionView.swift */; };
+		FF79037121964D6F00FFC31D /* String+Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF79037021964D6F00FFC31D /* String+Bits.swift */; };
+		FF79037221964D6F00FFC31D /* String+Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF79037021964D6F00FFC31D /* String+Bits.swift */; };
 		FF8BD4AC211E28DA00F01FF8 /* RegisterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8BD4AB211E28DA00F01FF8 /* RegisterTests.swift */; };
 		FF960F32214D27E900C0282D /* CircuitViewPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF960F31214D27E900C0282D /* CircuitViewPosition.swift */; };
 		FF960F34214D28E900C0282D /* CircuitGateDescription+CircuitViewPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF960F33214D28E900C0282D /* CircuitGateDescription+CircuitViewPosition.swift */; };
@@ -288,6 +290,7 @@
 		FF663D3F216A260F002298BA /* LineHorizontalPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineHorizontalPositionView.xib; sourceTree = "<group>"; };
 		FF663D42216A2678002298BA /* NotPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotPositionView.xib; sourceTree = "<group>"; };
 		FF6B12F2214EEEBA00A206B1 /* RandomCircuit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RandomCircuit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FF79037021964D6F00FFC31D /* String+Bits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Bits.swift"; sourceTree = "<group>"; };
 		FF8BD4AB211E28DA00F01FF8 /* RegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTests.swift; sourceTree = "<group>"; };
 		FF960F31214D27E900C0282D /* CircuitViewPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitViewPosition.swift; sourceTree = "<group>"; };
 		FF960F33214D28E900C0282D /* CircuitGateDescription+CircuitViewPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitGateDescription+CircuitViewPosition.swift"; sourceTree = "<group>"; };
@@ -460,6 +463,7 @@
 				FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */,
 				FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */,
 				FF1AAFF0211F66D400D3666A /* Int+Pow.swift */,
+				FF79037021964D6F00FFC31D /* String+Bits.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1158,6 +1162,7 @@
 				FFB69B83214074BC009A1176 /* CircuitGateHadamardDescriber.swift in Sources */,
 				FF9BBE34214E7A4C00AD1F78 /* OraclePositionView.swift in Sources */,
 				FFFEFD2D21333EED0063B559 /* Matrix+Hadamard.swift in Sources */,
+				FF79037121964D6F00FFC31D /* String+Bits.swift in Sources */,
 				FF960F34214D28E900C0282D /* CircuitGateDescription+CircuitViewPosition.swift in Sources */,
 				FF9D0893214714DD0071F5C7 /* CircuitViewDescription.swift in Sources */,
 				FF3EAC80212DEB10007AF61E /* Circuit+HadamardGate.swift in Sources */,
@@ -1253,6 +1258,7 @@
 				FFB5B56A216A5249009C59FC /* PhaseShiftPositionView.swift in Sources */,
 				FF663D3E216A25DD002298BA /* HadamardPositionView.swift in Sources */,
 				FF46EDF0216925040044C3CA /* CircuitFactory.swift in Sources */,
+				FF79037221964D6F00FFC31D /* String+Bits.swift in Sources */,
 				FF663D3B216A2470002298BA /* CrossedLinesPositionView.swift in Sources */,
 				FF663D35216A1F28002298BA /* ControlledNotUpPositionView.swift in Sources */,
 				FF663D2F216A1CBC002298BA /* ControlDownPositionView.swift in Sources */,
