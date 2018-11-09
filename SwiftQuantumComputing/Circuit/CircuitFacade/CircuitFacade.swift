@@ -98,7 +98,7 @@ extension CircuitFacade: Circuit {
                              circuitDescription: nextDescription)
     }
 
-    func measure(qubits: Int...) -> [Double]? {
+    func measure(qubits: [Int]) -> [Double]? {
         return register.measure(qubits: qubits)
     }
 }

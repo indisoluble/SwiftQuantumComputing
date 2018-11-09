@@ -35,7 +35,7 @@ class Circuit_OracleGateTests: XCTestCase {
 
     func testAnyCircuit_applyingOracleGate_callApplyingGate() {
         // When
-        _ = circuit.applyingOracleGate(builtWith: matrix, inputs: 0)
+        _ = circuit.applyingOracleGate(builtWith: matrix, inputs: [0])
 
         // Then
         XCTAssertEqual(circuit.applyingGateCount, 1)

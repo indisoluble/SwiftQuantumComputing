@@ -17,5 +17,5 @@ let gates = [
 
 let circuit = CircuitFactory.makeRandomlyGeneratedCircuit(qubitCount: 5, depth: 15, gates: gates)!
 
-print("Measures: \(circuit.measure(qubits: 4, 3, 2, 1, 0)!)")
+print("Measures: \(circuit.measure(qubits: [4, 3, 2, 1, 0])!)")
 print()
