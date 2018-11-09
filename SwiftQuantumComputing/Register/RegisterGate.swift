@@ -33,7 +33,7 @@ struct RegisterGate {
 
     private static let logger = LoggerFactory.makeLogger()
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
     init?(matrix: Matrix) {
         guard matrix.isUnitary(accuracy: Constants.accuracy) else {
@@ -45,7 +45,7 @@ struct RegisterGate {
         self.matrix = matrix
     }
 
-    // MARK: - Public methods
+    // MARK: - Internal methods
 
     func apply(to vector: Vector) -> Vector? {
         return (matrix * vector)

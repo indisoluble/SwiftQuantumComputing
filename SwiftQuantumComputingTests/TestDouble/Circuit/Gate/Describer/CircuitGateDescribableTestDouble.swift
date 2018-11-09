@@ -26,7 +26,7 @@ import Foundation
 
 final class CircuitGateDescribableTestDouble {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     private (set) var gateDescriptionCount = 0
     var gateDescriptionResult = CircuitGateDescription.not(target: 0)

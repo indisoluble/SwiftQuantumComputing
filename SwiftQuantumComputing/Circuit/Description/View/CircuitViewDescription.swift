@@ -36,7 +36,7 @@ struct CircuitViewDescription {
         return layers.first!.count
     }
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
     init?(qubitCount: Int) {
         guard qubitCount > 0 else {
@@ -47,6 +47,8 @@ struct CircuitViewDescription {
 
         self.init(layers: [layer])
     }
+
+    // MARK: - Private init methods
 
     private init(layers: [[CircuitViewPosition]]) {
         self.layers = layers

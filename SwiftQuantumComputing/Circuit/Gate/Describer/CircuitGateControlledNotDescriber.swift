@@ -24,7 +24,7 @@ import Foundation
 
 struct CircuitGateControlledNotDescriber {
 
-    // MARK: - Public class methods
+    // MARK: - Internal class methods
 
     static func inputsWith(target: Int, control: Int) -> [Int] {
         return [control, target]

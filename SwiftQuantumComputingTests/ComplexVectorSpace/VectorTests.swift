@@ -41,7 +41,7 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(vector.squaredNorm, 10)
     }
 
-    func testAnyVector_count_returnExpectecValue() {
+    func testAnyVector_count_returnExpectedValue() {
         // Given
         let complex = Complex(real: 0, imag: 0)
         let elements = [complex, complex, complex]

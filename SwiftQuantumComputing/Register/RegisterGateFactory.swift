@@ -34,7 +34,7 @@ struct RegisterGateFactory {
 
     private static let logger = LoggerFactory.makeLogger()
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
     init?(qubitCount: Int, baseMatrix: Matrix) {
         guard baseMatrix.isSquare else {
@@ -66,7 +66,7 @@ struct RegisterGateFactory {
         self.baseMatrix = baseMatrix
     }
 
-    // MARK: - Public methods
+    // MARK: - Internal methods
 
     func makeGate(inputs: [Int]) -> RegisterGate? {
         guard areInputsValid(inputs) else {

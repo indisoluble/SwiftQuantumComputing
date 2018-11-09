@@ -24,7 +24,7 @@ import Foundation
 
 extension Matrix {
 
-    // MARK: - Public class methods
+    // MARK: - Internal class methods
 
     static func makeHadamard() -> Matrix {
         return (Complex(1 / sqrt(2)) * Matrix([[Complex(1), Complex(1)],

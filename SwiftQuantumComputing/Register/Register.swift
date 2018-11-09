@@ -37,7 +37,7 @@ struct Register {
 
     private static let logger = LoggerFactory.makeLogger()
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
     init?(qubitCount: Int) {
         guard let groundState = Register.makeGroundState(qubitCount: qubitCount) else {

@@ -25,12 +25,12 @@ import os.log
 
 public struct Complex {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
-    public let real: Double
-    public let imag: Double
+    let real: Double
+    let imag: Double
 
-    public var squaredModulus: Double {
+    var squaredModulus: Double {
         return (pow(real, 2) + pow(imag, 2))
     }
 
@@ -38,7 +38,7 @@ public struct Complex {
 
     private static let logger = LoggerFactory.makeLogger()
 
-    // MARK: - Init methods
+    // MARK: - Public init methods
 
     public init(real: Double, imag: Double) {
         self.real = real
@@ -53,7 +53,9 @@ public struct Complex {
         self.init(real: Double(real), imag: 0)
     }
 
-    public init?(_ matrix: Matrix) {
+    // MARK: - Internal init methods
+
+    init?(_ matrix: Matrix) {
         guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
             os_log("init failed: use 1x1 matrix", log: Complex.logger, type: .debug)
 
@@ -63,12 +65,6 @@ public struct Complex {
         let complex = matrix.first
 
         self.init(real: complex.real, imag: complex.imag)
-    }
-
-    // MARK: - Public methods
-
-    public func conjugated() -> Complex {
-        return Complex(real: real, imag: -imag)
     }
 }
 
@@ -91,14 +87,7 @@ extension Complex: Equatable {
 // MARK: - Overloaded operators
 
 extension Complex {
-    public static func +(lhs: Complex, rhs: Complex) -> Complex {
-        let real = (lhs.real + rhs.real)
-        let imag = (lhs.imag + rhs.imag)
-
-        return Complex(real: real, imag: imag)
-    }
-
-    public static func *(lhs: Complex, rhs: Complex) -> Complex {
+    static func *(lhs: Complex, rhs: Complex) -> Complex {
         let real = ((lhs.real * rhs.real) - (lhs.imag * rhs.imag))
         let imag = ((lhs.real * rhs.imag) + (rhs.real * lhs.imag))
 

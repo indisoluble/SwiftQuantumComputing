@@ -35,6 +35,8 @@ extension Circuit {
                              depth: depth)
     }
 
+    // MARK: - Internal methods
+
     func applyingGates(randomlySelectedWith randomGate:(() -> CircuitGate?),
                        on shuffledQubits:(() -> [Int]),
                        depth: Int) -> Self? {

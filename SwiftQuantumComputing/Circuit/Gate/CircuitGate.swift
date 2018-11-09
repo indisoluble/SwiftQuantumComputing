@@ -24,7 +24,7 @@ import Foundation
 
 public struct CircuitGate {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     let matrix: Matrix
     let describer: CircuitGateDescribable
