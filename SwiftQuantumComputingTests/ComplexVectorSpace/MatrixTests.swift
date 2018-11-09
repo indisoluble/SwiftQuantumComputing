@@ -96,9 +96,10 @@ class MatrixTests: XCTestCase {
         // Given
         let expectedValue = Complex(real: 10, imag: 10)
         let elements = [
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)],
-            [Complex(real: 0, imag: 0), expectedValue, Complex(real: 0, imag: 0)],
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)]
+            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)],
+            [Complex(real: 0, imag: 0), expectedValue],
+            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)],
+            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)]
         ]
         let matrix = Matrix(elements)!
 
@@ -259,6 +260,38 @@ class MatrixTests: XCTestCase {
 
         // When
         let result = (lhs * rhs)
+
+        // Then
+        let expectedResult = Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
+                                     [Complex(real: 9, imag: 7), Complex(real: 1, imag: 29)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_adjointedMultiply_returnNil() {
+        // Given
+        let complex = Complex(real: 0, imag: 0)
+        let lhs = Matrix([[complex, complex, complex]])!
+        let rhs = Matrix([[complex], [complex], [complex]])!
+
+        // Then
+        XCTAssertNil(Matrix.Transformation.adjointed(lhs) * rhs)
+    }
+
+    func testMatrixWithRowCountEqualToRowCountInSecondMatrix_adjointedMultiply_returnExpectedMatrix() {
+        // Given
+        let lhsElements = [
+            [Complex(real: 3, imag: -2), Complex(real: 1, imag: 0)],
+            [Complex(real: 0, imag: 0), Complex(real: 4, imag: -2)],
+            [Complex(real: 5, imag: 6), Complex(real: 0, imag: -1)]
+        ]
+        let lhs = Matrix(lhsElements)!
+
+        let rhs = Matrix([[Complex(real: 5, imag: 0), Complex(real: 2, imag: -1)],
+                          [Complex(real: 0, imag: 0), Complex(real: 4, imag: 5)],
+                          [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])!
+
+        // When
+        let result = (Matrix.Transformation.adjointed(lhs) * rhs)
 
         // Then
         let expectedResult = Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
