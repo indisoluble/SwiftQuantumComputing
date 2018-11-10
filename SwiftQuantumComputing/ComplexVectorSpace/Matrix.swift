@@ -66,7 +66,7 @@ public struct Matrix {
             return nil
         }
 
-        let sameCountOnEachRow = rows.reduce(true) { $0 && ($1.count == columnCount) }
+        let sameCountOnEachRow = rows.allSatisfy { $0.count == columnCount }
         guard sameCountOnEachRow else {
             os_log("init failed: sub-arrays have to have same size",
                    log: Matrix.logger,
