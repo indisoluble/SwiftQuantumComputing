@@ -29,10 +29,6 @@ struct Register {
 
     private let vector: Vector
 
-    private var measurements: [Double] {
-        return (0..<vector.count).map { vector[$0].squaredModulus }
-    }
-
     // MARK: - Private class properties
 
     private static let logger = LoggerFactory.makeLogger()
@@ -66,9 +62,7 @@ struct Register {
 
 extension Register: CustomStringConvertible {
     var description: String {
-        let roundedMeasurements = measurements.map { String(format: "%.2f", $0) }
-
-        return ("[" + roundedMeasurements.joined(separator: ", ") + "]")
+        return vector.description
     }
 }
 
@@ -108,14 +102,16 @@ extension Register: CircuitRegister {
             return nil
         }
 
-        let raw = measurements
-        let indexed = (0..<raw.count).map { (rawIndex) -> (index: Int, measure: Double) in
-            return (rawIndex.derived(takingBitsAt: qubits), raw[rawIndex])
+        var result = Array(repeating: Double(0), count: Int.pow(2, qubits.count))
+
+        for index in 0..<vector.count {
+            let derivedIndex = index.derived(takingBitsAt: qubits)
+            let measure = vector[index].squaredModulus
+
+            result[derivedIndex] += measure
         }
 
-        return (0..<Int.pow(2, qubits.count)).map { (index) -> Double in
-            return indexed.reduce(0) { $0 + ($1.index == index ? $1.measure : 0) }
-        }
+        return result
     }
 }
 
