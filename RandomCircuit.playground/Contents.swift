@@ -15,7 +15,11 @@ let gates = [
     CircuitGate.makeOracle(matrix: uf2),
     CircuitGate.makePhaseShift(radians: acos(Double(3) / Double(5)))]
 
-let circuit = CircuitFactory.makeRandomlyGeneratedCircuit(qubitCount: 5, depth: 15, gates: gates)!
+let date = Date()
+let circuit = CircuitFactory.makeRandomlyGeneratedCircuit(qubitCount: 8, depth: 10, gates: gates)!
+print("Circuit built in \(-date.timeIntervalSinceNow) seconds")
 
-print("Measures: \(circuit.measure(qubits: 4, 3, 2, 1, 0)!)")
-print()
+print("Probabilities:")
+for (bits, probability) in circuit.probabilities()!.sorted(by: { $0.1 > $1.1 }) {
+    print("\"\(bits)\": \(probability)")
+}

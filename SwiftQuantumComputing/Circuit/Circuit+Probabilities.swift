@@ -1,8 +1,8 @@
 //
-//  Circuit+OracleGate.swift
+//  Circuit+Probabilities.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 02/09/2018.
+//  Created by Enrique de la Torre on 10/11/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,21 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    public func applyingOracleGate(builtWith matrix: Matrix, inputs: [Int]) -> Self? {
-        return applyingGate(CircuitGate.makeOracle(matrix: matrix), inputs: inputs)
+    public func probabilities() -> [String: Double]? {
+        let qubits = Array((0..<qubitCount).reversed())
+
+        return probabilities(qubits: qubits)
+    }
+
+    public func probabilities(qubits: [Int]) -> [String: Double]? {
+        guard let measurements = measure(qubits: qubits) else {
+            return nil
+        }
+
+        let bits = Array((0..<Int.log2(measurements.count)).reversed())
+        let mapped = (0..<measurements.count).map { (String($0, bits: bits), measurements[$0]) }
+        let filtered = mapped.filter { $0.1 > 0 }
+
+        return Dictionary(uniqueKeysWithValues: filtered)
     }
 }

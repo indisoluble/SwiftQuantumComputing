@@ -1,8 +1,8 @@
 //
-//  Circuit.swift
+//  String+Bits.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 10/11/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,17 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+extension String {
+    init(_ value: Int, bits: [Int]) {
+        let binary = String(value, radix: 2).reversed()
+        let characters = bits.map { (index) -> Character in
+            guard (index < binary.count) else {
+                return "0"
+            }
 
-public protocol Circuit {
-    var qubitCount: Int { get }
+            return binary[binary.index(binary.startIndex, offsetBy: index)]
+        }
 
-    func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> Self?
-    func measure(qubits: [Int]) -> [Double]?
+        self.init(characters)
+    }
 }

@@ -154,7 +154,7 @@ class CircuitFacadeTests: XCTestCase {
         let qubits = [0, 1]
 
         // When
-        let measures = circuit.measure(qubits: qubits[0], qubits[1])
+        let measures = circuit.measure(qubits: qubits)
 
         // Then
         XCTAssertEqual(register.measureCount, 1)
