@@ -37,10 +37,17 @@ extension Circuit {
             return nil
         }
 
-        let bits = Array((0..<Int.log2(measurements.count)).reversed())
-        let mapped = (0..<measurements.count).map { (String($0, bits: bits), measurements[$0]) }
-        let filtered = mapped.filter { $0.1 > 0 }
+        let bitCount = Int.log2(measurements.count)
 
-        return Dictionary(uniqueKeysWithValues: filtered)
+        var result: [String: Double] = [:]
+        for (output, measure) in measurements.enumerated() {
+            guard measure > 0 else {
+                continue
+            }
+
+            result[String(output, bitCount: bitCount)] = measure
+        }
+
+        return result
     }
 }
