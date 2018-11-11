@@ -24,7 +24,7 @@ import Foundation
 
 @IBDesignable class CircleView: UIView {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     @IBInspectable var cornerRadius: CGFloat {
         get {

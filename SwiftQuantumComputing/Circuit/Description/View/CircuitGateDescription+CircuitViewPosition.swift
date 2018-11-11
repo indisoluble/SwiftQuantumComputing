@@ -24,7 +24,7 @@ import Foundation
 
 extension CircuitGateDescription {
 
-    // MARK: - Public methods
+    // MARK: - Internal methods
 
     func makeLayer(qubitCount: Int) -> [CircuitViewPosition] {
         switch self {

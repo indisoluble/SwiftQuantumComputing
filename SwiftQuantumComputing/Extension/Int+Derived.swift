@@ -22,15 +22,7 @@ import Foundation
 
 extension Int {
     func derived(takingBitsAt positions: [Int]) -> Int {
-        let binary = String(self, radix: 2).reversed()
-        let characters = positions.map { (index) -> Character in
-            guard (index < binary.count) else {
-                return "0"
-            }
-
-            return binary[binary.index(binary.startIndex, offsetBy: index)]
-        }
-        let subBinary = String(characters)
+        let subBinary = String(self, bits: positions)
 
         return Int(strtoul(subBinary, nil, 2))
     }

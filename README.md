@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/cocoapods/v/SwiftQuantumComputing.svg)](http://cocoapods.org/pods/SwiftQuantumComputing)
 ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS-lightgrey.svg)
 
-In this repository you can find a simple quantum circuit simulator written in Swift.
+In this repository you can find a quantum circuit simulator written in Swift and with a bit of help of Accelerate.framework.
 
 The code written so far is mostly based on the content of: [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965), with a few tips from [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X). It is also inspired by [IBM Qiskit](https://github.com/Qiskit/qiskit-terra).
 

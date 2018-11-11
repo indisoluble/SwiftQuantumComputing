@@ -35,6 +35,8 @@ extension Circuit {
                              depth: depth)
     }
 
+    // MARK: - Internal methods
+
     func applyingGates(randomlySelectedWith randomGate:(() -> CircuitGate?),
                        on shuffledQubits:(() -> [Int]),
                        depth: Int) -> Self? {
@@ -46,9 +48,10 @@ extension Circuit {
             return nil
         }
 
-        let tuples = (0..<depth).map { (_) -> (CircuitGate, [Int])? in
+        var result: Self? = self
+        for _ in 0..<depth {
             guard let gate = randomGate() else {
-                return nil
+                continue
             }
 
             let matrixQubitCount = Int.log2(gate.matrix.rowCount)
@@ -58,15 +61,9 @@ extension Circuit {
                 inputs = Array(inputs[..<matrixQubitCount])
             }
 
-            return (gate, inputs)
+            result = result?.applyingGate(gate, inputs: inputs)
         }
 
-        return tuples.reduce(self) { (circuit, tuple) -> Self? in
-            guard let (gate, inputs) = tuple else {
-                return circuit
-            }
-
-            return circuit?.applyingGate(gate, inputs: inputs)
-        }
+        return result
     }
 }

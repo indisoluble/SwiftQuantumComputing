@@ -26,7 +26,7 @@ import Foundation
 
 final class CircuitDescriptionTestDouble {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     private (set) var applyingDescriberCount = 0
     private (set) var lastApplyingDescriberDescriber: CircuitGateDescribable?

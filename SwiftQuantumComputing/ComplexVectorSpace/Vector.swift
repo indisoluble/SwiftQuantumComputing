@@ -23,23 +23,19 @@ import os.log
 
 // MARK: - Main body
 
-public struct Vector {
+struct Vector {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
-    public var squaredNorm: Double {
+    var squaredNorm: Double {
         return Vector.innerProduct(self, self)!.real
     }
 
-    public var norm: Double {
-        return squaredNorm.squareRoot()
-    }
-
-    public var count: Int {
+    var count: Int {
         return matrix.rowCount
     }
 
-    public subscript(index: Int) -> Complex {
+    subscript(index: Int) -> Complex {
         return matrix[index,0]
     }
 
@@ -51,10 +47,12 @@ public struct Vector {
 
     private static let logger = LoggerFactory.makeLogger()
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
-    public init?(_ elements: [Complex]) {
-        guard let matrix = Matrix([elements]) else {
+    init?(_ elements: [Complex]) {
+        let rows = elements.map { [$0] }
+
+        guard let matrix = Matrix(rows) else {
             os_log("init failed: unable to build matrix with provided elements",
                    log: Vector.logger,
                    type: .debug)
@@ -62,25 +60,19 @@ public struct Vector {
             return nil
         }
 
-        self.init(matrix: matrix.transposed())
+        self.init(matrix: matrix)
     }
+
+    // MARK: - Private init methods
 
     private init(matrix: Matrix) {
         self.matrix = matrix
     }
 
-    // MARK: - Public methods
+    // MARK: - Internal class methods
 
-    public func normalized() -> Vector {
-        let normalizedMatrix = (Complex(1 / norm) * matrix)
-
-        return Vector(matrix: normalizedMatrix)
-    }
-
-    // MARK: - Public class methods
-
-    public static func innerProduct(_ lhs: Vector, _ rhs: Vector) -> Complex? {
-        guard let matrix = (lhs.matrix.adjointed() * rhs.matrix) else {
+    static func innerProduct(_ lhs: Vector, _ rhs: Vector) -> Complex? {
+        guard let matrix = (Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix) else {
             os_log("innerProduct failed: can not multiple provided vectors",
                    log: Vector.logger,
                    type: .debug)
@@ -95,7 +87,7 @@ public struct Vector {
 // MARK: - CustomStringConvertible methods
 
 extension Vector: CustomStringConvertible {
-    public var description: String {
+    var description: String {
         return matrix.description
     }
 }
@@ -103,7 +95,7 @@ extension Vector: CustomStringConvertible {
 // MARK: - Equatable methods
 
 extension Vector: Equatable {
-    public static func ==(lhs: Vector, rhs: Vector) -> Bool {
+    static func ==(lhs: Vector, rhs: Vector) -> Bool {
         return (lhs.matrix == rhs.matrix)
     }
 }
@@ -111,7 +103,7 @@ extension Vector: Equatable {
 // MARK: - Overloaded operators
 
 extension Vector {
-    public static func *(lhs: Matrix, rhs: Vector) -> Vector? {
+    static func *(lhs: Matrix, rhs: Vector) -> Vector? {
         guard let matrix = (lhs * rhs.matrix) else {
             os_log("* failed: can not multiple matrix by vector",
                    log: Vector.logger,

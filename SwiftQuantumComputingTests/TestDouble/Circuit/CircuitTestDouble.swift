@@ -26,7 +26,7 @@ import Foundation
 
 final class CircuitTestDouble {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     private (set) var qubitCountCount = 0
     var qubitCountResult = 0
@@ -59,7 +59,7 @@ extension CircuitTestDouble: Circuit {
         return applyingGateResult
     }
 
-    func measure(qubits: Int...) -> [Double]? {
+    func measure(qubits: [Int]) -> [Double]? {
         measureCount += 1
 
         lastMeasureQubits = qubits

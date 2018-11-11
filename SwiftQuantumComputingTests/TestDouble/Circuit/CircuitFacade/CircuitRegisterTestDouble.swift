@@ -26,7 +26,7 @@ import Foundation
 
 final class CircuitRegisterTestDouble {
 
-    // MARK: - Public properties
+    // MARK: - Internal properties
 
     private (set) var qubitCountCount = 0
     var qubitCountResult = 0

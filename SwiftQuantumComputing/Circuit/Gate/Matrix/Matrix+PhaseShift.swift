@@ -24,7 +24,7 @@ import Foundation
 
 extension Matrix {
 
-    // MARK: - Public class methods
+    // MARK: - Internal class methods
 
     static func makePhaseShift(radians: Double) -> Matrix {
         return Matrix([[Complex(1), Complex(0)],

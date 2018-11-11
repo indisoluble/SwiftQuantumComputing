@@ -24,7 +24,7 @@ import Foundation
 
 class PositionView: SQCView {
 
-    // MARK: - Init methods
+    // MARK: - Internal init methods
 
     override init(frame: CGRect) {
         super.init(frame: frame)

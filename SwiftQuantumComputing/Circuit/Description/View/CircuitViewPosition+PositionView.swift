@@ -24,7 +24,7 @@ import Foundation
 
 extension CircuitViewPosition {
 
-    // MARK: - Public methods
+    // MARK: - Internal methods
 
     func makePositionView(size: CGSize) -> PositionView {
         let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)

@@ -25,7 +25,7 @@ import os.log
 
 struct LoggerFactory {
 
-    // MARK: - Public class methods
+    // MARK: - Internal class methods
 
     static func makeLogger(filepath: String = #file) -> OSLog {
         let filename = (filepath as NSString).lastPathComponent
