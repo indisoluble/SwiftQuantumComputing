@@ -1,9 +1,7 @@
-import SwiftQuantumComputing
+import SwiftQuantumComputing // for iOS
 
 func isFunctionConstant(_ uf: Matrix) -> Bool {
-    let qubitCount = 2
-
-    var circuit = CircuitFactory.makeEmptyCircuit(qubitCount: qubitCount)!
+    var circuit = CircuitFactory.makeEmptyCircuit(qubitCount: 2)!
     circuit = circuit.applyingNotGate(to: 0)!
     circuit = circuit.applyingHadamardGate(to: 0)!
     circuit = circuit.applyingHadamardGate(to: 1)!
