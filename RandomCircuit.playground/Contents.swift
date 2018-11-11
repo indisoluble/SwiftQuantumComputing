@@ -1,4 +1,4 @@
-import SwiftQuantumComputing
+import SwiftQuantumComputing // for macOS
 
 let uf1 = Matrix([[Complex(0), Complex(1)],
                   [Complex(1), Complex(0)]])!

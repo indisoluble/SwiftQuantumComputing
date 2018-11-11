@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name         = "SwiftQuantumComputing"
-  s.version      = "3.5.2"
+  s.version      = "4.0.0"
   s.summary      = "A quantum circuit simulator."
   s.description  = <<-DESC
-  A quantum circuit simulator written in Swift.
+  A quantum circuit simulator written in Swift and with a bit of help of Accelerate.framework.
                    DESC
   s.homepage     = "https://github.com/indisoluble/SwiftQuantumComputing"
   s.license      = "Apache License, Version 2.0"
@@ -21,4 +21,6 @@ Pod::Spec.new do |s|
 
   s.ios.resources = "SwiftQuantumComputing_iOS/**/*.xib"
   s.osx.resources = "SwiftQuantumComputing_macOS/**/*.xib"
+
+  s.frameworks = 'Accelerate'
 end
