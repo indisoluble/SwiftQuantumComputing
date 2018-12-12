@@ -1,8 +1,8 @@
 //
-//  Circuit.swift
+//  PhaseShiftGateFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 15/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,29 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-public protocol Circuit {
-    var qubitCount: Int { get }
+public struct PhaseShiftGateFactory {
 
-    func applyingGate(_ gate: Gate) -> Self?
-    func measure(qubits: [Int]) -> [Double]?
+    // MARK: - Private properties
+
+    private let radians: Double
+
+    // MARK: - Public init methods
+
+    public init(radians: Double) {
+        self.radians = radians
+    }
+}
+
+// MARK: - CircuitGateFactory methods
+
+extension PhaseShiftGateFactory: CircuitGateFactory {
+    public func makeGate(inputs: [Int]) -> Gate? {
+        guard let target = inputs.first else {
+            return nil
+        }
+
+        return .phaseShift(radians: radians, target: target)
+    }
 }

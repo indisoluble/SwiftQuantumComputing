@@ -1,8 +1,8 @@
 //
-//  Circuit.swift
+//  Gate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 13/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,12 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Types
 
-public protocol Circuit {
-    var qubitCount: Int { get }
-
-    func applyingGate(_ gate: Gate) -> Self?
-    func measure(qubits: [Int]) -> [Double]?
+public enum Gate {
+    case controlledNot(target: Int, control: Int)
+    case hadamard(target: Int)
+    case not(target: Int)
+    case oracle(matrix: Matrix, inputs: [Int])
+    case phaseShift(radians: Double, target: Int)
 }

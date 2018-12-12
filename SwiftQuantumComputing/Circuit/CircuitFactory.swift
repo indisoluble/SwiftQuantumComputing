@@ -40,17 +40,22 @@ public struct CircuitFactory {
             return nil
         }
 
-        let factory = CircuitRegisterGateFactoryAdapter(qubitCount: qubitCount)
         let description = CircuitViewDescription(qubitCount: qubitCount)!
 
-        return CircuitFacade(register: register, factory: factory, circuitDescription: description)
+        let factory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
+        let backend = BackendFacade(initialRegister: register, factory: factory)
+
+        return CircuitFacade(circuit: [],
+                             circuitDescription: description,
+                             qubitCount: qubitCount,
+                             backend: backend)
     }
 
     public static func makeRandomlyGeneratedCircuit(qubitCount: Int,
                                                     depth: Int,
-                                                    gates: [CircuitGate]) -> Circuit? {
+                                                    factories: [CircuitGateFactory]) -> Circuit? {
         let emptyCircuit = makeEmptyCircuit(qubitCount: qubitCount)
 
-        return emptyCircuit?.randomlyApplyingGates(gates, depth: depth)
+        return emptyCircuit?.randomlyApplyingFactories(factories, depth: depth)
     }
 }

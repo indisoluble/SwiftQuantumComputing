@@ -90,10 +90,7 @@ private extension RegisterGateFactory {
 
     enum Constants {
         static let baseIdentity = Matrix.makeIdentity(count: 2)!
-        static let baseSwap = Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
-                                      [Complex(0), Complex(0), Complex(1), Complex(0)],
-                                      [Complex(0), Complex(1), Complex(0), Complex(0)],
-                                      [Complex(0), Complex(0), Complex(0), Complex(1)]])!
+        static let baseSwap = Matrix.makeSwap()
     }
 
     // MARK: - Private methods
