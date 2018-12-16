@@ -19,49 +19,33 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
 struct CircuitFacade {
 
-    // MARK: - Types
-
-    typealias ExtendedCircuitDescription = (CircuitDescription &
-        CustomStringConvertible &
-        CustomPlaygroundDisplayConvertible)
-
     // MARK: - Internal properties
 
     let circuit: [Gate]
-    let circuitDescription: ExtendedCircuitDescription
+    let drawer: Drawable
     let qubitCount: Int
     let backend: Backend
 
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
-
     // MARK: - Internal init methods
 
-    init(circuit: [Gate],
-         circuitDescription: ExtendedCircuitDescription,
-         qubitCount: Int,
-         backend: Backend) {
+    init(circuit: [Gate], drawer: Drawable, qubitCount: Int, backend: Backend) {
         self.circuit = circuit
-        self.circuitDescription = circuitDescription
+        self.drawer = drawer
         self.qubitCount = qubitCount
         self.backend = backend
     }
-
-    // MARK: - Private init methods
 }
 
 // MARK: - CustomStringConvertible methods
 
 extension CircuitFacade: CustomStringConvertible {
     var description: String {
-        return circuitDescription.description
+        return "Circuit with \(qubitCount) qubits & \(circuit.count) gates"
     }
 }
 
@@ -69,16 +53,16 @@ extension CircuitFacade: CustomStringConvertible {
 
 extension CircuitFacade: CustomPlaygroundDisplayConvertible {
     var playgroundDescription: Any {
-        return circuitDescription.playgroundDescription
+        return drawer.drawCircuit(circuit)
     }
 }
 
 // MARK: - Circuit methods
 
 extension CircuitFacade: Circuit {
-    func applyingGate(_ gate: Gate) -> CircuitFacade? {
-        return CircuitFacade(circuit: circuit + [gate],
-                             circuitDescription: circuitDescription.applyingGate(gate),
+    func applyingGate(_ gate: Gate) -> CircuitFacade {
+        return CircuitFacade(circuit: (circuit + [gate]),
+                             drawer: drawer,
                              qubitCount: qubitCount,
                              backend: backend)
     }

@@ -40,15 +40,18 @@ public struct CircuitFactory {
             return nil
         }
 
-        let description = CircuitViewDescription(qubitCount: qubitCount)!
+        guard let drawer = CircuitViewDrawer(qubitCount: qubitCount) else {
+            os_log("makeEmptyCircuit failed: unable to build circuit drawer",
+                   log: logger,
+                   type: .debug)
+
+            return nil
+        }
 
         let factory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
         let backend = BackendFacade(initialRegister: register, factory: factory)
 
-        return CircuitFacade(circuit: [],
-                             circuitDescription: description,
-                             qubitCount: qubitCount,
-                             backend: backend)
+        return CircuitFacade(circuit: [], drawer: drawer, qubitCount: qubitCount, backend: backend)
     }
 
     public static func makeRandomlyGeneratedCircuit(qubitCount: Int,

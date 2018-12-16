@@ -41,14 +41,14 @@ extension Circuit {
                            on shuffledQubits:(() -> [Int]),
                            depth: Int) -> Self? {
         guard (depth >= 0) else {
-            os_log("applyingGates failed: pass depth bigger than 0",
+            os_log("applyingFactories failed: pass depth bigger than 0",
                    log: LoggerFactory.makeLogger(),
                    type: .debug)
 
             return nil
         }
 
-        var result: Self? = self
+        var result: Self = self
         for _ in 0..<depth {
             guard let factory = randomFactory() else {
                 continue
@@ -58,7 +58,7 @@ extension Circuit {
                 continue
             }
 
-            result = result?.applyingGate(gate)
+            result = result.applyingGate(gate)
         }
 
         return result
