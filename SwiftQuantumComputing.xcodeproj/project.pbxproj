@@ -529,7 +529,7 @@
 		FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				FFACDD102169075F00A466BE /* Circuit */,
+				FFACDD112169076B00A466BE /* Drawer */,
 				FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */,
 				FF65E3B9211A181900AA0BD2 /* Info.plist */,
 			);
@@ -544,28 +544,20 @@
 			path = SwiftQuantumComputing_iOSTests;
 			sourceTree = "<group>";
 		};
-		FF663D28216A0D5F002298BA /* Circuit */ = {
+		FF663D29216A0D6A002298BA /* Drawer */ = {
 			isa = PBXGroup;
 			children = (
-				FF663D29216A0D6A002298BA /* Description */,
+				FF663D2A216A0D74002298BA /* CircuitViewDrawer */,
 			);
-			path = Circuit;
+			path = Drawer;
 			sourceTree = "<group>";
 		};
-		FF663D29216A0D6A002298BA /* Description */ = {
-			isa = PBXGroup;
-			children = (
-				FF663D2A216A0D74002298BA /* View */,
-			);
-			path = Description;
-			sourceTree = "<group>";
-		};
-		FF663D2A216A0D74002298BA /* View */ = {
+		FF663D2A216A0D74002298BA /* CircuitViewDrawer */ = {
 			isa = PBXGroup;
 			children = (
 				FF663D2B216A0D80002298BA /* PositionView */,
 			);
-			path = View;
+			path = CircuitViewDrawer;
 			sourceTree = "<group>";
 		};
 		FF663D2B216A0D80002298BA /* PositionView */ = {
@@ -696,28 +688,20 @@
 			path = Logger;
 			sourceTree = "<group>";
 		};
-		FFACDD102169075F00A466BE /* Circuit */ = {
+		FFACDD112169076B00A466BE /* Drawer */ = {
 			isa = PBXGroup;
 			children = (
-				FFACDD112169076B00A466BE /* Description */,
+				FFACDD122169077600A466BE /* CircuitViewDrawer */,
 			);
-			path = Circuit;
+			path = Drawer;
 			sourceTree = "<group>";
 		};
-		FFACDD112169076B00A466BE /* Description */ = {
-			isa = PBXGroup;
-			children = (
-				FFACDD122169077600A466BE /* View */,
-			);
-			path = Description;
-			sourceTree = "<group>";
-		};
-		FFACDD122169077600A466BE /* View */ = {
+		FFACDD122169077600A466BE /* CircuitViewDrawer */ = {
 			isa = PBXGroup;
 			children = (
 				FFBCD5E3214DBB670047020B /* PositionView */,
 			);
-			path = View;
+			path = CircuitViewDrawer;
 			sourceTree = "<group>";
 		};
 		FFB69B8E21408071009A1176 /* Gate */ = {
@@ -785,7 +769,7 @@
 		FFBA23ED21691E0F003E5727 /* SwiftQuantumComputing_macOS */ = {
 			isa = PBXGroup;
 			children = (
-				FF663D28216A0D5F002298BA /* Circuit */,
+				FF663D29216A0D6A002298BA /* Drawer */,
 				FFBA23EE21691E0F003E5727 /* SwiftQuantumComputing.h */,
 				FFBA23EF21691E0F003E5727 /* Info.plist */,
 			);
