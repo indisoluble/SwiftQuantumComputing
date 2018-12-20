@@ -1,8 +1,8 @@
 //
-//  Circuit+NotGateTests.swift
-//  SwiftQuantumComputingTests
+//  DrawerTestDouble.swift
+//  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 16/09/2018.
+//  Created by Enrique de la Torre on 21/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,25 +18,29 @@
 // limitations under the License.
 //
 
-import XCTest
+import Foundation
 
 @testable import SwiftQuantumComputing
 
 // MARK: - Main body
 
-class Circuit_NotGateTests: XCTestCase {
+final class DrawerTestDouble {
 
-    // MARK: - Properties
+    // MARK: - Internal properties
 
-    let circuit = CircuitTestDouble()
+    private (set) var drawCircuitCount = 0
+    private (set) var lastDrawCircuitCircuit: [Gate]?
+    var drawCircuitResult: SQCView!
+}
 
-    // MARK: - Tests
+// MARK: - Drawable methods
 
-    func testAnyCircuit_applyingNotGate_callApplyingGate() {
-        // When
-        _ = circuit.applyingNotGate(to: 0)
+extension DrawerTestDouble: Drawable {
+    func drawCircuit(_ circuit: [Gate]) -> SQCView {
+        drawCircuitCount += 1
 
-        // Then
-        XCTAssertEqual(circuit.applyingGateCount, 1)
+        lastDrawCircuitCircuit = circuit
+
+        return drawCircuitResult
     }
 }

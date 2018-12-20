@@ -1,8 +1,8 @@
 //
-//  Circuit+PhaseShiftGateTests.swift
-//  SwiftQuantumComputingTests
+//  BackendTestDouble.swift
+//  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 16/09/2018.
+//  Created by Enrique de la Torre on 21/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,25 +18,31 @@
 // limitations under the License.
 //
 
-import XCTest
+import Foundation
 
 @testable import SwiftQuantumComputing
 
 // MARK: - Main body
 
-class Circuit_PhaseShiftGateTests: XCTestCase {
+final class BackendTestDouble {
 
-    // MARK: - Properties
+    // MARK: - Internal properties
 
-    let circuit = CircuitTestDouble()
+    private (set) var measureQubitsCount = 0
+    private (set) var lastMeasureQubitsQubits: [Int]?
+    private (set) var lastMeasureQubitsCircuit: [BackendGate]?
+    var measureQubitsResult: [Double]?
+}
 
-    // MARK: - Tests
+// MARK: - Backend methods
 
-    func testAnyCircuit_applyingPhaseShiftGate_callApplyingGate() {
-        // When
-        _ = circuit.applyingPhaseShiftGate(builtWith: 0, to: 0)
+extension BackendTestDouble: Backend {
+    func measureQubits(_ qubits: [Int], in circuit: [BackendGate]) -> [Double]? {
+        measureQubitsCount += 1
 
-        // Then
-        XCTAssertEqual(circuit.applyingGateCount, 1)
+        lastMeasureQubitsQubits = qubits
+        lastMeasureQubitsCircuit = circuit
+
+        return measureQubitsResult
     }
 }

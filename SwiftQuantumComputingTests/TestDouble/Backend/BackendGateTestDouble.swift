@@ -1,8 +1,8 @@
 //
-//  CircuitGateOracleDescriberTests.swift
-//  SwiftQuantumComputingTests
+//  BackendGateTestDouble.swift
+//  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 16/09/2018.
+//  Created by Enrique de la Torre on 20/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,27 +18,27 @@
 // limitations under the License.
 //
 
-import XCTest
+import Foundation
 
 @testable import SwiftQuantumComputing
 
 // MARK: - Main body
 
-class CircuitGateOracleDescriberTests: XCTestCase {
+final class BackendGateTestDouble {
 
-    // MARK: - Tests
+    // MARK: - Internal properties
 
-    func testAnyDescriber_gateDescription_returnExpectedDescription() {
-        // When
-        let describerInputs = [0, 1]
-        let result = CircuitGateOracleDescriber().gateDescription(with: describerInputs)
+    private (set) var extractCount = 0
+    var extractMatrixResult: Matrix!
+    var extractInputsResult: [Int]!
+}
 
-        // Then
-        switch result {
-        case .oracle(let inputs):
-            XCTAssertEqual(inputs, describerInputs)
-        default:
-            XCTAssert(false)
-        }
+// MARK: - BackendGate methods
+
+extension BackendGateTestDouble: BackendGate {
+    func extract() -> (matrix: Matrix, inputs: [Int]) {
+        extractCount += 1
+
+        return (matrix: extractMatrixResult, inputs: extractInputsResult)
     }
 }

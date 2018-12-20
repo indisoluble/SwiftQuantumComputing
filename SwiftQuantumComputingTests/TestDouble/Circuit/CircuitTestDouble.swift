@@ -32,9 +32,8 @@ final class CircuitTestDouble {
     var qubitCountResult = 0
 
     private (set) var applyingGateCount = 0
-    private (set) var lastApplyingGateGate: CircuitGate?
-    private (set) var lastApplyingGateInputs: [Int]?
-    var applyingGateResult: CircuitTestDouble?
+    private (set) var lastApplyingGateGate: Gate?
+    var applyingGateResult: CircuitTestDouble!
 
     private (set) var measureCount = 0
     private (set) var lastMeasureQubits: [Int]?
@@ -50,11 +49,10 @@ extension CircuitTestDouble: Circuit {
         return qubitCountResult
     }
 
-    func applyingGate(_ gate: CircuitGate, inputs: [Int]) -> CircuitTestDouble? {
+    func applyingGate(_ gate: Gate) -> CircuitTestDouble {
         applyingGateCount += 1
 
         lastApplyingGateGate = gate
-        lastApplyingGateInputs = inputs
 
         return applyingGateResult
     }

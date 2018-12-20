@@ -1,5 +1,5 @@
 //
-//  Circuit+HadamardGateTests.swift
+//  CircuitViewDrawerTests.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 16/09/2018.
@@ -24,19 +24,12 @@ import XCTest
 
 // MARK: - Main body
 
-class Circuit_HadamardGateTests: XCTestCase {
-
-    // MARK: - Properties
-
-    let circuit = CircuitTestDouble()
+class CircuitViewDrawerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyCircuit_applyingHadamardGate_callApplyingGate() {
-        // When
-        _ = circuit.applyingHadamardGate(to: 0)
-
+    func testZeroQubits_init_returnNil() {
         // Then
-        XCTAssertEqual(circuit.applyingGateCount, 1)
+        XCTAssertNil(CircuitViewDrawer(qubitCount: 0))
     }
 }

@@ -1,8 +1,8 @@
 //
-//  CircuitGateControlledNotDescriberTests.swift
-//  SwiftQuantumComputingTests
+//  ControlledNotGateFactoryTests.swift
+//  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 16/09/2018.
+//  Created by Enrique de la Torre on 21/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,20 +24,35 @@ import XCTest
 
 // MARK: - Main body
 
-class CircuitGateControlledNotDescriberTests: XCTestCase {
+class ControlledNotGateFactoryTests: XCTestCase {
+
+    // MARK: - Properties
+
+    let factory = ControlledNotGateFactory()
 
     // MARK: - Tests
 
-    func testAnyDescriber_gateDescription_returnExpectedDescription() {
+    func testAnyFactoryAndOnlyOneInput_makeGate_returnNil() {
+        // Then
+        XCTAssertNil(factory.makeGate(inputs: [0]))
+    }
+
+    func testAnyFactoryAndThreeInputs_makeGate_returnExpectedGate() {
+        // Given
+        let inputs = [0, 1, 2]
+
         // When
-        let inputs = [0, 1]
-        let result = CircuitGateControlledNotDescriber().gateDescription(with: inputs)
+        guard let result = factory.makeGate(inputs: inputs) else {
+            XCTAssert(false)
+
+            return
+        }
 
         // Then
         switch result {
-        case .controlledNot(let target, let control):
-            XCTAssertEqual(target, inputs[1])
-            XCTAssertEqual(control, inputs[0])
+        case let .controlledNot(target, control):
+            XCTAssertEqual(inputs[0], target)
+            XCTAssertEqual(inputs[1], control)
         default:
             XCTAssert(false)
         }

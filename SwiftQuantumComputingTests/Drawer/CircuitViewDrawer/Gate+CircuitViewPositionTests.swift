@@ -1,5 +1,5 @@
 //
-//  CircuitGateDescription+CircuitViewPositionTests.swift
+//  Gate+CircuitViewPositionTests.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 16/09/2018.
@@ -24,14 +24,19 @@ import XCTest
 
 // MARK: - Main body
 
-class CircuitGateDescription_CircuitViewPositionTests: XCTestCase {
+class Gate_CircuitViewPositionTests: XCTestCase {
+
+    // MARK: - Properties
+
+    let matrix = Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
+                         [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])!
 
     // MARK: - Tests
 
-    func testControlledNotDescription_makeLayer_returnExpectedPositions() {
+    func testControlledNotGate_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = CircuitGateDescription.controlledNot(target: 1, control: 3)
+        let gate = Gate.controlledNot(target: 1, control: 3)
 
         // When
         let positions = gate.makeLayer(qubitCount: qubitCount)
@@ -47,10 +52,10 @@ class CircuitGateDescription_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testHadamardDescription_makeLayer_returnExpectedPositions() {
+    func testHadamardGate_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 3
-        let gate = CircuitGateDescription.hadamard(target: 1)
+        let gate = Gate.hadamard(target: 1)
 
         // When
         let positions = gate.makeLayer(qubitCount: qubitCount)
@@ -64,10 +69,10 @@ class CircuitGateDescription_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testNotDescription_makeLayer_returnExpectedPositions() {
+    func testNotGate_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 3
-        let gate = CircuitGateDescription.not(target: 1)
+        let gate = Gate.not(target: 1)
 
         // When
         let positions = gate.makeLayer(qubitCount: qubitCount)
@@ -81,10 +86,10 @@ class CircuitGateDescription_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testSingleQubitOracleDescription_makeLayer_returnExpectedPositions() {
+    func testSingleQubitOracleGate_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 3
-        let gate = CircuitGateDescription.oracle(inputs: [1])
+        let gate = Gate.oracle(matrix: matrix, inputs: [1])
 
         // When
         let positions = gate.makeLayer(qubitCount: qubitCount)
@@ -98,11 +103,11 @@ class CircuitGateDescription_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testMultiQubitOracleDescription_makeLayer_returnExpectedPositions() {
+    func testMultiQubitOracleGate_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 7
         let inputs = [1, 5, 3]
-        let gate = CircuitGateDescription.oracle(inputs: inputs)
+        let gate = Gate.oracle(matrix: matrix, inputs: inputs)
 
         // When
         let positions = gate.makeLayer(qubitCount: qubitCount)
@@ -120,11 +125,11 @@ class CircuitGateDescription_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testPhaseShiftDescription_makeLayer_returnExpectedPositions() {
+    func testPhaseShiftGate_makeLayer_returnExpectedPositions() {
         // Given
         let radians = 0.1
         let qubitCount = 3
-        let gate = CircuitGateDescription.phaseShift(radians: radians, target: 1)
+        let gate = Gate.phaseShift(radians: radians, target: 1)
 
         // When
         let positions = gate.makeLayer(qubitCount: qubitCount)

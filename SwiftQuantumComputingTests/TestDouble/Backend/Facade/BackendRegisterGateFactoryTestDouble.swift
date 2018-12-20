@@ -1,8 +1,8 @@
 //
-//  CircuitRegisterGateFactoryTestDouble.swift
-//  SwiftQuantumComputingTests
+//  BackendRegisterGateFactoryTestDouble.swift
+//  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 23/08/2018.
+//  Created by Enrique de la Torre on 20/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ import Foundation
 
 // MARK: - Main body
 
-final class CircuitRegisterGateFactoryTestDouble {
+final class BackendRegisterGateFactoryTestDouble {
 
     // MARK: - Internal properties
 
@@ -34,9 +34,9 @@ final class CircuitRegisterGateFactoryTestDouble {
     var makeGateResult: RegisterGate?
 }
 
-// MARK: - CircuitGateFactory methods
+// MARK: - BackendRegisterGateFactory methods
 
-extension CircuitRegisterGateFactoryTestDouble: CircuitRegisterGateFactory {
+extension BackendRegisterGateFactoryTestDouble: BackendRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
         makeGateCount += 1
 

@@ -26,10 +26,13 @@ struct CircuitFacade {
 
     // MARK: - Internal properties
 
-    let circuit: [Gate]
-    let drawer: Drawable
     let qubitCount: Int
-    let backend: Backend
+
+    // MARK: - Private properties
+
+    private let circuit: [Gate]
+    private let drawer: Drawable
+    private let backend: Backend
 
     // MARK: - Internal init methods
 
