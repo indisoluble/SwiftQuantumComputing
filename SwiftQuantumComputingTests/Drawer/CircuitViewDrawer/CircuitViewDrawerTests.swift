@@ -1,8 +1,8 @@
 //
-//  Circuit.swift
-//  SwiftQuantumComputing
+//  CircuitViewDrawerTests.swift
+//  SwiftQuantumComputingTests
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 16/09/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,13 +18,18 @@
 // limitations under the License.
 //
 
-import Foundation
+import XCTest
 
-// MARK: - Protocol definition
+@testable import SwiftQuantumComputing
 
-public protocol Circuit {
-    var qubitCount: Int { get }
+// MARK: - Main body
 
-    func applyingGate(_ gate: Gate) -> Self
-    func measure(qubits: [Int]) -> [Double]?
+class CircuitViewDrawerTests: XCTestCase {
+
+    // MARK: - Tests
+
+    func testZeroQubits_init_returnNil() {
+        // Then
+        XCTAssertNil(CircuitViewDrawer(qubitCount: 0))
+    }
 }

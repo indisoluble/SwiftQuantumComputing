@@ -1,8 +1,8 @@
 //
-//  Circuit.swift
+//  DrawerTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 21/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,27 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+@testable import SwiftQuantumComputing
 
-public protocol Circuit {
-    var qubitCount: Int { get }
+// MARK: - Main body
 
-    func applyingGate(_ gate: Gate) -> Self
-    func measure(qubits: [Int]) -> [Double]?
+final class DrawerTestDouble {
+
+    // MARK: - Internal properties
+
+    private (set) var drawCircuitCount = 0
+    private (set) var lastDrawCircuitCircuit: [Gate]?
+    var drawCircuitResult: SQCView!
+}
+
+// MARK: - Drawable methods
+
+extension DrawerTestDouble: Drawable {
+    func drawCircuit(_ circuit: [Gate]) -> SQCView {
+        drawCircuitCount += 1
+
+        lastDrawCircuitCircuit = circuit
+
+        return drawCircuitResult
+    }
 }

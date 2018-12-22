@@ -2,11 +2,11 @@ import SwiftQuantumComputing // for iOS
 
 func isFunctionConstant(_ uf: Matrix) -> Bool {
     var circuit = CircuitFactory.makeEmptyCircuit(qubitCount: 2)!
-    circuit = circuit.applyingNotGate(to: 0)!
-    circuit = circuit.applyingHadamardGate(to: 0)!
-    circuit = circuit.applyingHadamardGate(to: 1)!
-    circuit = circuit.applyingOracleGate(builtWith: uf, inputs: [1, 0])!
-    circuit = circuit.applyingHadamardGate(to: 1)!
+    circuit = circuit.applyingGate(.not(target: 0))
+    circuit = circuit.applyingGate(.hadamard(target: 0))
+    circuit = circuit.applyingGate(.hadamard(target: 1))
+    circuit = circuit.applyingGate(.oracle(matrix: uf, inputs: [1, 0]))
+    circuit = circuit.applyingGate(.hadamard(target: 1))
 
     let measure = circuit.measure(qubits: [1])!
 

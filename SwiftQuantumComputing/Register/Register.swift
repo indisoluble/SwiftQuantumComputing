@@ -74,13 +74,9 @@ extension Register: Equatable {
     }
 }
 
-// MARK: - CircuitRegister methods
+// MARK: - BackendRegister methods
 
-extension Register: CircuitRegister {
-    var qubitCount: Int {
-        return Int.log2(vector.count)
-    }
-
+extension Register: BackendRegister {
     func applying(_ gate: RegisterGate) -> Register? {
         guard let nextVector = gate.apply(to: vector) else {
             os_log("applying failed: gate can not be applied to this register",
@@ -139,7 +135,7 @@ private extension Register {
     }
 
     func areQubitsOutOfBound(_ qubits: [Int]) -> Bool {
-        let qubitCount = self.qubitCount
+        let qubitCount = Int.log2(vector.count)
 
         return (qubits.index(where: { $0 >= qubitCount }) != nil)
     }

@@ -55,15 +55,6 @@ class RegisterTests: XCTestCase {
         XCTAssertNotNil(Register(qubitCount: 1))
     }
 
-    func testAnyRegisterWithKnownQubitCount_qubitCount_returnExpectedValue() {
-        // Given
-        let qubitCount = 10
-        let register = Register(qubitCount: qubitCount)!
-
-        // Then
-        XCTAssertEqual(register.qubitCount, qubitCount)
-    }
-
     func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_returnNil() {
         // Given
         let register = Register(qubitCount: 2)!

@@ -1,8 +1,8 @@
 //
-//  Circuit.swift
+//  Drawable.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 16/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-public protocol Circuit {
-    var qubitCount: Int { get }
-
-    func applyingGate(_ gate: Gate) -> Self
-    func measure(qubits: [Int]) -> [Double]?
+protocol Drawable {
+    func drawCircuit(_ circuit: [Gate]) -> SQCView
 }
