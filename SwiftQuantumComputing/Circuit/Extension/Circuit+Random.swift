@@ -48,7 +48,7 @@ extension Circuit {
             return nil
         }
 
-        var result: Self = self
+        var result: Self? = self
         for _ in 0..<depth {
             guard let factory = randomFactory() else {
                 continue
@@ -58,7 +58,7 @@ extension Circuit {
                 continue
             }
 
-            result = result.applyingGate(gate)
+            result = result?.applyingGate(gate)
         }
 
         return result

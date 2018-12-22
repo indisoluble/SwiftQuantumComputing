@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -34,9 +35,21 @@ struct CircuitFacade {
     private let drawer: Drawable
     private let backend: Backend
 
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
+
     // MARK: - Internal init methods
 
-    init(circuit: [Gate], drawer: Drawable, qubitCount: Int, backend: Backend) {
+    init?(circuit: [Gate], drawer: Drawable, qubitCount: Int, backend: Backend) {
+        guard qubitCount > 0 else {
+            os_log("init: a circuit has to have at least 1 qubit",
+                   log: CircuitFacade.logger,
+                   type: .debug)
+
+            return nil
+        }
+
         self.circuit = circuit
         self.drawer = drawer
         self.qubitCount = qubitCount
@@ -67,7 +80,7 @@ extension CircuitFacade: Circuit {
         return CircuitFacade(circuit: (circuit + [gate]),
                              drawer: drawer,
                              qubitCount: qubitCount,
-                             backend: backend)
+                             backend: backend)!
     }
 
     func measure(qubits: [Int]) -> [Double]? {

@@ -35,12 +35,17 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testQubitCountEqualToZero_init_returnNil() {
+        // Then
+        XCTAssertNil(CircuitFacade(circuit: circuit, drawer:drawer, qubitCount: 0, backend:backend))
+    }
+
     func testAnyCircuit_playgroundDescription_forwardCallToDrawer() {
         // Given
         let facade = CircuitFacade(circuit: circuit,
                                    drawer: drawer,
                                    qubitCount: qubitCount,
-                                   backend: backend)
+                                   backend: backend)!
 
         let view = SQCView()
         drawer.drawCircuitResult = view
@@ -59,7 +64,7 @@ class CircuitFacadeTests: XCTestCase {
         let facade = CircuitFacade(circuit: circuit,
                                    drawer: drawer,
                                    qubitCount: qubitCount,
-                                   backend: backend)
+                                   backend: backend)!
 
         let measure = [0.1, 0.9]
         backend.measureQubitsResult = measure
