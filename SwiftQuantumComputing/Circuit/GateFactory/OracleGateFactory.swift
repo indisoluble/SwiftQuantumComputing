@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -28,6 +29,10 @@ public struct OracleGateFactory {
 
     private let matrix: Matrix
     private let qubitCount: Int
+
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Public init methods
 
@@ -41,7 +46,19 @@ public struct OracleGateFactory {
 
 extension OracleGateFactory: CircuitGateFactory {
     public func makeGate(inputs: [Int]) -> Gate? {
+        guard qubitCount > 0 else {
+            os_log("makeGate: unable to produce a U gate with 0 qubits (check matrix)",
+                   log: OracleGateFactory.logger,
+                   type: .debug)
+
+            return nil
+        }
+
         guard inputs.count >= qubitCount else {
+            os_log("makeGate: not enough inputs to produce a U gate",
+                   log: OracleGateFactory.logger,
+                   type: .debug)
+
             return nil
         }
 
