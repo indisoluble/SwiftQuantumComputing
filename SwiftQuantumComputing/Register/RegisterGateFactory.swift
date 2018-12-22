@@ -53,6 +53,14 @@ struct RegisterGateFactory {
             return nil
         }
 
+        guard qubitCount > 0 else {
+            os_log("init failed: a register has to have at least 1 qubit",
+                   log: RegisterGateFactory.logger,
+                   type: .debug)
+
+            return nil
+        }
+
         let matrixQubitCount = Int.log2(baseMatrix.rowCount)
         guard (matrixQubitCount <= qubitCount) else {
             os_log("init failed: matrix handles more qubits than are available",
@@ -97,16 +105,18 @@ private extension RegisterGateFactory {
 
     func areInputsValid(_ inputs: [Int]) -> Bool {
         return (doesInputCountMatchBaseMatrixQubitCount(inputs) &&
-            !areInputsRepeated(inputs) &&
-            !areInputsOutOfBound(inputs))
+            areInputsUnique(inputs) &&
+            areInputsInBound(inputs))
     }
 
-    func areInputsRepeated(_ inputs: [Int]) -> Bool {
-        return (inputs.count != Set(inputs).count)
+    func areInputsUnique(_ inputs: [Int]) -> Bool {
+        return (inputs.count == Set(inputs).count)
     }
 
-    func areInputsOutOfBound(_ inputs: [Int]) -> Bool {
-        return (inputs.index(where: { $0 >= qubitCount }) != nil)
+    func areInputsInBound(_ inputs: [Int]) -> Bool {
+        let validInputs = (0..<qubitCount)
+
+        return inputs.allSatisfy { validInputs.contains($0) }
     }
 
     func doesInputCountMatchBaseMatrixQubitCount(_ inputs: [Int]) -> Bool {

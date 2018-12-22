@@ -19,10 +19,15 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
 public struct NotGateFactory {
+
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Public init methods
 
@@ -34,6 +39,10 @@ public struct NotGateFactory {
 extension NotGateFactory: CircuitGateFactory {
     public func makeGate(inputs: [Int]) -> Gate? {
         guard let target = inputs.first else {
+            os_log("makeGate: not enough inputs to produce a X gate",
+                   log: NotGateFactory.logger,
+                   type: .debug)
+
             return nil
         }
 

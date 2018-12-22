@@ -64,6 +64,15 @@ class RegisterGateFactoryTests: XCTestCase {
         XCTAssertNil(RegisterGateFactory(qubitCount: qubitCount, baseMatrix: validMatrix))
     }
 
+    func testOneByOneMatrixAndQubitCountEqualToZero_init_returnNil() {
+        // Given
+        let matrix = Matrix([[Complex(0)]])!
+        let qubitCount = 0
+
+        // Then
+        XCTAssertNil(RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix))
+    }
+
     func testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnRegisterGateFactory() {
         // Then
         XCTAssertNotNil(RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix))

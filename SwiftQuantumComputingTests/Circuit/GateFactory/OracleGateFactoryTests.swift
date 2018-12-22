@@ -20,6 +20,7 @@ class OracleGateFactoryTests: XCTestCase {
                          [Complex(1), Complex(0), Complex(0), Complex(0)],
                          [Complex(0), Complex(0), Complex(1), Complex(0)],
                          [Complex(0), Complex(0), Complex(0), Complex(1)]])!
+    let oneRow = Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)]])!
 
     // MARK: - Tests
 
@@ -51,5 +52,19 @@ class OracleGateFactoryTests: XCTestCase {
         default:
             XCTAssert(false)
         }
+    }
+
+    func testMatrixWithOneRow_init_returnGate() {
+        // Then
+        XCTAssertNotNil(OracleGateFactory(matrix: oneRow))
+    }
+
+    func testFactoryWithOneRowMatrix_makeGate_returnNil() {
+        // Given
+        let factory = OracleGateFactory(matrix: oneRow)
+        let inputs: [Int] = []
+
+        // Then
+        XCTAssertNil(factory.makeGate(inputs: inputs))
     }
 }
