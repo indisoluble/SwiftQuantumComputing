@@ -105,6 +105,14 @@ class RegisterTests: XCTestCase {
         XCTAssertNil(register.measure(qubits: [100, 0]))
     }
 
+    func testAnyRegisterAndNegativeQubits_measure_returnNil() {
+        // Given
+        let register = Register(qubitCount: 3)!
+
+        // Then
+        XCTAssertNil(register.measure(qubits: [0, -1]))
+    }
+
     func testAnyRegisterAndUnsortedQubits_measure_returnNil() {
         // Given
         let register = Register(qubitCount: 3)!
