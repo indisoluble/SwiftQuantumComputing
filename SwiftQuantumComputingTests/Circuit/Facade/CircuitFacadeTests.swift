@@ -28,7 +28,7 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
-    let circuit = [Gate.hadamard(target: 0), Gate.not(target: 0)]
+    let gates = [Gate.hadamard(target: 0), Gate.not(target: 0)]
     let drawer = DrawerTestDouble()
     let qubitCount = 1
     let backend = BackendTestDouble()
@@ -37,12 +37,34 @@ class CircuitFacadeTests: XCTestCase {
 
     func testQubitCountEqualToZero_init_returnNil() {
         // Then
-        XCTAssertNil(CircuitFacade(circuit: circuit, drawer:drawer, qubitCount: 0, backend:backend))
+        XCTAssertNil(CircuitFacade(gates: gates, drawer:drawer, qubitCount: 0, backend:backend))
+    }
+
+    func testAnyCircuit_qubitCount_returnExpectedValue() {
+        // Given
+        let facade = CircuitFacade(gates: gates,
+                                   drawer: drawer,
+                                   qubitCount: qubitCount,
+                                   backend: backend)!
+
+        // Then
+        XCTAssertEqual(facade.qubitCount, qubitCount)
+    }
+
+    func testAnyCircuit_gates_returnExpectedValue() {
+        // Given
+        let facade = CircuitFacade(gates: gates,
+                                   drawer: drawer,
+                                   qubitCount: qubitCount,
+                                   backend: backend)!
+
+        // Then
+        XCTAssertEqual(facade.gates, gates)
     }
 
     func testAnyCircuit_playgroundDescription_forwardCallToDrawer() {
         // Given
-        let facade = CircuitFacade(circuit: circuit,
+        let facade = CircuitFacade(gates: gates,
                                    drawer: drawer,
                                    qubitCount: qubitCount,
                                    backend: backend)!
@@ -55,13 +77,13 @@ class CircuitFacadeTests: XCTestCase {
 
         // Then
         XCTAssertEqual(drawer.drawCircuitCount, 1)
-        XCTAssertEqual(drawer.lastDrawCircuitCircuit, circuit)
+        XCTAssertEqual(drawer.lastDrawCircuitCircuit, gates)
         XCTAssertTrue((result as! SQCView) === view)
     }
 
     func testAnyCircuit_measure_forwardCallToDrawer() {
         // Given
-        let facade = CircuitFacade(circuit: circuit,
+        let facade = CircuitFacade(gates: gates,
                                    drawer: drawer,
                                    qubitCount: qubitCount,
                                    backend: backend)!
@@ -76,7 +98,7 @@ class CircuitFacadeTests: XCTestCase {
 
         // Then
         XCTAssertEqual(backend.measureQubitsCount, 1)
-        XCTAssertEqual((backend.lastMeasureQubitsCircuit as! [Gate]), circuit)
+        XCTAssertEqual((backend.lastMeasureQubitsCircuit as! [Gate]), gates)
         XCTAssertEqual(backend.lastMeasureQubitsQubits, otherQubits)
         XCTAssertEqual(result, measure)
     }

@@ -31,34 +31,40 @@ public struct CircuitFactory {
 
     // MARK: - Public class methods
 
-    public static func makeEmptyCircuit(qubitCount: Int) -> Circuit? {
-        guard let register = Register(qubitCount: qubitCount) else {
-            os_log("makeEmptyCircuit failed: unable to build initial register",
-                   log: logger,
-                   type: .debug)
-
-            return nil
-        }
-
+    public static func makeCircuit(gates: [Gate], qubitCount: Int) -> Circuit? {
         guard let drawer = CircuitViewDrawer(qubitCount: qubitCount) else {
-            os_log("makeEmptyCircuit failed: unable to build circuit drawer",
+            os_log("makeCircuit failed: unable to build circuit drawer",
                    log: logger,
                    type: .debug)
 
             return nil
         }
 
+        guard let register = Register(qubitCount: qubitCount) else {
+            os_log("makeCircuit failed: unable to build initial register",
+                   log: logger,
+                   type: .debug)
+
+            return nil
+        }
         let factory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
         let backend = BackendFacade(initialRegister: register, factory: factory)
 
-        return CircuitFacade(circuit: [], drawer: drawer, qubitCount: qubitCount, backend: backend)
+        return CircuitFacade(gates: gates, drawer: drawer, qubitCount: qubitCount, backend: backend)
     }
 
-    public static func makeRandomlyGeneratedCircuit(qubitCount: Int,
-                                                    depth: Int,
-                                                    factories: [CircuitGateFactory]) -> Circuit? {
-        let emptyCircuit = makeEmptyCircuit(qubitCount: qubitCount)
+    public static func makeRandomizedCircuit(qubitCount: Int,
+                                             depth: Int,
+                                             factories: [CircuitGateFactory]) -> Circuit? {
+        let randomizer = GatesRandomizer(qubitCount: qubitCount, depth: depth, factories: factories)
+        guard let gates = randomizer?.execute() else {
+            os_log("makeRandomizedCircuit failed: unable to produce gates",
+                   log: logger,
+                   type: .debug)
 
-        return emptyCircuit?.randomlyApplyingFactories(factories, depth: depth)
+            return nil
+        }
+
+        return CircuitFactory.makeCircuit(gates: gates, qubitCount: qubitCount)
     }
 }

@@ -28,10 +28,10 @@ struct CircuitFacade {
     // MARK: - Internal properties
 
     let qubitCount: Int
+    let gates: [Gate]
 
     // MARK: - Private properties
 
-    private let circuit: [Gate]
     private let drawer: Drawable
     private let backend: Backend
 
@@ -41,16 +41,16 @@ struct CircuitFacade {
 
     // MARK: - Internal init methods
 
-    init?(circuit: [Gate], drawer: Drawable, qubitCount: Int, backend: Backend) {
+    init?(gates: [Gate], drawer: Drawable, qubitCount: Int, backend: Backend) {
         guard qubitCount > 0 else {
-            os_log("init: a circuit has to have at least 1 qubit",
+            os_log("init failed: a circuit has to have at least 1 qubit",
                    log: CircuitFacade.logger,
                    type: .debug)
 
             return nil
         }
 
-        self.circuit = circuit
+        self.gates = gates
         self.drawer = drawer
         self.qubitCount = qubitCount
         self.backend = backend
@@ -61,7 +61,7 @@ struct CircuitFacade {
 
 extension CircuitFacade: CustomStringConvertible {
     var description: String {
-        return "Circuit with \(qubitCount) qubits & \(circuit.count) gates"
+        return "Circuit with \(qubitCount) qubits & \(gates.count) gates"
     }
 }
 
@@ -69,21 +69,14 @@ extension CircuitFacade: CustomStringConvertible {
 
 extension CircuitFacade: CustomPlaygroundDisplayConvertible {
     var playgroundDescription: Any {
-        return drawer.drawCircuit(circuit)
+        return drawer.drawCircuit(gates)
     }
 }
 
 // MARK: - Circuit methods
 
 extension CircuitFacade: Circuit {
-    func applyingGate(_ gate: Gate) -> CircuitFacade {
-        return CircuitFacade(circuit: (circuit + [gate]),
-                             drawer: drawer,
-                             qubitCount: qubitCount,
-                             backend: backend)!
-    }
-
     func measure(qubits: [Int]) -> [Double]? {
-        return backend.measureQubits(qubits, in: circuit)
+        return backend.measureQubits(qubits, in: gates)
     }
 }

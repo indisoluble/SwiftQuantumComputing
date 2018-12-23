@@ -1,8 +1,8 @@
 //
-//  Circuit+RandomTests.swift
-//  SwiftQuantumComputingTests
+//  GatesRandomizerTests.swift
+//  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 28/08/2018.
+//  Created by Enrique de la Torre on 23/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,78 +24,51 @@ import XCTest
 
 // MARK: - Main body
 
-class Circuit_RandomTests: XCTestCase {
+class GatesRandomizerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testCorrectCircuitFactoriesAbleToBuildGatesForCircuitAndNegativeDepth_applyingGates_returnNil() {
-        // Given
-        let circuit = CircuitTestDouble()
-
-        var randomFactoryCount = 0
-        let randomFactory: (() -> CircuitGateFactory?) = {
-            randomFactoryCount += 1
-
-            return PhaseShiftGateFactory(radians: 0)
-        }
-
-        var shuffledQubitsCount = 0
-        let shuffledQubits: (() -> [Int]) = {
-            shuffledQubitsCount += 1
-
-            return [0]
-        }
-
-        let depth = -1
-
-        // When
-        let result = circuit.applyingFactories(randomlySelectedWith: randomFactory,
-                                               on: shuffledQubits,
-                                               depth: depth)
-
+    func testQubitCountEqualToZero_init_returnNil() {
         // Then
-        XCTAssertEqual(randomFactoryCount, 0)
-        XCTAssertEqual(shuffledQubitsCount, 0)
-        XCTAssertEqual(circuit.applyingGateCount, 0)
-        XCTAssertNil(result)
+        XCTAssertNil(GatesRandomizer(qubitCount: 0, depth: 10, factories: []))
     }
 
-    func testCorrectCircuitFactoriesAbleToBuildGatesForCircuitAndDepthEqualToZero_applyingGates_returnSameCircuit() {
-        // Given
-        let circuit = CircuitTestDouble()
+    func testNegativeDepth_init_returnNil() {
+        // Then
+        XCTAssertNil(GatesRandomizer(qubitCount: 5, depth: -1, factories: []))
+    }
 
+    func testRandomizerWithDepthEqualToZero_execute_returnEmptyList() {
+        // Given
         var randomFactoryCount = 0
-        let randomFactory: (() -> CircuitGateFactory?) = {
+        let randomFactory: GatesRandomizer.RandomFactory = {
             randomFactoryCount += 1
 
             return HadamardGateFactory()
         }
 
         var shuffledQubitsCount = 0
-        let shuffledQubits: (() -> [Int]) = {
+        let shuffledQubits: GatesRandomizer.ShuffledQubits = {
             shuffledQubitsCount += 1
 
             return [0]
         }
 
-        let depth = 0
+        let randomizer = GatesRandomizer(depth: 0,
+                                         randomFactory: randomFactory,
+                                         shuffledQubits: shuffledQubits)
 
         // When
-        let result = circuit.applyingFactories(randomlySelectedWith: randomFactory,
-                                               on: shuffledQubits,
-                                               depth: depth)
+        let result = randomizer?.execute()
 
         // Then
         XCTAssertEqual(randomFactoryCount, 0)
         XCTAssertEqual(shuffledQubitsCount, 0)
-        XCTAssertEqual(circuit.applyingGateCount, 0)
-        XCTAssertTrue(result === circuit)
+        XCTAssertEqual(result, [] as [Gate])
     }
 
-    func testCorrectCircuitZeroFactoriesAndPositiveDepth_applyingGates_returnSameCircuit() {
+    func testRandomizerWithZeroGateFactoriesAndPositiveDepth_execute_returnEmptyList() {
         // Given
-        let circuit = CircuitTestDouble()
-
         var randomFactoryCount = 0
         let randomFactory: (() -> CircuitGateFactory?) = {
             randomFactoryCount += 1
@@ -111,24 +84,22 @@ class Circuit_RandomTests: XCTestCase {
         }
 
         let depth = 10
+        let randomizer = GatesRandomizer(depth: depth,
+                                         randomFactory: randomFactory,
+                                         shuffledQubits: shuffledQubits)
+
 
         // When
-        let result = circuit.applyingFactories(randomlySelectedWith: randomFactory,
-                                               on: shuffledQubits,
-                                               depth: depth)
+        let result = randomizer?.execute()
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
         XCTAssertEqual(shuffledQubitsCount, 0)
-        XCTAssertEqual(circuit.applyingGateCount, 0)
-        XCTAssertTrue(result === circuit)
+        XCTAssertEqual(result, [] as [Gate])
     }
 
-    func testCorrectCircuitFactoriesAbleToBuildGatesForCircuitAndPositiveDepth_applyingGates_returnExpectedCircuit() {
+    func testRandomizerWithGateFactoriesAbleToBuildGatesForCircuitAndPositiveDepth_execute_returnExpectedGates() {
         // Given
-        let lastCircuit = CircuitTestDouble()
-        var circuits = [lastCircuit]
-
         let qubits = [0, 1]
         let depth = 10
 
@@ -137,10 +108,6 @@ class Circuit_RandomTests: XCTestCase {
 
         var isEven = true
         for _ in 0..<depth {
-            let circuit = CircuitTestDouble()
-            circuit.applyingGateResult = circuits[0]
-            circuits.insert(circuit, at: 0)
-
             let factory: CircuitGateFactory = (isEven ?
                 ControlledNotGateFactory() :
                 NotGateFactory())
@@ -166,28 +133,21 @@ class Circuit_RandomTests: XCTestCase {
             return qubits
         }
 
+        let randomizer = GatesRandomizer(depth: depth,
+                                         randomFactory: randomFactory,
+                                         shuffledQubits: shuffledQubits)
+
         // When
-        let result = circuits[0].applyingFactories(randomlySelectedWith: randomFactory,
-                                                   on: shuffledQubits,
-                                                   depth: depth)
+        let result = randomizer?.execute()
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
         XCTAssertEqual(shuffledQubitsCount, depth)
-
-        for (circuit, expectedGate) in zip(circuits, expectedGates) {
-            XCTAssertEqual(circuit.applyingGateCount, 1)
-            XCTAssertEqual(circuit.lastApplyingGateGate, expectedGate)
-        }
-
-        XCTAssertTrue(result === lastCircuit)
+        XCTAssertEqual(result, expectedGates)
     }
 
-    func testCorrectCircuitSomeFactoriesAbleToBuildGatesForCircuitAndPositiveDepth_applyingGates_returnExpectedCircuit() {
+    func testRandomizerWithSomeGateFactoriesAbleToBuildGatesForCircuitAndPositiveDepth_execute_returnExpectedGates() {
         // Given
-        let lastCircuit = CircuitTestDouble()
-        var circuits = [lastCircuit]
-
         let qubits = [0, 1]
         let depth = 10
 
@@ -198,10 +158,6 @@ class Circuit_RandomTests: XCTestCase {
         var isEven = true
         for _ in 0..<depth {
             if isEven {
-                let circuit = CircuitTestDouble()
-                circuit.applyingGateResult = circuits[0]
-                circuits.insert(circuit, at: 0)
-
                 let factory = ControlledNotGateFactory()
                 factories.append(factory)
                 qubitsArray.append(qubits)
@@ -231,20 +187,16 @@ class Circuit_RandomTests: XCTestCase {
             return result
         }
 
+        let randomizer = GatesRandomizer(depth: depth,
+                                         randomFactory: randomFactory,
+                                         shuffledQubits: shuffledQubits)
+
         // When
-        let result = circuits[0].applyingFactories(randomlySelectedWith: randomFactory,
-                                                   on: shuffledQubits,
-                                                   depth: depth)
+        let result = randomizer?.execute()
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
         XCTAssertEqual(shuffledQubitsCount, depth)
-
-        for (circuit, expectedGate) in zip(circuits, expectedGates) {
-            XCTAssertEqual(circuit.applyingGateCount, 1)
-            XCTAssertEqual(circuit.lastApplyingGateGate, expectedGate)
-        }
-
-        XCTAssertTrue(result === lastCircuit)
+        XCTAssertEqual(result, expectedGates)
     }
 }
