@@ -1,5 +1,5 @@
 //
-//  RandomGatesFactory.swift
+//  GatesRandomizer.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 23/12/2018.
@@ -23,7 +23,7 @@ import os.log
 
 // MARK: - Main body
 
-public struct RandomGatesFactory {
+struct GatesRandomizer {
 
     // MARK: - Types
 
@@ -40,12 +40,12 @@ public struct RandomGatesFactory {
 
     private static let logger = LoggerFactory.makeLogger()
 
-    // MARK: - Public init methods
+    // MARK: - Internal init methods
 
-    public init?(qubitCount: Int, depth: Int, factories: [CircuitGateFactory]) {
+    init?(qubitCount: Int, depth: Int, factories: [CircuitGateFactory]) {
         guard qubitCount > 0 else {
             os_log("init failed: circuit has to have at least 1 qubit",
-                   log: RandomGatesFactory.logger,
+                   log: GatesRandomizer.logger,
                    type: .debug)
 
             return nil
@@ -58,14 +58,12 @@ public struct RandomGatesFactory {
                   shuffledQubits: { qubits.shuffled() })
     }
 
-    // MARK: - Internal init methods
-
     init?(depth: Int,
           randomFactory: @escaping RandomFactory,
           shuffledQubits: @escaping ShuffledQubits) {
         guard depth >= 0 else {
             os_log("init failed: depth has to be a positive number",
-                   log: RandomGatesFactory.logger,
+                   log: GatesRandomizer.logger,
                    type: .debug)
 
             return nil
@@ -76,9 +74,9 @@ public struct RandomGatesFactory {
         self.shuffledQubits = shuffledQubits
     }
 
-    // MARK: - Public methods
+    // MARK: - Internal methods
 
-    public func randomGates() -> [Gate] {
+    func execute() -> [Gate] {
         var result: [Gate] = []
 
         for _ in 0..<depth {

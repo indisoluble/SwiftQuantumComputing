@@ -52,4 +52,19 @@ public struct CircuitFactory {
 
         return CircuitFacade(gates: gates, drawer: drawer, qubitCount: qubitCount, backend: backend)
     }
+
+    public static func makeRandomizedCircuit(qubitCount: Int,
+                                             depth: Int,
+                                             factories: [CircuitGateFactory]) -> Circuit? {
+        let randomizer = GatesRandomizer(qubitCount: qubitCount, depth: depth, factories: factories)
+        guard let gates = randomizer?.execute() else {
+            os_log("makeRandomizedCircuit failed: unable to produce gates",
+                   log: logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        return CircuitFactory.makeCircuit(gates: gates, qubitCount: qubitCount)
+    }
 }

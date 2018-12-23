@@ -89,10 +89,10 @@
 		FF663D41216A2630002298BA /* LineHorizontalPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */; };
 		FF663D43216A2678002298BA /* NotPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF663D42216A2678002298BA /* NotPositionView.xib */; };
 		FF663D44216A2697002298BA /* NotPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE2F214E78E700AD1F78 /* NotPositionView.swift */; };
-		FF786DFB21CFEE7E00F77CD9 /* RandomGatesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF786DFA21CFEE7E00F77CD9 /* RandomGatesFactory.swift */; };
-		FF786DFC21CFEE7E00F77CD9 /* RandomGatesFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF786DFA21CFEE7E00F77CD9 /* RandomGatesFactory.swift */; };
-		FF786DFE21CFFC5300F77CD9 /* RandomGatesFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF786DFD21CFFC5300F77CD9 /* RandomGatesFactoryTests.swift */; };
-		FF786DFF21CFFC5300F77CD9 /* RandomGatesFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF786DFD21CFFC5300F77CD9 /* RandomGatesFactoryTests.swift */; };
+		FF786DFB21CFEE7E00F77CD9 /* GatesRandomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF786DFA21CFEE7E00F77CD9 /* GatesRandomizer.swift */; };
+		FF786DFC21CFEE7E00F77CD9 /* GatesRandomizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF786DFA21CFEE7E00F77CD9 /* GatesRandomizer.swift */; };
+		FF786DFE21CFFC5300F77CD9 /* GatesRandomizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF786DFD21CFFC5300F77CD9 /* GatesRandomizerTests.swift */; };
+		FF786DFF21CFFC5300F77CD9 /* GatesRandomizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF786DFD21CFFC5300F77CD9 /* GatesRandomizerTests.swift */; };
 		FF79037121964D6F00FFC31D /* String+Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF79037021964D6F00FFC31D /* String+Bits.swift */; };
 		FF79037221964D6F00FFC31D /* String+Bits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF79037021964D6F00FFC31D /* String+Bits.swift */; };
 		FF790377219655A600FFC31D /* Circuit+Probabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF790376219655A600FFC31D /* Circuit+Probabilities.swift */; };
@@ -270,8 +270,8 @@
 		FF663D3F216A260F002298BA /* LineHorizontalPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineHorizontalPositionView.xib; sourceTree = "<group>"; };
 		FF663D42216A2678002298BA /* NotPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotPositionView.xib; sourceTree = "<group>"; };
 		FF6B12F2214EEEBA00A206B1 /* RandomCircuit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RandomCircuit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		FF786DFA21CFEE7E00F77CD9 /* RandomGatesFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomGatesFactory.swift; sourceTree = "<group>"; };
-		FF786DFD21CFFC5300F77CD9 /* RandomGatesFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomGatesFactoryTests.swift; sourceTree = "<group>"; };
+		FF786DFA21CFEE7E00F77CD9 /* GatesRandomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatesRandomizer.swift; sourceTree = "<group>"; };
+		FF786DFD21CFFC5300F77CD9 /* GatesRandomizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatesRandomizerTests.swift; sourceTree = "<group>"; };
 		FF79037021964D6F00FFC31D /* String+Bits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Bits.swift"; sourceTree = "<group>"; };
 		FF790376219655A600FFC31D /* Circuit+Probabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+Probabilities.swift"; sourceTree = "<group>"; };
 		FF79037921966ACD00FFC31D /* Circuit+ProbabilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+ProbabilitiesTests.swift"; sourceTree = "<group>"; };
@@ -493,10 +493,10 @@
 			children = (
 				FF9FBCE821C58F650070D943 /* Facade */,
 				FFB8106521C6E747006333BB /* GateFactory */,
+				FFF8DB6D21D030B8005CB58B /* Randomizer */,
 				FFB0D227212E0A650093BB3B /* Circuit.swift */,
 				FF790376219655A600FFC31D /* Circuit+Probabilities.swift */,
 				FF3EAC93212E06F0007AF61E /* CircuitFactory.swift */,
-				FF786DFA21CFEE7E00F77CD9 /* RandomGatesFactory.swift */,
 			);
 			path = Circuit;
 			sourceTree = "<group>";
@@ -846,8 +846,8 @@
 			children = (
 				FFED6905212F2D5900D46D68 /* Facade */,
 				FFBB6F8121CD563200389838 /* GateFactory */,
+				FFF8DB6E21D030E4005CB58B /* Randomizer */,
 				FF79037921966ACD00FFC31D /* Circuit+ProbabilitiesTests.swift */,
-				FF786DFD21CFFC5300F77CD9 /* RandomGatesFactoryTests.swift */,
 			);
 			path = Circuit;
 			sourceTree = "<group>";
@@ -868,6 +868,22 @@
 				FFB8106021C6CC37006333BB /* Gate+BackendGate.swift */,
 			);
 			path = Gate;
+			sourceTree = "<group>";
+		};
+		FFF8DB6D21D030B8005CB58B /* Randomizer */ = {
+			isa = PBXGroup;
+			children = (
+				FF786DFA21CFEE7E00F77CD9 /* GatesRandomizer.swift */,
+			);
+			path = Randomizer;
+			sourceTree = "<group>";
+		};
+		FFF8DB6E21D030E4005CB58B /* Randomizer */ = {
+			isa = PBXGroup;
+			children = (
+				FF786DFD21CFFC5300F77CD9 /* GatesRandomizerTests.swift */,
+			);
+			path = Randomizer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1089,7 +1105,7 @@
 				FFB8106821C6FF89006333BB /* Drawable.swift in Sources */,
 				FF9BBE60214EAABD00AD1F78 /* CircleView.swift in Sources */,
 				FF9FBCD921C579CF0070D943 /* HadamardGateFactory.swift in Sources */,
-				FF786DFB21CFEE7E00F77CD9 /* RandomGatesFactory.swift in Sources */,
+				FF786DFB21CFEE7E00F77CD9 /* GatesRandomizer.swift in Sources */,
 				FF9BBE50214E960900AD1F78 /* OracleTopPositionView.swift in Sources */,
 				FFC35E3A2132F1DC009A3A9E /* Array+RandomElement.swift in Sources */,
 				FF9BBE4C214E94D500AD1F78 /* ControlDownPositionView.swift in Sources */,
@@ -1157,7 +1173,7 @@
 				FF8BD4AC211E28DA00F01FF8 /* RegisterTests.swift in Sources */,
 				FFE1D714211A1B2700A50D9C /* ComplexTests.swift in Sources */,
 				FFE8FAA3212205BE005686FE /* Int+DerivedTests.swift in Sources */,
-				FF786DFE21CFFC5300F77CD9 /* RandomGatesFactoryTests.swift in Sources */,
+				FF786DFE21CFFC5300F77CD9 /* GatesRandomizerTests.swift in Sources */,
 				FFBB6F8F21CD619E00389838 /* PhaseShiftGateFactoryTests.swift in Sources */,
 				FF0694E121CC029F00B5D469 /* BackendRegisterGateFactoryTestDouble.swift in Sources */,
 				FFE1D716211A1B2700A50D9C /* VectorTests.swift in Sources */,
@@ -1193,7 +1209,7 @@
 				FF663D32216A1E7E002298BA /* ControlledNotDownPositionView.swift in Sources */,
 				FF072EFD21BD8A1D002248AA /* BackendRegister.swift in Sources */,
 				FF46EDFF216925280044C3CA /* LoggerFactory.swift in Sources */,
-				FF786DFC21CFEE7E00F77CD9 /* RandomGatesFactory.swift in Sources */,
+				FF786DFC21CFEE7E00F77CD9 /* GatesRandomizer.swift in Sources */,
 				FF9FBCE321C57ACD0070D943 /* PhaseShiftGateFactory.swift in Sources */,
 				FF663D38216A2039002298BA /* ControlUpPositionView.swift in Sources */,
 				FFB5B558216A2F82009C59FC /* OracleBottomPositionView.swift in Sources */,
@@ -1257,7 +1273,7 @@
 				FFBB6F9021CD619E00389838 /* PhaseShiftGateFactoryTests.swift in Sources */,
 				FF46EDB1216924050044C3CA /* CircuitFacadeTests.swift in Sources */,
 				FF0694E221CC029F00B5D469 /* BackendRegisterGateFactoryTestDouble.swift in Sources */,
-				FF786DFF21CFFC5300F77CD9 /* RandomGatesFactoryTests.swift in Sources */,
+				FF786DFF21CFFC5300F77CD9 /* GatesRandomizerTests.swift in Sources */,
 				FF46EDB2216924130044C3CA /* Gate+CircuitViewPositionTests.swift in Sources */,
 				FFBB6F8A21CD5E3700389838 /* NotGateFactoryTests.swift in Sources */,
 				FFBB6F8D21CD5ECE00389838 /* OracleGateFactoryTests.swift in Sources */,
