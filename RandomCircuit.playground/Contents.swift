@@ -7,6 +7,8 @@ let uf2 = Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)],
                   [Complex(0), Complex(0), Complex(1), Complex(0)],
                   [Complex(0), Complex(0), Complex(0), Complex(1)]])!
 
+let qubitCount = 8
+let depth = 10
 let factories: [CircuitGateFactory] = [
     ControlledNotGateFactory(),
     HadamardGateFactory(),
@@ -16,7 +18,9 @@ let factories: [CircuitGateFactory] = [
     PhaseShiftGateFactory(radians: acos(Double(3) / Double(5)))
 ]
 
-let circuit = CircuitFactory.makeRandomlyGeneratedCircuit(qubitCount: 8, depth: 10, factories: factories)!
+let randomizer = RandomGatesFactory(qubitCount: qubitCount, depth: depth, factories: factories)!
+
+let circuit = CircuitFactory.makeCircuit(gates: randomizer.randomGates(), qubitCount: qubitCount)!
 
 let date = Date()
 
