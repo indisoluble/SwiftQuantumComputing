@@ -74,13 +74,9 @@ extension Register: Equatable {
     }
 }
 
-// MARK: - CircuitRegister methods
+// MARK: - BackendRegister methods
 
-extension Register: CircuitRegister {
-    var qubitCount: Int {
-        return Int.log2(vector.count)
-    }
-
+extension Register: BackendRegister {
     func applying(_ gate: RegisterGate) -> Register? {
         guard let nextVector = gate.apply(to: vector) else {
             os_log("applying failed: gate can not be applied to this register",
@@ -129,19 +125,20 @@ private extension Register {
 
     func areQubitsValid(_ qubits: [Int]) -> Bool {
         return ((qubits.count > 0) &&
-            !areQubitsRepeated(qubits) &&
-            !areQubitsOutOfBound(qubits) &&
+            areQubitsUnique(qubits) &&
+            areQubitsInBound(qubits) &&
             areQubitsSorted(qubits))
     }
 
-    func areQubitsRepeated(_ qubits: [Int]) -> Bool {
-        return (qubits.count != Set(qubits).count)
+    func areQubitsUnique(_ qubits: [Int]) -> Bool {
+        return (qubits.count == Set(qubits).count)
     }
 
-    func areQubitsOutOfBound(_ qubits: [Int]) -> Bool {
-        let qubitCount = self.qubitCount
+    func areQubitsInBound(_ qubits: [Int]) -> Bool {
+        let qubitCount = Int.log2(vector.count)
+        let validQubits = (0..<qubitCount)
 
-        return (qubits.index(where: { $0 >= qubitCount }) != nil)
+        return qubits.allSatisfy { validQubits.contains($0) }
     }
 
     func areQubitsSorted(_ qubits: [Int]) -> Bool {

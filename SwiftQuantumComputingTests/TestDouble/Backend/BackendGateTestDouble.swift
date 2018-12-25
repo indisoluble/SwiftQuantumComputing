@@ -1,8 +1,8 @@
 //
-//  Circuit.swift
+//  BackendGateTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
+//  Created by Enrique de la Torre on 20/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,11 +20,25 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+@testable import SwiftQuantumComputing
 
-public protocol Circuit {
-    var qubitCount: Int { get }
-    var gates: [Gate] { get }
+// MARK: - Main body
 
-    func measure(qubits: [Int]) -> [Double]?
+final class BackendGateTestDouble {
+
+    // MARK: - Internal properties
+
+    private (set) var extractCount = 0
+    var extractMatrixResult: Matrix!
+    var extractInputsResult: [Int]!
+}
+
+// MARK: - BackendGate methods
+
+extension BackendGateTestDouble: BackendGate {
+    func extract() -> (matrix: Matrix, inputs: [Int]) {
+        extractCount += 1
+
+        return (matrix: extractMatrixResult, inputs: extractInputsResult)
+    }
 }
