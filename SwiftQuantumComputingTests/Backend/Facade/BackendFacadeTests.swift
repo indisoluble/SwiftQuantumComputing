@@ -42,12 +42,12 @@ class BackendFacadeTests: XCTestCase {
 
     func testAnyBackendAndEmptyCircuit_measureQubits_applyMeasureOnInitialRegister() {
         // Given
-        let backend = BackendFacade(initialRegister: register, factory: factory)
+        let backend = BackendFacade(factory: factory)
 
         register.measureResult = measurement
 
         // When
-        let result = backend.measureQubits(qubits, in: [])
+        let result = backend.measure(qubits: qubits, in: (register: register, gates: []))
 
         // Then
         XCTAssertEqual(register.measureCount, 1)
@@ -57,7 +57,7 @@ class BackendFacadeTests: XCTestCase {
 
     func testAnyBackendAndOneGate_measureQubits_applyMeasureOnExpectedRegister() {
         // Given
-        let backend = BackendFacade(initialRegister: register, factory: factory)
+        let backend = BackendFacade(factory: factory)
 
         let registerGate = RegisterGate(matrix: matrix)
         factory.makeGateResult = registerGate
@@ -72,7 +72,7 @@ class BackendFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        let result = backend.measureQubits(qubits, in: [firstGate])
+        let result = backend.measure(qubits: qubits, in: (register: register, gates: [firstGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)
@@ -88,7 +88,7 @@ class BackendFacadeTests: XCTestCase {
 
     func testFactoryReturnsNilAndOneGate_measureQubits_returnNil() {
         // Given
-        let backend = BackendFacade(initialRegister: register, factory: factory)
+        let backend = BackendFacade(factory: factory)
 
         factory.makeGateResult = nil
 
@@ -97,7 +97,7 @@ class BackendFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        let result = backend.measureQubits(qubits, in: [firstGate])
+        let result = backend.measure(qubits: qubits, in: (register: register, gates: [firstGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)
@@ -110,7 +110,7 @@ class BackendFacadeTests: XCTestCase {
 
     func testRegisterReturnsNilAndOneGate_measureQubits_returnNil() {
         // Given
-        let backend = BackendFacade(initialRegister: register, factory: factory)
+        let backend = BackendFacade(factory: factory)
 
         let registerGate = RegisterGate(matrix: matrix)
         factory.makeGateResult = registerGate
@@ -122,7 +122,7 @@ class BackendFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        let result = backend.measureQubits(qubits, in: [firstGate])
+        let result = backend.measure(qubits: qubits, in: (register: register, gates: [firstGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)
@@ -136,7 +136,7 @@ class BackendFacadeTests: XCTestCase {
 
     func testFactoryReturnsNilAndThreeGates_measureQubits_secondAndThirdGatesAreNotUsed() {
         // Given
-        let backend = BackendFacade(initialRegister: register, factory: factory)
+        let backend = BackendFacade(factory: factory)
 
         factory.makeGateResult = nil
 
@@ -145,7 +145,8 @@ class BackendFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        _ = backend.measureQubits(qubits, in: [firstGate, secondGate, thirdGate])
+        _ = backend.measure(qubits: qubits,
+                            in: (register: register, gates: [firstGate, secondGate, thirdGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)

@@ -1,8 +1,8 @@
 //
-//  Int+Derived.swift
+//  BackendRegisterFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/08/2018.
+//  Created by Enrique de la Torre on 30/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,8 @@
 
 import Foundation
 
-extension Int {
-    func derived(takingBitsAt positions: [Int]) -> Int {
-        return Int(String(self, bits: positions), radix: 2)!
-    }
+// MARK: - Protocol definition
+
+protocol BackendRegisterFactory {
+    func makeRegister(bits: String) -> BackendRegister?
 }

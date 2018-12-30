@@ -30,33 +30,14 @@ class CircuitFacadeTests: XCTestCase {
 
     let gates = [Gate.hadamard(target: 0), Gate.not(target: 0)]
     let drawer = DrawerTestDouble()
-    let qubitCount = 1
     let backend = BackendTestDouble()
+    let factory = BackendRegisterFactoryTestDouble()
 
     // MARK: - Tests
 
-    func testQubitCountEqualToZero_init_returnNil() {
-        // Then
-        XCTAssertNil(CircuitFacade(gates: gates, drawer:drawer, qubitCount: 0, backend:backend))
-    }
-
-    func testAnyCircuit_qubitCount_returnExpectedValue() {
-        // Given
-        let facade = CircuitFacade(gates: gates,
-                                   drawer: drawer,
-                                   qubitCount: qubitCount,
-                                   backend: backend)!
-
-        // Then
-        XCTAssertEqual(facade.qubitCount, qubitCount)
-    }
-
     func testAnyCircuit_gates_returnExpectedValue() {
         // Given
-        let facade = CircuitFacade(gates: gates,
-                                   drawer: drawer,
-                                   qubitCount: qubitCount,
-                                   backend: backend)!
+        let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend, factory: factory)
 
         // Then
         XCTAssertEqual(facade.gates, gates)
@@ -64,10 +45,7 @@ class CircuitFacadeTests: XCTestCase {
 
     func testAnyCircuit_playgroundDescription_forwardCallToDrawer() {
         // Given
-        let facade = CircuitFacade(gates: gates,
-                                   drawer: drawer,
-                                   qubitCount: qubitCount,
-                                   backend: backend)!
+        let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend, factory: factory)
 
         let view = SQCView()
         drawer.drawCircuitResult = view
@@ -81,25 +59,50 @@ class CircuitFacadeTests: XCTestCase {
         XCTAssertTrue((result as! SQCView) === view)
     }
 
-    func testAnyCircuit_measure_forwardCallToDrawer() {
+    func testAnyCircuitAndRegisterFactoryThatReturnNil_measure_returnNil() {
         // Given
-        let facade = CircuitFacade(gates: gates,
-                                   drawer: drawer,
-                                   qubitCount: qubitCount,
-                                   backend: backend)!
+        let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend, factory: factory)
+        factory.makeRegisterResult = nil
 
-        let measure = [0.1, 0.9]
-        backend.measureQubitsResult = measure
-
-        let otherQubits = [1]
+        let qubits = [0, 1]
+        let bits = "01"
 
         // When
-        let result = facade.measure(qubits: otherQubits)
+        let result = facade.measure(qubits: qubits, afterInputting: bits)
 
         // Then
-        XCTAssertEqual(backend.measureQubitsCount, 1)
-        XCTAssertEqual((backend.lastMeasureQubitsCircuit as! [Gate]), gates)
-        XCTAssertEqual(backend.lastMeasureQubitsQubits, otherQubits)
+        XCTAssertEqual(factory.makeRegisterCount, 1)
+        XCTAssertEqual(factory.lastMakeRegisterBits, bits)
+        XCTAssertEqual(backend.measureCount, 0)
+        XCTAssertNil(result)
+    }
+
+    func testAnyCircuitAndFactoryThatReturnARegister_measure_forwardCallToBackend() {
+        // Given
+        let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend, factory: factory)
+
+        let register = BackendRegisterTestDouble()
+        factory.makeRegisterResult = register
+
+        let measure = [0.1, 0.9]
+        backend.measureResult = measure
+
+        let otherQubits = [1]
+        let bits = "01"
+
+        // When
+        let result = facade.measure(qubits: otherQubits, afterInputting: bits)
+
+        // Then
+        let lastMeasureRegister = backend.lastMeasureCircuit?.register as? BackendRegisterTestDouble
+        let lastMeasureGates = backend.lastMeasureCircuit?.gates as? [Gate]
+
+        XCTAssertEqual(factory.makeRegisterCount, 1)
+        XCTAssertEqual(factory.lastMakeRegisterBits, bits)
+        XCTAssertEqual(backend.measureCount, 1)
+        XCTAssertEqual(backend.lastMeasureQubits, otherQubits)
+        XCTAssertTrue(lastMeasureRegister === register)
+        XCTAssertEqual(lastMeasureGates, gates)
         XCTAssertEqual(result, measure)
     }
 }

@@ -1,8 +1,8 @@
 //
-//  BackendTestDouble.swift
+//  BackendRegisterFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 21/12/2018.
+//  Created by Enrique de la Torre on 30/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,30 +20,14 @@
 
 import Foundation
 
-@testable import SwiftQuantumComputing
-
 // MARK: - Main body
 
-final class BackendTestDouble {
+struct BackendRegisterFactoryAdapter {}
 
-    // MARK: - Internal properties
+// MARK: - BackendRegisterFactory methods
 
-    private (set) var measureCount = 0
-    private (set) var lastMeasureQubits: [Int]?
-    private (set) var lastMeasureCircuit: Backend.Circuit?
-    var measureResult: [Double]?
-}
-
-// MARK: - Backend methods
-
-extension BackendTestDouble: Backend {
-    func measure(qubits: [Int],
-                 in circuit: (register: BackendRegister, gates: [BackendGate])) -> [Double]? {
-        measureCount += 1
-
-        lastMeasureQubits = qubits
-        lastMeasureCircuit = circuit
-
-        return measureResult
+extension BackendRegisterFactoryAdapter: BackendRegisterFactory {
+    func makeRegister(bits: String) -> BackendRegister? {
+        return Register(bits: bits)
     }
 }
