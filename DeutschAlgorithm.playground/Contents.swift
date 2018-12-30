@@ -2,7 +2,6 @@ import SwiftQuantumComputing // for iOS
 
 func isFunctionConstant(_ uf: Matrix) -> Bool {
     let gates = [
-        Gate.not(target: 0),
         Gate.hadamard(target: 0),
         Gate.hadamard(target: 1),
         Gate.oracle(matrix: uf, inputs: [1, 0]),
@@ -10,7 +9,7 @@ func isFunctionConstant(_ uf: Matrix) -> Bool {
     ]
     let circuit = CircuitFactory.makeCircuit(gates: gates, qubitCount: 2)!
 
-    let measure = circuit.measure(qubits: [1])!
+    let measure = circuit.measure(qubits: [1], afterInputting: "01")!
 
     return (abs(1 - measure[0]) < 0.001)
 }

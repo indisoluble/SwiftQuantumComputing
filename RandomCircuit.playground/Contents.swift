@@ -18,10 +18,12 @@ let factories: [CircuitGateFactory] = [
 let circuit = CircuitFactory.makeRandomizedCircuit(qubitCount: 8, depth: 10, factories: factories)!
 
 let date = Date()
+print("Measuring ...")
 
-print("Probabilities:")
-for (bits, probability) in circuit.probabilities()!.sorted(by: { $0.1 > $1.1 }) {
-    print("\"\(bits)\": \(probability)")
+let probabilities = circuit.probabilities(afterInputting: "11100010")!
+print("Measurement completed in \(-date.timeIntervalSinceNow) seconds\n")
+
+print("\(probabilities.count) possible output/s:")
+for (output, probability) in probabilities.sorted(by: { $0.1 > $1.1 }) {
+    print(String(format: "%@ -> %.2f %%", output, probability * 100))
 }
-
-print("Time elapsed: \(-date.timeIntervalSinceNow) seconds")
