@@ -23,5 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol Backend {
-    func measureQubits(_ qubits: [Int], in circuit: [BackendGate]) -> [Double]?
+    typealias Circuit = (register: BackendRegister, gates: [BackendGate])
+
+    func measure(qubits: [Int], in circuit: Backend.Circuit) -> [Double]?
 }

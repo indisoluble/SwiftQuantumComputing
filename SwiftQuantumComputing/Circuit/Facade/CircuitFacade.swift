@@ -27,13 +27,13 @@ struct CircuitFacade {
 
     // MARK: - Internal properties
 
-    let qubitCount: Int
     let gates: [Gate]
 
     // MARK: - Private properties
 
     private let drawer: Drawable
     private let backend: Backend
+    private let factory: BackendRegisterFactory
 
     // MARK: - Private class properties
 
@@ -41,19 +41,11 @@ struct CircuitFacade {
 
     // MARK: - Internal init methods
 
-    init?(gates: [Gate], drawer: Drawable, qubitCount: Int, backend: Backend) {
-        guard qubitCount > 0 else {
-            os_log("init failed: a circuit has to have at least 1 qubit",
-                   log: CircuitFacade.logger,
-                   type: .debug)
-
-            return nil
-        }
-
+    init(gates: [Gate], drawer: Drawable, backend: Backend, factory: BackendRegisterFactory) {
         self.gates = gates
         self.drawer = drawer
-        self.qubitCount = qubitCount
         self.backend = backend
+        self.factory = factory
     }
 }
 
@@ -61,7 +53,7 @@ struct CircuitFacade {
 
 extension CircuitFacade: CustomStringConvertible {
     var description: String {
-        return "Circuit with \(qubitCount) qubits & \(gates.count) gates"
+        return gates.description
     }
 }
 
@@ -76,7 +68,15 @@ extension CircuitFacade: CustomPlaygroundDisplayConvertible {
 // MARK: - Circuit methods
 
 extension CircuitFacade: Circuit {
-    func measure(qubits: [Int]) -> [Double]? {
-        return backend.measureQubits(qubits, in: gates)
+    func measure(qubits: [Int], afterInputting bits: String) -> [Double]? {
+        guard let register = factory.makeRegister(bits: bits) else {
+            os_log("measure failed: unable to produce a register with provided values",
+                   log: CircuitFacade.logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        return backend.measure(qubits: qubits, in: (register: register, gates: gates))
     }
 }

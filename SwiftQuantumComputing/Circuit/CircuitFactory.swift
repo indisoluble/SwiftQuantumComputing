@@ -40,17 +40,15 @@ public struct CircuitFactory {
             return nil
         }
 
-        guard let register = Register(qubitCount: qubitCount) else {
-            os_log("makeCircuit failed: unable to build initial register",
-                   log: logger,
-                   type: .debug)
+        let gateFactory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
+        let backend = BackendFacade(factory: gateFactory)
 
-            return nil
-        }
-        let factory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
-        let backend = BackendFacade(initialRegister: register, factory: factory)
+        let registerFactory = BackendRegisterFactoryAdapter()
 
-        return CircuitFacade(gates: gates, drawer: drawer, qubitCount: qubitCount, backend: backend)
+        return CircuitFacade(gates: gates,
+                             drawer: drawer,
+                             backend: backend,
+                             factory: registerFactory)
     }
 
     public static func makeRandomizedCircuit(qubitCount: Int,

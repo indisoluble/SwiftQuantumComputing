@@ -1,8 +1,8 @@
 //
-//  CircuitTestDouble.swift
-//  SwiftQuantumComputingTests
+//  BackendRegisterFactoryTestDouble.swift
+//  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 28/08/2018.
+//  Created by Enrique de la Torre on 30/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,34 +24,23 @@ import Foundation
 
 // MARK: - Main body
 
-final class CircuitTestDouble {
+final class BackendRegisterFactoryTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var gatesCount = 0
-    var gatesResult: [Gate] = []
-
-    private (set) var measureCount = 0
-    private (set) var lastMeasureQubits: [Int]?
-    private (set) var lastMeasureBits: String?
-    var measureResult: [Double]?
+    private (set) var makeRegisterCount = 0
+    private (set) var lastMakeRegisterBits: String?
+    var makeRegisterResult: BackendRegister?
 }
 
-// MARK: - Circuit methods
+// MARK: - BackendRegisterFactory methods
 
-extension CircuitTestDouble: Circuit {
-    var gates: [Gate] {
-        gatesCount += 1
+extension BackendRegisterFactoryTestDouble: BackendRegisterFactory {
+    func makeRegister(bits: String) -> BackendRegister? {
+        makeRegisterCount += 1
 
-        return gatesResult
-    }
+        lastMakeRegisterBits = bits
 
-    func measure(qubits: [Int], afterInputting bits: String) -> [Double]? {
-        measureCount += 1
-
-        lastMeasureQubits = qubits
-        lastMeasureBits = bits
-
-        return measureResult
+        return makeRegisterResult
     }
 }
