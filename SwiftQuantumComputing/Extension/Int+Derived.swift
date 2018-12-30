@@ -22,8 +22,6 @@ import Foundation
 
 extension Int {
     func derived(takingBitsAt positions: [Int]) -> Int {
-        let subBinary = String(self, bits: positions)
-
-        return Int(strtoul(subBinary, nil, 2))
+        return Int(String(self, bits: positions), radix: 2)!
     }
 }
