@@ -131,7 +131,7 @@ private extension Gate {
         }
 
         guard inputs.count > 1 else {
-            layer[inputs[0]] = .oracle
+            layer[inputs[0]] = .matrix
 
             return layer
         }
@@ -140,13 +140,13 @@ private extension Gate {
         let first = sortedInputs.first!
         let last = sortedInputs.last!
 
-        layer[first] = .oracleBottom
+        layer[first] = .matrixBottom
         for index in (first + 1)..<last {
             let isInputConnected = sortedInputs.contains(index)
 
-            layer[index] = (isInputConnected ? .oracleMiddleConnected : .oracleMiddleUnconnected)
+            layer[index] = (isInputConnected ? .matrixMiddleConnected : .matrixMiddleUnconnected)
         }
-        layer[last] = .oracleTop(inputs: inputs)
+        layer[last] = .matrixTop(inputs: inputs)
 
         return layer
     }
