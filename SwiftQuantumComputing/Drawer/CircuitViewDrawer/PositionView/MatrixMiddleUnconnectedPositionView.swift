@@ -1,5 +1,5 @@
 //
-//  OraclePositionView.swift
+//  MatrixMiddleUnconnectedPositionView.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 16/09/2018.
@@ -22,4 +22,4 @@ import Foundation
 
 // MARK: - Main body
 
-final class OraclePositionView: PositionView {}
+final class MatrixMiddleUnconnectedPositionView: PositionView {}

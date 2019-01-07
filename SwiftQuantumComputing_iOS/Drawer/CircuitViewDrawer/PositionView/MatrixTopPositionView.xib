@@ -10,9 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OracleTopPositionView" customModule="SwiftQuantumComputing" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MatrixTopPositionView" customModule="SwiftQuantumComputing" customModuleProvider="target">
             <connections>
-                <outlet property="label" destination="RWp-by-h2i" id="LMg-rV-zh1"/>
+                <outlet property="label" destination="RWp-by-h2i" id="F1f-52-Qcc"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
