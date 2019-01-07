@@ -10,8 +10,8 @@ let factories: [CircuitGateFactory] = [
     ControlledNotGateFactory(),
     HadamardGateFactory(),
     NotGateFactory(),
-    OracleGateFactory(matrix: uf1),
-    OracleGateFactory(matrix: uf2),
+    MatrixGateFactory(matrix: uf1),
+    MatrixGateFactory(matrix: uf2),
     PhaseShiftGateFactory(radians: acos(Double(3) / Double(5)))
 ]
 
