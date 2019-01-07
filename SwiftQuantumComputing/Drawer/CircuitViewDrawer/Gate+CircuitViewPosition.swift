@@ -29,16 +29,16 @@ extension Gate {
 
     func makeLayer(qubitCount: Int) -> [CircuitViewPosition] {
         switch self {
+        case .controlledNot(let target, let control):
+            return makeControlledNotLayer(qubitCount: qubitCount, target: target, control: control)
         case .hadamard(let target):
             return makeHadamardLayer(qubitCount: qubitCount, target: target)
+        case .matrix(_, let inputs):
+            return makeOracleLayer(qubitCount: qubitCount, inputs: inputs)
         case .not(let target):
             return makeNotLayer(qubitCount: qubitCount, target: target)
         case .phaseShift(let radians, let target):
             return makePhaseShiftLayer(qubitCount: qubitCount, radians: radians, target: target)
-        case .controlledNot(let target, let control):
-            return makeControlledNotLayer(qubitCount: qubitCount, target: target, control: control)
-        case .oracle(_, let inputs):
-            return makeOracleLayer(qubitCount: qubitCount, inputs: inputs)
         }
     }
 }

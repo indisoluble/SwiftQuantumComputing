@@ -29,10 +29,10 @@ extension Gate: BackendGate {
             return (Constants.matrixControlledNot, [control, target])
         case .hadamard(let target):
             return (Constants.matrixHadamard, [target])
+        case .matrix(let matrix, let inputs):
+            return (matrix, inputs)
         case .not(let target):
             return (Constants.matrixNot, [target])
-        case .oracle(let matrix, let inputs):
-            return (matrix, inputs)
         case .phaseShift(let radians, let target):
             return (Matrix.makePhaseShift(radians: radians), [target])
         }
