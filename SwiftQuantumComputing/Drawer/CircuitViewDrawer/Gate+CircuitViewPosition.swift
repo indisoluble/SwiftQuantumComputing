@@ -29,16 +29,16 @@ extension Gate {
 
     func makeLayer(qubitCount: Int) -> [CircuitViewPosition] {
         switch self {
+        case .controlledNot(let target, let control):
+            return makeControlledNotLayer(qubitCount: qubitCount, target: target, control: control)
         case .hadamard(let target):
             return makeHadamardLayer(qubitCount: qubitCount, target: target)
+        case .matrix(_, let inputs):
+            return makeOracleLayer(qubitCount: qubitCount, inputs: inputs)
         case .not(let target):
             return makeNotLayer(qubitCount: qubitCount, target: target)
         case .phaseShift(let radians, let target):
             return makePhaseShiftLayer(qubitCount: qubitCount, radians: radians, target: target)
-        case .controlledNot(let target, let control):
-            return makeControlledNotLayer(qubitCount: qubitCount, target: target, control: control)
-        case .oracle(_, let inputs):
-            return makeOracleLayer(qubitCount: qubitCount, inputs: inputs)
         }
     }
 }
@@ -131,7 +131,7 @@ private extension Gate {
         }
 
         guard inputs.count > 1 else {
-            layer[inputs[0]] = .oracle
+            layer[inputs[0]] = .matrix
 
             return layer
         }
@@ -140,13 +140,13 @@ private extension Gate {
         let first = sortedInputs.first!
         let last = sortedInputs.last!
 
-        layer[first] = .oracleBottom
+        layer[first] = .matrixBottom
         for index in (first + 1)..<last {
             let isInputConnected = sortedInputs.contains(index)
 
-            layer[index] = (isInputConnected ? .oracleMiddleConnected : .oracleMiddleUnconnected)
+            layer[index] = (isInputConnected ? .matrixMiddleConnected : .matrixMiddleUnconnected)
         }
-        layer[last] = .oracleTop(inputs: inputs)
+        layer[last] = .matrixTop(inputs: inputs)
 
         return layer
     }

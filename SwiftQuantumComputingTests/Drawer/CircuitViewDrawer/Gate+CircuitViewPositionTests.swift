@@ -86,10 +86,10 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testSingleQubitOracleGate_makeLayer_returnExpectedPositions() {
+    func testSingleQubitMatrixGate_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 3
-        let gate = Gate.oracle(matrix: matrix, inputs: [1])
+        let gate = Gate.matrix(matrix: matrix, inputs: [1])
 
         // When
         let positions = gate.makeLayer(qubitCount: qubitCount)
@@ -97,17 +97,17 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.matrix,
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testMultiQubitOracleGate_makeLayer_returnExpectedPositions() {
+    func testMultiQubitMatrixGate_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 7
         let inputs = [1, 5, 3]
-        let gate = Gate.oracle(matrix: matrix, inputs: inputs)
+        let gate = Gate.matrix(matrix: matrix, inputs: inputs)
 
         // When
         let positions = gate.makeLayer(qubitCount: qubitCount)
@@ -115,11 +115,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleBottom,
-            CircuitViewPosition.oracleMiddleUnconnected,
-            CircuitViewPosition.oracleMiddleConnected,
-            CircuitViewPosition.oracleMiddleUnconnected,
-            CircuitViewPosition.oracleTop(inputs: inputs),
+            CircuitViewPosition.matrixBottom,
+            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixTop(inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)

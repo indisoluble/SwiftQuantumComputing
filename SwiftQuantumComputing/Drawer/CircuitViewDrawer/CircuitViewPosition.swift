@@ -33,9 +33,9 @@ enum CircuitViewPosition: Equatable {
     case controlledNotUp
     case controlUp
     case controlDown
-    case oracle
-    case oracleTop(inputs: [Int])
-    case oracleBottom
-    case oracleMiddleConnected
-    case oracleMiddleUnconnected
+    case matrix
+    case matrixTop(inputs: [Int])
+    case matrixBottom
+    case matrixMiddleConnected
+    case matrixMiddleUnconnected
 } 

@@ -25,8 +25,8 @@ import Foundation
 public enum Gate {
     case controlledNot(target: Int, control: Int)
     case hadamard(target: Int)
+    case matrix(matrix: Matrix, inputs: [Int])
     case not(target: Int)
-    case oracle(matrix: Matrix, inputs: [Int])
     case phaseShift(radians: Double, target: Int)
 }
 
@@ -39,10 +39,10 @@ extension Gate: Equatable {
             return ((t1 == t2) && (c1 == c2))
         case (let .hadamard(t1), let .hadamard(t2)):
             return (t1 == t2)
+        case (let .matrix(m1, i1), let .matrix(m2, i2)):
+            return ((m1 == m2) && (i1 == i2))
         case (let .not(t1), let .not(t2)):
             return (t1 == t2)
-        case (let .oracle(m1, i1), let .oracle(m2, i2)):
-            return ((m1 == m2) && (i1 == i2))
         case (let .phaseShift(r1, t1), let .phaseShift(r2, t2)):
             return ((r1 == r2) && (t1 == t2))
         default:

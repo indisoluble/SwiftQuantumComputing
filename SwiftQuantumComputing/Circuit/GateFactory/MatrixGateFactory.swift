@@ -1,5 +1,5 @@
 //
-//  OracleGateFactory.swift
+//  MatrixGateFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -23,7 +23,7 @@ import os.log
 
 // MARK: - Main body
 
-public struct OracleGateFactory {
+public struct MatrixGateFactory {
 
     // MARK: - Private properties
 
@@ -44,11 +44,11 @@ public struct OracleGateFactory {
 
 // MARK: - CircuitGateFactory methods
 
-extension OracleGateFactory: CircuitGateFactory {
+extension MatrixGateFactory: CircuitGateFactory {
     public func makeGate(inputs: [Int]) -> Gate? {
         guard qubitCount > 0 else {
             os_log("makeGate: unable to produce a U gate with 0 qubits (check matrix)",
-                   log: OracleGateFactory.logger,
+                   log: MatrixGateFactory.logger,
                    type: .debug)
 
             return nil
@@ -56,12 +56,12 @@ extension OracleGateFactory: CircuitGateFactory {
 
         guard inputs.count >= qubitCount else {
             os_log("makeGate: not enough inputs to produce a U gate",
-                   log: OracleGateFactory.logger,
+                   log: MatrixGateFactory.logger,
                    type: .debug)
 
             return nil
         }
 
-        return .oracle(matrix: matrix, inputs: Array(inputs[0..<qubitCount]))
+        return .matrix(matrix: matrix, inputs: Array(inputs[0..<qubitCount]))
     }
 }

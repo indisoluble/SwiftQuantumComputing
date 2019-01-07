@@ -1,9 +1,21 @@
 //
-//  OracleGateFactoryTests.swift
+//  MatrixGateFactoryTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre (dev) on 21/12/2018.
+//  Created by Enrique de la Torre on 21/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 //
 
 import XCTest
@@ -12,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class OracleGateFactoryTests: XCTestCase {
+class MatrixGateFactoryTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -26,7 +38,7 @@ class OracleGateFactoryTests: XCTestCase {
 
     func testFactoryWithTwoQubitsMatrixAndOneInput_makeGate_returnNil() {
         // Given
-        let factory = OracleGateFactory(matrix: matrix)
+        let factory = MatrixGateFactory(matrix: matrix)
 
         // Then
         XCTAssertNil(factory.makeGate(inputs: [0]))
@@ -34,7 +46,7 @@ class OracleGateFactoryTests: XCTestCase {
 
     func testFactoryWithTwoQubitsMatrixAndFourInputs_makeGate__returnExpectedGate() {
         // Given
-        let factory = OracleGateFactory(matrix: matrix)
+        let factory = MatrixGateFactory(matrix: matrix)
         let inputs = [0, 1, 2, 3]
 
         // When
@@ -46,9 +58,9 @@ class OracleGateFactoryTests: XCTestCase {
 
         // Then
         switch result {
-        case let .oracle(oracleMatrix, oracleInputs):
-            XCTAssertEqual(oracleMatrix, matrix)
-            XCTAssertEqual(oracleInputs, Array(inputs[0..<2]))
+        case let .matrix(matrixMatrix, matrixInputs):
+            XCTAssertEqual(matrixMatrix, matrix)
+            XCTAssertEqual(matrixInputs, Array(inputs[0..<2]))
         default:
             XCTAssert(false)
         }
@@ -56,12 +68,12 @@ class OracleGateFactoryTests: XCTestCase {
 
     func testMatrixWithOneRow_init_returnGate() {
         // Then
-        XCTAssertNotNil(OracleGateFactory(matrix: oneRow))
+        XCTAssertNotNil(MatrixGateFactory(matrix: oneRow))
     }
 
     func testFactoryWithOneRowMatrix_makeGate_returnNil() {
         // Given
-        let factory = OracleGateFactory(matrix: oneRow)
+        let factory = MatrixGateFactory(matrix: oneRow)
         let inputs: [Int] = []
 
         // Then

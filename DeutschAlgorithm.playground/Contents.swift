@@ -4,7 +4,7 @@ func isFunctionConstant(_ uf: Matrix) -> Bool {
     let gates = [
         Gate.hadamard(target: 0),
         Gate.hadamard(target: 1),
-        Gate.oracle(matrix: uf, inputs: [1, 0]),
+        Gate.matrix(matrix: uf, inputs: [1, 0]),
         Gate.hadamard(target: 1)
     ]
     let circuit = CircuitFactory.makeCircuit(gates: gates, qubitCount: 2)!
