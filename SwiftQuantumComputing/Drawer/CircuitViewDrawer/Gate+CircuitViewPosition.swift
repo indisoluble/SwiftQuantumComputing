@@ -34,9 +34,11 @@ extension Gate {
         case .hadamard(let target):
             return makeHadamardLayer(qubitCount: qubitCount, target: target)
         case .matrix(_, let inputs):
-            return makeOracleLayer(qubitCount: qubitCount, inputs: inputs)
+            return makeMatrixLayer(qubitCount: qubitCount, inputs: inputs)
         case .not(let target):
             return makeNotLayer(qubitCount: qubitCount, target: target)
+        case .oracle(_, let target, let controls):
+            return makeOracleLayer(qubitCount: qubitCount, target: target, controls: controls)
         case .phaseShift(let radians, let target):
             return makePhaseShiftLayer(qubitCount: qubitCount, radians: radians, target: target)
         }
@@ -120,7 +122,7 @@ private extension Gate {
         return layer
     }
 
-    func makeOracleLayer(qubitCount: Int, inputs: [Int]) -> [CircuitViewPosition] {
+    func makeMatrixLayer(qubitCount: Int, inputs: [Int]) -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard inputs.allSatisfy({ layer.indices.contains($0) }) else {
             os_log("makeOracleLayer failed: one or more inputs are out of range",
@@ -149,6 +151,10 @@ private extension Gate {
         layer[last] = .matrixTop(inputs: inputs)
 
         return layer
+    }
+
+    func makeOracleLayer(qubitCount: Int, target: Int, controls: [Int]) -> [CircuitViewPosition] {
+        return makeEmptyLayer(qubitCount: qubitCount)
     }
 
     func makeEmptyLayer(qubitCount: Int) -> [CircuitViewPosition] {

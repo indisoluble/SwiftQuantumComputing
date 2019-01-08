@@ -33,6 +33,10 @@ extension Gate: BackendGate {
             return (matrix, inputs)
         case .not(let target):
             return (Constants.matrixNot, [target])
+        case .oracle(_, let target, let controls):
+            let inputs = [target] + controls
+
+            return (Matrix.makeIdentity(count: inputs.count)!, inputs)
         case .phaseShift(let radians, let target):
             return (Matrix.makePhaseShift(radians: radians), [target])
         }
