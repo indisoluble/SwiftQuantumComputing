@@ -29,14 +29,14 @@ final class BackendGateTestDouble {
     // MARK: - Internal properties
 
     private (set) var extractCount = 0
-    var extractMatrixResult: Matrix!
+    var extractMatrixResult: Matrix?
     var extractInputsResult: [Int]!
 }
 
 // MARK: - BackendGate methods
 
 extension BackendGateTestDouble: BackendGate {
-    func extract() -> (matrix: Matrix, inputs: [Int]) {
+    func extract() -> (matrix: Matrix?, inputs: [Int]) {
         extractCount += 1
 
         return (matrix: extractMatrixResult, inputs: extractInputsResult)
