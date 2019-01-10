@@ -26,7 +26,49 @@ extension Matrix {
 
     // MARK: - Internal class methods
 
-    static func makeOracle(truthTable: String) -> Matrix? {
-        return Matrix.makeIdentity(count: truthTable.count)
+    static func makeOracle(truthTable: [String], controlCount: Int) -> Matrix? {
+        guard controlCount >= 0 else {
+            return nil
+        }
+
+        let truthTableAsInts = Matrix.truthTableAsInts(truthTable)
+        let columnCount = Int.pow(2, controlCount + 1)
+
+        var rows: [[Complex]] = []
+
+        for controlValue in 0..<Int.pow(2, controlCount) {
+            let isControlValueTrue = truthTableAsInts.contains(controlValue)
+
+            var row = Array(repeating: Complex(0), count: columnCount)
+            row[2 * controlValue + (isControlValueTrue ? 1 : 0)] = Complex(1)
+            rows.append(row)
+
+            row = Array(repeating: Complex(0), count: columnCount)
+            row[2 * controlValue + (isControlValueTrue ? 0 : 1)] = Complex(1)
+            rows.append(row)
+        }
+
+        return Matrix(rows)
+    }
+}
+
+// MARK: - Private body
+
+private extension Matrix {
+
+    // MARK: - Private class methods
+
+    static func truthTableAsInts(_ truthTable: [String]) -> [Int] {
+        var result: [Int] = []
+
+        for truth in truthTable {
+            guard let truthAsInt = Int(truth, radix: 2) else {
+                continue
+            }
+
+            result.append(truthAsInt)
+        }
+
+        return result
     }
 }

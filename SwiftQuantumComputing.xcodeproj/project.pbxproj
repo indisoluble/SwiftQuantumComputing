@@ -23,6 +23,8 @@
 		FF072EFD21BD8A1D002248AA /* BackendRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF072EFB21BD8A1D002248AA /* BackendRegister.swift */; };
 		FF1806FB216A8AFD00A57DBD /* SQCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1806FA216A8AFD00A57DBD /* SQCView.swift */; };
 		FF1806FC216A8AFD00A57DBD /* SQCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1806FA216A8AFD00A57DBD /* SQCView.swift */; };
+		FF18358421EA36AE003E2F04 /* Matrix+OracleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF18358321EA36AE003E2F04 /* Matrix+OracleTests.swift */; };
+		FF18358521EA36AE003E2F04 /* Matrix+OracleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF18358321EA36AE003E2F04 /* Matrix+OracleTests.swift */; };
 		FF1A502F212997090023313E /* CircuitFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1A502E212997090023313E /* CircuitFacade.swift */; };
 		FF1AAFE2211F372800D3666A /* RegisterGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE1211F372800D3666A /* RegisterGateFactory.swift */; };
 		FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */; };
@@ -251,6 +253,7 @@
 		FF072EFB21BD8A1D002248AA /* BackendRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendRegister.swift; sourceTree = "<group>"; };
 		FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DeutschAlgorithm.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF1806FA216A8AFD00A57DBD /* SQCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQCView.swift; sourceTree = "<group>"; };
+		FF18358321EA36AE003E2F04 /* Matrix+OracleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+OracleTests.swift"; sourceTree = "<group>"; };
 		FF1A502E212997090023313E /* CircuitFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFacade.swift; sourceTree = "<group>"; };
 		FF1AAFE1211F372800D3666A /* RegisterGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGateFactory.swift; sourceTree = "<group>"; };
 		FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+IsPowerOfTwo.swift"; sourceTree = "<group>"; };
@@ -455,6 +458,22 @@
 				FF072EFB21BD8A1D002248AA /* BackendRegister.swift */,
 			);
 			path = Backend;
+			sourceTree = "<group>";
+		};
+		FF18358121EA358C003E2F04 /* Gate */ = {
+			isa = PBXGroup;
+			children = (
+				FF18358221EA359A003E2F04 /* Matrix */,
+			);
+			path = Gate;
+			sourceTree = "<group>";
+		};
+		FF18358221EA359A003E2F04 /* Matrix */ = {
+			isa = PBXGroup;
+			children = (
+				FF18358321EA36AE003E2F04 /* Matrix+OracleTests.swift */,
+			);
+			path = Matrix;
 			sourceTree = "<group>";
 		};
 		FF1AAFE0211F286100D3666A /* Register */ = {
@@ -755,6 +774,7 @@
 				FF7C9BBD211CB7D7008D8897 /* ComplexVectorSpace */,
 				FF9BBE77214ECA7F00AD1F78 /* Drawer */,
 				FF1AAFED211F61CB00D3666A /* Extension */,
+				FF18358121EA358C003E2F04 /* Gate */,
 				FF1AAFE0211F286100D3666A /* Register */,
 				FFED68FD212F289800D46D68 /* TestDouble */,
 			);
@@ -1191,6 +1211,7 @@
 				FFBB6F7F21CD3E1D00389838 /* BackendTestDouble.swift in Sources */,
 				FFBB6F8321CD566800389838 /* ControlledNotGateFactoryTests.swift in Sources */,
 				FF1AAFE8211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift in Sources */,
+				FF18358421EA36AE003E2F04 /* Matrix+OracleTests.swift in Sources */,
 				FFBB6F8621CD5ABD00389838 /* HadamardGateFactoryTests.swift in Sources */,
 				FFE1D715211A1B2700A50D9C /* MatrixTests.swift in Sources */,
 				FF265D662135DD6A00179F75 /* CircuitTestDouble.swift in Sources */,
@@ -1295,6 +1316,7 @@
 				FFBB6F8021CD3E1D00389838 /* BackendTestDouble.swift in Sources */,
 				FFBB6F8421CD566800389838 /* ControlledNotGateFactoryTests.swift in Sources */,
 				FFBB6F8721CD5ABD00389838 /* HadamardGateFactoryTests.swift in Sources */,
+				FF18358521EA36AE003E2F04 /* Matrix+OracleTests.swift in Sources */,
 				FF46EDC42169245C0044C3CA /* Int+DerivedTests.swift in Sources */,
 				FF0694E521CC04E400B5D469 /* BackendFacadeTests.swift in Sources */,
 				FFBB6F7D21CD3A5000389838 /* DrawerTestDouble.swift in Sources */,

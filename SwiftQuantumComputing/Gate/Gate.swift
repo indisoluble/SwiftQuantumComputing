@@ -27,7 +27,7 @@ public enum Gate {
     case hadamard(target: Int)
     case matrix(matrix: Matrix, inputs: [Int])
     case not(target: Int)
-    case oracle(truthTable: String, target: Int, controls: [Int])
+    case oracle(truthTable: [String], target: Int, controls: [Int])
     case phaseShift(radians: Double, target: Int)
 }
 
