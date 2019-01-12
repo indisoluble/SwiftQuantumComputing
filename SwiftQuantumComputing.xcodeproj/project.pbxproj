@@ -25,6 +25,10 @@
 		FF1806FC216A8AFD00A57DBD /* SQCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1806FA216A8AFD00A57DBD /* SQCView.swift */; };
 		FF18358421EA36AE003E2F04 /* Matrix+OracleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF18358321EA36AE003E2F04 /* Matrix+OracleTests.swift */; };
 		FF18358521EA36AE003E2F04 /* Matrix+OracleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF18358321EA36AE003E2F04 /* Matrix+OracleTests.swift */; };
+		FF18358721EA5E7C003E2F04 /* ControlledNotPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF18358621EA5E7C003E2F04 /* ControlledNotPositionView.swift */; };
+		FF18358821EA5E7C003E2F04 /* ControlledNotPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF18358621EA5E7C003E2F04 /* ControlledNotPositionView.swift */; };
+		FF18358A21EA6201003E2F04 /* ControlledNotPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF18358921EA6201003E2F04 /* ControlledNotPositionView.xib */; };
+		FF18358C21EA634D003E2F04 /* ControlledNotPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF18358B21EA634D003E2F04 /* ControlledNotPositionView.xib */; };
 		FF1A502F212997090023313E /* CircuitFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1A502E212997090023313E /* CircuitFacade.swift */; };
 		FF1AAFE2211F372800D3666A /* RegisterGateFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE1211F372800D3666A /* RegisterGateFactory.swift */; };
 		FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */; };
@@ -33,6 +37,10 @@
 		FF1AAFF1211F66D400D3666A /* Int+Pow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFF0211F66D400D3666A /* Int+Pow.swift */; };
 		FF1AAFF3211F6E1000D3666A /* Int+Log2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */; };
 		FF265D662135DD6A00179F75 /* CircuitTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF265D652135DD6A00179F75 /* CircuitTestDouble.swift */; };
+		FF2B47CB21EBF1CC004D4789 /* OracleBottomPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CA21EBF1CC004D4789 /* OracleBottomPositionView.xib */; };
+		FF2B47CD21EBF29C004D4789 /* OracleDownPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CC21EBF29C004D4789 /* OracleDownPositionView.xib */; };
+		FF2B47CF21EBF37B004D4789 /* OracleUpPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CE21EBF37B004D4789 /* OracleUpPositionView.xib */; };
+		FF2B47D121EBF4E9004D4789 /* OracleTopPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */; };
 		FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2CD9F9211E177500EA7E86 /* Register.swift */; };
 		FF343F7C21E6AB81008B8C6B /* Matrix+Oracle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */; };
 		FF343F7D21E6AB81008B8C6B /* Matrix+Oracle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */; };
@@ -219,6 +227,18 @@
 		FFE5F56B21C30F140027519B /* Gate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE5F56921C30F140027519B /* Gate.swift */; };
 		FFE8FAA12121F54F005686FE /* Int+Derived.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8FAA02121F54F005686FE /* Int+Derived.swift */; };
 		FFE8FAA3212205BE005686FE /* Int+DerivedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */; };
+		FFEB7B4321EBCBF8009B916B /* OracleUpPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4221EBCBF8009B916B /* OracleUpPositionView.swift */; };
+		FFEB7B4421EBCBF8009B916B /* OracleUpPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4221EBCBF8009B916B /* OracleUpPositionView.swift */; };
+		FFEB7B4621EBCC0A009B916B /* OracleDownPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4521EBCC0A009B916B /* OracleDownPositionView.swift */; };
+		FFEB7B4721EBCC0A009B916B /* OracleDownPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4521EBCC0A009B916B /* OracleDownPositionView.swift */; };
+		FFEB7B4921EBCC24009B916B /* OracleBottomPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4821EBCC24009B916B /* OracleBottomPositionView.swift */; };
+		FFEB7B4A21EBCC24009B916B /* OracleBottomPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4821EBCC24009B916B /* OracleBottomPositionView.swift */; };
+		FFEB7B4C21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4B21EBCC3C009B916B /* OracleTopPositionView.swift */; };
+		FFEB7B4D21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4B21EBCC3C009B916B /* OracleTopPositionView.swift */; };
+		FFEB7B5121EBDE2B009B916B /* OracleUpPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5021EBDE2B009B916B /* OracleUpPositionView.xib */; };
+		FFEB7B5321EBE03F009B916B /* OracleDownPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5221EBE03F009B916B /* OracleDownPositionView.xib */; };
+		FFEB7B5521EBE2E8009B916B /* OracleBottomPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5421EBE2E8009B916B /* OracleBottomPositionView.xib */; };
+		FFEB7B5721EBE447009B916B /* OracleTopPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5621EBE447009B916B /* OracleTopPositionView.xib */; };
 		FFED6909212F2DE600D46D68 /* CircuitFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFED6908212F2DE600D46D68 /* CircuitFacadeTests.swift */; };
 		FFFEFD2B21333EDB0063B559 /* Matrix+ControlledNot.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEFD2A21333EDB0063B559 /* Matrix+ControlledNot.swift */; };
 		FFFEFD2D21333EED0063B559 /* Matrix+Hadamard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEFD2C21333EED0063B559 /* Matrix+Hadamard.swift */; };
@@ -254,6 +274,9 @@
 		FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DeutschAlgorithm.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF1806FA216A8AFD00A57DBD /* SQCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQCView.swift; sourceTree = "<group>"; };
 		FF18358321EA36AE003E2F04 /* Matrix+OracleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+OracleTests.swift"; sourceTree = "<group>"; };
+		FF18358621EA5E7C003E2F04 /* ControlledNotPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledNotPositionView.swift; sourceTree = "<group>"; };
+		FF18358921EA6201003E2F04 /* ControlledNotPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlledNotPositionView.xib; sourceTree = "<group>"; };
+		FF18358B21EA634D003E2F04 /* ControlledNotPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlledNotPositionView.xib; sourceTree = "<group>"; };
 		FF1A502E212997090023313E /* CircuitFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFacade.swift; sourceTree = "<group>"; };
 		FF1AAFE1211F372800D3666A /* RegisterGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGateFactory.swift; sourceTree = "<group>"; };
 		FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+IsPowerOfTwo.swift"; sourceTree = "<group>"; };
@@ -262,6 +285,10 @@
 		FF1AAFF0211F66D400D3666A /* Int+Pow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Pow.swift"; sourceTree = "<group>"; };
 		FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Log2.swift"; sourceTree = "<group>"; };
 		FF265D652135DD6A00179F75 /* CircuitTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitTestDouble.swift; sourceTree = "<group>"; };
+		FF2B47CA21EBF1CC004D4789 /* OracleBottomPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleBottomPositionView.xib; sourceTree = "<group>"; };
+		FF2B47CC21EBF29C004D4789 /* OracleDownPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleDownPositionView.xib; sourceTree = "<group>"; };
+		FF2B47CE21EBF37B004D4789 /* OracleUpPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleUpPositionView.xib; sourceTree = "<group>"; };
+		FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleTopPositionView.xib; sourceTree = "<group>"; };
 		FF2CD9F9211E177500EA7E86 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Oracle.swift"; sourceTree = "<group>"; };
 		FF3EAC8F212DF9E4007AF61E /* BackendRegisterGateFactoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendRegisterGateFactoryAdapter.swift; sourceTree = "<group>"; };
@@ -373,6 +400,14 @@
 		FFE5F56921C30F140027519B /* Gate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gate.swift; sourceTree = "<group>"; };
 		FFE8FAA02121F54F005686FE /* Int+Derived.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Derived.swift"; sourceTree = "<group>"; };
 		FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+DerivedTests.swift"; sourceTree = "<group>"; };
+		FFEB7B4221EBCBF8009B916B /* OracleUpPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleUpPositionView.swift; sourceTree = "<group>"; };
+		FFEB7B4521EBCC0A009B916B /* OracleDownPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleDownPositionView.swift; sourceTree = "<group>"; };
+		FFEB7B4821EBCC24009B916B /* OracleBottomPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleBottomPositionView.swift; sourceTree = "<group>"; };
+		FFEB7B4B21EBCC3C009B916B /* OracleTopPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleTopPositionView.swift; sourceTree = "<group>"; };
+		FFEB7B5021EBDE2B009B916B /* OracleUpPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleUpPositionView.xib; sourceTree = "<group>"; };
+		FFEB7B5221EBE03F009B916B /* OracleDownPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleDownPositionView.xib; sourceTree = "<group>"; };
+		FFEB7B5421EBE2E8009B916B /* OracleBottomPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleBottomPositionView.xib; sourceTree = "<group>"; };
+		FFEB7B5621EBE447009B916B /* OracleTopPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleTopPositionView.xib; sourceTree = "<group>"; };
 		FFED6908212F2DE600D46D68 /* CircuitFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFacadeTests.swift; sourceTree = "<group>"; };
 		FFFEFD2A21333EDB0063B559 /* Matrix+ControlledNot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+ControlledNot.swift"; sourceTree = "<group>"; };
 		FFFEFD2C21333EED0063B559 /* Matrix+Hadamard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Hadamard.swift"; sourceTree = "<group>"; };
@@ -613,6 +648,7 @@
 			children = (
 				FF663D2C216A0DE0002298BA /* ControlDownPositionView.xib */,
 				FF663D30216A1D52002298BA /* ControlledNotDownPositionView.xib */,
+				FF18358B21EA634D003E2F04 /* ControlledNotPositionView.xib */,
 				FF663D33216A1ECA002298BA /* ControlledNotUpPositionView.xib */,
 				FF663D36216A1FBF002298BA /* ControlUpPositionView.xib */,
 				FF663D39216A204F002298BA /* CrossedLinesPositionView.xib */,
@@ -624,6 +660,10 @@
 				FFB5B55F216A3BA9009C59FC /* MatrixPositionView.xib */,
 				FFB5B565216A4A79009C59FC /* MatrixTopPositionView.xib */,
 				FF663D42216A2678002298BA /* NotPositionView.xib */,
+				FFEB7B5421EBE2E8009B916B /* OracleBottomPositionView.xib */,
+				FFEB7B5221EBE03F009B916B /* OracleDownPositionView.xib */,
+				FFEB7B5621EBE447009B916B /* OracleTopPositionView.xib */,
+				FFEB7B5021EBDE2B009B916B /* OracleUpPositionView.xib */,
 				FFB5B568216A51B0009C59FC /* PhaseShiftPositionView.xib */,
 				FFB5B56B216A526A009C59FC /* QubitPositionView.xib */,
 			);
@@ -825,6 +865,7 @@
 				FF9BBE5F214EAABD00AD1F78 /* CircleView.swift */,
 				FF9BBE4D214E954D00AD1F78 /* ControlDownPositionView.xib */,
 				FF9BBE41214E83F400AD1F78 /* ControlledNotDownPositionView.xib */,
+				FF18358921EA6201003E2F04 /* ControlledNotPositionView.xib */,
 				FF9BBE45214E864F00AD1F78 /* ControlledNotUpPositionView.xib */,
 				FF9BBE49214E942700AD1F78 /* ControlUpPositionView.xib */,
 				FF9BBE29214E759100AD1F78 /* CrossedLinesPositionView.xib */,
@@ -836,6 +877,10 @@
 				FF9BBE35214E7A9F00AD1F78 /* MatrixPositionView.xib */,
 				FF9BBE51214E969300AD1F78 /* MatrixTopPositionView.xib */,
 				FF9BBE31214E795A00AD1F78 /* NotPositionView.xib */,
+				FF2B47CA21EBF1CC004D4789 /* OracleBottomPositionView.xib */,
+				FF2B47CC21EBF29C004D4789 /* OracleDownPositionView.xib */,
+				FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */,
+				FF2B47CE21EBF37B004D4789 /* OracleUpPositionView.xib */,
 				FF9BBE3D214E818200AD1F78 /* PhaseShiftPositionView.xib */,
 				FF9BBE39214E7C2400AD1F78 /* QubitPositionView.xib */,
 			);
@@ -847,6 +892,7 @@
 			children = (
 				FF9BBE4B214E94D500AD1F78 /* ControlDownPositionView.swift */,
 				FF9BBE3F214E839100AD1F78 /* ControlledNotDownPositionView.swift */,
+				FF18358621EA5E7C003E2F04 /* ControlledNotPositionView.swift */,
 				FF9BBE43214E861B00AD1F78 /* ControlledNotUpPositionView.swift */,
 				FF9BBE47214E878700AD1F78 /* ControlUpPositionView.swift */,
 				FF9BBE27214E756F00AD1F78 /* CrossedLinesPositionView.swift */,
@@ -858,6 +904,10 @@
 				FF9BBE33214E7A4C00AD1F78 /* MatrixPositionView.swift */,
 				FF9BBE4F214E960900AD1F78 /* MatrixTopPositionView.swift */,
 				FF9BBE2F214E78E700AD1F78 /* NotPositionView.swift */,
+				FFEB7B4821EBCC24009B916B /* OracleBottomPositionView.swift */,
+				FFEB7B4521EBCC0A009B916B /* OracleDownPositionView.swift */,
+				FFEB7B4B21EBCC3C009B916B /* OracleTopPositionView.swift */,
+				FFEB7B4221EBCBF8009B916B /* OracleUpPositionView.swift */,
 				FF9BBE3B214E816D00AD1F78 /* PhaseShiftPositionView.swift */,
 				FFB5B562216A46FB009C59FC /* PositionTextView.swift */,
 				FF9BBE25214E749200AD1F78 /* PositionView.swift */,
@@ -1078,18 +1128,23 @@
 				FF9BBE4A214E942700AD1F78 /* ControlUpPositionView.xib in Resources */,
 				FF9BBE2E214E772300AD1F78 /* HadamardPositionView.xib in Resources */,
 				FF9BBE32214E795A00AD1F78 /* NotPositionView.xib in Resources */,
+				FF2B47D121EBF4E9004D4789 /* OracleTopPositionView.xib in Resources */,
 				FF9BBE46214E864F00AD1F78 /* ControlledNotUpPositionView.xib in Resources */,
 				FF9BBE3E214E818200AD1F78 /* PhaseShiftPositionView.xib in Resources */,
+				FF18358A21EA6201003E2F04 /* ControlledNotPositionView.xib in Resources */,
 				FF9BBE5E214E9A1E00AD1F78 /* MatrixMiddleUnconnectedPositionView.xib in Resources */,
 				FF9BBE56214E980900AD1F78 /* MatrixBottomPositionView.xib in Resources */,
 				FF9BBE42214E83F400AD1F78 /* ControlledNotDownPositionView.xib in Resources */,
 				FFBCD5E5214DBBA60047020B /* LineHorizontalPositionView.xib in Resources */,
 				FF9BBE3A214E7C2400AD1F78 /* QubitPositionView.xib in Resources */,
+				FF2B47CB21EBF1CC004D4789 /* OracleBottomPositionView.xib in Resources */,
 				FF9BBE4E214E954D00AD1F78 /* ControlDownPositionView.xib in Resources */,
 				FF9BBE5A214E991600AD1F78 /* MatrixMiddleConnectedPositionView.xib in Resources */,
 				FF9BBE2A214E759100AD1F78 /* CrossedLinesPositionView.xib in Resources */,
+				FF2B47CF21EBF37B004D4789 /* OracleUpPositionView.xib in Resources */,
 				FF9BBE36214E7A9F00AD1F78 /* MatrixPositionView.xib in Resources */,
 				FF9BBE52214E969300AD1F78 /* MatrixTopPositionView.xib in Resources */,
+				FF2B47CD21EBF29C004D4789 /* OracleDownPositionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1105,11 +1160,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF663D37216A1FBF002298BA /* ControlUpPositionView.xib in Resources */,
+				FFEB7B5521EBE2E8009B916B /* OracleBottomPositionView.xib in Resources */,
 				FF663D3A216A204F002298BA /* CrossedLinesPositionView.xib in Resources */,
+				FFEB7B5721EBE447009B916B /* OracleTopPositionView.xib in Resources */,
+				FFEB7B5321EBE03F009B916B /* OracleDownPositionView.xib in Resources */,
 				FFB5B569216A51B0009C59FC /* PhaseShiftPositionView.xib in Resources */,
 				FFB5B55A216A2FBA009C59FC /* MatrixMiddleConnectedPositionView.xib in Resources */,
 				FFB5B557216A2EB6009C59FC /* MatrixBottomPositionView.xib in Resources */,
+				FF18358C21EA634D003E2F04 /* ControlledNotPositionView.xib in Resources */,
 				FF663D2D216A0DE0002298BA /* ControlDownPositionView.xib in Resources */,
+				FFEB7B5121EBDE2B009B916B /* OracleUpPositionView.xib in Resources */,
 				FFB5B560216A3BA9009C59FC /* MatrixPositionView.xib in Resources */,
 				FF663D40216A260F002298BA /* LineHorizontalPositionView.xib in Resources */,
 				FF663D3D216A2494002298BA /* HadamardPositionView.xib in Resources */,
@@ -1140,11 +1200,14 @@
 				FF9FBCDF21C57A400070D943 /* MatrixGateFactory.swift in Sources */,
 				FF1A502F212997090023313E /* CircuitFacade.swift in Sources */,
 				FF072EFC21BD8A1D002248AA /* BackendRegister.swift in Sources */,
+				FFEB7B4321EBCBF8009B916B /* OracleUpPositionView.swift in Sources */,
 				FF9BBE2C214E76E800AD1F78 /* HadamardPositionView.swift in Sources */,
 				FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */,
 				FF9FBCF321C598B10070D943 /* Matrix+Swap.swift in Sources */,
 				FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */,
 				FF9FBCD621C5792E0070D943 /* ControlledNotGateFactory.swift in Sources */,
+				FFEB7B4921EBCC24009B916B /* OracleBottomPositionView.swift in Sources */,
+				FF18358721EA5E7C003E2F04 /* ControlledNotPositionView.swift in Sources */,
 				FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */,
 				FFB8106821C6FF89006333BB /* Drawable.swift in Sources */,
 				FF9BBE60214EAABD00AD1F78 /* CircleView.swift in Sources */,
@@ -1160,6 +1223,7 @@
 				FF1AAFF3211F6E1000D3666A /* Int+Log2.swift in Sources */,
 				FFFEFD2B21333EDB0063B559 /* Matrix+ControlledNot.swift in Sources */,
 				FF9BBE48214E878700AD1F78 /* ControlUpPositionView.swift in Sources */,
+				FFEB7B4621EBCC0A009B916B /* OracleDownPositionView.swift in Sources */,
 				FFBCD5E2214DB6D90047020B /* CircuitViewPosition+PositionView.swift in Sources */,
 				FF9FBCE221C57ACD0070D943 /* PhaseShiftGateFactory.swift in Sources */,
 				FF9BBE58214E98C400AD1F78 /* MatrixMiddleConnectedPositionView.swift in Sources */,
@@ -1181,6 +1245,7 @@
 				FFE1D70E211A1AEB00A50D9C /* Matrix.swift in Sources */,
 				FF9FBCDC21C57A160070D943 /* NotGateFactory.swift in Sources */,
 				FF1AAFF1211F66D400D3666A /* Int+Pow.swift in Sources */,
+				FFEB7B4C21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */,
 				FF9BBE34214E7A4C00AD1F78 /* MatrixPositionView.swift in Sources */,
 				FFFEFD2D21333EED0063B559 /* Matrix+Hadamard.swift in Sources */,
 				FF97E4C121CABCF1008847FE /* CircuitViewDrawer.swift in Sources */,
@@ -1246,6 +1311,7 @@
 				FF46EDF2216925100044C3CA /* Complex.swift in Sources */,
 				FF46EDF5216925100044C3CA /* Vector.swift in Sources */,
 				FF1806FC216A8AFD00A57DBD /* SQCView.swift in Sources */,
+				FF18358821EA5E7C003E2F04 /* ControlledNotPositionView.swift in Sources */,
 				FFE5F56B21C30F140027519B /* Gate.swift in Sources */,
 				FF97E4C221CABCF1008847FE /* CircuitViewDrawer.swift in Sources */,
 				FF46EDF7216925180044C3CA /* Array+Shuffled.swift in Sources */,
@@ -1261,6 +1327,7 @@
 				FF786DFC21CFEE7E00F77CD9 /* GatesRandomizer.swift in Sources */,
 				FF9FBCE321C57ACD0070D943 /* PhaseShiftGateFactory.swift in Sources */,
 				FF663D38216A2039002298BA /* ControlUpPositionView.swift in Sources */,
+				FFEB7B4A21EBCC24009B916B /* OracleBottomPositionView.swift in Sources */,
 				FFB5B558216A2F82009C59FC /* MatrixBottomPositionView.swift in Sources */,
 				FF46EDE0216924EE0044C3CA /* Matrix+Hadamard.swift in Sources */,
 				FF46EDF8216925180044C3CA /* Int+Derived.swift in Sources */,
@@ -1271,6 +1338,7 @@
 				FFB5B570216A5F71009C59FC /* CircuitViewPosition+PositionView.swift in Sources */,
 				FF072EF721BD883C002248AA /* BackendRegisterGateFactory.swift in Sources */,
 				FF46EDD4216924D80044C3CA /* Gate+CircuitViewPosition.swift in Sources */,
+				FFEB7B4D21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */,
 				FFDEDF1B216968F4005590B4 /* PositionView.swift in Sources */,
 				FF46EDE1216924EE0044C3CA /* Matrix+Not.swift in Sources */,
 				FFB5B56A216A5249009C59FC /* PhaseShiftPositionView.swift in Sources */,
@@ -1301,6 +1369,8 @@
 				FFB8106221C6CC37006333BB /* Gate+BackendGate.swift in Sources */,
 				FF46EDFA216925180044C3CA /* Int+Log2.swift in Sources */,
 				FFB5B561216A3BE3009C59FC /* MatrixPositionView.swift in Sources */,
+				FFEB7B4721EBCC0A009B916B /* OracleDownPositionView.swift in Sources */,
+				FFEB7B4421EBCBF8009B916B /* OracleUpPositionView.swift in Sources */,
 				FF9FBCDA21C579CF0070D943 /* HadamardGateFactory.swift in Sources */,
 				FF9FBCD421C56C270070D943 /* CircuitGateFactory.swift in Sources */,
 				FF790378219655A600FFC31D /* Circuit+Probabilities.swift in Sources */,
