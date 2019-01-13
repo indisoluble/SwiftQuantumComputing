@@ -33,13 +33,9 @@ class Matrix_OracleTests: XCTestCase {
         XCTAssertNil(Matrix.makeOracle(truthTable: [], controlCount: -1))
     }
 
-    func testControlCountEqualToZeroAndEmptyTruthTable_makeOracle_returnExpectedIdentity() {
-        // Given
-        let controlCount = 0
-
+    func testControlCountEqualToZeroAndEmptyTruthTable_makeOracle_returNil() {
         // Then
-        XCTAssertEqual(Matrix.makeOracle(truthTable: [], controlCount: controlCount),
-                       Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+        XCTAssertNil(Matrix.makeOracle(truthTable: [], controlCount: 0))
     }
 
     func testControlCountBiggerThanZeroAndEmptyTruthTable_makeOracle_returnExpectedIdentity() {

@@ -27,7 +27,7 @@ extension Matrix {
     // MARK: - Internal class methods
 
     static func makeOracle(truthTable: [String], controlCount: Int) -> Matrix? {
-        guard controlCount >= 0 else {
+        guard controlCount > 0 else {
             return nil
         }
 

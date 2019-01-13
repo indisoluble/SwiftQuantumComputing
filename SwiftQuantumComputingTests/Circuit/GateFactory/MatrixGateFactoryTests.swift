@@ -44,7 +44,7 @@ class MatrixGateFactoryTests: XCTestCase {
         XCTAssertNil(factory.makeGate(inputs: [0]))
     }
 
-    func testFactoryWithTwoQubitsMatrixAndFourInputs_makeGate__returnExpectedGate() {
+    func testFactoryWithTwoQubitsMatrixAndFourInputs_makeGate_returnExpectedGate() {
         // Given
         let factory = MatrixGateFactory(matrix: matrix)
         let inputs = [0, 1, 2, 3]
