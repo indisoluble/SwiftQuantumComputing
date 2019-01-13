@@ -9,9 +9,11 @@ let uf2 = Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)],
 let factories: [CircuitGateFactory] = [
     ControlledNotGateFactory(),
     HadamardGateFactory(),
-    NotGateFactory(),
     MatrixGateFactory(matrix: uf1),
     MatrixGateFactory(matrix: uf2),
+    NotGateFactory(),
+    OracleGateFactory(truthTable: ["1"], truthTableQubitCount: 1),
+    OracleGateFactory(truthTable: ["110", "10", "0"], truthTableQubitCount: 3),
     PhaseShiftGateFactory(radians: acos(Double(3) / Double(5)))
 ]
 
