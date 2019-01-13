@@ -47,7 +47,7 @@ class PositionTextView: PositionView {
     }
 
     func showIndex(_ index: Int) {
-        showText("q\(index) : |0>")
+        showText("q\(index):")
     }
 }
 
