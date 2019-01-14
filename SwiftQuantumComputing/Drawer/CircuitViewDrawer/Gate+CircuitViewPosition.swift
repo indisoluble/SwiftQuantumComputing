@@ -34,9 +34,11 @@ extension Gate {
         case .hadamard(let target):
             return makeHadamardLayer(qubitCount: qubitCount, target: target)
         case .matrix(_, let inputs):
-            return makeOracleLayer(qubitCount: qubitCount, inputs: inputs)
+            return makeMatrixLayer(qubitCount: qubitCount, inputs: inputs)
         case .not(let target):
             return makeNotLayer(qubitCount: qubitCount, target: target)
+        case .oracle(_, let target, let controls):
+            return makeOracleLayer(qubitCount: qubitCount, target: target, controls: controls)
         case .phaseShift(let radians, let target):
             return makePhaseShiftLayer(qubitCount: qubitCount, radians: radians, target: target)
         }
@@ -120,17 +122,25 @@ private extension Gate {
         return layer
     }
 
-    func makeOracleLayer(qubitCount: Int, inputs: [Int]) -> [CircuitViewPosition] {
+    func makeMatrixLayer(qubitCount: Int, inputs: [Int]) -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
-        guard inputs.allSatisfy({ layer.indices.contains($0) }) else {
-            os_log("makeOracleLayer failed: one or more inputs are out of range",
+        guard inputs.count > 0 else {
+            os_log("makeMatrixLayer failed: no inputs provided",
                    log: LoggerFactory.makeLogger(),
                    type: .debug)
 
             return layer
         }
 
-        guard inputs.count > 1 else {
+        guard inputs.allSatisfy({ layer.indices.contains($0) }) else {
+            os_log("makeMatrixLayer failed: one or more inputs are out of range",
+                   log: LoggerFactory.makeLogger(),
+                   type: .debug)
+
+            return layer
+        }
+
+        if (inputs.count == 1) {
             layer[inputs[0]] = .matrix
 
             return layer
@@ -147,6 +157,68 @@ private extension Gate {
             layer[index] = (isInputConnected ? .matrixMiddleConnected : .matrixMiddleUnconnected)
         }
         layer[last] = .matrixTop(inputs: inputs)
+
+        return layer
+    }
+
+    func makeOracleLayer(qubitCount: Int, target: Int, controls: [Int]) -> [CircuitViewPosition] {
+        var layer = makeEmptyLayer(qubitCount: qubitCount)
+        guard controls.count > 0 else {
+            os_log("makeOracleLayer failed: no controls provided",
+                   log: LoggerFactory.makeLogger(),
+                   type: .debug)
+
+            return layer
+        }
+
+        guard !controls.contains(target) else {
+            os_log("makeOracleLayer failed: target is also a control",
+                   log: LoggerFactory.makeLogger(),
+                   type: .debug)
+
+            return layer
+        }
+
+        guard (controls + [target]).allSatisfy({ layer.indices.contains($0) }) else {
+            os_log("makeOracleLayer failed: one or more inputs are out of range",
+                   log: LoggerFactory.makeLogger(),
+                   type: .debug)
+
+            return layer
+        }
+
+        let sortedControls = controls.sorted()
+        let firstControl = sortedControls.first!
+        let lastControl = sortedControls.last!
+
+        let isTargetAbove = (target > lastControl)
+        let isTargetBelow = (target < firstControl)
+
+        if (controls.count == 1) {
+            layer[firstControl] = (isTargetAbove ? .oracleUp : .oracleDown)
+        } else {
+            layer[firstControl] = .oracleBottom(connected: isTargetBelow)
+            for index in (firstControl + 1)..<lastControl {
+                let isInputConnected = sortedControls.contains(index)
+
+                layer[index] = (isInputConnected ?
+                    .matrixMiddleConnected :
+                    .matrixMiddleUnconnected)
+            }
+            layer[lastControl] = .oracleTop(controls: controls, connected: isTargetAbove)
+        }
+
+        if (isTargetAbove || isTargetBelow) {
+            layer[target] = (isTargetAbove ? .controlledNotDown : .controlledNotUp)
+
+            let step = (isTargetAbove ? -1 : 1)
+            let control = (isTargetAbove ? lastControl : firstControl)
+            for index in stride(from: (target + step), to: control, by: step) {
+                layer[index] = .crossedLines
+            }
+        } else {
+            layer[target] = .controlledNot
+        }
 
         return layer
     }

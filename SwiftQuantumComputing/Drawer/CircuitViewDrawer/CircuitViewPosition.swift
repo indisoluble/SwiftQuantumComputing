@@ -29,6 +29,7 @@ enum CircuitViewPosition: Equatable {
     case hadamard
     case not
     case phaseShift(radians: Double)
+    case controlledNot
     case controlledNotDown
     case controlledNotUp
     case controlUp
@@ -38,4 +39,8 @@ enum CircuitViewPosition: Equatable {
     case matrixBottom
     case matrixMiddleConnected
     case matrixMiddleUnconnected
+    case oracleUp
+    case oracleDown
+    case oracleTop(controls: [Int], connected: Bool)
+    case oracleBottom(connected: Bool)
 } 

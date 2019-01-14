@@ -23,7 +23,7 @@ import Foundation
 // MARK: - BackendGate methods
 
 extension Gate: BackendGate {
-    func extract() -> (matrix: Matrix, inputs: [Int]) {
+    func extract() -> (matrix: Matrix?, inputs: [Int]) {
         switch self {
         case .controlledNot(let target, let control):
             return (Constants.matrixControlledNot, [control, target])
@@ -33,6 +33,11 @@ extension Gate: BackendGate {
             return (matrix, inputs)
         case .not(let target):
             return (Constants.matrixNot, [target])
+        case .oracle(let truthTable, let target, let controls):
+            let matrix = Matrix.makeOracle(truthTable: truthTable, controlCount: controls.count)
+            let inputs = controls + [target]
+
+            return (matrix, inputs)
         case .phaseShift(let radians, let target):
             return (Matrix.makePhaseShift(radians: radians), [target])
         }

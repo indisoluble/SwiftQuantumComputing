@@ -1,9 +1,9 @@
 //
-//  BackendGate.swift
+//  OracleBottomPositionView.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 13/01/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,8 +20,6 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol BackendGate {
-    func extract() -> (matrix: Matrix?, inputs: [Int])
-}
+final class OracleBottomPositionView: PositionView {}
