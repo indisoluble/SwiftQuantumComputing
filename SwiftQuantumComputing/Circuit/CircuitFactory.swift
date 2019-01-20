@@ -31,7 +31,7 @@ public struct CircuitFactory {
 
     // MARK: - Public class methods
 
-    public static func makeCircuit(gates: [Gate], qubitCount: Int) -> Circuit? {
+    public static func makeCircuit(qubitCount: Int, gates: [Gate]) -> Circuit? {
         guard let drawer = CircuitViewDrawer(qubitCount: qubitCount) else {
             os_log("makeCircuit failed: unable to build circuit drawer",
                    log: logger,
@@ -63,6 +63,6 @@ public struct CircuitFactory {
             return nil
         }
 
-        return CircuitFactory.makeCircuit(gates: gates, qubitCount: qubitCount)
+        return CircuitFactory.makeCircuit(qubitCount: qubitCount, gates: gates)
     }
 }
