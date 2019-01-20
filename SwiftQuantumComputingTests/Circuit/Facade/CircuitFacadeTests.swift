@@ -35,14 +35,6 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyCircuit_gates_returnExpectedValue() {
-        // Given
-        let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend, factory: factory)
-
-        // Then
-        XCTAssertEqual(facade.gates, gates)
-    }
-
     func testAnyCircuit_playgroundDescription_forwardCallToDrawer() {
         // Given
         let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend, factory: factory)

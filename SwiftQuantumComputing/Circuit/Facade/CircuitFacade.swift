@@ -25,12 +25,9 @@ import os.log
 
 struct CircuitFacade {
 
-    // MARK: - Internal properties
-
-    let gates: [Gate]
-
     // MARK: - Private properties
 
+    private let gates: [Gate]
     private let drawer: Drawable
     private let backend: Backend
     private let factory: BackendRegisterFactory
