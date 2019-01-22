@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 public protocol CircuitGateFactory {
-    func makeGate(inputs: [Int]) -> Gate?
+    func makeGate(inputs: [Int]) -> FixedGate?
 }

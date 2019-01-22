@@ -1,5 +1,5 @@
 //
-//  Gate.swift
+//  FixedGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/12/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Types
 
-public enum Gate {
+public enum FixedGate {
     case controlledNot(target: Int, control: Int)
     case hadamard(target: Int)
     case matrix(matrix: Matrix, inputs: [Int])
@@ -33,8 +33,8 @@ public enum Gate {
 
 // MARK: - Equatable methods
 
-extension Gate: Equatable {
-    public static func ==(lhs: Gate, rhs: Gate) -> Bool {
+extension FixedGate: Equatable {
+    public static func ==(lhs: FixedGate, rhs: FixedGate) -> Bool {
         switch (lhs, rhs) {
         case (let .controlledNot(t1, c1), let .controlledNot(t2, c2)):
             return ((t1 == t2) && (c1 == c2))

@@ -1,5 +1,5 @@
 //
-//  Gate+BackendGate.swift
+//  FixedGate+BackendGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 16/12/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - BackendGate methods
 
-extension Gate: BackendGate {
+extension FixedGate: BackendGate {
     func extract() -> (matrix: Matrix?, inputs: [Int]) {
         switch self {
         case .controlledNot(let target, let control):
@@ -46,7 +46,7 @@ extension Gate: BackendGate {
 
 // MARK: - Private body
 
-private extension Gate {
+private extension FixedGate {
 
     // MARK: - Constants
 

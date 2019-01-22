@@ -76,8 +76,8 @@ struct GatesRandomizer {
 
     // MARK: - Internal methods
 
-    func execute() -> [Gate] {
-        var result: [Gate] = []
+    func execute() -> [FixedGate] {
+        var result: [FixedGate] = []
 
         for _ in 0..<depth {
             guard let factory = randomFactory() else {

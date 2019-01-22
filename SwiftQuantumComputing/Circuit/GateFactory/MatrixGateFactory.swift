@@ -45,7 +45,7 @@ public struct MatrixGateFactory {
 // MARK: - CircuitGateFactory methods
 
 extension MatrixGateFactory: CircuitGateFactory {
-    public func makeGate(inputs: [Int]) -> Gate? {
+    public func makeGate(inputs: [Int]) -> FixedGate? {
         guard qubitCount > 0 else {
             os_log("makeGate: unable to produce a U gate with 0 qubits (check matrix)",
                    log: MatrixGateFactory.logger,

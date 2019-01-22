@@ -43,7 +43,7 @@ public struct PhaseShiftGateFactory {
 // MARK: - CircuitGateFactory methods
 
 extension PhaseShiftGateFactory: CircuitGateFactory {
-    public func makeGate(inputs: [Int]) -> Gate? {
+    public func makeGate(inputs: [Int]) -> FixedGate? {
         guard let target = inputs.first else {
             os_log("makeGate: not enough inputs to produce a R gate",
                    log: PhaseShiftGateFactory.logger,

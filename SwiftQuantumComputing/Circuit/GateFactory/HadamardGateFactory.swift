@@ -37,7 +37,7 @@ public struct HadamardGateFactory {
 // MARK: - CircuitGateFactory methods
 
 extension HadamardGateFactory: CircuitGateFactory {
-    public func makeGate(inputs: [Int]) -> Gate? {
+    public func makeGate(inputs: [Int]) -> FixedGate? {
         guard let target = inputs.first else {
             os_log("makeGate: not enough inputs to produce a H gate",
                    log: HadamardGateFactory.logger,

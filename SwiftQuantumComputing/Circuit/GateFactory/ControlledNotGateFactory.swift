@@ -37,7 +37,7 @@ public struct ControlledNotGateFactory {
 // MARK: - CircuitGateFactory methods
 
 extension ControlledNotGateFactory: CircuitGateFactory {
-    public func makeGate(inputs: [Int]) -> Gate? {
+    public func makeGate(inputs: [Int]) -> FixedGate? {
         guard inputs.count > 1 else {
             os_log("makeGate: not enough inputs to produce a CX gate",
                    log: ControlledNotGateFactory.logger,

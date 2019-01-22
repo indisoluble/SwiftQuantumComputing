@@ -27,7 +27,7 @@ struct CircuitFacade {
 
     // MARK: - Private properties
 
-    private let gates: [Gate]
+    private let gates: [FixedGate]
     private let drawer: Drawable
     private let backend: Backend
     private let factory: BackendRegisterFactory
@@ -38,7 +38,7 @@ struct CircuitFacade {
 
     // MARK: - Internal init methods
 
-    init(gates: [Gate], drawer: Drawable, backend: Backend, factory: BackendRegisterFactory) {
+    init(gates: [FixedGate], drawer: Drawable, backend: Backend, factory: BackendRegisterFactory) {
         self.gates = gates
         self.drawer = drawer
         self.backend = backend

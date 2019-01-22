@@ -45,7 +45,7 @@ public struct OracleGateFactory {
 // MARK: - CircuitGateFactory methods
 
 extension OracleGateFactory: CircuitGateFactory {
-    public func makeGate(inputs: [Int]) -> Gate? {
+    public func makeGate(inputs: [Int]) -> FixedGate? {
         guard truthTableQubitCount > 0 else {
             os_log("makeGate: unable to produce an oracle gate with 0 qubits (check truth table)",
                    log: OracleGateFactory.logger,
@@ -62,8 +62,8 @@ extension OracleGateFactory: CircuitGateFactory {
             return nil
         }
 
-        return Gate.oracle(truthTable: truthTable,
-                           target: inputs[truthTableQubitCount],
-                           controls: Array(inputs[0..<truthTableQubitCount]))
+        return FixedGate.oracle(truthTable: truthTable,
+                                target: inputs[truthTableQubitCount],
+                                controls: Array(inputs[0..<truthTableQubitCount]))
     }
 }

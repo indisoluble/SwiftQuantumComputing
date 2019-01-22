@@ -29,14 +29,14 @@ final class DrawerTestDouble {
     // MARK: - Internal properties
 
     private (set) var drawCircuitCount = 0
-    private (set) var lastDrawCircuitCircuit: [Gate]?
+    private (set) var lastDrawCircuitCircuit: [FixedGate]?
     var drawCircuitResult: SQCView!
 }
 
 // MARK: - Drawable methods
 
 extension DrawerTestDouble: Drawable {
-    func drawCircuit(_ circuit: [Gate]) -> SQCView {
+    func drawCircuit(_ circuit: [FixedGate]) -> SQCView {
         drawCircuitCount += 1
 
         lastDrawCircuitCircuit = circuit

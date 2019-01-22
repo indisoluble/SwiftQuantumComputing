@@ -64,7 +64,7 @@ class GatesRandomizerTests: XCTestCase {
         // Then
         XCTAssertEqual(randomFactoryCount, 0)
         XCTAssertEqual(shuffledQubitsCount, 0)
-        XCTAssertEqual(result, [] as [Gate])
+        XCTAssertEqual(result, [] as [FixedGate])
     }
 
     func testRandomizerWithZeroGateFactoriesAndPositiveDepth_execute_returnEmptyList() {
@@ -95,7 +95,7 @@ class GatesRandomizerTests: XCTestCase {
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
         XCTAssertEqual(shuffledQubitsCount, 0)
-        XCTAssertEqual(result, [] as [Gate])
+        XCTAssertEqual(result, [] as [FixedGate])
     }
 
     func testRandomizerWithGateFactoriesAbleToBuildGatesForCircuitAndPositiveDepth_execute_returnExpectedGates() {
@@ -104,7 +104,7 @@ class GatesRandomizerTests: XCTestCase {
         let depth = 10
 
         var factories: [CircuitGateFactory] = []
-        var expectedGates: [Gate] = []
+        var expectedGates: [FixedGate] = []
 
         var isEven = true
         for _ in 0..<depth {
@@ -153,7 +153,7 @@ class GatesRandomizerTests: XCTestCase {
 
         var factories: [CircuitGateFactory] = []
         var qubitsArray: [[Int]] = []
-        var expectedGates: [Gate] = []
+        var expectedGates: [FixedGate] = []
 
         var isEven = true
         for _ in 0..<depth {
