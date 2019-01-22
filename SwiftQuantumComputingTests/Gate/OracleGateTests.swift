@@ -1,5 +1,5 @@
 //
-//  OracleGateFactoryTests.swift
+//  OracleGateTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/01/2019.
@@ -24,40 +24,40 @@ import XCTest
 
 // MARK: - Main body
 
-class OracleGateFactoryTests: XCTestCase {
+class OracleGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testFactoryWithZeroTruthTableQubits_makeGate_returnNil() {
+    func testFactoryWithZeroTruthTableQubits_makeFixed_returnNil() {
         // Given
-        let factory = OracleGateFactory(truthTable: [], truthTableQubitCount: 0)
+        let factory = OracleGate(truthTable: [], truthTableQubitCount: 0)
 
         // Then
-        XCTAssertNil(factory.makeGate(inputs: [0]))
+        XCTAssertNil(factory.makeFixed(inputs: [0]))
     }
 
-    func testAnyFactoryAndAsManyInpusAsTruthTableQubits_makeGate_returnNil() {
+    func testAnyFactoryAndAsManyInpusAsTruthTableQubits_makeFixed_returnNil() {
         // Given
         let truthTableQubitCount = 3
-        let factory = OracleGateFactory(truthTable: [], truthTableQubitCount: truthTableQubitCount)
+        let factory = OracleGate(truthTable: [], truthTableQubitCount: truthTableQubitCount)
 
         let inputs = Array(0..<truthTableQubitCount)
 
         // Then
-        XCTAssertNil(factory.makeGate(inputs: inputs))
+        XCTAssertNil(factory.makeFixed(inputs: inputs))
     }
 
-    func testAnyFactoryAndOneInputMoreThanTruthTableQubits_makeGate_returnExpectedGate() {
+    func testAnyFactoryAndOneInputMoreThanTruthTableQubits_makeFixed_returnExpectedGate() {
         // Given
         let expectedTruthTable = ["000", "111"]
         let expectedTruthTableQubitCount = 3
-        let factory = OracleGateFactory(truthTable: expectedTruthTable,
-                                        truthTableQubitCount: expectedTruthTableQubitCount)
+        let factory = OracleGate(truthTable: expectedTruthTable,
+                                 truthTableQubitCount: expectedTruthTableQubitCount)
 
         let inputs = Array((0..<(expectedTruthTableQubitCount + 1)).reversed())
 
         // When
-        guard let result = factory.makeGate(inputs: inputs) else {
+        guard let result = factory.makeFixed(inputs: inputs) else {
             XCTAssert(false)
 
             return

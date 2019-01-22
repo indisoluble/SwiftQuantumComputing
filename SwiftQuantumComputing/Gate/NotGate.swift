@@ -1,5 +1,5 @@
 //
-//  ControlledNotGateFactory.swift
+//  NotGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -23,7 +23,7 @@ import os.log
 
 // MARK: - Main body
 
-public struct ControlledNotGateFactory {
+public struct NotGate {
 
     // MARK: - Private class properties
 
@@ -34,18 +34,18 @@ public struct ControlledNotGateFactory {
     public init() {}
 }
 
-// MARK: - CircuitGateFactory methods
+// MARK: - Gate methods
 
-extension ControlledNotGateFactory: CircuitGateFactory {
-    public func makeGate(inputs: [Int]) -> FixedGate? {
-        guard inputs.count > 1 else {
-            os_log("makeGate: not enough inputs to produce a CX gate",
-                   log: ControlledNotGateFactory.logger,
+extension NotGate: Gate {
+    public func makeFixed(inputs: [Int]) -> FixedGate? {
+        guard let target = inputs.first else {
+            os_log("makeFixed: not enough inputs to produce a X gate",
+                   log: NotGate.logger,
                    type: .debug)
 
             return nil
         }
 
-        return .controlledNot(target: inputs[0], control: inputs[1])
+        return .not(target: target)
     }
 }

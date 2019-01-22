@@ -27,13 +27,13 @@ struct GatesRandomizer {
 
     // MARK: - Types
 
-    typealias RandomFactory = () -> CircuitGateFactory?
+    typealias RandomGate = () -> Gate?
     typealias ShuffledQubits = () -> [Int]
 
     // MARK: - Private properties
 
     private let depth: Int
-    private let randomFactory: RandomFactory
+    private let randomGate: RandomGate
     private let shuffledQubits: ShuffledQubits
 
     // MARK: - Private class properties
@@ -42,7 +42,7 @@ struct GatesRandomizer {
 
     // MARK: - Internal init methods
 
-    init?(qubitCount: Int, depth: Int, factories: [CircuitGateFactory]) {
+    init?(qubitCount: Int, depth: Int, gates: [Gate]) {
         guard qubitCount > 0 else {
             os_log("init failed: circuit has to have at least 1 qubit",
                    log: GatesRandomizer.logger,
@@ -54,12 +54,12 @@ struct GatesRandomizer {
         let qubits = Array(0..<qubitCount)
 
         self.init(depth: depth,
-                  randomFactory: { factories.randomElement() },
+                  randomGate: { gates.randomElement() },
                   shuffledQubits: { qubits.shuffled() })
     }
 
     init?(depth: Int,
-          randomFactory: @escaping RandomFactory,
+          randomGate: @escaping RandomGate,
           shuffledQubits: @escaping ShuffledQubits) {
         guard depth >= 0 else {
             os_log("init failed: depth has to be a positive number",
@@ -70,7 +70,7 @@ struct GatesRandomizer {
         }
 
         self.depth = depth
-        self.randomFactory = randomFactory
+        self.randomGate = randomGate
         self.shuffledQubits = shuffledQubits
     }
 
@@ -80,15 +80,15 @@ struct GatesRandomizer {
         var result: [FixedGate] = []
 
         for _ in 0..<depth {
-            guard let factory = randomFactory() else {
+            guard let gate = randomGate() else {
                 continue
             }
 
-            guard let gate = factory.makeGate(inputs: shuffledQubits()) else {
+            guard let fixed = gate.makeFixed(inputs: shuffledQubits()) else {
                 continue
             }
 
-            result.append(gate)
+            result.append(fixed)
         }
 
         return result

@@ -1,5 +1,5 @@
 //
-//  ControlledNotGateFactoryTests.swift
+//  ControlledNotGateTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 21/12/2018.
@@ -24,25 +24,25 @@ import XCTest
 
 // MARK: - Main body
 
-class ControlledNotGateFactoryTests: XCTestCase {
+class ControlledNotGateTests: XCTestCase {
 
     // MARK: - Properties
 
-    let factory = ControlledNotGateFactory()
+    let factory = ControlledNotGate()
 
     // MARK: - Tests
 
-    func testAnyFactoryAndOnlyOneInput_makeGate_returnNil() {
+    func testAnyFactoryAndOnlyOneInput_makeFixed_returnNil() {
         // Then
-        XCTAssertNil(factory.makeGate(inputs: [0]))
+        XCTAssertNil(factory.makeFixed(inputs: [0]))
     }
 
-    func testAnyFactoryAndThreeInputs_makeGate_returnExpectedGate() {
+    func testAnyFactoryAndThreeInputs_makeFixed_returnExpectedGate() {
         // Given
         let inputs = [0, 1, 2]
 
         // When
-        guard let result = factory.makeGate(inputs: inputs) else {
+        guard let result = factory.makeFixed(inputs: inputs) else {
             XCTAssert(false)
 
             return

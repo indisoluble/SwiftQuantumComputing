@@ -1,5 +1,5 @@
 //
-//  NotGateFactory.swift
+//  MatrixGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -23,7 +23,12 @@ import os.log
 
 // MARK: - Main body
 
-public struct NotGateFactory {
+public struct MatrixGate {
+
+    // MARK: - Private properties
+
+    private let matrix: Matrix
+    private let qubitCount: Int
 
     // MARK: - Private class properties
 
@@ -31,21 +36,32 @@ public struct NotGateFactory {
 
     // MARK: - Public init methods
 
-    public init() {}
+    public init(matrix: Matrix) {
+        self.matrix = matrix
+        qubitCount = Int.log2(matrix.rowCount)
+    }
 }
 
-// MARK: - CircuitGateFactory methods
+// MARK: - Gate methods
 
-extension NotGateFactory: CircuitGateFactory {
-    public func makeGate(inputs: [Int]) -> FixedGate? {
-        guard let target = inputs.first else {
-            os_log("makeGate: not enough inputs to produce a X gate",
-                   log: NotGateFactory.logger,
+extension MatrixGate: Gate {
+    public func makeFixed(inputs: [Int]) -> FixedGate? {
+        guard qubitCount > 0 else {
+            os_log("makeFixed: unable to produce a U gate with 0 qubits (check matrix)",
+                   log: MatrixGate.logger,
                    type: .debug)
 
             return nil
         }
 
-        return .not(target: target)
+        guard inputs.count >= qubitCount else {
+            os_log("makeFixed: not enough inputs to produce a U gate",
+                   log: MatrixGate.logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        return .matrix(matrix: matrix, inputs: Array(inputs[0..<qubitCount]))
     }
 }

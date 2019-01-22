@@ -1,5 +1,5 @@
 //
-//  PhaseShiftGateFactory.swift
+//  PhaseShiftGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -23,7 +23,7 @@ import os.log
 
 // MARK: - Main body
 
-public struct PhaseShiftGateFactory {
+public struct PhaseShiftGate {
 
     // MARK: - Private properties
 
@@ -40,13 +40,13 @@ public struct PhaseShiftGateFactory {
     }
 }
 
-// MARK: - CircuitGateFactory methods
+// MARK: - Gate methods
 
-extension PhaseShiftGateFactory: CircuitGateFactory {
-    public func makeGate(inputs: [Int]) -> FixedGate? {
+extension PhaseShiftGate: Gate {
+    public func makeFixed(inputs: [Int]) -> FixedGate? {
         guard let target = inputs.first else {
-            os_log("makeGate: not enough inputs to produce a R gate",
-                   log: PhaseShiftGateFactory.logger,
+            os_log("makeFixed: not enough inputs to produce a R gate",
+                   log: PhaseShiftGate.logger,
                    type: .debug)
 
             return nil

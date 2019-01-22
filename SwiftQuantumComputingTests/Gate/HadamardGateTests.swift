@@ -1,5 +1,5 @@
 //
-//  NotGateFactoryTests.swift
+//  HadamardGateTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 21/12/2018.
@@ -24,25 +24,25 @@ import XCTest
 
 // MARK: - Main body
 
-class NotGateFactoryTests: XCTestCase {
+class HadamardGateTests: XCTestCase {
 
     // MARK: - Properties
 
-    let factory = NotGateFactory()
+    let factory = HadamardGate()
 
     // MARK: - Tests
 
-    func testAnyFactoryAndZeroInputs_makeGate_returnNil() {
+    func testAnyFactoryAndZeroInputs_makeFixed_returnNil() {
         // Then
-        XCTAssertNil(factory.makeGate(inputs: []))
+        XCTAssertNil(factory.makeFixed(inputs: []))
     }
 
-    func testAnyFactoryAndTwoInputs_makeGate_returnExpectedGate() {
+    func testAnyFactoryAndTwoInputs_makeFixed_returnExpectedGate() {
         // Given
         let inputs = [0, 1]
 
         // When
-        guard let result = factory.makeGate(inputs: inputs) else {
+        guard let result = factory.makeFixed(inputs: inputs) else {
             XCTAssert(false)
 
             return
@@ -50,7 +50,7 @@ class NotGateFactoryTests: XCTestCase {
 
         // Then
         switch result {
-        case let .not(target):
+        case let .hadamard(target):
             XCTAssertEqual(inputs[0], target)
         default:
             XCTAssert(false)

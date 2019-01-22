@@ -6,18 +6,18 @@ let uf2 = Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)],
                   [Complex(1), Complex(0), Complex(0), Complex(0)],
                   [Complex(0), Complex(0), Complex(1), Complex(0)],
                   [Complex(0), Complex(0), Complex(0), Complex(1)]])!
-let factories: [CircuitGateFactory] = [
-    ControlledNotGateFactory(),
-    HadamardGateFactory(),
-    MatrixGateFactory(matrix: uf1),
-    MatrixGateFactory(matrix: uf2),
-    NotGateFactory(),
-    OracleGateFactory(truthTable: ["1"], truthTableQubitCount: 1),
-    OracleGateFactory(truthTable: ["110", "10", "0"], truthTableQubitCount: 3),
-    PhaseShiftGateFactory(radians: acos(Double(3) / Double(5)))
+let gates: [Gate] = [
+    ControlledNotGate(),
+    HadamardGate(),
+    MatrixGate(matrix: uf1),
+    MatrixGate(matrix: uf2),
+    NotGate(),
+    OracleGate(truthTable: ["1"], truthTableQubitCount: 1),
+    OracleGate(truthTable: ["110", "10", "0"], truthTableQubitCount: 3),
+    PhaseShiftGate(radians: acos(Double(3) / Double(5)))
 ]
 
-let circuit = CircuitFactory.makeRandomizedCircuit(qubitCount: 8, depth: 10, factories: factories)!
+let circuit = CircuitFactory.makeRandomizedCircuit(qubitCount: 8, depth: 10, gates: gates)!
 
 let date = Date()
 print("Measuring ...")

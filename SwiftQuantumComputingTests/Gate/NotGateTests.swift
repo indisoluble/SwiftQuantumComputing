@@ -1,5 +1,5 @@
 //
-//  PhaseShiftGateFactoryTests.swift
+//  NotGateTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 21/12/2018.
@@ -24,27 +24,25 @@ import XCTest
 
 // MARK: - Main body
 
-class PhaseShiftGateFactoryTests: XCTestCase {
+class NotGateTests: XCTestCase {
+
+    // MARK: - Properties
+
+    let factory = NotGate()
 
     // MARK: - Tests
 
-    func testAnyFactoryAndZeroInputs_makeGate_returnNil() {
-        // Given
-        let factory = PhaseShiftGateFactory(radians: 0.0)
-
+    func testAnyFactoryAndZeroInputs_makeFixed_returnNil() {
         // Then
-        XCTAssertNil(factory.makeGate(inputs: []))
+        XCTAssertNil(factory.makeFixed(inputs: []))
     }
 
-    func testAnyFactoryAndTwoInputs_makeGate_returnExpectedGate() {
+    func testAnyFactoryAndTwoInputs_makeFixed_returnExpectedGate() {
         // Given
-        let radians = 0.1
-        let factory = PhaseShiftGateFactory(radians: radians)
-
         let inputs = [0, 1]
 
         // When
-        guard let result = factory.makeGate(inputs: inputs) else {
+        guard let result = factory.makeFixed(inputs: inputs) else {
             XCTAssert(false)
 
             return
@@ -52,8 +50,7 @@ class PhaseShiftGateFactoryTests: XCTestCase {
 
         // Then
         switch result {
-        case let .phaseShift(gateRadians, target):
-            XCTAssertEqual(radians, gateRadians)
+        case let .not(target):
             XCTAssertEqual(inputs[0], target)
         default:
             XCTAssert(false)

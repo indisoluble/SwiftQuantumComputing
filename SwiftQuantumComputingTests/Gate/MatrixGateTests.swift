@@ -1,5 +1,5 @@
 //
-//  MatrixGateFactoryTests.swift
+//  MatrixGateTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 21/12/2018.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class MatrixGateFactoryTests: XCTestCase {
+class MatrixGateTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -36,21 +36,21 @@ class MatrixGateFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testFactoryWithTwoQubitsMatrixAndOneInput_makeGate_returnNil() {
+    func testFactoryWithTwoQubitsMatrixAndOneInput_makeFixed_returnNil() {
         // Given
-        let factory = MatrixGateFactory(matrix: matrix)
+        let factory = MatrixGate(matrix: matrix)
 
         // Then
-        XCTAssertNil(factory.makeGate(inputs: [0]))
+        XCTAssertNil(factory.makeFixed(inputs: [0]))
     }
 
-    func testFactoryWithTwoQubitsMatrixAndFourInputs_makeGate_returnExpectedGate() {
+    func testFactoryWithTwoQubitsMatrixAndFourInputs_makeFixed_returnExpectedGate() {
         // Given
-        let factory = MatrixGateFactory(matrix: matrix)
+        let factory = MatrixGate(matrix: matrix)
         let inputs = [0, 1, 2, 3]
 
         // When
-        guard let result = factory.makeGate(inputs: inputs) else {
+        guard let result = factory.makeFixed(inputs: inputs) else {
             XCTAssert(false)
 
             return
@@ -68,15 +68,15 @@ class MatrixGateFactoryTests: XCTestCase {
 
     func testMatrixWithOneRow_init_returnGate() {
         // Then
-        XCTAssertNotNil(MatrixGateFactory(matrix: oneRow))
+        XCTAssertNotNil(MatrixGate(matrix: oneRow))
     }
 
-    func testFactoryWithOneRowMatrix_makeGate_returnNil() {
+    func testFactoryWithOneRowMatrix_makeFixed_returnNil() {
         // Given
-        let factory = MatrixGateFactory(matrix: oneRow)
+        let factory = MatrixGate(matrix: oneRow)
         let inputs: [Int] = []
 
         // Then
-        XCTAssertNil(factory.makeGate(inputs: inputs))
+        XCTAssertNil(factory.makeFixed(inputs: inputs))
     }
 }

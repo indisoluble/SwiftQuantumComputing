@@ -1,5 +1,5 @@
 //
-//  CircuitGateFactory.swift
+//  HadamardGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -19,9 +19,33 @@
 //
 
 import Foundation
+import os.log
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-public protocol CircuitGateFactory {
-    func makeGate(inputs: [Int]) -> FixedGate?
+public struct HadamardGate {
+
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
+
+    // MARK: - Public init methods
+
+    public init() {}
+}
+
+// MARK: - Gate methods
+
+extension HadamardGate: Gate {
+    public func makeFixed(inputs: [Int]) -> FixedGate? {
+        guard let target = inputs.first else {
+            os_log("makeFixed: not enough inputs to produce a H gate",
+                   log: HadamardGate.logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        return .hadamard(target: target)
+    }
 }

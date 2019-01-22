@@ -1,5 +1,5 @@
 //
-//  OracleGateFactory.swift
+//  OracleGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/01/2019.
@@ -23,7 +23,7 @@ import os.log
 
 // MARK: - Main body
 
-public struct OracleGateFactory {
+public struct OracleGate {
 
     // MARK: - Private properties
 
@@ -42,28 +42,28 @@ public struct OracleGateFactory {
     }
 }
 
-// MARK: - CircuitGateFactory methods
+// MARK: - Gate methods
 
-extension OracleGateFactory: CircuitGateFactory {
-    public func makeGate(inputs: [Int]) -> FixedGate? {
+extension OracleGate: Gate {
+    public func makeFixed(inputs: [Int]) -> FixedGate? {
         guard truthTableQubitCount > 0 else {
-            os_log("makeGate: unable to produce an oracle gate with 0 qubits (check truth table)",
-                   log: OracleGateFactory.logger,
+            os_log("makeFixed: unable to produce an oracle gate with 0 qubits (check truth table)",
+                   log: OracleGate.logger,
                    type: .debug)
 
             return nil
         }
 
         guard inputs.count >= (truthTableQubitCount + 1) else {
-            os_log("makeGate: not enough inputs to produce an oracle gate",
-                   log: OracleGateFactory.logger,
+            os_log("makeFixed: not enough inputs to produce an oracle gate",
+                   log: OracleGate.logger,
                    type: .debug)
 
             return nil
         }
 
-        return FixedGate.oracle(truthTable: truthTable,
-                                target: inputs[truthTableQubitCount],
-                                controls: Array(inputs[0..<truthTableQubitCount]))
+        return .oracle(truthTable: truthTable,
+                       target: inputs[truthTableQubitCount],
+                       controls: Array(inputs[0..<truthTableQubitCount]))
     }
 }
