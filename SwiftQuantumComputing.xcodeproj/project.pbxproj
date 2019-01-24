@@ -46,6 +46,12 @@
 		FF2B47CF21EBF37B004D4789 /* OracleUpPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CE21EBF37B004D4789 /* OracleUpPositionView.xib */; };
 		FF2B47D121EBF4E9004D4789 /* OracleTopPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */; };
 		FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2CD9F9211E177500EA7E86 /* Register.swift */; };
+		FF2D446D21FA65D2002515EF /* GeneticGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D446C21FA65D2002515EF /* GeneticGate.swift */; };
+		FF2D446E21FA65D2002515EF /* GeneticGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D446C21FA65D2002515EF /* GeneticGate.swift */; };
+		FF2D447021FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D446F21FA6FDD002515EF /* SimpleGeneticGate.swift */; };
+		FF2D447121FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D446F21FA6FDD002515EF /* SimpleGeneticGate.swift */; };
+		FF2D447321FA73B5002515EF /* ConfigurableGeneticGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D447221FA73B5002515EF /* ConfigurableGeneticGate.swift */; };
+		FF2D447421FA73B5002515EF /* ConfigurableGeneticGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D447221FA73B5002515EF /* ConfigurableGeneticGate.swift */; };
 		FF343F7C21E6AB81008B8C6B /* Matrix+Oracle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */; };
 		FF343F7D21E6AB81008B8C6B /* Matrix+Oracle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */; };
 		FF3EAC90212DF9E4007AF61E /* BackendRegisterGateFactoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3EAC8F212DF9E4007AF61E /* BackendRegisterGateFactoryAdapter.swift */; };
@@ -292,6 +298,9 @@
 		FF2B47CE21EBF37B004D4789 /* OracleUpPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleUpPositionView.xib; sourceTree = "<group>"; };
 		FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleTopPositionView.xib; sourceTree = "<group>"; };
 		FF2CD9F9211E177500EA7E86 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		FF2D446C21FA65D2002515EF /* GeneticGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticGate.swift; sourceTree = "<group>"; };
+		FF2D446F21FA6FDD002515EF /* SimpleGeneticGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleGeneticGate.swift; sourceTree = "<group>"; };
+		FF2D447221FA73B5002515EF /* ConfigurableGeneticGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableGeneticGate.swift; sourceTree = "<group>"; };
 		FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Oracle.swift"; sourceTree = "<group>"; };
 		FF3EAC8F212DF9E4007AF61E /* BackendRegisterGateFactoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendRegisterGateFactoryAdapter.swift; sourceTree = "<group>"; };
 		FF3EAC93212E06F0007AF61E /* CircuitFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFactory.swift; sourceTree = "<group>"; };
@@ -542,6 +551,24 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		FF2D446A21FA64AB002515EF /* Genetic */ = {
+			isa = PBXGroup;
+			children = (
+				FF2D446B21FA6522002515EF /* GeneticGate */,
+			);
+			path = Genetic;
+			sourceTree = "<group>";
+		};
+		FF2D446B21FA6522002515EF /* GeneticGate */ = {
+			isa = PBXGroup;
+			children = (
+				FF2D447221FA73B5002515EF /* ConfigurableGeneticGate.swift */,
+				FF2D446C21FA65D2002515EF /* GeneticGate.swift */,
+				FF2D446F21FA6FDD002515EF /* SimpleGeneticGate.swift */,
+			);
+			path = GeneticGate;
+			sourceTree = "<group>";
+		};
 		FF34BAD22128B2D50057A803 /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -575,6 +602,7 @@
 				FF1AAFEC211F61AF00D3666A /* Extension */,
 				FFF697F021BF23C7004AE4C2 /* FixedGate */,
 				FFB8106521C6E747006333BB /* Gate */,
+				FF2D446A21FA64AB002515EF /* Genetic */,
 				FF9FBCF021C595050070D943 /* Logger */,
 				FF34BAD22128B2D50057A803 /* Register */,
 			);
@@ -1200,12 +1228,14 @@
 				FF9FBCDF21C57A400070D943 /* MatrixGate.swift in Sources */,
 				FF1A502F212997090023313E /* CircuitFacade.swift in Sources */,
 				FF072EFC21BD8A1D002248AA /* BackendRegister.swift in Sources */,
+				FF2D447021FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */,
 				FFEB7B4321EBCBF8009B916B /* OracleUpPositionView.swift in Sources */,
 				FF9BBE2C214E76E800AD1F78 /* HadamardPositionView.swift in Sources */,
 				FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */,
 				FF9FBCF321C598B10070D943 /* Matrix+Swap.swift in Sources */,
 				FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */,
 				FF9FBCD621C5792E0070D943 /* ControlledNotGate.swift in Sources */,
+				FF2D446D21FA65D2002515EF /* GeneticGate.swift in Sources */,
 				FFEB7B4921EBCC24009B916B /* OracleBottomPositionView.swift in Sources */,
 				FF18358721EA5E7C003E2F04 /* ControlledNotPositionView.swift in Sources */,
 				FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */,
@@ -1235,6 +1265,7 @@
 				FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */,
 				FF9FBCD321C56C270070D943 /* Gate.swift in Sources */,
 				FF9BBE3C214E816D00AD1F78 /* PhaseShiftPositionView.swift in Sources */,
+				FF2D447321FA73B5002515EF /* ConfigurableGeneticGate.swift in Sources */,
 				FFB8106121C6CC37006333BB /* FixedGate+BackendGate.swift in Sources */,
 				FF8725C121D9535B00E1004E /* BackendRegisterFactoryAdapter.swift in Sources */,
 				FFE5F56A21C30F140027519B /* FixedGate.swift in Sources */,
@@ -1337,7 +1368,9 @@
 				FF072EF721BD883C002248AA /* BackendRegisterGateFactory.swift in Sources */,
 				FF46EDD4216924D80044C3CA /* FixedGate+CircuitViewPosition.swift in Sources */,
 				FFEB7B4D21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */,
+				FF2D447121FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */,
 				FFDEDF1B216968F4005590B4 /* PositionView.swift in Sources */,
+				FF2D446E21FA65D2002515EF /* GeneticGate.swift in Sources */,
 				FF46EDE1216924EE0044C3CA /* Matrix+Not.swift in Sources */,
 				FFB5B56A216A5249009C59FC /* PhaseShiftPositionView.swift in Sources */,
 				FF343F7D21E6AB81008B8C6B /* Matrix+Oracle.swift in Sources */,
@@ -1367,6 +1400,7 @@
 				FF663D44216A2697002298BA /* NotPositionView.swift in Sources */,
 				FFB8106221C6CC37006333BB /* FixedGate+BackendGate.swift in Sources */,
 				FF46EDFA216925180044C3CA /* Int+Log2.swift in Sources */,
+				FF2D447421FA73B5002515EF /* ConfigurableGeneticGate.swift in Sources */,
 				FFB5B561216A3BE3009C59FC /* MatrixPositionView.swift in Sources */,
 				FFEB7B4721EBCC0A009B916B /* OracleDownPositionView.swift in Sources */,
 				FFEB7B4421EBCBF8009B916B /* OracleUpPositionView.swift in Sources */,
