@@ -1,9 +1,9 @@
 //
-//  CircuitFactory.swift
+//  GeneticUseCase.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/08/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 26/01/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,8 +20,10 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-public protocol CircuitFactory {
-    func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit?
+struct GeneticUseCase {
+    let truthTable: [String]
+    let truthTableQubitCount: Int
+    let circuitOutput: String
 }

@@ -17,7 +17,8 @@ let gates: [Gate] = [
     PhaseShiftGate(radians: acos(Double(3) / Double(5)))
 ]
 
-let circuit = CircuitFactory.makeRandomizedCircuit(qubitCount: 8, depth: 10, gates: gates)!
+let factory = MainCircuitFactory()
+let circuit = factory.makeRandomizedCircuit(qubitCount: 8, depth: 10, gates: gates)!
 
 let date = Date()
 print("Measuring ...")
