@@ -63,6 +63,10 @@
 		FF2B47D121EBF4E9004D4789 /* OracleTopPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */; };
 		FF2BD6EE21FE0749007410EB /* GeneticCircuitEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2BD6ED21FE0749007410EB /* GeneticCircuitEvaluator.swift */; };
 		FF2BD6EF21FE0749007410EB /* GeneticCircuitEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2BD6ED21FE0749007410EB /* GeneticCircuitEvaluator.swift */; };
+		FF2BD6F221FE3CFA007410EB /* GeneticCrossover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2BD6F121FE3CFA007410EB /* GeneticCrossover.swift */; };
+		FF2BD6F321FE3CFA007410EB /* GeneticCrossover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2BD6F121FE3CFA007410EB /* GeneticCrossover.swift */; };
+		FF2BD6F521FE5B9D007410EB /* Array+RandomSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2BD6F421FE5B9D007410EB /* Array+RandomSplit.swift */; };
+		FF2BD6F621FE5B9D007410EB /* Array+RandomSplit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2BD6F421FE5B9D007410EB /* Array+RandomSplit.swift */; };
 		FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2CD9F9211E177500EA7E86 /* Register.swift */; };
 		FF2D446D21FA65D2002515EF /* GeneticGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D446C21FA65D2002515EF /* GeneticGate.swift */; };
 		FF2D446E21FA65D2002515EF /* GeneticGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2D446C21FA65D2002515EF /* GeneticGate.swift */; };
@@ -324,6 +328,8 @@
 		FF2B47CE21EBF37B004D4789 /* OracleUpPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleUpPositionView.xib; sourceTree = "<group>"; };
 		FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleTopPositionView.xib; sourceTree = "<group>"; };
 		FF2BD6ED21FE0749007410EB /* GeneticCircuitEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticCircuitEvaluator.swift; sourceTree = "<group>"; };
+		FF2BD6F121FE3CFA007410EB /* GeneticCrossover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticCrossover.swift; sourceTree = "<group>"; };
+		FF2BD6F421FE5B9D007410EB /* Array+RandomSplit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+RandomSplit.swift"; sourceTree = "<group>"; };
 		FF2CD9F9211E177500EA7E86 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		FF2D446C21FA65D2002515EF /* GeneticGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticGate.swift; sourceTree = "<group>"; };
 		FF2D446F21FA6FDD002515EF /* SimpleGeneticGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleGeneticGate.swift; sourceTree = "<group>"; };
@@ -577,6 +583,7 @@
 		FF1AAFEC211F61AF00D3666A /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FF2BD6F421FE5B9D007410EB /* Array+RandomSplit.swift */,
 				FFE8FAA02121F54F005686FE /* Int+Derived.swift */,
 				FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */,
 				FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */,
@@ -595,12 +602,21 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		FF2BD6F021FE3BB3007410EB /* Vary */ = {
+			isa = PBXGroup;
+			children = (
+				FF2BD6F121FE3CFA007410EB /* GeneticCrossover.swift */,
+			);
+			path = Vary;
+			sourceTree = "<group>";
+		};
 		FF2D446A21FA64AB002515EF /* Genetic */ = {
 			isa = PBXGroup;
 			children = (
 				FF002BC821FCBD7D00E40C3A /* Evaluate */,
 				FF002BBB21FC8CDD00E40C3A /* Generate */,
 				FF2D446B21FA6522002515EF /* GeneticGate */,
+				FF2BD6F021FE3BB3007410EB /* Vary */,
 				FF002BCC21FCC19200E40C3A /* GeneticUseCase.swift */,
 			);
 			path = Genetic;
@@ -1281,6 +1297,7 @@
 				FF1A502F212997090023313E /* CircuitFacade.swift in Sources */,
 				FF002BC621FCA37600E40C3A /* SimpleGeneticGateFactory.swift in Sources */,
 				FF072EFC21BD8A1D002248AA /* BackendRegister.swift in Sources */,
+				FF2BD6F521FE5B9D007410EB /* Array+RandomSplit.swift in Sources */,
 				FF2D447021FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */,
 				FFEB7B4321EBCBF8009B916B /* OracleUpPositionView.swift in Sources */,
 				FF9BBE2C214E76E800AD1F78 /* HadamardPositionView.swift in Sources */,
@@ -1288,6 +1305,7 @@
 				FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */,
 				FF9FBCF321C598B10070D943 /* Matrix+Swap.swift in Sources */,
 				FF2CD9FA211E177500EA7E86 /* Register.swift in Sources */,
+				FF2BD6F221FE3CFA007410EB /* GeneticCrossover.swift in Sources */,
 				FF2BD6EE21FE0749007410EB /* GeneticCircuitEvaluator.swift in Sources */,
 				FF9FBCD621C5792E0070D943 /* ControlledNotGate.swift in Sources */,
 				FF2D446D21FA65D2002515EF /* GeneticGate.swift in Sources */,
@@ -1412,6 +1430,7 @@
 				FFB5B567216A5184009C59FC /* MatrixTopPositionView.swift in Sources */,
 				FF9FBCDD21C57A160070D943 /* NotGate.swift in Sources */,
 				FFB5B564216A46FB009C59FC /* PositionTextView.swift in Sources */,
+				FF2BD6F621FE5B9D007410EB /* Array+RandomSplit.swift in Sources */,
 				FF46EDFB216925180044C3CA /* Int+Pow.swift in Sources */,
 				FF663D32216A1E7E002298BA /* ControlledNotDownPositionView.swift in Sources */,
 				FF002BCE21FCC19200E40C3A /* GeneticUseCase.swift in Sources */,
@@ -1478,6 +1497,7 @@
 				FF790378219655A600FFC31D /* Circuit+Probabilities.swift in Sources */,
 				FF2BD6EF21FE0749007410EB /* GeneticCircuitEvaluator.swift in Sources */,
 				FF46EDE2216924EE0044C3CA /* Matrix+PhaseShift.swift in Sources */,
+				FF2BD6F321FE3CFA007410EB /* GeneticCrossover.swift in Sources */,
 				FF46EDE9216925040044C3CA /* Circuit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
