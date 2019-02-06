@@ -1,9 +1,9 @@
 //
-//  SQCView.swift
+//  GeneticFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/10/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 31/01/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,10 +20,12 @@
 
 import Foundation
 
-// MARK: - Internal types
+// MARK: - Protocol definition
 
-#if os(macOS)
-typealias SQCView = NSView
-#else
-typealias SQCView = UIView
-#endif
+protocol GeneticFactory {
+    typealias EvolvedCircuit = (eval: Double, gates: [FixedGate], oracleAt: Int?)
+
+    func evolveCircuit(configuration: GeneticConfiguration,
+                       useCases: [GeneticUseCase],
+                       gates: [Gate]) -> EvolvedCircuit?
+}

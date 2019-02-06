@@ -177,7 +177,7 @@ extension Matrix: Equatable {
 
 extension Matrix {
 
-    // MARK: - Types
+    // MARK: - Internal types
 
     enum Transformation {
         case none(_ matrix: Matrix)

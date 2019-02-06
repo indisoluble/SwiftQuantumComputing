@@ -36,7 +36,7 @@ struct GeneticMutation {
 
     // MARK: - Internal init methods
 
-    init?(maxDepth: Int, randomizer: GeneticGatesRandomizer) {
+    init(maxDepth: Int, randomizer: GeneticGatesRandomizer) {
         self.maxDepth = maxDepth
         self.randomizer = randomizer
     }

@@ -20,7 +20,7 @@
 
 import Foundation
 
-// MARK: - Types
+// MARK: - Public types
 
 public enum FixedGate {
     case controlledNot(target: Int, control: Int)

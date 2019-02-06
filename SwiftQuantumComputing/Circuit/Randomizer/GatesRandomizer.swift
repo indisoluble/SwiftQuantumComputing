@@ -25,7 +25,7 @@ import os.log
 
 struct GatesRandomizer {
 
-    // MARK: - Types
+    // MARK: - Internal types
 
     typealias RandomGate = () -> Gate?
     typealias ShuffledQubits = () -> [Int]

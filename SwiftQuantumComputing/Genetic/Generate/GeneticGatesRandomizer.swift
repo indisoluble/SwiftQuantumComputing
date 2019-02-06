@@ -25,7 +25,7 @@ import os.log
 
 struct GeneticGatesRandomizer {
 
-    // MARK: - Types
+    // MARK: - Internal types
 
     typealias RandomFactory = () -> GeneticGateFactory?
     typealias ShuffledQubits = () -> [Int]

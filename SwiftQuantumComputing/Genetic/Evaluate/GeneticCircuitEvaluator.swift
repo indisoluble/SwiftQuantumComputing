@@ -25,7 +25,7 @@ import os.log
 
 struct GeneticCircuitEvaluator {
 
-    // MARK: - Types
+    // MARK: - Internal types
 
     typealias Result = (misses: Int, maxProbability: Double)
 
@@ -48,7 +48,7 @@ struct GeneticCircuitEvaluator {
         }
     }
 
-    // MARK: - Internal class methods
+    // MARK: - Internal methods
 
     func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Result? {
         var success = true
