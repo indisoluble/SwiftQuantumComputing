@@ -22,8 +22,19 @@ import Foundation
 
 // MARK: - Main body
 
-struct GeneticUseCase {
-    let truthTable: [String]
-    let truthTableQubitCount: Int
-    let circuitOutput: String
+public struct GeneticUseCase {
+
+    // MARK: - Public properties
+
+    public let truthTable: [String]
+    public let truthTableQubitCount: Int
+    public let circuitOutput: String
+
+    // MARK: - Public init methods
+
+    public init(truthTable: [String], truthTableQubitCount: Int, circuitOutput: String) {
+        self.truthTable = truthTable
+        self.truthTableQubitCount = truthTableQubitCount
+        self.circuitOutput = circuitOutput
+    }
 }

@@ -23,7 +23,7 @@ import os.log
 
 // MARK: - Main body
 
-struct MainGeneticFactory {
+public struct MainGeneticFactory {
 
     // MARK: - Private types
 
@@ -38,15 +38,19 @@ struct MainGeneticFactory {
     // MARK: - Private class properties
 
     private static let logger = LoggerFactory.makeLogger()
+
+    // MARK: - Public init methods
+
+    public init() {}
 }
 
 
 // MARK: - GeneticFactory methods
 
 extension MainGeneticFactory: GeneticFactory {
-    func evolveCircuit(configuration: GeneticConfiguration,
-                       useCases: [GeneticUseCase],
-                       gates: [Gate]) -> EvolvedCircuit? {
+    public func evolveCircuit(configuration: GeneticConfiguration,
+                              useCases: [GeneticUseCase],
+                              gates: [Gate]) -> EvolvedCircuit? {
         guard let operators = MainGeneticFactory.makeOperators(configuration: configuration,
                                                                useCases: useCases,
                                                                gates: gates) else {

@@ -349,6 +349,7 @@
 		FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Oracle.swift"; sourceTree = "<group>"; };
 		FF3EAC8F212DF9E4007AF61E /* BackendRegisterGateFactoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackendRegisterGateFactoryAdapter.swift; sourceTree = "<group>"; };
 		FF3EAC93212E06F0007AF61E /* CircuitFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFactory.swift; sourceTree = "<group>"; };
+		FF4C1DFF220CEED70088CD3F /* Genetic.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Genetic.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF5C6637211E455800FBCC5A /* RegisterGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGate.swift; sourceTree = "<group>"; };
 		FF5C6639211E474200FBCC5A /* RegisterGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGateTests.swift; sourceTree = "<group>"; };
 		FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftQuantumComputing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -708,6 +709,7 @@
 				FFBA23F821691E0F003E5727 /* SwiftQuantumComputing_macOSTests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
 				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
+				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
 				FF6B12F2214EEEBA00A206B1 /* RandomCircuit.playground */,
 			);
 			sourceTree = "<group>";

@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol GeneticFactory {
+public protocol GeneticFactory {
     typealias EvolvedCircuit = (eval: Double, gates: [FixedGate], oracleAt: Int?)
 
     func evolveCircuit(configuration: GeneticConfiguration,
