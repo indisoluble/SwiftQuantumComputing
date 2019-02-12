@@ -25,10 +25,17 @@ import os.log
 
 struct GeneticMutation {
 
+    // MARK: - Internal types
+
+    typealias RandomSplit = ([GeneticGate]) -> ([GeneticGate], [GeneticGate])
+    typealias RandomElement = ([Int]) -> Int?
+
     // MARK: - Private properties
 
     private let maxDepth: Int
     private let randomizer: GeneticGatesRandomizer
+    private let randomSplit: RandomSplit
+    private let randomElement: RandomElement
 
     // MARK: - Private class properties
 
@@ -37,15 +44,27 @@ struct GeneticMutation {
     // MARK: - Internal init methods
 
     init(maxDepth: Int, randomizer: GeneticGatesRandomizer) {
+        self.init(maxDepth: maxDepth,
+                  randomizer: randomizer,
+                  randomSplit: { $0.randomSplit() },
+                  randomElement: { $0.randomElement() })
+    }
+
+    init(maxDepth: Int,
+         randomizer: GeneticGatesRandomizer,
+         randomSplit: @escaping RandomSplit,
+         randomElement: @escaping RandomElement) {
         self.maxDepth = maxDepth
         self.randomizer = randomizer
+        self.randomSplit = randomSplit
+        self.randomElement = randomElement
     }
 
     // MARK: - Internal methods
 
     func execute(_ circuit: [GeneticGate]) -> [GeneticGate]? {
-        let (c1, cp) = circuit.randomSplit()
-        let (_, c3) = cp.randomSplit()
+        let (c1, cp) = randomSplit(circuit)
+        let (_, c3) = randomSplit(cp)
 
         let remainingDepth = (maxDepth - c1.count - c3.count)
         guard remainingDepth >= 0 else {
@@ -56,7 +75,7 @@ struct GeneticMutation {
             return nil
         }
 
-        let depth = Array(0...remainingDepth).randomElement()!
+        let depth = randomElement(Array(0...remainingDepth))!
         guard let m = randomizer.make(depth: depth) else {
             return nil
         }

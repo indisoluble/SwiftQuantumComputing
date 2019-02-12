@@ -1,8 +1,8 @@
 //
-//  GeneticGatesRandomizer.swift
+//  GateTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/02/2019.
+//  Created by Enrique de la Torre on 12/02/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,27 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+@testable import SwiftQuantumComputing
 
-protocol GeneticGatesRandomizer {
-    func make(depth: Int) -> [GeneticGate]?
+// MARK: - Main body
+
+final class GateTestDouble {
+
+    // MARK: - Internal properties
+
+    private (set) var makeFixedCount = 0
+    private (set) var lastMakeFixedInputs: [Int]?
+    var makeFixedResult: FixedGate?
+}
+
+// MARK: - Gate methods
+
+extension GateTestDouble: Gate {
+    func makeFixed(inputs: [Int]) -> FixedGate? {
+        makeFixedCount += 1
+
+        lastMakeFixedInputs = inputs
+
+        return makeFixedResult
+    }
 }

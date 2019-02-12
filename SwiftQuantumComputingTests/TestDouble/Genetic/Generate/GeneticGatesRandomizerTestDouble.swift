@@ -1,5 +1,5 @@
 //
-//  GeneticGatesRandomizer.swift
+//  GeneticGatesRandomizerTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/02/2019.
@@ -20,8 +20,27 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+@testable import SwiftQuantumComputing
 
-protocol GeneticGatesRandomizer {
-    func make(depth: Int) -> [GeneticGate]?
+// MARK: - Main body
+
+final class GeneticGatesRandomizerTestDouble {
+
+    // MARK: - Internal properties
+
+    private (set) var makeCount = 0
+    private (set) var lastMakeDepth: Int?
+    var makeResult: [GeneticGate]?
+}
+
+// MARK: - GeneticGatesRandomizer methods
+
+extension GeneticGatesRandomizerTestDouble: GeneticGatesRandomizer {
+    func make(depth: Int) -> [GeneticGate]? {
+        makeCount += 1
+
+        lastMakeDepth = depth
+
+        return makeResult
+    }
 }

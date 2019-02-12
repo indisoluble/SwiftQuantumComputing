@@ -316,7 +316,7 @@ private extension MainGeneticFactory {
         var facts: [GeneticGateFactory] = gates.map { SimpleGeneticGateFactory(gate: $0) }
         facts.append(ConfigurableGeneticGateFactory())
 
-        return GeneticGatesRandomizer(qubitCount: configuration.qubitCount, factories: facts)
+        return MainGeneticGatesRandomizer(qubitCount: configuration.qubitCount, factories: facts)
     }
 
     static func makeMutation(configuration: GeneticConfiguration,
