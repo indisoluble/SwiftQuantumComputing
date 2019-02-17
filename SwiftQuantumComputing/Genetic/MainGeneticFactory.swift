@@ -132,11 +132,12 @@ private extension MainGeneticFactory {
 
     func makeEvaluator(configuration: GeneticConfiguration,
                        useCases: [GeneticUseCase]) -> GeneticCircuitEvaluator {
-        return GeneticCircuitEvaluator(qubitCount: configuration.qubitCount,
-                                       useCases: useCases,
-                                       threshold: configuration.threshold,
-                                       factory: MainCircuitFactory(),
-                                       oracleFactory: oracleFactory)
+        let evalfactory = MainGeneticUseCaseEvaluatorFactory(qubitCount: configuration.qubitCount,
+                                                             factory: MainCircuitFactory(),
+                                                             oracleFactory: oracleFactory)
+        let evaluators = useCases.map { evalfactory.makeEvaluator(useCase: $0) }
+
+        return GeneticCircuitEvaluator(threshold: configuration.threshold, evaluators: evaluators)
     }
 
     func makeGenerator(configuration: GeneticConfiguration,

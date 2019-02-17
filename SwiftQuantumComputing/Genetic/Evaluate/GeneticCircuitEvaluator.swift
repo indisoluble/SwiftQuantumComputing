@@ -33,6 +33,7 @@ struct GeneticCircuitEvaluator {
 
     private let threshold: Double
     private let evaluators: [GeneticUseCaseEvaluator]
+
     private let queue = DispatchQueue(label: "com.indisoluble.SwiftQuantumComputing.GeneticCircuitEvaluator.queue")
 
     // MARK: - Private class properties
@@ -41,18 +42,9 @@ struct GeneticCircuitEvaluator {
 
     // MARK: - Internal init methods
 
-    init(qubitCount: Int,
-         useCases: [GeneticUseCase],
-         threshold: Double,
-         factory: CircuitFactory,
-         oracleFactory: OracleCircuitFactory) {
+    init(threshold: Double, evaluators: [GeneticUseCaseEvaluator]) {
         self.threshold = threshold
-        evaluators = useCases.map {
-            GeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                    useCase: $0,
-                                    factory: factory,
-                                    oracleFactory: oracleFactory)
-        }
+        self.evaluators = evaluators
     }
 
     // MARK: - Internal methods

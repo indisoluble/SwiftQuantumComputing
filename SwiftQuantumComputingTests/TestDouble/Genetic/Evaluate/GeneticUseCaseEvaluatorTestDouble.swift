@@ -1,5 +1,5 @@
 //
-//  GeneticUseCaseEvaluator.swift
+//  GeneticUseCaseEvaluatorTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 17/02/2019.
@@ -20,8 +20,29 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double?
+@testable import SwiftQuantumComputing
+
+// MARK: - Main body
+
+final class GeneticUseCaseEvaluatorTestDouble {
+
+    // MARK: - Internal properties
+
+    private (set) var evaluateCircuitCount = 0
+    private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
+    var evaluateCircuitResult: Double?
+}
+
+// MARK: - GeneticUseCaseEvaluator methods
+
+extension GeneticUseCaseEvaluatorTestDouble: GeneticUseCaseEvaluator {
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double? {
+        evaluateCircuitCount += 1
+
+        lastEvaluateCircuitGeneticCircuit = geneticCircuit
+
+        return evaluateCircuitResult
+    }
 }

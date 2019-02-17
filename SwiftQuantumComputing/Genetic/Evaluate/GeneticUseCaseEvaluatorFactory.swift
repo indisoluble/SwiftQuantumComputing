@@ -1,5 +1,5 @@
 //
-//  GeneticUseCaseEvaluator.swift
+//  GeneticUseCaseEvaluatorFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 17/02/2019.
@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double?
+protocol GeneticUseCaseEvaluatorFactory {
+    func makeEvaluator(useCase: GeneticUseCase) -> GeneticUseCaseEvaluator
 }

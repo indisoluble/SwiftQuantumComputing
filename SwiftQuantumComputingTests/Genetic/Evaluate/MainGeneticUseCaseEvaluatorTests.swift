@@ -1,5 +1,5 @@
 //
-//  GeneticUseCaseEvaluatorTests.swift
+//  MainGeneticUseCaseEvaluatorTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/02/2019.
@@ -24,10 +24,9 @@ import XCTest
 
 // MARK: - Main body
 
-class GeneticUseCaseEvaluatorTests: XCTestCase {
+class MainGeneticUseCaseEvaluatorTests: XCTestCase {
 
     // MARK: - Properties
-
 
     let qubitCount = 2
     let useCase = GeneticUseCase(truthTable: [], truthTableQubitCount: 0, circuitOutput: "11")
@@ -42,10 +41,10 @@ class GeneticUseCaseEvaluatorTests: XCTestCase {
 
     func testOracleFactoryThatReturnNil_evaluateCircuit_returnNil() {
         // Given
-        let evaluator = GeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                useCase: useCase,
-                                                factory: factory,
-                                                oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
+                                                    useCase: useCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // When
         let prob = evaluator.evaluateCircuit(geneticCircuit)
@@ -61,10 +60,10 @@ class GeneticUseCaseEvaluatorTests: XCTestCase {
         // Given
         oracleFactory.makeOracleCircuitResult = oracleCircuit
 
-        let evaluator = GeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                useCase: useCase,
-                                                factory: factory,
-                                                oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
+                                                    useCase: useCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // When
         let prob = evaluator.evaluateCircuit(geneticCircuit)
@@ -81,10 +80,10 @@ class GeneticUseCaseEvaluatorTests: XCTestCase {
         oracleFactory.makeOracleCircuitResult = oracleCircuit
         factory.makeCircuitResult = circuit
 
-        let evaluator = GeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                useCase: useCase,
-                                                factory: factory,
-                                                oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
+                                                    useCase: useCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // When
         let prob = evaluator.evaluateCircuit(geneticCircuit)
@@ -106,10 +105,10 @@ class GeneticUseCaseEvaluatorTests: XCTestCase {
                                                 truthTableQubitCount: 0,
                                                 circuitOutput: "qwerty")
 
-        let evaluator = GeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                useCase: nonSensicalUseCase,
-                                                factory: factory,
-                                                oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
+                                                    useCase: nonSensicalUseCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // When
         let prob = evaluator.evaluateCircuit(geneticCircuit)
@@ -132,10 +131,10 @@ class GeneticUseCaseEvaluatorTests: XCTestCase {
                                                 truthTableQubitCount: 0,
                                                 circuitOutput: circuitOutput)
 
-        let evaluator = GeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                useCase: nonSensicalUseCase,
-                                                factory: factory,
-                                                oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
+                                                    useCase: nonSensicalUseCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // When
         let prob = evaluator.evaluateCircuit(geneticCircuit)
@@ -153,10 +152,10 @@ class GeneticUseCaseEvaluatorTests: XCTestCase {
         factory.makeCircuitResult = circuit
         circuit.measureResult = measures
 
-        let evaluator = GeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                useCase: useCase,
-                                                factory: factory,
-                                                oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
+                                                    useCase: useCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // When
         let prob = evaluator.evaluateCircuit(geneticCircuit)
