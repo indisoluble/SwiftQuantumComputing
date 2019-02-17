@@ -24,17 +24,13 @@ import os.log
 // MARK: - Main body
 
 struct GeneticUseCaseEvaluator {
-
-    // MARK: - Internal types
-
-    typealias FixedGates = (gates: [FixedGate], oracleAt: Int?)
-
     // MARK: - Private properties
 
     private let qubits: [Int]
     private let input: String
-    private let factory: CircuitFactory
     private let useCase: GeneticUseCase
+    private let factory: CircuitFactory
+    private let oracleFactory: OracleCircuitFactory
 
     // MARK: - Private class properties
 
@@ -42,17 +38,23 @@ struct GeneticUseCaseEvaluator {
 
     // MARK: - Internal init methods
 
-    init(qubitCount: Int, factory: CircuitFactory, useCase: GeneticUseCase) {
+    init(qubitCount: Int,
+         useCase: GeneticUseCase,
+         factory: CircuitFactory,
+         oracleFactory: OracleCircuitFactory) {
         self.qubits = Array((0..<qubitCount).reversed())
         self.input = String(repeating: "0", count: qubitCount)
-        self.factory = factory
         self.useCase = useCase
+        self.factory = factory
+        self.oracleFactory = oracleFactory
     }
 
     // MARK: - Internal methods
 
     func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double? {
-        guard let (gates, _) = GeneticUseCaseEvaluator.toFixedGates(geneticCircuit, using: useCase) else {
+        let oracleCircuit = oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
+                                                            useCase: useCase)
+        guard let (gates, _) = oracleCircuit else {
             os_log("evaluateCircuit: unable to make fixed gates with provided list",
                    log: GeneticUseCaseEvaluator.logger,
                    type: .debug)
@@ -93,34 +95,5 @@ struct GeneticUseCaseEvaluator {
         }
 
         return abs(1 - measures[index])
-    }
-
-    // MARK: - Internal class methods
-
-    static func toFixedGates(_ geneticCircuit: [GeneticGate],
-                             using useCase: GeneticUseCase) -> FixedGates? {
-        let tt = useCase.truthTable
-        let ttCount = useCase.truthTableQubitCount
-
-        var gates: [FixedGate] = []
-        var oracleIndex: Int? = nil
-
-        for (index, gg) in geneticCircuit.enumerated() {
-            guard let fixed = gg.makeFixed(truthTable: tt, truthTableQubitCount: ttCount) else {
-                return nil
-            }
-
-            var doAppendGate = true
-            if fixed.didUseTruthTable {
-                doAppendGate = (oracleIndex == nil)
-                oracleIndex = (doAppendGate ? index : oracleIndex)
-            }
-
-            if doAppendGate {
-                gates.append(fixed.gate)
-            }
-        }
-
-        return (gates, oracleIndex)
     }
 }

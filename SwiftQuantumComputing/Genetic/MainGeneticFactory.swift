@@ -35,6 +35,10 @@ public struct MainGeneticFactory {
 
     private typealias EvalCircuit = (eval: Double, circuit: [GeneticGate])
 
+    // MARK: - Private properties
+
+    let oracleFactory: OracleCircuitFactory = MainOracleCircuitFactory()
+
     // MARK: - Private class properties
 
     private static let logger = LoggerFactory.makeLogger()
@@ -51,10 +55,10 @@ extension MainGeneticFactory: GeneticFactory {
     public func evolveCircuit(configuration: GeneticConfiguration,
                               useCases: [GeneticUseCase],
                               gates: [Gate]) -> EvolvedCircuit? {
-        guard let operators = MainGeneticFactory.makeOperators(configuration: configuration,
-                                                               useCases: useCases,
-                                                               gates: gates) else {
-                                                                return nil
+        guard let operators = makeOperators(configuration: configuration,
+                                            useCases: useCases,
+                                            gates: gates) else {
+                                                return nil
         }
 
         os_log("Producing initial population...",
@@ -100,13 +104,79 @@ extension MainGeneticFactory: GeneticFactory {
             currentGen += 1
         }
 
-        return MainGeneticFactory.composeEvolvedCircuit(with: candidate, useCases: useCases)
+        return composeEvolvedCircuit(with: candidate, useCases: useCases)
     }
 }
 
 // MARK: - Private body
 
 private extension MainGeneticFactory {
+
+    // MARK: - Private methods
+
+    private func makeOperators(configuration: GeneticConfiguration,
+                               useCases: [GeneticUseCase],
+                               gates: [Gate]) -> Operators? {
+        let evaluator = makeEvaluator(configuration: configuration, useCases: useCases)
+
+        guard let generator = makeGenerator(configuration: configuration, gates: gates) else {
+            return nil
+        }
+
+        guard let mutation = makeMutation(configuration: configuration, generator: generator) else {
+            return nil
+        }
+
+        return Operators(generator: generator, evaluator: evaluator, mutation: mutation)
+    }
+
+    func makeEvaluator(configuration: GeneticConfiguration,
+                       useCases: [GeneticUseCase]) -> GeneticCircuitEvaluator {
+        return GeneticCircuitEvaluator(qubitCount: configuration.qubitCount,
+                                       useCases: useCases,
+                                       threshold: configuration.threshold,
+                                       factory: MainCircuitFactory(),
+                                       oracleFactory: oracleFactory)
+    }
+
+    func makeGenerator(configuration: GeneticConfiguration,
+                       gates: [Gate]) -> GeneticGatesRandomizer? {
+        var facts: [GeneticGateFactory] = gates.map { SimpleGeneticGateFactory(gate: $0) }
+        facts.append(ConfigurableGeneticGateFactory())
+
+        return MainGeneticGatesRandomizer(qubitCount: configuration.qubitCount, factories: facts)
+    }
+
+    func makeMutation(configuration: GeneticConfiguration,
+                      generator: GeneticGatesRandomizer) -> GeneticMutation? {
+        guard let maxDepth = configuration.depth.last else {
+            os_log("makeMutation failed: unable to produce a mutation without a max. depth",
+                   log: MainGeneticFactory.logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        return GeneticMutation(maxDepth: maxDepth, randomizer: generator)
+    }
+
+    private func composeEvolvedCircuit(with candidate: EvalCircuit,
+                                       useCases: [GeneticUseCase]) -> EvolvedCircuit? {
+        guard let firstCase = useCases.first else {
+            os_log("composeEvolvedCircuit failed: at least one use case required",
+                   log: MainGeneticFactory.logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        guard let circuit = oracleFactory.makeOracleCircuit(geneticCircuit: candidate.circuit,
+                                                            useCase: firstCase) else {
+                                                                return nil
+        }
+
+        return (candidate.eval, circuit.circuit, circuit.oracleAt)
+    }
 
     // MARK: - Private class methods
 
@@ -267,68 +337,5 @@ private extension MainGeneticFactory {
         }
 
         return (Double(eval.misses) + eval.maxProbability)
-    }
-
-    private static func composeEvolvedCircuit(with candidate: EvalCircuit,
-                                              useCases: [GeneticUseCase]) -> EvolvedCircuit? {
-        guard let firstCase = useCases.first else {
-            os_log("composeEvolvedCircuit failed: at least one use case required",
-                   log: MainGeneticFactory.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        let cc = candidate.circuit
-        guard let fixed = GeneticUseCaseEvaluator.toFixedGates(cc, using: firstCase) else {
-            return nil
-        }
-
-        return (candidate.eval, fixed.gates, fixed.oracleAt)
-    }
-
-    private static func makeOperators(configuration: GeneticConfiguration,
-                                      useCases: [GeneticUseCase],
-                                      gates: [Gate]) -> Operators? {
-        let evaluator = makeEvaluator(configuration: configuration, useCases: useCases)
-
-        guard let generator = makeGenerator(configuration: configuration, gates: gates) else {
-            return nil
-        }
-
-        guard let mutation = makeMutation(configuration: configuration, generator: generator) else {
-            return nil
-        }
-
-        return Operators(generator: generator, evaluator: evaluator, mutation: mutation)
-    }
-
-    static func makeEvaluator(configuration: GeneticConfiguration,
-                              useCases: [GeneticUseCase]) -> GeneticCircuitEvaluator {
-        return GeneticCircuitEvaluator(qubitCount: configuration.qubitCount,
-                                       factory: MainCircuitFactory(),
-                                       threshold: configuration.threshold,
-                                       useCases: useCases)
-    }
-
-    static func makeGenerator(configuration: GeneticConfiguration,
-                              gates: [Gate]) -> GeneticGatesRandomizer? {
-        var facts: [GeneticGateFactory] = gates.map { SimpleGeneticGateFactory(gate: $0) }
-        facts.append(ConfigurableGeneticGateFactory())
-
-        return MainGeneticGatesRandomizer(qubitCount: configuration.qubitCount, factories: facts)
-    }
-
-    static func makeMutation(configuration: GeneticConfiguration,
-                             generator: GeneticGatesRandomizer) -> GeneticMutation? {
-        guard let maxDepth = configuration.depth.last else {
-            os_log("makeMutation failed: unable to produce a mutation without a max. depth",
-                   log: MainGeneticFactory.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        return GeneticMutation(maxDepth: maxDepth, randomizer: generator)
     }
 }

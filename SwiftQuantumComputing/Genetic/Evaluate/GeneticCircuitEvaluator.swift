@@ -41,10 +41,17 @@ struct GeneticCircuitEvaluator {
 
     // MARK: - Internal init methods
 
-    init(qubitCount: Int, factory: CircuitFactory, threshold: Double, useCases: [GeneticUseCase]) {
+    init(qubitCount: Int,
+         useCases: [GeneticUseCase],
+         threshold: Double,
+         factory: CircuitFactory,
+         oracleFactory: OracleCircuitFactory) {
         self.threshold = threshold
         evaluators = useCases.map {
-            GeneticUseCaseEvaluator(qubitCount: qubitCount, factory: factory, useCase: $0)
+            GeneticUseCaseEvaluator(qubitCount: qubitCount,
+                                    useCase: $0,
+                                    factory: factory,
+                                    oracleFactory: oracleFactory)
         }
     }
 
