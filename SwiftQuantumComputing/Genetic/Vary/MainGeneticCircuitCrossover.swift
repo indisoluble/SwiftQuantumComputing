@@ -1,8 +1,8 @@
 //
-//  GeneticFactory.swift
+//  MainGeneticCircuitCrossover.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 31/01/2019.
+//  Created by Enrique de la Torre on 23/02/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,12 +20,20 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-public protocol GeneticFactory {
-    typealias EvolvedCircuit = (eval: Double, gates: [FixedGate], oracleAt: Int?)
+struct MainGeneticCircuitCrossover {}
 
-    func evolveCircuit(configuration config: GeneticConfiguration,
-                       useCases: [GeneticUseCase],
-                       gates: [Gate]) -> EvolvedCircuit?
+// MARK: - GeneticCircuitCrossover methods
+
+extension MainGeneticCircuitCrossover: GeneticCircuitCrossover {
+    func execute(_ first: [GeneticGate],
+                 _ second: [GeneticGate]) -> ([GeneticGate], [GeneticGate]) {
+        let (f1, fp) = first.randomSplit()
+        let (f2, f3) = fp.randomSplit()
+        let (s1, sp) = second.randomSplit()
+        let (s2, s3) = sp.randomSplit()
+
+        return (f1 + s2 + f3, s1 + f2 + s3)
+    }
 }

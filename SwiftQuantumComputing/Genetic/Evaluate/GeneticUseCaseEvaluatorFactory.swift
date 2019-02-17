@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol GeneticUseCaseEvaluatorFactory {
-    func makeEvaluator(useCase: GeneticUseCase) -> GeneticUseCaseEvaluator
+    func makeEvaluator(qubitCount: Int, useCase: GeneticUseCase) -> GeneticUseCaseEvaluator
 }

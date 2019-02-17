@@ -1,5 +1,5 @@
 //
-//  GeneticCircuitEvaluatorTests.swift
+//  MainGeneticCircuitEvaluatorTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 17/02/2019.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class GeneticCircuitEvaluatorTests: XCTestCase {
+class MainGeneticCircuitEvaluatorTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -41,10 +41,10 @@ class GeneticCircuitEvaluatorTests: XCTestCase {
         firstUseCaseEvaluator.evaluateCircuitResult = 0.0
         thirdUseCaseEvaluator.evaluateCircuitResult = 0.0
 
-        let evaluator = GeneticCircuitEvaluator(threshold: threshold,
-                                                evaluators: [firstUseCaseEvaluator,
-                                                             secondUseCaseEvaluator,
-                                                             thirdUseCaseEvaluator])
+        let evaluator = MainGeneticCircuitEvaluator(threshold: threshold,
+                                                    evaluators: [firstUseCaseEvaluator,
+                                                                 secondUseCaseEvaluator,
+                                                                 thirdUseCaseEvaluator])
 
         // When
         let eval = evaluator.evaluateCircuit(geneticCircuit)
@@ -65,10 +65,10 @@ class GeneticCircuitEvaluatorTests: XCTestCase {
         secondUseCaseEvaluator.evaluateCircuitResult = maxErrorProbability
         thirdUseCaseEvaluator.evaluateCircuitResult = errorProbabilityBiggerThanThreshold
 
-        let evaluator = GeneticCircuitEvaluator(threshold: threshold,
-                                                evaluators: [firstUseCaseEvaluator,
-                                                             secondUseCaseEvaluator,
-                                                             thirdUseCaseEvaluator])
+        let evaluator = MainGeneticCircuitEvaluator(threshold: threshold,
+                                                    evaluators: [firstUseCaseEvaluator,
+                                                                 secondUseCaseEvaluator,
+                                                                 thirdUseCaseEvaluator])
 
         // When
         let eval = evaluator.evaluateCircuit(geneticCircuit)

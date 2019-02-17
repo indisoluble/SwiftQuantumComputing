@@ -1,5 +1,5 @@
 //
-//  GeneticMutationTests.swift
+//  MainGeneticCircuitMutationTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/02/2019.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class GeneticMutationTests: XCTestCase {
+class MainGeneticCircuitMutationTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -38,30 +38,30 @@ class GeneticMutationTests: XCTestCase {
         let circuit = Array(repeating: GeneticGateTestDouble(), count: maxDepth)
 
         var randomSplitCount = 0
-        let randomSplit: GeneticMutation.RandomSplit = { _ in
+        let randomSplit: MainGeneticCircuitMutation.RandomSplit = { _ in
             randomSplitCount += 1
 
             return (circuit, circuit)
         }
 
-        var randomElementCount = 0
-        let randomElement: GeneticMutation.RandomElement = { _ in
-            randomElementCount += 1
+        var randomCount = 0
+        let random: MainGeneticCircuitMutation.Random = { _ in
+            randomCount += 1
 
             return 0
         }
 
-        let mutator = GeneticMutation(maxDepth: maxDepth,
-                                      randomizer: randomizer,
-                                      randomSplit: randomSplit,
-                                      randomElement: randomElement)
+        let mutator = MainGeneticCircuitMutation(maxDepth: maxDepth,
+                                                 randomizer: randomizer,
+                                                 random: random,
+                                                 randomSplit: randomSplit)
 
         // When
         let mutation = mutator.execute(circuit)
 
         // Then
         XCTAssertEqual(randomSplitCount, 2)
-        XCTAssertEqual(randomElementCount, 0)
+        XCTAssertEqual(randomCount, 0)
         XCTAssertEqual(randomizer.makeCount, 0)
         XCTAssertNil(mutation)
     }
@@ -72,30 +72,30 @@ class GeneticMutationTests: XCTestCase {
         let circuit = [GeneticGateTestDouble()]
 
         var randomSplitCount = 0
-        let randomSplit: GeneticMutation.RandomSplit = { _ in
+        let randomSplit: MainGeneticCircuitMutation.RandomSplit = { _ in
             randomSplitCount += 1
 
             return (circuit, circuit)
         }
 
-        var randomElementCount = 0
-        let randomElement: GeneticMutation.RandomElement = { _ in
-            randomElementCount += 1
+        var randomCount = 0
+        let random: MainGeneticCircuitMutation.Random = { _ in
+            randomCount += 1
 
             return 0
         }
 
-        let mutator = GeneticMutation(maxDepth: maxDepth,
-                                      randomizer: randomizer,
-                                      randomSplit: randomSplit,
-                                      randomElement: randomElement)
+        let mutator = MainGeneticCircuitMutation(maxDepth: maxDepth,
+                                                 randomizer: randomizer,
+                                                 random: random,
+                                                 randomSplit: randomSplit)
 
         // When
         let mutation = mutator.execute(circuit)
 
         // Then
         XCTAssertEqual(randomSplitCount, 2)
-        XCTAssertEqual(randomElementCount, 1)
+        XCTAssertEqual(randomCount, 1)
         XCTAssertEqual(randomizer.makeCount, 1)
         XCTAssertNil(mutation)
     }
@@ -109,23 +109,23 @@ class GeneticMutationTests: XCTestCase {
         randomizer.makeResult = randomizerResult
 
         var randomSplitCount = 0
-        let randomSplit: GeneticMutation.RandomSplit = { _ in
+        let randomSplit: MainGeneticCircuitMutation.RandomSplit = { _ in
             randomSplitCount += 1
 
             return (circuit, circuit)
         }
 
-        var randomElementCount = 0
-        let randomElement: GeneticMutation.RandomElement = { _ in
-            randomElementCount += 1
+        var randomCount = 0
+        let random: MainGeneticCircuitMutation.Random = { _ in
+            randomCount += 1
 
             return 0
         }
 
-        let mutator = GeneticMutation(maxDepth: maxDepth,
-                                      randomizer: randomizer,
-                                      randomSplit: randomSplit,
-                                      randomElement: randomElement)
+        let mutator = MainGeneticCircuitMutation(maxDepth: maxDepth,
+                                                 randomizer: randomizer,
+                                                 random: random,
+                                                 randomSplit: randomSplit)
 
         // When
         let mutation = mutator.execute(circuit)
@@ -134,7 +134,7 @@ class GeneticMutationTests: XCTestCase {
         let expectedMutation = circuit + randomizerResult + circuit
 
         XCTAssertEqual(randomSplitCount, 2)
-        XCTAssertEqual(randomElementCount, 1)
+        XCTAssertEqual(randomCount, 1)
         XCTAssertEqual(randomizer.makeCount, 1)
         XCTAssertNotNil(mutation as? [GeneticGateTestDouble])
         XCTAssertEqual(mutation?.count, expectedMutation.count)

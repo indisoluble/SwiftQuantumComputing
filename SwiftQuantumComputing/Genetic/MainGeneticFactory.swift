@@ -25,19 +25,12 @@ import os.log
 
 public struct MainGeneticFactory {
 
-    // MARK: - Private types
-
-    private struct Operators {
-        let generator: GeneticGatesRandomizer
-        let evaluator: GeneticCircuitEvaluator
-        let mutation: GeneticMutation
-    }
-
-    private typealias EvalCircuit = (eval: Double, circuit: [GeneticGate])
-
     // MARK: - Private properties
 
-    let oracleFactory: OracleCircuitFactory = MainOracleCircuitFactory()
+    private let initialPopulationFactory: InitialPopulationProducerFactory
+    private let fitness: Fitness
+    private let reproductionFactory: GeneticPopulationReproductionFactory
+    private let oracleFactory: OracleCircuitFactory
 
     // MARK: - Private class properties
 
@@ -45,130 +38,125 @@ public struct MainGeneticFactory {
 
     // MARK: - Public init methods
 
-    public init() {}
+    public init() {
+        let generatorFactory = MainGeneticGatesRandomizerFactory()
+        let circuitFactory = MainCircuitFactory()
+        let oracleFactory = MainOracleCircuitFactory()
+        let useCaseEvaluatorFactory = MainGeneticUseCaseEvaluatorFactory(factory: circuitFactory,
+                                                                         oracleFactory:oracleFactory)
+        let evaluatorFactory = MainGeneticCircuitEvaluatorFactory(factory: useCaseEvaluatorFactory)
+        let score = MainGeneticCircuitScore()
+        let producerFactory = MainInitialPopulationProducerFactory(generatorFactory: generatorFactory,
+                                                                   evaluatorFactory: evaluatorFactory,
+                                                                   score: score)
+
+        let fitness = MainFitness()
+        let circuitCrossover = MainGeneticCircuitCrossover()
+        let crossoverFactory = MainGeneticPopulationCrossoverFactory(fitness: fitness,
+                                                                     crossover: circuitCrossover,
+                                                                     score: score)
+        let circuitMutationFactory = MainGeneticCircuitMutationFactory(factory: generatorFactory)
+        let mutationFactory = MainGeneticPopulationMutationFactory(fitness: fitness,
+                                                                   factory: circuitMutationFactory,
+                                                                   score: score)
+        let reproductionFactory = MainGeneticPopulationReproductionFactory(evaluatorFactory: evaluatorFactory,
+                                                                           crossoverFactory: crossoverFactory,
+                                                                           mutationFactory: mutationFactory)
+
+        self.init(initialPopulationFactory: producerFactory,
+                  fitness: fitness,
+                  reproductionFactory: reproductionFactory,
+                  oracleFactory: oracleFactory)
+    }
+
+    // MARK: - Internal init methods
+
+    init(initialPopulationFactory: InitialPopulationProducerFactory,
+         fitness: Fitness,
+         reproductionFactory: GeneticPopulationReproductionFactory,
+         oracleFactory: OracleCircuitFactory) {
+        self.initialPopulationFactory = initialPopulationFactory
+        self.fitness = fitness
+        self.reproductionFactory = reproductionFactory
+        self.oracleFactory = oracleFactory
+    }
 }
 
 
 // MARK: - GeneticFactory methods
 
 extension MainGeneticFactory: GeneticFactory {
-    public func evolveCircuit(configuration: GeneticConfiguration,
+    public func evolveCircuit(configuration config: GeneticConfiguration,
                               useCases: [GeneticUseCase],
                               gates: [Gate]) -> EvolvedCircuit? {
-        guard let operators = makeOperators(configuration: configuration,
-                                            useCases: useCases,
-                                            gates: gates) else {
-                                                return nil
+        guard let initSize = config.populationSize.first else {
+            os_log("evolveCircuit: pop. size empty", log: MainGeneticFactory.logger, type: .debug)
+
+            return nil
+        }
+        let maxSize = config.populationSize.last!
+
+        guard let maxDepth = config.depth.last else {
+            os_log("evolveCircuit: depth empty", log: MainGeneticFactory.logger, type: .debug)
+
+            return nil
         }
 
-        os_log("Producing initial population...",
-               log: MainGeneticFactory.logger,
-               type: .info)
-        guard var population = MainGeneticFactory.produceInitialPopulation(configuration: configuration,
-                                                                           operators: operators) else {
-                                                                            return nil
+        guard let firstCase = useCases.first else {
+            os_log("evolveCircuit: use cases empty", log: MainGeneticFactory.logger, type: .debug)
+
+            return nil
         }
-        os_log("Initial population completed",
-               log: MainGeneticFactory.logger,
-               type: .info)
 
-        var candidate = MainGeneticFactory.fittest(in: population)!
-        let genCount = configuration.generationCount
-        let maxSize = configuration.populationSize.last!
-        let errorProb = configuration.errorProbability
+        guard let initialPopulation = initialPopulationFactory.makeProducer(qubitCount: config.qubitCount,
+                                                                            threshold: config.threshold,
+                                                                            useCases: useCases,
+                                                                            gates: gates) else {
+                                                                                return nil
+        }
 
-        var currentGen = 0
-        while (candidate.eval > errorProb) && (currentGen < genCount) && (population.count < maxSize) {
-            os_log("Initiating generation %d...",
-                   log: MainGeneticFactory.logger,
-                   type: .info,
-                   currentGen)
+        guard let reproduction = reproductionFactory.makeReproduction(qubitCount: config.qubitCount,
+                                                                      tournamentSize: config.tournamentSize,
+                                                                      mutationProbability: config.mutationProbability,
+                                                                      threshold: config.threshold,
+                                                                      maxDepth: maxDepth,
+                                                                      useCases: useCases,
+                                                                      gates: gates) else {
+                                                                        return nil
+        }
 
-            let offspring = MainGeneticFactory.produceOffspring(configuration: configuration,
-                                                                operators: operators,
-                                                                population: population)
-            if (offspring.count == 0) {
-                os_log("Unable to produce new offspring",
-                       log: MainGeneticFactory.logger,
-                       type: .info)
+        os_log("Producing initial population...", log: MainGeneticFactory.logger, type: .info)
+        guard var population = initialPopulation.execute(size: initSize, depth: config.depth) else {
+            return nil
+        }
+        os_log("Initial population completed", log: MainGeneticFactory.logger, type: .info)
+
+        guard var candidate = fitness.fittest(in: population) else {
+            os_log("evolveCircuit: no first candid.", log: MainGeneticFactory.logger, type: .debug)
+
+            return nil
+        }
+
+        var currGen = 0
+        let errProb = config.errorProbability
+        let genCount = config.generationCount
+        while (candidate.eval > errProb) && (currGen < genCount) && (population.count < maxSize) {
+            os_log("Init. generation %d...", log: MainGeneticFactory.logger, type: .info, currGen)
+
+            let offspring = reproduction.applied(to: population)
+            if (offspring.isEmpty) {
+                os_log("evolveCircuit: empty offspr.", log: MainGeneticFactory.logger, type: .debug)
             } else {
                 population.append(contentsOf: offspring)
-                candidate = MainGeneticFactory.fittest(in: population)!
+                candidate = fitness.fittest(in: population)!
             }
 
             os_log("Generation %d completed. Population: %d. Evaluation: %s",
                    log: MainGeneticFactory.logger,
                    type: .info,
-                   currentGen, population.count, String(candidate.eval))
+                   currGen, population.count, String(candidate.eval))
 
-            currentGen += 1
-        }
-
-        return composeEvolvedCircuit(with: candidate, useCases: useCases)
-    }
-}
-
-// MARK: - Private body
-
-private extension MainGeneticFactory {
-
-    // MARK: - Private methods
-
-    private func makeOperators(configuration: GeneticConfiguration,
-                               useCases: [GeneticUseCase],
-                               gates: [Gate]) -> Operators? {
-        let evaluator = makeEvaluator(configuration: configuration, useCases: useCases)
-
-        guard let generator = makeGenerator(configuration: configuration, gates: gates) else {
-            return nil
-        }
-
-        guard let mutation = makeMutation(configuration: configuration, generator: generator) else {
-            return nil
-        }
-
-        return Operators(generator: generator, evaluator: evaluator, mutation: mutation)
-    }
-
-    func makeEvaluator(configuration: GeneticConfiguration,
-                       useCases: [GeneticUseCase]) -> GeneticCircuitEvaluator {
-        let evalfactory = MainGeneticUseCaseEvaluatorFactory(qubitCount: configuration.qubitCount,
-                                                             factory: MainCircuitFactory(),
-                                                             oracleFactory: oracleFactory)
-        let evaluators = useCases.map { evalfactory.makeEvaluator(useCase: $0) }
-
-        return GeneticCircuitEvaluator(threshold: configuration.threshold, evaluators: evaluators)
-    }
-
-    func makeGenerator(configuration: GeneticConfiguration,
-                       gates: [Gate]) -> GeneticGatesRandomizer? {
-        var facts: [GeneticGateFactory] = gates.map { SimpleGeneticGateFactory(gate: $0) }
-        facts.append(ConfigurableGeneticGateFactory())
-
-        return MainGeneticGatesRandomizer(qubitCount: configuration.qubitCount, factories: facts)
-    }
-
-    func makeMutation(configuration: GeneticConfiguration,
-                      generator: GeneticGatesRandomizer) -> GeneticMutation? {
-        guard let maxDepth = configuration.depth.last else {
-            os_log("makeMutation failed: unable to produce a mutation without a max. depth",
-                   log: MainGeneticFactory.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        return GeneticMutation(maxDepth: maxDepth, randomizer: generator)
-    }
-
-    private func composeEvolvedCircuit(with candidate: EvalCircuit,
-                                       useCases: [GeneticUseCase]) -> EvolvedCircuit? {
-        guard let firstCase = useCases.first else {
-            os_log("composeEvolvedCircuit failed: at least one use case required",
-                   log: MainGeneticFactory.logger,
-                   type: .debug)
-
-            return nil
+            currGen += 1
         }
 
         guard let circuit = oracleFactory.makeOracleCircuit(geneticCircuit: candidate.circuit,
@@ -177,166 +165,5 @@ private extension MainGeneticFactory {
         }
 
         return (candidate.eval, circuit.circuit, circuit.oracleAt)
-    }
-
-    // MARK: - Private class methods
-
-    private static func produceInitialPopulation(configuration: GeneticConfiguration,
-                                                 operators: Operators) -> [EvalCircuit]? {
-        guard let initialSize = configuration.populationSize.first, initialSize > 0 else {
-            os_log("produceInitialPopulation failed: population size has to be bigger than 0",
-                   log: MainGeneticFactory.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        var population: [EvalCircuit] = []
-        let queue = DispatchQueue(label: "com.indisoluble.SwiftQuantumComputing.MainGeneticFactory.produceInitialPopulation.queue")
-
-        DispatchQueue.concurrentPerform(iterations: initialSize) { _ in
-            let generator = operators.generator
-            let evaluator = operators.evaluator
-            let depth = Int.random(in: configuration.depth)
-
-            guard let circuit = generator.make(depth: depth) else {
-                return
-            }
-
-            guard let eval = MainGeneticFactory.evaluateCircuit(circuit, with: evaluator) else {
-                return
-            }
-
-            queue.sync {
-                population.append((eval, circuit))
-            }
-        }
-
-        if (population.count != initialSize) {
-            os_log("produceInitialPopulation failed: unable to fill initial population",
-                   log: MainGeneticFactory.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        return population
-    }
-
-    private static func produceOffspring(configuration: GeneticConfiguration,
-                                         operators: Operators,
-                                         population: [EvalCircuit]) -> [EvalCircuit] {
-        var offspring: [EvalCircuit] = []
-
-        let prob = Double.random(in: 0...1)
-        if (prob < configuration.mutationProbability) {
-            if let mutation = produceMutation(configuration: configuration,
-                                              operators: operators,
-                                              population: population) {
-                os_log("produceOffspring: mutation produced",
-                       log: MainGeneticFactory.logger,
-                       type: .info)
-
-                offspring.append(mutation)
-            }
-        } else {
-            let crosses = produceCrossover(configuration: configuration,
-                                           operators: operators,
-                                           population: population)
-            os_log("produceOffspring: crossover produced",
-                   log: MainGeneticFactory.logger,
-                   type: .info)
-
-            offspring.append(contentsOf: crosses)
-        }
-
-        return offspring
-    }
-
-    private static func produceCrossover(configuration: GeneticConfiguration,
-                                         operators: Operators,
-                                         population: [EvalCircuit]) -> [EvalCircuit] {
-        guard let maxDepth = configuration.depth.last else {
-            os_log("produceCrossover failed: unable to produce a crossover without a max. depth",
-                   log: MainGeneticFactory.logger,
-                   type: .debug)
-
-            return []
-        }
-
-        let firstSample = population.randomElements(count: configuration.tournamentSize)
-        guard let firstWinner = fittest(in: firstSample) else {
-            return []
-        }
-
-        let secondSample = population.randomElements(count: configuration.tournamentSize)
-        guard let secondWinner = fittest(in: secondSample) else {
-            return []
-        }
-
-        let (firstCross, secondCross) = GeneticCrossover.execute(firstWinner.circuit,
-                                                                 secondWinner.circuit)
-
-        var firstEval: Double? = nil
-        var secondEval: Double? = nil
-        DispatchQueue.concurrentPerform(iterations: 2) { index in
-            if (index == 0) {
-                if (firstCross.count <= maxDepth) {
-                    firstEval = evaluateCircuit(firstCross, with: operators.evaluator)
-                } else {
-                    os_log("produceCrossover: first exceeded max. depth",
-                           log: MainGeneticFactory.logger,
-                           type: .info)
-                }
-            } else if (secondCross.count <= maxDepth) {
-                secondEval = evaluateCircuit(secondCross, with: operators.evaluator)
-            } else {
-                os_log("produceCrossover: second exceeded max. depth",
-                       log: MainGeneticFactory.logger,
-                       type: .info)
-            }
-        }
-
-        var crosses: [EvalCircuit] = []
-        if let firstEval = firstEval {
-            crosses.append((firstEval, firstCross))
-        }
-        if let secondEval = secondEval {
-            crosses.append((secondEval, secondCross))
-        }
-
-        return crosses
-    }
-
-    private static func produceMutation(configuration: GeneticConfiguration,
-                                        operators: Operators,
-                                        population: [EvalCircuit]) -> EvalCircuit? {
-        let sample = population.randomElements(count: configuration.tournamentSize)
-        guard let winner = fittest(in: sample) else {
-            return nil
-        }
-
-        guard let mutated = operators.mutation.execute(winner.circuit) else {
-            return nil
-        }
-
-        guard let eval = evaluateCircuit(mutated, with: operators.evaluator) else {
-            return nil
-        }
-
-        return (eval, mutated)
-    }
-
-    private static func fittest(in population:[EvalCircuit]) -> EvalCircuit? {
-        return population.min { $0.eval < $1.eval }
-    }
-
-    static func evaluateCircuit(_ circuit: [GeneticGate],
-                                with evaluator: GeneticCircuitEvaluator) -> Double? {
-        guard let eval = evaluator.evaluateCircuit(circuit) else {
-            return nil
-        }
-
-        return (Double(eval.misses) + eval.maxProbability)
     }
 }

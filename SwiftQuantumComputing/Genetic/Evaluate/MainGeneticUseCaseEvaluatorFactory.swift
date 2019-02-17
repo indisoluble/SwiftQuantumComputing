@@ -26,14 +26,12 @@ struct MainGeneticUseCaseEvaluatorFactory {
 
     // MARK: - Private properties
 
-    private let qubitCount: Int
     private let factory: CircuitFactory
     private let oracleFactory: OracleCircuitFactory
 
     // MARK: - Internal init methods
 
-    init(qubitCount: Int, factory: CircuitFactory, oracleFactory: OracleCircuitFactory) {
-        self.qubitCount = qubitCount
+    init(factory: CircuitFactory, oracleFactory: OracleCircuitFactory) {
         self.factory = factory
         self.oracleFactory = oracleFactory
     }
@@ -42,7 +40,7 @@ struct MainGeneticUseCaseEvaluatorFactory {
 // MARK: - GeneticUseCaseEvaluatorFactory methods
 
 extension MainGeneticUseCaseEvaluatorFactory: GeneticUseCaseEvaluatorFactory {
-    func makeEvaluator(useCase: GeneticUseCase) -> GeneticUseCaseEvaluator {
+    func makeEvaluator(qubitCount: Int, useCase: GeneticUseCase) -> GeneticUseCaseEvaluator {
         return MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
                                            useCase: useCase,
                                            factory: factory,

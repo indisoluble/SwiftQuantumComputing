@@ -1,8 +1,8 @@
 //
-//  GeneticFactory.swift
+//  GeneticPopulationMutationFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 31/01/2019.
+//  Created by Enrique de la Torre on 23/02/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,10 +22,10 @@ import Foundation
 
 // MARK: - Protocol definition
 
-public protocol GeneticFactory {
-    typealias EvolvedCircuit = (eval: Double, gates: [FixedGate], oracleAt: Int?)
-
-    func evolveCircuit(configuration config: GeneticConfiguration,
-                       useCases: [GeneticUseCase],
-                       gates: [Gate]) -> EvolvedCircuit?
+protocol GeneticPopulationMutationFactory {
+    func makeMutation(qubitCount: Int,
+                      tournamentSize: Int,
+                      maxDepth: Int,
+                      evaluator: GeneticCircuitEvaluator,
+                      gates: [Gate]) -> GeneticPopulationMutation?
 }

@@ -1,8 +1,8 @@
 //
-//  GeneticCrossover.swift
+//  MainFitness.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 27/01/2019.
+//  Created by Enrique de la Torre on 19/02/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,17 +22,12 @@ import Foundation
 
 // MARK: - Main body
 
-struct GeneticCrossover {
+struct MainFitness {}
 
-    // MARK: - Internal class methods
+// MARK: - Fitness methods
 
-    static func execute(_ first: [GeneticGate],
-                        _ second: [GeneticGate]) -> ([GeneticGate], [GeneticGate]) {
-        let (f1, fp) = first.randomSplit()
-        let (f2, f3) = fp.randomSplit()
-        let (s1, sp) = second.randomSplit()
-        let (s2, s3) = sp.randomSplit()
-
-        return (f1 + s2 + f3, s1 + f2 + s3)
+extension MainFitness: Fitness {
+    func fittest(in population: [MainFitness.EvalCircuit]) -> MainFitness.EvalCircuit? {
+        return population.min { $0.eval < $1.eval }
     }
 }

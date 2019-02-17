@@ -2,7 +2,7 @@
 //  GeneticCircuitEvaluator.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 27/01/2019.
+//  Created by Enrique de la Torre on 17/02/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,58 +19,11 @@
 //
 
 import Foundation
-import os.log
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-struct GeneticCircuitEvaluator {
+protocol GeneticCircuitEvaluator {
+    typealias Evaluation = (misses: Int, maxProbability: Double)
 
-    // MARK: - Internal types
-
-    typealias Result = (misses: Int, maxProbability: Double)
-
-    // MARK: - Private properties
-
-    private let threshold: Double
-    private let evaluators: [GeneticUseCaseEvaluator]
-
-    private let queue = DispatchQueue(label: "com.indisoluble.SwiftQuantumComputing.GeneticCircuitEvaluator.queue")
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
-
-    // MARK: - Internal init methods
-
-    init(threshold: Double, evaluators: [GeneticUseCaseEvaluator]) {
-        self.threshold = threshold
-        self.evaluators = evaluators
-    }
-
-    // MARK: - Internal methods
-
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Result? {
-        var success = true
-        var misses = 0
-        var maxProbability = 0.0
-
-        DispatchQueue.concurrentPerform(iterations: evaluators.count) { index in
-            let prob = evaluators[index].evaluateCircuit(geneticCircuit)
-
-            queue.sync {
-                if let prob = prob {
-                    misses += (prob > threshold ? 1 : 0)
-                    maxProbability = max(maxProbability, prob)
-                } else {
-                    success = false
-
-                    os_log("evaluateCircuit: unable to get all error probabilities",
-                           log: GeneticCircuitEvaluator.logger,
-                           type: .debug)
-                }
-            }
-        }
-
-        return (success ? (misses, maxProbability) : nil)
-    }
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Evaluation?
 }
