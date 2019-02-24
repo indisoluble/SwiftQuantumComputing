@@ -1,8 +1,8 @@
 //
-//  GeneticUseCaseEvaluatorTestDouble.swift
+//  GeneticGatesRandomizerFactoryTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/02/2019.
+//  Created by Enrique de la Torre on 24/02/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,23 +24,25 @@ import Foundation
 
 // MARK: - Main body
 
-final class GeneticUseCaseEvaluatorTestDouble {
+final class GeneticGatesRandomizerFactoryTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var evaluateCircuitCount = 0
-    private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
-    var evaluateCircuitResult: Double?
+    private (set) var makeRandomizerCount = 0
+    private (set) var lastMakeRandomizerQubitCount: Int?
+    private (set) var lastMakeRandomizerGates: [Gate]?
+    var makeRandomizerResult: GeneticGatesRandomizer?
 }
 
-// MARK: - GeneticUseCaseEvaluator methods
+// MARK: - GeneticGatesRandomizerFactory methods
 
-extension GeneticUseCaseEvaluatorTestDouble: GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double? {
-        evaluateCircuitCount += 1
+extension GeneticGatesRandomizerFactoryTestDouble: GeneticGatesRandomizerFactory {
+    func makeRandomizer(qubitCount: Int, gates: [Gate]) -> GeneticGatesRandomizer? {
+        makeRandomizerCount += 1
 
-        lastEvaluateCircuitGeneticCircuit = geneticCircuit
+        lastMakeRandomizerQubitCount = qubitCount
+        lastMakeRandomizerGates = gates
 
-        return evaluateCircuitResult
+        return makeRandomizerResult
     }
 }

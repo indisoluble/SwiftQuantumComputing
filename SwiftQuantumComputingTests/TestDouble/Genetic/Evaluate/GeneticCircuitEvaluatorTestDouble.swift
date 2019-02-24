@@ -1,8 +1,8 @@
 //
-//  GeneticUseCaseEvaluatorTestDouble.swift
+//  GeneticCircuitEvaluatorTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/02/2019.
+//  Created by Enrique de la Torre on 24/02/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,22 +24,34 @@ import Foundation
 
 // MARK: - Main body
 
-final class GeneticUseCaseEvaluatorTestDouble {
+final class GeneticCircuitEvaluatorTestDouble {
 
     // MARK: - Internal properties
 
     private (set) var evaluateCircuitCount = 0
     private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
-    var evaluateCircuitResult: Double?
+    var evaluateCircuitResult: GeneticCircuitEvaluator.Evaluation?
+
+    // MARK: - Private properties
+
+    private let queue: DispatchQueue
+
+    // MARK: - Internal init methods
+
+    init() {
+        queue = DispatchQueue(label: String(reflecting: type(of: self)))
+    }
 }
 
-// MARK: - GeneticUseCaseEvaluator methods
+// MARK: - GeneticCircuitEvaluator methods
 
-extension GeneticUseCaseEvaluatorTestDouble: GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double? {
-        evaluateCircuitCount += 1
+extension GeneticCircuitEvaluatorTestDouble: GeneticCircuitEvaluator {
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> GeneticCircuitEvaluator.Evaluation? {
+        queue.sync {
+            evaluateCircuitCount += 1
 
-        lastEvaluateCircuitGeneticCircuit = geneticCircuit
+            lastEvaluateCircuitGeneticCircuit = geneticCircuit
+        }
 
         return evaluateCircuitResult
     }

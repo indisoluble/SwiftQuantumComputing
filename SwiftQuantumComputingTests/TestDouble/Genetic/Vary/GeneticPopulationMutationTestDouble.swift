@@ -1,8 +1,8 @@
 //
-//  GeneticUseCaseEvaluatorTestDouble.swift
+//  GeneticPopulationMutationTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/02/2019.
+//  Created by Enrique de la Torre on 02/03/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,23 +24,23 @@ import Foundation
 
 // MARK: - Main body
 
-final class GeneticUseCaseEvaluatorTestDouble {
+final class GeneticPopulationMutationTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var evaluateCircuitCount = 0
-    private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
-    var evaluateCircuitResult: Double?
+    private (set) var appliedCount = 0
+    private (set) var lastAppliedPopulation: [Fitness.EvalCircuit]?
+    var appliedResult: Fitness.EvalCircuit?
 }
 
-// MARK: - GeneticUseCaseEvaluator methods
+// MARK: - GeneticPopulationMutation methods
 
-extension GeneticUseCaseEvaluatorTestDouble: GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double? {
-        evaluateCircuitCount += 1
+extension GeneticPopulationMutationTestDouble: GeneticPopulationMutation {
+    func applied(to population: [Fitness.EvalCircuit]) -> Fitness.EvalCircuit? {
+        appliedCount += 1
 
-        lastEvaluateCircuitGeneticCircuit = geneticCircuit
+        lastAppliedPopulation = population
 
-        return evaluateCircuitResult
+        return appliedResult
     }
 }

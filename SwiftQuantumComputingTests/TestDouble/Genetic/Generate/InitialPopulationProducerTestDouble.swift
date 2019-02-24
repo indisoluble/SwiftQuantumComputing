@@ -1,8 +1,8 @@
 //
-//  GeneticUseCaseEvaluatorTestDouble.swift
+//  InitialPopulationProducerTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/02/2019.
+//  Created by Enrique de la Torre on 03/03/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,23 +24,25 @@ import Foundation
 
 // MARK: - Main body
 
-final class GeneticUseCaseEvaluatorTestDouble {
+final class InitialPopulationProducerTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var evaluateCircuitCount = 0
-    private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
-    var evaluateCircuitResult: Double?
+    private (set) var executeCount = 0
+    private (set) var lastExecuteSize: Int?
+    private (set) var lastExecuteDepth: Range<Int>?
+    var executeResult: [Fitness.EvalCircuit]?
 }
 
-// MARK: - GeneticUseCaseEvaluator methods
+// MARK: - InitialPopulationProducer methods
 
-extension GeneticUseCaseEvaluatorTestDouble: GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double? {
-        evaluateCircuitCount += 1
+extension InitialPopulationProducerTestDouble: InitialPopulationProducer {
+    func execute(size: Int, depth: Range<Int>) -> [Fitness.EvalCircuit]? {
+        executeCount += 1
 
-        lastEvaluateCircuitGeneticCircuit = geneticCircuit
+        lastExecuteSize = size
+        lastExecuteDepth = depth
 
-        return evaluateCircuitResult
+        return executeResult
     }
 }
