@@ -1,12 +1,8 @@
 import SwiftQuantumComputing // for macOS
 
-let conf = GeneticConfiguration(qubitCount: 2,
-                                depth: (1..<50),
-                                generationCount: 2000,
-                                populationSize: (2500..<6500),
-                                tournamentSize: 7,
-                                mutationProbability: 0.2,
-                                threshold: 0.48,
+let conf = GeneticConfiguration(qubitCount: 2, depth: (1..<50), generationCount: 2000,
+                                populationSize: (2500..<6500), tournamentSize: 7,
+                                mutationProbability: 0.2, threshold: 0.48,
                                 errorProbability: 0.000000000000001)
 let cases = [
     GeneticUseCase(truthTable: [], truthTableQubitCount: 1, circuitOutput: "00"),
@@ -15,12 +11,10 @@ let cases = [
     GeneticUseCase(truthTable: ["1"], truthTableQubitCount: 1, circuitOutput: "10")
 ]
 let gates: [Gate] = [HadamardGate(), NotGate()]
-
 let genFac = MainGeneticFactory()
 guard let evol = genFac.evolveCircuit(configuration: conf, useCases: cases, gates: gates) else {
     fatalError("Unabe to evolve a circuit")
 }
-
 print("Solution found. Fitness score: \(evol.eval)")
 
 var evolGates = evol.gates
@@ -34,14 +28,11 @@ case let .oracle(_, t, c):
 default:
     fatalError("No oracle found")
 }
-
 let circFactory = MainCircuitFactory()
 let bits = "00"
-
 for useCase in cases {
     let truth = useCase.truthTable
     let output = useCase.circuitOutput
-
     evolGates[oracleAt] = FixedGate.oracle(truthTable: truth, target: target, controls: controls)
 
     let circ = circFactory.makeCircuit(qubitCount: conf.qubitCount, gates: evolGates)!
