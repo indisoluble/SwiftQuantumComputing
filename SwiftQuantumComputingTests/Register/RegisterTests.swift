@@ -28,6 +28,36 @@ class RegisterTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testQubitCountEqualToNegativeValue_init_returnNil() {
+        // Then
+        XCTAssertNil(Register(qubitCount:-1))
+    }
+
+    func testQubitCountEqualToZero_init_returnNil() {
+        // Then
+        XCTAssertNil(Register(qubitCount:0))
+    }
+
+    func testEmptyBitsString_init_returnNil() {
+        // Then
+        XCTAssertNil(Register(bits: ""))
+    }
+
+    func testBitsStringWithLeadingSpaces_init_returnNil() {
+        // Then
+        XCTAssertNil(Register(bits: "  1001"))
+    }
+
+    func testBitsStringWithTrailingSpaces_init_returnNil() {
+        // Then
+        XCTAssertNil(Register(bits: "1001  "))
+    }
+
+    func testBitsStringWithWrongCharacter_init_returnNil() {
+        // Then
+        XCTAssertNil(Register(bits: "10#1"))
+    }
+
     func testVectorWhichSumOfSquareModulesIsNotOne_init_returnNil() {
         // Given
         let vector = Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])!
@@ -45,14 +75,33 @@ class RegisterTests: XCTestCase {
         XCTAssertNotNil(Register(vector: vector))
     }
 
-    func testQubitCountEqualToZero_init_returnNil() {
+    func testQubitCountBiggerThanZero_init_returnExpectedRegister() {
         // Then
-        XCTAssertNil(Register(qubitCount:0))
+        let register = Register(qubitCount: 3)
+
+        let elements = [Complex(1), Complex(0), Complex(0), Complex(0),
+                        Complex(0), Complex(0), Complex(0), Complex(0)]
+        let vector = Vector(elements)!
+        let expectedRegister = Register(vector: vector)
+
+        XCTAssertNotNil(register)
+        XCTAssertNotNil(expectedRegister)
+        XCTAssertEqual(register, expectedRegister)
     }
 
-    func testQubitCountBiggerThanZero_init_returnRegister() {
+    func testCorrectBitsString_init_returnExpectedRegister() {
         // Then
-        XCTAssertNotNil(Register(qubitCount: 1))
+        let bits = "011"
+        let register = Register(bits: bits)
+
+        let elements = [Complex(0), Complex(0), Complex(0), Complex(1),
+                        Complex(0), Complex(0), Complex(0), Complex(0)]
+        let vector = Vector(elements)!
+        let expectedRegister = Register(vector: vector)
+
+        XCTAssertNotNil(register)
+        XCTAssertNotNil(expectedRegister)
+        XCTAssertEqual(register, expectedRegister)
     }
 
     func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_returnNil() {

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MatrixMiddleConnectedPositionView" customModule="SwiftQuantumComputing" customModuleProvider="target"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="3je-cb-YXd">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <subviews>
+                <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="kCT-6M-QMo">
+                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                    <view key="contentView" id="YNl-kn-9Gl">
+                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syc-Vq-tCX">
+                                <rect key="frame" x="0.0" y="39" width="80" height="2"/>
+                                <view key="contentView" id="hol-dT-N6J">
+                                    <rect key="frame" x="0.0" y="0.0" width="80" height="2"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="VbW-YC-PIx"/>
+                                </constraints>
+                                <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="v3U-kd-fEF">
+                                <rect key="frame" x="16" y="0.0" width="48" height="80"/>
+                                <view key="contentView" id="bYZ-qJ-NtN">
+                                    <rect key="frame" x="0.0" y="0.0" width="48" height="80"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8x8-1G-WFh">
+                                            <rect key="frame" x="1" y="0.0" width="46" height="80"/>
+                                            <view key="contentView" id="zxU-le-WhH">
+                                                <rect key="frame" x="0.0" y="0.0" width="46" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="fillColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </box>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="8x8-1G-WFh" firstAttribute="leading" secondItem="bYZ-qJ-NtN" secondAttribute="leading" constant="1" id="1Qd-Ra-z4h"/>
+                                        <constraint firstAttribute="bottom" secondItem="8x8-1G-WFh" secondAttribute="bottom" id="BFF-d3-jrU"/>
+                                        <constraint firstAttribute="trailing" secondItem="8x8-1G-WFh" secondAttribute="trailing" constant="1" id="BIY-WU-i0k"/>
+                                        <constraint firstItem="8x8-1G-WFh" firstAttribute="top" secondItem="bYZ-qJ-NtN" secondAttribute="top" id="FSY-VT-Usq"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="EIb-WD-Hdc"/>
+                                </constraints>
+                                <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="v3U-kd-fEF" firstAttribute="top" secondItem="YNl-kn-9Gl" secondAttribute="top" id="6DO-BF-XNl"/>
+                            <constraint firstItem="v3U-kd-fEF" firstAttribute="centerX" secondItem="YNl-kn-9Gl" secondAttribute="centerX" id="EDW-C4-lqb"/>
+                            <constraint firstAttribute="bottom" secondItem="v3U-kd-fEF" secondAttribute="bottom" id="FR4-Ev-VIN"/>
+                            <constraint firstItem="Syc-Vq-tCX" firstAttribute="leading" secondItem="YNl-kn-9Gl" secondAttribute="leading" id="ZbG-IQ-IEI"/>
+                            <constraint firstAttribute="trailing" secondItem="Syc-Vq-tCX" secondAttribute="trailing" id="bTw-0g-NhN"/>
+                            <constraint firstItem="Syc-Vq-tCX" firstAttribute="centerY" secondItem="YNl-kn-9Gl" secondAttribute="centerY" id="ikm-vX-92Z"/>
+                        </constraints>
+                    </view>
+                    <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="fillColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </box>
+            </subviews>
+            <constraints>
+                <constraint firstItem="kCT-6M-QMo" firstAttribute="leading" secondItem="3je-cb-YXd" secondAttribute="leading" id="DRQ-ia-hyN"/>
+                <constraint firstItem="kCT-6M-QMo" firstAttribute="top" secondItem="3je-cb-YXd" secondAttribute="top" id="ESR-WU-iIJ"/>
+                <constraint firstAttribute="bottom" secondItem="kCT-6M-QMo" secondAttribute="bottom" id="gPE-N2-awR"/>
+                <constraint firstAttribute="trailing" secondItem="kCT-6M-QMo" secondAttribute="trailing" id="pFJ-Xc-Wef"/>
+            </constraints>
+        </customView>
+    </objects>
+</document>

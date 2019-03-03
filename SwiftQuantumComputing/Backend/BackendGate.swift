@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol BackendGate {
-    func extract() -> (matrix: Matrix, inputs: [Int])
+    func extract() -> (matrix: Matrix?, inputs: [Int])
 }

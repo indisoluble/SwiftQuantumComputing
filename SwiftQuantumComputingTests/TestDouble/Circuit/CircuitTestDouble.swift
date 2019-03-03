@@ -28,36 +28,29 @@ final class CircuitTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var qubitCountCount = 0
-    var qubitCountResult = 0
-
     private (set) var gatesCount = 0
-    var gatesResult: [Gate] = []
+    var gatesResult: [FixedGate] = []
 
     private (set) var measureCount = 0
     private (set) var lastMeasureQubits: [Int]?
+    private (set) var lastMeasureBits: String?
     var measureResult: [Double]?
 }
 
 // MARK: - Circuit methods
 
 extension CircuitTestDouble: Circuit {
-    var qubitCount: Int {
-        qubitCountCount += 1
-
-        return qubitCountResult
-    }
-
-    var gates: [Gate] {
+    var gates: [FixedGate] {
         gatesCount += 1
 
         return gatesResult
     }
 
-    func measure(qubits: [Int]) -> [Double]? {
+    func measure(qubits: [Int], afterInputting bits: String) -> [Double]? {
         measureCount += 1
 
         lastMeasureQubits = qubits
+        lastMeasureBits = bits
 
         return measureResult
     }

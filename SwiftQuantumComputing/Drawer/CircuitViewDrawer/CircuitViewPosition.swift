@@ -20,7 +20,7 @@
 
 import Foundation
 
-// MARK: - Types
+// MARK: - Internal types
 
 enum CircuitViewPosition: Equatable {
     case qubit(index: Int)
@@ -29,13 +29,18 @@ enum CircuitViewPosition: Equatable {
     case hadamard
     case not
     case phaseShift(radians: Double)
+    case controlledNot
     case controlledNotDown
     case controlledNotUp
     case controlUp
     case controlDown
-    case oracle
-    case oracleTop(inputs: [Int])
-    case oracleBottom
-    case oracleMiddleConnected
-    case oracleMiddleUnconnected
+    case matrix
+    case matrixTop(inputs: [Int])
+    case matrixBottom
+    case matrixMiddleConnected
+    case matrixMiddleUnconnected
+    case oracleUp
+    case oracleDown
+    case oracleTop(controls: [Int], connected: Bool)
+    case oracleBottom(connected: Bool)
 } 

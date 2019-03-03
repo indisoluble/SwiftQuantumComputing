@@ -27,7 +27,6 @@ struct BackendFacade {
 
     // MARK: - Private properties
 
-    private let initialRegister: BackendRegister
     private let factory: BackendRegisterGateFactory
 
     // MARK: - Private class properties
@@ -36,8 +35,7 @@ struct BackendFacade {
 
     // MARK: - Internal init methods
 
-    init(initialRegister: BackendRegister, factory: BackendRegisterGateFactory) {
-        self.initialRegister = initialRegister
+    init(factory: BackendRegisterGateFactory) {
         self.factory = factory
     }
 }
@@ -45,15 +43,15 @@ struct BackendFacade {
 // MARK: - Backend methods
 
 extension BackendFacade: Backend {
-    func measureQubits(_ qubits: [Int], in circuit: [BackendGate]) -> [Double]? {
-        var iter = circuit.makeIterator()
+    func measure(qubits: [Int], in circuit: Backend.Circuit) -> [Double]? {
+        var gatesIterator = circuit.gates.makeIterator()
 
-        var register: BackendRegister? = initialRegister
-        var gate = iter.next()
+        var register: BackendRegister? = circuit.register
+        var gate = gatesIterator.next()
 
         while let nextRegister = register, let nextGate = gate {
             register = applyGate(nextGate, to: nextRegister)
-            gate = iter.next()
+            gate = gatesIterator.next()
         }
 
         return register?.measure(qubits: qubits)
@@ -69,8 +67,16 @@ private extension BackendFacade {
     func applyGate(_ gate: BackendGate, to register: BackendRegister) -> BackendRegister? {
         let (matrix, inputs) = gate.extract()
 
-        guard let registerGate = factory.makeGate(matrix: matrix, inputs: inputs) else {
-            os_log("applyGate failed: Unable to build next gate",
+        guard let finalMatrix = matrix else {
+            os_log("applyGate failed: gate did not produce a matrix",
+                   log: BackendFacade.logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        guard let registerGate = factory.makeGate(matrix: finalMatrix, inputs: inputs) else {
+            os_log("applyGate failed: unable to build next gate",
                    log: BackendFacade.logger,
                    type: .debug)
 

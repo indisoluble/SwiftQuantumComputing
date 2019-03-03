@@ -23,8 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 public protocol Circuit {
-    var qubitCount: Int { get }
-    var gates: [Gate] { get }
-
-    func measure(qubits: [Int]) -> [Double]?
+    func measure(qubits: [Int], afterInputting bits: String) -> [Double]?
 }

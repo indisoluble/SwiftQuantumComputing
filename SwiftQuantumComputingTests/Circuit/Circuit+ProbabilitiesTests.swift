@@ -32,29 +32,32 @@ class Circuit_ProbabilitiesTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testCircuitWithFixedQubitCount_probabilitiesWithouQubits_callMeasureWithExpectedQubits() {
+    func testNonEmptyBits_probabilitiesWithouQubits_callMeasureWithExpectedQubitsAndBits() {
         // Given
-        circuit.qubitCountResult = 3
+        let bits = "101"
 
         // When
-        _ = circuit.probabilities()
+        _ = circuit.probabilities(afterInputting: bits)
 
         // Then
         let expectedQubits = [2, 1, 0]
         XCTAssertEqual(circuit.measureCount, 1)
         XCTAssertEqual(circuit.lastMeasureQubits, expectedQubits)
+        XCTAssertEqual(circuit.lastMeasureBits, bits)
     }
 
-    func testPreselectedQubits_probabilities_callMeasureWithExpectedQubits() {
+    func testPreselectedQubits_probabilities_callMeasureWithExpectedQubitsAndBits() {
         // Given
         let qubits = [9, 3]
+        let bits = "101"
 
         // When
-        _ = circuit.probabilities(qubits: qubits)
+        _ = circuit.probabilities(qubits: qubits, afterInputting: bits)
 
         // Then
         XCTAssertEqual(circuit.measureCount, 1)
         XCTAssertEqual(circuit.lastMeasureQubits, qubits)
+        XCTAssertEqual(circuit.lastMeasureBits, bits)
     }
 
     func testCircuitWithNoMeasurements_probabilities_returnNil() {
@@ -62,7 +65,7 @@ class Circuit_ProbabilitiesTests: XCTestCase {
         circuit.measureResult = nil
 
         // Then
-        XCTAssertNil(circuit.probabilities(qubits: []))
+        XCTAssertNil(circuit.probabilities(qubits: [], afterInputting: ""))
     }
 
     func testCircuitWithMeasurements_probabilities_returnExpectedResult() {
@@ -70,7 +73,7 @@ class Circuit_ProbabilitiesTests: XCTestCase {
         circuit.measureResult = [0, 0, 0, 0.25, 0, 0.25, 0, 0, 0.25, 0, 0, 0, 0, 0.25, 0, 0]
 
         // When
-        let result = circuit.probabilities(qubits: [])
+        let result = circuit.probabilities(qubits: [], afterInputting: "")
 
         // Then
         let expectedResult = ["0011": 0.25, "0101": 0.25, "1000": 0.25, "1101": 0.25]

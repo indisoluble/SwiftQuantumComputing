@@ -28,21 +28,22 @@ final class BackendTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var measureQubitsCount = 0
-    private (set) var lastMeasureQubitsQubits: [Int]?
-    private (set) var lastMeasureQubitsCircuit: [BackendGate]?
-    var measureQubitsResult: [Double]?
+    private (set) var measureCount = 0
+    private (set) var lastMeasureQubits: [Int]?
+    private (set) var lastMeasureCircuit: Backend.Circuit?
+    var measureResult: [Double]?
 }
 
 // MARK: - Backend methods
 
 extension BackendTestDouble: Backend {
-    func measureQubits(_ qubits: [Int], in circuit: [BackendGate]) -> [Double]? {
-        measureQubitsCount += 1
+    func measure(qubits: [Int],
+                 in circuit: (register: BackendRegister, gates: [BackendGate])) -> [Double]? {
+        measureCount += 1
 
-        lastMeasureQubitsQubits = qubits
-        lastMeasureQubitsCircuit = circuit
+        lastMeasureQubits = qubits
+        lastMeasureCircuit = circuit
 
-        return measureQubitsResult
+        return measureResult
     }
 }

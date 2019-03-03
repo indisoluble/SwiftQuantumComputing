@@ -36,13 +36,35 @@ struct Register {
     // MARK: - Internal init methods
 
     init?(qubitCount: Int) {
-        guard let groundState = Register.makeGroundState(qubitCount: qubitCount) else {
-            os_log("init failed: use qubit count bigger than 0", log: Register.logger, type: .debug)
+        guard qubitCount >= 0 else {
+            os_log("init failed: qubitCount has to be a positive number",
+                   log: Register.logger,
+                   type: .debug)
 
             return nil
         }
 
-        self.init(vector: groundState)
+        self.init(bits: String(repeating: "0", count: qubitCount))
+    }
+
+    init?(bits: String) {
+        guard let value = Int(bits, radix: 2) else {
+            os_log("init failed: provide non-empty string composed only of 0's & 1's",
+                   log: Register.logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        guard let state = Register.makeState(value: value, qubitCount: bits.count) else {
+            os_log("init failed: unable to produce initial state with provided qubits",
+                   log: Register.logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        self.init(vector: state)
     }
 
     init?(vector: Vector) {
@@ -147,14 +169,11 @@ private extension Register {
 
     // MARK: - Private class methods
 
-    static func makeGroundState(qubitCount: Int) -> Vector? {
-        guard (qubitCount > 0) else {
-            return nil
-        }
-
+    static func makeState(value: Int, qubitCount: Int) -> Vector? {
         let count = Int.pow(2, qubitCount)
+
         var elements = Array(repeating: Complex(0), count: count)
-        elements[0] = Complex(1)
+        elements[value] = Complex(1)
 
         return Vector(elements)
     }

@@ -48,6 +48,8 @@ extension CircuitViewPosition {
             view.showRadians(radians)
 
             return view
+        case .controlledNot:
+            return ControlledNotPositionView(frame: frame)
         case .controlledNotDown:
             return ControlledNotDownPositionView(frame: frame)
         case .controlledNotUp:
@@ -56,19 +58,34 @@ extension CircuitViewPosition {
             return ControlUpPositionView(frame: frame)
         case .controlDown:
             return ControlDownPositionView(frame: frame)
-        case .oracle:
-            return OraclePositionView(frame: frame)
-        case .oracleTop(let inputs):
-            let view = OracleTopPositionView(frame: frame)
-            view.showInputs(inputs)
+        case .matrix:
+            return MatrixPositionView(frame: frame)
+        case .matrixTop(let inputs):
+            let view = MatrixTopPositionView(frame: frame)
+            view.showMatrixInputs(inputs)
 
             return view
-        case .oracleBottom:
-            return OracleBottomPositionView(frame: frame)
-        case .oracleMiddleConnected:
-            return OracleMiddleConnectedPositionView(frame: frame)
-        case .oracleMiddleUnconnected:
-            return OracleMiddleUnconnectedPositionView(frame: frame)
+        case .matrixBottom:
+            return MatrixBottomPositionView(frame: frame)
+        case .matrixMiddleConnected:
+            return MatrixMiddleConnectedPositionView(frame: frame)
+        case .matrixMiddleUnconnected:
+            return MatrixMiddleUnconnectedPositionView(frame: frame)
+        case .oracleUp:
+            return OracleUpPositionView(frame: frame)
+        case .oracleDown:
+            return OracleDownPositionView(frame: frame)
+        case .oracleTop(let controls, let connected):
+            let view = (connected ?
+                OracleTopPositionView(frame: frame) :
+                MatrixTopPositionView(frame: frame))
+            view.showOracleControls(controls)
+
+            return view
+        case .oracleBottom(let connected):
+            return (connected ?
+                OracleBottomPositionView(frame: frame) :
+                MatrixBottomPositionView(frame: frame))
         }
     }
 }
