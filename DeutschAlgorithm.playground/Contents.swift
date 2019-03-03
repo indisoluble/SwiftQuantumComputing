@@ -16,18 +16,7 @@ func isFunctionConstant(truthTable: [String]) -> Bool {
     return (abs(1 - measure[0]) < 0.001)
 }
 
-print("Function: (f(0) = 0, f(1) = 0)")
-print("Is it constant? \(isFunctionConstant(truthTable: []))")
-print()
-
-print("Function: (f(0) = 1, f(1) = 1)")
-print("Is it constant? \(isFunctionConstant(truthTable: ["0", "1"]))")
-print()
-
-print("Function: (f(0) = 1, f(1) = 0)")
-print("Is it constant? \(isFunctionConstant(truthTable: ["0"]))")
-print()
-
-print("Function: (f(0) = 0, f(1) = 1)")
-print("Is it constant? \(isFunctionConstant(truthTable: ["1"]))")
-print()
+print("Function: f(0) = 0, f(1) = 0. Is it constant? \(isFunctionConstant(truthTable: []))")
+print("Function: f(0) = 1, f(1) = 1. Is it constant? \(isFunctionConstant(truthTable: ["0", "1"]))")
+print("Function: f(0) = 1, f(1) = 0. Is it constant? \(isFunctionConstant(truthTable: ["0"]))")
+print("Function: f(0) = 0, f(1) = 1. Is it constant? \(isFunctionConstant(truthTable: ["1"]))")
