@@ -19,50 +19,9 @@
 //
 
 import Foundation
-import os.log
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-public struct CircuitFactory {
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
-
-    // MARK: - Public class methods
-
-    public static func makeCircuit(gates: [Gate], qubitCount: Int) -> Circuit? {
-        guard let drawer = CircuitViewDrawer(qubitCount: qubitCount) else {
-            os_log("makeCircuit failed: unable to build circuit drawer",
-                   log: logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        let gateFactory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
-        let backend = BackendFacade(factory: gateFactory)
-
-        let registerFactory = BackendRegisterFactoryAdapter()
-
-        return CircuitFacade(gates: gates,
-                             drawer: drawer,
-                             backend: backend,
-                             factory: registerFactory)
-    }
-
-    public static func makeRandomizedCircuit(qubitCount: Int,
-                                             depth: Int,
-                                             factories: [CircuitGateFactory]) -> Circuit? {
-        let randomizer = GatesRandomizer(qubitCount: qubitCount, depth: depth, factories: factories)
-        guard let gates = randomizer?.execute() else {
-            os_log("makeRandomizedCircuit failed: unable to produce gates",
-                   log: logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        return CircuitFactory.makeCircuit(gates: gates, qubitCount: qubitCount)
-    }
+public protocol CircuitFactory {
+    func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit?
 }

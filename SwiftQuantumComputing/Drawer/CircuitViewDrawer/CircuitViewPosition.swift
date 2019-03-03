@@ -20,7 +20,7 @@
 
 import Foundation
 
-// MARK: - Types
+// MARK: - Internal types
 
 enum CircuitViewPosition: Equatable {
     case qubit(index: Int)

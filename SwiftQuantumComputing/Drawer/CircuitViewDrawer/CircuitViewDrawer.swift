@@ -42,7 +42,7 @@ struct CircuitViewDrawer {
 // MARK: - Drawable methods
 
 extension CircuitViewDrawer: Drawable {
-    func drawCircuit(_ circuit: [Gate]) -> SQCView {
+    func drawCircuit(_ circuit: [FixedGate]) -> SQCView {
         let container = makeContainerView(layerCount: (1 + circuit.count))
 
         var column = 0

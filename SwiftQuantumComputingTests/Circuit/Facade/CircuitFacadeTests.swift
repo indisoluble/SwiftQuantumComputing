@@ -28,20 +28,12 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
-    let gates = [Gate.hadamard(target: 0), Gate.not(target: 0)]
+    let gates = [FixedGate.hadamard(target: 0), FixedGate.not(target: 0)]
     let drawer = DrawerTestDouble()
     let backend = BackendTestDouble()
     let factory = BackendRegisterFactoryTestDouble()
 
     // MARK: - Tests
-
-    func testAnyCircuit_gates_returnExpectedValue() {
-        // Given
-        let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend, factory: factory)
-
-        // Then
-        XCTAssertEqual(facade.gates, gates)
-    }
 
     func testAnyCircuit_playgroundDescription_forwardCallToDrawer() {
         // Given
@@ -95,7 +87,7 @@ class CircuitFacadeTests: XCTestCase {
 
         // Then
         let lastMeasureRegister = backend.lastMeasureCircuit?.register as? BackendRegisterTestDouble
-        let lastMeasureGates = backend.lastMeasureCircuit?.gates as? [Gate]
+        let lastMeasureGates = backend.lastMeasureCircuit?.gates as? [FixedGate]
 
         XCTAssertEqual(factory.makeRegisterCount, 1)
         XCTAssertEqual(factory.lastMakeRegisterBits, bits)

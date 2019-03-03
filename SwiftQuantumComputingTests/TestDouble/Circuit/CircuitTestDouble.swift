@@ -29,7 +29,7 @@ final class CircuitTestDouble {
     // MARK: - Internal properties
 
     private (set) var gatesCount = 0
-    var gatesResult: [Gate] = []
+    var gatesResult: [FixedGate] = []
 
     private (set) var measureCount = 0
     private (set) var lastMeasureQubits: [Int]?
@@ -40,7 +40,7 @@ final class CircuitTestDouble {
 // MARK: - Circuit methods
 
 extension CircuitTestDouble: Circuit {
-    var gates: [Gate] {
+    var gates: [FixedGate] {
         gatesCount += 1
 
         return gatesResult
