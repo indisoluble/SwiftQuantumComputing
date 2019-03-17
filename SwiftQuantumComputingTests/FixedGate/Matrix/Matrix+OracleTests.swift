@@ -47,6 +47,15 @@ class Matrix_OracleTests: XCTestCase {
                        Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
     }
 
+    func testControlCountBiggerThanZeroAndTruthTableWithEmptyValue_makeOracle_returnExpectedIdentity() {
+        // Given
+        let controlCount = 5
+
+        // Then
+        XCTAssertEqual(Matrix.makeOracle(truthTable: [""], controlCount: controlCount),
+                       Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+    }
+
     func testControlCountBiggerThanZeroAndNonSensicalTruthTable_makeOracle_returnExpectedIdentity() {
         // Given
         let truthTable = [" 01", "01a", "a01", "0a1", "0 1"]
