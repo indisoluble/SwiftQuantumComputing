@@ -81,7 +81,7 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
             return nil
         }
 
-        guard let index = Int(useCase.circuitOutput, radix: 2) else {
+        guard let index = Int(useCase.circuit.output, radix: 2) else {
             os_log("evaluateCircuit: provided output is not valid",
                    log: MainGeneticUseCaseEvaluator.logger,
                    type: .debug)

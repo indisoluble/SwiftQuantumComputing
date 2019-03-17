@@ -5,10 +5,10 @@ let conf = GeneticConfiguration(qubitCount: 2, depth: (1..<50), generationCount:
                                 mutationProbability: 0.2, threshold: 0.48,
                                 errorProbability: 0.000000000000001)
 let cases = [
-    GeneticUseCase(truthTable: [], truthTableQubitCount: 1, circuitOutput: "00"),
-    GeneticUseCase(truthTable: ["0", "1"], truthTableQubitCount: 1, circuitOutput: "00"),
-    GeneticUseCase(truthTable: ["0"], truthTableQubitCount: 1, circuitOutput: "10"),
-    GeneticUseCase(truthTable: ["1"], truthTableQubitCount: 1, circuitOutput: "10")
+    GeneticUseCase(emptyTruthTableQubitCount: 1, circuitOutput: "00"),
+    GeneticUseCase(truthTable: ["0", "1"], circuitOutput: "00"),
+    GeneticUseCase(truthTable: ["0"], circuitOutput: "10"),
+    GeneticUseCase(truthTable: ["1"], circuitOutput: "10")
 ]
 let gates: [Gate] = [HadamardGate(), NotGate()]
 let genFac = MainGeneticFactory()
@@ -31,8 +31,8 @@ default:
 let circFactory = MainCircuitFactory()
 let bits = "00"
 for useCase in cases {
-    let truth = useCase.truthTable
-    let output = useCase.circuitOutput
+    let truth = useCase.truthTable.truth
+    let output = useCase.circuit.output
     evolGates[oracleAt] = FixedGate.oracle(truthTable: truth, target: target, controls: controls)
 
     let circ = circFactory.makeCircuit(qubitCount: conf.qubitCount, gates: evolGates)!
