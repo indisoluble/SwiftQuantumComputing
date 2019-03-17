@@ -24,17 +24,46 @@ import Foundation
 
 public struct GeneticUseCase {
 
+    // MARK: - Types
+
+    public struct TruthTable {
+
+        // MARK: - Public properties
+
+        public let truth: [String]
+        public let qubitCount: Int
+    }
+
+    public struct Circuit {
+
+        // MARK: - Public properties
+
+        public let output: String
+    }
+
     // MARK: - Public properties
 
-    public let truthTable: [String]
-    public let truthTableQubitCount: Int
-    public let circuitOutput: String
+    public let truthTable: TruthTable
+    public let circuit: Circuit
 
     // MARK: - Public init methods
 
-    public init(truthTable: [String], truthTableQubitCount: Int, circuitOutput: String) {
+    public init(truthTable: [String], circuitOutput: String) {
+        let truthTableQubitCount = truthTable.reduce(0) { $0 > $1.count ? $0 :  $1.count }
+
+        self.init(truthTable: .init(truth: truthTable, qubitCount: truthTableQubitCount),
+                  circuit: .init(output: circuitOutput))
+    }
+
+    public init(emptyTruthTableQubitCount: Int, circuitOutput: String) {
+        self.init(truthTable: .init(truth: [], qubitCount: emptyTruthTableQubitCount),
+                  circuit: .init(output: circuitOutput))
+    }
+
+    // MARK: - Private init methods
+
+    private init(truthTable: TruthTable, circuit: Circuit) {
         self.truthTable = truthTable
-        self.truthTableQubitCount = truthTableQubitCount
-        self.circuitOutput = circuitOutput
+        self.circuit = circuit
     }
 }
