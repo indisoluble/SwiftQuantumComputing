@@ -29,7 +29,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
     // MARK: - Properties
 
     let qubitCount = 2
-    let useCase = GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "11")
+    let useCase = GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "11")!
     let factory = CircuitFactoryTestDouble()
     let oracleFactory = OracleCircuitFactoryTestDouble()
     let oracleCircuit: OracleCircuitFactory.OracleCircuit = ([], 0)
@@ -102,7 +102,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         circuit.measureResult = measures
 
         let nonSensicalUseCase = GeneticUseCase(emptyTruthTableQubitCount: 0,
-                                                circuitOutput: "qwerty")
+                                                circuitOutput: "qwerty")!
 
         let evaluator = MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
                                                     useCase: nonSensicalUseCase,
@@ -127,7 +127,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
 
         let circuitOutput = String(repeating: "1", count: qubitCount + 1)
         let nonSensicalUseCase = GeneticUseCase(emptyTruthTableQubitCount: 0,
-                                                circuitOutput: circuitOutput)
+                                                circuitOutput: circuitOutput)!
 
         let evaluator = MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
                                                     useCase: nonSensicalUseCase,
