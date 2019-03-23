@@ -29,7 +29,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
     // MARK: - Properties
 
     let qubitCount = 2
-    let useCase = GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "11")!
+    let useCase = GeneticUseCase(truthTable: [], circuitInput: "01", circuitOutput: "11")!
     let factory = CircuitFactoryTestDouble()
     let oracleFactory = OracleCircuitFactoryTestDouble()
     let oracleCircuit: OracleCircuitFactory.OracleCircuit = ([], 0)
@@ -92,6 +92,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
         XCTAssertEqual(factory.makeCircuitCount, 1)
         XCTAssertEqual(circuit.measureCount, 1)
+        XCTAssertEqual(circuit.lastMeasureBits, useCase.circuit.input)
         XCTAssertNil(prob)
     }
 
@@ -116,6 +117,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
         XCTAssertEqual(factory.makeCircuitCount, 1)
         XCTAssertEqual(circuit.measureCount, 1)
+        XCTAssertEqual(circuit.lastMeasureBits, nonSensicalUseCase.circuit.input)
         XCTAssertNil(prob)
     }
 
@@ -141,6 +143,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
         XCTAssertEqual(factory.makeCircuitCount, 1)
         XCTAssertEqual(circuit.measureCount, 1)
+        XCTAssertEqual(circuit.lastMeasureBits, nonSensicalUseCase.circuit.input)
         XCTAssertNil(prob)
     }
 
@@ -162,6 +165,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
         XCTAssertEqual(factory.makeCircuitCount, 1)
         XCTAssertEqual(circuit.measureCount, 1)
+        XCTAssertEqual(circuit.lastMeasureBits, useCase.circuit.input)
         XCTAssertEqual(prob, 0.0)
     }
 }
