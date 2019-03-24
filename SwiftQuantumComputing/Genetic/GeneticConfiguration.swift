@@ -26,7 +26,6 @@ public struct GeneticConfiguration {
 
     // MARK: - Public properties
 
-    public let qubitCount: Int
     public let depth: Range<Int>
     public let generationCount: Int
     public let populationSize: Range<Int>
@@ -37,15 +36,13 @@ public struct GeneticConfiguration {
 
     // MARK: - Public init methods
 
-    public init(qubitCount: Int,
-                depth: Range<Int>,
+    public init(depth: Range<Int>,
                 generationCount: Int,
                 populationSize: Range<Int>,
                 tournamentSize: Int,
                 mutationProbability: Double,
                 threshold: Double,
                 errorProbability: Double) {
-        self.qubitCount = qubitCount
         self.depth = depth
         self.generationCount = generationCount
         self.populationSize = populationSize

@@ -108,14 +108,23 @@ extension MainGeneticFactory: GeneticFactory {
             return nil
         }
 
-        guard let initialPopulation = initialPopulationFactory.makeProducer(qubitCount: config.qubitCount,
+        let qubitCount = firstCase.circuit.qubitCount
+        guard useCases.reduce(true, { $0 && $1.circuit.qubitCount == qubitCount })  else {
+            os_log("evolveCircuit: use cases do not specify same circuit qubit count",
+                   log: MainGeneticFactory.logger,
+                   type: .debug)
+
+            return nil
+        }
+
+        guard let initialPopulation = initialPopulationFactory.makeProducer(qubitCount: qubitCount,
                                                                             threshold: config.threshold,
                                                                             useCases: useCases,
                                                                             gates: gates) else {
                                                                                 return nil
         }
 
-        guard let reproduction = reproductionFactory.makeReproduction(qubitCount: config.qubitCount,
+        guard let reproduction = reproductionFactory.makeReproduction(qubitCount: qubitCount,
                                                                       tournamentSize: config.tournamentSize,
                                                                       mutationProbability: config.mutationProbability,
                                                                       threshold: config.threshold,

@@ -28,7 +28,8 @@ class GeneticUseCaseTests: XCTestCase {
 
     // MARK: - Properties
 
-    let circuitOutput = "0"
+    let circuitInput = "000"
+    let circuitOutput = "101"
 
     // MARK: - Tests
 
@@ -40,8 +41,12 @@ class GeneticUseCaseTests: XCTestCase {
         let useCase = GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
 
         // Then
-        XCTAssertEqual(useCase.truthTable.truth, truthTable)
-        XCTAssertEqual(useCase.truthTable.qubitCount, 0)
+        if let useCase = useCase {
+            XCTAssertEqual(useCase.truthTable.truth, truthTable)
+            XCTAssertEqual(useCase.truthTable.qubitCount, 0)
+        } else {
+            XCTAssert(false)
+        }
     }
 
     func testTruthTableWithEmptyValue_init_returnExpectedUseCase() {
@@ -52,8 +57,12 @@ class GeneticUseCaseTests: XCTestCase {
         let useCase = GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
 
         // Then
-        XCTAssertEqual(useCase.truthTable.truth, truthTable)
-        XCTAssertEqual(useCase.truthTable.qubitCount, 0)
+        if let useCase = useCase {
+            XCTAssertEqual(useCase.truthTable.truth, truthTable)
+            XCTAssertEqual(useCase.truthTable.qubitCount, 0)
+        } else {
+            XCTAssert(false)
+        }
     }
 
     func testTruthTableWithMultipleSizedValues_init_returnExpectedUseCase() {
@@ -64,8 +73,12 @@ class GeneticUseCaseTests: XCTestCase {
         let useCase = GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
 
         // Then
-        XCTAssertEqual(useCase.truthTable.truth, truthTable)
-        XCTAssertEqual(useCase.truthTable.qubitCount, 3)
+        if let useCase = useCase {
+            XCTAssertEqual(useCase.truthTable.truth, truthTable)
+            XCTAssertEqual(useCase.truthTable.qubitCount, 3)
+        } else {
+            XCTAssert(false)
+        }
     }
 
     func testAnyTruthTableQubitCount_init_returnExpectedUseCase() {
@@ -77,7 +90,42 @@ class GeneticUseCaseTests: XCTestCase {
                                      circuitOutput: circuitOutput)
 
         // Then
-        XCTAssertEqual(useCase.truthTable.truth, [])
-        XCTAssertEqual(useCase.truthTable.qubitCount, truthTableQubitCount)
+        if let useCase = useCase {
+            XCTAssertEqual(useCase.truthTable.truth, [])
+            XCTAssertEqual(useCase.truthTable.qubitCount, truthTableQubitCount)
+        } else {
+            XCTAssert(false)
+        }
+    }
+
+    func testAnyCircuitOutput_init_returnExpectedUseCase() {
+        // Given
+        let truthTableQubitCount = 10
+
+        // When
+        let useCase = GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
+                                     circuitOutput: circuitOutput)
+
+        // Then
+        if let useCase = useCase {
+            XCTAssertEqual(useCase.circuit.input, circuitInput)
+            XCTAssertEqual(useCase.circuit.output, circuitOutput)
+            XCTAssertEqual(useCase.circuit.qubitCount, circuitOutput.count)
+        } else {
+            XCTAssert(false)
+        }
+    }
+
+    func testCircuitInputDifferentSizeThanOutput_init_returnNil() {
+        // Given
+        let truthTableQubitCount = 10
+
+        let input = "00"
+        let output = "000"
+
+        // Then
+        XCTAssertNil(GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
+                                    circuitInput: input,
+                                    circuitOutput: output))
     }
 }
