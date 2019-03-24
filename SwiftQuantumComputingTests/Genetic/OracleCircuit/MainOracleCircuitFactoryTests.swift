@@ -29,7 +29,7 @@ class MainOracleCircuitFactoryTests: XCTestCase {
     // MARK: - Properties
 
     let factory = MainOracleCircuitFactory()
-    let useCase = GeneticUseCase(truthTable: [], truthTableQubitCount: 0, circuitOutput: "")
+    let useCase = GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "")!
 
     // MARK: - Tests
 

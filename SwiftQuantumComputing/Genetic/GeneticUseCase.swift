@@ -19,22 +19,82 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
 public struct GeneticUseCase {
 
+    // MARK: - Types
+
+    public struct TruthTable {
+
+        // MARK: - Public properties
+
+        public let truth: [String]
+        public let qubitCount: Int
+    }
+
+    public struct Circuit {
+
+        // MARK: - Public properties
+
+        public let input: String
+        public let output: String
+        public let qubitCount: Int
+
+        // MARK: - Private class properties
+
+        private static let logger = LoggerFactory.makeLogger()
+
+        // MARK: - Internal init methods
+
+        init?(input: String, output: String) {
+            guard input.count == output.count else {
+                os_log("init failed: input & output of a circuit have the same size",
+                       log: Circuit.logger,
+                       type: .debug)
+
+                return nil
+            }
+
+            self.input = input
+            self.output = output
+            qubitCount = input.count
+        }
+    }
+
     // MARK: - Public properties
 
-    public let truthTable: [String]
-    public let truthTableQubitCount: Int
-    public let circuitOutput: String
+    public let truthTable: TruthTable
+    public let circuit: Circuit
 
     // MARK: - Public init methods
 
-    public init(truthTable: [String], truthTableQubitCount: Int, circuitOutput: String) {
+    public init?(truthTable: [String], circuitInput: String? = nil, circuitOutput: String) {
+        let ttQubitCount = truthTable.reduce(0) { $0 > $1.count ? $0 :  $1.count }
+        let tt = TruthTable(truth: truthTable, qubitCount: ttQubitCount)
+
+        self.init(truthTable: tt, circuitInput: circuitInput, circuitOutput: circuitOutput)
+    }
+
+    public init?(emptyTruthTableQubitCount: Int,
+                circuitInput: String? = nil,
+                circuitOutput: String) {
+        let tt = TruthTable(truth: [], qubitCount: emptyTruthTableQubitCount)
+
+        self.init(truthTable: tt, circuitInput: circuitInput, circuitOutput: circuitOutput)
+    }
+
+    // MARK: - Private init methods
+
+    private init?(truthTable: TruthTable, circuitInput: String? = nil, circuitOutput: String) {
+        let input = circuitInput ?? String(repeating: "0", count: circuitOutput.count)
+        guard let circuit = Circuit.init(input: input, output: circuitOutput) else {
+            return nil
+        }
+
         self.truthTable = truthTable
-        self.truthTableQubitCount = truthTableQubitCount
-        self.circuitOutput = circuitOutput
+        self.circuit = circuit
     }
 }

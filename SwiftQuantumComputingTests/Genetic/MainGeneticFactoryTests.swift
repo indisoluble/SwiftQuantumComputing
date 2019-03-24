@@ -38,15 +38,14 @@ class MainGeneticFactoryTests: XCTestCase {
     let reproductionResult: [Fitness.EvalCircuit] = [(0.0, [GeneticGateTestDouble()])]
     let oracleFactory = OracleCircuitFactoryTestDouble()
     let oracleCircuit: OracleCircuitFactory.OracleCircuit = ([], nil)
-    let useCase = GeneticUseCase(truthTable: [], truthTableQubitCount: 0, circuitOutput: "")
+    let useCase = GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "0")!
     let gates: [Gate] = []
 
     // MARK: - Tests
 
     func testEmptyPopulationSize_evolveCircuit_returnNil() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 10,
                                                  populationSize: (0..<0),
                                                  tournamentSize: 0,
@@ -74,8 +73,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testEmptyDepth_evolveCircuit_returnNil() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<0),
+        let configuration = GeneticConfiguration(depth: (0..<0),
                                                  generationCount: 10,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,
@@ -103,8 +101,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testEmptyUseCases_evolveCircuit_returnNil() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 10,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,
@@ -130,10 +127,41 @@ class MainGeneticFactoryTests: XCTestCase {
         XCTAssertNil(result)
     }
 
+    func testUseCasesWithDifferentCircuitQubitCount_evolveCircuit_returnNil() {
+        // Given
+        let configuration = GeneticConfiguration(depth: (0..<10),
+                                                 generationCount: 10,
+                                                 populationSize: (0..<100),
+                                                 tournamentSize: 0,
+                                                 mutationProbability: 0.0,
+                                                 threshold: 0.0,
+                                                 errorProbability: 0.0)
+
+        let extraCircuitOutput = String(repeating: "0", count: useCase.circuit.qubitCount + 1)
+        let extraUseCase = GeneticUseCase(emptyTruthTableQubitCount: 0,
+                                          circuitOutput: extraCircuitOutput)!
+
+        let factory = MainGeneticFactory(initialPopulationFactory: initialPopulationFactory,
+                                         fitness: fitness,
+                                         reproductionFactory: reproductionFactory,
+                                         oracleFactory: oracleFactory)
+
+        // When
+        let result = factory.evolveCircuit(configuration: configuration,
+                                           useCases: [useCase, extraUseCase],
+                                           gates: gates)
+
+        // Then
+        XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
+        XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
+        XCTAssertEqual(fitness.fittestCount, 0)
+        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        XCTAssertNil(result)
+    }
+
     func testInitialPopulationFactoryReturnNil_evolveCircuit_returnNil() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 10,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,
@@ -161,8 +189,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testReproductionFactoryReturnNil_evolveCircuit_returnNil() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 10,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,
@@ -193,8 +220,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testInitialPopulationReturnNil_evolveCircuit_returnNil() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 10,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,
@@ -227,8 +253,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testFitnessReturnNil_evolveCircuit_returnNil() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 10,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,
@@ -262,8 +287,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testGenerationCountEqualToZero_evolveCircuit_reproductionIsNotApplied() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 0,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,
@@ -299,8 +323,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testGenerationBiggerThanZeroAndSmallerThanPopulationSize_evolveCircuit_reproductionIsAppliedExpectedCount() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 10,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,
@@ -337,8 +360,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testPopulationSizeEqualToZero_evolveCircuit_reproductionIsNotApplied() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 0,
                                                  populationSize: (0..<1),
                                                  tournamentSize: 0,
@@ -374,8 +396,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testReproductionReturnNil_evolveCircuit_fitnessIsAppliedExpectedCount() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 10,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,
@@ -411,8 +432,7 @@ class MainGeneticFactoryTests: XCTestCase {
 
     func testOracleFactoryReturnNil_evolveCircuit_returnNil() {
         // Given
-        let configuration = GeneticConfiguration(qubitCount: 0,
-                                                 depth: (0..<10),
+        let configuration = GeneticConfiguration(depth: (0..<10),
                                                  generationCount: 10,
                                                  populationSize: (0..<100),
                                                  tournamentSize: 0,

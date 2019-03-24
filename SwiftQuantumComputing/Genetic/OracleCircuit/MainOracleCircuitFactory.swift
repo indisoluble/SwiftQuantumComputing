@@ -29,8 +29,8 @@ struct MainOracleCircuitFactory {}
 extension MainOracleCircuitFactory: OracleCircuitFactory {
     func makeOracleCircuit(geneticCircuit: [GeneticGate],
                            useCase: GeneticUseCase) -> OracleCircuit? {
-        let tt = useCase.truthTable
-        let ttCount = useCase.truthTableQubitCount
+        let tt = useCase.truthTable.truth
+        let ttCount = useCase.truthTable.qubitCount
 
         var gates: [FixedGate] = []
         var oracleIndex: Int? = nil

@@ -28,7 +28,6 @@ struct MainGeneticUseCaseEvaluator {
     // MARK: - Private properties
 
     private let qubits: [Int]
-    private let input: String
     private let useCase: GeneticUseCase
     private let factory: CircuitFactory
     private let oracleFactory: OracleCircuitFactory
@@ -44,7 +43,6 @@ struct MainGeneticUseCaseEvaluator {
          factory: CircuitFactory,
          oracleFactory: OracleCircuitFactory) {
         self.qubits = Array((0..<qubitCount).reversed())
-        self.input = String(repeating: "0", count: qubitCount)
         self.useCase = useCase
         self.factory = factory
         self.oracleFactory = oracleFactory
@@ -73,6 +71,7 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
             return nil
         }
 
+        let input = useCase.circuit.input
         guard let measures = circuit.measure(qubits: qubits, afterInputting: input) else {
             os_log("evaluateCircuit: unable to get measures with provided params",
                    log: MainGeneticUseCaseEvaluator.logger,
@@ -81,7 +80,7 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
             return nil
         }
 
-        guard let index = Int(useCase.circuitOutput, radix: 2) else {
+        guard let index = Int(useCase.circuit.output, radix: 2) else {
             os_log("evaluateCircuit: provided output is not valid",
                    log: MainGeneticUseCaseEvaluator.logger,
                    type: .debug)
