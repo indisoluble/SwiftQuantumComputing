@@ -1,9 +1,12 @@
 import SwiftQuantumComputing // for macOS
 
-let conf = GeneticConfiguration(depth: (1..<50), generationCount: 2000,
-                                populationSize: (2500..<6500), tournamentSize: 7,
-                                mutationProbability: 0.2, threshold: 0.48,
-                                errorProbability: 0.000000000000001)
+let config = GeneticConfiguration(depth: (1..<50),
+                                  generationCount: 2000,
+                                  populationSize: (2500..<6500),
+                                  tournamentSize: 7,
+                                  mutationProbability: 0.2,
+                                  threshold: 0.48,
+                                  errorProbability: 0.000000000000001)
 let cases = [
     GeneticUseCase(emptyTruthTableQubitCount: 1, circuitOutput: "00")!,
     GeneticUseCase(truthTable: ["0", "1"], circuitOutput: "00")!,
@@ -12,35 +15,17 @@ let cases = [
 ]
 let gates: [Gate] = [HadamardGate(), NotGate()]
 let genFac = MainGeneticFactory()
-guard let evol = genFac.evolveCircuit(configuration: conf, useCases: cases, gates: gates) else {
+guard let evol = genFac.evolveCircuit(configuration: config, useCases: cases, gates: gates) else {
     fatalError("Unabe to evolve a circuit")
 }
 print("Solution found. Fitness score: \(evol.eval)")
 
-var evolGates = evol.gates
-let oracleAt = evol.oracleAt!
-var target = 0
-var controls: [Int] = []
-switch evolGates[oracleAt] {
-case let .oracle(_, t, c):
-    target = t
-    controls = c
-default:
-    fatalError("No oracle found")
-}
-let circFactory = MainCircuitFactory()
-let bits = "00"
 for useCase in cases {
-    let truth = useCase.truthTable.truth
-    evolGates[oracleAt] = FixedGate.oracle(truthTable: truth, target: target, controls: controls)
-
-    let qubitCount = useCase.circuit.qubitCount
-    let circ = circFactory.makeCircuit(qubitCount: qubitCount, gates: evolGates)!
-    let probs = circ.probabilities(afterInputting: bits)!
-
-    let output = useCase.circuit.output
-    print(String(format: "Use case: [%@]. Expedted output: %@. Probability: %.2f %%",
-                 truth.joined(separator: ", "),
-                 output,
-                 (probs[output] ?? 0.0) * 100))
+    let circuit = makeCircuit(evolvedCircuit: evol, useCase: useCase)
+    let probabilities = circuit.probabilities(afterInputting: useCase.circuit.input)
+    print(String(format: "Use case: [%@]. Input: %@ -> Output: %@. Probability: %.2f %%",
+                 useCase.truthTable.truth.joined(separator: ", "),
+                 useCase.circuit.input,
+                 useCase.circuit.output,
+                 (probabilities?[useCase.circuit.output] ?? 0.0) * 100))
 }
