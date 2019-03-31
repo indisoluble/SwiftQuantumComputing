@@ -1602,17 +1602,19 @@
 				TargetAttributes = {
 					FF65E3B4211A181900AA0BD2 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 					FF65E3BD211A181900AA0BD2 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 					FFBA23EB21691E0F003E5727 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 					};
 					FFBA23F321691E0F003E5727 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -2269,7 +2271,7 @@
 				PRODUCT_NAME = "${PROJECT_NAME}";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2294,7 +2296,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
 				PRODUCT_NAME = "${PROJECT_NAME}";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2312,7 +2314,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.indisoluble.SwiftQuantumComputing-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2330,7 +2332,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.indisoluble.SwiftQuantumComputing-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -2360,7 +2362,7 @@
 				PRODUCT_NAME = "${PROJECT_NAME}";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2388,7 +2390,7 @@
 				PRODUCT_NAME = "${PROJECT_NAME}";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -2411,7 +2413,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.indisoluble.SwiftQuantumComputing-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -2433,7 +2435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.indisoluble.SwiftQuantumComputing-macOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
