@@ -33,8 +33,8 @@ class BackendFacadeTests: XCTestCase {
     let firstGate = BackendGateTestDouble()
     let secondGate = BackendGateTestDouble()
     let thirdGate = BackendGateTestDouble()
-    let matrix = Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
-                         [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])!
+    let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
+                              [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
     let qubits = [0, 1, 2]
     let measurement = [0.1, 0.9]
 

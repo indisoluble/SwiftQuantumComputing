@@ -29,17 +29,17 @@ class RegisterGateFactoryTests: XCTestCase {
     // MARK: - Properties
 
     let validQubitCount = 3
-    let validMatrix = Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
-                              [Complex(0), Complex(1), Complex(0), Complex(0)],
-                              [Complex(0), Complex(0), Complex(0), Complex(1)],
-                              [Complex(0), Complex(0), Complex(1), Complex(0)]])!
+    let validMatrix = try! Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
+                                   [Complex(0), Complex(1), Complex(0), Complex(0)],
+                                   [Complex(0), Complex(0), Complex(0), Complex(1)],
+                                   [Complex(0), Complex(0), Complex(1), Complex(0)]])
 
     // MARK: - Tests
 
     func testNonSquareMatrix_init_returnNil() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let matrix = Matrix([[complex], [complex]])!
+        let matrix = try! Matrix([[complex], [complex]])
 
         // Then
         XCTAssertNil(RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: matrix))
@@ -48,9 +48,9 @@ class RegisterGateFactoryTests: XCTestCase {
     func testSquareMatrixWithSizeNonPowerOfTwo_init_returnNil() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let matrix = Matrix([[complex, complex, complex],
-                             [complex, complex, complex],
-                             [complex, complex, complex]])!
+        let matrix = try! Matrix([[complex, complex, complex],
+                                  [complex, complex, complex],
+                                  [complex, complex, complex]])
 
         // Then
         XCTAssertNil(RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: matrix))
@@ -66,7 +66,7 @@ class RegisterGateFactoryTests: XCTestCase {
 
     func testOneByOneMatrixAndQubitCountEqualToZero_init_returnNil() {
         // Given
-        let matrix = Matrix([[Complex(0)]])!
+        let matrix = try! Matrix([[Complex(0)]])
         let qubitCount = 0
 
         // Then
@@ -136,7 +136,7 @@ class RegisterGateFactoryTests: XCTestCase {
             [Complex(0), Complex(0), Complex(1), Complex(0)],
             [Complex(0), Complex(1), Complex(0), Complex(0)]
         ]
-        let expectedGate = RegisterGate(matrix: Matrix(expectedElements)!)!
+        let expectedGate = RegisterGate(matrix: try! Matrix(expectedElements))!
         XCTAssertEqual(gate, expectedGate)
     }
 
@@ -158,7 +158,7 @@ class RegisterGateFactoryTests: XCTestCase {
             [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0)],
             [Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0)]
         ]
-        let expectedGate = RegisterGate(matrix: Matrix(expectedElements)!)!
+        let expectedGate = RegisterGate(matrix: try! Matrix(expectedElements))!
         XCTAssertEqual(gate, expectedGate)
     }
 
@@ -203,7 +203,7 @@ class RegisterGateFactoryTests: XCTestCase {
              Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0)],
             [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
              Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0)]]
-        let expectedGate = RegisterGate(matrix: Matrix(expectedElements)!)!
+        let expectedGate = RegisterGate(matrix: try! Matrix(expectedElements))!
         XCTAssertEqual(gate, expectedGate)
     }
 }

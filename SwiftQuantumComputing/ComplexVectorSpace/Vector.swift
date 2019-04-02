@@ -52,7 +52,7 @@ struct Vector {
     init?(_ elements: [Complex]) {
         let rows = elements.map { [$0] }
 
-        guard let matrix = Matrix(rows) else {
+        guard let matrix = try? Matrix(rows) else {
             os_log("init failed: unable to build matrix with provided elements",
                    log: Vector.logger,
                    type: .debug)
@@ -72,7 +72,7 @@ struct Vector {
     // MARK: - Internal class methods
 
     static func innerProduct(_ lhs: Vector, _ rhs: Vector) -> Complex? {
-        guard let matrix = (Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix) else {
+        guard let matrix = (try? Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix) else {
             os_log("innerProduct failed: can not multiple provided vectors",
                    log: Vector.logger,
                    type: .debug)
@@ -104,7 +104,7 @@ extension Vector: Equatable {
 
 extension Vector {
     static func *(lhs: Matrix, rhs: Vector) -> Vector? {
-        guard let matrix = (lhs * rhs.matrix) else {
+        guard let matrix = (try? lhs * rhs.matrix) else {
             os_log("* failed: can not multiple matrix by vector",
                    log: Vector.logger,
                    type: .debug)

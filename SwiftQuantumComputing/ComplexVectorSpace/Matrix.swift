@@ -46,33 +46,27 @@ public struct Matrix {
 
     private let elements: [Complex]
 
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
-
     // MARK: - Public init methods
 
-    public init?(_ rows: [[Complex]]) {
-        guard let firstRow = rows.first else {
-            os_log("init failed: do not pass an empty array", log: Matrix.logger, type: .debug)
+    enum InitError: Error {
+        case doNotPassAnEmptyArray
+        case subArraysMustNotBeEmpty
+        case subArraysHaveToHaveSameSize
+    }
 
-            return nil
+    public init(_ rows: [[Complex]]) throws {
+        guard let firstRow = rows.first else {
+            throw InitError.doNotPassAnEmptyArray
         }
 
         let columnCount = firstRow.count
         guard (columnCount > 0) else {
-            os_log("init failed: sub-arrays must not be empty", log: Matrix.logger, type: .debug)
-
-            return nil
+            throw InitError.subArraysMustNotBeEmpty
         }
 
         let sameCountOnEachRow = rows.allSatisfy { $0.count == columnCount }
         guard sameCountOnEachRow else {
-            os_log("init failed: sub-arrays have to have same size",
-                   log: Matrix.logger,
-                   type: .debug)
-
-            return nil
+            throw InitError.subArraysHaveToHaveSameSize
         }
 
         let rowCount = rows.count
@@ -94,7 +88,7 @@ public struct Matrix {
     // MARK: - Internal methods
 
     func isUnitary(accuracy: Double) -> Bool {
-        let identity = Matrix.makeIdentity(count: rowCount)!
+        let identity = try! Matrix.makeIdentity(count: rowCount)
 
         var matrix = Matrix.multiply(lhs: self, rhs: self, rhsTrans: CblasConjTrans)
         guard matrix.isEqual(identity, accuracy: accuracy) else {
@@ -107,13 +101,13 @@ public struct Matrix {
 
     // MARK: - Internal class methods
 
-    static func makeIdentity(count: Int) -> Matrix? {
-        guard (count > 0) else {
-            os_log("makeIdentity failed: pass count bigger than 0",
-                   log: Matrix.logger,
-                   type: .debug)
+    enum MakeIdentityError: Error {
+        case passCountBiggerThanZero
+    }
 
-            return nil
+    static func makeIdentity(count: Int) throws -> Matrix {
+        guard (count > 0) else {
+            throw MakeIdentityError.passCountBiggerThanZero
         }
 
         var columns = Array(repeating: Complex(0), count: count * count)
@@ -192,11 +186,15 @@ extension Matrix {
         return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, elements: columns)
     }
 
-    static func *(lhs: Matrix, rhs: Matrix) -> Matrix? {
-        return (Transformation.none(lhs) * rhs)
+    static func *(lhs: Matrix, rhs: Matrix) throws -> Matrix {
+        return (try Transformation.none(lhs) * rhs)
     }
 
-    static func *(lhsTransformation: Transformation, rhs: Matrix) -> Matrix? {
+    enum ProductError: Error {
+        case matricesDoNotHaveValidDimensions
+    }
+
+    static func *(lhsTransformation: Transformation, rhs: Matrix) throws -> Matrix {
         var lhs: Matrix!
         var lhsTrans = CblasNoTrans
         var areDimensionsValid = false
@@ -213,11 +211,7 @@ extension Matrix {
         }
 
         guard areDimensionsValid else {
-            os_log("* failed: matrices do not have valid dimensions",
-                   log: Matrix.logger,
-                   type: .debug)
-
-            return nil
+            throw ProductError.matricesDoNotHaveValidDimensions
         }
 
         return Matrix.multiply(lhs: lhs, lhsTrans: lhsTrans, rhs: rhs)

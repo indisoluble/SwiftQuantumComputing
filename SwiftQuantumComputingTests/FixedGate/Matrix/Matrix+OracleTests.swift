@@ -44,7 +44,7 @@ class Matrix_OracleTests: XCTestCase {
 
         // Then
         XCTAssertEqual(Matrix.makeOracle(truthTable: [], controlCount: controlCount),
-                       Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+                       try? Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
     }
 
     func testControlCountBiggerThanZeroAndTruthTableWithEmptyValue_makeOracle_returnExpectedIdentity() {
@@ -53,7 +53,7 @@ class Matrix_OracleTests: XCTestCase {
 
         // Then
         XCTAssertEqual(Matrix.makeOracle(truthTable: [""], controlCount: controlCount),
-                       Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+                       try? Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
     }
 
     func testControlCountBiggerThanZeroAndNonSensicalTruthTable_makeOracle_returnExpectedIdentity() {
@@ -63,7 +63,7 @@ class Matrix_OracleTests: XCTestCase {
 
         // Then
         XCTAssertEqual(Matrix.makeOracle(truthTable: truthTable, controlCount: controlCount),
-                       Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+                       try? Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
     }
 
     func testControlCountBiggerThanZeroAndTruthTableOutOfRange_makeOracle_returnExpectedIdentity() {
@@ -73,7 +73,7 @@ class Matrix_OracleTests: XCTestCase {
 
         // Then
         XCTAssertEqual(Matrix.makeOracle(truthTable: truthTable, controlCount: controlCount),
-                       Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+                       try? Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
     }
 
     func testControlCountBiggerThanZeroAndTruthTableWithMoreBitsThanControlsButInRange_makeOracle_returnExpectedMatrix() {
@@ -91,7 +91,7 @@ class Matrix_OracleTests: XCTestCase {
             [Complex(0), Complex(0), Complex(0), Complex(1)],
             [Complex(0), Complex(0), Complex(1), Complex(0)]
         ]
-        let expectedMatrix = Matrix(rows)
+        let expectedMatrix = try? Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)
     }
 
@@ -110,7 +110,7 @@ class Matrix_OracleTests: XCTestCase {
             [Complex(0), Complex(0), Complex(0), Complex(1)],
             [Complex(0), Complex(0), Complex(1), Complex(0)]
         ]
-        let expectedMatrix = Matrix(rows)
+        let expectedMatrix = try? Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)
     }
 
@@ -141,7 +141,7 @@ class Matrix_OracleTests: XCTestCase {
             [Complex(0), Complex(0), Complex(0), Complex(0),
              Complex(0), Complex(0), Complex(1), Complex(0)]
         ]
-        let expectedMatrix = Matrix(rows)
+        let expectedMatrix = try? Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)
     }
 }

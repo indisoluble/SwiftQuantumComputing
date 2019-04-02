@@ -108,7 +108,7 @@ class RegisterTests: XCTestCase {
         // Given
         let register = Register(qubitCount: 2)!
 
-        let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
+        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let gate = RegisterGate(matrix: matrix)!
 
         // Then
@@ -119,7 +119,7 @@ class RegisterTests: XCTestCase {
         // Given
         let register = Register(qubitCount: 1)!
 
-        let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
+        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let gate = RegisterGate(matrix: matrix)!
 
         // When
@@ -224,7 +224,7 @@ class RegisterTests: XCTestCase {
 
         var register = Register(qubitCount: qubitCount)!
         
-        let notMatrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
+        let notMatrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let factory = RegisterGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)!
         let notGate = factory.makeGate(inputs: [0])!
 

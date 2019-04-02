@@ -31,9 +31,9 @@ class RegisterGateTests: XCTestCase {
     func testNonUnitaryMatrix_init_returnNil() {
         // Given
         let complex = Complex(real: 1, imag: 0)
-        let matrix = Matrix([[complex, complex, complex],
-                             [complex, complex, complex],
-                             [complex, complex, complex]])!
+        let matrix = try! Matrix([[complex, complex, complex],
+                                  [complex, complex, complex],
+                                  [complex, complex, complex]])
 
         // Then
         XCTAssertNil(RegisterGate(matrix: matrix))
@@ -41,8 +41,8 @@ class RegisterGateTests: XCTestCase {
 
     func testUnitaryMatrix_init_returnRegisterGate() {
         // Given
-        let matrix = Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
-                             [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])!
+        let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
+                                  [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
 
         // Then
         XCTAssertNotNil(RegisterGate(matrix: matrix))
@@ -50,7 +50,7 @@ class RegisterGateTests: XCTestCase {
 
     func testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_returnNil() {
         // Given
-        let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
+        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let gate = RegisterGate(matrix: matrix)!
 
         let vector = Vector([Complex(1), Complex(0), Complex(0)])!
@@ -61,7 +61,7 @@ class RegisterGateTests: XCTestCase {
 
     func testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector() {
         // Given
-        let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
+        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let gate = RegisterGate(matrix: matrix)!
 
         let vector = Vector([Complex(1), Complex(0)])!

@@ -97,7 +97,7 @@ private extension RegisterGateFactory {
     // MARK: - Constants
 
     enum Constants {
-        static let baseIdentity = Matrix.makeIdentity(count: 2)!
+        static let baseIdentity = try! Matrix.makeIdentity(count: 2)
         static let baseSwap = Matrix.makeSwap()
     }
 
@@ -137,7 +137,7 @@ private extension RegisterGateFactory {
         let extended = makeExtendedMatrix(indices: swappedIndices)
         let swap = makeSwapMatrix(index: swappedIndex)
 
-        return (swap * (extended * swap)!)!
+        return (try! swap * (try! extended * swap))
     }
 
     func firstIndexNotAlignedToBaseMatrix(_ indices: [Int]) -> (pos: Int, index: Int)? {

@@ -87,7 +87,7 @@ class VectorTests: XCTestCase {
     func testMatrixWithColumnCountDifferentThanRowCountInVector_multiply_returnNil() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let lhs = Matrix([[complex, complex]])!
+        let lhs = try! Matrix([[complex, complex]])
         let rhs = Vector([complex, complex, complex])!
 
         // Then
@@ -100,7 +100,7 @@ class VectorTests: XCTestCase {
             [Complex(real: 3, imag: 2), Complex(real: 0, imag: 0), Complex(real: 5, imag: -6)],
             [Complex(real: 1, imag: 0), Complex(real: 4, imag: 2), Complex(real: 0, imag: 1)]
         ]
-        let lhs = Matrix(lhsElements)!
+        let lhs = try! Matrix(lhsElements)
 
         let rhsElements = [
             Complex(real: 5, imag: 0), Complex(real: 0, imag: 0), Complex(real: 7, imag: -4)

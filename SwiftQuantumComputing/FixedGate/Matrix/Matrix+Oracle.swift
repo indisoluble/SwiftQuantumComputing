@@ -48,7 +48,7 @@ extension Matrix {
             rows.append(row)
         }
 
-        return Matrix(rows)
+        return try? Matrix(rows)
     }
 }
 
