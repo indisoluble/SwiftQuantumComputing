@@ -80,7 +80,7 @@ struct Vector {
             return nil
         }
 
-        return Complex(matrix)
+        return try? Complex(matrix)
     }
 }
 
