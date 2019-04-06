@@ -175,7 +175,7 @@ private extension Register {
         var elements = Array(repeating: Complex(0), count: count)
         elements[value] = Complex(1)
 
-        return Vector(elements)
+        return try? Vector(elements)
     }
 
     static func isAdditionOfSquareModulusInVectorEqualToOne(_ vector: Vector) -> Bool {

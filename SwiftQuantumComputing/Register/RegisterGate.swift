@@ -48,7 +48,7 @@ struct RegisterGate {
     // MARK: - Internal methods
 
     func apply(to vector: Vector) -> Vector? {
-        return (matrix * vector)
+        return try? matrix * vector
     }
 }
 

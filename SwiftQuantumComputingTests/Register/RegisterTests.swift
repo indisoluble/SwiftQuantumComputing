@@ -60,7 +60,7 @@ class RegisterTests: XCTestCase {
 
     func testVectorWhichSumOfSquareModulesIsNotOne_init_returnNil() {
         // Given
-        let vector = Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])!
+        let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
 
         // Then
         XCTAssertNil(Register(vector: vector))
@@ -68,8 +68,8 @@ class RegisterTests: XCTestCase {
 
     func testVectorWhichSumOfSquareModulesIsOne_init_returnRegister() {
         // Given
-        let vector = Vector([Complex(real: sqrt(1 / 2), imag: 0),
-                             Complex(real: 0, imag: sqrt(1 / 2))])!
+        let vector = try! Vector([Complex(real: sqrt(1 / 2), imag: 0),
+                                  Complex(real: 0, imag: sqrt(1 / 2))])
 
         // Then
         XCTAssertNotNil(Register(vector: vector))
@@ -81,7 +81,7 @@ class RegisterTests: XCTestCase {
 
         let elements = [Complex(1), Complex(0), Complex(0), Complex(0),
                         Complex(0), Complex(0), Complex(0), Complex(0)]
-        let vector = Vector(elements)!
+        let vector = try! Vector(elements)
         let expectedRegister = Register(vector: vector)
 
         XCTAssertNotNil(register)
@@ -96,7 +96,7 @@ class RegisterTests: XCTestCase {
 
         let elements = [Complex(0), Complex(0), Complex(0), Complex(1),
                         Complex(0), Complex(0), Complex(0), Complex(0)]
-        let vector = Vector(elements)!
+        let vector = try! Vector(elements)
         let expectedRegister = Register(vector: vector)
 
         XCTAssertNotNil(register)
@@ -126,7 +126,7 @@ class RegisterTests: XCTestCase {
         let result = register.applying(gate)
 
         // Then
-        let expectedResult = Register(vector: Vector([Complex(0), Complex(1)])!)
+        let expectedResult = Register(vector: try! Vector([Complex(0), Complex(1)]))
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -173,8 +173,8 @@ class RegisterTests: XCTestCase {
     func testAnyRegisterAndOneQubit_measure_returnExpectedProbabilities() {
         // Given
         let prob = (1 / sqrt(5))
-        let vector = Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
-                             Complex(prob), Complex(0), Complex(0), Complex(prob)])!
+        let vector = try! Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
+                                  Complex(prob), Complex(0), Complex(0), Complex(prob)])
         let register = Register(vector: vector)!
 
         // When
@@ -192,8 +192,8 @@ class RegisterTests: XCTestCase {
     func testAnyRegisterAndTwoQubits_measure_returnExpectedProbabilities() {
         // Given
         let prob = (1 / sqrt(5))
-        let vector = Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
-                             Complex(prob), Complex(0), Complex(0), Complex(prob)])!
+        let vector = try! Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
+                                  Complex(prob), Complex(0), Complex(0), Complex(prob)])
         let register = Register(vector: vector)!
 
         // When

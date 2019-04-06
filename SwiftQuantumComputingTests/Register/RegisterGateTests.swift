@@ -53,7 +53,7 @@ class RegisterGateTests: XCTestCase {
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let gate = RegisterGate(matrix: matrix)!
 
-        let vector = Vector([Complex(1), Complex(0), Complex(0)])!
+        let vector = try! Vector([Complex(1), Complex(0), Complex(0)])
 
         // Then
         XCTAssertNil(gate.apply(to: vector))
@@ -64,13 +64,13 @@ class RegisterGateTests: XCTestCase {
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let gate = RegisterGate(matrix: matrix)!
 
-        let vector = Vector([Complex(1), Complex(0)])!
+        let vector = try! Vector([Complex(1), Complex(0)])
 
         // When
         let result = gate.apply(to: vector)
 
         // Then
-        let expectedResult = Vector([Complex(0), Complex(1)])
+        let expectedResult = try! Vector([Complex(0), Complex(1)])
         XCTAssertEqual(result, expectedResult)
     }
 }
