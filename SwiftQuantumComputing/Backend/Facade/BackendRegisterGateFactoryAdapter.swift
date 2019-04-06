@@ -53,7 +53,7 @@ extension BackendRegisterGateFactoryAdapter: Equatable {
 
 extension BackendRegisterGateFactoryAdapter: BackendRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
-        guard let factory = RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix) else {
+        guard let factory = try? RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix) else {
             os_log("makeGate failed: unable to build a gate factory",
                    log: BackendRegisterGateFactoryAdapter.logger,
                    type: .debug)
@@ -61,6 +61,6 @@ extension BackendRegisterGateFactoryAdapter: BackendRegisterGateFactory {
             return nil
         }
 
-        return factory.makeGate(inputs: inputs)
+        return try? factory.makeGate(inputs: inputs)
     }
 }

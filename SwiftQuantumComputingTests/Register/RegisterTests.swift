@@ -225,8 +225,8 @@ class RegisterTests: XCTestCase {
         var register = try! Register(qubitCount: qubitCount)
         
         let notMatrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let factory = RegisterGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)!
-        let notGate = factory.makeGate(inputs: [0])!
+        let factory = try! RegisterGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)
+        let notGate = try! factory.makeGate(inputs: [0])
 
         // When
         register = try! register.applying(notGate)
