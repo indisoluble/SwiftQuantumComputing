@@ -59,7 +59,7 @@ class BackendFacadeTests: XCTestCase {
         // Given
         let backend = BackendFacade(factory: factory)
 
-        let registerGate = RegisterGate(matrix: matrix)
+        let registerGate = try! RegisterGate(matrix: matrix)
         factory.makeGateResult = registerGate
 
         let nextRegister = BackendRegisterTestDouble()
@@ -129,7 +129,7 @@ class BackendFacadeTests: XCTestCase {
         // Given
         let backend = BackendFacade(factory: factory)
 
-        let registerGate = RegisterGate(matrix: matrix)
+        let registerGate = try! RegisterGate(matrix: matrix)
         factory.makeGateResult = registerGate
 
         register.applyingResult = nil

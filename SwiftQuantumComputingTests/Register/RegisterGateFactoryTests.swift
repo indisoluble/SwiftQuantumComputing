@@ -118,7 +118,7 @@ class RegisterGateFactoryTests: XCTestCase {
         let gate = factory.makeGate(inputs: [1, 0])
 
         // Then
-        let expectedGate = RegisterGate(matrix: validMatrix)!
+        let expectedGate = try! RegisterGate(matrix: validMatrix)
         XCTAssertEqual(gate, expectedGate)
     }
 
@@ -136,7 +136,7 @@ class RegisterGateFactoryTests: XCTestCase {
             [Complex(0), Complex(0), Complex(1), Complex(0)],
             [Complex(0), Complex(1), Complex(0), Complex(0)]
         ]
-        let expectedGate = RegisterGate(matrix: try! Matrix(expectedElements))!
+        let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
 
@@ -158,7 +158,7 @@ class RegisterGateFactoryTests: XCTestCase {
             [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0)],
             [Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0)]
         ]
-        let expectedGate = RegisterGate(matrix: try! Matrix(expectedElements))!
+        let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
 
@@ -203,7 +203,7 @@ class RegisterGateFactoryTests: XCTestCase {
              Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0)],
             [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
              Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0)]]
-        let expectedGate = RegisterGate(matrix: try! Matrix(expectedElements))!
+        let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
 }

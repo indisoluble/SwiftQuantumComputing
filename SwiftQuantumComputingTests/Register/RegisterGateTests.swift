@@ -28,7 +28,7 @@ class RegisterGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testNonUnitaryMatrix_init_returnNil() {
+    func testNonUnitaryMatrix_init_throwException() {
         // Given
         let complex = Complex(real: 1, imag: 0)
         let matrix = try! Matrix([[complex, complex, complex],
@@ -36,7 +36,7 @@ class RegisterGateTests: XCTestCase {
                                   [complex, complex, complex]])
 
         // Then
-        XCTAssertNil(RegisterGate(matrix: matrix))
+        XCTAssertThrowsError(try RegisterGate(matrix: matrix))
     }
 
     func testUnitaryMatrix_init_returnRegisterGate() {
@@ -45,29 +45,29 @@ class RegisterGateTests: XCTestCase {
                                   [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
 
         // Then
-        XCTAssertNotNil(RegisterGate(matrix: matrix))
+        XCTAssertNoThrow(try RegisterGate(matrix: matrix))
     }
 
-    func testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_returnNil() {
+    func testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_throwException() {
         // Given
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = RegisterGate(matrix: matrix)!
+        let gate = try! RegisterGate(matrix: matrix)
 
         let vector = try! Vector([Complex(1), Complex(0), Complex(0)])
 
         // Then
-        XCTAssertNil(gate.apply(to: vector))
+        XCTAssertThrowsError(try gate.apply(to: vector))
     }
 
     func testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector() {
         // Given
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = RegisterGate(matrix: matrix)!
+        let gate = try! RegisterGate(matrix: matrix)
 
         let vector = try! Vector([Complex(1), Complex(0)])
 
         // When
-        let result = gate.apply(to: vector)
+        let result = try? gate.apply(to: vector)
 
         // Then
         let expectedResult = try! Vector([Complex(0), Complex(1)])

@@ -109,7 +109,7 @@ class RegisterTests: XCTestCase {
         let register = Register(qubitCount: 2)!
 
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = RegisterGate(matrix: matrix)!
+        let gate = try! RegisterGate(matrix: matrix)
 
         // Then
         XCTAssertNil(register.applying(gate))
@@ -120,7 +120,7 @@ class RegisterTests: XCTestCase {
         let register = Register(qubitCount: 1)!
 
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = RegisterGate(matrix: matrix)!
+        let gate = try! RegisterGate(matrix: matrix)
 
         // When
         let result = register.applying(gate)

@@ -100,7 +100,7 @@ extension Register: Equatable {
 
 extension Register: BackendRegister {
     func applying(_ gate: RegisterGate) -> Register? {
-        guard let nextVector = gate.apply(to: vector) else {
+        guard let nextVector = try? gate.apply(to: vector) else {
             os_log("applying failed: gate can not be applied to this register",
                    log: Register.logger,
                    type: .debug)

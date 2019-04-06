@@ -86,7 +86,7 @@ struct RegisterGateFactory {
         }
 
         let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })
-        return RegisterGate(matrix: extended)
+        return try? RegisterGate(matrix: extended)
     }
 }
 
