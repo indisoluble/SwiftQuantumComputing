@@ -20,9 +20,23 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum BackendRegisterApplyingError: Error {
+    case gateDoesNotHaveValidDimension
+    case additionOfSquareModulusInNextRegisterIsNotEqualToOne
+}
+
+enum BackendRegisterMeasureError: Error {
+    case emptyQubitList
+    case qubitsAreNotUnique
+    case qubitsAreNotInBound
+    case qubitsAreNotSorted
+}
+
 // MARK: - Protocol definition
 
 protocol BackendRegister {
-    func applying(_ gate: RegisterGate) -> Self?
-    func measure(qubits: [Int]) -> [Double]?
+    func applying(_ gate: RegisterGate) throws -> Self
+    func measure(qubits: [Int]) throws -> [Double]
 }

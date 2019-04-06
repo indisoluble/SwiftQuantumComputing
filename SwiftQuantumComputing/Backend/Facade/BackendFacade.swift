@@ -54,7 +54,7 @@ extension BackendFacade: Backend {
             gate = gatesIterator.next()
         }
 
-        return register?.measure(qubits: qubits)
+        return try? register?.measure(qubits: qubits)
     }
 }
 
@@ -83,7 +83,7 @@ private extension BackendFacade {
             return nil
         }
 
-        guard let nextRegister = register.applying(registerGate) else {
+        guard let nextRegister = try? register.applying(registerGate) else {
             os_log("applyGate failed: unable to produce next register with new gate",
                    log: BackendFacade.logger,
                    type: .debug)

@@ -28,6 +28,6 @@ struct BackendRegisterFactoryAdapter {}
 
 extension BackendRegisterFactoryAdapter: BackendRegisterFactory {
     func makeRegister(bits: String) -> BackendRegister? {
-        return Register(bits: bits)
+        return try? Register(bits: bits)
     }
 }

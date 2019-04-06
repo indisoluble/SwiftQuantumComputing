@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -29,51 +28,39 @@ struct Register {
 
     private let vector: Vector
 
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
-
     // MARK: - Internal init methods
 
-    init?(qubitCount: Int) {
-        guard qubitCount >= 0 else {
-            os_log("init failed: qubitCount has to be a positive number",
-                   log: Register.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        self.init(bits: String(repeating: "0", count: qubitCount))
+    enum InitQubitCountError: Error {
+        case qubitCountHasToBeBiggerThanZero
     }
 
-    init?(bits: String) {
+    init(qubitCount: Int) throws {
+        guard qubitCount > 0 else {
+            throw InitQubitCountError.qubitCountHasToBeBiggerThanZero
+        }
+
+        try! self.init(bits: String(repeating: "0", count: qubitCount))
+    }
+
+    enum InitBitsError: Error {
+        case provideNonEmptyStringComposedOnlyOfZerosAndOnes
+    }
+
+    init(bits: String) throws {
         guard let value = Int(bits, radix: 2) else {
-            os_log("init failed: provide non-empty string composed only of 0's & 1's",
-                   log: Register.logger,
-                   type: .debug)
-
-            return nil
+            throw InitBitsError.provideNonEmptyStringComposedOnlyOfZerosAndOnes
         }
 
-        guard let state = Register.makeState(value: value, qubitCount: bits.count) else {
-            os_log("init failed: unable to produce initial state with provided qubits",
-                   log: Register.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        self.init(vector: state)
+        try! self.init(vector: Register.makeState(value: value, qubitCount: bits.count))
     }
 
-    init?(vector: Vector) {
-        guard Register.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
-            os_log("init failed: addition of square modulus is not equal to 1",
-                   log: Register.logger,
-                   type: .debug)
+    enum InitVectorError: Error {
+        case additionOfSquareModulusIsNotEqualToOne
+    }
 
-            return nil
+    init(vector: Vector) throws {
+        guard Register.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
+            throw InitVectorError.additionOfSquareModulusIsNotEqualToOne
         }
 
         self.vector = vector
@@ -99,25 +86,40 @@ extension Register: Equatable {
 // MARK: - BackendRegister methods
 
 extension Register: BackendRegister {
-    func applying(_ gate: RegisterGate) -> Register? {
-        guard let nextVector = try? gate.apply(to: vector) else {
-            os_log("applying failed: gate can not be applied to this register",
-                   log: Register.logger,
-                   type: .debug)
-
-            return nil
+    func applying(_ gate: RegisterGate) throws -> Register {
+        var nextVector: Vector!
+        do {
+            nextVector = try gate.apply(to: vector)
+        } catch RegisterGate.ApplyError.vectorDoesNotHaveValidDimension {
+            throw BackendRegisterApplyingError.gateDoesNotHaveValidDimension
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        return Register(vector: nextVector)
+        do {
+            return try Register(vector: nextVector)
+        } catch Register.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
+            throw BackendRegisterApplyingError.additionOfSquareModulusInNextRegisterIsNotEqualToOne
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 
-    func measure(qubits: [Int]) -> [Double]? {
-        guard areQubitsValid(qubits) else {
-            os_log("measure failed: provide sorted list of unique qubits",
-                   log: Register.logger,
-                   type: .debug)
+    func measure(qubits: [Int]) throws -> [Double] {
+        guard qubits.count > 0 else {
+            throw BackendRegisterMeasureError.emptyQubitList
+        }
 
-            return nil
+        guard areQubitsUnique(qubits) else {
+            throw BackendRegisterMeasureError.qubitsAreNotUnique
+        }
+
+        guard areQubitsInBound(qubits) else {
+            throw BackendRegisterMeasureError.qubitsAreNotInBound
+        }
+
+        guard areQubitsSorted(qubits) else {
+            throw BackendRegisterMeasureError.qubitsAreNotSorted
         }
 
         var result = Array(repeating: Double(0), count: Int.pow(2, qubits.count))
@@ -145,13 +147,6 @@ private extension Register {
 
     // MARK: - Private methods
 
-    func areQubitsValid(_ qubits: [Int]) -> Bool {
-        return ((qubits.count > 0) &&
-            areQubitsUnique(qubits) &&
-            areQubitsInBound(qubits) &&
-            areQubitsSorted(qubits))
-    }
-
     func areQubitsUnique(_ qubits: [Int]) -> Bool {
         return (qubits.count == Set(qubits).count)
     }
@@ -169,13 +164,13 @@ private extension Register {
 
     // MARK: - Private class methods
 
-    static func makeState(value: Int, qubitCount: Int) -> Vector? {
+    static func makeState(value: Int, qubitCount: Int) -> Vector {
         let count = Int.pow(2, qubitCount)
 
         var elements = Array(repeating: Complex(0), count: count)
         elements[value] = Complex(1)
 
-        return try? Vector(elements)
+        return try! Vector(elements)
     }
 
     static func isAdditionOfSquareModulusInVectorEqualToOne(_ vector: Vector) -> Bool {
