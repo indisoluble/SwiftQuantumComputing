@@ -46,7 +46,14 @@ extension MainCircuitFactory: CircuitFactory {
             return nil
         }
 
-        let gateFactory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
+        guard let gateFactory = try? BackendRegisterGateFactoryAdapter(qubitCount: qubitCount) else {
+            os_log("makeCircuit failed: unable to build gate factory",
+                   log: MainCircuitFactory.logger,
+                   type: .debug)
+
+            return nil
+        }
+
         let backend = BackendFacade(factory: gateFactory)
 
         let registerFactory = BackendRegisterFactoryAdapter()

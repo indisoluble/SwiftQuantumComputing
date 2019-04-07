@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -29,13 +28,17 @@ struct BackendRegisterGateFactoryAdapter {
 
     private let qubitCount: Int
 
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
-
     // MARK: - Internal init methods
 
-    init(qubitCount: Int) {
+    enum InitError: Error {
+        case qubitCountHasToBeBiggerThanZero
+    }
+
+    init(qubitCount: Int) throws {
+        guard qubitCount > 0 else {
+            throw InitError.qubitCountHasToBeBiggerThanZero
+        }
+
         self.qubitCount = qubitCount
     }
 }
@@ -52,15 +55,32 @@ extension BackendRegisterGateFactoryAdapter: Equatable {
 // MARK: - BackendRegisterGateFactory methods
 
 extension BackendRegisterGateFactoryAdapter: BackendRegisterGateFactory {
-    func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
-        guard let factory = try? RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix) else {
-            os_log("makeGate failed: unable to build a gate factory",
-                   log: BackendRegisterGateFactoryAdapter.logger,
-                   type: .debug)
-
-            return nil
+    func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
+        var factory: RegisterGateFactory!
+        do {
+            factory = try RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix)
+        } catch RegisterGateFactory.InitError.matrixIsNotSquare {
+            throw BackendRegisterGateFactoryMakeGateError.matrixIsNotSquare
+        } catch RegisterGateFactory.InitError.matrixRowCountHasToBeAPowerOfTwo {
+            throw BackendRegisterGateFactoryMakeGateError.matrixRowCountHasToBeAPowerOfTwo
+        } catch RegisterGateFactory.InitError.matrixHandlesMoreQubitsThanAreAvailable {
+            throw BackendRegisterGateFactoryMakeGateError.matrixHandlesMoreQubitsThanAreAvailable
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        return try? factory.makeGate(inputs: inputs)
+        do {
+            return try factory.makeGate(inputs: inputs)
+        } catch RegisterGateFactory.MakeGateError.inputCountDoesNotMatchBaseMatrixQubitCount {
+            throw BackendRegisterGateFactoryMakeGateError.inputCountDoesNotMatchMatrixQubitCount
+        } catch RegisterGateFactory.MakeGateError.inputsAreNotUnique {
+            throw BackendRegisterGateFactoryMakeGateError.inputsAreNotUnique
+        } catch RegisterGateFactory.MakeGateError.inputsAreNotInBound {
+            throw BackendRegisterGateFactoryMakeGateError.inputsAreNotInBound
+        } catch RegisterGateFactory.MakeGateError.gateIsNotUnitary {
+            throw BackendRegisterGateFactoryMakeGateError.gateIsNotUnitary
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }

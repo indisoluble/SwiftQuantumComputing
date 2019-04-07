@@ -32,17 +32,22 @@ final class BackendRegisterGateFactoryTestDouble {
     private (set) var lastMakeGateMatrix: Matrix?
     private (set) var lastMakeGateInputs: [Int]?
     var makeGateResult: RegisterGate?
+    var makeGateError = BackendRegisterGateFactoryMakeGateError.gateIsNotUnitary
 }
 
 // MARK: - BackendRegisterGateFactory methods
 
 extension BackendRegisterGateFactoryTestDouble: BackendRegisterGateFactory {
-    func makeGate(matrix: Matrix, inputs: [Int]) -> RegisterGate? {
+    func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
         makeGateCount += 1
 
         lastMakeGateMatrix = matrix
         lastMakeGateInputs = inputs
 
-        return makeGateResult
+        if let makeGateResult = makeGateResult {
+            return makeGateResult
+        }
+
+        throw makeGateError
     }
 }

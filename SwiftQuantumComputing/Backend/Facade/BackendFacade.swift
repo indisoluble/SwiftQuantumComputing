@@ -73,7 +73,7 @@ private extension BackendFacade {
             return nil
         }
 
-        guard let registerGate = factory.makeGate(matrix: matrix, inputs: inputs) else {
+        guard let registerGate = try? factory.makeGate(matrix: matrix, inputs: inputs) else {
             os_log("applyGate failed: unable to build next gate",
                    log: BackendFacade.logger,
                    type: .debug)
