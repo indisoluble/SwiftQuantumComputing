@@ -37,7 +37,7 @@ class Circuit_ProbabilitiesTests: XCTestCase {
         let bits = "101"
 
         // When
-        _ = circuit.probabilities(afterInputting: bits)
+        _ = try? circuit.probabilities(afterInputting: bits)
 
         // Then
         let expectedQubits = [2, 1, 0]
@@ -52,7 +52,7 @@ class Circuit_ProbabilitiesTests: XCTestCase {
         let bits = "101"
 
         // When
-        _ = circuit.probabilities(qubits: qubits, afterInputting: bits)
+        _ = try? circuit.probabilities(qubits: qubits, afterInputting: bits)
 
         // Then
         XCTAssertEqual(circuit.measureCount, 1)
@@ -60,12 +60,12 @@ class Circuit_ProbabilitiesTests: XCTestCase {
         XCTAssertEqual(circuit.lastMeasureBits, bits)
     }
 
-    func testCircuitWithNoMeasurements_probabilities_returnNil() {
+    func testCircuitWithNoMeasurements_probabilities_throwException() {
         // Given
         circuit.measureResult = nil
 
         // Then
-        XCTAssertNil(circuit.probabilities(qubits: [], afterInputting: ""))
+        XCTAssertThrowsError(try circuit.probabilities(qubits: [], afterInputting: ""))
     }
 
     func testCircuitWithMeasurements_probabilities_returnExpectedResult() {
@@ -73,7 +73,7 @@ class Circuit_ProbabilitiesTests: XCTestCase {
         circuit.measureResult = [0, 0, 0, 0.25, 0, 0.25, 0, 0, 0.25, 0, 0, 0, 0, 0.25, 0, 0]
 
         // When
-        let result = circuit.probabilities(qubits: [], afterInputting: "")
+        let result = try? circuit.probabilities(qubits: [], afterInputting: "")
 
         // Then
         let expectedResult = ["0011": 0.25, "0101": 0.25, "1000": 0.25, "1101": 0.25]

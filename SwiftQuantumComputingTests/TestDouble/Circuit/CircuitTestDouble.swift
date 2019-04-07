@@ -35,6 +35,7 @@ final class CircuitTestDouble {
     private (set) var lastMeasureQubits: [Int]?
     private (set) var lastMeasureBits: String?
     var measureResult: [Double]?
+    var measureError = CircuitError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: 0)
 }
 
 // MARK: - Circuit methods
@@ -46,12 +47,16 @@ extension CircuitTestDouble: Circuit {
         return gatesResult
     }
 
-    func measure(qubits: [Int], afterInputting bits: String) -> [Double]? {
+    func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
         measureCount += 1
 
         lastMeasureQubits = qubits
         lastMeasureBits = bits
 
-        return measureResult
+        if let measureResult = measureResult {
+            return measureResult
+        }
+
+        throw measureError
     }
 }

@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -31,10 +30,6 @@ struct CircuitFacade {
     private let drawer: Drawable
     private let backend: Backend
     private let factory: BackendRegisterFactory
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Internal init methods
 
@@ -65,15 +60,48 @@ extension CircuitFacade: CustomPlaygroundDisplayConvertible {
 // MARK: - Circuit methods
 
 extension CircuitFacade: Circuit {
-    func measure(qubits: [Int], afterInputting bits: String) -> [Double]? {
-        guard let register = try? factory.makeRegister(bits: bits) else {
-            os_log("measure failed: unable to produce a register with provided values",
-                   log: CircuitFacade.logger,
-                   type: .debug)
-
-            return nil
+    func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
+        var register: BackendRegister!
+        do {
+            register = try factory.makeRegister(bits: bits)
+        } catch BackendRegisterFactoryError.provideNonEmptyStringComposedOnlyOfZerosAndOnes {
+            throw CircuitError.informBitsAsANonEmptyStringComposedOnlyOfZerosAndOnes
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        return try? backend.measure(qubits: qubits, in: (register: register, gates: gates))
+        do {
+            return try backend.measure(qubits: qubits, in: (register: register, gates: gates))
+        } catch BackendError.unableToExtractMatrixFromGate(let index) {
+            throw CircuitError.unableToExtractMatrixFromGate(at: index)
+        } catch BackendError.gateMatrixIsNotSquare(let index) {
+            throw CircuitError.gateMatrixIsNotSquare(at: index)
+        } catch BackendError.gateMatrixRowCountHasToBeAPowerOfTwo(let index) {
+            throw CircuitError.gateMatrixRowCountHasToBeAPowerOfTwo(at: index)
+        } catch BackendError.gateMatrixHandlesMoreQubitsThanAreAvailable(let index) {
+            throw CircuitError.gateMatrixHandlesMoreQubitsThanAreAvailable(at: index)
+        } catch BackendError.gateInputCountDoesNotMatchMatrixQubitCount(let index) {
+            throw CircuitError.gateInputCountDoesNotMatchMatrixQubitCount(at: index)
+        } catch BackendError.gateInputsAreNotUnique(let index) {
+            throw CircuitError.gateInputsAreNotUnique(at: index)
+        } catch BackendError.gateInputsAreNotInBound(let index) {
+            throw CircuitError.gateInputsAreNotInBound(at: index)
+        } catch BackendError.gateIsNotUnitary(let index) {
+            throw CircuitError.gateIsNotUnitary(at: index)
+        } catch BackendError.gateDoesNotHaveValidDimension(let index) {
+            throw CircuitError.gateDoesNotHaveValidDimension(at: index)
+        } catch BackendError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(let index) {
+            throw CircuitError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: index)
+        } catch BackendError.emptyQubitList {
+            throw CircuitError.emptyQubitList
+        } catch BackendError.qubitsAreNotUnique {
+            throw CircuitError.qubitsAreNotUnique
+        } catch BackendError.qubitsAreNotInBound {
+            throw CircuitError.qubitsAreNotInBound
+        } catch BackendError.qubitsAreNotSorted {
+            throw CircuitError.qubitsAreNotSorted
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }

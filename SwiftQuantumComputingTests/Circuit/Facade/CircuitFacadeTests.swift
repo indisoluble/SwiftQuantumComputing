@@ -51,7 +51,7 @@ class CircuitFacadeTests: XCTestCase {
         XCTAssertTrue((result as! SQCView) === view)
     }
 
-    func testAnyCircuitAndRegisterFactoryThatReturnNil_measure_returnNil() {
+    func testAnyCircuitAndRegisterFactoryThatReturnNil_measure_throwException() {
         // Given
         let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend, factory: factory)
         factory.makeRegisterResult = nil
@@ -59,14 +59,11 @@ class CircuitFacadeTests: XCTestCase {
         let qubits = [0, 1]
         let bits = "01"
 
-        // When
-        let result = facade.measure(qubits: qubits, afterInputting: bits)
-
         // Then
+        XCTAssertThrowsError(try facade.measure(qubits: qubits, afterInputting: bits))
         XCTAssertEqual(factory.makeRegisterCount, 1)
         XCTAssertEqual(factory.lastMakeRegisterBits, bits)
         XCTAssertEqual(backend.measureCount, 0)
-        XCTAssertNil(result)
     }
 
     func testAnyCircuitAndFactoryThatReturnARegister_measure_forwardCallToBackend() {
@@ -83,7 +80,7 @@ class CircuitFacadeTests: XCTestCase {
         let bits = "01"
 
         // When
-        let result = facade.measure(qubits: otherQubits, afterInputting: bits)
+        let result = try? facade.measure(qubits: otherQubits, afterInputting: bits)
 
         // Then
         let lastMeasureRegister = backend.lastMeasureCircuit?.register as? BackendRegisterTestDouble

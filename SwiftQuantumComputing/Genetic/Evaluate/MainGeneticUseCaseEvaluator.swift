@@ -72,7 +72,7 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
         }
 
         let input = useCase.circuit.input
-        guard let measures = circuit.measure(qubits: qubits, afterInputting: input) else {
+        guard let measures = try? circuit.measure(qubits: qubits, afterInputting: input) else {
             os_log("evaluateCircuit: unable to get measures with provided params",
                    log: MainGeneticUseCaseEvaluator.logger,
                    type: .debug)

@@ -20,8 +20,28 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum CircuitError: Error {
+    case informBitsAsANonEmptyStringComposedOnlyOfZerosAndOnes
+    case unableToExtractMatrixFromGate(at: Int)
+    case gateMatrixIsNotSquare(at: Int)
+    case gateMatrixRowCountHasToBeAPowerOfTwo(at: Int)
+    case gateMatrixHandlesMoreQubitsThanAreAvailable(at: Int)
+    case gateInputCountDoesNotMatchMatrixQubitCount(at: Int)
+    case gateInputsAreNotUnique(at: Int)
+    case gateInputsAreNotInBound(at: Int)
+    case gateIsNotUnitary(at: Int)
+    case gateDoesNotHaveValidDimension(at: Int)
+    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: Int)
+    case emptyQubitList
+    case qubitsAreNotUnique
+    case qubitsAreNotInBound
+    case qubitsAreNotSorted
+}
+
 // MARK: - Protocol definition
 
 public protocol Circuit {
-    func measure(qubits: [Int], afterInputting bits: String) -> [Double]?
+    func measure(qubits: [Int], afterInputting bits: String) throws -> [Double]
 }
