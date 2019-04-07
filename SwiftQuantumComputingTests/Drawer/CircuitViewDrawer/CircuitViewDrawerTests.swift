@@ -28,8 +28,8 @@ class CircuitViewDrawerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testZeroQubits_init_returnNil() {
+    func testZeroQubits_init_throwException() {
         // Then
-        XCTAssertNil(CircuitViewDrawer(qubitCount: 0))
+        XCTAssertThrowsError(try CircuitViewDrawer(qubitCount: 0))
     }
 }

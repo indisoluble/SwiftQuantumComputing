@@ -38,7 +38,7 @@ public struct MainCircuitFactory {
 
 extension MainCircuitFactory: CircuitFactory {
     public func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit? {
-        guard let drawer = CircuitViewDrawer(qubitCount: qubitCount) else {
+        guard let drawer = try? CircuitViewDrawer(qubitCount: qubitCount) else {
             os_log("makeCircuit failed: unable to build circuit drawer",
                    log: MainCircuitFactory.logger,
                    type: .debug)
