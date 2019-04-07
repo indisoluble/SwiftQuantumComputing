@@ -55,6 +55,23 @@ class BackendFacadeTests: XCTestCase {
         XCTAssertEqual(result, measurement)
     }
 
+    func testAnyBackendAndOneGateUnableToExtractMatrix_measureQubits_applyMeasureOnInitialRegister() {
+        // Given
+        let backend = BackendFacade(factory: factory)
+
+        register.measureResult = measurement
+
+        // When
+        let result = backend.measure(qubits: qubits, in: (register: register, gates: [firstGate]))
+
+        // Then
+        XCTAssertEqual(firstGate.extractCount, 1)
+        XCTAssertEqual(factory.makeGateCount, 0)
+        XCTAssertEqual(register.applyingCount, 0)
+        XCTAssertEqual(register.measureCount, 0)
+        XCTAssertNil(result)
+    }
+
     func testAnyBackendAndOneGate_measureQubits_applyMeasureOnExpectedRegister() {
         // Given
         let backend = BackendFacade(factory: factory)

@@ -30,15 +30,19 @@ final class BackendGateTestDouble {
 
     private (set) var extractCount = 0
     var extractMatrixResult: Matrix?
-    var extractInputsResult: [Int]!
+    var extractInputsResult: [Int]?
 }
 
 // MARK: - BackendGate methods
 
 extension BackendGateTestDouble: BackendGate {
-    func extract() -> (matrix: Matrix?, inputs: [Int]) {
+    func extract() throws -> (matrix: Matrix, inputs: [Int]) {
         extractCount += 1
 
-        return (matrix: extractMatrixResult, inputs: extractInputsResult)
+        if let matrix = extractMatrixResult, let inputs = extractInputsResult {
+            return (matrix: matrix, inputs: inputs)
+        }
+
+        throw BackendGateExtractError.unableToExtractMatrix
     }
 }

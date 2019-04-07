@@ -65,9 +65,7 @@ private extension BackendFacade {
     // MARK: - Private methods
 
     func applyGate(_ gate: BackendGate, to register: BackendRegister) -> BackendRegister? {
-        let (matrix, inputs) = gate.extract()
-
-        guard let finalMatrix = matrix else {
+        guard let (matrix, inputs) = try? gate.extract() else {
             os_log("applyGate failed: gate did not produce a matrix",
                    log: BackendFacade.logger,
                    type: .debug)
@@ -75,7 +73,7 @@ private extension BackendFacade {
             return nil
         }
 
-        guard let registerGate = factory.makeGate(matrix: finalMatrix, inputs: inputs) else {
+        guard let registerGate = factory.makeGate(matrix: matrix, inputs: inputs) else {
             os_log("applyGate failed: unable to build next gate",
                    log: BackendFacade.logger,
                    type: .debug)
