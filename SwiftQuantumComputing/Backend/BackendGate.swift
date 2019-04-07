@@ -29,5 +29,7 @@ enum BackendGateExtractError: Error {
 // MARK: - Protocol definition
 
 protocol BackendGate {
-    func extract() throws -> (matrix: Matrix, inputs: [Int])
+    typealias Components = (matrix: Matrix, inputs: [Int])
+
+    func extract() throws -> Components
 }

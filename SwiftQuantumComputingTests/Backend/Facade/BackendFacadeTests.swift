@@ -47,7 +47,7 @@ class BackendFacadeTests: XCTestCase {
         register.measureResult = measurement
 
         // When
-        let result = backend.measure(qubits: qubits, in: (register: register, gates: []))
+        let result = try? backend.measure(qubits: qubits, in: (register: register, gates: []))
 
         // Then
         XCTAssertEqual(register.measureCount, 1)
@@ -62,7 +62,8 @@ class BackendFacadeTests: XCTestCase {
         register.measureResult = measurement
 
         // When
-        let result = backend.measure(qubits: qubits, in: (register: register, gates: [firstGate]))
+        let result = try? backend.measure(qubits: qubits,
+                                          in: (register: register, gates: [firstGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)
@@ -89,7 +90,8 @@ class BackendFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        let result = backend.measure(qubits: qubits, in: (register: register, gates: [firstGate]))
+        let result = try? backend.measure(qubits: qubits,
+                                          in: (register: register, gates: [firstGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)
@@ -111,7 +113,8 @@ class BackendFacadeTests: XCTestCase {
         firstGate.extractInputsResult = [0, 2]
 
         // When
-        let result = backend.measure(qubits: qubits, in: (register: register, gates: [firstGate]))
+        let result = try? backend.measure(qubits: qubits,
+                                          in: (register: register, gates: [firstGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)
@@ -131,7 +134,8 @@ class BackendFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        let result = backend.measure(qubits: qubits, in: (register: register, gates: [firstGate]))
+        let result = try? backend.measure(qubits: qubits,
+                                          in: (register: register, gates: [firstGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)
@@ -156,7 +160,8 @@ class BackendFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        let result = backend.measure(qubits: qubits, in: (register: register, gates: [firstGate]))
+        let result = try? backend.measure(qubits: qubits,
+                                          in: (register: register, gates: [firstGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)
@@ -179,8 +184,9 @@ class BackendFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        _ = backend.measure(qubits: qubits,
-                            in: (register: register, gates: [firstGate, secondGate, thirdGate]))
+        _ = try? backend.measure(qubits: qubits,
+                                 in: (register: register,
+                                      gates: [firstGate, secondGate, thirdGate]))
 
         // Then
         XCTAssertEqual(firstGate.extractCount, 1)

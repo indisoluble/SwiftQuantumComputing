@@ -74,6 +74,6 @@ extension CircuitFacade: Circuit {
             return nil
         }
 
-        return backend.measure(qubits: qubits, in: (register: register, gates: gates))
+        return try? backend.measure(qubits: qubits, in: (register: register, gates: gates))
     }
 }

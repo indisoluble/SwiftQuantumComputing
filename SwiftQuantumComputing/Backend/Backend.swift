@@ -20,10 +20,29 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum BackendError: Error {
+    case unableToExtractMatrixFromGate(at: Int)
+    case gateMatrixIsNotSquare(at: Int)
+    case gateMatrixRowCountHasToBeAPowerOfTwo(at: Int)
+    case gateMatrixHandlesMoreQubitsThanAreAvailable(at: Int)
+    case gateInputCountDoesNotMatchMatrixQubitCount(at: Int)
+    case gateInputsAreNotUnique(at: Int)
+    case gateInputsAreNotInBound(at: Int)
+    case gateIsNotUnitary(at: Int)
+    case gateDoesNotHaveValidDimension(at: Int)
+    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: Int)
+    case emptyQubitList
+    case qubitsAreNotUnique
+    case qubitsAreNotInBound
+    case qubitsAreNotSorted
+}
+
 // MARK: - Protocol definition
 
 protocol Backend {
     typealias Circuit = (register: BackendRegister, gates: [BackendGate])
 
-    func measure(qubits: [Int], in circuit: Backend.Circuit) -> [Double]?
+    func measure(qubits: [Int], in circuit: Backend.Circuit) throws -> [Double]
 }
