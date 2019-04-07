@@ -34,7 +34,8 @@ extension FixedGate: BackendGate {
         case .not(let target):
             return (Constants.matrixNot, [target])
         case .oracle(let truthTable, let target, let controls):
-            let matrix = Matrix.makeOracle(truthTable: truthTable, controlCount: controls.count)
+            let matrix = try? Matrix.makeOracle(truthTable: truthTable,
+                                                controlCount: controls.count)
             let inputs = controls + [target]
 
             return (matrix, inputs)
