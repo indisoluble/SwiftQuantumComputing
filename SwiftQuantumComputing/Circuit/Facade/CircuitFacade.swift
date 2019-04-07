@@ -66,7 +66,7 @@ extension CircuitFacade: CustomPlaygroundDisplayConvertible {
 
 extension CircuitFacade: Circuit {
     func measure(qubits: [Int], afterInputting bits: String) -> [Double]? {
-        guard let register = factory.makeRegister(bits: bits) else {
+        guard let register = try? factory.makeRegister(bits: bits) else {
             os_log("measure failed: unable to produce a register with provided values",
                    log: CircuitFacade.logger,
                    type: .debug)
