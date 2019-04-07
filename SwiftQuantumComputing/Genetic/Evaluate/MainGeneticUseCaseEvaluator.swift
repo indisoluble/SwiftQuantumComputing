@@ -63,7 +63,7 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
             return nil
         }
 
-        guard let circuit = factory.makeCircuit(qubitCount: qubits.count, gates: gates) else {
+        guard let circuit = try? factory.makeCircuit(qubitCount: qubits.count, gates: gates) else {
             os_log("evaluateCircuit: unable to make a circuit with provided gates",
                    log: MainGeneticUseCaseEvaluator.logger,
                    type: .debug)
