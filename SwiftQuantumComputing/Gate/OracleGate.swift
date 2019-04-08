@@ -36,7 +36,15 @@ public struct OracleGate {
 
     // MARK: - Public init methods
 
-    public init(truthTable: [String], truthTableQubitCount: Int) {
+    enum InitError: Error {
+        case truthTableQubitCountHasToBeBiggerThanZero
+    }
+
+    public init(truthTable: [String], truthTableQubitCount: Int) throws {
+        guard truthTableQubitCount > 0 else {
+            throw InitError.truthTableQubitCountHasToBeBiggerThanZero
+        }
+
         self.truthTable = truthTable
         self.truthTableQubitCount = truthTableQubitCount
     }
@@ -46,14 +54,6 @@ public struct OracleGate {
 
 extension OracleGate: Gate {
     public func makeFixed(inputs: [Int]) -> FixedGate? {
-        guard truthTableQubitCount > 0 else {
-            os_log("makeFixed: unable to produce an oracle gate with 0 qubits (check truth table)",
-                   log: OracleGate.logger,
-                   type: .debug)
-
-            return nil
-        }
-
         guard inputs.count >= (truthTableQubitCount + 1) else {
             os_log("makeFixed: not enough inputs to produce an oracle gate",
                    log: OracleGate.logger,

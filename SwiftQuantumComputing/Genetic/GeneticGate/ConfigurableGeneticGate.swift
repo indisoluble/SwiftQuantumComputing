@@ -39,8 +39,9 @@ struct ConfigurableGeneticGate {
 
 extension ConfigurableGeneticGate: GeneticGate {
     func makeFixed(truthTable: [String], truthTableQubitCount: Int) -> Fixed? {
-        let oracle = OracleGate(truthTable: truthTable, truthTableQubitCount: truthTableQubitCount)
-        guard let gate = oracle.makeFixed(inputs: inputs) else {
+        let oracle = try? OracleGate(truthTable: truthTable,
+                                     truthTableQubitCount: truthTableQubitCount)
+        guard let gate = oracle?.makeFixed(inputs: inputs) else {
             return nil
         }
 
