@@ -36,9 +36,14 @@ class MatrixGateTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testMatrixWithOneRow_init_throwException() {
+        // Then
+        XCTAssertThrowsError(try MatrixGate(matrix: oneRow))
+    }
+
     func testFactoryWithTwoQubitsMatrixAndOneInput_makeFixed_returnNil() {
         // Given
-        let factory = MatrixGate(matrix: matrix)
+        let factory = try! MatrixGate(matrix: matrix)
 
         // Then
         XCTAssertNil(factory.makeFixed(inputs: [0]))
@@ -46,7 +51,7 @@ class MatrixGateTests: XCTestCase {
 
     func testFactoryWithTwoQubitsMatrixAndFourInputs_makeFixed_returnExpectedGate() {
         // Given
-        let factory = MatrixGate(matrix: matrix)
+        let factory = try! MatrixGate(matrix: matrix)
         let inputs = [0, 1, 2, 3]
 
         // When
@@ -64,19 +69,5 @@ class MatrixGateTests: XCTestCase {
         default:
             XCTAssert(false)
         }
-    }
-
-    func testMatrixWithOneRow_init_returnGate() {
-        // Then
-        XCTAssertNotNil(MatrixGate(matrix: oneRow))
-    }
-
-    func testFactoryWithOneRowMatrix_makeFixed_returnNil() {
-        // Given
-        let factory = MatrixGate(matrix: oneRow)
-        let inputs: [Int] = []
-
-        // Then
-        XCTAssertNil(factory.makeFixed(inputs: inputs))
     }
 }

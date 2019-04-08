@@ -36,9 +36,18 @@ public struct MatrixGate {
 
     // MARK: - Public init methods
 
-    public init(matrix: Matrix) {
+    enum InitError: Error {
+        case matrixQubitCountHasToBeBiggerThanZero
+    }
+
+    public init(matrix: Matrix) throws {
+        let qc = Int.log2(matrix.rowCount)
+        guard qc > 0 else {
+            throw InitError.matrixQubitCountHasToBeBiggerThanZero
+        }
+
         self.matrix = matrix
-        qubitCount = Int.log2(matrix.rowCount)
+        qubitCount = qc
     }
 }
 
@@ -46,14 +55,6 @@ public struct MatrixGate {
 
 extension MatrixGate: Gate {
     public func makeFixed(inputs: [Int]) -> FixedGate? {
-        guard qubitCount > 0 else {
-            os_log("makeFixed: unable to produce a U gate with 0 qubits (check matrix)",
-                   log: MatrixGate.logger,
-                   type: .debug)
-
-            return nil
-        }
-
         guard inputs.count >= qubitCount else {
             os_log("makeFixed: not enough inputs to produce a U gate",
                    log: MatrixGate.logger,
