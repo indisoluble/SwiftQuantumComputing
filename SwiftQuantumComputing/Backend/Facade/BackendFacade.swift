@@ -46,7 +46,7 @@ extension BackendFacade: Backend {
             do {
                 components = try gate.extract()
             } catch BackendGateExtractError.unableToExtractMatrix {
-                throw BackendError.unableToExtractMatrixFromGate(at: index)
+                throw BackendMeasureError.unableToExtractMatrixFromGate(at: index)
             } catch {
                 fatalError("Unexpected error: \(error).")
             }
@@ -56,19 +56,19 @@ extension BackendFacade: Backend {
                 registerGate = try factory.makeGate(matrix: components.matrix,
                                                     inputs: components.inputs)
             } catch BackendRegisterGateFactoryMakeGateError.matrixIsNotSquare {
-                throw BackendError.gateMatrixIsNotSquare(at: index)
+                throw BackendMeasureError.gateMatrixIsNotSquare(at: index)
             } catch BackendRegisterGateFactoryMakeGateError.matrixRowCountHasToBeAPowerOfTwo {
-                throw BackendError.gateMatrixRowCountHasToBeAPowerOfTwo(at: index)
+                throw BackendMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(at: index)
             } catch BackendRegisterGateFactoryMakeGateError.matrixHandlesMoreQubitsThanAreAvailable {
-                throw BackendError.gateMatrixHandlesMoreQubitsThanAreAvailable(at: index)
+                throw BackendMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(at: index)
             } catch BackendRegisterGateFactoryMakeGateError.inputCountDoesNotMatchMatrixQubitCount {
-                throw BackendError.gateInputCountDoesNotMatchMatrixQubitCount(at: index)
+                throw BackendMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(at: index)
             } catch BackendRegisterGateFactoryMakeGateError.inputsAreNotUnique {
-                throw BackendError.gateInputsAreNotUnique(at: index)
+                throw BackendMeasureError.gateInputsAreNotUnique(at: index)
             } catch BackendRegisterGateFactoryMakeGateError.inputsAreNotInBound {
-                throw BackendError.gateInputsAreNotInBound(at: index)
+                throw BackendMeasureError.gateInputsAreNotInBound(at: index)
             } catch BackendRegisterGateFactoryMakeGateError.gateIsNotUnitary {
-                throw BackendError.gateIsNotUnitary(at: index)
+                throw BackendMeasureError.gateIsNotUnitary(at: index)
             } catch {
                 fatalError("Unexpected error: \(error).")
             }
@@ -76,9 +76,9 @@ extension BackendFacade: Backend {
             do {
                 register = try register.applying(registerGate)
             } catch BackendRegisterApplyingError.gateDoesNotHaveValidDimension {
-                throw BackendError.gateDoesNotHaveValidDimension(at: index)
+                throw BackendMeasureError.gateDoesNotHaveValidDimension(at: index)
             } catch BackendRegisterApplyingError.additionOfSquareModulusInNextRegisterIsNotEqualToOne {
-                throw BackendError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: index)
+                throw BackendMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: index)
             } catch {
                 fatalError("Unexpected error: \(error).")
             }
@@ -87,13 +87,13 @@ extension BackendFacade: Backend {
         do {
             return try register.measure(qubits: qubits)
         } catch BackendRegisterMeasureError.emptyQubitList {
-            throw BackendError.emptyQubitList
+            throw BackendMeasureError.emptyQubitList
         } catch BackendRegisterMeasureError.qubitsAreNotUnique {
-            throw BackendError.qubitsAreNotUnique
+            throw BackendMeasureError.qubitsAreNotUnique
         } catch BackendRegisterMeasureError.qubitsAreNotInBound {
-            throw BackendError.qubitsAreNotInBound
+            throw BackendMeasureError.qubitsAreNotInBound
         } catch BackendRegisterMeasureError.qubitsAreNotSorted {
-            throw BackendError.qubitsAreNotSorted
+            throw BackendMeasureError.qubitsAreNotSorted
         } catch {
             fatalError("Unexpected error: \(error).")
         }

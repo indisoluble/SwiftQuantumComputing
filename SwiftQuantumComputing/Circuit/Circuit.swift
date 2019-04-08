@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-enum CircuitError: Error {
+enum CircuitMeasureError: Error {
     case informBitsAsANonEmptyStringComposedOnlyOfZerosAndOnes
     case unableToExtractMatrixFromGate(at: Int)
     case gateMatrixIsNotSquare(at: Int)

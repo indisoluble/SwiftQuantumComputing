@@ -47,6 +47,6 @@ extension CircuitFactoryTestDouble: CircuitFactory {
             return makeCircuitResult
         }
 
-        throw CircuitFactoryError.qubitCountHasToBeBiggerThanZero
+        throw CircuitFactoryMakeCircuitError.qubitCountHasToBeBiggerThanZero
     }
 }

@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-enum BackendError: Error {
+enum BackendMeasureError: Error {
     case unableToExtractMatrixFromGate(at: Int)
     case gateMatrixIsNotSquare(at: Int)
     case gateMatrixRowCountHasToBeAPowerOfTwo(at: Int)

@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-enum BackendRegisterFactoryError: Error {
+enum BackendRegisterFactoryMakeRegisterError: Error {
     case provideNonEmptyStringComposedOnlyOfZerosAndOnes
 }
 

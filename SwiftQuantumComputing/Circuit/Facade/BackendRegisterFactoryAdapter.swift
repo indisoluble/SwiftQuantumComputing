@@ -31,7 +31,7 @@ extension BackendRegisterFactoryAdapter: BackendRegisterFactory {
         do {
             return try Register(bits: bits)
         } catch Register.InitBitsError.provideNonEmptyStringComposedOnlyOfZerosAndOnes {
-            throw BackendRegisterFactoryError.provideNonEmptyStringComposedOnlyOfZerosAndOnes
+            throw BackendRegisterFactoryMakeRegisterError.provideNonEmptyStringComposedOnlyOfZerosAndOnes
         } catch {
             fatalError("Unexpected error: \(error).")
         }

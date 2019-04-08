@@ -32,7 +32,7 @@ final class BackendTestDouble {
     private (set) var lastMeasureQubits: [Int]?
     private (set) var lastMeasureCircuit: Backend.Circuit?
     var measureResult: [Double]?
-    var measureError = BackendError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: 0)
+    var measureError = BackendMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: 0)
 }
 
 // MARK: - Backend methods

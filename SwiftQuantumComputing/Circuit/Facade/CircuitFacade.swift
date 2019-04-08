@@ -64,42 +64,42 @@ extension CircuitFacade: Circuit {
         var register: BackendRegister!
         do {
             register = try factory.makeRegister(bits: bits)
-        } catch BackendRegisterFactoryError.provideNonEmptyStringComposedOnlyOfZerosAndOnes {
-            throw CircuitError.informBitsAsANonEmptyStringComposedOnlyOfZerosAndOnes
+        } catch BackendRegisterFactoryMakeRegisterError.provideNonEmptyStringComposedOnlyOfZerosAndOnes {
+            throw CircuitMeasureError.informBitsAsANonEmptyStringComposedOnlyOfZerosAndOnes
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
         do {
             return try backend.measure(qubits: qubits, in: (register: register, gates: gates))
-        } catch BackendError.unableToExtractMatrixFromGate(let index) {
-            throw CircuitError.unableToExtractMatrixFromGate(at: index)
-        } catch BackendError.gateMatrixIsNotSquare(let index) {
-            throw CircuitError.gateMatrixIsNotSquare(at: index)
-        } catch BackendError.gateMatrixRowCountHasToBeAPowerOfTwo(let index) {
-            throw CircuitError.gateMatrixRowCountHasToBeAPowerOfTwo(at: index)
-        } catch BackendError.gateMatrixHandlesMoreQubitsThanAreAvailable(let index) {
-            throw CircuitError.gateMatrixHandlesMoreQubitsThanAreAvailable(at: index)
-        } catch BackendError.gateInputCountDoesNotMatchMatrixQubitCount(let index) {
-            throw CircuitError.gateInputCountDoesNotMatchMatrixQubitCount(at: index)
-        } catch BackendError.gateInputsAreNotUnique(let index) {
-            throw CircuitError.gateInputsAreNotUnique(at: index)
-        } catch BackendError.gateInputsAreNotInBound(let index) {
-            throw CircuitError.gateInputsAreNotInBound(at: index)
-        } catch BackendError.gateIsNotUnitary(let index) {
-            throw CircuitError.gateIsNotUnitary(at: index)
-        } catch BackendError.gateDoesNotHaveValidDimension(let index) {
-            throw CircuitError.gateDoesNotHaveValidDimension(at: index)
-        } catch BackendError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(let index) {
-            throw CircuitError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: index)
-        } catch BackendError.emptyQubitList {
-            throw CircuitError.emptyQubitList
-        } catch BackendError.qubitsAreNotUnique {
-            throw CircuitError.qubitsAreNotUnique
-        } catch BackendError.qubitsAreNotInBound {
-            throw CircuitError.qubitsAreNotInBound
-        } catch BackendError.qubitsAreNotSorted {
-            throw CircuitError.qubitsAreNotSorted
+        } catch BackendMeasureError.unableToExtractMatrixFromGate(let index) {
+            throw CircuitMeasureError.unableToExtractMatrixFromGate(at: index)
+        } catch BackendMeasureError.gateMatrixIsNotSquare(let index) {
+            throw CircuitMeasureError.gateMatrixIsNotSquare(at: index)
+        } catch BackendMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(let index) {
+            throw CircuitMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(at: index)
+        } catch BackendMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(let index) {
+            throw CircuitMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(at: index)
+        } catch BackendMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(let index) {
+            throw CircuitMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(at: index)
+        } catch BackendMeasureError.gateInputsAreNotUnique(let index) {
+            throw CircuitMeasureError.gateInputsAreNotUnique(at: index)
+        } catch BackendMeasureError.gateInputsAreNotInBound(let index) {
+            throw CircuitMeasureError.gateInputsAreNotInBound(at: index)
+        } catch BackendMeasureError.gateIsNotUnitary(let index) {
+            throw CircuitMeasureError.gateIsNotUnitary(at: index)
+        } catch BackendMeasureError.gateDoesNotHaveValidDimension(let index) {
+            throw CircuitMeasureError.gateDoesNotHaveValidDimension(at: index)
+        } catch BackendMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(let index) {
+            throw CircuitMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: index)
+        } catch BackendMeasureError.emptyQubitList {
+            throw CircuitMeasureError.emptyQubitList
+        } catch BackendMeasureError.qubitsAreNotUnique {
+            throw CircuitMeasureError.qubitsAreNotUnique
+        } catch BackendMeasureError.qubitsAreNotInBound {
+            throw CircuitMeasureError.qubitsAreNotInBound
+        } catch BackendMeasureError.qubitsAreNotSorted {
+            throw CircuitMeasureError.qubitsAreNotSorted
         } catch {
             fatalError("Unexpected error: \(error).")
         }

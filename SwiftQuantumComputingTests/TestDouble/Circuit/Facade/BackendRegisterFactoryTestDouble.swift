@@ -45,6 +45,6 @@ extension BackendRegisterFactoryTestDouble: BackendRegisterFactory {
             return makeRegisterResult
         }
 
-        throw BackendRegisterFactoryError.provideNonEmptyStringComposedOnlyOfZerosAndOnes
+        throw BackendRegisterFactoryMakeRegisterError.provideNonEmptyStringComposedOnlyOfZerosAndOnes
     }
 }

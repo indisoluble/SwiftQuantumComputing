@@ -35,7 +35,7 @@ final class CircuitTestDouble {
     private (set) var lastMeasureQubits: [Int]?
     private (set) var lastMeasureBits: String?
     var measureResult: [Double]?
-    var measureError = CircuitError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: 0)
+    var measureError = CircuitMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: 0)
 }
 
 // MARK: - Circuit methods

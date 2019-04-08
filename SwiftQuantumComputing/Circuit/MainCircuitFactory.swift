@@ -37,7 +37,7 @@ extension MainCircuitFactory: CircuitFactory {
         do {
             drawer = try CircuitViewDrawer(qubitCount: qubitCount)
         } catch CircuitViewDrawer.InitError.qubitCountHasToBeBiggerThanZero {
-            throw CircuitFactoryError.qubitCountHasToBeBiggerThanZero
+            throw CircuitFactoryMakeCircuitError.qubitCountHasToBeBiggerThanZero
         } catch {
             fatalError("Unexpected error: \(error).")
         }
