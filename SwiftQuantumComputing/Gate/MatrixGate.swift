@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -29,10 +28,6 @@ public struct MatrixGate {
 
     private let matrix: Matrix
     private let qubitCount: Int
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Public init methods
 
@@ -54,13 +49,9 @@ public struct MatrixGate {
 // MARK: - Gate methods
 
 extension MatrixGate: Gate {
-    public func makeFixed(inputs: [Int]) -> FixedGate? {
+    public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard inputs.count >= qubitCount else {
-            os_log("makeFixed: not enough inputs to produce a U gate",
-                   log: MatrixGate.logger,
-                   type: .debug)
-
-            return nil
+            throw GateMakeFixedError.notEnoughInputsToProduceAGate
         }
 
         return .matrix(matrix: matrix, inputs: Array(inputs[0..<qubitCount]))

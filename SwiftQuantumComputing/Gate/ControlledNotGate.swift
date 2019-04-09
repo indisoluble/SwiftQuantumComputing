@@ -19,15 +19,10 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
 public struct ControlledNotGate {
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Public init methods
 
@@ -37,13 +32,9 @@ public struct ControlledNotGate {
 // MARK: - Gate methods
 
 extension ControlledNotGate: Gate {
-    public func makeFixed(inputs: [Int]) -> FixedGate? {
+    public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard inputs.count > 1 else {
-            os_log("makeFixed: not enough inputs to produce a CX gate",
-                   log: ControlledNotGate.logger,
-                   type: .debug)
-
-            return nil
+            throw GateMakeFixedError.notEnoughInputsToProduceAGate
         }
 
         return .controlledNot(target: inputs[0], control: inputs[1])

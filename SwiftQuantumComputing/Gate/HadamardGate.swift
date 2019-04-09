@@ -19,15 +19,10 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
 public struct HadamardGate {
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Public init methods
 
@@ -37,13 +32,9 @@ public struct HadamardGate {
 // MARK: - Gate methods
 
 extension HadamardGate: Gate {
-    public func makeFixed(inputs: [Int]) -> FixedGate? {
+    public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard let target = inputs.first else {
-            os_log("makeFixed: not enough inputs to produce a H gate",
-                   log: HadamardGate.logger,
-                   type: .debug)
-
-            return nil
+            throw GateMakeFixedError.notEnoughInputsToProduceAGate
         }
 
         return .hadamard(target: target)

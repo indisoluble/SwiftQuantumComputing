@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -29,10 +28,6 @@ public struct OracleGate {
 
     private let truthTable: [String]
     private let truthTableQubitCount: Int
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Public init methods
 
@@ -53,13 +48,9 @@ public struct OracleGate {
 // MARK: - Gate methods
 
 extension OracleGate: Gate {
-    public func makeFixed(inputs: [Int]) -> FixedGate? {
+    public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard inputs.count >= (truthTableQubitCount + 1) else {
-            os_log("makeFixed: not enough inputs to produce an oracle gate",
-                   log: OracleGate.logger,
-                   type: .debug)
-
-            return nil
+            throw GateMakeFixedError.notEnoughInputsToProduceAGate
         }
 
         return .oracle(truthTable: truthTable,
