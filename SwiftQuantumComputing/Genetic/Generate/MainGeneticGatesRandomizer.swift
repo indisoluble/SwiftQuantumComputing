@@ -81,7 +81,7 @@ extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
                 continue
             }
 
-            guard let gate = factory.makeGate(inputs: shuffledQubits()) else {
+            guard let gate = try? factory.makeGate(inputs: shuffledQubits()) else {
                 continue
             }
 

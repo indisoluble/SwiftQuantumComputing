@@ -20,8 +20,14 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GeneticGateFactoryMakeGateError: Error {
+    case notEnoughInputsToProduceAGate
+}
+
 // MARK: - Protocol definition
 
 protocol GeneticGateFactory {
-    func makeGate(inputs: [Int]) -> GeneticGate?
+    func makeGate(inputs: [Int]) throws -> GeneticGate
 }

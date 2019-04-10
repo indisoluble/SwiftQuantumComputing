@@ -28,17 +28,15 @@ class SimpleGeneticGateFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testFactoryWithGateThatReturnNil_makeGate_returnNil() {
+    func testFactoryWithGateThatReturnNil_makeGate_throwException() {
         // Given
         let gate = GateTestDouble()
         let factory = SimpleGeneticGateFactory(gate: gate)
 
-        // When
         let inputs = [0, 1]
-        let result = factory.makeGate(inputs: inputs)
 
         // Then
-        XCTAssertNil(result)
+        XCTAssertThrowsError(try factory.makeGate(inputs: inputs))
         XCTAssertEqual(gate.makeFixedCount, 1)
         XCTAssertEqual(gate.lastMakeFixedInputs, inputs)
     }
@@ -51,7 +49,7 @@ class SimpleGeneticGateFactoryTests: XCTestCase {
 
         // When
         let inputs = [0, 1]
-        let result = factory.makeGate(inputs: inputs)
+        let result = try? factory.makeGate(inputs: inputs)
 
         // Then
         XCTAssertNotNil(result)

@@ -38,9 +38,12 @@ struct SimpleGeneticGateFactory {
 // MARK: - GeneticGateFactory methods
 
 extension SimpleGeneticGateFactory: GeneticGateFactory {
-    func makeGate(inputs: [Int]) -> GeneticGate? {
-        guard let fixedGate = try? gate.makeFixed(inputs: inputs) else {
-            return nil
+    func makeGate(inputs: [Int]) throws -> GeneticGate {
+        var fixedGate: FixedGate!
+        do {
+            fixedGate = try gate.makeFixed(inputs: inputs)
+        } catch GateMakeFixedError.notEnoughInputsToProduceAGate {
+            throw GeneticGateFactoryMakeGateError.notEnoughInputsToProduceAGate
         }
 
         return SimpleGeneticGate(gate: fixedGate)
