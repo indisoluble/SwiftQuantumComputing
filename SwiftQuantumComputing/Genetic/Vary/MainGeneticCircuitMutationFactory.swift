@@ -39,7 +39,7 @@ struct MainGeneticCircuitMutationFactory {
 
 extension MainGeneticCircuitMutationFactory: GeneticCircuitMutationFactory {
     func makeMutation(qubitCount: Int, maxDepth: Int, gates: [Gate]) -> GeneticCircuitMutation? {
-        guard let randomizer = factory.makeRandomizer(qubitCount: qubitCount, gates: gates) else {
+        guard let randomizer = try? factory.makeRandomizer(qubitCount: qubitCount, gates: gates) else {
             return nil
         }
 

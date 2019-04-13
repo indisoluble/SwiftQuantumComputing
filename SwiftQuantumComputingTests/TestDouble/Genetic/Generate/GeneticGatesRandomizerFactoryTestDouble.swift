@@ -37,12 +37,16 @@ final class GeneticGatesRandomizerFactoryTestDouble {
 // MARK: - GeneticGatesRandomizerFactory methods
 
 extension GeneticGatesRandomizerFactoryTestDouble: GeneticGatesRandomizerFactory {
-    func makeRandomizer(qubitCount: Int, gates: [Gate]) -> GeneticGatesRandomizer? {
+    func makeRandomizer(qubitCount: Int, gates: [Gate]) throws -> GeneticGatesRandomizer {
         makeRandomizerCount += 1
 
         lastMakeRandomizerQubitCount = qubitCount
         lastMakeRandomizerGates = gates
 
-        return makeRandomizerResult
+        if let makeRandomizerResult = makeRandomizerResult {
+            return makeRandomizerResult
+        }
+
+        throw GeneticGatesRandomizerFactoryMakeRandomizerError.qubitCountHasToBeBiggerThanZero
     }
 }

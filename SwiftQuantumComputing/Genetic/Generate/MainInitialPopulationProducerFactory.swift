@@ -48,9 +48,9 @@ extension MainInitialPopulationProducerFactory: InitialPopulationProducerFactory
                       threshold: Double,
                       useCases: [GeneticUseCase],
                       gates: [Gate]) -> InitialPopulationProducer? {
-        guard let generator = generatorFactory.makeRandomizer(qubitCount: qubitCount,
-                                                              gates: gates) else {
-                                                                return nil
+        guard let generator = try? generatorFactory.makeRandomizer(qubitCount: qubitCount,
+                                                                   gates: gates) else {
+                                                                    return nil
         }
 
         let evaluator = evaluatorFactory.makeEvaluator(qubitCount: qubitCount,

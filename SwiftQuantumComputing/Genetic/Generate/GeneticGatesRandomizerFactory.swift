@@ -20,8 +20,14 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GeneticGatesRandomizerFactoryMakeRandomizerError: Error {
+    case qubitCountHasToBeBiggerThanZero
+}
+
 // MARK: - Protocol definition
 
 protocol GeneticGatesRandomizerFactory {
-    func makeRandomizer(qubitCount: Int, gates: [Gate]) -> GeneticGatesRandomizer?
+    func makeRandomizer(qubitCount: Int, gates: [Gate]) throws -> GeneticGatesRandomizer
 }
