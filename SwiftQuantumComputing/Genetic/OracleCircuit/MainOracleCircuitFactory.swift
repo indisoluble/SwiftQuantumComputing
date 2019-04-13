@@ -28,7 +28,7 @@ struct MainOracleCircuitFactory {}
 
 extension MainOracleCircuitFactory: OracleCircuitFactory {
     func makeOracleCircuit(geneticCircuit: [GeneticGate],
-                           useCase: GeneticUseCase) -> OracleCircuit? {
+                           useCase: GeneticUseCase) throws -> OracleCircuit {
         let tt = useCase.truthTable.truth
         let ttCount = useCase.truthTable.qubitCount
 
@@ -36,8 +36,15 @@ extension MainOracleCircuitFactory: OracleCircuitFactory {
         var oracleIndex: Int? = nil
 
         for (index, gg) in geneticCircuit.enumerated() {
-            guard let fixed = try? gg.makeFixed(truthTable: tt, truthTableQubitCount: ttCount) else {
-                return nil
+            var fixed: GeneticGate.Fixed!
+            do {
+                fixed = try gg.makeFixed(truthTable: tt, truthTableQubitCount: ttCount)
+            } catch GeneticGateMakeFixedError.truthTableQubitCountHasToBeBiggerThanZero {
+                throw OracleCircuitFactoryMakeOracleCircuitError.truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(at: index)
+            } catch GeneticGateMakeFixedError.truthTableRequiresMoreInputQubitsThatAreAvailable {
+                throw OracleCircuitFactoryMakeOracleCircuitError.truthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle(at: index)
+            } catch {
+                fatalError("Unexpected error: \(error).")
             }
 
             var doAppendGate = true

@@ -53,8 +53,8 @@ struct MainGeneticUseCaseEvaluator {
 
 extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
     func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double? {
-        let oracleCircuit = oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
-                                                            useCase: useCase)
+        let oracleCircuit = try? oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
+                                                                 useCase: useCase)
         guard let (gates, _) = oracleCircuit else {
             os_log("evaluateCircuit: unable to make fixed gates with provided list",
                    log: MainGeneticUseCaseEvaluator.logger,

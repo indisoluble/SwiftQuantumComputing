@@ -168,9 +168,9 @@ extension MainGeneticFactory: GeneticFactory {
             currGen += 1
         }
 
-        guard let circuit = oracleFactory.makeOracleCircuit(geneticCircuit: candidate.circuit,
-                                                            useCase: firstCase) else {
-                                                                return nil
+        guard let circuit = try? oracleFactory.makeOracleCircuit(geneticCircuit: candidate.circuit,
+                                                                 useCase: firstCase) else {
+                                                                    return nil
         }
 
         return (candidate.eval, circuit.circuit, circuit.oracleAt)

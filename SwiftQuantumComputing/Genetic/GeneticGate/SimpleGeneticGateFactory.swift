@@ -44,6 +44,8 @@ extension SimpleGeneticGateFactory: GeneticGateFactory {
             fixedGate = try gate.makeFixed(inputs: inputs)
         } catch GateMakeFixedError.notEnoughInputsToProduceAGate {
             throw GeneticGateFactoryMakeGateError.notEnoughInputsToProduceAGate
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         return SimpleGeneticGate(gate: fixedGate)

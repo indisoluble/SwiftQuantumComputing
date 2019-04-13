@@ -45,6 +45,8 @@ extension ConfigurableGeneticGate: GeneticGate {
                                     truthTableQubitCount: truthTableQubitCount)
         } catch OracleGate.InitError.truthTableQubitCountHasToBeBiggerThanZero {
             throw GeneticGateMakeFixedError.truthTableQubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         var gate: FixedGate!
@@ -52,6 +54,8 @@ extension ConfigurableGeneticGate: GeneticGate {
             gate = try oracle.makeFixed(inputs: inputs)
         } catch GateMakeFixedError.notEnoughInputsToProduceAGate {
             throw GeneticGateMakeFixedError.truthTableRequiresMoreInputQubitsThatAreAvailable
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         return (gate: gate, didUseTruthTable: true)

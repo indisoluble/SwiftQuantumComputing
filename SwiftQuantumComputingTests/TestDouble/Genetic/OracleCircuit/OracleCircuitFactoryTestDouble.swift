@@ -32,18 +32,23 @@ final class OracleCircuitFactoryTestDouble {
     private (set) var lastMakeOracleCircuitGeneticCircuit: [GeneticGate]?
     private (set) var lastMakeOracleCircuitUseCase: GeneticUseCase?
     var makeOracleCircuitResult: OracleCircuitFactory.OracleCircuit?
+    var makeOracleCircuitError = OracleCircuitFactoryMakeOracleCircuitError.truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(at: 0)
 }
 
 // MARK: - OracleCircuitFactory methods
 
 extension OracleCircuitFactoryTestDouble: OracleCircuitFactory {
     func makeOracleCircuit(geneticCircuit: [GeneticGate],
-                           useCase: GeneticUseCase) -> OracleCircuitFactory.OracleCircuit? {
+                           useCase: GeneticUseCase) throws -> OracleCircuitFactory.OracleCircuit {
         makeOracleCircuitCount += 1
 
         lastMakeOracleCircuitGeneticCircuit = geneticCircuit
         lastMakeOracleCircuitUseCase = useCase
 
-        return makeOracleCircuitResult
+        if let makeOracleCircuitResult = makeOracleCircuitResult {
+            return makeOracleCircuitResult
+        }
+
+        throw makeOracleCircuitError
     }
 }
