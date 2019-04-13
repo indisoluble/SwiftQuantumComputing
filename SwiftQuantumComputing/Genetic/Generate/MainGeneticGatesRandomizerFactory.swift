@@ -31,6 +31,6 @@ extension MainGeneticGatesRandomizerFactory: GeneticGatesRandomizerFactory {
         var factories: [GeneticGateFactory] = gates.map { SimpleGeneticGateFactory(gate: $0) }
         factories.append(ConfigurableGeneticGateFactory())
 
-        return MainGeneticGatesRandomizer(qubitCount: qubitCount, factories: factories)
+        return try? MainGeneticGatesRandomizer(qubitCount: qubitCount, factories: factories)
     }
 }

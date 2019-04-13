@@ -69,7 +69,7 @@ extension MainInitialPopulationProducer: InitialPopulationProducer {
 
         let queue = DispatchQueue(label: String(reflecting: type(of: self)))
         DispatchQueue.concurrentPerform(iterations: size) { _ in
-            guard let circuit = generator.make(depth: random(depth)) else {
+            guard let circuit = try? generator.make(depth: random(depth)) else {
                 return
             }
 

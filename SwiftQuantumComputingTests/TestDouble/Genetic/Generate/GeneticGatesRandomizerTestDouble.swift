@@ -46,13 +46,17 @@ final class GeneticGatesRandomizerTestDouble {
 // MARK: - GeneticGatesRandomizer methods
 
 extension GeneticGatesRandomizerTestDouble: GeneticGatesRandomizer {
-    func make(depth: Int) -> [GeneticGate]? {
+    func make(depth: Int) throws -> [GeneticGate] {
         queue.sync {
             makeCount += 1
 
             lastMakeDepth = depth
         }
 
-        return makeResult
+        if let makeResult = makeResult {
+            return makeResult
+        }
+
+        throw GeneticGatesRandomizerMakeError.depthHasToBeAPositiveNumber
     }
 }

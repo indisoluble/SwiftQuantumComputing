@@ -77,7 +77,7 @@ extension MainGeneticCircuitMutation: GeneticCircuitMutation {
             return nil
         }
 
-        guard let m = randomizer.make(depth: random(0...remainingDepth)) else {
+        guard let m = try? randomizer.make(depth: random(0...remainingDepth)) else {
             return nil
         }
 

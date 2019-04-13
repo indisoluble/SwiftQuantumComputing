@@ -28,17 +28,17 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testQubitCountEqualToZero_init_returnNil() {
+    func testQubitCountEqualToZero_init_throwException() {
         // Then
-        XCTAssertNil(MainGeneticGatesRandomizer(qubitCount: 0, factories: []))
+        XCTAssertThrowsError(try MainGeneticGatesRandomizer(qubitCount: 0, factories: []))
     }
 
-    func testAnyRandomizerAndNegativeDepth_make_returnNil() {
+    func testAnyRandomizerAndNegativeDepth_make_throwException() {
         // Given
-        let randomizer = MainGeneticGatesRandomizer(qubitCount: 1, factories: [])!
+        let randomizer = try? MainGeneticGatesRandomizer(qubitCount: 1, factories: [])
 
         // Then
-        XCTAssertNil(randomizer.make(depth: -1))
+        XCTAssertThrowsError(try randomizer?.make(depth: -1))
     }
 
     func testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList() {
@@ -61,7 +61,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
                                                     shuffledQubits: shuffledQubits)
 
         // When
-        let result = randomizer.make(depth: 0)
+        let result = try? randomizer.make(depth: 0)
 
         // Then
         XCTAssertEqual(randomFactoryCount, 0)
@@ -90,7 +90,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
 
         // When
         let depth = 10
-        let result = randomizer.make(depth: depth)
+        let result = try? randomizer.make(depth: depth)
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
@@ -135,7 +135,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
                                                     shuffledQubits: shuffledQubits)
 
         // When
-        let result = randomizer.make(depth: depth)
+        let result = try? randomizer.make(depth: depth)
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
@@ -191,7 +191,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
                                                     shuffledQubits: shuffledQubits)
 
         // When
-        let result = randomizer.make(depth: depth)
+        let result = try? randomizer.make(depth: depth)
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
