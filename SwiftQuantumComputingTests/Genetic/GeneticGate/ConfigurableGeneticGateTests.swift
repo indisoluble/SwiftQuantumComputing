@@ -28,19 +28,19 @@ class ConfigurableGeneticGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyGateAndIncorrectTruthTable_makeFixed_returnNil() {
+    func testAnyGateAndIncorrectTruthTable_makeFixed_throwException() {
         // Given
         let gate = ConfigurableGeneticGate(inputs: [0, 1])
 
         // Then
-        XCTAssertNil(gate.makeFixed(truthTable: [], truthTableQubitCount: 0))
+        XCTAssertThrowsError(try gate.makeFixed(truthTable: [], truthTableQubitCount: 0))
     }
 
-    func testAnyGateAndCorrectTruthTable_makeFixed_returnNotNil() {
+    func testAnyGateAndCorrectTruthTable_makeFixed_returnValue() {
         // Given
         let gate = ConfigurableGeneticGate(inputs: [0, 1])
 
         // Then
-        XCTAssertNotNil(gate.makeFixed(truthTable: [], truthTableQubitCount: 1))
+        XCTAssertNoThrow(try gate.makeFixed(truthTable: [], truthTableQubitCount: 1))
     }
 }

@@ -36,7 +36,7 @@ extension MainOracleCircuitFactory: OracleCircuitFactory {
         var oracleIndex: Int? = nil
 
         for (index, gg) in geneticCircuit.enumerated() {
-            guard let fixed = gg.makeFixed(truthTable: tt, truthTableQubitCount: ttCount) else {
+            guard let fixed = try? gg.makeFixed(truthTable: tt, truthTableQubitCount: ttCount) else {
                 return nil
             }
 
