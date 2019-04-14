@@ -52,7 +52,7 @@ extension MainGeneticCircuitEvaluator: GeneticCircuitEvaluator {
 
         let queue = DispatchQueue(label: String(reflecting: type(of: self)))
         DispatchQueue.concurrentPerform(iterations: evaluators.count) { index in
-            let prob = evaluators[index].evaluateCircuit(geneticCircuit)
+            let prob = try? evaluators[index].evaluateCircuit(geneticCircuit)
 
             queue.sync {
                 if let prob = prob {

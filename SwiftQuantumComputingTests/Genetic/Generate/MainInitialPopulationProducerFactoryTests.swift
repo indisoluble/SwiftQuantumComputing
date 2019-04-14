@@ -34,7 +34,7 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testGeneratorFactoryThatReturnNil_makeProducer_returnNil() {
+    func testGeneratorFactoryThatThrowException_makeProducer_returnNil() {
         // Given
         let producer = MainInitialPopulationProducerFactory(generatorFactory: generatorFactory,
                                                             evaluatorFactory: evaluatorFactory,
@@ -44,9 +44,23 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
         XCTAssertNil(producer.makeProducer(qubitCount: 0, threshold: 0, useCases: [], gates: []))
     }
 
-    func testGeneratorFactoryThatReturnGenerator_makeProducer_returnProducer() {
+    func testEvaluatorFactoryThatThrowException_makeProducer_returnNil() {
         // Given
         generatorFactory.makeRandomizerResult = GeneticGatesRandomizerTestDouble()
+
+        let producer = MainInitialPopulationProducerFactory(generatorFactory: generatorFactory,
+                                                            evaluatorFactory: evaluatorFactory,
+                                                            score: score)
+
+        // Then
+        XCTAssertNil(producer.makeProducer(qubitCount: 0, threshold: 0, useCases: [], gates: []))
+        XCTAssertEqual(generatorFactory.makeRandomizerCount, 1)
+    }
+
+    func testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer() {
+        // Given
+        generatorFactory.makeRandomizerResult = GeneticGatesRandomizerTestDouble()
+        evaluatorFactory.makeEvaluatorResult = GeneticCircuitEvaluatorTestDouble()
 
         let producer = MainInitialPopulationProducerFactory(generatorFactory: generatorFactory,
                                                             evaluatorFactory: evaluatorFactory,

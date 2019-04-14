@@ -53,9 +53,11 @@ extension MainInitialPopulationProducerFactory: InitialPopulationProducerFactory
                                                                     return nil
         }
 
-        let evaluator = evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
-                                                       threshold: threshold,
-                                                       useCases: useCases)
+        guard let evaluator = try? evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
+                                                                  threshold: threshold,
+                                                                  useCases: useCases) else {
+                                                                    return nil
+        }
 
         return MainInitialPopulationProducer(generator: generator,
                                              evaluator: evaluator,

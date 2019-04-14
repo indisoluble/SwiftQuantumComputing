@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -49,10 +48,6 @@ public struct GeneticUseCase {
         public let input: String
         public let output: String
         public let qubitCount: Int
-
-        // MARK: - Private class properties
-
-        private static let logger = LoggerFactory.makeLogger()
 
         // MARK: - Internal init methods
 

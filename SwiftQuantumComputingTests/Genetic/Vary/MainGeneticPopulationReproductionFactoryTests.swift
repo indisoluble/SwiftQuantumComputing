@@ -42,8 +42,32 @@ class MainGeneticPopulationReproductionFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testEvaluatorFactoryThatThrowException__makeReproduction_returnNil() {
+        // Given
+        let factory = MainGeneticPopulationReproductionFactory(evaluatorFactory: evaluatorFactory,
+                                                               crossoverFactory: crossoverFactory,
+                                                               mutationFactory: mutationFactory)
+
+        // When
+        let result = factory.makeReproduction(qubitCount: qubitCount,
+                                              tournamentSize: tournamentSize,
+                                              mutationProbability: mutationProbability,
+                                              threshold: threshold,
+                                              maxDepth: maxDepth,
+                                              useCases: useCases,
+                                              gates: gates)
+
+        // Then
+        XCTAssertEqual(evaluatorFactory.makeEvaluatorCount, 1)
+        XCTAssertEqual(mutationFactory.makeMutationCount, 0)
+        XCTAssertEqual(crossoverFactory.makeCrossoverCount, 0)
+        XCTAssertNil(result)
+    }
+
     func testMutationFactoryReturnNil_makeReproduction_returnNil() {
         // Given
+        evaluatorFactory.makeEvaluatorResult = GeneticCircuitEvaluatorTestDouble()
+
         let factory = MainGeneticPopulationReproductionFactory(evaluatorFactory: evaluatorFactory,
                                                                crossoverFactory: crossoverFactory,
                                                                mutationFactory: mutationFactory)
@@ -66,6 +90,7 @@ class MainGeneticPopulationReproductionFactoryTests: XCTestCase {
 
     func testMutationFactoryReturnMutation_makeReproduction_returnValue() {
         // Given
+        evaluatorFactory.makeEvaluatorResult = GeneticCircuitEvaluatorTestDouble()
         mutationFactory.makeMutationResult = mutation
 
         let factory = MainGeneticPopulationReproductionFactory(evaluatorFactory: evaluatorFactory,

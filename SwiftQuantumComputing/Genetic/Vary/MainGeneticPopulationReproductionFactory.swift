@@ -51,9 +51,11 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
                           gates: [Gate]) -> GeneticPopulationReproduction? {
-        let evaluator = evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
-                                                       threshold: threshold,
-                                                       useCases: useCases)
+        guard let evaluator = try? evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
+                                                                  threshold: threshold,
+                                                                  useCases: useCases) else {
+                                                                    return nil
+        }
 
         guard let mutation = mutationFactory.makeMutation(qubitCount: qubitCount,
                                                           tournamentSize: tournamentSize,
