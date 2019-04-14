@@ -38,7 +38,7 @@ class GeneticUseCaseTests: XCTestCase {
         let truthTable: [String] = []
 
         // When
-        let useCase = GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
+        let useCase = try? GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
 
         // Then
         if let useCase = useCase {
@@ -54,7 +54,7 @@ class GeneticUseCaseTests: XCTestCase {
         let truthTable: [String] = [""]
 
         // When
-        let useCase = GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
+        let useCase = try? GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
 
         // Then
         if let useCase = useCase {
@@ -70,7 +70,7 @@ class GeneticUseCaseTests: XCTestCase {
         let truthTable: [String] = ["1", "111", "11"]
 
         // When
-        let useCase = GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
+        let useCase = try? GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
 
         // Then
         if let useCase = useCase {
@@ -86,8 +86,8 @@ class GeneticUseCaseTests: XCTestCase {
         let truthTableQubitCount = 10
 
         // When
-        let useCase = GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
-                                     circuitOutput: circuitOutput)
+        let useCase = try? GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
+                                          circuitOutput: circuitOutput)
 
         // Then
         if let useCase = useCase {
@@ -103,8 +103,8 @@ class GeneticUseCaseTests: XCTestCase {
         let truthTableQubitCount = 10
 
         // When
-        let useCase = GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
-                                     circuitOutput: circuitOutput)
+        let useCase = try? GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
+                                          circuitOutput: circuitOutput)
 
         // Then
         if let useCase = useCase {
@@ -116,7 +116,20 @@ class GeneticUseCaseTests: XCTestCase {
         }
     }
 
-    func testCircuitInputDifferentSizeThanOutput_init_returnNil() {
+    func testEmptyCircuitInputAndOutput_init_throwException() {
+        // Given
+        let truthTableQubitCount = 10
+
+        let input = ""
+        let output = ""
+
+        // Then
+        XCTAssertThrowsError(try GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
+                                                circuitInput: input,
+                                                circuitOutput: output))
+    }
+
+    func testCircuitInputDifferentSizeThanOutput_init_throwException() {
         // Given
         let truthTableQubitCount = 10
 
@@ -124,8 +137,8 @@ class GeneticUseCaseTests: XCTestCase {
         let output = "000"
 
         // Then
-        XCTAssertNil(GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
-                                    circuitInput: input,
-                                    circuitOutput: output))
+        XCTAssertThrowsError(try GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
+                                                circuitInput: input,
+                                                circuitOutput: output))
     }
 }

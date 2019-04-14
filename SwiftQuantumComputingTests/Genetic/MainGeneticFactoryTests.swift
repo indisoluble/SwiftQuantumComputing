@@ -38,7 +38,7 @@ class MainGeneticFactoryTests: XCTestCase {
     let reproductionResult: [Fitness.EvalCircuit] = [(0.0, [GeneticGateTestDouble()])]
     let oracleFactory = OracleCircuitFactoryTestDouble()
     let oracleCircuit: OracleCircuitFactory.OracleCircuit = ([], nil)
-    let useCase = GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "0")!
+    let useCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "0")
     let gates: [Gate] = []
 
     // MARK: - Tests
@@ -138,8 +138,8 @@ class MainGeneticFactoryTests: XCTestCase {
                                                  errorProbability: 0.0)
 
         let extraCircuitOutput = String(repeating: "0", count: useCase.circuit.qubitCount + 1)
-        let extraUseCase = GeneticUseCase(emptyTruthTableQubitCount: 0,
-                                          circuitOutput: extraCircuitOutput)!
+        let extraUseCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0,
+                                               circuitOutput: extraCircuitOutput)
 
         let factory = MainGeneticFactory(initialPopulationFactory: initialPopulationFactory,
                                          fitness: fitness,
