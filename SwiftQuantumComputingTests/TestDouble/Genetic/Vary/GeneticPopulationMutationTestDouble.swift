@@ -31,21 +31,21 @@ final class GeneticPopulationMutationTestDouble {
     private (set) var appliedCount = 0
     private (set) var lastAppliedPopulation: [Fitness.EvalCircuit]?
     var appliedResult: Fitness.EvalCircuit?
-    var appliedError = GeneticPopulationMutationAppliedError.populationIsEmpty
+    var appliedError: GeneticPopulationMutationAppliedError?
 }
 
 // MARK: - GeneticPopulationMutation methods
 
 extension GeneticPopulationMutationTestDouble: GeneticPopulationMutation {
-    func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit {
+    func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit? {
         appliedCount += 1
 
         lastAppliedPopulation = population
 
-        if let appliedResult = appliedResult {
-            return appliedResult
+        if let appliedError = appliedError {
+            throw appliedError
         }
 
-        throw appliedError
+        return appliedResult
     }
 }

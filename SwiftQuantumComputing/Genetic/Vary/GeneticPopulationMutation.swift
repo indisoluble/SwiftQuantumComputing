@@ -25,7 +25,6 @@ import Foundation
 enum GeneticPopulationMutationAppliedError: Error {
     case tournamentSizeHasToBeBiggerThanZero
     case populationIsEmpty
-    case failedToSplitWinnerCircuitWhichAlreadyHasMaxDepth
     case atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
     case useCaseEvaluatorsThrowed(errors: [GeneticCircuitEvaluatorEvaluateCircuitError.UseCaseEvaluatorError])
 }
@@ -33,5 +32,5 @@ enum GeneticPopulationMutationAppliedError: Error {
 // MARK: - Protocol definition
 
 protocol GeneticPopulationMutation {
-    func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit
+    func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit?
 }

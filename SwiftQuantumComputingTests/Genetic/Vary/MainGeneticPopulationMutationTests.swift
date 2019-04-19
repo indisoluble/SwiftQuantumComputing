@@ -99,6 +99,8 @@ class MainGeneticPopulationMutationTests: XCTestCase {
 
         fitness.fittestResult = (0, [])
 
+        mutation.executeError = .atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
+
         let populationMutation = MainGeneticPopulationMutation(tournamentSize: tournamentSize,
                                                                fitness: fitness,
                                                                mutation: mutation,
@@ -113,6 +115,41 @@ class MainGeneticPopulationMutationTests: XCTestCase {
         XCTAssertEqual(mutation.executeCount, 1)
         XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
         XCTAssertEqual(score.calculateCount, 0)
+    }
+
+    func testMutationReturnNil_applied_returnNil() {
+        // Given
+        var randomElementsCount = 0
+        let randomElements: MainGeneticPopulationMutation.RandomElements = { _, _ in
+            randomElementsCount += 1
+
+            return [(0, [])]
+        }
+
+        fitness.fittestResult = (0, [])
+
+        let populationMutation = MainGeneticPopulationMutation(tournamentSize: tournamentSize,
+                                                               fitness: fitness,
+                                                               mutation: mutation,
+                                                               evaluator: evaluator,
+                                                               score: score,
+                                                               randomElements: randomElements)
+
+        // When
+        var result: Fitness.EvalCircuit?
+        do {
+            result = try populationMutation.applied(to: evalCircuits)
+        } catch {
+            XCTAssert(false)
+        }
+
+        // Then
+        XCTAssertEqual(randomElementsCount, 1)
+        XCTAssertEqual(fitness.fittestCount, 1)
+        XCTAssertEqual(mutation.executeCount, 1)
+        XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
+        XCTAssertEqual(score.calculateCount, 0)
+        XCTAssertNil(result)
     }
 
     func testEvaluatorThrowException_applied_throwException() {

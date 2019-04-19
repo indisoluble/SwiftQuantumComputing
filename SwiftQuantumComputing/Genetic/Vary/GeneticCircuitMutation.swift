@@ -23,12 +23,11 @@ import Foundation
 // MARK: - Errors
 
 enum GeneticCircuitMutationExecuteError: Error {
-    case failedToSplitProvidedCircuitWhichAlreadyHasMaxDepth
     case atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
 }
 
 // MARK: - Protocol definition
 
 protocol GeneticCircuitMutation {
-    func execute(_ circuit: [GeneticGate]) throws -> [GeneticGate]
+    func execute(_ circuit: [GeneticGate]) throws -> [GeneticGate]?
 }

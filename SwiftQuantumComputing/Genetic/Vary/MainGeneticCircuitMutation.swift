@@ -19,6 +19,7 @@
 //
 
 import Foundation
+import os.log
 
 // MARK: - Main body
 
@@ -35,6 +36,10 @@ struct MainGeneticCircuitMutation {
     private let randomizer: GeneticGatesRandomizer
     private let random: Random
     private let randomSplit: RandomSplit
+
+    // MARK: - Private class properties
+
+    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Internal init methods
 
@@ -59,13 +64,17 @@ struct MainGeneticCircuitMutation {
 // MARK: - GeneticCircuitMutation methods
 
 extension MainGeneticCircuitMutation: GeneticCircuitMutation {
-    func execute(_ circuit: [GeneticGate]) throws -> [GeneticGate] {
+    func execute(_ circuit: [GeneticGate]) throws -> [GeneticGate]? {
         let (c1, cp) = randomSplit(circuit)
         let (_, c3) = randomSplit(cp)
 
         let remainingDepth = (maxDepth - c1.count - c3.count)
         guard remainingDepth >= 0 else {
-            throw GeneticCircuitMutationExecuteError.failedToSplitProvidedCircuitWhichAlreadyHasMaxDepth
+            os_log("execute: unable to produce a mutation with remaining depth",
+                   log: MainGeneticCircuitMutation.logger,
+                   type: .debug)
+
+            return nil
         }
 
         var m: [GeneticGate]!

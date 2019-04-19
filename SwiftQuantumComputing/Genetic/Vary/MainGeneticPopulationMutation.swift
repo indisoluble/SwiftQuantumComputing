@@ -57,7 +57,7 @@ struct MainGeneticPopulationMutation {
 // MARK: - GeneticPopulationMutation methods
 
 extension MainGeneticPopulationMutation: GeneticPopulationMutation {
-    func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit {
+    func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit? {
         guard tournamentSize > 0 else {
             throw GeneticPopulationMutationAppliedError.tournamentSizeHasToBeBiggerThanZero
         }
@@ -67,26 +67,28 @@ extension MainGeneticPopulationMutation: GeneticPopulationMutation {
             throw GeneticPopulationMutationAppliedError.populationIsEmpty
         }
 
-        var mutated: [GeneticGate]!
+        var mutated: [GeneticGate]?
         do {
             mutated = try mutation.execute(winner.circuit)
-        } catch GeneticCircuitMutationExecuteError.failedToSplitProvidedCircuitWhichAlreadyHasMaxDepth {
-            throw GeneticPopulationMutationAppliedError.failedToSplitWinnerCircuitWhichAlreadyHasMaxDepth
         } catch GeneticCircuitMutationExecuteError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable {
             throw GeneticPopulationMutationAppliedError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
+        guard let actualMutated = mutated else {
+            return nil
+        }
+
         var evaluation: GeneticCircuitEvaluator.Evaluation!
         do {
-            evaluation = try evaluator.evaluateCircuit(mutated)
+            evaluation = try evaluator.evaluateCircuit(actualMutated)
         } catch GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(let errors) {
             throw GeneticPopulationMutationAppliedError.useCaseEvaluatorsThrowed(errors: errors)
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
-        return (score.calculate(evaluation), mutated)
+        return (score.calculate(evaluation), actualMutated)
     }
 }

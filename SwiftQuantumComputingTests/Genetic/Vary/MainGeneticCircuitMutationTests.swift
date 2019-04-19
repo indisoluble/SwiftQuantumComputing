@@ -32,7 +32,7 @@ class MainGeneticCircuitMutationTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testDepthNotEnoughToBuildAMutation_execute_throwException() {
+    func testDepthNotEnoughToBuildAMutation_execute_returnNil() {
         // Given
         let maxDepth = 2
         let circuit = Array(repeating: GeneticGateTestDouble(), count: maxDepth)
@@ -56,11 +56,19 @@ class MainGeneticCircuitMutationTests: XCTestCase {
                                                  random: random,
                                                  randomSplit: randomSplit)
 
+        // When
+        var result: [GeneticGate]?
+        do {
+            result = try mutator.execute(circuit)
+        } catch {
+            XCTAssert(false)
+        }
+
         // Then
-        XCTAssertThrowsError(try mutator.execute(circuit))
         XCTAssertEqual(randomSplitCount, 2)
         XCTAssertEqual(randomCount, 0)
         XCTAssertEqual(randomizer.makeCount, 0)
+        XCTAssertNil(result)
     }
 
     func testBigEnoughDepthAndRandomizerThatThrowException_execute_throwException() {
