@@ -31,6 +31,7 @@ final class GeneticGatesRandomizerTestDouble {
     private (set) var makeCount = 0
     private (set) var lastMakeDepth: Int?
     var makeResult: [GeneticGate]?
+    var makeError = GeneticGatesRandomizerMakeError.depthHasToBeAPositiveNumber
 
     // MARK: - Private properties
 
@@ -57,6 +58,6 @@ extension GeneticGatesRandomizerTestDouble: GeneticGatesRandomizer {
             return makeResult
         }
 
-        throw GeneticGatesRandomizerMakeError.depthHasToBeAPositiveNumber
+        throw makeError
     }
 }

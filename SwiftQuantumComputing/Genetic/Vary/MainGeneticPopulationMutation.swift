@@ -63,7 +63,7 @@ extension MainGeneticPopulationMutation: GeneticPopulationMutation {
             return nil
         }
 
-        guard let mutated = mutation.execute(winner.circuit) else {
+        guard let mutated = try? mutation.execute(winner.circuit) else {
             return nil
         }
 

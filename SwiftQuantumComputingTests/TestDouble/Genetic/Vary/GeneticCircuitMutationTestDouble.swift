@@ -31,16 +31,21 @@ final class GeneticCircuitMutationTestDouble {
     private (set) var executeCount = 0
     private (set) var lastExecuteCircuit: [GeneticGate]?
     var executeResult: [GeneticGate]?
+    var executeError = GeneticCircuitMutationExecuteError.failedToSplitProvidedCircuitWhichAlreadyHasMaxDepth
 }
 
 // MARK: - GeneticCircuitMutation methods
 
 extension GeneticCircuitMutationTestDouble: GeneticCircuitMutation {
-    func execute(_ circuit: [GeneticGate]) -> [GeneticGate]? {
+    func execute(_ circuit: [GeneticGate]) throws -> [GeneticGate] {
         executeCount += 1
 
         lastExecuteCircuit = circuit
 
-        return executeResult
+        if let executeResult = executeResult {
+            return executeResult
+        }
+
+        throw executeError
     }
 }
