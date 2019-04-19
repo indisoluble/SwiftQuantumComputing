@@ -24,6 +24,7 @@ import Foundation
 
 enum GeneticGatesRandomizerMakeError: Error {
     case depthHasToBeAPositiveNumber
+    case atLeastOneGateRequiresMoreQubitsThatAreAvailable
 }
 
 // MARK: - Protocol definition

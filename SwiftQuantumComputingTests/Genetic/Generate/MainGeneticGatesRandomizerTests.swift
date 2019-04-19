@@ -149,7 +149,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
         }
     }
 
-    func testRandomizerWithSomeFactoriesAbleToBuildGatesAndPositiveDepth_make_returnExpectedGates() {
+    func testRandomizerWithSomeFactoriesAbleToBuildGatesAndPositiveDepth_make_throwException() {
         // Given
         let qubits = [0, 1]
         let depth = 10
@@ -190,18 +190,9 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
         let randomizer = MainGeneticGatesRandomizer(randomFactory: randomFactory,
                                                     shuffledQubits: shuffledQubits)
 
-        // When
-        let result = try? randomizer.make(depth: depth)
-
         // Then
-        XCTAssertEqual(randomFactoryCount, depth)
-        XCTAssertEqual(shuffledQubitsCount, depth)
-        XCTAssertNotNil(result as? [GeneticGateTestDouble])
-        XCTAssertEqual(result?.count, expectedGates.count)
-        if let result = result as? [GeneticGateTestDouble], result.count == expectedGates.count {
-            for (lhs, rhs) in zip(result, expectedGates) {
-                XCTAssert(lhs === rhs)
-            }
-        }
+        XCTAssertThrowsError(try randomizer.make(depth: depth))
+        XCTAssertEqual(randomFactoryCount, 2)
+        XCTAssertEqual(shuffledQubitsCount, 2)
     }
 }

@@ -35,6 +35,8 @@ extension MainGeneticGatesRandomizerFactory: GeneticGatesRandomizerFactory {
             return try MainGeneticGatesRandomizer(qubitCount: qubitCount, factories: factories)
         } catch MainGeneticGatesRandomizer.InitError.qubitCountHasToBeBiggerThanZero {
             throw GeneticGatesRandomizerFactoryMakeRandomizerError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
     }
 }
