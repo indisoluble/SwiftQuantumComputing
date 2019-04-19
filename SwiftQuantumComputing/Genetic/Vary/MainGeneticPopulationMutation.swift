@@ -57,18 +57,34 @@ struct MainGeneticPopulationMutation {
 // MARK: - GeneticPopulationMutation methods
 
 extension MainGeneticPopulationMutation: GeneticPopulationMutation {
-    func applied(to population: [Fitness.EvalCircuit]) -> Fitness.EvalCircuit? {
+    func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit {
+        guard tournamentSize > 0 else {
+            throw GeneticPopulationMutationAppliedError.tournamentSizeHasToBeBiggerThanZero
+        }
+
         let sample = randomElements(population, tournamentSize)
         guard let winner = fitness.fittest(in: sample) else {
-            return nil
+            throw GeneticPopulationMutationAppliedError.populationIsEmpty
         }
 
-        guard let mutated = try? mutation.execute(winner.circuit) else {
-            return nil
+        var mutated: [GeneticGate]!
+        do {
+            mutated = try mutation.execute(winner.circuit)
+        } catch GeneticCircuitMutationExecuteError.failedToSplitProvidedCircuitWhichAlreadyHasMaxDepth {
+            throw GeneticPopulationMutationAppliedError.failedToSplitWinnerCircuitWhichAlreadyHasMaxDepth
+        } catch GeneticCircuitMutationExecuteError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable {
+            throw GeneticPopulationMutationAppliedError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        guard let evaluation = try? evaluator.evaluateCircuit(mutated) else {
-            return nil
+        var evaluation: GeneticCircuitEvaluator.Evaluation!
+        do {
+            evaluation = try evaluator.evaluateCircuit(mutated)
+        } catch GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(let errors) {
+            throw GeneticPopulationMutationAppliedError.useCaseEvaluatorsThrowed(errors: errors)
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         return (score.calculate(evaluation), mutated)
