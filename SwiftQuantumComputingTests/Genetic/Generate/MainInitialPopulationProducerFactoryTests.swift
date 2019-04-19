@@ -34,17 +34,20 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testGeneratorFactoryThatThrowException_makeProducer_returnNil() {
+    func testGeneratorFactoryThatThrowException_makeProducer_throwException() {
         // Given
         let producer = MainInitialPopulationProducerFactory(generatorFactory: generatorFactory,
                                                             evaluatorFactory: evaluatorFactory,
                                                             score: score)
 
         // Then
-        XCTAssertNil(producer.makeProducer(qubitCount: 0, threshold: 0, useCases: [], gates: []))
+        XCTAssertThrowsError(try producer.makeProducer(qubitCount: 0,
+                                                       threshold: 0,
+                                                       useCases: [],
+                                                       gates: []))
     }
 
-    func testEvaluatorFactoryThatThrowException_makeProducer_returnNil() {
+    func testEvaluatorFactoryThatThrowException_makeProducer_throwException() {
         // Given
         generatorFactory.makeRandomizerResult = GeneticGatesRandomizerTestDouble()
 
@@ -53,7 +56,10 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
                                                             score: score)
 
         // Then
-        XCTAssertNil(producer.makeProducer(qubitCount: 0, threshold: 0, useCases: [], gates: []))
+        XCTAssertThrowsError(try producer.makeProducer(qubitCount: 0,
+                                                       threshold: 0,
+                                                       useCases: [],
+                                                       gates: []))
         XCTAssertEqual(generatorFactory.makeRandomizerCount, 1)
     }
 
@@ -67,6 +73,9 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
                                                             score: score)
 
         // Then
-        XCTAssertNotNil(producer.makeProducer(qubitCount: 0, threshold: 0, useCases: [], gates: []))
+        XCTAssertNoThrow(try producer.makeProducer(qubitCount: 0,
+                                                   threshold: 0,
+                                                   useCases: [],
+                                                   gates: []))
     }
 }

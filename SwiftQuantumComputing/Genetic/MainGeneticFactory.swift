@@ -117,11 +117,11 @@ extension MainGeneticFactory: GeneticFactory {
             return nil
         }
 
-        guard let initialPopulation = initialPopulationFactory.makeProducer(qubitCount: qubitCount,
-                                                                            threshold: config.threshold,
-                                                                            useCases: useCases,
-                                                                            gates: gates) else {
-                                                                                return nil
+        guard let initialPopulation = try? initialPopulationFactory.makeProducer(qubitCount: qubitCount,
+                                                                                 threshold: config.threshold,
+                                                                                 useCases: useCases,
+                                                                                 gates: gates) else {
+                                                                                    return nil
         }
 
         guard let reproduction = reproductionFactory.makeReproduction(qubitCount: qubitCount,

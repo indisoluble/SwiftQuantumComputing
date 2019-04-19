@@ -47,16 +47,25 @@ extension MainInitialPopulationProducerFactory: InitialPopulationProducerFactory
     func makeProducer(qubitCount: Int,
                       threshold: Double,
                       useCases: [GeneticUseCase],
-                      gates: [Gate]) -> InitialPopulationProducer? {
-        guard let generator = try? generatorFactory.makeRandomizer(qubitCount: qubitCount,
-                                                                   gates: gates) else {
-                                                                    return nil
+                      gates: [Gate]) throws -> InitialPopulationProducer {
+        var generator: GeneticGatesRandomizer!
+        do {
+            generator = try generatorFactory.makeRandomizer(qubitCount: qubitCount, gates: gates)
+        } catch GeneticGatesRandomizerFactoryMakeRandomizerError.qubitCountHasToBeBiggerThanZero {
+            throw InitialPopulationProducerFactoryMakeProducerError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        guard let evaluator = try? evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
-                                                                  threshold: threshold,
-                                                                  useCases: useCases) else {
-                                                                    return nil
+        var evaluator: GeneticCircuitEvaluator!
+        do {
+            evaluator = try evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
+                                                           threshold: threshold,
+                                                           useCases: useCases)
+        } catch GeneticCircuitEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero {
+            throw InitialPopulationProducerFactoryMakeProducerError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         return MainInitialPopulationProducer(generator: generator,
