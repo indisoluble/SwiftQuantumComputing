@@ -135,7 +135,7 @@ extension MainGeneticFactory: GeneticFactory {
         }
 
         os_log("Producing initial population...", log: MainGeneticFactory.logger, type: .info)
-        guard var population = initialPopulation.execute(size: initSize, depth: config.depth) else {
+        guard var population = try? initialPopulation.execute(size: initSize, depth: config.depth) else {
             return nil
         }
         os_log("Initial population completed", log: MainGeneticFactory.logger, type: .info)

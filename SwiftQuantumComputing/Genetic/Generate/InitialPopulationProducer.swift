@@ -20,8 +20,17 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum InitialPopulationProducerExecuteError: Error {
+    case populationSizeHasToBeBiggerThanZero
+    case populationDepthHasToBeAPositiveNumber
+    case atLeastOneGateRequiredMoreQubitsThatAreAvailable
+    case useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: [GeneticCircuitEvaluatorEvaluateCircuitError.UseCaseEvaluatorError])
+}
+
 // MARK: - Protocol definition
 
 protocol InitialPopulationProducer {
-    func execute(size: Int, depth: Range<Int>) -> [Fitness.EvalCircuit]?
+    func execute(size: Int, depth: Range<Int>) throws -> [Fitness.EvalCircuit]
 }

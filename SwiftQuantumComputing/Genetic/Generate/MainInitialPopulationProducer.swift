@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -35,10 +34,6 @@ struct MainInitialPopulationProducer {
     private let evaluator: GeneticCircuitEvaluator
     private let score: GeneticCircuitScore
     private let random: Random
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Internal init methods
 
@@ -56,40 +51,45 @@ struct MainInitialPopulationProducer {
 // MARK: - InitialPopulationProducer methods
 
 extension MainInitialPopulationProducer: InitialPopulationProducer {
-    func execute(size: Int, depth: Range<Int>) -> [Fitness.EvalCircuit]? {
+    func execute(size: Int, depth: Range<Int>) throws -> [Fitness.EvalCircuit] {
         guard size > 0 else {
-            os_log("initial population failed: population size has to be bigger than 0",
-                   log: MainInitialPopulationProducer.logger,
-                   type: .debug)
-
-            return nil
+            throw InitialPopulationProducerExecuteError.populationSizeHasToBeBiggerThanZero
         }
 
         var population: [Fitness.EvalCircuit] = []
+        var populationError: InitialPopulationProducerExecuteError?
 
         let queue = DispatchQueue(label: String(reflecting: type(of: self)))
         DispatchQueue.concurrentPerform(iterations: size) { _ in
-            guard let circuit = try? generator.make(depth: random(depth)) else {
-                return
-            }
+            var circuit: [GeneticGate]?
+            var circuitScore: Double?
+            var circuitError: InitialPopulationProducerExecuteError?
+            do {
+                circuit = try generator.make(depth: random(depth))
 
-            guard let evaluation = try? evaluator.evaluateCircuit(circuit) else {
-                return
+                let evaluation = try evaluator.evaluateCircuit(circuit!)
+                circuitScore = score.calculate(evaluation)
+            } catch GeneticGatesRandomizerMakeError.depthHasToBeAPositiveNumber {
+                circuitError = InitialPopulationProducerExecuteError.populationDepthHasToBeAPositiveNumber
+            } catch GeneticGatesRandomizerMakeError.atLeastOneGateRequiresMoreQubitsThatAreAvailable {
+                circuitError = InitialPopulationProducerExecuteError.atLeastOneGateRequiredMoreQubitsThatAreAvailable
+            } catch GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(let errors) {
+                circuitError = InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: errors)
+            } catch {
+                fatalError("Unexpected error: \(error).")
             }
-
-            let circuitScore = score.calculate(evaluation)
 
             queue.sync {
-                population.append((circuitScore, circuit))
+                if let circuit = circuit, let circuitScore = circuitScore {
+                    population.append((circuitScore, circuit))
+                } else {
+                    populationError = circuitError
+                }
             }
         }
 
-        if (population.count != size) {
-            os_log("initial population failed: unable to fill initial population",
-                   log: MainInitialPopulationProducer.logger,
-                   type: .debug)
-
-            return nil
+        if let populationError = populationError {
+            throw populationError
         }
 
         return population
