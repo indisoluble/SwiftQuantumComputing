@@ -57,12 +57,12 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                                                                     return nil
         }
 
-        guard let mutation = mutationFactory.makeMutation(qubitCount: qubitCount,
-                                                          tournamentSize: tournamentSize,
-                                                          maxDepth: maxDepth,
-                                                          evaluator: evaluator,
-                                                          gates: gates) else {
-                                                            return nil
+        guard let mutation = try? mutationFactory.makeMutation(qubitCount: qubitCount,
+                                                               tournamentSize: tournamentSize,
+                                                               maxDepth: maxDepth,
+                                                               evaluator: evaluator,
+                                                               gates: gates) else {
+                                                                return nil
         }
 
         let crossover = crossoverFactory.makeCrossover(tournamentSize: tournamentSize,

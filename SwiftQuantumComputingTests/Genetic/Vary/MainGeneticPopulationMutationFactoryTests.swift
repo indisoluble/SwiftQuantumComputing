@@ -40,18 +40,18 @@ class MainGeneticPopulationMutationFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testFactoryReturnNil_makeMutation_returnNil() {
+    func testFactoryThrowException_makeMutation_throwException() {
         // Given
         let populationFactory = MainGeneticPopulationMutationFactory(fitness: fitness,
                                                                      factory: factory,
                                                                      score: score)
 
         // Then
-        XCTAssertNil(populationFactory.makeMutation(qubitCount: qubitCount,
-                                                    tournamentSize: tournamentSize,
-                                                    maxDepth: maxDepth,
-                                                    evaluator: evaluator,
-                                                    gates: gates))
+        XCTAssertThrowsError(try populationFactory.makeMutation(qubitCount: qubitCount,
+                                                                tournamentSize: tournamentSize,
+                                                                maxDepth: maxDepth,
+                                                                evaluator: evaluator,
+                                                                gates: gates))
     }
 
     func testFactoryReturnMutation_makeMutation_returnValue() {
@@ -63,10 +63,10 @@ class MainGeneticPopulationMutationFactoryTests: XCTestCase {
                                                                      score: score)
 
         // Then
-        XCTAssertNotNil(populationFactory.makeMutation(qubitCount: qubitCount,
-                                                       tournamentSize: tournamentSize,
-                                                       maxDepth: maxDepth,
-                                                       evaluator: evaluator,
-                                                       gates: gates))
+        XCTAssertNoThrow(try populationFactory.makeMutation(qubitCount: qubitCount,
+                                                            tournamentSize: tournamentSize,
+                                                            maxDepth: maxDepth,
+                                                            evaluator: evaluator,
+                                                            gates: gates))
     }
 }
