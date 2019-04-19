@@ -152,12 +152,15 @@ extension MainGeneticFactory: GeneticFactory {
         while (candidate.eval > errProb) && (currGen < genCount) && (population.count < maxSize) {
             os_log("Init. generation %d...", log: MainGeneticFactory.logger, type: .info, currGen)
 
-            let offspring = reproduction.applied(to: population)
-            if (offspring.isEmpty) {
-                os_log("evolveCircuit: empty offspr.", log: MainGeneticFactory.logger, type: .debug)
+            if let offspring = try? reproduction.applied(to: population) {
+                if (offspring.isEmpty) {
+                    os_log("evolveCircuit: empty offspr.", log: MainGeneticFactory.logger, type: .debug)
+                } else {
+                    population.append(contentsOf: offspring)
+                    candidate = fitness.fittest(in: population)!
+                }
             } else {
-                population.append(contentsOf: offspring)
-                candidate = fitness.fittest(in: population)!
+                os_log("evolveCircuit: offspr. throwed error", log: MainGeneticFactory.logger, type: .debug)
             }
 
             os_log("Generation %d completed. Population: %d. Evaluation: %s",

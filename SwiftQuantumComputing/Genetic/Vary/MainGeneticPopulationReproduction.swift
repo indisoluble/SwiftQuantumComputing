@@ -56,18 +56,46 @@ struct MainGeneticPopulationReproduction {
 // MARK: - GeneticPopulationReproduction  methods
 
 extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
-    func applied(to population: [Fitness.EvalCircuit]) -> [Fitness.EvalCircuit] {
+    func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit] {
         var offspring: [Fitness.EvalCircuit] = []
 
         if (random(0...1) < mutationProbability) {
-            if let result = try? mutation.applied(to: population) {
+            var result: Fitness.EvalCircuit?
+            do {
+                result = try mutation.applied(to: population)
+            } catch GeneticPopulationMutationAppliedError.tournamentSizeHasToBeBiggerThanZero {
+                throw GeneticPopulationReproductionAppliedError.tournamentSizeHasToBeBiggerThanZero
+            } catch GeneticPopulationMutationAppliedError.populationIsEmpty {
+                throw GeneticPopulationReproductionAppliedError.populationIsEmpty
+            } catch GeneticPopulationMutationAppliedError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable {
+                throw GeneticPopulationReproductionAppliedError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
+            } catch GeneticPopulationMutationAppliedError.useCaseEvaluatorsThrowed(let errors) {
+                throw GeneticPopulationReproductionAppliedError.useCaseEvaluatorsThrowed(errors: errors)
+            } catch {
+                fatalError("Unexpected error: \(error).")
+            }
+
+            if let result = result {
                 os_log("reproduction: mutation produced",
                        log: MainGeneticPopulationReproduction.logger,
                        type: .info)
 
                 offspring.append(result)
             }
-        } else  if let result = try? crossover.applied(to: population) {
+        } else {
+            var result: [Fitness.EvalCircuit]!
+            do {
+                result = try crossover.applied(to: population)
+            } catch GeneticPopulationCrossoverAppliedError.tournamentSizeHasToBeBiggerThanZero {
+                throw GeneticPopulationReproductionAppliedError.tournamentSizeHasToBeBiggerThanZero
+            } catch GeneticPopulationCrossoverAppliedError.populationIsEmpty {
+                throw GeneticPopulationReproductionAppliedError.populationIsEmpty
+            } catch GeneticPopulationCrossoverAppliedError.useCaseEvaluatorsThrowed(let errors) {
+                throw GeneticPopulationReproductionAppliedError.useCaseEvaluatorsThrowed(errors: errors)
+            } catch {
+                fatalError("Unexpected error: \(error).")
+            }
+
             os_log("reproduction: crossover produced",
                    log: MainGeneticPopulationReproduction.logger,
                    type: .info)
