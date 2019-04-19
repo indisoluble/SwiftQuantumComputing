@@ -124,14 +124,14 @@ extension MainGeneticFactory: GeneticFactory {
                                                                                     return nil
         }
 
-        guard let reproduction = reproductionFactory.makeReproduction(qubitCount: qubitCount,
-                                                                      tournamentSize: config.tournamentSize,
-                                                                      mutationProbability: config.mutationProbability,
-                                                                      threshold: config.threshold,
-                                                                      maxDepth: maxDepth,
-                                                                      useCases: useCases,
-                                                                      gates: gates) else {
-                                                                        return nil
+        guard let reproduction = try? reproductionFactory.makeReproduction(qubitCount: qubitCount,
+                                                                           tournamentSize: config.tournamentSize,
+                                                                           mutationProbability: config.mutationProbability,
+                                                                           threshold: config.threshold,
+                                                                           maxDepth: maxDepth,
+                                                                           useCases: useCases,
+                                                                           gates: gates) else {
+                                                                            return nil
         }
 
         os_log("Producing initial population...", log: MainGeneticFactory.logger, type: .info)

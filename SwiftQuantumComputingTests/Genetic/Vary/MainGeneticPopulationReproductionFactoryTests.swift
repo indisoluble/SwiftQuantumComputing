@@ -42,29 +42,26 @@ class MainGeneticPopulationReproductionFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testEvaluatorFactoryThatThrowException__makeReproduction_returnNil() {
+    func testEvaluatorFactoryThatThrowException_makeReproduction_throwException() {
         // Given
         let factory = MainGeneticPopulationReproductionFactory(evaluatorFactory: evaluatorFactory,
                                                                crossoverFactory: crossoverFactory,
                                                                mutationFactory: mutationFactory)
 
-        // When
-        let result = factory.makeReproduction(qubitCount: qubitCount,
-                                              tournamentSize: tournamentSize,
-                                              mutationProbability: mutationProbability,
-                                              threshold: threshold,
-                                              maxDepth: maxDepth,
-                                              useCases: useCases,
-                                              gates: gates)
-
         // Then
+        XCTAssertThrowsError(try factory.makeReproduction(qubitCount: qubitCount,
+                                                          tournamentSize: tournamentSize,
+                                                          mutationProbability: mutationProbability,
+                                                          threshold: threshold,
+                                                          maxDepth: maxDepth,
+                                                          useCases: useCases,
+                                                          gates: gates))
         XCTAssertEqual(evaluatorFactory.makeEvaluatorCount, 1)
         XCTAssertEqual(mutationFactory.makeMutationCount, 0)
         XCTAssertEqual(crossoverFactory.makeCrossoverCount, 0)
-        XCTAssertNil(result)
     }
 
-    func testMutationFactoryReturnNil_makeReproduction_returnNil() {
+    func testMutationFactoryThrowException_makeReproduction_throwException() {
         // Given
         evaluatorFactory.makeEvaluatorResult = GeneticCircuitEvaluatorTestDouble()
 
@@ -72,20 +69,17 @@ class MainGeneticPopulationReproductionFactoryTests: XCTestCase {
                                                                crossoverFactory: crossoverFactory,
                                                                mutationFactory: mutationFactory)
 
-        // When
-        let result = factory.makeReproduction(qubitCount: qubitCount,
-                                              tournamentSize: tournamentSize,
-                                              mutationProbability: mutationProbability,
-                                              threshold: threshold,
-                                              maxDepth: maxDepth,
-                                              useCases: useCases,
-                                              gates: gates)
-
         // Then
+        XCTAssertThrowsError(try factory.makeReproduction(qubitCount: qubitCount,
+                                                          tournamentSize: tournamentSize,
+                                                          mutationProbability: mutationProbability,
+                                                          threshold: threshold,
+                                                          maxDepth: maxDepth,
+                                                          useCases: useCases,
+                                                          gates: gates))
         XCTAssertEqual(evaluatorFactory.makeEvaluatorCount, 1)
         XCTAssertEqual(mutationFactory.makeMutationCount, 1)
         XCTAssertEqual(crossoverFactory.makeCrossoverCount, 0)
-        XCTAssertNil(result)
     }
 
     func testMutationFactoryReturnMutation_makeReproduction_returnValue() {
@@ -98,13 +92,13 @@ class MainGeneticPopulationReproductionFactoryTests: XCTestCase {
                                                                mutationFactory: mutationFactory)
 
         // When
-        let result = factory.makeReproduction(qubitCount: qubitCount,
-                                              tournamentSize: tournamentSize,
-                                              mutationProbability: mutationProbability,
-                                              threshold: threshold,
-                                              maxDepth: maxDepth,
-                                              useCases: useCases,
-                                              gates: gates)
+        let result = try? factory.makeReproduction(qubitCount: qubitCount,
+                                                   tournamentSize: tournamentSize,
+                                                   mutationProbability: mutationProbability,
+                                                   threshold: threshold,
+                                                   maxDepth: maxDepth,
+                                                   useCases: useCases,
+                                                   gates: gates)
 
         // Then
         XCTAssertEqual(evaluatorFactory.makeEvaluatorCount, 1)

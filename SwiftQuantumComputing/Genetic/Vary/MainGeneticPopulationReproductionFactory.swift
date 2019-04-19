@@ -50,19 +50,29 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                           threshold: Double,
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
-                          gates: [Gate]) -> GeneticPopulationReproduction? {
-        guard let evaluator = try? evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
-                                                                  threshold: threshold,
-                                                                  useCases: useCases) else {
-                                                                    return nil
+                          gates: [Gate]) throws -> GeneticPopulationReproduction {
+        var evaluator: GeneticCircuitEvaluator!
+        do {
+            evaluator = try evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
+                                                           threshold: threshold,
+                                                           useCases: useCases)
+        } catch GeneticCircuitEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero {
+            throw GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        guard let mutation = try? mutationFactory.makeMutation(qubitCount: qubitCount,
-                                                               tournamentSize: tournamentSize,
-                                                               maxDepth: maxDepth,
-                                                               evaluator: evaluator,
-                                                               gates: gates) else {
-                                                                return nil
+        var mutation: GeneticPopulationMutation!
+        do {
+            mutation = try mutationFactory.makeMutation(qubitCount: qubitCount,
+                                                        tournamentSize: tournamentSize,
+                                                        maxDepth: maxDepth,
+                                                        evaluator: evaluator,
+                                                        gates: gates)
+        } catch GeneticPopulationMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero {
+            throw GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         let crossover = crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
