@@ -20,10 +20,18 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GeneticCircuitEvaluatorEvaluateCircuitError: Error {
+    typealias UseCaseEvaluatorError = (useCaseIndex: Int, error: GeneticUseCaseEvaluatorEvaluateCircuitError)
+
+    case useCaseEvaluatorsThrowed(errors: [UseCaseEvaluatorError])
+}
+
 // MARK: - Protocol definition
 
 protocol GeneticCircuitEvaluator {
     typealias Evaluation = (misses: Int, maxProbability: Double)
 
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Evaluation?
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Evaluation
 }

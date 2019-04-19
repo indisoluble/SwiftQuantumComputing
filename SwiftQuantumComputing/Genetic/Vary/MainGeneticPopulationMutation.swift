@@ -67,7 +67,7 @@ extension MainGeneticPopulationMutation: GeneticPopulationMutation {
             return nil
         }
 
-        guard let evaluation = evaluator.evaluateCircuit(mutated) else {
+        guard let evaluation = try? evaluator.evaluateCircuit(mutated) else {
             return nil
         }
 

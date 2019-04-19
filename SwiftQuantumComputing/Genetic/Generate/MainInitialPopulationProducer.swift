@@ -73,7 +73,7 @@ extension MainInitialPopulationProducer: InitialPopulationProducer {
                 return
             }
 
-            guard let evaluation = evaluator.evaluateCircuit(circuit) else {
+            guard let evaluation = try? evaluator.evaluateCircuit(circuit) else {
                 return
             }
 
