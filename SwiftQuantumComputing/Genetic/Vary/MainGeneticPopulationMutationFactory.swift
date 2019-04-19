@@ -47,10 +47,10 @@ extension MainGeneticPopulationMutationFactory: GeneticPopulationMutationFactory
                       maxDepth: Int,
                       evaluator: GeneticCircuitEvaluator,
                       gates: [Gate]) -> GeneticPopulationMutation? {
-        guard let mutation = factory.makeMutation(qubitCount: qubitCount,
-                                                  maxDepth: maxDepth,
-                                                  gates: gates) else {
-                                                    return nil
+        guard let mutation = try? factory.makeMutation(qubitCount: qubitCount,
+                                                       maxDepth: maxDepth,
+                                                       gates: gates) else {
+                                                        return nil
         }
 
         return MainGeneticPopulationMutation(tournamentSize:tournamentSize,
