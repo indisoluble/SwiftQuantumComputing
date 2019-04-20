@@ -22,4 +22,4 @@ import Foundation
 
 // MARK: - Types
 
-typealias GeneticCircuitEvaluationErrors = [(useCaseIndex: Int, error: GeneticUseCaseEvaluationError)]
+public typealias GeneticCircuitEvaluationErrors = [(useCaseIndex: Int, error: GeneticUseCaseEvaluationError)]

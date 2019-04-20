@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-enum CircuitFactoryMakeCircuitError: Error {
+public enum CircuitFactoryMakeCircuitError: Error {
     case qubitCountHasToBeBiggerThanZero
 }
 

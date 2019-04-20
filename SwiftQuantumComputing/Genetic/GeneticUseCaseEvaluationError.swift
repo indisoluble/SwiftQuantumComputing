@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-enum GeneticUseCaseEvaluationError: Error {
+public enum GeneticUseCaseEvaluationError: Error {
     case evaluatorForCircuitWithMoreQubits
     case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
     case useCaseTruthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle

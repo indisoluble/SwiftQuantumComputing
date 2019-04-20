@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-enum GeneticFactoryEvolveCircuitError: Error {
+public enum GeneticFactoryEvolveCircuitError: Error {
     case configurationPopulationSizeIsEmpty
     case configurationPopulationSizeHasToBeBiggerThanZero
     case configurationDepthIsEmpty
