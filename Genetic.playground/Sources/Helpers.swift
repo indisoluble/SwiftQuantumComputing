@@ -28,6 +28,6 @@ public func makeCircuit(evolvedCircuit: GeneticFactory.EvolvedCircuit,
         }
     }
 
-    return MainCircuitFactory().makeCircuit(qubitCount: useCase.circuit.qubitCount,
-                                            gates: evolvedGates)!
+    return try! MainCircuitFactory().makeCircuit(qubitCount: useCase.circuit.qubitCount,
+                                                 gates: evolvedGates)
 }
