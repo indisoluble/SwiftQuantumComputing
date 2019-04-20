@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 enum GeneticGateFactoryMakeGateError: Error {
-    case notEnoughInputsToProduceAGate
+    case notEnoughInputsToProduceAGeneticGate(with: Gate)
 }
 
 // MARK: - Protocol definition

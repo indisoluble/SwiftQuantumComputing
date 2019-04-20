@@ -28,7 +28,7 @@ enum GeneticFactoryEvolveCircuitError: Error {
     case configurationDepthIsEmpty
     case configurationDepthHasToBeAPositiveNumber
     case configurationTournamentSizeHasToBeBiggerThanZero
-    case atLeastOneGateRequiredMoreQubitsThatAreAvailable
+    case gateRequiredMoreQubitsThatAreAvailable(gate: Gate)
     case useCaseListIsEmpty
     case useCasesDoNotSpecifySameCircuitQubitCount
     case useCaseCircuitQubitCountHasToBeBiggerThanZero

@@ -79,8 +79,8 @@ extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
             var gate: GeneticGate!
             do {
                 gate = try factory.makeGate(inputs: shuffledQubits())
-            } catch GeneticGateFactoryMakeGateError.notEnoughInputsToProduceAGate {
-                throw GeneticGatesRandomizerMakeError.atLeastOneGateRequiresMoreQubitsThatAreAvailable
+            } catch GeneticGateFactoryMakeGateError.notEnoughInputsToProduceAGeneticGate(let gate){
+                throw GeneticGatesRandomizerMakeError.gateRequiresMoreQubitsThatAreAvailable(gate: gate)
             } catch {
                 fatalError("Unexpected error: \(error).")
             }

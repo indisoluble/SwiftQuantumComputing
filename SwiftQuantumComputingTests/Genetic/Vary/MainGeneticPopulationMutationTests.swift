@@ -89,7 +89,7 @@ class MainGeneticPopulationMutationTests: XCTestCase {
 
         fitness.fittestResult = (0, [])
 
-        mutation.executeError = .atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
+        mutation.executeError = .gateInMutationRequiresMoreQubitsThatAreAvailable(gate: NotGate())
 
         let populationMutation = try! MainGeneticPopulationMutation(tournamentSize: tournamentSize,
                                                                     fitness: fitness,

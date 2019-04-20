@@ -45,6 +45,6 @@ extension GeneticGateFactoryTestDouble: GeneticGateFactory {
             return makeGateResult
         }
 
-        throw GeneticGateFactoryMakeGateError.notEnoughInputsToProduceAGate
+        throw GeneticGateFactoryMakeGateError.notEnoughInputsToProduceAGeneticGate(with: NotGate())
     }
 }

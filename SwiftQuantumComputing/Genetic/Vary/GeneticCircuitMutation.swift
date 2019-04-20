@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 enum GeneticCircuitMutationExecuteError: Error {
-    case atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
+    case gateInMutationRequiresMoreQubitsThatAreAvailable(gate: Gate)
 }
 
 // MARK: - Protocol definition

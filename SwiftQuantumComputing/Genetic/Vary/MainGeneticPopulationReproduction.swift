@@ -65,8 +65,8 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
                 result = try mutation.applied(to: population)
             } catch GeneticPopulationMutationAppliedError.populationIsEmpty {
                 throw GeneticPopulationReproductionAppliedError.populationIsEmpty
-            } catch GeneticPopulationMutationAppliedError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable {
-                throw GeneticPopulationReproductionAppliedError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
+            } catch GeneticPopulationMutationAppliedError.gateInMutationRequiresMoreQubitsThatAreAvailable(let gate) {
+                throw GeneticPopulationReproductionAppliedError.gateInMutationRequiresMoreQubitsThatAreAvailable(gate: gate)
             } catch GeneticPopulationMutationAppliedError.useCaseEvaluatorsThrowed(let errors) {
                 throw GeneticPopulationReproductionAppliedError.useCaseEvaluatorsThrowed(errors: errors)
             } catch {

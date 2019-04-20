@@ -144,8 +144,8 @@ extension MainGeneticFactory: GeneticFactory {
             throw GeneticFactoryEvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
         } catch InitialPopulationProducerExecuteError.populationDepthHasToBeAPositiveNumber {
             throw GeneticFactoryEvolveCircuitError.configurationDepthHasToBeAPositiveNumber
-        } catch InitialPopulationProducerExecuteError.atLeastOneGateRequiredMoreQubitsThatAreAvailable {
-            throw GeneticFactoryEvolveCircuitError.atLeastOneGateRequiredMoreQubitsThatAreAvailable
+        } catch InitialPopulationProducerExecuteError.gateRequiredMoreQubitsThatAreAvailable(let gate) {
+            throw GeneticFactoryEvolveCircuitError.gateRequiredMoreQubitsThatAreAvailable(gate: gate)
         } catch InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(let errors) {
             throw GeneticFactoryEvolveCircuitError.useCaseEvaluatorsThrowed(errors: errors)
         } catch {
@@ -164,8 +164,8 @@ extension MainGeneticFactory: GeneticFactory {
             var offspring: [Fitness.EvalCircuit]!
             do {
                 offspring = try reproduction.applied(to: population)
-            } catch GeneticPopulationReproductionAppliedError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable {
-                throw GeneticFactoryEvolveCircuitError.atLeastOneGateRequiredMoreQubitsThatAreAvailable
+            } catch GeneticPopulationReproductionAppliedError.gateInMutationRequiresMoreQubitsThatAreAvailable(let gate) {
+                throw GeneticFactoryEvolveCircuitError.gateRequiredMoreQubitsThatAreAvailable(gate: gate)
             } catch GeneticPopulationReproductionAppliedError.useCaseEvaluatorsThrowed(let errors) {
                 throw GeneticFactoryEvolveCircuitError.useCaseEvaluatorsThrowed(errors: errors)
             } catch {

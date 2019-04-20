@@ -90,7 +90,7 @@ class MainGeneticCircuitMutationTests: XCTestCase {
             return 0
         }
 
-        randomizer.makeError = GeneticGatesRandomizerMakeError.atLeastOneGateRequiresMoreQubitsThatAreAvailable
+        randomizer.makeError = GeneticGatesRandomizerMakeError.gateRequiresMoreQubitsThatAreAvailable(gate: NotGate())
 
         let mutator = MainGeneticCircuitMutation(maxDepth: maxDepth,
                                                  randomizer: randomizer,
