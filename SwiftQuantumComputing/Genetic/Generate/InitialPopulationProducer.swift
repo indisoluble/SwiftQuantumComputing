@@ -26,7 +26,7 @@ enum InitialPopulationProducerExecuteError: Error {
     case populationSizeHasToBeBiggerThanZero
     case populationDepthHasToBeAPositiveNumber
     case atLeastOneGateRequiredMoreQubitsThatAreAvailable
-    case useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: [GeneticCircuitEvaluatorEvaluateCircuitError.UseCaseEvaluatorError])
+    case useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: GeneticCircuitEvaluationErrors)
 }
 
 // MARK: - Protocol definition

@@ -23,9 +23,7 @@ import Foundation
 // MARK: - Errors
 
 enum GeneticCircuitEvaluatorEvaluateCircuitError: Error {
-    typealias UseCaseEvaluatorError = (useCaseIndex: Int, error: GeneticUseCaseEvaluatorEvaluateCircuitError)
-
-    case useCaseEvaluatorsThrowed(errors: [UseCaseEvaluatorError])
+    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
 }
 
 // MARK: - Protocol definition

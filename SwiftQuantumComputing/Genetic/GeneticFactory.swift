@@ -32,7 +32,7 @@ enum GeneticFactoryEvolveCircuitError: Error {
     case useCaseListIsEmpty
     case useCasesDoNotSpecifySameCircuitQubitCount
     case useCaseCircuitQubitCountHasToBeBiggerThanZero
-    case useCaseEvaluatorsThrowed(errors: [GeneticCircuitEvaluatorEvaluateCircuitError.UseCaseEvaluatorError])
+    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
 }
 
 // MARK: - Protocol definition

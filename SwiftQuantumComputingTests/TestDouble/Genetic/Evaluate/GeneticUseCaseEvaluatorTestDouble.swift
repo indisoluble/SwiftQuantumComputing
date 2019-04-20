@@ -31,7 +31,7 @@ final class GeneticUseCaseEvaluatorTestDouble {
     private (set) var evaluateCircuitCount = 0
     private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
     var evaluateCircuitResult: Double?
-    var evaluateCircuitError = GeneticUseCaseEvaluatorEvaluateCircuitError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(around: 0)
+    var evaluateCircuitError = GeneticUseCaseEvaluatorEvaluateCircuitError.useCaseEvaluatorThrowed(error: GeneticUseCaseEvaluationError.gateIsNotUnitary(around: 0)) 
 }
 
 // MARK: - GeneticUseCaseEvaluator methods

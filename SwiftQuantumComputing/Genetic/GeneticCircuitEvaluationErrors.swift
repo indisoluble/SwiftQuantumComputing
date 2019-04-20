@@ -1,8 +1,8 @@
 //
-//  GeneticPopulationReproduction.swift
+//  GeneticCircuitEvaluationError.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 23/02/2019.
+//  Created by Enrique de la Torre on 20/04/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
+// MARK: - Types
 
-enum GeneticPopulationReproductionAppliedError: Error {
-    case populationIsEmpty
-    case atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
-    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
-}
-
-// MARK: - Protocol definition
-
-protocol GeneticPopulationReproduction {
-    func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit]
-}
+typealias GeneticCircuitEvaluationErrors = [(useCaseIndex: Int, error: GeneticUseCaseEvaluationError)]

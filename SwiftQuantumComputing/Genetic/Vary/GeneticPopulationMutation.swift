@@ -25,7 +25,7 @@ import Foundation
 enum GeneticPopulationMutationAppliedError: Error {
     case populationIsEmpty
     case atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
-    case useCaseEvaluatorsThrowed(errors: [GeneticCircuitEvaluatorEvaluateCircuitError.UseCaseEvaluatorError])
+    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
 }
 
 // MARK: - Protocol definition
