@@ -45,13 +45,21 @@ struct MainGeneticPopulationCrossover {
 
     // MARK: - Internal init methods
 
+    enum InitError: Error {
+        case tournamentSizeHasToBeBiggerThanZero
+    }
+
     init(tournamentSize: Int,
          maxDepth: Int,
          fitness: Fitness,
          crossover: GeneticCircuitCrossover,
          evaluator: GeneticCircuitEvaluator,
          score: GeneticCircuitScore,
-         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) {
+         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) throws {
+        guard tournamentSize > 0 else {
+            throw InitError.tournamentSizeHasToBeBiggerThanZero
+        }
+
         self.tournamentSize = tournamentSize
         self.maxDepth = maxDepth
         self.fitness = fitness
@@ -66,10 +74,6 @@ struct MainGeneticPopulationCrossover {
 
 extension MainGeneticPopulationCrossover: GeneticPopulationCrossover {
     func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit] {
-        guard tournamentSize > 0 else {
-            throw GeneticPopulationCrossoverAppliedError.tournamentSizeHasToBeBiggerThanZero
-        }
-
         let firstSample = randomElements(population, tournamentSize)
         let secondSample = randomElements(population, tournamentSize)
         guard let firstWinner = fitness.fittest(in: firstSample),

@@ -58,10 +58,16 @@ extension MainGeneticPopulationMutationFactory: GeneticPopulationMutationFactory
             fatalError("Unexpected error: \(error).")
         }
 
-        return MainGeneticPopulationMutation(tournamentSize:tournamentSize,
-                                             fitness: fitness,
-                                             mutation: mutation,
-                                             evaluator: evaluator,
-                                             score: score)
+        do {
+            return try MainGeneticPopulationMutation(tournamentSize:tournamentSize,
+                                                     fitness: fitness,
+                                                     mutation: mutation,
+                                                     evaluator: evaluator,
+                                                     score: score)
+        } catch MainGeneticPopulationMutation.InitError.tournamentSizeHasToBeBiggerThanZero {
+            throw GeneticPopulationMutationFactoryMakeMutationError.tournamentSizeHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }

@@ -32,7 +32,8 @@ final class GeneticPopulationCrossoverFactoryTestDouble {
     private (set) var lastMakeCrossoverTournamentSize: Int?
     private (set) var lastMakeCrossoverMaxDepth: Int?
     private (set) var lastMakeCrossoverEvaluator: GeneticCircuitEvaluator?
-    var makeCrossoverResult: GeneticPopulationCrossover = GeneticPopulationCrossoverTestDouble()
+    var makeCrossoverResult: GeneticPopulationCrossover?
+    var makeCrossoverError = GeneticPopulationCrossoverFactoryMakeCrossoverError.tournamentSizeHasToBeBiggerThanZero
 }
 
 // MARK: - GeneticPopulationCrossoverFactory methods
@@ -40,13 +41,17 @@ final class GeneticPopulationCrossoverFactoryTestDouble {
 extension GeneticPopulationCrossoverFactoryTestDouble: GeneticPopulationCrossoverFactory {
     func makeCrossover(tournamentSize: Int,
                        maxDepth: Int,
-                       evaluator: GeneticCircuitEvaluator) -> GeneticPopulationCrossover {
+                       evaluator: GeneticCircuitEvaluator) throws -> GeneticPopulationCrossover {
         makeCrossoverCount += 1
 
         lastMakeCrossoverTournamentSize = tournamentSize
         lastMakeCrossoverMaxDepth = maxDepth
         lastMakeCrossoverEvaluator = evaluator
 
-        return makeCrossoverResult
+        if let makeCrossoverResult = makeCrossoverResult {
+            return makeCrossoverResult
+        }
+
+        throw makeCrossoverError
     }
 }

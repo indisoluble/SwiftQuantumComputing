@@ -197,6 +197,8 @@
 		FF5921002221DB0400C86F6A /* MainGeneticPopulationReproductionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5920FE2221DB0400C86F6A /* MainGeneticPopulationReproductionFactory.swift */; };
 		FF5C6638211E455800FBCC5A /* RegisterGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6637211E455800FBCC5A /* RegisterGate.swift */; };
 		FF5C663A211E474200FBCC5A /* RegisterGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6639211E474200FBCC5A /* RegisterGateTests.swift */; };
+		FF602286226A98630098A3C9 /* MainGeneticPopulationCrossoverFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF602285226A98630098A3C9 /* MainGeneticPopulationCrossoverFactoryTests.swift */; };
+		FF602287226A98630098A3C9 /* MainGeneticPopulationCrossoverFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF602285226A98630098A3C9 /* MainGeneticPopulationCrossoverFactoryTests.swift */; };
 		FF65E3BF211A181900AA0BD2 /* SwiftQuantumComputing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */; };
 		FF65E3C6211A181900AA0BD2 /* SwiftQuantumComputing.h in Headers */ = {isa = PBXBuildFile; fileRef = FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FF663D2D216A0DE0002298BA /* ControlDownPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF663D2C216A0DE0002298BA /* ControlDownPositionView.xib */; };
@@ -538,6 +540,7 @@
 		FF5920FE2221DB0400C86F6A /* MainGeneticPopulationReproductionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticPopulationReproductionFactory.swift; sourceTree = "<group>"; };
 		FF5C6637211E455800FBCC5A /* RegisterGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGate.swift; sourceTree = "<group>"; };
 		FF5C6639211E474200FBCC5A /* RegisterGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGateTests.swift; sourceTree = "<group>"; };
+		FF602285226A98630098A3C9 /* MainGeneticPopulationCrossoverFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticPopulationCrossoverFactoryTests.swift; sourceTree = "<group>"; };
 		FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftQuantumComputing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF65E3B8211A181900AA0BD2 /* SwiftQuantumComputing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftQuantumComputing.h; sourceTree = "<group>"; };
 		FF65E3B9211A181900AA0BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1101,6 +1104,7 @@
 			children = (
 				FF6AF8F72214C90700B35ECC /* MainGeneticCircuitMutationTests.swift */,
 				FFB1247D2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift */,
+				FF602285226A98630098A3C9 /* MainGeneticPopulationCrossoverFactoryTests.swift */,
 				FFB124802225F38E00E44DC6 /* MainGeneticPopulationCrossoverTests.swift */,
 				FF23372F222AA7D400FD5301 /* MainGeneticPopulationMutationTests.swift */,
 				FF233737222ABD3B00FD5301 /* MainGeneticPopulationMutationFactoryTests.swift */,
@@ -1883,6 +1887,7 @@
 				FF4F8AB0222C1E3F00A09D61 /* GeneticPopulationReproductionTestDouble.swift in Sources */,
 				FFE1D714211A1B2700A50D9C /* ComplexTests.swift in Sources */,
 				FF8725C521D9578100E1004E /* BackendRegisterFactoryTestDouble.swift in Sources */,
+				FF602286226A98630098A3C9 /* MainGeneticPopulationCrossoverFactoryTests.swift in Sources */,
 				FFE8FAA3212205BE005686FE /* Int+DerivedTests.swift in Sources */,
 				FF23373B222ABE6100FD5301 /* GeneticCircuitMutationFactoryTestDouble.swift in Sources */,
 				FF433871221227CE00AB5C06 /* GeneticGateFactoryTestDouble.swift in Sources */,
@@ -2085,6 +2090,7 @@
 				FF4F8AB1222C1E3F00A09D61 /* GeneticPopulationReproductionTestDouble.swift in Sources */,
 				FF46EDB1216924050044C3CA /* CircuitFacadeTests.swift in Sources */,
 				FF8725C621D9578100E1004E /* BackendRegisterFactoryTestDouble.swift in Sources */,
+				FF602287226A98630098A3C9 /* MainGeneticPopulationCrossoverFactoryTests.swift in Sources */,
 				FF0694E221CC029F00B5D469 /* BackendRegisterGateFactoryTestDouble.swift in Sources */,
 				FF23373C222ABE6100FD5301 /* GeneticCircuitMutationFactoryTestDouble.swift in Sources */,
 				FF433872221227CE00AB5C06 /* GeneticGateFactoryTestDouble.swift in Sources */,

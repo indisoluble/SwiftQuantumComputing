@@ -24,6 +24,7 @@ import Foundation
 
 enum GeneticPopulationMutationFactoryMakeMutationError: Error {
     case qubitCountHasToBeBiggerThanZero
+    case tournamentSizeHasToBeBiggerThanZero
 }
 
 // MARK: - Protocol definition

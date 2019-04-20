@@ -23,7 +23,6 @@ import Foundation
 // MARK: - Errors
 
 enum GeneticPopulationReproductionAppliedError: Error {
-    case tournamentSizeHasToBeBiggerThanZero
     case populationIsEmpty
     case atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
     case useCaseEvaluatorsThrowed(errors: [GeneticCircuitEvaluatorEvaluateCircuitError.UseCaseEvaluatorError])

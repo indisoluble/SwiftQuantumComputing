@@ -38,29 +38,19 @@ class MainGeneticPopulationMutationTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testTournamentSizeEqualToZero_applied_throwException() {
+    func testTournamentSizeEqualToZero_init_throwException() {
         // Given
-        var randomElementsCount = 0
-        let randomElements: MainGeneticPopulationMutation.RandomElements = { _, _ in
-            randomElementsCount += 1
-
+        let randomElements: MainGeneticPopulationCrossover.RandomElements = { _, _ in
             return [(0, [])]
         }
 
-        let populationMutation = MainGeneticPopulationMutation(tournamentSize: 0,
+        // Then
+        XCTAssertThrowsError(try MainGeneticPopulationMutation(tournamentSize: 0,
                                                                fitness: fitness,
                                                                mutation: mutation,
                                                                evaluator: evaluator,
                                                                score: score,
-                                                               randomElements: randomElements)
-
-        // Then
-        XCTAssertThrowsError(try populationMutation.applied(to: evalCircuits))
-        XCTAssertEqual(randomElementsCount, 0)
-        XCTAssertEqual(fitness.fittestCount, 0)
-        XCTAssertEqual(mutation.executeCount, 0)
-        XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
-        XCTAssertEqual(score.calculateCount, 0)
+                                                               randomElements: randomElements))
     }
 
     func testFitnessReturnNil_applied_throwException() {
@@ -72,12 +62,12 @@ class MainGeneticPopulationMutationTests: XCTestCase {
             return [(0, [])]
         }
 
-        let populationMutation = MainGeneticPopulationMutation(tournamentSize: tournamentSize,
-                                                               fitness: fitness,
-                                                               mutation: mutation,
-                                                               evaluator: evaluator,
-                                                               score: score,
-                                                               randomElements: randomElements)
+        let populationMutation = try! MainGeneticPopulationMutation(tournamentSize: tournamentSize,
+                                                                    fitness: fitness,
+                                                                    mutation: mutation,
+                                                                    evaluator: evaluator,
+                                                                    score: score,
+                                                                    randomElements: randomElements)
 
         // Then
         XCTAssertThrowsError(try populationMutation.applied(to: evalCircuits))
@@ -101,12 +91,12 @@ class MainGeneticPopulationMutationTests: XCTestCase {
 
         mutation.executeError = .atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable
 
-        let populationMutation = MainGeneticPopulationMutation(tournamentSize: tournamentSize,
-                                                               fitness: fitness,
-                                                               mutation: mutation,
-                                                               evaluator: evaluator,
-                                                               score: score,
-                                                               randomElements: randomElements)
+        let populationMutation = try! MainGeneticPopulationMutation(tournamentSize: tournamentSize,
+                                                                    fitness: fitness,
+                                                                    mutation: mutation,
+                                                                    evaluator: evaluator,
+                                                                    score: score,
+                                                                    randomElements: randomElements)
 
         // Then
         XCTAssertThrowsError(try populationMutation.applied(to: evalCircuits))
@@ -128,12 +118,12 @@ class MainGeneticPopulationMutationTests: XCTestCase {
 
         fitness.fittestResult = (0, [])
 
-        let populationMutation = MainGeneticPopulationMutation(tournamentSize: tournamentSize,
-                                                               fitness: fitness,
-                                                               mutation: mutation,
-                                                               evaluator: evaluator,
-                                                               score: score,
-                                                               randomElements: randomElements)
+        let populationMutation = try! MainGeneticPopulationMutation(tournamentSize: tournamentSize,
+                                                                    fitness: fitness,
+                                                                    mutation: mutation,
+                                                                    evaluator: evaluator,
+                                                                    score: score,
+                                                                    randomElements: randomElements)
 
         // When
         var result: Fitness.EvalCircuit?
@@ -165,12 +155,12 @@ class MainGeneticPopulationMutationTests: XCTestCase {
         let expectedMutation = Array(repeating: GeneticGateTestDouble(), count: 2)
         mutation.executeResult = expectedMutation
 
-        let populationMutation = MainGeneticPopulationMutation(tournamentSize: tournamentSize,
-                                                               fitness: fitness,
-                                                               mutation: mutation,
-                                                               evaluator: evaluator,
-                                                               score: score,
-                                                               randomElements: randomElements)
+        let populationMutation = try! MainGeneticPopulationMutation(tournamentSize: tournamentSize,
+                                                                    fitness: fitness,
+                                                                    mutation: mutation,
+                                                                    evaluator: evaluator,
+                                                                    score: score,
+                                                                    randomElements: randomElements)
 
         // Then
         XCTAssertThrowsError(try populationMutation.applied(to: evalCircuits))
@@ -196,12 +186,12 @@ class MainGeneticPopulationMutationTests: XCTestCase {
         evaluator.evaluateCircuitResult = (0, 0)
         score.calculateResult = scoreResult
 
-        let populationMutation = MainGeneticPopulationMutation(tournamentSize: tournamentSize,
-                                                               fitness: fitness,
-                                                               mutation: mutation,
-                                                               evaluator: evaluator,
-                                                               score: score,
-                                                               randomElements: randomElements)
+        let populationMutation = try! MainGeneticPopulationMutation(tournamentSize: tournamentSize,
+                                                                    fitness: fitness,
+                                                                    mutation: mutation,
+                                                                    evaluator: evaluator,
+                                                                    score: score,
+                                                                    randomElements: randomElements)
 
         // When
         let result = try? populationMutation.applied(to: evalCircuits)

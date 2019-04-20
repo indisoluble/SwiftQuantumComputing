@@ -23,7 +23,6 @@ import Foundation
 // MARK: - Errors
 
 enum GeneticPopulationCrossoverAppliedError: Error {
-    case tournamentSizeHasToBeBiggerThanZero
     case populationIsEmpty
     case useCaseEvaluatorsThrowed(errors: [GeneticCircuitEvaluatorEvaluateCircuitError.UseCaseEvaluatorError])
 }

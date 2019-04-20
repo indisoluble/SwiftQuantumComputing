@@ -63,8 +63,6 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
             var result: Fitness.EvalCircuit?
             do {
                 result = try mutation.applied(to: population)
-            } catch GeneticPopulationMutationAppliedError.tournamentSizeHasToBeBiggerThanZero {
-                throw GeneticPopulationReproductionAppliedError.tournamentSizeHasToBeBiggerThanZero
             } catch GeneticPopulationMutationAppliedError.populationIsEmpty {
                 throw GeneticPopulationReproductionAppliedError.populationIsEmpty
             } catch GeneticPopulationMutationAppliedError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable {
@@ -86,8 +84,6 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
             var result: [Fitness.EvalCircuit]!
             do {
                 result = try crossover.applied(to: population)
-            } catch GeneticPopulationCrossoverAppliedError.tournamentSizeHasToBeBiggerThanZero {
-                throw GeneticPopulationReproductionAppliedError.tournamentSizeHasToBeBiggerThanZero
             } catch GeneticPopulationCrossoverAppliedError.populationIsEmpty {
                 throw GeneticPopulationReproductionAppliedError.populationIsEmpty
             } catch GeneticPopulationCrossoverAppliedError.useCaseEvaluatorsThrowed(let errors) {

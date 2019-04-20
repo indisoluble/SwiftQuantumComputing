@@ -71,13 +71,22 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                                                         gates: gates)
         } catch GeneticPopulationMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero {
             throw GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero
+        } catch GeneticPopulationMutationFactoryMakeMutationError.tournamentSizeHasToBeBiggerThanZero {
+            throw GeneticPopulationReproductionFactoryMakeReproductionError.tournamentSizeHasToBeBiggerThanZero
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
-        let crossover = crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
-                                                       maxDepth: maxDepth,
-                                                       evaluator: evaluator)
+        var crossover: GeneticPopulationCrossover!
+        do {
+            crossover = try crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
+                                                           maxDepth: maxDepth,
+                                                           evaluator: evaluator)
+        } catch GeneticPopulationCrossoverFactoryMakeCrossoverError.tournamentSizeHasToBeBiggerThanZero {
+            throw GeneticPopulationReproductionFactoryMakeReproductionError.tournamentSizeHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
 
         return MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
                                                  mutation: mutation,

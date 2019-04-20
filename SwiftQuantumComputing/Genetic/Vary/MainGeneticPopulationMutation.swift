@@ -39,12 +39,20 @@ struct MainGeneticPopulationMutation {
 
     // MARK: - Internal init methods
 
+    enum InitError: Error {
+        case tournamentSizeHasToBeBiggerThanZero
+    }
+
     init(tournamentSize: Int,
          fitness: Fitness,
          mutation: GeneticCircuitMutation,
          evaluator: GeneticCircuitEvaluator,
          score: GeneticCircuitScore,
-         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) {
+         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) throws {
+        guard tournamentSize > 0 else {
+            throw InitError.tournamentSizeHasToBeBiggerThanZero
+        }
+
         self.tournamentSize = tournamentSize
         self.fitness = fitness
         self.mutation = mutation
@@ -58,10 +66,6 @@ struct MainGeneticPopulationMutation {
 
 extension MainGeneticPopulationMutation: GeneticPopulationMutation {
     func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit? {
-        guard tournamentSize > 0 else {
-            throw GeneticPopulationMutationAppliedError.tournamentSizeHasToBeBiggerThanZero
-        }
-
         let sample = randomElements(population, tournamentSize)
         guard let winner = fitness.fittest(in: sample) else {
             throw GeneticPopulationMutationAppliedError.populationIsEmpty

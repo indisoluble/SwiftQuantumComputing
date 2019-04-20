@@ -33,7 +33,7 @@ class MainGeneticPopulationMutationFactoryTests: XCTestCase {
     let mutation = GeneticCircuitMutationTestDouble()
     let score = GeneticCircuitScoreTestDouble()
     let qubitCount = 0
-    let tournamentSize = 0
+    let tournamentSize = 1
     let maxDepth = 0
     let evaluator = GeneticCircuitEvaluatorTestDouble()
     let gates: [Gate] = []
@@ -68,5 +68,21 @@ class MainGeneticPopulationMutationFactoryTests: XCTestCase {
                                                             maxDepth: maxDepth,
                                                             evaluator: evaluator,
                                                             gates: gates))
+    }
+
+    func testTournamentSizeEqualToZero_makeMutation_throwException() {
+        // Given
+        factory.makeMutationResult = mutation
+
+        let populationFactory = MainGeneticPopulationMutationFactory(fitness: fitness,
+                                                                     factory: factory,
+                                                                     score: score)
+
+        // Then
+        XCTAssertThrowsError(try populationFactory.makeMutation(qubitCount: qubitCount,
+                                                                tournamentSize: 0,
+                                                                maxDepth: maxDepth,
+                                                                evaluator: evaluator,
+                                                                gates: gates))
     }
 }
