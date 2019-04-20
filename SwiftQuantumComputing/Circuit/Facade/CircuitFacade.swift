@@ -24,9 +24,12 @@ import Foundation
 
 struct CircuitFacade {
 
+    // MARK: - Circuit properties
+
+    let gates: [FixedGate]
+
     // MARK: - Private properties
 
-    private let gates: [FixedGate]
     private let drawer: Drawable
     private let backend: Backend
     private let factory: BackendRegisterFactory

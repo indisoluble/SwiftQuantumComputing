@@ -43,5 +43,7 @@ enum CircuitMeasureError: Error {
 // MARK: - Protocol definition
 
 public protocol Circuit {
+    var gates: [FixedGate] { get }
+
     func measure(qubits: [Int], afterInputting bits: String) throws -> [Double]
 }

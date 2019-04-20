@@ -23,20 +23,20 @@ import Foundation
 // MARK: - Errors
 
 enum GeneticUseCaseEvaluationError: Error {
-    case truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(at: Int)
-    case truthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle(at: Int)
-    case unableToExtractMatrixFromGate(around: Int)
-    case gateMatrixIsNotSquare(around: Int)
-    case gateMatrixRowCountHasToBeAPowerOfTwo(around: Int)
-    case gateMatrixHandlesMoreQubitsThanAreAvailable(around: Int)
-    case gateInputCountDoesNotMatchMatrixQubitCount(around: Int)
-    case gateInputsAreNotUnique(around: Int)
-    case gateInputsAreNotInBound(around: Int)
-    case gateIsNotUnitary(around: Int)
-    case gateDoesNotHaveValidDimension(around: Int)
-    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(around: Int)
     case evaluatorForCircuitWithMoreQubits
+    case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
+    case useCaseTruthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle
     case useCaseCircuitInputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
     case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
     case useCaseCircuitOutputHasMoreQubitsThatCircuitHas
+    case unableToExtractMatrix(gate: FixedGate)
+    case gateMatrixIsNotSquare(gate: FixedGate)
+    case gateMatrixRowCountHasToBeAPowerOfTwo(gate: FixedGate)
+    case gateMatrixHandlesMoreQubitsThanAreAvailable(gate: FixedGate)
+    case gateInputCountDoesNotMatchMatrixQubitCount(gate: FixedGate)
+    case gateInputsAreNotUnique(gate: FixedGate)
+    case gateInputsAreNotInBound(gate: FixedGate)
+    case gateIsNotUnitary(gate: FixedGate)
+    case gateDoesNotHaveValidDimension(gate: FixedGate)
+    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(gate: FixedGate)
 }
