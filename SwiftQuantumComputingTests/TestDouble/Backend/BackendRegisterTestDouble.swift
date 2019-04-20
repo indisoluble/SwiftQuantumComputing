@@ -31,28 +31,38 @@ final class BackendRegisterTestDouble {
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: RegisterGate?
     var applyingResult: BackendRegisterTestDouble?
+    var applyingError = BackendRegisterApplyingError.additionOfSquareModulusInNextRegisterIsNotEqualToOne
 
     private (set) var measureCount = 0
     private (set) var lastMeasureQubits: [Int]?
     var measureResult: [Double]?
+    var measureError = BackendRegisterMeasureError.qubitsAreNotSorted
 }
 
 // MARK: - BackendRegister methods
 
 extension BackendRegisterTestDouble: BackendRegister {
-    func applying(_ gate: RegisterGate) -> BackendRegisterTestDouble? {
+    func applying(_ gate: RegisterGate) throws -> BackendRegisterTestDouble {
         applyingCount += 1
 
         lastApplyingGate = gate
 
-        return applyingResult
+        if let applyingResult = applyingResult {
+            return applyingResult
+        }
+
+        throw applyingError
     }
 
-    func measure(qubits: [Int]) -> [Double]? {
+    func measure(qubits: [Int]) throws -> [Double] {
         measureCount += 1
 
         lastMeasureQubits = qubits
 
-        return measureResult
+        if let measureResult = measureResult {
+            return measureResult
+        }
+
+        throw measureError
     }
 }

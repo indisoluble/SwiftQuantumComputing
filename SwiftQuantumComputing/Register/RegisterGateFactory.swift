@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -30,44 +29,31 @@ struct RegisterGateFactory {
     private let qubitCount: Int
     private let baseMatrix: Matrix
 
-    // MARK: - Private class methods
-
-    private static let logger = LoggerFactory.makeLogger()
-
     // MARK: - Internal init methods
 
-    init?(qubitCount: Int, baseMatrix: Matrix) {
-        guard baseMatrix.isSquare else {
-            os_log("init failed: matrix is not square",
-                   log: RegisterGateFactory.logger,
-                   type: .debug)
+    enum InitError: Error {
+        case matrixIsNotSquare
+        case matrixRowCountHasToBeAPowerOfTwo
+        case qubitCountHasToBeBiggerThanZero
+        case matrixHandlesMoreQubitsThanAreAvailable
+    }
 
-            return nil
+    init(qubitCount: Int, baseMatrix: Matrix) throws {
+        guard baseMatrix.isSquare else {
+            throw InitError.matrixIsNotSquare
         }
 
         guard baseMatrix.rowCount.isPowerOfTwo else {
-            os_log("init failed: matrix row count has to be a power of 2",
-                   log: RegisterGateFactory.logger,
-                   type: .debug)
-
-            return nil
+            throw InitError.matrixRowCountHasToBeAPowerOfTwo
         }
 
         guard qubitCount > 0 else {
-            os_log("init failed: a register has to have at least 1 qubit",
-                   log: RegisterGateFactory.logger,
-                   type: .debug)
-
-            return nil
+            throw InitError.qubitCountHasToBeBiggerThanZero
         }
 
         let matrixQubitCount = Int.log2(baseMatrix.rowCount)
         guard (matrixQubitCount <= qubitCount) else {
-            os_log("init failed: matrix handles more qubits than are available",
-                   log: RegisterGateFactory.logger,
-                   type: .debug)
-
-            return nil
+            throw InitError.matrixHandlesMoreQubitsThanAreAvailable
         }
 
         self.qubitCount = qubitCount
@@ -76,17 +62,35 @@ struct RegisterGateFactory {
 
     // MARK: - Internal methods
 
-    func makeGate(inputs: [Int]) -> RegisterGate? {
-        guard areInputsValid(inputs) else {
-            os_log("makeGate failed: provide as many unique qubits as required by the matrix",
-                   log: RegisterGateFactory.logger,
-                   type: .debug)
+    enum MakeGateError: Error {
+        case inputCountDoesNotMatchBaseMatrixQubitCount
+        case inputsAreNotUnique
+        case inputsAreNotInBound
+        case gateIsNotUnitary
+    }
 
-            return nil
+    func makeGate(inputs: [Int]) throws -> RegisterGate {
+        guard doesInputCountMatchBaseMatrixQubitCount(inputs) else {
+            throw MakeGateError.inputCountDoesNotMatchBaseMatrixQubitCount
+        }
+
+        guard areInputsUnique(inputs) else {
+            throw MakeGateError.inputsAreNotUnique
+        }
+
+        guard areInputsInBound(inputs) else {
+            throw MakeGateError.inputsAreNotInBound
         }
 
         let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })
-        return RegisterGate(matrix: extended)
+
+        do {
+            return try RegisterGate(matrix: extended)
+        } catch RegisterGate.InitError.matrixIsNotUnitary {
+            throw MakeGateError.gateIsNotUnitary
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }
 
@@ -97,17 +101,11 @@ private extension RegisterGateFactory {
     // MARK: - Constants
 
     enum Constants {
-        static let baseIdentity = Matrix.makeIdentity(count: 2)!
+        static let baseIdentity = try! Matrix.makeIdentity(count: 2)
         static let baseSwap = Matrix.makeSwap()
     }
 
     // MARK: - Private methods
-
-    func areInputsValid(_ inputs: [Int]) -> Bool {
-        return (doesInputCountMatchBaseMatrixQubitCount(inputs) &&
-            areInputsUnique(inputs) &&
-            areInputsInBound(inputs))
-    }
 
     func areInputsUnique(_ inputs: [Int]) -> Bool {
         return (inputs.count == Set(inputs).count)
@@ -137,7 +135,7 @@ private extension RegisterGateFactory {
         let extended = makeExtendedMatrix(indices: swappedIndices)
         let swap = makeSwapMatrix(index: swappedIndex)
 
-        return (swap * (extended * swap)!)!
+        return (try! swap * (try! extended * swap))
     }
 
     func firstIndexNotAlignedToBaseMatrix(_ indices: [Int]) -> (pos: Int, index: Int)? {

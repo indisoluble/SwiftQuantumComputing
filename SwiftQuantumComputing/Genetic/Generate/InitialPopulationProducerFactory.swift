@@ -20,11 +20,17 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum InitialPopulationProducerFactoryMakeProducerError: Error {
+    case qubitCountHasToBeBiggerThanZero
+}
+
 // MARK: - Protocol definition
 
 protocol InitialPopulationProducerFactory {
     func makeProducer(qubitCount: Int,
                       threshold: Double,
                       useCases: [GeneticUseCase],
-                      gates: [Gate]) -> InitialPopulationProducer?
+                      gates: [Gate]) throws -> InitialPopulationProducer
 }

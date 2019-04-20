@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -33,10 +32,6 @@ public struct Complex {
     var squaredModulus: Double {
         return (pow(real, 2) + pow(imag, 2))
     }
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Public init methods
 
@@ -55,11 +50,13 @@ public struct Complex {
 
     // MARK: - Internal init methods
 
-    init?(_ matrix: Matrix) {
-        guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
-            os_log("init failed: use 1x1 matrix", log: Complex.logger, type: .debug)
+    enum InitError: Error {
+        case use1x1Matrix
+    }
 
-            return nil
+    init(_ matrix: Matrix) throws {
+        guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
+            throw InitError.use1x1Matrix
         }
 
         let complex = matrix.first

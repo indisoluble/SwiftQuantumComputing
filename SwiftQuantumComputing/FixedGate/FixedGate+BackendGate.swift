@@ -23,7 +23,7 @@ import Foundation
 // MARK: - BackendGate methods
 
 extension FixedGate: BackendGate {
-    func extract() -> (matrix: Matrix?, inputs: [Int]) {
+    func extract() throws -> (matrix: Matrix, inputs: [Int]) {
         switch self {
         case .controlledNot(let target, let control):
             return (Constants.matrixControlledNot, [control, target])
@@ -34,10 +34,16 @@ extension FixedGate: BackendGate {
         case .not(let target):
             return (Constants.matrixNot, [target])
         case .oracle(let truthTable, let target, let controls):
-            let matrix = Matrix.makeOracle(truthTable: truthTable, controlCount: controls.count)
-            let inputs = controls + [target]
+            var matrix: Matrix!
+            do {
+                matrix = try Matrix.makeOracle(truthTable: truthTable, controlCount: controls.count)
+            } catch Matrix.MakeOracleError.controlCountIsNotBiggerThanZero {
+                throw BackendGateExtractError.unableToExtractMatrix
+            } catch {
+                fatalError("Unexpected error: \(error).")
+            }
 
-            return (matrix, inputs)
+            return (matrix, controls + [target])
         case .phaseShift(let radians, let target):
             return (Matrix.makePhaseShift(radians: radians), [target])
         }

@@ -20,10 +20,18 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum OracleCircuitFactoryMakeOracleCircuitError: Error {
+    case truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(at: Int)
+    case truthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle(at: Int)
+}
+
 // MARK: - Protocol definition
 
 protocol OracleCircuitFactory {
     typealias OracleCircuit = (circuit: [FixedGate], oracleAt: Int?)
 
-    func makeOracleCircuit(geneticCircuit: [GeneticGate], useCase: GeneticUseCase) -> OracleCircuit?
+    func makeOracleCircuit(geneticCircuit: [GeneticGate],
+                           useCase: GeneticUseCase) throws -> OracleCircuit
 }

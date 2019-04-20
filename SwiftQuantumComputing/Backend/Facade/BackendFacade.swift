@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -28,10 +27,6 @@ struct BackendFacade {
     // MARK: - Private properties
 
     private let factory: BackendRegisterGateFactory
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Internal init methods
 
@@ -43,54 +38,64 @@ struct BackendFacade {
 // MARK: - Backend methods
 
 extension BackendFacade: Backend {
-    func measure(qubits: [Int], in circuit: Backend.Circuit) -> [Double]? {
-        var gatesIterator = circuit.gates.makeIterator()
+    func measure(qubits: [Int], in circuit: Backend.Circuit) throws -> [Double] {
+        var register = circuit.register
 
-        var register: BackendRegister? = circuit.register
-        var gate = gatesIterator.next()
+        for (index, gate) in circuit.gates.enumerated() {
+            var components: BackendGate.Components!
+            do {
+                components = try gate.extract()
+            } catch BackendGateExtractError.unableToExtractMatrix {
+                throw BackendMeasureError.unableToExtractMatrixFromGate(at: index)
+            } catch {
+                fatalError("Unexpected error: \(error).")
+            }
 
-        while let nextRegister = register, let nextGate = gate {
-            register = applyGate(nextGate, to: nextRegister)
-            gate = gatesIterator.next()
+            var registerGate: RegisterGate!
+            do {
+                registerGate = try factory.makeGate(matrix: components.matrix,
+                                                    inputs: components.inputs)
+            } catch BackendRegisterGateFactoryMakeGateError.matrixIsNotSquare {
+                throw BackendMeasureError.gateMatrixIsNotSquare(at: index)
+            } catch BackendRegisterGateFactoryMakeGateError.matrixRowCountHasToBeAPowerOfTwo {
+                throw BackendMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(at: index)
+            } catch BackendRegisterGateFactoryMakeGateError.matrixHandlesMoreQubitsThanAreAvailable {
+                throw BackendMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(at: index)
+            } catch BackendRegisterGateFactoryMakeGateError.inputCountDoesNotMatchMatrixQubitCount {
+                throw BackendMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(at: index)
+            } catch BackendRegisterGateFactoryMakeGateError.inputsAreNotUnique {
+                throw BackendMeasureError.gateInputsAreNotUnique(at: index)
+            } catch BackendRegisterGateFactoryMakeGateError.inputsAreNotInBound {
+                throw BackendMeasureError.gateInputsAreNotInBound(at: index)
+            } catch BackendRegisterGateFactoryMakeGateError.gateIsNotUnitary {
+                throw BackendMeasureError.gateIsNotUnitary(at: index)
+            } catch {
+                fatalError("Unexpected error: \(error).")
+            }
+
+            do {
+                register = try register.applying(registerGate)
+            } catch BackendRegisterApplyingError.gateDoesNotHaveValidDimension {
+                throw BackendMeasureError.gateDoesNotHaveValidDimension(at: index)
+            } catch BackendRegisterApplyingError.additionOfSquareModulusInNextRegisterIsNotEqualToOne {
+                throw BackendMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: index)
+            } catch {
+                fatalError("Unexpected error: \(error).")
+            }
         }
 
-        return register?.measure(qubits: qubits)
-    }
-}
-
-// MARK: - Private body
-
-private extension BackendFacade {
-
-    // MARK: - Private methods
-
-    func applyGate(_ gate: BackendGate, to register: BackendRegister) -> BackendRegister? {
-        let (matrix, inputs) = gate.extract()
-
-        guard let finalMatrix = matrix else {
-            os_log("applyGate failed: gate did not produce a matrix",
-                   log: BackendFacade.logger,
-                   type: .debug)
-
-            return nil
+        do {
+            return try register.measure(qubits: qubits)
+        } catch BackendRegisterMeasureError.emptyQubitList {
+            throw BackendMeasureError.emptyQubitList
+        } catch BackendRegisterMeasureError.qubitsAreNotUnique {
+            throw BackendMeasureError.qubitsAreNotUnique
+        } catch BackendRegisterMeasureError.qubitsAreNotInBound {
+            throw BackendMeasureError.qubitsAreNotInBound
+        } catch BackendRegisterMeasureError.qubitsAreNotSorted {
+            throw BackendMeasureError.qubitsAreNotSorted
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
-
-        guard let registerGate = factory.makeGate(matrix: finalMatrix, inputs: inputs) else {
-            os_log("applyGate failed: unable to build next gate",
-                   log: BackendFacade.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        guard let nextRegister = register.applying(registerGate) else {
-            os_log("applyGate failed: unable to produce next register with new gate",
-                   log: BackendFacade.logger,
-                   type: .debug)
-
-            return nil
-        }
-
-        return nextRegister
     }
 }

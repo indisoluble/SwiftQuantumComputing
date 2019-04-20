@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -28,10 +27,6 @@ public struct PhaseShiftGate {
     // MARK: - Private properties
 
     private let radians: Double
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Public init methods
 
@@ -43,13 +38,9 @@ public struct PhaseShiftGate {
 // MARK: - Gate methods
 
 extension PhaseShiftGate: Gate {
-    public func makeFixed(inputs: [Int]) -> FixedGate? {
+    public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard let target = inputs.first else {
-            os_log("makeFixed: not enough inputs to produce a R gate",
-                   log: PhaseShiftGate.logger,
-                   type: .debug)
-
-            return nil
+            throw GateMakeFixedError.notEnoughInputsToProduceAGate
         }
 
         return .phaseShift(radians: radians, target: target)

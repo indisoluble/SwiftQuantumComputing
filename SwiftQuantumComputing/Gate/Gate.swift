@@ -20,8 +20,14 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GateMakeFixedError: Error {
+    case notEnoughInputsToProduceAGate
+}
+
 // MARK: - Protocol definition
 
 public protocol Gate {
-    func makeFixed(inputs: [Int]) -> FixedGate?
+    func makeFixed(inputs: [Int]) throws -> FixedGate
 }

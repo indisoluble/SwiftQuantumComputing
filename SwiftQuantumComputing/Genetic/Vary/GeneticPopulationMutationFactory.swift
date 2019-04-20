@@ -20,6 +20,13 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GeneticPopulationMutationFactoryMakeMutationError: Error {
+    case qubitCountHasToBeBiggerThanZero
+    case tournamentSizeHasToBeBiggerThanZero
+}
+
 // MARK: - Protocol definition
 
 protocol GeneticPopulationMutationFactory {
@@ -27,5 +34,5 @@ protocol GeneticPopulationMutationFactory {
                       tournamentSize: Int,
                       maxDepth: Int,
                       evaluator: GeneticCircuitEvaluator,
-                      gates: [Gate]) -> GeneticPopulationMutation?
+                      gates: [Gate]) throws -> GeneticPopulationMutation
 }

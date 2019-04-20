@@ -27,7 +27,13 @@ struct BackendRegisterFactoryAdapter {}
 // MARK: - BackendRegisterFactory methods
 
 extension BackendRegisterFactoryAdapter: BackendRegisterFactory {
-    func makeRegister(bits: String) -> BackendRegister? {
-        return Register(bits: bits)
+    func makeRegister(bits: String) throws -> BackendRegister {
+        do {
+            return try Register(bits: bits)
+        } catch Register.InitBitsError.provideNonEmptyStringComposedOnlyOfZerosAndOnes {
+            throw BackendRegisterFactoryMakeRegisterError.provideNonEmptyStringComposedOnlyOfZerosAndOnes
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }

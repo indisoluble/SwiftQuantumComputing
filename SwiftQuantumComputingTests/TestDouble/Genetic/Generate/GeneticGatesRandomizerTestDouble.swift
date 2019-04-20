@@ -31,6 +31,7 @@ final class GeneticGatesRandomizerTestDouble {
     private (set) var makeCount = 0
     private (set) var lastMakeDepth: Int?
     var makeResult: [GeneticGate]?
+    var makeError = GeneticGatesRandomizerMakeError.depthHasToBeAPositiveNumber
 
     // MARK: - Private properties
 
@@ -46,13 +47,17 @@ final class GeneticGatesRandomizerTestDouble {
 // MARK: - GeneticGatesRandomizer methods
 
 extension GeneticGatesRandomizerTestDouble: GeneticGatesRandomizer {
-    func make(depth: Int) -> [GeneticGate]? {
+    func make(depth: Int) throws -> [GeneticGate] {
         queue.sync {
             makeCount += 1
 
             lastMakeDepth = depth
         }
 
-        return makeResult
+        if let makeResult = makeResult {
+            return makeResult
+        }
+
+        throw makeError
     }
 }

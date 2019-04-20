@@ -46,17 +46,28 @@ extension MainGeneticPopulationMutationFactory: GeneticPopulationMutationFactory
                       tournamentSize: Int,
                       maxDepth: Int,
                       evaluator: GeneticCircuitEvaluator,
-                      gates: [Gate]) -> GeneticPopulationMutation? {
-        guard let mutation = factory.makeMutation(qubitCount: qubitCount,
-                                                  maxDepth: maxDepth,
-                                                  gates: gates) else {
-                                                    return nil
+                      gates: [Gate]) throws -> GeneticPopulationMutation {
+        var mutation: GeneticCircuitMutation!
+        do {
+            mutation = try factory.makeMutation(qubitCount: qubitCount,
+                                                maxDepth: maxDepth,
+                                                gates: gates)
+        } catch GeneticCircuitMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero {
+            throw GeneticPopulationMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        return MainGeneticPopulationMutation(tournamentSize:tournamentSize,
-                                             fitness: fitness,
-                                             mutation: mutation,
-                                             evaluator: evaluator,
-                                             score: score)
+        do {
+            return try MainGeneticPopulationMutation(tournamentSize:tournamentSize,
+                                                     fitness: fitness,
+                                                     mutation: mutation,
+                                                     evaluator: evaluator,
+                                                     score: score)
+        } catch MainGeneticPopulationMutation.InitError.tournamentSizeHasToBeBiggerThanZero {
+            throw GeneticPopulationMutationFactoryMakeMutationError.tournamentSizeHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }

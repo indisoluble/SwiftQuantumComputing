@@ -38,9 +38,16 @@ struct MainGeneticCircuitMutationFactory {
 // MARK: - GeneticCircuitMutationFactory methods
 
 extension MainGeneticCircuitMutationFactory: GeneticCircuitMutationFactory {
-    func makeMutation(qubitCount: Int, maxDepth: Int, gates: [Gate]) -> GeneticCircuitMutation? {
-        guard let randomizer = factory.makeRandomizer(qubitCount: qubitCount, gates: gates) else {
-            return nil
+    func makeMutation(qubitCount: Int,
+                      maxDepth: Int,
+                      gates: [Gate]) throws -> GeneticCircuitMutation {
+        var randomizer: GeneticGatesRandomizer!
+        do {
+            randomizer = try factory.makeRandomizer(qubitCount: qubitCount, gates: gates)
+        } catch GeneticGatesRandomizerFactoryMakeRandomizerError.qubitCountHasToBeBiggerThanZero {
+            throw GeneticCircuitMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         return MainGeneticCircuitMutation(maxDepth: maxDepth, randomizer: randomizer)

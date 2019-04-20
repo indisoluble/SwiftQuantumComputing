@@ -64,7 +64,7 @@ struct MainGeneticCircuitMutation {
 // MARK: - GeneticCircuitMutation methods
 
 extension MainGeneticCircuitMutation: GeneticCircuitMutation {
-    func execute(_ circuit: [GeneticGate]) -> [GeneticGate]? {
+    func execute(_ circuit: [GeneticGate]) throws -> [GeneticGate]? {
         let (c1, cp) = randomSplit(circuit)
         let (_, c3) = randomSplit(cp)
 
@@ -72,13 +72,18 @@ extension MainGeneticCircuitMutation: GeneticCircuitMutation {
         guard remainingDepth >= 0 else {
             os_log("execute: unable to produce a mutation with remaining depth",
                    log: MainGeneticCircuitMutation.logger,
-                   type: .debug)
+                   type: .info)
 
             return nil
         }
 
-        guard let m = randomizer.make(depth: random(0...remainingDepth)) else {
-            return nil
+        var m: [GeneticGate]!
+        do {
+            m = try randomizer.make(depth: random(0...remainingDepth))
+        } catch GeneticGatesRandomizerMakeError.gateRequiresMoreQubitsThatAreAvailable(let gate) {
+            throw GeneticCircuitMutationExecuteError.gateInMutationRequiresMoreQubitsThatAreAvailable(gate: gate)
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         return (c1 + m + c3)

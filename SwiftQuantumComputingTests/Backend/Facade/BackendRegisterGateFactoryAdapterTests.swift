@@ -1,8 +1,8 @@
 //
-//  GeneticGate.swift
+//  BackendRegisterGateFactoryAdapterTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 24/01/2019.
+//  Created by Enrique de la Torre on 07/04/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,19 +18,23 @@
 // limitations under the License.
 //
 
-import Foundation
+import XCTest
 
-// MARK: - Errors
+@testable import SwiftQuantumComputing
 
-enum GeneticGateMakeFixedError: Error {
-    case truthTableQubitCountHasToBeBiggerThanZero
-    case truthTableRequiresMoreInputQubitsThatAreAvailable
-}
+// MARK: - Main body
 
-// MARK: - Protocol definition
+class BackendRegisterGateFactoryAdapterTests: XCTestCase {
 
-protocol GeneticGate {
-    typealias Fixed = (gate: FixedGate, didUseTruthTable: Bool)
+    // MARK: - Tests
 
-    func makeFixed(truthTable: [String], truthTableQubitCount: Int) throws -> Fixed
+    func testQubitCountEqualToZero_init_throwException() {
+        // Then
+        XCTAssertThrowsError(try BackendRegisterGateFactoryAdapter(qubitCount: 0))
+    }
+
+    func testQubitCountBiggerThanZero_init_returnAdapter() {
+        // Then
+        XCTAssertNoThrow(try BackendRegisterGateFactoryAdapter(qubitCount: 1))
+    }
 }

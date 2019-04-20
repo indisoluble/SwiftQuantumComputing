@@ -35,7 +35,31 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnNil_applied_returnEmptyList() {
+    func testRandomReturnProbabilityBelowMutationProbabilityAndMutationThrowException_applied_throwException() {
+        // Given
+        var randomCount = 0
+        let randomResult = mutationProbability - 0.1
+        let random: MainGeneticPopulationReproduction.Random = { _ in
+            randomCount += 1
+
+            return randomResult
+        }
+
+        mutation.appliedError = GeneticPopulationMutationAppliedError.useCaseEvaluatorsThrowed(errors: [])
+
+        let reproduction = MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
+                                                             mutation: mutation,
+                                                             crossover: crossover,
+                                                             random: random)
+
+        // Then
+        XCTAssertThrowsError(try reproduction.applied(to: evalCircuits))
+        XCTAssertEqual(randomCount, 1)
+        XCTAssertEqual(mutation.appliedCount, 1)
+        XCTAssertEqual(crossover.appliedCount, 0)
+    }
+
+    func testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnNil_applied_returnEmptyList () {
         // Given
         var randomCount = 0
         let randomResult = mutationProbability - 0.1
@@ -51,13 +75,18 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
                                                              random: random)
 
         // When
-        let result = reproduction.applied(to: evalCircuits)
+        var result: [Fitness.EvalCircuit]?
+        do {
+            result = try reproduction.applied(to: evalCircuits)
+        } catch {
+            XCTAssert(false)
+        }
 
         // Then
         XCTAssertEqual(randomCount, 1)
         XCTAssertEqual(mutation.appliedCount, 1)
         XCTAssertEqual(crossover.appliedCount, 0)
-        XCTAssertEqual(result.count, 0)
+        XCTAssertEqual(result?.count, 0)
     }
 
     func testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnValue_applied_returnExpectedValue() {
@@ -79,29 +108,56 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
                                                              random: random)
 
         // When
-        let result = reproduction.applied(to: evalCircuits)
+        let result = try? reproduction.applied(to: evalCircuits)
 
         // Then
         XCTAssertEqual(randomCount, 1)
         XCTAssertEqual(mutation.appliedCount, 1)
         XCTAssertEqual(crossover.appliedCount, 0)
-        XCTAssertEqual(result.count, 1)
-        if let resultEvalCircuit = result.first {
-            XCTAssertEqual(resultEvalCircuit.eval, mutationResult.eval)
-            XCTAssertEqual(resultEvalCircuit.circuit.count, mutationResult.circuit.count)
 
-            if let resultCircuit = resultEvalCircuit.circuit as? [GeneticGateTestDouble],
-                let expectedCircuit = mutationResult.circuit as? [GeneticGateTestDouble] {
-                for (resultGate, expectedGate) in zip(resultCircuit, expectedCircuit) {
-                    XCTAssertTrue(resultGate === expectedGate)
+        if let result = result {
+            XCTAssertEqual(result.count, 1)
+            if let resultEvalCircuit = result.first {
+                XCTAssertEqual(resultEvalCircuit.eval, mutationResult.eval)
+                XCTAssertEqual(resultEvalCircuit.circuit.count, mutationResult.circuit.count)
+
+                if let resultCircuit = resultEvalCircuit.circuit as? [GeneticGateTestDouble],
+                    let expectedCircuit = mutationResult.circuit as? [GeneticGateTestDouble] {
+                    for (resultGate, expectedGate) in zip(resultCircuit, expectedCircuit) {
+                        XCTAssertTrue(resultGate === expectedGate)
+                    }
+                } else {
+                    XCTAssert(false)
                 }
-            } else {
-                XCTAssert(false)
             }
+        } else {
+            XCTAssert(false)
         }
     }
 
-    func testRandomReturnProbabilityEqualToMutationProbability_applied_returnExpectedValue() {
+    func testRandomReturnProbabilityEqualToMutationProbabilityAndCrossoverThrowException_applied_throwException() {
+        // Given
+        var randomCount = 0
+        let randomResult = mutationProbability
+        let random: MainGeneticPopulationReproduction.Random = { _ in
+            randomCount += 1
+
+            return randomResult
+        }
+
+        let reproduction = MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
+                                                             mutation: mutation,
+                                                             crossover: crossover,
+                                                             random: random)
+
+        // Then
+        XCTAssertThrowsError(try reproduction.applied(to: evalCircuits))
+        XCTAssertEqual(randomCount, 1)
+        XCTAssertEqual(mutation.appliedCount, 0)
+        XCTAssertEqual(crossover.appliedCount, 1)
+    }
+
+    func testRandomReturnProbabilityEqualToMutationProbabilityAndCrossoverReturnValue_applied_returnExpectedValue() {
         // Given
         var randomCount = 0
         let randomResult = mutationProbability
@@ -121,25 +177,30 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
                                                              random: random)
 
         // When
-        let result = reproduction.applied(to: evalCircuits)
+        let result = try? reproduction.applied(to: evalCircuits)
 
         // Then
         XCTAssertEqual(randomCount, 1)
         XCTAssertEqual(mutation.appliedCount, 0)
         XCTAssertEqual(crossover.appliedCount, 1)
-        XCTAssertEqual(result.count, crossoverList.count)
-        for (resultEvalCircuit, expectedEvalCircuit) in zip(result, crossoverList) {
-            XCTAssertEqual(resultEvalCircuit.eval, expectedEvalCircuit.eval)
-            XCTAssertEqual(resultEvalCircuit.circuit.count, expectedEvalCircuit.circuit.count)
 
-            if let resultCircuit = resultEvalCircuit.circuit as? [GeneticGateTestDouble],
-                let expectedCircuit = expectedEvalCircuit.circuit as? [GeneticGateTestDouble] {
-                for (resultGate, expectedGate) in zip(resultCircuit, expectedCircuit) {
-                    XCTAssertTrue(resultGate === expectedGate)
+        if let result = result {
+            XCTAssertEqual(result.count, crossoverList.count)
+            for (resultEvalCircuit, expectedEvalCircuit) in zip(result, crossoverList) {
+                XCTAssertEqual(resultEvalCircuit.eval, expectedEvalCircuit.eval)
+                XCTAssertEqual(resultEvalCircuit.circuit.count, expectedEvalCircuit.circuit.count)
+
+                if let resultCircuit = resultEvalCircuit.circuit as? [GeneticGateTestDouble],
+                    let expectedCircuit = expectedEvalCircuit.circuit as? [GeneticGateTestDouble] {
+                    for (resultGate, expectedGate) in zip(resultCircuit, expectedCircuit) {
+                        XCTAssertTrue(resultGate === expectedGate)
+                    }
+                } else {
+                    XCTAssert(false)
                 }
-            } else {
-                XCTAssert(false)
             }
+        } else {
+            XCTAssert(false)
         }
     }
 }

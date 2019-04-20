@@ -28,8 +28,8 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrix = Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
-                         [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])!
+    let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
+                              [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
 
     // MARK: - Tests
 

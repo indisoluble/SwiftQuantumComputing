@@ -37,12 +37,16 @@ final class CircuitFactoryTestDouble {
 // MARK: - CircuitFactory methods
 
 extension CircuitFactoryTestDouble: CircuitFactory {
-    func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit? {
+    func makeCircuit(qubitCount: Int, gates: [FixedGate]) throws -> Circuit {
         makeCircuitCount += 1
 
         lastMakeCircuitQubitCount = qubitCount
         lastMakeCircuitGates = gates
 
-        return makeCircuitResult
+        if let makeCircuitResult = makeCircuitResult {
+            return makeCircuitResult
+        }
+
+        throw CircuitFactoryMakeCircuitError.qubitCountHasToBeBiggerThanZero
     }
 }

@@ -57,16 +57,21 @@ class MainGeneticCircuitMutationTests: XCTestCase {
                                                  randomSplit: randomSplit)
 
         // When
-        let mutation = mutator.execute(circuit)
+        var result: [GeneticGate]?
+        do {
+            result = try mutator.execute(circuit)
+        } catch {
+            XCTAssert(false)
+        }
 
         // Then
         XCTAssertEqual(randomSplitCount, 2)
         XCTAssertEqual(randomCount, 0)
         XCTAssertEqual(randomizer.makeCount, 0)
-        XCTAssertNil(mutation)
+        XCTAssertNil(result)
     }
 
-    func testBigEnoughDepthAndRandomizerThatReturnNil_execute_returnNil() {
+    func testBigEnoughDepthAndRandomizerThatThrowException_execute_throwException() {
         // Given
         let maxDepth = 4
         let circuit = [GeneticGateTestDouble()]
@@ -85,19 +90,18 @@ class MainGeneticCircuitMutationTests: XCTestCase {
             return 0
         }
 
+        randomizer.makeError = GeneticGatesRandomizerMakeError.gateRequiresMoreQubitsThatAreAvailable(gate: NotGate())
+
         let mutator = MainGeneticCircuitMutation(maxDepth: maxDepth,
                                                  randomizer: randomizer,
                                                  random: random,
                                                  randomSplit: randomSplit)
 
-        // When
-        let mutation = mutator.execute(circuit)
-
         // Then
+        XCTAssertThrowsError(try mutator.execute(circuit))
         XCTAssertEqual(randomSplitCount, 2)
         XCTAssertEqual(randomCount, 1)
         XCTAssertEqual(randomizer.makeCount, 1)
-        XCTAssertNil(mutation)
     }
 
     func testBigEnoughDepthAndRandomizerThatReturnCircuit_execute_returnExpectedCircuit() {
@@ -128,7 +132,7 @@ class MainGeneticCircuitMutationTests: XCTestCase {
                                                  randomSplit: randomSplit)
 
         // When
-        let mutation = mutator.execute(circuit)
+        let mutation = try? mutator.execute(circuit)
 
         // Then
         let expectedMutation = circuit + randomizerResult + circuit

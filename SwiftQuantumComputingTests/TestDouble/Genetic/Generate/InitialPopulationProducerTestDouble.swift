@@ -32,17 +32,22 @@ final class InitialPopulationProducerTestDouble {
     private (set) var lastExecuteSize: Int?
     private (set) var lastExecuteDepth: Range<Int>?
     var executeResult: [Fitness.EvalCircuit]?
+    var executeError = InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: [])
 }
 
 // MARK: - InitialPopulationProducer methods
 
 extension InitialPopulationProducerTestDouble: InitialPopulationProducer {
-    func execute(size: Int, depth: Range<Int>) -> [Fitness.EvalCircuit]? {
+    func execute(size: Int, depth: Range<Int>) throws -> [Fitness.EvalCircuit] {
         executeCount += 1
 
         lastExecuteSize = size
         lastExecuteDepth = depth
 
-        return executeResult
+        if let executeResult = executeResult {
+            return executeResult
+        }
+
+        throw executeError
     }
 }

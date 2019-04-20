@@ -20,8 +20,16 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GeneticCircuitMutationFactoryMakeMutationError: Error {
+    case qubitCountHasToBeBiggerThanZero
+}
+
 // MARK: - Protocol definition
 
 protocol GeneticCircuitMutationFactory {
-    func makeMutation(qubitCount: Int, maxDepth: Int, gates: [Gate]) -> GeneticCircuitMutation?
+    func makeMutation(qubitCount: Int,
+                      maxDepth: Int,
+                      gates: [Gate]) throws -> GeneticCircuitMutation
 }

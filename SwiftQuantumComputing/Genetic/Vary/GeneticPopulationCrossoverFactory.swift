@@ -20,10 +20,16 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GeneticPopulationCrossoverFactoryMakeCrossoverError: Error {
+    case tournamentSizeHasToBeBiggerThanZero
+}
+
 // MARK: - Protocol definition
 
 protocol GeneticPopulationCrossoverFactory {
     func makeCrossover(tournamentSize: Int,
                        maxDepth: Int,
-                       evaluator: GeneticCircuitEvaluator) -> GeneticPopulationCrossover
+                       evaluator: GeneticCircuitEvaluator) throws -> GeneticPopulationCrossover
 }

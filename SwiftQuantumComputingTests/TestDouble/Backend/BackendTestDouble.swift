@@ -32,18 +32,23 @@ final class BackendTestDouble {
     private (set) var lastMeasureQubits: [Int]?
     private (set) var lastMeasureCircuit: Backend.Circuit?
     var measureResult: [Double]?
+    var measureError = BackendMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: 0)
 }
 
 // MARK: - Backend methods
 
 extension BackendTestDouble: Backend {
     func measure(qubits: [Int],
-                 in circuit: (register: BackendRegister, gates: [BackendGate])) -> [Double]? {
+                 in circuit: (register: BackendRegister, gates: [BackendGate])) throws -> [Double] {
         measureCount += 1
 
         lastMeasureQubits = qubits
         lastMeasureCircuit = circuit
 
-        return measureResult
+        if let measureResult = measureResult {
+            return measureResult
+        }
+
+        throw measureError
     }
 }

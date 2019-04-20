@@ -28,29 +28,34 @@ class MatrixGateTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrix = Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)],
-                         [Complex(1), Complex(0), Complex(0), Complex(0)],
-                         [Complex(0), Complex(0), Complex(1), Complex(0)],
-                         [Complex(0), Complex(0), Complex(0), Complex(1)]])!
-    let oneRow = Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)]])!
+    let matrix = try! Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)],
+                              [Complex(1), Complex(0), Complex(0), Complex(0)],
+                              [Complex(0), Complex(0), Complex(1), Complex(0)],
+                              [Complex(0), Complex(0), Complex(0), Complex(1)]])
+    let oneRow = try! Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)]])
 
     // MARK: - Tests
 
-    func testFactoryWithTwoQubitsMatrixAndOneInput_makeFixed_returnNil() {
+    func testMatrixWithOneRow_init_throwException() {
+        // Then
+        XCTAssertThrowsError(try MatrixGate(matrix: oneRow))
+    }
+
+    func testFactoryWithTwoQubitsMatrixAndOneInput_makeFixed_throwException() {
         // Given
-        let factory = MatrixGate(matrix: matrix)
+        let factory = try! MatrixGate(matrix: matrix)
 
         // Then
-        XCTAssertNil(factory.makeFixed(inputs: [0]))
+        XCTAssertThrowsError(try factory.makeFixed(inputs: [0]))
     }
 
     func testFactoryWithTwoQubitsMatrixAndFourInputs_makeFixed_returnExpectedGate() {
         // Given
-        let factory = MatrixGate(matrix: matrix)
+        let factory = try! MatrixGate(matrix: matrix)
         let inputs = [0, 1, 2, 3]
 
         // When
-        guard let result = factory.makeFixed(inputs: inputs) else {
+        guard let result = try? factory.makeFixed(inputs: inputs) else {
             XCTAssert(false)
 
             return
@@ -64,19 +69,5 @@ class MatrixGateTests: XCTestCase {
         default:
             XCTAssert(false)
         }
-    }
-
-    func testMatrixWithOneRow_init_returnGate() {
-        // Then
-        XCTAssertNotNil(MatrixGate(matrix: oneRow))
-    }
-
-    func testFactoryWithOneRowMatrix_makeFixed_returnNil() {
-        // Given
-        let factory = MatrixGate(matrix: oneRow)
-        let inputs: [Int] = []
-
-        // Then
-        XCTAssertNil(factory.makeFixed(inputs: inputs))
     }
 }

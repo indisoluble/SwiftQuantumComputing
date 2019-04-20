@@ -39,12 +39,20 @@ struct MainGeneticPopulationMutation {
 
     // MARK: - Internal init methods
 
+    enum InitError: Error {
+        case tournamentSizeHasToBeBiggerThanZero
+    }
+
     init(tournamentSize: Int,
          fitness: Fitness,
          mutation: GeneticCircuitMutation,
          evaluator: GeneticCircuitEvaluator,
          score: GeneticCircuitScore,
-         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) {
+         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) throws {
+        guard tournamentSize > 0 else {
+            throw InitError.tournamentSizeHasToBeBiggerThanZero
+        }
+
         self.tournamentSize = tournamentSize
         self.fitness = fitness
         self.mutation = mutation
@@ -57,20 +65,34 @@ struct MainGeneticPopulationMutation {
 // MARK: - GeneticPopulationMutation methods
 
 extension MainGeneticPopulationMutation: GeneticPopulationMutation {
-    func applied(to population: [Fitness.EvalCircuit]) -> Fitness.EvalCircuit? {
+    func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit? {
         let sample = randomElements(population, tournamentSize)
         guard let winner = fitness.fittest(in: sample) else {
+            throw GeneticPopulationMutationAppliedError.populationIsEmpty
+        }
+
+        var mutated: [GeneticGate]?
+        do {
+            mutated = try mutation.execute(winner.circuit)
+        } catch GeneticCircuitMutationExecuteError.gateInMutationRequiresMoreQubitsThatAreAvailable(let gate) {
+            throw GeneticPopulationMutationAppliedError.gateInMutationRequiresMoreQubitsThatAreAvailable(gate: gate)
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
+
+        guard let actualMutated = mutated else {
             return nil
         }
 
-        guard let mutated = mutation.execute(winner.circuit) else {
-            return nil
+        var evaluation: GeneticCircuitEvaluator.Evaluation!
+        do {
+            evaluation = try evaluator.evaluateCircuit(actualMutated)
+        } catch GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(let errors) {
+            throw GeneticPopulationMutationAppliedError.useCaseEvaluatorsThrowed(errors: errors)
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        guard let evaluation = evaluator.evaluateCircuit(mutated) else {
-            return nil
-        }
-
-        return (score.calculate(evaluation), mutated)
+        return (score.calculate(evaluation), actualMutated)
     }
 }
