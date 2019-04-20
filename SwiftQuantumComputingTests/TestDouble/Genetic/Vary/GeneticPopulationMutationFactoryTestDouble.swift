@@ -44,7 +44,7 @@ extension GeneticPopulationMutationFactoryTestDouble: GeneticPopulationMutationF
                       tournamentSize: Int,
                       maxDepth: Int,
                       evaluator: GeneticCircuitEvaluator,
-                      gates: [Gate]) -> GeneticPopulationMutation? {
+                      gates: [Gate]) throws -> GeneticPopulationMutation {
         makeMutationCount += 1
 
         lastMakeMutationQubitCount = qubitCount
@@ -53,6 +53,10 @@ extension GeneticPopulationMutationFactoryTestDouble: GeneticPopulationMutationF
         lastMakeMutationEvaluator = evaluator
         lastMakeMutationGates = gates
 
-        return makeMutationResult
+        if let makeMutationResult = makeMutationResult {
+            return makeMutationResult
+        }
+
+        throw GeneticPopulationMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero
     }
 }

@@ -29,105 +29,109 @@ class RegisterGateFactoryTests: XCTestCase {
     // MARK: - Properties
 
     let validQubitCount = 3
-    let validMatrix = Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
-                              [Complex(0), Complex(1), Complex(0), Complex(0)],
-                              [Complex(0), Complex(0), Complex(0), Complex(1)],
-                              [Complex(0), Complex(0), Complex(1), Complex(0)]])!
+    let validMatrix = try! Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
+                                   [Complex(0), Complex(1), Complex(0), Complex(0)],
+                                   [Complex(0), Complex(0), Complex(0), Complex(1)],
+                                   [Complex(0), Complex(0), Complex(1), Complex(0)]])
 
     // MARK: - Tests
 
-    func testNonSquareMatrix_init_returnNil() {
+    func testNonSquareMatrix_init_throwException() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let matrix = Matrix([[complex], [complex]])!
+        let matrix = try! Matrix([[complex], [complex]])
 
         // Then
-        XCTAssertNil(RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: matrix))
+        XCTAssertThrowsError(try RegisterGateFactory(qubitCount: validQubitCount,
+                                                     baseMatrix: matrix))
     }
 
-    func testSquareMatrixWithSizeNonPowerOfTwo_init_returnNil() {
+    func testSquareMatrixWithSizeNonPowerOfTwo_init_throwException() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let matrix = Matrix([[complex, complex, complex],
-                             [complex, complex, complex],
-                             [complex, complex, complex]])!
+        let matrix = try! Matrix([[complex, complex, complex],
+                                  [complex, complex, complex],
+                                  [complex, complex, complex]])
 
         // Then
-        XCTAssertNil(RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: matrix))
+        XCTAssertThrowsError(try RegisterGateFactory(qubitCount: validQubitCount,
+                                                     baseMatrix: matrix))
     }
 
-    func testSquareMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_returnNil() {
+    func testSquareMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException() {
         // Given
         let qubitCount = 1
 
         // Then
-        XCTAssertNil(RegisterGateFactory(qubitCount: qubitCount, baseMatrix: validMatrix))
+        XCTAssertThrowsError(try RegisterGateFactory(qubitCount: qubitCount,
+                                                     baseMatrix: validMatrix))
     }
 
-    func testOneByOneMatrixAndQubitCountEqualToZero_init_returnNil() {
+    func testOneByOneMatrixAndQubitCountEqualToZero_init_throwException() {
         // Given
-        let matrix = Matrix([[Complex(0)]])!
+        let matrix = try! Matrix([[Complex(0)]])
         let qubitCount = 0
 
         // Then
-        XCTAssertNil(RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix))
+        XCTAssertThrowsError(try RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix))
     }
 
     func testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnRegisterGateFactory() {
         // Then
-        XCTAssertNotNil(RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix))
+        XCTAssertNoThrow(try RegisterGateFactory(qubitCount: validQubitCount,
+                                                 baseMatrix: validMatrix))
     }
 
-    func testAnyRegisterGateFactoryAndRepeatedInputs_makeGate_returnNil() {
+    func testAnyRegisterGateFactoryAndRepeatedInputs_makeGate_throwException() {
         // Given
-        let factory = RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)!
+        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // Then
-        XCTAssertNil(factory.makeGate(inputs: [1, 1]))
+        XCTAssertThrowsError(try factory.makeGate(inputs: [1, 1]))
     }
 
-    func testAnyRegisterGateFactoryAndInputsOutOfRange_makeGate_returnNil() {
+    func testAnyRegisterGateFactoryAndInputsOutOfRange_makeGate_throwException() {
         // Given
-        let factory = RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)!
+        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // Then
-        XCTAssertNil(factory.makeGate(inputs: [validQubitCount]))
+        XCTAssertThrowsError(try factory.makeGate(inputs: [validQubitCount]))
     }
 
-    func testAnyRegisterGateFactoryAndMoreInputsThanGateTakes_makeGate_returnNil() {
+    func testAnyRegisterGateFactoryAndMoreInputsThanGateTakes_makeGate_throwException() {
         // Given
-        let factory = RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)!
+        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // Then
-        XCTAssertNil(factory.makeGate(inputs: [2, 1, 0]))
+        XCTAssertThrowsError(try factory.makeGate(inputs: [2, 1, 0]))
     }
 
-    func testAnyRegisterGateFactoryAndLessInputsThanGateTakes_makeGate_returnNil() {
+    func testAnyRegisterGateFactoryAndLessInputsThanGateTakes_makeGate_throwException() {
         // Given
-        let factory = RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)!
+        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // Then
-        XCTAssertNil(factory.makeGate(inputs: []))
+        XCTAssertThrowsError(try factory.makeGate(inputs: []))
     }
 
     func testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedRegisterGate() {
         // Given
-        let factory = RegisterGateFactory(qubitCount: 2, baseMatrix: validMatrix)!
+        let factory = try! RegisterGateFactory(qubitCount: 2, baseMatrix: validMatrix)
 
         // When
-        let gate = factory.makeGate(inputs: [1, 0])
+        let gate = try? factory.makeGate(inputs: [1, 0])
 
         // Then
-        let expectedGate = RegisterGate(matrix: validMatrix)!
+        let expectedGate = try! RegisterGate(matrix: validMatrix)
         XCTAssertEqual(gate, expectedGate)
     }
 
     func testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedRegisterGate() {
         // Given
-        let factory = RegisterGateFactory(qubitCount: 2, baseMatrix: validMatrix)!
+        let factory = try! RegisterGateFactory(qubitCount: 2, baseMatrix: validMatrix)
 
         // When
-        let gate = factory.makeGate(inputs: [0, 1])
+        let gate = try? factory.makeGate(inputs: [0, 1])
 
         // Then
         let expectedElements = [
@@ -136,16 +140,16 @@ class RegisterGateFactoryTests: XCTestCase {
             [Complex(0), Complex(0), Complex(1), Complex(0)],
             [Complex(0), Complex(1), Complex(0), Complex(0)]
         ]
-        let expectedGate = RegisterGate(matrix: Matrix(expectedElements)!)!
+        let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
 
     func testAnyRegisterGateFactoryAndNonContiguousInputs_makeGate_returnExpectedRegisterGate() {
         // Given
-        let factory = RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)!
+        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // When
-        let gate = factory.makeGate(inputs: [0, 2])
+        let gate = try? factory.makeGate(inputs: [0, 2])
 
         // Then
         let expectedElements = [
@@ -158,16 +162,16 @@ class RegisterGateFactoryTests: XCTestCase {
             [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0)],
             [Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0)]
         ]
-        let expectedGate = RegisterGate(matrix: Matrix(expectedElements)!)!
+        let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
 
     func testAnyRegisterGateFactoryAndContiguousInputsButInTheMiddle_makeGate_returnExpectedRegisterGate() {
         // Given
-        let factory = RegisterGateFactory(qubitCount: 4, baseMatrix: validMatrix)!
+        let factory = try! RegisterGateFactory(qubitCount: 4, baseMatrix: validMatrix)
 
         // When
-        let gate = factory.makeGate(inputs: [2, 1])
+        let gate = try? factory.makeGate(inputs: [2, 1])
 
         // Then
         let expectedElements = [
@@ -203,7 +207,7 @@ class RegisterGateFactoryTests: XCTestCase {
              Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0)],
             [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
              Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0)]]
-        let expectedGate = RegisterGate(matrix: Matrix(expectedElements)!)!
+        let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
 }

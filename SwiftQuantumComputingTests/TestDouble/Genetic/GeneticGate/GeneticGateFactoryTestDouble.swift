@@ -36,11 +36,15 @@ final class GeneticGateFactoryTestDouble {
 // MARK: - GeneticGateFactory methods
 
 extension GeneticGateFactoryTestDouble: GeneticGateFactory {
-    func makeGate(inputs: [Int]) -> GeneticGate? {
+    func makeGate(inputs: [Int]) throws -> GeneticGate {
         makeGateCount += 1
 
         lastMakeGateInputs = inputs
 
-        return makeGateResult
+        if let makeGateResult = makeGateResult {
+            return makeGateResult
+        }
+
+        throw GeneticGateFactoryMakeGateError.notEnoughInputsToProduceAGeneticGate(with: NotGate())
     }
 }

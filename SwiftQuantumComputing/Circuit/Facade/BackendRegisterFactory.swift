@@ -20,8 +20,14 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum BackendRegisterFactoryMakeRegisterError: Error {
+    case provideNonEmptyStringComposedOnlyOfZerosAndOnes
+}
+
 // MARK: - Protocol definition
 
 protocol BackendRegisterFactory {
-    func makeRegister(bits: String) -> BackendRegister?
+    func makeRegister(bits: String) throws -> BackendRegister
 }

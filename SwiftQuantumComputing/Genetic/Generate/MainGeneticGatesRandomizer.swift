@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -41,13 +40,13 @@ struct MainGeneticGatesRandomizer {
 
     // MARK: - Internal init methods
 
-    init?(qubitCount: Int, factories: [GeneticGateFactory]) {
-        guard qubitCount > 0 else {
-            os_log("init failed: circuit has to have at least 1 qubit",
-                   log: MainGeneticGatesRandomizer.logger,
-                   type: .debug)
+    enum InitError: Error {
+        case qubitCountHasToBeBiggerThanZero
+    }
 
-            return nil
+    init(qubitCount: Int, factories: [GeneticGateFactory]) throws {
+        guard qubitCount > 0 else {
+            throw InitError.qubitCountHasToBeBiggerThanZero
         }
 
         let qubits = Array(0..<qubitCount)
@@ -65,13 +64,9 @@ struct MainGeneticGatesRandomizer {
 // MARK: - GeneticGatesRandomizer methods
 
 extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
-    func make(depth: Int) -> [GeneticGate]? {
+    func make(depth: Int) throws -> [GeneticGate] {
         guard depth >= 0 else {
-            os_log("make failed: depth has to be a positive number",
-                   log: MainGeneticGatesRandomizer.logger,
-                   type: .debug)
-
-            return nil
+            throw GeneticGatesRandomizerMakeError.depthHasToBeAPositiveNumber
         }
 
         var result: [GeneticGate] = []
@@ -81,8 +76,13 @@ extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
                 continue
             }
 
-            guard let gate = factory.makeGate(inputs: shuffledQubits()) else {
-                continue
+            var gate: GeneticGate!
+            do {
+                gate = try factory.makeGate(inputs: shuffledQubits())
+            } catch GeneticGateFactoryMakeGateError.notEnoughInputsToProduceAGeneticGate(let gate){
+                throw GeneticGatesRandomizerMakeError.gateRequiresMoreQubitsThatAreAvailable(gate: gate)
+            } catch {
+                fatalError("Unexpected error: \(error).")
             }
 
             result.append(gate)

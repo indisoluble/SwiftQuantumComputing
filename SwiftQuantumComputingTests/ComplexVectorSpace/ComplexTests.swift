@@ -44,22 +44,22 @@ class ComplexTests: XCTestCase {
         XCTAssertEqual(Complex(number), Complex(real: number, imag: 0))
     }
 
-    func testNotOneByOneMatrix_init_returnNil() {
+    func testNotOneByOneMatrix_init_throwException() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let matrix = Matrix([[complex, complex], [complex, complex]])!
+        let matrix = try! Matrix([[complex, complex], [complex, complex]])
 
         // Then
-        XCTAssertNil(Complex(matrix))
+        XCTAssertThrowsError(try Complex(matrix))
     }
 
     func testOneByOneMatrix_init_returnExpectedComplexNumber() {
         // Given
         let expectedValue = Complex(real: 10, imag: 10)
-        let matrix = Matrix([[expectedValue]])!
+        let matrix = try! Matrix([[expectedValue]])
 
         // Then
-        XCTAssertEqual(Complex(matrix), expectedValue)
+        XCTAssertEqual(try? Complex(matrix), expectedValue)
     }
 
     func testAnyComplexNumber_squaredModulus_returnExpectecValue() {

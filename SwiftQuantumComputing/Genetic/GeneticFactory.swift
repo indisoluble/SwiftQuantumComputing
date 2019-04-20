@@ -20,6 +20,21 @@
 
 import Foundation
 
+// MARK: - Errors
+
+public enum GeneticFactoryEvolveCircuitError: Error {
+    case configurationPopulationSizeIsEmpty
+    case configurationPopulationSizeHasToBeBiggerThanZero
+    case configurationDepthIsEmpty
+    case configurationDepthHasToBeAPositiveNumber
+    case configurationTournamentSizeHasToBeBiggerThanZero
+    case gateRequiredMoreQubitsThatAreAvailable(gate: Gate)
+    case useCaseListIsEmpty
+    case useCasesDoNotSpecifySameCircuitQubitCount
+    case useCaseCircuitQubitCountHasToBeBiggerThanZero
+    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
+}
+
 // MARK: - Protocol definition
 
 public protocol GeneticFactory {
@@ -27,5 +42,5 @@ public protocol GeneticFactory {
 
     func evolveCircuit(configuration config: GeneticConfiguration,
                        useCases: [GeneticUseCase],
-                       gates: [Gate]) -> EvolvedCircuit?
+                       gates: [Gate]) throws -> EvolvedCircuit
 }

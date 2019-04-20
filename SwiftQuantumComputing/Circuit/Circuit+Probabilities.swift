@@ -26,16 +26,14 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    public func probabilities(afterInputting bits: String) -> [String: Double]? {
+    public func probabilities(afterInputting bits: String) throws -> [String: Double] {
         let qubits = Array((0..<bits.count).reversed())
 
-        return probabilities(qubits: qubits, afterInputting: bits)
+        return try probabilities(qubits: qubits, afterInputting: bits)
     }
 
-    public func probabilities(qubits: [Int], afterInputting bits: String) -> [String: Double]? {
-        guard let measurements = measure(qubits: qubits, afterInputting: bits) else {
-            return nil
-        }
+    public func probabilities(qubits: [Int], afterInputting bits: String) throws -> [String: Double] {
+        let measurements = try measure(qubits: qubits, afterInputting: bits)
 
         let bitCount = Int.log2(measurements.count)
 

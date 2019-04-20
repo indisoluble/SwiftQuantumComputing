@@ -20,8 +20,14 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GeneticUseCaseEvaluatorEvaluateCircuitError: Error {
+    case useCaseEvaluatorThrowed(error: GeneticUseCaseEvaluationError)
+}
+
 // MARK: - Protocol definition
 
 protocol GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Double?
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Double
 }

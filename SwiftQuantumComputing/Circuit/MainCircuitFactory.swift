@@ -19,15 +19,10 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
 public struct MainCircuitFactory {
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Public init methods
 
@@ -37,16 +32,18 @@ public struct MainCircuitFactory {
 // MARK: - CircuitFactory methods
 
 extension MainCircuitFactory: CircuitFactory {
-    public func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit? {
-        guard let drawer = CircuitViewDrawer(qubitCount: qubitCount) else {
-            os_log("makeCircuit failed: unable to build circuit drawer",
-                   log: MainCircuitFactory.logger,
-                   type: .debug)
-
-            return nil
+    public func makeCircuit(qubitCount: Int, gates: [FixedGate]) throws -> Circuit {
+        var drawer: CircuitViewDrawer!
+        do {
+            drawer = try CircuitViewDrawer(qubitCount: qubitCount)
+        } catch CircuitViewDrawer.InitError.qubitCountHasToBeBiggerThanZero {
+            throw CircuitFactoryMakeCircuitError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        let gateFactory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
+        let gateFactory = try! BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
+
         let backend = BackendFacade(factory: gateFactory)
 
         let registerFactory = BackendRegisterFactoryAdapter()

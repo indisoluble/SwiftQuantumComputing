@@ -31,6 +31,7 @@ final class GeneticCircuitEvaluatorTestDouble {
     private (set) var evaluateCircuitCount = 0
     private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
     var evaluateCircuitResult: GeneticCircuitEvaluator.Evaluation?
+    var evaluateCircuitError = GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(errors: [])
 
     // MARK: - Private properties
 
@@ -46,13 +47,17 @@ final class GeneticCircuitEvaluatorTestDouble {
 // MARK: - GeneticCircuitEvaluator methods
 
 extension GeneticCircuitEvaluatorTestDouble: GeneticCircuitEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> GeneticCircuitEvaluator.Evaluation? {
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> GeneticCircuitEvaluator.Evaluation {
         queue.sync {
             evaluateCircuitCount += 1
 
             lastEvaluateCircuitGeneticCircuit = geneticCircuit
         }
 
-        return evaluateCircuitResult
+        if let evaluateCircuitResult = evaluateCircuitResult {
+            return evaluateCircuitResult
+        }
+
+        throw evaluateCircuitError
     }
 }

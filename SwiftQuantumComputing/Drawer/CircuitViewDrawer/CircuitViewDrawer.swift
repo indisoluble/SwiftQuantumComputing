@@ -30,9 +30,13 @@ struct CircuitViewDrawer {
 
     // MARK: - Internal init methods
 
-    init?(qubitCount: Int) {
+    enum InitError: Error {
+        case qubitCountHasToBeBiggerThanZero
+    }
+
+    init(qubitCount: Int) throws {
         guard qubitCount > 0 else {
-            return nil
+            throw InitError.qubitCountHasToBeBiggerThanZero
         }
 
         self.qubitCount = qubitCount

@@ -28,12 +28,12 @@ class PhaseShiftGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyFactoryAndZeroInputs_makeFixed_returnNil() {
+    func testAnyFactoryAndZeroInputs_makeFixed_throwException() {
         // Given
         let factory = PhaseShiftGate(radians: 0.0)
 
         // Then
-        XCTAssertNil(factory.makeFixed(inputs: []))
+        XCTAssertThrowsError(try factory.makeFixed(inputs: []))
     }
 
     func testAnyFactoryAndTwoInputs_makeFixed_returnExpectedGate() {
@@ -44,7 +44,7 @@ class PhaseShiftGateTests: XCTestCase {
         let inputs = [0, 1]
 
         // When
-        guard let result = factory.makeFixed(inputs: inputs) else {
+        guard let result = try? factory.makeFixed(inputs: inputs) else {
             XCTAssert(false)
 
             return

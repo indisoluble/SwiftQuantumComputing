@@ -37,6 +37,7 @@ final class GeneticPopulationReproductionFactoryTestDouble {
     private (set) var lastMakeReproductionUseCases: [GeneticUseCase]?
     private (set) var lastMakeReproductionGates: [Gate]?
     var makeReproductionResult: GeneticPopulationReproduction?
+    var makeReproductionError = GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - GeneticPopulationReproductionFactory methods
@@ -48,7 +49,7 @@ extension GeneticPopulationReproductionFactoryTestDouble: GeneticPopulationRepro
                           threshold: Double,
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
-                          gates: [Gate]) -> GeneticPopulationReproduction? {
+                          gates: [Gate]) throws -> GeneticPopulationReproduction {
         makeReproductionCount += 1
 
         lastMakeReproductionQubitCount = qubitCount
@@ -59,6 +60,10 @@ extension GeneticPopulationReproductionFactoryTestDouble: GeneticPopulationRepro
         lastMakeReproductionUseCases = useCases
         lastMakeReproductionGates = gates
 
-        return makeReproductionResult
+        if let makeReproductionResult = makeReproductionResult {
+            return makeReproductionResult
+        }
+
+        throw makeReproductionError
     }
 }

@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -29,17 +28,15 @@ struct RegisterGate {
 
     private let matrix: Matrix
 
-    // MARK: - Private class methods
-
-    private static let logger = LoggerFactory.makeLogger()
-
     // MARK: - Internal init methods
 
-    init?(matrix: Matrix) {
-        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            os_log("init failed: matrix is not unitary", log: RegisterGate.logger, type: .debug)
+    enum InitError: Error {
+        case matrixIsNotUnitary
+    }
 
-            return nil
+    init(matrix: Matrix) throws {
+        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
+            throw InitError.matrixIsNotUnitary
         }
 
         self.matrix = matrix
@@ -47,8 +44,18 @@ struct RegisterGate {
 
     // MARK: - Internal methods
 
-    func apply(to vector: Vector) -> Vector? {
-        return (matrix * vector)
+    enum ApplyError: Error {
+        case vectorDoesNotHaveValidDimension
+    }
+
+    func apply(to vector: Vector) throws -> Vector {
+        do {
+            return try matrix * vector
+        } catch Vector.ProductError.parametersDoNotHaveValidDimensions {
+            throw ApplyError.vectorDoesNotHaveValidDimension
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }
 

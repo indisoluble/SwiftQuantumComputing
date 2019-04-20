@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -29,10 +28,6 @@ struct MainGeneticCircuitEvaluator {
 
     private let threshold: Double
     private let evaluators: [GeneticUseCaseEvaluator]
-
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
 
     // MARK: - Internal init methods
 
@@ -45,29 +40,40 @@ struct MainGeneticCircuitEvaluator {
 // MARK: - GeneticCircuitEvaluator methods
 
 extension MainGeneticCircuitEvaluator: GeneticCircuitEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Evaluation? {
-        var success = true
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Evaluation {
         var misses = 0
         var maxProbability = 0.0
+        var useCaseErrors: GeneticCircuitEvaluationErrors = []
 
         let queue = DispatchQueue(label: String(reflecting: type(of: self)))
         DispatchQueue.concurrentPerform(iterations: evaluators.count) { index in
-            let prob = evaluators[index].evaluateCircuit(geneticCircuit)
+            var probability: Double?
+            var useCaseError: GeneticUseCaseEvaluatorEvaluateCircuitError?
+            do {
+                probability = try evaluators[index].evaluateCircuit(geneticCircuit)
+            } catch {
+                useCaseError = error as? GeneticUseCaseEvaluatorEvaluateCircuitError
+            }
 
             queue.sync {
-                if let prob = prob {
-                    misses += (prob > threshold ? 1 : 0)
-                    maxProbability = max(maxProbability, prob)
+                if let probability = probability {
+                    misses += (probability > threshold ? 1 : 0)
+                    maxProbability = max(maxProbability, probability)
+                } else if let useCaseError = useCaseError {
+                    switch useCaseError {
+                    case .useCaseEvaluatorThrowed(let error):
+                        useCaseErrors.append((useCaseIndex: index, error: error))
+                    }
                 } else {
-                    success = false
-
-                    os_log("evaluateCircuit: unable to get all error probabilities",
-                           log: MainGeneticCircuitEvaluator.logger,
-                           type: .debug)
+                    fatalError("Use Case evaluator produced an unknown error type")
                 }
             }
         }
 
-        return (success ? (misses, maxProbability) : nil)
+        if !useCaseErrors.isEmpty {
+            throw GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(errors: useCaseErrors)
+        }
+
+        return (misses, maxProbability)
     }
 }

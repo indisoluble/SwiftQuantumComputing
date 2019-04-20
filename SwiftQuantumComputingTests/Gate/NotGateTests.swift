@@ -32,9 +32,9 @@ class NotGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyFactoryAndZeroInputs_makeFixed_returnNil() {
+    func testAnyFactoryAndZeroInputs_makeFixed_throwException() {
         // Then
-        XCTAssertNil(factory.makeFixed(inputs: []))
+        XCTAssertThrowsError(try factory.makeFixed(inputs: []))
     }
 
     func testAnyFactoryAndTwoInputs_makeFixed_returnExpectedGate() {
@@ -42,7 +42,7 @@ class NotGateTests: XCTestCase {
         let inputs = [0, 1]
 
         // When
-        guard let result = factory.makeFixed(inputs: inputs) else {
+        guard let result = try? factory.makeFixed(inputs: inputs) else {
             XCTAssert(false)
 
             return

@@ -20,8 +20,15 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GeneticPopulationCrossoverAppliedError: Error {
+    case populationIsEmpty
+    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
+}
+
 // MARK: - Protocol definition
 
 protocol GeneticPopulationCrossover {
-    func applied(to population: [Fitness.EvalCircuit]) -> [Fitness.EvalCircuit]
+    func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit]
 }

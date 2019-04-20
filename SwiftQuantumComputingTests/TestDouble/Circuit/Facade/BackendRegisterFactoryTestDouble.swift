@@ -36,11 +36,15 @@ final class BackendRegisterFactoryTestDouble {
 // MARK: - BackendRegisterFactory methods
 
 extension BackendRegisterFactoryTestDouble: BackendRegisterFactory {
-    func makeRegister(bits: String) -> BackendRegister? {
+    func makeRegister(bits: String) throws -> BackendRegister {
         makeRegisterCount += 1
 
         lastMakeRegisterBits = bits
 
-        return makeRegisterResult
+        if let makeRegisterResult = makeRegisterResult {
+            return makeRegisterResult
+        }
+
+        throw BackendRegisterFactoryMakeRegisterError.provideNonEmptyStringComposedOnlyOfZerosAndOnes
     }
 }

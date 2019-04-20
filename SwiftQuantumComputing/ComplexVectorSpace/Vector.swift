@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -28,7 +27,7 @@ struct Vector {
     // MARK: - Internal properties
 
     var squaredNorm: Double {
-        return Vector.innerProduct(self, self)!.real
+        return try! Vector.innerProduct(self, self).real
     }
 
     var count: Int {
@@ -43,21 +42,22 @@ struct Vector {
 
     private let matrix: Matrix
 
-    // MARK: - Private class properties
-
-    private static let logger = LoggerFactory.makeLogger()
-
     // MARK: - Internal init methods
 
-    init?(_ elements: [Complex]) {
+    enum InitError: Error {
+        case doNotPassAnEmptyArray
+    }
+
+    init(_ elements: [Complex]) throws {
         let rows = elements.map { [$0] }
 
-        guard let matrix = Matrix(rows) else {
-            os_log("init failed: unable to build matrix with provided elements",
-                   log: Vector.logger,
-                   type: .debug)
-
-            return nil
+        var matrix: Matrix!
+        do {
+            matrix = try Matrix(rows)
+        } catch Matrix.InitError.doNotPassAnEmptyArray {
+            throw InitError.doNotPassAnEmptyArray
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         self.init(matrix: matrix)
@@ -71,16 +71,21 @@ struct Vector {
 
     // MARK: - Internal class methods
 
-    static func innerProduct(_ lhs: Vector, _ rhs: Vector) -> Complex? {
-        guard let matrix = (Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix) else {
-            os_log("innerProduct failed: can not multiple provided vectors",
-                   log: Vector.logger,
-                   type: .debug)
+    enum InnerProductError: Error {
+        case vectorsDoNotHaveValidDimensions
+    }
 
-            return nil
+    static func innerProduct(_ lhs: Vector, _ rhs: Vector) throws -> Complex {
+        var matrix: Matrix!
+        do {
+            matrix = try Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix
+        } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
+            throw InnerProductError.vectorsDoNotHaveValidDimensions
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        return Complex(matrix)
+        return try! Complex(matrix)
     }
 }
 
@@ -103,13 +108,18 @@ extension Vector: Equatable {
 // MARK: - Overloaded operators
 
 extension Vector {
-    static func *(lhs: Matrix, rhs: Vector) -> Vector? {
-        guard let matrix = (lhs * rhs.matrix) else {
-            os_log("* failed: can not multiple matrix by vector",
-                   log: Vector.logger,
-                   type: .debug)
+    enum ProductError: Error {
+        case parametersDoNotHaveValidDimensions
+    }
 
-            return nil
+    static func *(lhs: Matrix, rhs: Vector) throws -> Vector {
+        var matrix: Matrix!
+        do {
+            matrix = try lhs * rhs.matrix
+        } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
+            throw ProductError.parametersDoNotHaveValidDimensions
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         return Vector(matrix: matrix)

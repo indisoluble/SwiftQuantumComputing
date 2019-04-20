@@ -38,13 +38,19 @@ final class GeneticCircuitMutationFactoryTestDouble {
 // MARK: - GeneticCircuitMutationFactory methods
 
 extension GeneticCircuitMutationFactoryTestDouble: GeneticCircuitMutationFactory {
-    func makeMutation(qubitCount: Int, maxDepth: Int, gates: [Gate]) -> GeneticCircuitMutation? {
+    func makeMutation(qubitCount: Int,
+                      maxDepth: Int,
+                      gates: [Gate]) throws -> GeneticCircuitMutation {
         makeMutationCount += 1
 
         lastMakeMutationQubitCount = qubitCount
         lastMakeMutationMaxDepth = maxDepth
         lastMakeMutationGates = gates
 
-        return makeMutationResult
+        if let makeMutationResult = makeMutationResult {
+            return makeMutationResult
+        }
+
+        throw GeneticCircuitMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero
     }
 }

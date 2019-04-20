@@ -20,8 +20,16 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum BackendGateExtractError: Error {
+    case unableToExtractMatrix
+}
+
 // MARK: - Protocol definition
 
 protocol BackendGate {
-    func extract() -> (matrix: Matrix?, inputs: [Int])
+    typealias Components = (matrix: Matrix, inputs: [Int])
+
+    func extract() throws -> Components
 }

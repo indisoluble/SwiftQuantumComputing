@@ -40,8 +40,17 @@ struct MainGeneticCircuitEvaluatorFactory {
 extension MainGeneticCircuitEvaluatorFactory: GeneticCircuitEvaluatorFactory {
     func makeEvaluator(qubitCount: Int,
                        threshold: Double,
-                       useCases: [GeneticUseCase]) -> GeneticCircuitEvaluator {
-        let evaluators = useCases.map { factory.makeEvaluator(qubitCount: qubitCount, useCase: $0) }
+                       useCases: [GeneticUseCase]) throws -> GeneticCircuitEvaluator {
+        var evaluators: [GeneticUseCaseEvaluator]!
+        do {
+            evaluators = try useCases.map {
+                try factory.makeEvaluator(qubitCount: qubitCount, useCase: $0)
+            }
+        } catch GeneticUseCaseEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero {
+            throw GeneticCircuitEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
 
         return MainGeneticCircuitEvaluator(threshold: threshold, evaluators: evaluators)
     }

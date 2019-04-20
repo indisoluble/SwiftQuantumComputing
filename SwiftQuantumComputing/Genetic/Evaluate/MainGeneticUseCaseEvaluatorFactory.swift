@@ -40,10 +40,16 @@ struct MainGeneticUseCaseEvaluatorFactory {
 // MARK: - GeneticUseCaseEvaluatorFactory methods
 
 extension MainGeneticUseCaseEvaluatorFactory: GeneticUseCaseEvaluatorFactory {
-    func makeEvaluator(qubitCount: Int, useCase: GeneticUseCase) -> GeneticUseCaseEvaluator {
-        return MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                           useCase: useCase,
-                                           factory: factory,
-                                           oracleFactory: oracleFactory)
+    func makeEvaluator(qubitCount: Int, useCase: GeneticUseCase) throws -> GeneticUseCaseEvaluator {
+        do {
+            return try MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
+                                                   useCase: useCase,
+                                                   factory: factory,
+                                                   oracleFactory: oracleFactory)
+        } catch MainGeneticUseCaseEvaluator.InitError.qubitCountHasToBeBiggerThanZero {
+            throw GeneticUseCaseEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }

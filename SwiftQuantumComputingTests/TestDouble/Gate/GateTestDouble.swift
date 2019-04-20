@@ -36,11 +36,15 @@ final class GateTestDouble {
 // MARK: - Gate methods
 
 extension GateTestDouble: Gate {
-    func makeFixed(inputs: [Int]) -> FixedGate? {
+    func makeFixed(inputs: [Int]) throws -> FixedGate {
         makeFixedCount += 1
 
         lastMakeFixedInputs = inputs
 
-        return makeFixedResult
+        if let makeFixedResult = makeFixedResult {
+            return makeFixedResult
+        }
+
+        throw GateMakeFixedError.notEnoughInputsToProduceAGate
     }
 }

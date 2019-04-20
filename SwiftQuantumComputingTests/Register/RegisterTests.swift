@@ -28,61 +28,61 @@ class RegisterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testQubitCountEqualToNegativeValue_init_returnNil() {
+    func testQubitCountEqualToNegativeValue_init_throwException() {
         // Then
-        XCTAssertNil(Register(qubitCount:-1))
+        XCTAssertThrowsError(try Register(qubitCount:-1))
     }
 
-    func testQubitCountEqualToZero_init_returnNil() {
+    func testQubitCountEqualToZero_init_throwException() {
         // Then
-        XCTAssertNil(Register(qubitCount:0))
+        XCTAssertThrowsError(try Register(qubitCount:0))
     }
 
-    func testEmptyBitsString_init_returnNil() {
+    func testEmptyBitsString_init_throwException() {
         // Then
-        XCTAssertNil(Register(bits: ""))
+        XCTAssertThrowsError(try Register(bits: ""))
     }
 
-    func testBitsStringWithLeadingSpaces_init_returnNil() {
+    func testBitsStringWithLeadingSpaces_init_throwException() {
         // Then
-        XCTAssertNil(Register(bits: "  1001"))
+        XCTAssertThrowsError(try Register(bits: "  1001"))
     }
 
-    func testBitsStringWithTrailingSpaces_init_returnNil() {
+    func testBitsStringWithTrailingSpaces_init_throwException() {
         // Then
-        XCTAssertNil(Register(bits: "1001  "))
+        XCTAssertThrowsError(try Register(bits: "1001  "))
     }
 
-    func testBitsStringWithWrongCharacter_init_returnNil() {
+    func testBitsStringWithWrongCharacter_init_throwException() {
         // Then
-        XCTAssertNil(Register(bits: "10#1"))
+        XCTAssertThrowsError(try Register(bits: "10#1"))
     }
 
-    func testVectorWhichSumOfSquareModulesIsNotOne_init_returnNil() {
+    func testVectorWhichSumOfSquareModulesIsNotOne_init_throwException() {
         // Given
-        let vector = Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])!
+        let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
 
         // Then
-        XCTAssertNil(Register(vector: vector))
+        XCTAssertThrowsError(try Register(vector: vector))
     }
 
     func testVectorWhichSumOfSquareModulesIsOne_init_returnRegister() {
         // Given
-        let vector = Vector([Complex(real: sqrt(1 / 2), imag: 0),
-                             Complex(real: 0, imag: sqrt(1 / 2))])!
+        let vector = try! Vector([Complex(real: sqrt(1 / 2), imag: 0),
+                                  Complex(real: 0, imag: sqrt(1 / 2))])
 
         // Then
-        XCTAssertNotNil(Register(vector: vector))
+        XCTAssertNoThrow(try Register(vector: vector))
     }
 
     func testQubitCountBiggerThanZero_init_returnExpectedRegister() {
         // Then
-        let register = Register(qubitCount: 3)
+        let register = try? Register(qubitCount: 3)
 
         let elements = [Complex(1), Complex(0), Complex(0), Complex(0),
                         Complex(0), Complex(0), Complex(0), Complex(0)]
-        let vector = Vector(elements)!
-        let expectedRegister = Register(vector: vector)
+        let vector = try! Vector(elements)
+        let expectedRegister = try? Register(vector: vector)
 
         XCTAssertNotNil(register)
         XCTAssertNotNil(expectedRegister)
@@ -92,93 +92,93 @@ class RegisterTests: XCTestCase {
     func testCorrectBitsString_init_returnExpectedRegister() {
         // Then
         let bits = "011"
-        let register = Register(bits: bits)
+        let register = try? Register(bits: bits)
 
         let elements = [Complex(0), Complex(0), Complex(0), Complex(1),
                         Complex(0), Complex(0), Complex(0), Complex(0)]
-        let vector = Vector(elements)!
-        let expectedRegister = Register(vector: vector)
+        let vector = try! Vector(elements)
+        let expectedRegister = try? Register(vector: vector)
 
         XCTAssertNotNil(register)
         XCTAssertNotNil(expectedRegister)
         XCTAssertEqual(register, expectedRegister)
     }
 
-    func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_returnNil() {
+    func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException() {
         // Given
-        let register = Register(qubitCount: 2)!
+        let register = try! Register(qubitCount: 2)
 
-        let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
-        let gate = RegisterGate(matrix: matrix)!
+        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+        let gate = try! RegisterGate(matrix: matrix)
 
         // Then
-        XCTAssertNil(register.applying(gate))
+        XCTAssertThrowsError(try register.applying(gate))
     }
 
     func testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister() {
         // Given
-        let register = Register(qubitCount: 1)!
+        let register = try! Register(qubitCount: 1)
 
-        let matrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
-        let gate = RegisterGate(matrix: matrix)!
+        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+        let gate = try! RegisterGate(matrix: matrix)
 
         // When
-        let result = register.applying(gate)
+        let result = try? register.applying(gate)
 
         // Then
-        let expectedResult = Register(vector: Vector([Complex(0), Complex(1)])!)
+        let expectedResult = try! Register(vector: try! Vector([Complex(0), Complex(1)]))
         XCTAssertEqual(result, expectedResult)
     }
 
-    func testAnyRegisterAndZeroQubits_measure_returnNil() {
+    func testAnyRegisterAndZeroQubits_measure_throwException() {
         // Given
-        let register = Register(qubitCount: 3)!
+        let register = try! Register(qubitCount: 3)
 
         // Then
-        XCTAssertNil(register.measure(qubits: []))
+        XCTAssertThrowsError(try register.measure(qubits: []))
     }
 
-    func testAnyRegisterAndRepeatedQubits_measure_returnNil() {
+    func testAnyRegisterAndRepeatedQubits_measure_throwException() {
         // Given
-        let register = Register(qubitCount: 3)!
+        let register = try! Register(qubitCount: 3)
 
         // Then
-        XCTAssertNil(register.measure(qubits: [0, 0]))
+        XCTAssertThrowsError(try register.measure(qubits: [0, 0]))
     }
 
-    func testAnyRegisterAndQubitsOutOfBound_measure_returnNil() {
+    func testAnyRegisterAndQubitsOutOfBound_measure_throwException() {
         // Given
-        let register = Register(qubitCount: 3)!
+        let register = try! Register(qubitCount: 3)
 
         // Then
-        XCTAssertNil(register.measure(qubits: [100, 0]))
+        XCTAssertThrowsError(try register.measure(qubits: [100, 0]))
     }
 
-    func testAnyRegisterAndNegativeQubits_measure_returnNil() {
+    func testAnyRegisterAndNegativeQubits_measure_throwException() {
         // Given
-        let register = Register(qubitCount: 3)!
+        let register = try! Register(qubitCount: 3)
 
         // Then
-        XCTAssertNil(register.measure(qubits: [0, -1]))
+        XCTAssertThrowsError(try register.measure(qubits: [0, -1]))
     }
 
-    func testAnyRegisterAndUnsortedQubits_measure_returnNil() {
+    func testAnyRegisterAndUnsortedQubits_measure_throwException() {
         // Given
-        let register = Register(qubitCount: 3)!
+        let register = try! Register(qubitCount: 3)
 
         // Then
-        XCTAssertNil(register.measure(qubits: [0, 1]))
+        XCTAssertThrowsError(try register.measure(qubits: [0, 1]))
     }
 
     func testAnyRegisterAndOneQubit_measure_returnExpectedProbabilities() {
         // Given
         let prob = (1 / sqrt(5))
-        let vector = Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
-                             Complex(prob), Complex(0), Complex(0), Complex(prob)])!
-        let register = Register(vector: vector)!
+        let vector = try! Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
+                                  Complex(prob), Complex(0), Complex(0), Complex(prob)])
+        let register = try! Register(vector: vector)
 
         // When
-        let measures = register.measure(qubits: [0])!
+        let measures = try! register.measure(qubits: [0])
 
         // Then
         let expectedMeasures = [(Double(2) / Double(5)), (Double(3) / Double(5))]
@@ -192,12 +192,12 @@ class RegisterTests: XCTestCase {
     func testAnyRegisterAndTwoQubits_measure_returnExpectedProbabilities() {
         // Given
         let prob = (1 / sqrt(5))
-        let vector = Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
-                             Complex(prob), Complex(0), Complex(0), Complex(prob)])!
-        let register = Register(vector: vector)!
+        let vector = try! Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
+                                  Complex(prob), Complex(0), Complex(0), Complex(prob)])
+        let register = try! Register(vector: vector)
 
         // When
-        let measures = register.measure(qubits: [1, 0])!
+        let measures = try! register.measure(qubits: [1, 0])
 
         // Then
         let expectedMeasures = [(Double(1) / Double(5)), (Double(1) / Double(5)),
@@ -211,28 +211,28 @@ class RegisterTests: XCTestCase {
 
     func testRegisterInitializedWithoutAVector_measure_zeroHasProbabilityOne() {
         // Given
-        let register = Register(qubitCount: 2)!
+        let register = try! Register(qubitCount: 2)
 
         // Then
         let expectedMeasurements = [Double(1), Double(0), Double(0), Double(0)]
-        XCTAssertEqual(register.measure(qubits: [1, 0]), expectedMeasurements)
+        XCTAssertEqual(try? register.measure(qubits: [1, 0]), expectedMeasurements)
     }
 
     func testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_OneHasProbabilityOne() {
         // Given
         let qubitCount = 2
 
-        var register = Register(qubitCount: qubitCount)!
+        var register = try! Register(qubitCount: qubitCount)
         
-        let notMatrix = Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])!
-        let factory = RegisterGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)!
-        let notGate = factory.makeGate(inputs: [0])!
+        let notMatrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+        let factory = try! RegisterGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)
+        let notGate = try! factory.makeGate(inputs: [0])
 
         // When
-        register = register.applying(notGate)!
+        register = try! register.applying(notGate)
 
         // Then
         let expectedMeasurements = [Double(0), Double(1), Double(0), Double(0)]
-        XCTAssertEqual(register.measure(qubits: [1, 0]), expectedMeasurements)
+        XCTAssertEqual(try? register.measure(qubits: [1, 0]), expectedMeasurements)
     }
 }

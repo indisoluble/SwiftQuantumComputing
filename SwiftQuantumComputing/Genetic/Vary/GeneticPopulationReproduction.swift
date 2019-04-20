@@ -20,8 +20,16 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum GeneticPopulationReproductionAppliedError: Error {
+    case populationIsEmpty
+    case gateInMutationRequiresMoreQubitsThatAreAvailable(gate: Gate)
+    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
+}
+
 // MARK: - Protocol definition
 
 protocol GeneticPopulationReproduction {
-    func applied(to population: [Fitness.EvalCircuit]) -> [Fitness.EvalCircuit]
+    func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit]
 }

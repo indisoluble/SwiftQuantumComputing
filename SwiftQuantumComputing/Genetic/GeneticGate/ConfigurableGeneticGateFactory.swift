@@ -27,7 +27,7 @@ struct ConfigurableGeneticGateFactory {}
 // MARK: - GeneticGateFactory methods
 
 extension ConfigurableGeneticGateFactory: GeneticGateFactory {
-    func makeGate(inputs: [Int]) -> GeneticGate? {
+    func makeGate(inputs: [Int]) throws -> GeneticGate {
         return ConfigurableGeneticGate(inputs: inputs)
     }
 }

@@ -28,23 +28,23 @@ class MatrixTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testEmptyArray_init_returnNil() {
+    func testEmptyArray_init_throwException() {
         // Then
-        XCTAssertNil(Matrix([]))
+        XCTAssertThrowsError(try Matrix([]))
     }
 
-    func testEmptyRow_init_returnNil() {
+    func testEmptyRow_init_throwException() {
         // Then
-        XCTAssertNil(Matrix([[]]))
+        XCTAssertThrowsError(try Matrix([[]]))
     }
 
-    func testRowsWithDifferentColumnCount_init_returnNil() {
+    func testRowsWithDifferentColumnCount_init_throwException() {
         // Given
         let complex = Complex(real: 0, imag: 0)
         let elements: [[Complex]] = [[complex], [complex, complex]]
 
         // Then
-        XCTAssertNil(Matrix(elements))
+        XCTAssertThrowsError(try Matrix(elements))
     }
 
     func testRowsWithSameColumnCount_init_returnMatrixWithExpectedNumberOfRowsAndColumns() {
@@ -53,7 +53,7 @@ class MatrixTests: XCTestCase {
         let elements: [[Complex]] = [[complex], [complex]]
 
         // When
-        let matrix = Matrix(elements)
+        let matrix = try? Matrix(elements)
 
         // Then
         XCTAssertEqual(matrix?.rowCount, 2)
@@ -63,7 +63,7 @@ class MatrixTests: XCTestCase {
     func testNonSquareMatrix_isSquare_returnFalse() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let matrix = Matrix([[complex], [complex]])!
+        let matrix = try! Matrix([[complex], [complex]])
 
         // Then
         XCTAssertFalse(matrix.isSquare)
@@ -72,7 +72,7 @@ class MatrixTests: XCTestCase {
     func testSquareMatrix_isSquare_returnTrue() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let matrix = Matrix([[complex, complex], [complex, complex]])!
+        let matrix = try! Matrix([[complex, complex], [complex, complex]])
 
         // Then
         XCTAssertTrue(matrix.isSquare)
@@ -86,7 +86,7 @@ class MatrixTests: XCTestCase {
             [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)],
             [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)]
         ]
-        let matrix = Matrix(elements)!
+        let matrix = try! Matrix(elements)
 
         // Then
         XCTAssertEqual(matrix.first, expectedValue)
@@ -101,7 +101,7 @@ class MatrixTests: XCTestCase {
             [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)],
             [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)]
         ]
-        let matrix = Matrix(elements)!
+        let matrix = try! Matrix(elements)
 
         // Then
         XCTAssertEqual(matrix[1,1], expectedValue)
@@ -110,7 +110,7 @@ class MatrixTests: XCTestCase {
     func testNonSquareMatrix_isUnitary_returnFalse() {
         // Given
         let complex = Complex(real: 1, imag: 0)
-        let matrix = Matrix([[complex], [complex]])!
+        let matrix = try! Matrix([[complex], [complex]])
 
         // Then
         XCTAssertFalse(matrix.isUnitary(accuracy: 0.001))
@@ -119,9 +119,9 @@ class MatrixTests: XCTestCase {
     func testSquareNonUnitaryMatrix_isUnitary_returnFalse() {
         // Given
         let complex = Complex(real: 1, imag: 0)
-        let matrix = Matrix([[complex, complex, complex],
-                             [complex, complex, complex],
-                             [complex, complex, complex]])!
+        let matrix = try! Matrix([[complex, complex, complex],
+                                  [complex, complex, complex],
+                                  [complex, complex, complex]])
 
         // Then
         XCTAssertFalse(matrix.isUnitary(accuracy: 0.001))
@@ -140,25 +140,25 @@ class MatrixTests: XCTestCase {
              Complex(real: 0, imag: -(1 / sqrt(3))),
              Complex(real: 0, imag: (5 / (2 * sqrt(15))))]
         ]
-        let matrix = Matrix(elements)!
+        let matrix = try! Matrix(elements)
 
         // Then
         XCTAssertTrue(matrix.isUnitary(accuracy: 0.001))
     }
 
-    func testCountEqualToZero_makeIdentity_returnNil() {
+    func testCountEqualToZero_makeIdentity_throwException() {
         // Then
-        XCTAssertNil(Matrix.makeIdentity(count: 0))
+        XCTAssertThrowsError(try Matrix.makeIdentity(count: 0))
     }
 
     func testCountBiggerThanZero_makeIdentity_returnExpectedMatrix() {
         // When
-        let matrix = Matrix.makeIdentity(count: 3)
+        let matrix = try? Matrix.makeIdentity(count: 3)
 
         // Then
-        let expectedMatrix = Matrix([[Complex(1), Complex(0), Complex(0)],
-                                     [Complex(0), Complex(1), Complex(0)],
-                                     [Complex(0), Complex(0), Complex(1)]])
+        let expectedMatrix = try? Matrix([[Complex(1), Complex(0), Complex(0)],
+                                          [Complex(0), Complex(1), Complex(0)],
+                                          [Complex(0), Complex(0), Complex(1)]])
         XCTAssertEqual(matrix, expectedMatrix)
     }
 
@@ -169,14 +169,14 @@ class MatrixTests: XCTestCase {
             [Complex(real: 0, imag: 0), Complex(real: 12, imag: 0), Complex(real: 6, imag: -3)],
             [Complex(real: 2, imag: 0), Complex(real: 4, imag: 4), Complex(real: 9, imag: 3)]
         ]
-        let lhs = Matrix(lhsElements)!
+        let lhs = try! Matrix(lhsElements)
 
         let rhsElements = [
             [Complex(real: 1, imag: 0), Complex(real: 3, imag: 4), Complex(real: 5, imag: -7)],
             [Complex(real: 10, imag: 2), Complex(real: 6, imag: 0), Complex(real: 2, imag: 5)],
             [Complex(real: 0, imag: 0), Complex(real: 1, imag: 0), Complex(real: 2, imag: 9)]
         ]
-        let rhs = Matrix(rhsElements)!
+        let rhs = try! Matrix(rhsElements)
 
         // When
         let result = Matrix.tensorProduct(lhs, rhs)
@@ -211,7 +211,7 @@ class MatrixTests: XCTestCase {
              Complex(real: 0, imag: 0), Complex(real: 4, imag: 4), Complex(real: -28, imag: 44),
              Complex(real: 0, imag: 0), Complex(real: 9, imag: 3), Complex(real: -9, imag: 87)]
         ]
-        let expectedResult = Matrix(expectedElements)
+        let expectedResult = try? Matrix(expectedElements)
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -222,7 +222,7 @@ class MatrixTests: XCTestCase {
                    Complex(real: 0, imag: 0),
                    Complex(real: 5, imag: 1),
                    Complex(real: 4, imag: 0)]
-        let matrix = Matrix([row, row])!
+        let matrix = try! Matrix([row, row])
 
         // When
         let result = (complex * matrix)
@@ -232,18 +232,18 @@ class MatrixTests: XCTestCase {
                            Complex(real: 0, imag: 0),
                            Complex(real: 13, imag: 13),
                            Complex(real: 12, imag: 8)]
-        let expectedResult = Matrix([expectedRow, expectedRow])
+        let expectedResult = try? Matrix([expectedRow, expectedRow])
         XCTAssertEqual(result, expectedResult)
     }
 
-    func testMatrixWithColumnCountDifferentThanRowCountInSecondMatrix_multiply_returnNil() {
+    func testMatrixWithColumnCountDifferentThanRowCountInSecondMatrix_multiply_throwException() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let lhs = Matrix([[complex, complex]])!
-        let rhs = Matrix([[complex], [complex], [complex]])!
+        let lhs = try! Matrix([[complex, complex]])
+        let rhs = try! Matrix([[complex], [complex], [complex]])
 
         // Then
-        XCTAssertNil(lhs * rhs)
+        XCTAssertThrowsError(try lhs * rhs)
     }
 
     func testMatrixWithColumnCountEqualToRowCountInSecondMatrix_multiply_returnExpectedMatrix() {
@@ -252,29 +252,29 @@ class MatrixTests: XCTestCase {
             [Complex(real: 3, imag: 2), Complex(real: 0, imag: 0), Complex(real: 5, imag: -6)],
             [Complex(real: 1, imag: 0), Complex(real: 4, imag: 2), Complex(real: 0, imag: 1)]
         ]
-        let lhs = Matrix(lhsElements)!
+        let lhs = try! Matrix(lhsElements)
 
-        let rhs = Matrix([[Complex(real: 5, imag: 0), Complex(real: 2, imag: -1)],
-                          [Complex(real: 0, imag: 0), Complex(real: 4, imag: 5)],
-                          [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])!
+        let rhs = try! Matrix([[Complex(real: 5, imag: 0), Complex(real: 2, imag: -1)],
+                               [Complex(real: 0, imag: 0), Complex(real: 4, imag: 5)],
+                               [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])
 
         // When
-        let result = (lhs * rhs)
+        let result = (try? lhs * rhs)
 
         // Then
-        let expectedResult = Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
-                                     [Complex(real: 9, imag: 7), Complex(real: 1, imag: 29)]])
+        let expectedResult = try? Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
+                                          [Complex(real: 9, imag: 7), Complex(real: 1, imag: 29)]])
         XCTAssertEqual(result, expectedResult)
     }
 
-    func testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_adjointedMultiply_returnNil() {
+    func testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_adjointedMultiply_throwException() {
         // Given
         let complex = Complex(real: 0, imag: 0)
-        let lhs = Matrix([[complex, complex, complex]])!
-        let rhs = Matrix([[complex], [complex], [complex]])!
+        let lhs = try! Matrix([[complex, complex, complex]])
+        let rhs = try! Matrix([[complex], [complex], [complex]])
 
         // Then
-        XCTAssertNil(Matrix.Transformation.adjointed(lhs) * rhs)
+        XCTAssertThrowsError(try Matrix.Transformation.adjointed(lhs) * rhs)
     }
 
     func testMatrixWithRowCountEqualToRowCountInSecondMatrix_adjointedMultiply_returnExpectedMatrix() {
@@ -284,18 +284,18 @@ class MatrixTests: XCTestCase {
             [Complex(real: 0, imag: 0), Complex(real: 4, imag: -2)],
             [Complex(real: 5, imag: 6), Complex(real: 0, imag: -1)]
         ]
-        let lhs = Matrix(lhsElements)!
+        let lhs = try! Matrix(lhsElements)
 
-        let rhs = Matrix([[Complex(real: 5, imag: 0), Complex(real: 2, imag: -1)],
-                          [Complex(real: 0, imag: 0), Complex(real: 4, imag: 5)],
-                          [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])!
+        let rhs = try! Matrix([[Complex(real: 5, imag: 0), Complex(real: 2, imag: -1)],
+                               [Complex(real: 0, imag: 0), Complex(real: 4, imag: 5)],
+                               [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])
 
         // When
-        let result = (Matrix.Transformation.adjointed(lhs) * rhs)
+        let result = (try? Matrix.Transformation.adjointed(lhs) * rhs)
 
         // Then
-        let expectedResult = Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
-                                     [Complex(real: 9, imag: 7), Complex(real: 1, imag: 29)]])
+        let expectedResult = try? Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
+                                          [Complex(real: 9, imag: 7), Complex(real: 1, imag: 29)]])
         XCTAssertEqual(result, expectedResult)
     }
 }

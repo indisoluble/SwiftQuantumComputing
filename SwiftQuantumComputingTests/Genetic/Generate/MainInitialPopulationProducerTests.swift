@@ -37,7 +37,7 @@ class MainInitialPopulationProducerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testSizeEqualToZero_execute_returnNil() {
+    func testSizeEqualToZero_execute_throwException() {
         // Given
         let size = 0
         let depth = (0..<3)
@@ -56,18 +56,15 @@ class MainInitialPopulationProducerTests: XCTestCase {
                                                               score: score,
                                                               random: random)
 
-        // When
-        let result = initialPopulation.execute(size: size, depth: depth)
-
         // Then
+        XCTAssertThrowsError(try initialPopulation.execute(size: size, depth: depth))
         XCTAssertEqual(randomCount, 0)
         XCTAssertEqual(generator.makeCount, 0)
         XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
         XCTAssertEqual(score.calculateCount, 0)
-        XCTAssertNil(result)
     }
 
-    func testGeneratorReturnNil_execute_returnNil() {
+    func testGeneratorThrowException_execute_throwException() {
         // Given
         let size = 3
         let depth = (0..<3)
@@ -86,18 +83,15 @@ class MainInitialPopulationProducerTests: XCTestCase {
                                                               score: score,
                                                               random: random)
 
-        // When
-        let result = initialPopulation.execute(size: size, depth: depth)
-
         // Then
+        XCTAssertThrowsError(try initialPopulation.execute(size: size, depth: depth))
         XCTAssertEqual(randomCount, size)
         XCTAssertEqual(generator.makeCount, size)
         XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
         XCTAssertEqual(score.calculateCount, 0)
-        XCTAssertNil(result)
     }
 
-    func testEvaluatorReturnNil_execute_returnNil() {
+    func testEvaluatorThrowException_execute_throwException() {
         // Given
         let size = 3
         let depth = (0..<3)
@@ -118,15 +112,12 @@ class MainInitialPopulationProducerTests: XCTestCase {
                                                               score: score,
                                                               random: random)
 
-        // When
-        let result = initialPopulation.execute(size: size, depth: depth)
-
         // Then
+        XCTAssertThrowsError(try initialPopulation.execute(size: size, depth: depth))
         XCTAssertEqual(randomCount, size)
         XCTAssertEqual(generator.makeCount, size)
         XCTAssertEqual(evaluator.evaluateCircuitCount, size)
         XCTAssertEqual(score.calculateCount, 0)
-        XCTAssertNil(result)
     }
 
     func testAllDependenciesReturnValue_execute_returnResult() {
@@ -152,7 +143,7 @@ class MainInitialPopulationProducerTests: XCTestCase {
                                                               random: random)
 
         // When
-        let result = initialPopulation.execute(size: size, depth: depth)
+        let result = try? initialPopulation.execute(size: size, depth: depth)
 
         // Then
         XCTAssertEqual(randomCount, size)

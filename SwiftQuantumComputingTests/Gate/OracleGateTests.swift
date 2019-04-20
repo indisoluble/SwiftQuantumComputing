@@ -28,36 +28,33 @@ class OracleGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testFactoryWithZeroTruthTableQubits_makeFixed_returnNil() {
-        // Given
-        let factory = OracleGate(truthTable: [], truthTableQubitCount: 0)
-
+    func testZeroTruthTableQubits_init_throwException() {
         // Then
-        XCTAssertNil(factory.makeFixed(inputs: [0]))
+        XCTAssertThrowsError(try OracleGate(truthTable: [], truthTableQubitCount: 0))
     }
 
-    func testAnyFactoryAndAsManyInpusAsTruthTableQubits_makeFixed_returnNil() {
+    func testAnyFactoryAndAsManyInpusAsTruthTableQubits_makeFixed_throwException() {
         // Given
         let truthTableQubitCount = 3
-        let factory = OracleGate(truthTable: [], truthTableQubitCount: truthTableQubitCount)
+        let factory = try! OracleGate(truthTable: [], truthTableQubitCount: truthTableQubitCount)
 
         let inputs = Array(0..<truthTableQubitCount)
 
         // Then
-        XCTAssertNil(factory.makeFixed(inputs: inputs))
+        XCTAssertThrowsError(try factory.makeFixed(inputs: inputs))
     }
 
     func testAnyFactoryAndOneInputMoreThanTruthTableQubits_makeFixed_returnExpectedGate() {
         // Given
         let expectedTruthTable = ["000", "111"]
         let expectedTruthTableQubitCount = 3
-        let factory = OracleGate(truthTable: expectedTruthTable,
-                                 truthTableQubitCount: expectedTruthTableQubitCount)
+        let factory = try! OracleGate(truthTable: expectedTruthTable,
+                                      truthTableQubitCount: expectedTruthTableQubitCount)
 
         let inputs = Array((0..<(expectedTruthTableQubitCount + 1)).reversed())
 
         // When
-        guard let result = factory.makeFixed(inputs: inputs) else {
+        guard let result = try? factory.makeFixed(inputs: inputs) else {
             XCTAssert(false)
 
             return
