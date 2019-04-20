@@ -72,7 +72,7 @@ extension MainGeneticCircuitMutation: GeneticCircuitMutation {
         guard remainingDepth >= 0 else {
             os_log("execute: unable to produce a mutation with remaining depth",
                    log: MainGeneticCircuitMutation.logger,
-                   type: .debug)
+                   type: .info)
 
             return nil
         }

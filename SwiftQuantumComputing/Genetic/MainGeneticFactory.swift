@@ -88,63 +88,72 @@ public struct MainGeneticFactory {
 extension MainGeneticFactory: GeneticFactory {
     public func evolveCircuit(configuration config: GeneticConfiguration,
                               useCases: [GeneticUseCase],
-                              gates: [Gate]) -> EvolvedCircuit? {
+                              gates: [Gate]) throws -> EvolvedCircuit {
         guard let initSize = config.populationSize.first else {
-            os_log("evolveCircuit: pop. size empty", log: MainGeneticFactory.logger, type: .debug)
-
-            return nil
+            throw GeneticFactoryEvolveCircuitError.configurationPopulationSizeIsEmpty
         }
         let maxSize = config.populationSize.last!
 
         guard let maxDepth = config.depth.last else {
-            os_log("evolveCircuit: depth empty", log: MainGeneticFactory.logger, type: .debug)
-
-            return nil
+            throw GeneticFactoryEvolveCircuitError.configurationDepthIsEmpty
         }
 
         guard let firstCase = useCases.first else {
-            os_log("evolveCircuit: use cases empty", log: MainGeneticFactory.logger, type: .debug)
-
-            return nil
+            throw GeneticFactoryEvolveCircuitError.useCaseListIsEmpty
         }
 
         let qubitCount = firstCase.circuit.qubitCount
         guard useCases.reduce(true, { $0 && $1.circuit.qubitCount == qubitCount })  else {
-            os_log("evolveCircuit: use cases do not specify same circuit qubit count",
-                   log: MainGeneticFactory.logger,
-                   type: .debug)
-
-            return nil
+            throw GeneticFactoryEvolveCircuitError.useCasesDoNotSpecifySameCircuitQubitCount
         }
 
-        guard let initialPopulation = try? initialPopulationFactory.makeProducer(qubitCount: qubitCount,
-                                                                                 threshold: config.threshold,
-                                                                                 useCases: useCases,
-                                                                                 gates: gates) else {
-                                                                                    return nil
+        var initialPopulation: InitialPopulationProducer!
+        do {
+            initialPopulation = try initialPopulationFactory.makeProducer(qubitCount: qubitCount,
+                                                                          threshold: config.threshold,
+                                                                          useCases: useCases,
+                                                                          gates: gates)
+        } catch InitialPopulationProducerFactoryMakeProducerError.qubitCountHasToBeBiggerThanZero {
+            throw GeneticFactoryEvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        guard let reproduction = try? reproductionFactory.makeReproduction(qubitCount: qubitCount,
-                                                                           tournamentSize: config.tournamentSize,
-                                                                           mutationProbability: config.mutationProbability,
-                                                                           threshold: config.threshold,
-                                                                           maxDepth: maxDepth,
-                                                                           useCases: useCases,
-                                                                           gates: gates) else {
-                                                                            return nil
+        var reproduction: GeneticPopulationReproduction!
+        do {
+            reproduction = try reproductionFactory.makeReproduction(qubitCount: qubitCount,
+                                                                    tournamentSize: config.tournamentSize,
+                                                                    mutationProbability: config.mutationProbability,
+                                                                    threshold: config.threshold,
+                                                                    maxDepth: maxDepth,
+                                                                    useCases: useCases,
+                                                                    gates: gates)
+        } catch GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero {
+            throw GeneticFactoryEvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+        } catch GeneticPopulationReproductionFactoryMakeReproductionError.tournamentSizeHasToBeBiggerThanZero {
+            throw GeneticFactoryEvolveCircuitError.configurationTournamentSizeHasToBeBiggerThanZero
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         os_log("Producing initial population...", log: MainGeneticFactory.logger, type: .info)
-        guard var population = try? initialPopulation.execute(size: initSize, depth: config.depth) else {
-            return nil
+        var population: [Fitness.EvalCircuit]!
+        do {
+            population = try initialPopulation.execute(size: initSize, depth: config.depth)
+        } catch InitialPopulationProducerExecuteError.populationSizeHasToBeBiggerThanZero {
+            throw GeneticFactoryEvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
+        } catch InitialPopulationProducerExecuteError.populationDepthHasToBeAPositiveNumber {
+            throw GeneticFactoryEvolveCircuitError.configurationDepthHasToBeAPositiveNumber
+        } catch InitialPopulationProducerExecuteError.atLeastOneGateRequiredMoreQubitsThatAreAvailable {
+            throw GeneticFactoryEvolveCircuitError.atLeastOneGateRequiredMoreQubitsThatAreAvailable
+        } catch InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(let errors) {
+            throw GeneticFactoryEvolveCircuitError.useCaseEvaluatorsThrowed(errors: errors)
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
         os_log("Initial population completed", log: MainGeneticFactory.logger, type: .info)
 
-        guard var candidate = fitness.fittest(in: population) else {
-            os_log("evolveCircuit: no first candid.", log: MainGeneticFactory.logger, type: .debug)
-
-            return nil
-        }
+        var candidate = fitness.fittest(in: population)!
 
         var currGen = 0
         let errProb = config.errorProbability
@@ -152,15 +161,22 @@ extension MainGeneticFactory: GeneticFactory {
         while (candidate.eval > errProb) && (currGen < genCount) && (population.count < maxSize) {
             os_log("Init. generation %d...", log: MainGeneticFactory.logger, type: .info, currGen)
 
-            if let offspring = try? reproduction.applied(to: population) {
-                if (offspring.isEmpty) {
-                    os_log("evolveCircuit: empty offspr.", log: MainGeneticFactory.logger, type: .debug)
-                } else {
-                    population.append(contentsOf: offspring)
-                    candidate = fitness.fittest(in: population)!
-                }
+            var offspring: [Fitness.EvalCircuit]!
+            do {
+                offspring = try reproduction.applied(to: population)
+            } catch GeneticPopulationReproductionAppliedError.atLeastOneGateInMutationRequiresMoreQubitsThatAreAvailable {
+                throw GeneticFactoryEvolveCircuitError.atLeastOneGateRequiredMoreQubitsThatAreAvailable
+            } catch GeneticPopulationReproductionAppliedError.useCaseEvaluatorsThrowed(let errors) {
+                throw GeneticFactoryEvolveCircuitError.useCaseEvaluatorsThrowed(errors: errors)
+            } catch {
+                fatalError("Unexpected error: \(error).")
+            }
+
+            if (offspring.isEmpty) {
+                os_log("evolveCircuit: empty offspr.", log: MainGeneticFactory.logger, type: .debug)
             } else {
-                os_log("evolveCircuit: offspr. throwed error", log: MainGeneticFactory.logger, type: .debug)
+                population.append(contentsOf: offspring)
+                candidate = fitness.fittest(in: population)!
             }
 
             os_log("Generation %d completed. Population: %d. Evaluation: %s",
@@ -171,10 +187,8 @@ extension MainGeneticFactory: GeneticFactory {
             currGen += 1
         }
 
-        guard let circuit = try? oracleFactory.makeOracleCircuit(geneticCircuit: candidate.circuit,
-                                                                 useCase: firstCase) else {
-                                                                    return nil
-        }
+        let circuit = try! oracleFactory.makeOracleCircuit(geneticCircuit: candidate.circuit,
+                                                           useCase: firstCase)
 
         return (candidate.eval, circuit.circuit, circuit.oracleAt)
     }
