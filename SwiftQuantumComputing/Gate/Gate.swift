@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-enum GateMakeFixedError: Error {
+public enum GateMakeFixedError: Error {
     case notEnoughInputsToProduceAGate
 }
 

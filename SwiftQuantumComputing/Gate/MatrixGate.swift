@@ -31,7 +31,7 @@ public struct MatrixGate {
 
     // MARK: - Public init methods
 
-    enum InitError: Error {
+    public enum InitError: Error {
         case matrixQubitCountHasToBeBiggerThanZero
     }
 
