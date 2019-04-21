@@ -48,7 +48,7 @@ public struct Matrix {
 
     // MARK: - Public init methods
 
-    enum InitError: Error {
+    public enum InitError: Error {
         case doNotPassAnEmptyArray
         case subArraysMustNotBeEmpty
         case subArraysHaveToHaveSameSize

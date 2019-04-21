@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SwiftQuantumComputing"
-  s.version      = "8.0.0"
+  s.version      = "8.0.1"
   s.summary      = "A quantum circuit simulator."
   s.description  = <<-DESC
   A quantum circuit simulator written in Swift and speeded up with Accelerate.framework. It also counts with a genetic algorithm to find a circuit that solves a given quantum problem.
