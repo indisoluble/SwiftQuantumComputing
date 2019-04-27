@@ -66,7 +66,7 @@ struct MainGeneticGatesRandomizer {
 extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
     func make(depth: Int) throws -> [GeneticGate] {
         guard depth >= 0 else {
-            throw GeneticGatesRandomizerMakeError.depthHasToBeAPositiveNumber
+            throw GeneticError.configurationDepthHasToBeAPositiveNumber
         }
 
         var result: [GeneticGate] = []

@@ -24,7 +24,6 @@ import Foundation
 
 enum InitialPopulationProducerExecuteError: Error {
     case populationSizeHasToBeBiggerThanZero
-    case populationDepthHasToBeAPositiveNumber
     case useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: GeneticCircuitEvaluationErrors)
 }
 

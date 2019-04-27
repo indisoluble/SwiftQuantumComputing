@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticGatesRandomizerMakeError: Error {
-    case depthHasToBeAPositiveNumber
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticGatesRandomizer {

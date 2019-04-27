@@ -142,8 +142,6 @@ extension MainGeneticFactory: GeneticFactory {
             population = try initialPopulation.execute(size: initSize, depth: config.depth)
         } catch InitialPopulationProducerExecuteError.populationSizeHasToBeBiggerThanZero {
             throw GeneticFactoryEvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
-        } catch InitialPopulationProducerExecuteError.populationDepthHasToBeAPositiveNumber {
-            throw GeneticFactoryEvolveCircuitError.configurationDepthHasToBeAPositiveNumber
         } catch InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(let errors) {
             throw GeneticFactoryEvolveCircuitError.useCaseEvaluatorsThrowed(errors: errors)
         } catch {
