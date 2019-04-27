@@ -30,15 +30,7 @@ struct BackendRegisterGateFactoryAdapter {
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
-        case qubitCountHasToBeBiggerThanZero
-    }
-
-    init(qubitCount: Int) throws {
-        guard qubitCount > 0 else {
-            throw InitError.qubitCountHasToBeBiggerThanZero
-        }
-
+    init(qubitCount: Int) {
         self.qubitCount = qubitCount
     }
 }

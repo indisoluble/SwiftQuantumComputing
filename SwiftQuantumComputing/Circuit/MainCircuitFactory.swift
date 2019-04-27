@@ -42,7 +42,7 @@ extension MainCircuitFactory: CircuitFactory {
             fatalError("Unexpected error: \(error).")
         }
 
-        let gateFactory = try! BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
+        let gateFactory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
 
         let backend = BackendFacade(factory: gateFactory)
 
