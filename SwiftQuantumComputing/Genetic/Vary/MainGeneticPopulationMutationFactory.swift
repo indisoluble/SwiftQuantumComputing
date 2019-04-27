@@ -47,16 +47,9 @@ extension MainGeneticPopulationMutationFactory: GeneticPopulationMutationFactory
                       maxDepth: Int,
                       evaluator: GeneticCircuitEvaluator,
                       gates: [Gate]) throws -> GeneticPopulationMutation {
-        var mutation: GeneticCircuitMutation!
-        do {
-            mutation = try factory.makeMutation(qubitCount: qubitCount,
+        let mutation = try factory.makeMutation(qubitCount: qubitCount,
                                                 maxDepth: maxDepth,
                                                 gates: gates)
-        } catch GeneticCircuitMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero {
-            throw GeneticPopulationMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
 
         do {
             return try MainGeneticPopulationMutation(tournamentSize:tournamentSize,

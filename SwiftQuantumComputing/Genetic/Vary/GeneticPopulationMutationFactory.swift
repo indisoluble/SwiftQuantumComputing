@@ -23,7 +23,6 @@ import Foundation
 // MARK: - Errors
 
 enum GeneticPopulationMutationFactoryMakeMutationError: Error {
-    case qubitCountHasToBeBiggerThanZero
     case tournamentSizeHasToBeBiggerThanZero
 }
 

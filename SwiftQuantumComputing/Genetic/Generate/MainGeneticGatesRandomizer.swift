@@ -40,13 +40,9 @@ struct MainGeneticGatesRandomizer {
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
-        case qubitCountHasToBeBiggerThanZero
-    }
-
     init(qubitCount: Int, factories: [GeneticGateFactory]) throws {
         guard qubitCount > 0 else {
-            throw InitError.qubitCountHasToBeBiggerThanZero
+            throw GeneticError.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
         }
 
         let qubits = Array(0..<qubitCount)

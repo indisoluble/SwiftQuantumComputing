@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticGatesRandomizerFactoryMakeRandomizerError: Error {
-    case qubitCountHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticGatesRandomizerFactory {

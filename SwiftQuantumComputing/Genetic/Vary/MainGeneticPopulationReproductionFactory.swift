@@ -69,8 +69,6 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                                                         maxDepth: maxDepth,
                                                         evaluator: evaluator,
                                                         gates: gates)
-        } catch GeneticPopulationMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero {
-            throw GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero
         } catch GeneticPopulationMutationFactoryMakeMutationError.tournamentSizeHasToBeBiggerThanZero {
             throw GeneticPopulationReproductionFactoryMakeReproductionError.tournamentSizeHasToBeBiggerThanZero
         } catch {

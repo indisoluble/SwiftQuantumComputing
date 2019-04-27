@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticCircuitMutationFactoryMakeMutationError: Error {
-    case qubitCountHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticCircuitMutationFactory {

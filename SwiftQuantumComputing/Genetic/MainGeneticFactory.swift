@@ -107,17 +107,10 @@ extension MainGeneticFactory: GeneticFactory {
             throw GeneticFactoryEvolveCircuitError.useCasesDoNotSpecifySameCircuitQubitCount
         }
 
-        var initialPopulation: InitialPopulationProducer!
-        do {
-            initialPopulation = try initialPopulationFactory.makeProducer(qubitCount: qubitCount,
+        let initialPopulation = try initialPopulationFactory.makeProducer(qubitCount: qubitCount,
                                                                           threshold: config.threshold,
                                                                           useCases: useCases,
                                                                           gates: gates)
-        } catch InitialPopulationProducerFactoryMakeProducerError.qubitCountHasToBeBiggerThanZero {
-            throw GeneticFactoryEvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
 
         var reproduction: GeneticPopulationReproduction!
         do {
