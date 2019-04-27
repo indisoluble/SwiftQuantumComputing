@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum BackendGateExtractError: Error {
-    case unableToExtractMatrix
-}
-
 // MARK: - Protocol definition
 
 protocol BackendGate {

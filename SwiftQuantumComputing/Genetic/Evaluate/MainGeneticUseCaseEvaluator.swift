@@ -72,16 +72,7 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
         let circuit = try! factory.makeCircuit(qubitCount: qubits.count, gates: gates)
 
         let input = useCase.circuit.input
-        var measures: [Double]!
-        do {
-            measures = try circuit.measure(qubits: qubits, afterInputting: input)
-        } catch CircuitMeasureError.unableToExtractMatrixFromGate(let index) {
-            throw GeneticUseCaseEvaluationError.unableToExtractMatrix(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateDoesNotHaveValidDimension(let index) {
-            throw GeneticUseCaseEvaluationError.gateDoesNotHaveValidDimension(gate: circuit.gates[index])
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let measures = try circuit.measure(qubits: qubits, afterInputting: input)
 
         guard let index = Int(useCase.circuit.output, radix: 2) else {
             throw GeneticUseCaseEvaluationError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes

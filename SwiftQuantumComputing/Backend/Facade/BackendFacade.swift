@@ -41,16 +41,8 @@ extension BackendFacade: Backend {
     func measure(qubits: [Int], in circuit: Backend.Circuit) throws -> [Double] {
         var register = circuit.register
 
-        for (index, gate) in circuit.gates.enumerated() {
-            var components: BackendGate.Components!
-            do {
-                components = try gate.extract()
-            } catch BackendGateExtractError.unableToExtractMatrix {
-                throw BackendMeasureError.unableToExtractMatrixFromGate(at: index)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
-
+        for gate in circuit.gates {
+            let components = try gate.extract()
             let registerGate = try factory.makeGate(matrix: components.matrix,
                                                     inputs: components.inputs)
             register = try register.applying(registerGate)

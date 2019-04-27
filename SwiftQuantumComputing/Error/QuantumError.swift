@@ -30,6 +30,7 @@ enum QuantumError: Error {
     case gateMatrixIsNotUnitary
     case gateMatrixRowCountHasToBeAPowerOfTwo
     case gateMatrixHandlesMoreQubitsThatGateActuallyHas
+    case gateOracleControlsCanNotBeAnEmptyList
     case gateQubitCountDoesNotMatchCircuitQubitCount
     case gateQubitCountHasToBeBiggerThanZero
     case measuredQubitsAreNotInBound

@@ -26,13 +26,9 @@ extension Matrix {
 
     // MARK: - Internal class methods
 
-    enum MakeOracleError: Error {
-        case controlCountIsNotBiggerThanZero
-    }
-
     static func makeOracle(truthTable: [String], controlCount: Int) throws -> Matrix {
         guard controlCount > 0 else {
-            throw MakeOracleError.controlCountIsNotBiggerThanZero
+            throw QuantumError.gateOracleControlsCanNotBeAnEmptyList
         }
 
         let truthTableAsInts = Matrix.truthTableAsInts(truthTable)

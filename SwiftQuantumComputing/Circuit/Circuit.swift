@@ -20,13 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-public enum CircuitMeasureError: Error {
-    case unableToExtractMatrixFromGate(at: Int)
-    case gateDoesNotHaveValidDimension(at: Int)
-}
-
 // MARK: - Protocol definition
 
 public protocol Circuit {

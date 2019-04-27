@@ -66,14 +66,6 @@ extension CircuitFacade: Circuit {
     func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
         let register = try factory.makeRegister(bits: bits)
 
-        do {
-            return try backend.measure(qubits: qubits, in: (register: register, gates: gates))
-        } catch BackendMeasureError.unableToExtractMatrixFromGate(let index) {
-            throw CircuitMeasureError.unableToExtractMatrixFromGate(at: index)
-        } catch BackendMeasureError.gateDoesNotHaveValidDimension(let index) {
-            throw CircuitMeasureError.gateDoesNotHaveValidDimension(at: index)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return try backend.measure(qubits: qubits, in: (register: register, gates: gates))
     }
 }

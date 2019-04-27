@@ -20,13 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum BackendMeasureError: Error {
-    case unableToExtractMatrixFromGate(at: Int)
-    case gateDoesNotHaveValidDimension(at: Int)
-}
-
 // MARK: - Protocol definition
 
 protocol Backend {
