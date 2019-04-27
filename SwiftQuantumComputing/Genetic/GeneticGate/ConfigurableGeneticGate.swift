@@ -49,14 +49,7 @@ extension ConfigurableGeneticGate: GeneticGate {
             fatalError("Unexpected error: \(error).")
         }
 
-        var gate: FixedGate!
-        do {
-            gate = try oracle.makeFixed(inputs: inputs)
-        } catch GateMakeFixedError.notEnoughInputsToProduceAGate {
-            throw GeneticGateMakeFixedError.truthTableRequiresMoreInputQubitsThatAreAvailable
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let gate = try oracle.makeFixed(inputs: inputs)
 
         return (gate: gate, didUseTruthTable: true)
     }

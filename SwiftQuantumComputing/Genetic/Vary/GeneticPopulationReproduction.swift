@@ -24,7 +24,6 @@ import Foundation
 
 enum GeneticPopulationReproductionAppliedError: Error {
     case populationIsEmpty
-    case gateInMutationRequiresMoreQubitsThatAreAvailable(gate: Gate)
     case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
 }
 

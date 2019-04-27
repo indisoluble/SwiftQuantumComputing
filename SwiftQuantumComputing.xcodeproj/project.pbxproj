@@ -382,6 +382,8 @@
 		FFCC72A1221CC1D600D28A5D /* MainGeneticCircuitMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCC729F221CC1D600D28A5D /* MainGeneticCircuitMutation.swift */; };
 		FFD01AE622749D0A0095D0E2 /* QuantumError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD01AE522749D0A0095D0E2 /* QuantumError.swift */; };
 		FFD01AE722749D0A0095D0E2 /* QuantumError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD01AE522749D0A0095D0E2 /* QuantumError.swift */; };
+		FFD01AE92274D53A0095D0E2 /* GeneticError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD01AE82274D53A0095D0E2 /* GeneticError.swift */; };
+		FFD01AEA2274D53A0095D0E2 /* GeneticError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD01AE82274D53A0095D0E2 /* GeneticError.swift */; };
 		FFDC34E221C1BCBD0052AC90 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC34E121C1BCBD0052AC90 /* Backend.swift */; };
 		FFDC34E321C1BCBD0052AC90 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC34E121C1BCBD0052AC90 /* Backend.swift */; };
 		FFDEDF1B216968F4005590B4 /* PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE25214E749200AD1F78 /* PositionView.swift */; };
@@ -666,6 +668,7 @@
 		FFCC729C221CB98400D28A5D /* MainFitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFitness.swift; sourceTree = "<group>"; };
 		FFCC729F221CC1D600D28A5D /* MainGeneticCircuitMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticCircuitMutation.swift; sourceTree = "<group>"; };
 		FFD01AE522749D0A0095D0E2 /* QuantumError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantumError.swift; sourceTree = "<group>"; };
+		FFD01AE82274D53A0095D0E2 /* GeneticError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticError.swift; sourceTree = "<group>"; };
 		FFDC34E121C1BCBD0052AC90 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		FFE1A95222232CD500A2F285 /* MainInitialPopulationProducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInitialPopulationProducerTests.swift; sourceTree = "<group>"; };
 		FFE1A95522232D8500A2F285 /* GeneticCircuitEvaluatorTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticCircuitEvaluatorTestDouble.swift; sourceTree = "<group>"; };
@@ -1424,6 +1427,7 @@
 		FFD01AE422747CA10095D0E2 /* Error */ = {
 			isa = PBXGroup;
 			children = (
+				FFD01AE82274D53A0095D0E2 /* GeneticError.swift */,
 				FFD01AE522749D0A0095D0E2 /* QuantumError.swift */,
 			);
 			path = Error;
@@ -1858,6 +1862,7 @@
 				FF1AAFE2211F372800D3666A /* RegisterGateFactory.swift in Sources */,
 				FFE1D70D211A1AEB00A50D9C /* Vector.swift in Sources */,
 				FF3EAC90212DF9E4007AF61E /* BackendRegisterGateFactoryAdapter.swift in Sources */,
+				FFD01AE92274D53A0095D0E2 /* GeneticError.swift in Sources */,
 				FF8B9D9821BD979000A28E34 /* BackendGate.swift in Sources */,
 				FF5920ED2221B95400C86F6A /* MainInitialPopulationProducerFactory.swift in Sources */,
 				FFFEFD2F21333EFD0063B559 /* Matrix+Not.swift in Sources */,
@@ -2016,6 +2021,7 @@
 				FF002BCB21FCC0E700E40C3A /* MainGeneticUseCaseEvaluator.swift in Sources */,
 				FF663D3B216A2470002298BA /* CrossedLinesPositionView.swift in Sources */,
 				FFD01AE722749D0A0095D0E2 /* QuantumError.swift in Sources */,
+				FFD01AEA2274D53A0095D0E2 /* GeneticError.swift in Sources */,
 				FF663D35216A1F28002298BA /* ControlledNotUpPositionView.swift in Sources */,
 				FF5920DF22219E2400C86F6A /* GeneticPopulationReproduction.swift in Sources */,
 				FF663D2F216A1CBC002298BA /* ControlDownPositionView.swift in Sources */,

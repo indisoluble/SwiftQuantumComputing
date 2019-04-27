@@ -71,15 +71,7 @@ extension MainGeneticPopulationMutation: GeneticPopulationMutation {
             throw GeneticPopulationMutationAppliedError.populationIsEmpty
         }
 
-        var mutated: [GeneticGate]?
-        do {
-            mutated = try mutation.execute(winner.circuit)
-        } catch GeneticCircuitMutationExecuteError.gateInMutationRequiresMoreQubitsThatAreAvailable(let gate) {
-            throw GeneticPopulationMutationAppliedError.gateInMutationRequiresMoreQubitsThatAreAvailable(gate: gate)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
+        let mutated = try mutation.execute(winner.circuit)
         guard let actualMutated = mutated else {
             return nil
         }

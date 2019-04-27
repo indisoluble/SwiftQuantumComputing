@@ -1,8 +1,8 @@
 //
-//  GeneticGate.swift
+//  GeneticError.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 24/01/2019.
+//  Created by Enrique de la Torre on 27/04/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticGateMakeFixedError: Error {
-    case truthTableQubitCountHasToBeBiggerThanZero
-}
-
-// MARK: - Protocol definition
-
-protocol GeneticGate {
-    typealias Fixed = (gate: FixedGate, didUseTruthTable: Bool)
-
-    func makeFixed(truthTable: [String], truthTableQubitCount: Int) throws -> Fixed
+enum GeneticError: Error {
+    case gateInputCountIsBiggerThanCircuitQubitCount
 }

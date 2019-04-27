@@ -71,8 +71,6 @@ extension MainInitialPopulationProducer: InitialPopulationProducer {
                 circuitScore = score.calculate(evaluation)
             } catch GeneticGatesRandomizerMakeError.depthHasToBeAPositiveNumber {
                 circuitError = InitialPopulationProducerExecuteError.populationDepthHasToBeAPositiveNumber
-            } catch GeneticGatesRandomizerMakeError.gateRequiresMoreQubitsThatAreAvailable(let gate) {
-                circuitError = InitialPopulationProducerExecuteError.gateRequiredMoreQubitsThatAreAvailable(gate: gate)
             } catch GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(let errors) {
                 circuitError = InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: errors)
             } catch {

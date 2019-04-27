@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-public enum GateMakeFixedError: Error {
-    case notEnoughInputsToProduceAGate
-}
-
 // MARK: - Protocol definition
 
 public protocol Gate {

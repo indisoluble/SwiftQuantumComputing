@@ -62,8 +62,6 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
                                                                 useCase: useCase)
         } catch OracleCircuitFactoryMakeOracleCircuitError.truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(_) {
             throw GeneticUseCaseEvaluationError.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
-        } catch OracleCircuitFactoryMakeOracleCircuitError.truthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle(_) {
-            throw GeneticUseCaseEvaluationError.useCaseTruthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle
         } catch {
             fatalError("Unexpected error: \(error).")
         }

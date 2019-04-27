@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticCircuitMutationExecuteError: Error {
-    case gateInMutationRequiresMoreQubitsThatAreAvailable(gate: Gate)
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticCircuitMutation {

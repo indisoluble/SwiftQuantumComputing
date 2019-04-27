@@ -41,8 +41,6 @@ extension MainOracleCircuitFactory: OracleCircuitFactory {
                 fixed = try gg.makeFixed(truthTable: tt, truthTableQubitCount: ttCount)
             } catch GeneticGateMakeFixedError.truthTableQubitCountHasToBeBiggerThanZero {
                 throw OracleCircuitFactoryMakeOracleCircuitError.truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(at: index)
-            } catch GeneticGateMakeFixedError.truthTableRequiresMoreInputQubitsThatAreAvailable {
-                throw OracleCircuitFactoryMakeOracleCircuitError.truthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle(at: index)
             } catch {
                 fatalError("Unexpected error: \(error).")
             }
