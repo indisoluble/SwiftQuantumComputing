@@ -30,37 +30,17 @@ struct Register {
 
     // MARK: - Internal init methods
 
-    enum InitQubitCountError: Error {
-        case qubitCountHasToBeBiggerThanZero
-    }
-
-    init(qubitCount: Int) throws {
-        guard qubitCount > 0 else {
-            throw InitQubitCountError.qubitCountHasToBeBiggerThanZero
-        }
-
-        try! self.init(bits: String(repeating: "0", count: qubitCount))
-    }
-
-    enum InitBitsError: Error {
-        case provideNonEmptyStringComposedOnlyOfZerosAndOnes
-    }
-
     init(bits: String) throws {
         guard let value = Int(bits, radix: 2) else {
-            throw InitBitsError.provideNonEmptyStringComposedOnlyOfZerosAndOnes
+            throw QuantumError.circuitInputBitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
 
         try! self.init(vector: Register.makeState(value: value, qubitCount: bits.count))
     }
 
-    enum InitVectorError: Error {
-        case additionOfSquareModulusIsNotEqualToOne
-    }
-
     init(vector: Vector) throws {
         guard Register.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
-            throw InitVectorError.additionOfSquareModulusIsNotEqualToOne
+            throw QuantumError.circuitAdditionOfSquareModulusIsNotEqualToOne
         }
 
         self.vector = vector
@@ -91,35 +71,29 @@ extension Register: BackendRegister {
         do {
             nextVector = try gate.apply(to: vector)
         } catch RegisterGate.ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount {
-            throw BackendRegisterApplyingError.gateDoesNotHaveValidDimension
+            throw QuantumError.gateQubitCountDoesNotMatchCircuitQubitCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
-        do {
-            return try Register(vector: nextVector)
-        } catch Register.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
-            throw BackendRegisterApplyingError.additionOfSquareModulusInNextRegisterIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return try Register(vector: nextVector)
     }
 
     func measure(qubits: [Int]) throws -> [Double] {
         guard qubits.count > 0 else {
-            throw BackendRegisterMeasureError.emptyQubitList
+            throw QuantumError.measuredQubitsCanNotBeAnEmptyList
         }
 
         guard areQubitsUnique(qubits) else {
-            throw BackendRegisterMeasureError.qubitsAreNotUnique
+            throw QuantumError.measuredQubitsAreNotUnique
         }
 
         guard areQubitsInBound(qubits) else {
-            throw BackendRegisterMeasureError.qubitsAreNotInBound
+            throw QuantumError.measuredQubitsAreNotInBound
         }
 
         guard areQubitsSorted(qubits) else {
-            throw BackendRegisterMeasureError.qubitsAreNotSorted
+            throw QuantumError.measuredQubitsAreNotSorted
         }
 
         var result = Array(repeating: Double(0), count: Int.pow(2, qubits.count))

@@ -23,14 +23,8 @@ import Foundation
 // MARK: - Errors
 
 public enum CircuitMeasureError: Error {
-    case informBitsAsANonEmptyStringComposedOnlyOfZerosAndOnes
     case unableToExtractMatrixFromGate(at: Int)
     case gateDoesNotHaveValidDimension(at: Int)
-    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: Int)
-    case emptyQubitList
-    case qubitsAreNotUnique
-    case qubitsAreNotInBound
-    case qubitsAreNotSorted
 }
 
 // MARK: - Protocol definition

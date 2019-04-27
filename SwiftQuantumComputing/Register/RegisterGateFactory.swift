@@ -46,7 +46,7 @@ struct RegisterGateFactory {
 
         let matrixQubitCount = Int.log2(baseMatrix.rowCount)
         guard (matrixQubitCount <= qubitCount) else {
-            throw QuantumError.gateMatrixHandlesMoreQubitsThanAreAvailable
+            throw QuantumError.gateMatrixHandlesMoreQubitsThatGateActuallyHas
         }
 
         self.qubitCount = qubitCount

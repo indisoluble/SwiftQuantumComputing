@@ -21,12 +21,19 @@
 import Foundation
 
 enum QuantumError: Error {
+    case circuitAdditionOfSquareModulusIsNotEqualToOne
+    case circuitInputBitsAreNotAStringComposedOnlyOfZerosAndOnes
     case gateInputCountDoesNotMatchGateMatrixQubitCount
     case gateInputsAreNotInBound
     case gateInputsAreNotUnique
     case gateMatrixIsNotSquare
     case gateMatrixIsNotUnitary
     case gateMatrixRowCountHasToBeAPowerOfTwo
-    case gateMatrixHandlesMoreQubitsThanAreAvailable
+    case gateMatrixHandlesMoreQubitsThatGateActuallyHas
+    case gateQubitCountDoesNotMatchCircuitQubitCount
     case gateQubitCountHasToBeBiggerThanZero
+    case measuredQubitsAreNotInBound
+    case measuredQubitsAreNotSorted
+    case measuredQubitsAreNotUnique
+    case measuredQubitsCanNotBeAnEmptyList
 }

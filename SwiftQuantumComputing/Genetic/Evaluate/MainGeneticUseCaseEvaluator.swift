@@ -75,16 +75,10 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
         var measures: [Double]!
         do {
             measures = try circuit.measure(qubits: qubits, afterInputting: input)
-        } catch CircuitMeasureError.informBitsAsANonEmptyStringComposedOnlyOfZerosAndOnes {
-            throw GeneticUseCaseEvaluationError.useCaseCircuitInputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
         } catch CircuitMeasureError.unableToExtractMatrixFromGate(let index) {
             throw GeneticUseCaseEvaluationError.unableToExtractMatrix(gate: circuit.gates[index])
         } catch CircuitMeasureError.gateDoesNotHaveValidDimension(let index) {
             throw GeneticUseCaseEvaluationError.gateDoesNotHaveValidDimension(gate: circuit.gates[index])
-        } catch CircuitMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(let index) {
-            throw GeneticUseCaseEvaluationError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(gate: circuit.gates[index])
-        } catch CircuitMeasureError.qubitsAreNotInBound {
-            throw GeneticUseCaseEvaluationError.evaluatorForCircuitWithMoreQubits
         } catch {
             fatalError("Unexpected error: \(error).")
         }

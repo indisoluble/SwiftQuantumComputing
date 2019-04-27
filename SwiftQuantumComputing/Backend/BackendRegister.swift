@@ -20,20 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum BackendRegisterApplyingError: Error {
-    case gateDoesNotHaveValidDimension
-    case additionOfSquareModulusInNextRegisterIsNotEqualToOne
-}
-
-enum BackendRegisterMeasureError: Error {
-    case emptyQubitList
-    case qubitsAreNotUnique
-    case qubitsAreNotInBound
-    case qubitsAreNotSorted
-}
-
 // MARK: - Protocol definition
 
 protocol BackendRegister {

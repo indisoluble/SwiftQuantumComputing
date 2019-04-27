@@ -64,14 +64,7 @@ extension CircuitFacade: CustomPlaygroundDisplayConvertible {
 
 extension CircuitFacade: Circuit {
     func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
-        var register: BackendRegister!
-        do {
-            register = try factory.makeRegister(bits: bits)
-        } catch BackendRegisterFactoryMakeRegisterError.provideNonEmptyStringComposedOnlyOfZerosAndOnes {
-            throw CircuitMeasureError.informBitsAsANonEmptyStringComposedOnlyOfZerosAndOnes
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let register = try factory.makeRegister(bits: bits)
 
         do {
             return try backend.measure(qubits: qubits, in: (register: register, gates: gates))
@@ -79,16 +72,6 @@ extension CircuitFacade: Circuit {
             throw CircuitMeasureError.unableToExtractMatrixFromGate(at: index)
         } catch BackendMeasureError.gateDoesNotHaveValidDimension(let index) {
             throw CircuitMeasureError.gateDoesNotHaveValidDimension(at: index)
-        } catch BackendMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(let index) {
-            throw CircuitMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: index)
-        } catch BackendMeasureError.emptyQubitList {
-            throw CircuitMeasureError.emptyQubitList
-        } catch BackendMeasureError.qubitsAreNotUnique {
-            throw CircuitMeasureError.qubitsAreNotUnique
-        } catch BackendMeasureError.qubitsAreNotInBound {
-            throw CircuitMeasureError.qubitsAreNotInBound
-        } catch BackendMeasureError.qubitsAreNotSorted {
-            throw CircuitMeasureError.qubitsAreNotSorted
         } catch {
             fatalError("Unexpected error: \(error).")
         }

@@ -53,30 +53,9 @@ extension BackendFacade: Backend {
 
             let registerGate = try factory.makeGate(matrix: components.matrix,
                                                     inputs: components.inputs)
-
-            do {
-                register = try register.applying(registerGate)
-            } catch BackendRegisterApplyingError.gateDoesNotHaveValidDimension {
-                throw BackendMeasureError.gateDoesNotHaveValidDimension(at: index)
-            } catch BackendRegisterApplyingError.additionOfSquareModulusInNextRegisterIsNotEqualToOne {
-                throw BackendMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: index)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
+            register = try register.applying(registerGate)
         }
 
-        do {
-            return try register.measure(qubits: qubits)
-        } catch BackendRegisterMeasureError.emptyQubitList {
-            throw BackendMeasureError.emptyQubitList
-        } catch BackendRegisterMeasureError.qubitsAreNotUnique {
-            throw BackendMeasureError.qubitsAreNotUnique
-        } catch BackendRegisterMeasureError.qubitsAreNotInBound {
-            throw BackendMeasureError.qubitsAreNotInBound
-        } catch BackendRegisterMeasureError.qubitsAreNotSorted {
-            throw BackendMeasureError.qubitsAreNotSorted
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return try register.measure(qubits: qubits)
     }
 }

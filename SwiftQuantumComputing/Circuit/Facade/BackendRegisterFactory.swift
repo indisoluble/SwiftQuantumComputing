@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum BackendRegisterFactoryMakeRegisterError: Error {
-    case provideNonEmptyStringComposedOnlyOfZerosAndOnes
-}
-
 // MARK: - Protocol definition
 
 protocol BackendRegisterFactory {

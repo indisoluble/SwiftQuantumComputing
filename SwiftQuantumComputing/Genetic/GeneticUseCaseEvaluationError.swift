@@ -26,10 +26,8 @@ public enum GeneticUseCaseEvaluationError: Error {
     case evaluatorForCircuitWithMoreQubits
     case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
     case useCaseTruthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle
-    case useCaseCircuitInputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
     case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
     case useCaseCircuitOutputHasMoreQubitsThatCircuitHas
     case unableToExtractMatrix(gate: FixedGate)
     case gateDoesNotHaveValidDimension(gate: FixedGate)
-    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(gate: FixedGate)
 }
