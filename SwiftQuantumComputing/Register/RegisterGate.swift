@@ -51,7 +51,7 @@ struct RegisterGate {
     func apply(to vector: Vector) throws -> Vector {
         do {
             return try matrix * vector
-        } catch Vector.ProductError.parametersDoNotHaveValidDimensions {
+        } catch Vector.ProductError.matrixColumnCountDoesNotMatchVectorCount {
             throw ApplyError.vectorDoesNotHaveValidDimension
         } catch {
             fatalError("Unexpected error: \(error).")
