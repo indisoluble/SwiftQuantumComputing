@@ -29,7 +29,6 @@ public enum GeneticFactoryEvolveCircuitError: Error {
     case configurationTournamentSizeHasToBeBiggerThanZero
     case useCaseListIsEmpty
     case useCasesDoNotSpecifySameCircuitQubitCount
-    case useCaseCircuitQubitCountHasToBeBiggerThanZero
     case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
 }
 

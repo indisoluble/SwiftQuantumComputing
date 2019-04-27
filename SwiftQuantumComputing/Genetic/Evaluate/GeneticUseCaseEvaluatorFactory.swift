@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticUseCaseEvaluatorFactoryMakeEvaluatorError: Error {
-    case qubitCountHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticUseCaseEvaluatorFactory {

@@ -41,15 +41,8 @@ extension MainGeneticCircuitEvaluatorFactory: GeneticCircuitEvaluatorFactory {
     func makeEvaluator(qubitCount: Int,
                        threshold: Double,
                        useCases: [GeneticUseCase]) throws -> GeneticCircuitEvaluator {
-        var evaluators: [GeneticUseCaseEvaluator]!
-        do {
-            evaluators = try useCases.map {
-                try factory.makeEvaluator(qubitCount: qubitCount, useCase: $0)
-            }
-        } catch GeneticUseCaseEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero {
-            throw GeneticCircuitEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
+        let evaluators = try useCases.map {
+            try factory.makeEvaluator(qubitCount: qubitCount, useCase: $0)
         }
 
         return MainGeneticCircuitEvaluator(threshold: threshold, evaluators: evaluators)

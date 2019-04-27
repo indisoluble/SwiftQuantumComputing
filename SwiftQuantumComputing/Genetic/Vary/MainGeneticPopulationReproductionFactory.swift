@@ -51,16 +51,9 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
                           gates: [Gate]) throws -> GeneticPopulationReproduction {
-        var evaluator: GeneticCircuitEvaluator!
-        do {
-            evaluator = try evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
+        let evaluator = try evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
                                                            threshold: threshold,
                                                            useCases: useCases)
-        } catch GeneticCircuitEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero {
-            throw GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
 
         var mutation: GeneticPopulationMutation!
         do {

@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticCircuitEvaluatorFactoryMakeEvaluatorError: Error {
-    case qubitCountHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticCircuitEvaluatorFactory {

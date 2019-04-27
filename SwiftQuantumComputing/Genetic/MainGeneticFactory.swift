@@ -121,8 +121,6 @@ extension MainGeneticFactory: GeneticFactory {
                                                                     maxDepth: maxDepth,
                                                                     useCases: useCases,
                                                                     gates: gates)
-        } catch GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero {
-            throw GeneticFactoryEvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
         } catch GeneticPopulationReproductionFactoryMakeReproductionError.tournamentSizeHasToBeBiggerThanZero {
             throw GeneticFactoryEvolveCircuitError.configurationTournamentSizeHasToBeBiggerThanZero
         } catch {

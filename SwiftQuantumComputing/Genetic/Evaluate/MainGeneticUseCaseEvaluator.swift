@@ -33,16 +33,12 @@ struct MainGeneticUseCaseEvaluator {
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
-        case qubitCountHasToBeBiggerThanZero
-    }
-
     init(qubitCount: Int,
          useCase: GeneticUseCase,
          factory: CircuitFactory,
          oracleFactory: OracleCircuitFactory) throws {
         guard qubitCount > 0 else {
-            throw InitError.qubitCountHasToBeBiggerThanZero
+            throw GeneticError.useCaseCircuitQubitCountHasToBeBiggerThanZero
         }
 
         self.qubits = Array((0..<qubitCount).reversed())
