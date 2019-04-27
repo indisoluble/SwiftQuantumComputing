@@ -30,13 +30,6 @@ public enum GeneticUseCaseEvaluationError: Error {
     case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
     case useCaseCircuitOutputHasMoreQubitsThatCircuitHas
     case unableToExtractMatrix(gate: FixedGate)
-    case gateMatrixIsNotSquare(gate: FixedGate)
-    case gateMatrixRowCountHasToBeAPowerOfTwo(gate: FixedGate)
-    case gateMatrixHandlesMoreQubitsThanAreAvailable(gate: FixedGate)
-    case gateInputCountDoesNotMatchMatrixQubitCount(gate: FixedGate)
-    case gateInputsAreNotUnique(gate: FixedGate)
-    case gateInputsAreNotInBound(gate: FixedGate)
-    case gateIsNotUnitary(gate: FixedGate)
     case gateDoesNotHaveValidDimension(gate: FixedGate)
     case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(gate: FixedGate)
 }

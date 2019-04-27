@@ -380,6 +380,8 @@
 		FFCC729E221CB98400D28A5D /* MainFitness.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCC729C221CB98400D28A5D /* MainFitness.swift */; };
 		FFCC72A0221CC1D600D28A5D /* MainGeneticCircuitMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCC729F221CC1D600D28A5D /* MainGeneticCircuitMutation.swift */; };
 		FFCC72A1221CC1D600D28A5D /* MainGeneticCircuitMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCC729F221CC1D600D28A5D /* MainGeneticCircuitMutation.swift */; };
+		FFD01AE622749D0A0095D0E2 /* QuantumError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD01AE522749D0A0095D0E2 /* QuantumError.swift */; };
+		FFD01AE722749D0A0095D0E2 /* QuantumError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD01AE522749D0A0095D0E2 /* QuantumError.swift */; };
 		FFDC34E221C1BCBD0052AC90 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC34E121C1BCBD0052AC90 /* Backend.swift */; };
 		FFDC34E321C1BCBD0052AC90 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC34E121C1BCBD0052AC90 /* Backend.swift */; };
 		FFDEDF1B216968F4005590B4 /* PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE25214E749200AD1F78 /* PositionView.swift */; };
@@ -663,6 +665,7 @@
 		FFCC7299221CB8E100D28A5D /* Fitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness.swift; sourceTree = "<group>"; };
 		FFCC729C221CB98400D28A5D /* MainFitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFitness.swift; sourceTree = "<group>"; };
 		FFCC729F221CC1D600D28A5D /* MainGeneticCircuitMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticCircuitMutation.swift; sourceTree = "<group>"; };
+		FFD01AE522749D0A0095D0E2 /* QuantumError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantumError.swift; sourceTree = "<group>"; };
 		FFDC34E121C1BCBD0052AC90 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		FFE1A95222232CD500A2F285 /* MainInitialPopulationProducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInitialPopulationProducerTests.swift; sourceTree = "<group>"; };
 		FFE1A95522232D8500A2F285 /* GeneticCircuitEvaluatorTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticCircuitEvaluatorTestDouble.swift; sourceTree = "<group>"; };
@@ -1010,6 +1013,7 @@
 				FF3EAC7C212DEA51007AF61E /* Circuit */,
 				FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */,
 				FFB8106621C6FEC8006333BB /* Drawer */,
+				FFD01AE422747CA10095D0E2 /* Error */,
 				FF1AAFEC211F61AF00D3666A /* Extension */,
 				FFF697F021BF23C7004AE4C2 /* FixedGate */,
 				FFB8106521C6E747006333BB /* Gate */,
@@ -1416,6 +1420,14 @@
 			path = Fitness;
 			sourceTree = "<group>";
 		};
+		FFD01AE422747CA10095D0E2 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				FFD01AE522749D0A0095D0E2 /* QuantumError.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
 		FFDEDF1A216968BD005590B4 /* PositionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1801,6 +1813,7 @@
 				FFE1D70B211A1AEB00A50D9C /* Complex.swift in Sources */,
 				FF9FBCD321C56C270070D943 /* Gate.swift in Sources */,
 				FF6AF8F42214C4BD00B35ECC /* GeneticGatesRandomizer.swift in Sources */,
+				FFD01AE622749D0A0095D0E2 /* QuantumError.swift in Sources */,
 				FF9BBE3C214E816D00AD1F78 /* PhaseShiftPositionView.swift in Sources */,
 				FFC596512203B30D00151355 /* GeneticConfiguration.swift in Sources */,
 				FF2D447321FA73B5002515EF /* ConfigurableGeneticGate.swift in Sources */,
@@ -2002,6 +2015,7 @@
 				FF79037221964D6F00FFC31D /* String+Bits.swift in Sources */,
 				FF002BCB21FCC0E700E40C3A /* MainGeneticUseCaseEvaluator.swift in Sources */,
 				FF663D3B216A2470002298BA /* CrossedLinesPositionView.swift in Sources */,
+				FFD01AE722749D0A0095D0E2 /* QuantumError.swift in Sources */,
 				FF663D35216A1F28002298BA /* ControlledNotUpPositionView.swift in Sources */,
 				FF5920DF22219E2400C86F6A /* GeneticPopulationReproduction.swift in Sources */,
 				FF663D2F216A1CBC002298BA /* ControlDownPositionView.swift in Sources */,

@@ -79,20 +79,6 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
             throw GeneticUseCaseEvaluationError.useCaseCircuitInputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
         } catch CircuitMeasureError.unableToExtractMatrixFromGate(let index) {
             throw GeneticUseCaseEvaluationError.unableToExtractMatrix(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateMatrixIsNotSquare(let index) {
-            throw GeneticUseCaseEvaluationError.gateMatrixIsNotSquare(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(let index) {
-            throw GeneticUseCaseEvaluationError.gateMatrixRowCountHasToBeAPowerOfTwo(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(let index) {
-            throw GeneticUseCaseEvaluationError.gateMatrixHandlesMoreQubitsThanAreAvailable(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(let index) {
-            throw GeneticUseCaseEvaluationError.gateInputCountDoesNotMatchMatrixQubitCount(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateInputsAreNotUnique(let index) {
-            throw GeneticUseCaseEvaluationError.gateInputsAreNotUnique(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateInputsAreNotInBound(let index) {
-            throw GeneticUseCaseEvaluationError.gateInputsAreNotInBound(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateIsNotUnitary(let index) {
-            throw GeneticUseCaseEvaluationError.gateIsNotUnitary(gate: circuit.gates[index])
         } catch CircuitMeasureError.gateDoesNotHaveValidDimension(let index) {
             throw GeneticUseCaseEvaluationError.gateDoesNotHaveValidDimension(gate: circuit.gates[index])
         } catch CircuitMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(let index) {

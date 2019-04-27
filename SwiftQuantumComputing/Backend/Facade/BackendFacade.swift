@@ -51,27 +51,8 @@ extension BackendFacade: Backend {
                 fatalError("Unexpected error: \(error).")
             }
 
-            var registerGate: RegisterGate!
-            do {
-                registerGate = try factory.makeGate(matrix: components.matrix,
+            let registerGate = try factory.makeGate(matrix: components.matrix,
                                                     inputs: components.inputs)
-            } catch BackendRegisterGateFactoryMakeGateError.matrixIsNotSquare {
-                throw BackendMeasureError.gateMatrixIsNotSquare(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.matrixRowCountHasToBeAPowerOfTwo {
-                throw BackendMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.matrixHandlesMoreQubitsThanAreAvailable {
-                throw BackendMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.inputCountDoesNotMatchMatrixQubitCount {
-                throw BackendMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.inputsAreNotUnique {
-                throw BackendMeasureError.gateInputsAreNotUnique(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.inputsAreNotInBound {
-                throw BackendMeasureError.gateInputsAreNotInBound(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.gateIsNotUnitary {
-                throw BackendMeasureError.gateIsNotUnitary(at: index)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
 
             do {
                 register = try register.applying(registerGate)

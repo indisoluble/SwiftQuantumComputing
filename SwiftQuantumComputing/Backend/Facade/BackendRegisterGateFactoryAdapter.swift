@@ -56,31 +56,8 @@ extension BackendRegisterGateFactoryAdapter: Equatable {
 
 extension BackendRegisterGateFactoryAdapter: BackendRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
-        var factory: RegisterGateFactory!
-        do {
-            factory = try RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix)
-        } catch RegisterGateFactory.InitError.matrixIsNotSquare {
-            throw BackendRegisterGateFactoryMakeGateError.matrixIsNotSquare
-        } catch RegisterGateFactory.InitError.matrixRowCountHasToBeAPowerOfTwo {
-            throw BackendRegisterGateFactoryMakeGateError.matrixRowCountHasToBeAPowerOfTwo
-        } catch RegisterGateFactory.InitError.matrixHandlesMoreQubitsThanAreAvailable {
-            throw BackendRegisterGateFactoryMakeGateError.matrixHandlesMoreQubitsThanAreAvailable
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let factory = try RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix)
 
-        do {
-            return try factory.makeGate(inputs: inputs)
-        } catch RegisterGateFactory.MakeGateError.inputCountDoesNotMatchBaseMatrixQubitCount {
-            throw BackendRegisterGateFactoryMakeGateError.inputCountDoesNotMatchMatrixQubitCount
-        } catch RegisterGateFactory.MakeGateError.inputsAreNotUnique {
-            throw BackendRegisterGateFactoryMakeGateError.inputsAreNotUnique
-        } catch RegisterGateFactory.MakeGateError.inputsAreNotInBound {
-            throw BackendRegisterGateFactoryMakeGateError.inputsAreNotInBound
-        } catch RegisterGateFactory.MakeGateError.gateIsNotUnitary {
-            throw BackendRegisterGateFactoryMakeGateError.gateIsNotUnitary
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return try factory.makeGate(inputs: inputs)
     }
 }

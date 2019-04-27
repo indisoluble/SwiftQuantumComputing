@@ -77,20 +77,6 @@ extension CircuitFacade: Circuit {
             return try backend.measure(qubits: qubits, in: (register: register, gates: gates))
         } catch BackendMeasureError.unableToExtractMatrixFromGate(let index) {
             throw CircuitMeasureError.unableToExtractMatrixFromGate(at: index)
-        } catch BackendMeasureError.gateMatrixIsNotSquare(let index) {
-            throw CircuitMeasureError.gateMatrixIsNotSquare(at: index)
-        } catch BackendMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(let index) {
-            throw CircuitMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(at: index)
-        } catch BackendMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(let index) {
-            throw CircuitMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(at: index)
-        } catch BackendMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(let index) {
-            throw CircuitMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(at: index)
-        } catch BackendMeasureError.gateInputsAreNotUnique(let index) {
-            throw CircuitMeasureError.gateInputsAreNotUnique(at: index)
-        } catch BackendMeasureError.gateInputsAreNotInBound(let index) {
-            throw CircuitMeasureError.gateInputsAreNotInBound(at: index)
-        } catch BackendMeasureError.gateIsNotUnitary(let index) {
-            throw CircuitMeasureError.gateIsNotUnitary(at: index)
         } catch BackendMeasureError.gateDoesNotHaveValidDimension(let index) {
             throw CircuitMeasureError.gateDoesNotHaveValidDimension(at: index)
         } catch BackendMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(let index) {

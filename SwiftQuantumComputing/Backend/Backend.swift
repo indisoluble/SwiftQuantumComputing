@@ -24,13 +24,6 @@ import Foundation
 
 enum BackendMeasureError: Error {
     case unableToExtractMatrixFromGate(at: Int)
-    case gateMatrixIsNotSquare(at: Int)
-    case gateMatrixRowCountHasToBeAPowerOfTwo(at: Int)
-    case gateMatrixHandlesMoreQubitsThanAreAvailable(at: Int)
-    case gateInputCountDoesNotMatchMatrixQubitCount(at: Int)
-    case gateInputsAreNotUnique(at: Int)
-    case gateInputsAreNotInBound(at: Int)
-    case gateIsNotUnitary(at: Int)
     case gateDoesNotHaveValidDimension(at: Int)
     case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: Int)
     case emptyQubitList
