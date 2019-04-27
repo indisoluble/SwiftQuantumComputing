@@ -24,7 +24,6 @@ import Foundation
 
 public enum GeneticUseCaseEvaluationError: Error {
     case evaluatorForCircuitWithMoreQubits
-    case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
     case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
     case useCaseCircuitOutputHasMoreQubitsThatCircuitHas
 }

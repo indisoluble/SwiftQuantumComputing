@@ -56,15 +56,8 @@ struct MainGeneticUseCaseEvaluator {
 
 extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
     func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Double {
-        var oracleCircuit: OracleCircuitFactory.OracleCircuit!
-        do {
-            oracleCircuit = try oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
+        let oracleCircuit = try oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
                                                                 useCase: useCase)
-        } catch OracleCircuitFactoryMakeOracleCircuitError.truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(_) {
-            throw GeneticUseCaseEvaluationError.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
 
         let gates = oracleCircuit.circuit
         let circuit = try! factory.makeCircuit(qubitCount: qubits.count, gates: gates)

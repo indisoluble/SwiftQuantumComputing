@@ -22,4 +22,5 @@ import Foundation
 
 enum GeneticError: Error {
     case gateInputCountIsBiggerThanCircuitQubitCount
+    case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
 }

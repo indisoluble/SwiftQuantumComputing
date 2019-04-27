@@ -36,14 +36,7 @@ extension MainOracleCircuitFactory: OracleCircuitFactory {
         var oracleIndex: Int? = nil
 
         for (index, gg) in geneticCircuit.enumerated() {
-            var fixed: GeneticGate.Fixed!
-            do {
-                fixed = try gg.makeFixed(truthTable: tt, truthTableQubitCount: ttCount)
-            } catch GeneticGateMakeFixedError.truthTableQubitCountHasToBeBiggerThanZero {
-                throw OracleCircuitFactoryMakeOracleCircuitError.truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(at: index)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
+            let fixed = try gg.makeFixed(truthTable: tt, truthTableQubitCount: ttCount)
 
             var doAppendGate = true
             if fixed.didUseTruthTable {
