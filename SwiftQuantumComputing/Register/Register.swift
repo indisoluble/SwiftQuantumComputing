@@ -90,7 +90,7 @@ extension Register: BackendRegister {
         var nextVector: Vector!
         do {
             nextVector = try gate.apply(to: vector)
-        } catch RegisterGate.ApplyError.vectorDoesNotHaveValidDimension {
+        } catch RegisterGate.ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount {
             throw BackendRegisterApplyingError.gateDoesNotHaveValidDimension
         } catch {
             fatalError("Unexpected error: \(error).")

@@ -24,8 +24,8 @@ enum QuantumError: Error {
     case gateInputCountDoesNotMatchGateMatrixQubitCount
     case gateInputsAreNotInBound
     case gateInputsAreNotUnique
-    case gateIsNotUnitary
     case gateMatrixIsNotSquare
+    case gateMatrixIsNotUnitary
     case gateMatrixRowCountHasToBeAPowerOfTwo
     case gateMatrixHandlesMoreQubitsThanAreAvailable
     case gateQubitCountHasToBeBiggerThanZero

@@ -30,13 +30,9 @@ struct RegisterGate {
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
-        case matrixIsNotUnitary
-    }
-
     init(matrix: Matrix) throws {
         guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            throw InitError.matrixIsNotUnitary
+            throw QuantumError.gateMatrixIsNotUnitary
         }
 
         self.matrix = matrix
@@ -45,14 +41,14 @@ struct RegisterGate {
     // MARK: - Internal methods
 
     enum ApplyError: Error {
-        case vectorDoesNotHaveValidDimension
+        case vectorCountDoesNotMatchGateMatrixColumnCount
     }
 
     func apply(to vector: Vector) throws -> Vector {
         do {
             return try matrix * vector
         } catch Vector.ProductError.matrixColumnCountDoesNotMatchVectorCount {
-            throw ApplyError.vectorDoesNotHaveValidDimension
+            throw ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }

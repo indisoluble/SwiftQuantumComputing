@@ -70,13 +70,7 @@ struct RegisterGateFactory {
 
         let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })
 
-        do {
-            return try RegisterGate(matrix: extended)
-        } catch RegisterGate.InitError.matrixIsNotUnitary {
-            throw QuantumError.gateIsNotUnitary
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return try RegisterGate(matrix: extended)
     }
 }
 
