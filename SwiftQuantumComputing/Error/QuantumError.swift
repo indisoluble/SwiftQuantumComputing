@@ -23,6 +23,7 @@ import Foundation
 enum QuantumError: Error {
     case circuitAdditionOfSquareModulusIsNotEqualToOne
     case circuitInputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    case circuitQubitCountHasToBeBiggerThanZero
     case gateInputCountDoesNotMatchGateMatrixQubitCount
     case gateInputsAreNotInBound
     case gateInputsAreNotUnique

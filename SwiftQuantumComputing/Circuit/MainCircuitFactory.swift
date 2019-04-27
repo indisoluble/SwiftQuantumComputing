@@ -33,17 +33,9 @@ public struct MainCircuitFactory {
 
 extension MainCircuitFactory: CircuitFactory {
     public func makeCircuit(qubitCount: Int, gates: [FixedGate]) throws -> Circuit {
-        var drawer: CircuitViewDrawer!
-        do {
-            drawer = try CircuitViewDrawer(qubitCount: qubitCount)
-        } catch CircuitViewDrawer.InitError.qubitCountHasToBeBiggerThanZero {
-            throw CircuitFactoryMakeCircuitError.qubitCountHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let drawer = try CircuitViewDrawer(qubitCount: qubitCount)
 
         let gateFactory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
-
         let backend = BackendFacade(factory: gateFactory)
 
         let registerFactory = BackendRegisterFactoryAdapter()
