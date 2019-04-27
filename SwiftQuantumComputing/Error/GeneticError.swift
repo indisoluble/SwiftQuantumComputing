@@ -24,6 +24,7 @@ enum GeneticError: Error {
     case configurationDepthHasToBeAPositiveNumber
     case configurationPopulationSizeHasToBeBiggerThanZero
     case gateInputCountIsBiggerThanCircuitQubitCount
+    case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
     case useCaseCircuitQubitCountHasToBeBiggerThanZero
     case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
 }

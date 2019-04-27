@@ -133,8 +133,6 @@ extension MainGeneticFactory: GeneticFactory {
             population = try initialPopulation.execute(size: initSize, depth: config.depth)
         } catch InitialPopulationProducerExecuteError.populationSizeHasToBeBiggerThanZero {
             throw GeneticFactoryEvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
-        } catch InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(let errors) {
-            throw GeneticFactoryEvolveCircuitError.useCaseEvaluatorsThrowed(errors: errors)
         } catch {
             fatalError("Unexpected error: \(error).")
         }
@@ -148,15 +146,7 @@ extension MainGeneticFactory: GeneticFactory {
         while (candidate.eval > errProb) && (currGen < genCount) && (population.count < maxSize) {
             os_log("Init. generation %d...", log: MainGeneticFactory.logger, type: .info, currGen)
 
-            var offspring: [Fitness.EvalCircuit]!
-            do {
-                offspring = try reproduction.applied(to: population)
-            } catch GeneticPopulationReproductionAppliedError.useCaseEvaluatorsThrowed(let errors) {
-                throw GeneticFactoryEvolveCircuitError.useCaseEvaluatorsThrowed(errors: errors)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
-
+            let offspring = try reproduction.applied(to: population)
             if (offspring.isEmpty) {
                 os_log("evolveCircuit: empty offspr.", log: MainGeneticFactory.logger, type: .debug)
             } else {

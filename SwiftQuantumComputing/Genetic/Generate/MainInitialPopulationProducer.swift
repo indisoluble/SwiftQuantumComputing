@@ -57,22 +57,20 @@ extension MainInitialPopulationProducer: InitialPopulationProducer {
         }
 
         var population: [Fitness.EvalCircuit] = []
-        var populationError: InitialPopulationProducerExecuteError?
+        var populationError: Error?
 
         let queue = DispatchQueue(label: String(reflecting: type(of: self)))
         DispatchQueue.concurrentPerform(iterations: size) { _ in
             var circuit: [GeneticGate]?
             var circuitScore: Double?
-            var circuitError: InitialPopulationProducerExecuteError?
+            var circuitError: Error?
             do {
                 circuit = try generator.make(depth: random(depth))
 
                 let evaluation = try evaluator.evaluateCircuit(circuit!)
                 circuitScore = score.calculate(evaluation)
-            } catch GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(let errors) {
-                circuitError = InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: errors)
             } catch {
-                fatalError("Unexpected error: \(error).")
+                circuitError = error
             }
 
             queue.sync {

@@ -76,14 +76,7 @@ extension MainGeneticPopulationMutation: GeneticPopulationMutation {
             return nil
         }
 
-        var evaluation: GeneticCircuitEvaluator.Evaluation!
-        do {
-            evaluation = try evaluator.evaluateCircuit(actualMutated)
-        } catch GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(let errors) {
-            throw GeneticPopulationMutationAppliedError.useCaseEvaluatorsThrowed(errors: errors)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let evaluation = try evaluator.evaluateCircuit(actualMutated)
 
         return (score.calculate(evaluation), actualMutated)
     }

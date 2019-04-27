@@ -65,8 +65,6 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
                 result = try mutation.applied(to: population)
             } catch GeneticPopulationMutationAppliedError.populationIsEmpty {
                 throw GeneticPopulationReproductionAppliedError.populationIsEmpty
-            } catch GeneticPopulationMutationAppliedError.useCaseEvaluatorsThrowed(let errors) {
-                throw GeneticPopulationReproductionAppliedError.useCaseEvaluatorsThrowed(errors: errors)
             } catch {
                 fatalError("Unexpected error: \(error).")
             }
@@ -84,8 +82,6 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
                 result = try crossover.applied(to: population)
             } catch GeneticPopulationCrossoverAppliedError.populationIsEmpty {
                 throw GeneticPopulationReproductionAppliedError.populationIsEmpty
-            } catch GeneticPopulationCrossoverAppliedError.useCaseEvaluatorsThrowed(let errors) {
-                throw GeneticPopulationReproductionAppliedError.useCaseEvaluatorsThrowed(errors: errors)
             } catch {
                 fatalError("Unexpected error: \(error).")
             }

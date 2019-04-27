@@ -24,6 +24,4 @@ import Foundation
 
 public enum GeneticUseCaseEvaluationError: Error {
     case evaluatorForCircuitWithMoreQubits
-    case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
-    case useCaseCircuitOutputHasMoreQubitsThatCircuitHas
 }

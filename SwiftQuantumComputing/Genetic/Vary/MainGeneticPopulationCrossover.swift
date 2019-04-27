@@ -84,16 +84,16 @@ extension MainGeneticPopulationCrossover: GeneticPopulationCrossover {
         let (firstCross, secondCross) = crossover.execute(firstWinner.circuit, secondWinner.circuit)
 
         var firstEval: Double?
-        var firstError: GeneticPopulationCrossoverAppliedError?
+        var firstError: Error?
         var secondEval: Double?
-        var secondError: GeneticPopulationCrossoverAppliedError?
+        var secondError: Error?
         DispatchQueue.concurrentPerform(iterations: 2) { index in
             if (index == 0) {
                 if (firstCross.count <= maxDepth) {
                     do {
                         firstEval = try evaluateCircuit(firstCross)
                     } catch {
-                        firstError = error as? GeneticPopulationCrossoverAppliedError
+                        firstError = error
                     }
                 } else {
                     os_log("croossover: first exceeded max. depth",
@@ -104,7 +104,7 @@ extension MainGeneticPopulationCrossover: GeneticPopulationCrossover {
                 do {
                     secondEval = try evaluateCircuit(secondCross)
                 } catch {
-                    secondError = error as? GeneticPopulationCrossoverAppliedError
+                    secondError = error
                 }
             } else {
                 os_log("croossover: second exceeded max. depth",
@@ -140,14 +140,7 @@ private extension MainGeneticPopulationCrossover {
     // MARK: - Private methods
 
     func evaluateCircuit(_ circuit: [GeneticGate]) throws -> Double {
-        var evaluation: GeneticCircuitEvaluator.Evaluation!
-        do {
-            evaluation = try evaluator.evaluateCircuit(circuit)
-        } catch GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(let errors) {
-            throw GeneticPopulationCrossoverAppliedError.useCaseEvaluatorsThrowed(errors: errors)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let evaluation = try evaluator.evaluateCircuit(circuit)
 
         return score.calculate(evaluation)
     }

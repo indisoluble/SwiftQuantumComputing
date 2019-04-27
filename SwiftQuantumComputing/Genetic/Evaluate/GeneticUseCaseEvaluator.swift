@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticUseCaseEvaluatorEvaluateCircuitError: Error {
-    case useCaseEvaluatorThrowed(error: GeneticUseCaseEvaluationError)
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticUseCaseEvaluator {

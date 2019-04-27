@@ -62,11 +62,7 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
         let measures = try circuit.measure(qubits: qubits, afterInputting: input)
 
         guard let index = Int(useCase.circuit.output, radix: 2) else {
-            throw GeneticUseCaseEvaluationError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
-        }
-
-        guard (index >= 0) && (index < measures.count) else {
-            throw GeneticUseCaseEvaluationError.useCaseCircuitOutputHasMoreQubitsThatCircuitHas
+            throw GeneticError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
         }
 
         return abs(1 - measures[index])

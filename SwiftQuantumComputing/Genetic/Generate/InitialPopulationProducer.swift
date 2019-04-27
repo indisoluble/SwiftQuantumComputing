@@ -24,7 +24,6 @@ import Foundation
 
 enum InitialPopulationProducerExecuteError: Error {
     case populationSizeHasToBeBiggerThanZero
-    case useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: GeneticCircuitEvaluationErrors)
 }
 
 // MARK: - Protocol definition

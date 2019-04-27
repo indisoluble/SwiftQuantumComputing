@@ -24,7 +24,6 @@ import Foundation
 
 enum GeneticPopulationCrossoverAppliedError: Error {
     case populationIsEmpty
-    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
 }
 
 // MARK: - Protocol definition
