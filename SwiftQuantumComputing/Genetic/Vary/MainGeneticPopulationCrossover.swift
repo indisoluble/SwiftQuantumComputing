@@ -75,10 +75,13 @@ struct MainGeneticPopulationCrossover {
 extension MainGeneticPopulationCrossover: GeneticPopulationCrossover {
     func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit] {
         let firstSample = randomElements(population, tournamentSize)
+        guard let firstWinner = fitness.fittest(in: firstSample) else {
+            return []
+        }
+
         let secondSample = randomElements(population, tournamentSize)
-        guard let firstWinner = fitness.fittest(in: firstSample),
-            let secondWinner = fitness.fittest(in: secondSample) else {
-                throw GeneticPopulationCrossoverAppliedError.populationIsEmpty
+        guard let secondWinner = fitness.fittest(in: secondSample) else {
+            return []
         }
 
         let (firstCross, secondCross) = crossover.execute(firstWinner.circuit, secondWinner.circuit)

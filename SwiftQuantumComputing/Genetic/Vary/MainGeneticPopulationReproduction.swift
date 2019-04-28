@@ -60,16 +60,7 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
         var offspring: [Fitness.EvalCircuit] = []
 
         if (random(0...1) < mutationProbability) {
-            var result: Fitness.EvalCircuit?
-            do {
-                result = try mutation.applied(to: population)
-            } catch GeneticPopulationMutationAppliedError.populationIsEmpty {
-                throw GeneticPopulationReproductionAppliedError.populationIsEmpty
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
-
-            if let result = result {
+            if let result = try mutation.applied(to: population) {
                 os_log("reproduction: mutation produced",
                        log: MainGeneticPopulationReproduction.logger,
                        type: .info)
@@ -77,20 +68,14 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
                 offspring.append(result)
             }
         } else {
-            var result: [Fitness.EvalCircuit]!
-            do {
-                result = try crossover.applied(to: population)
-            } catch GeneticPopulationCrossoverAppliedError.populationIsEmpty {
-                throw GeneticPopulationReproductionAppliedError.populationIsEmpty
-            } catch {
-                fatalError("Unexpected error: \(error).")
+            let result = try crossover.applied(to: population)
+            if !result.isEmpty {
+                os_log("reproduction: crossover produced",
+                       log: MainGeneticPopulationReproduction.logger,
+                       type: .info)
+
+                offspring.append(contentsOf: result)
             }
-
-            os_log("reproduction: crossover produced",
-                   log: MainGeneticPopulationReproduction.logger,
-                   type: .info)
-
-            offspring.append(contentsOf: result)
         }
 
         return offspring

@@ -68,7 +68,7 @@ extension MainGeneticPopulationMutation: GeneticPopulationMutation {
     func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit? {
         let sample = randomElements(population, tournamentSize)
         guard let winner = fitness.fittest(in: sample) else {
-            throw GeneticPopulationMutationAppliedError.populationIsEmpty
+            return nil
         }
 
         let mutated = try mutation.execute(winner.circuit)

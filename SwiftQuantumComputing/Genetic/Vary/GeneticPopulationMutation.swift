@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticPopulationMutationAppliedError: Error {
-    case populationIsEmpty
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticPopulationMutation {
