@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum InitialPopulationProducerExecuteError: Error {
-    case populationSizeHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol InitialPopulationProducer {

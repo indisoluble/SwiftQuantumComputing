@@ -128,14 +128,8 @@ extension MainGeneticFactory: GeneticFactory {
         }
 
         os_log("Producing initial population...", log: MainGeneticFactory.logger, type: .info)
-        var population: [Fitness.EvalCircuit]!
-        do {
-            population = try initialPopulation.execute(size: initSize, depth: config.depth)
-        } catch InitialPopulationProducerExecuteError.populationSizeHasToBeBiggerThanZero {
-            throw GeneticFactoryEvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+
+        var population = try initialPopulation.execute(size: initSize, depth: config.depth)
         os_log("Initial population completed", log: MainGeneticFactory.logger, type: .info)
 
         var candidate = fitness.fittest(in: population)!

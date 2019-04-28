@@ -24,7 +24,6 @@ import Foundation
 
 public enum GeneticFactoryEvolveCircuitError: Error {
     case configurationPopulationSizeIsEmpty
-    case configurationPopulationSizeHasToBeBiggerThanZero
     case configurationDepthIsEmpty
     case configurationTournamentSizeHasToBeBiggerThanZero
     case useCaseListIsEmpty
