@@ -23,6 +23,7 @@ import Foundation
 enum GeneticError: Error {
     case configurationDepthHasToBeAPositiveNumber
     case configurationPopulationSizeHasToBeBiggerThanZero
+    case configurationTournamentSizeHasToBeBiggerThanZero
     case gateInputCountIsBiggerThanCircuitQubitCount
     case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
     case useCaseCircuitQubitCountHasToBeBiggerThanZero

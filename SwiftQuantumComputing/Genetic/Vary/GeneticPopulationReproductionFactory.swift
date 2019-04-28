@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticPopulationReproductionFactoryMakeReproductionError: Error {
-    case tournamentSizeHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticPopulationReproductionFactory {

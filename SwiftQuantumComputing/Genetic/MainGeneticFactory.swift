@@ -112,23 +112,15 @@ extension MainGeneticFactory: GeneticFactory {
                                                                           useCases: useCases,
                                                                           gates: gates)
 
-        var reproduction: GeneticPopulationReproduction!
-        do {
-            reproduction = try reproductionFactory.makeReproduction(qubitCount: qubitCount,
+        let reproduction = try reproductionFactory.makeReproduction(qubitCount: qubitCount,
                                                                     tournamentSize: config.tournamentSize,
                                                                     mutationProbability: config.mutationProbability,
                                                                     threshold: config.threshold,
                                                                     maxDepth: maxDepth,
                                                                     useCases: useCases,
                                                                     gates: gates)
-        } catch GeneticPopulationReproductionFactoryMakeReproductionError.tournamentSizeHasToBeBiggerThanZero {
-            throw GeneticFactoryEvolveCircuitError.configurationTournamentSizeHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
 
         os_log("Producing initial population...", log: MainGeneticFactory.logger, type: .info)
-
         var population = try initialPopulation.execute(size: initSize, depth: config.depth)
         os_log("Initial population completed", log: MainGeneticFactory.logger, type: .info)
 

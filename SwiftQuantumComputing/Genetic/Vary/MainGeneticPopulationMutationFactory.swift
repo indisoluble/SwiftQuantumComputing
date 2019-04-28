@@ -51,16 +51,10 @@ extension MainGeneticPopulationMutationFactory: GeneticPopulationMutationFactory
                                                 maxDepth: maxDepth,
                                                 gates: gates)
 
-        do {
-            return try MainGeneticPopulationMutation(tournamentSize:tournamentSize,
-                                                     fitness: fitness,
-                                                     mutation: mutation,
-                                                     evaluator: evaluator,
-                                                     score: score)
-        } catch MainGeneticPopulationMutation.InitError.tournamentSizeHasToBeBiggerThanZero {
-            throw GeneticPopulationMutationFactoryMakeMutationError.tournamentSizeHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return try MainGeneticPopulationMutation(tournamentSize:tournamentSize,
+                                                 fitness: fitness,
+                                                 mutation: mutation,
+                                                 evaluator: evaluator,
+                                                 score: score)
     }
 }
