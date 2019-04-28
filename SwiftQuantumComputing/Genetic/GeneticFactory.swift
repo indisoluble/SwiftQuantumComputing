@@ -20,16 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-public enum GeneticFactoryEvolveCircuitError: Error {
-    case configurationPopulationSizeIsEmpty
-    case configurationDepthIsEmpty
-    case configurationTournamentSizeHasToBeBiggerThanZero
-    case useCaseListIsEmpty
-    case useCasesDoNotSpecifySameCircuitQubitCount
-}
-
 // MARK: - Protocol definition
 
 public protocol GeneticFactory {

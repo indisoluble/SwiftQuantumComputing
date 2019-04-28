@@ -90,21 +90,21 @@ extension MainGeneticFactory: GeneticFactory {
                               useCases: [GeneticUseCase],
                               gates: [Gate]) throws -> EvolvedCircuit {
         guard let initSize = config.populationSize.first else {
-            throw GeneticFactoryEvolveCircuitError.configurationPopulationSizeIsEmpty
+            throw GeneticError.configurationPopulationSizeIsEmpty
         }
         let maxSize = config.populationSize.last!
 
         guard let maxDepth = config.depth.last else {
-            throw GeneticFactoryEvolveCircuitError.configurationDepthIsEmpty
+            throw GeneticError.configurationDepthIsEmpty
         }
 
         guard let firstCase = useCases.first else {
-            throw GeneticFactoryEvolveCircuitError.useCaseListIsEmpty
+            throw GeneticError.useCaseListIsEmpty
         }
 
         let qubitCount = firstCase.circuit.qubitCount
         guard useCases.reduce(true, { $0 && $1.circuit.qubitCount == qubitCount })  else {
-            throw GeneticFactoryEvolveCircuitError.useCasesDoNotSpecifySameCircuitQubitCount
+            throw GeneticError.useCasesDoNotSpecifySameCircuitQubitCount
         }
 
         let initialPopulation = try initialPopulationFactory.makeProducer(qubitCount: qubitCount,

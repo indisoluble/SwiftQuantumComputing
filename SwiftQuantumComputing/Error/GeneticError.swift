@@ -22,10 +22,14 @@ import Foundation
 
 enum GeneticError: Error {
     case configurationDepthHasToBeAPositiveNumber
+    case configurationDepthIsEmpty
     case configurationPopulationSizeHasToBeBiggerThanZero
+    case configurationPopulationSizeIsEmpty
     case configurationTournamentSizeHasToBeBiggerThanZero
     case gateInputCountIsBiggerThanCircuitQubitCount
     case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
     case useCaseCircuitQubitCountHasToBeBiggerThanZero
+    case useCaseListIsEmpty
+    case useCasesDoNotSpecifySameCircuitQubitCount
     case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
 }
