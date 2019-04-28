@@ -64,8 +64,29 @@ extension CircuitFacade: CustomPlaygroundDisplayConvertible {
 
 extension CircuitFacade: Circuit {
     func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
-        let register = try factory.makeRegister(bits: bits)
+        guard let value = Int(bits, radix: 2) else {
+            throw MeasureError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+        }
+
+        let state = CircuitFacade.makeState(value: value, qubitCount: bits.count)
+        let register = try! factory.makeRegister(vector: state)
 
         return try backend.measure(qubits: qubits, in: (register: register, gates: gates))
+    }
+}
+
+// MARK: - Private body
+
+private extension CircuitFacade {
+
+    // MARK: - Private class methods
+
+    static func makeState(value: Int, qubitCount: Int) -> Vector {
+        let count = Int.pow(2, qubitCount)
+
+        var elements = Array(repeating: Complex(0), count: count)
+        elements[value] = Complex(1)
+
+        return try! Vector(elements)
     }
 }

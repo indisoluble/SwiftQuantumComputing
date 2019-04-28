@@ -30,17 +30,9 @@ struct Register {
 
     // MARK: - Internal init methods
 
-    init(bits: String) throws {
-        guard let value = Int(bits, radix: 2) else {
-            throw QuantumError.circuitInputBitsAreNotAStringComposedOnlyOfZerosAndOnes
-        }
-
-        try! self.init(vector: Register.makeState(value: value, qubitCount: bits.count))
-    }
-
     init(vector: Vector) throws {
         guard Register.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
-            throw QuantumError.circuitAdditionOfSquareModulusIsNotEqualToOne
+            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
         }
 
         self.vector = vector
@@ -71,7 +63,7 @@ extension Register: BackendRegister {
         do {
             nextVector = try gate.apply(to: vector)
         } catch RegisterGate.ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount {
-            throw QuantumError.gateQubitCountDoesNotMatchCircuitQubitCount
+            throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }
@@ -81,19 +73,19 @@ extension Register: BackendRegister {
 
     func measure(qubits: [Int]) throws -> [Double] {
         guard qubits.count > 0 else {
-            throw QuantumError.measuredQubitsCanNotBeAnEmptyList
+            throw MeasureError.qubitsCanNotBeAnEmptyList
         }
 
         guard areQubitsUnique(qubits) else {
-            throw QuantumError.measuredQubitsAreNotUnique
+            throw MeasureError.qubitsAreNotUnique
         }
 
         guard areQubitsInBound(qubits) else {
-            throw QuantumError.measuredQubitsAreNotInBound
+            throw MeasureError.qubitsAreNotInBound
         }
 
         guard areQubitsSorted(qubits) else {
-            throw QuantumError.measuredQubitsAreNotSorted
+            throw MeasureError.qubitsAreNotSorted
         }
 
         var result = Array(repeating: Double(0), count: Int.pow(2, qubits.count))
@@ -137,15 +129,6 @@ private extension Register {
     }
 
     // MARK: - Private class methods
-
-    static func makeState(value: Int, qubitCount: Int) -> Vector {
-        let count = Int.pow(2, qubitCount)
-
-        var elements = Array(repeating: Complex(0), count: count)
-        elements[value] = Complex(1)
-
-        return try! Vector(elements)
-    }
 
     static func isAdditionOfSquareModulusInVectorEqualToOne(_ vector: Vector) -> Bool {
         return (abs(vector.squaredNorm - Double(1)) <= Constants.accuracy)

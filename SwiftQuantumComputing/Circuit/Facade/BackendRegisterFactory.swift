@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol BackendRegisterFactory {
-    func makeRegister(bits: String) throws -> BackendRegister
+    func makeRegister(vector: Vector) throws -> BackendRegister
 }

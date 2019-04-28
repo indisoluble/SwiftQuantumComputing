@@ -23,6 +23,10 @@ import Foundation
 // MARK: - BackendGate methods
 
 extension FixedGate: BackendGate {
+    var fixedGate: FixedGate {
+        return self
+    }
+
     func extract() throws -> (matrix: Matrix, inputs: [Int]) {
         switch self {
         case .controlledNot(let target, let control):

@@ -20,7 +20,7 @@
 
 import Foundation
 
-enum GeneticError: Error {
+public enum GeneticError: Error {
     case configurationDepthHasToBeAPositiveNumber
     case configurationDepthIsEmpty
     case configurationPopulationSizeHasToBeBiggerThanZero

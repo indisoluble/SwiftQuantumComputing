@@ -28,7 +28,7 @@ extension Matrix {
 
     static func makeOracle(truthTable: [String], controlCount: Int) throws -> Matrix {
         guard controlCount > 0 else {
-            throw QuantumError.gateOracleControlsCanNotBeAnEmptyList
+            throw GateError.gateOracleControlsCanNotBeAnEmptyList
         }
 
         let truthTableAsInts = Matrix.truthTableAsInts(truthTable)

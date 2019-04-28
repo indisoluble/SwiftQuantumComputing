@@ -39,10 +39,6 @@ struct MainGeneticPopulationMutation {
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
-        case tournamentSizeHasToBeBiggerThanZero
-    }
-
     init(tournamentSize: Int,
          fitness: Fitness,
          mutation: GeneticCircuitMutation,
@@ -50,7 +46,7 @@ struct MainGeneticPopulationMutation {
          score: GeneticCircuitScore,
          randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) throws {
         guard tournamentSize > 0 else {
-            throw InitError.tournamentSizeHasToBeBiggerThanZero
+            throw GeneticError.configurationTournamentSizeHasToBeBiggerThanZero
         }
 
         self.tournamentSize = tournamentSize

@@ -33,20 +33,20 @@ struct RegisterGateFactory {
 
     init(qubitCount: Int, baseMatrix: Matrix) throws {
         guard baseMatrix.isSquare else {
-            throw QuantumError.gateMatrixIsNotSquare
+            throw GateError.gateMatrixIsNotSquare
         }
 
         guard baseMatrix.rowCount.isPowerOfTwo else {
-            throw QuantumError.gateMatrixRowCountHasToBeAPowerOfTwo
+            throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
         }
 
         guard qubitCount > 0 else {
-            throw QuantumError.gateQubitCountHasToBeBiggerThanZero
+            throw GateError.gateQubitCountHasToBeBiggerThanZero
         }
 
         let matrixQubitCount = Int.log2(baseMatrix.rowCount)
         guard (matrixQubitCount <= qubitCount) else {
-            throw QuantumError.gateMatrixHandlesMoreQubitsThatGateActuallyHas
+            throw GateError.gateMatrixHandlesMoreQubitsThatGateActuallyHas
         }
 
         self.qubitCount = qubitCount
@@ -57,15 +57,15 @@ struct RegisterGateFactory {
 
     func makeGate(inputs: [Int]) throws -> RegisterGate {
         guard doesInputCountMatchBaseMatrixQubitCount(inputs) else {
-            throw QuantumError.gateInputCountDoesNotMatchGateMatrixQubitCount
+            throw GateError.gateInputCountDoesNotMatchGateMatrixQubitCount
         }
 
         guard areInputsUnique(inputs) else {
-            throw QuantumError.gateInputsAreNotUnique
+            throw GateError.gateInputsAreNotUnique
         }
 
         guard areInputsInBound(inputs) else {
-            throw QuantumError.gateInputsAreNotInBound
+            throw GateError.gateInputsAreNotInBound
         }
 
         let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })

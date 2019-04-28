@@ -1,8 +1,8 @@
 //
-//  QuantumError.swift
+//  CircuitError.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 27/04/2019.
+//  Created by Enrique de la Torre on 28/04/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,23 @@
 
 import Foundation
 
-enum QuantumError: Error {
-    case circuitAdditionOfSquareModulusIsNotEqualToOne
-    case circuitInputBitsAreNotAStringComposedOnlyOfZerosAndOnes
-    case circuitQubitCountHasToBeBiggerThanZero
+// MARK: - Public errors
+
+public enum MakeCircuitError: Error {
+    case qubitCountHasToBeBiggerThanZero
+}
+
+public enum MeasureError: Error {
+    case qubitsAreNotInBound
+    case qubitsAreNotSorted
+    case qubitsAreNotUnique
+    case qubitsCanNotBeAnEmptyList
+    case inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    case gateThrowedError(gate: FixedGate, error: GateError)
+}
+
+public enum GateError: Error {
+    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
     case gateInputCountDoesNotMatchGateMatrixQubitCount
     case gateInputsAreNotInBound
     case gateInputsAreNotUnique
@@ -34,8 +47,4 @@ enum QuantumError: Error {
     case gateOracleControlsCanNotBeAnEmptyList
     case gateQubitCountDoesNotMatchCircuitQubitCount
     case gateQubitCountHasToBeBiggerThanZero
-    case measuredQubitsAreNotInBound
-    case measuredQubitsAreNotSorted
-    case measuredQubitsAreNotUnique
-    case measuredQubitsCanNotBeAnEmptyList
 }

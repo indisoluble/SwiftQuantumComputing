@@ -25,5 +25,7 @@ import Foundation
 protocol BackendGate {
     typealias Components = (matrix: Matrix, inputs: [Int])
 
+    var fixedGate: FixedGate { get }
+
     func extract() throws -> Components
 }

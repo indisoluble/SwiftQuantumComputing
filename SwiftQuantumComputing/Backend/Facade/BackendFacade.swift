@@ -42,10 +42,18 @@ extension BackendFacade: Backend {
         var register = circuit.register
 
         for gate in circuit.gates {
-            let components = try gate.extract()
-            let registerGate = try factory.makeGate(matrix: components.matrix,
-                                                    inputs: components.inputs)
-            register = try register.applying(registerGate)
+            do {
+                let components = try gate.extract()
+                let registerGate = try factory.makeGate(matrix: components.matrix,
+                                                        inputs: components.inputs)
+                register = try register.applying(registerGate)
+            } catch {
+                if let error = error as? GateError {
+                    throw MeasureError.gateThrowedError(gate: gate.fixedGate, error: error)
+                } else {
+                    fatalError("Unexpected error: \(error).")
+                }
+            }
         }
 
         return try register.measure(qubits: qubits)

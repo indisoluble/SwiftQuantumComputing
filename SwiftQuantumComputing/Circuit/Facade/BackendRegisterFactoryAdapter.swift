@@ -27,7 +27,7 @@ struct BackendRegisterFactoryAdapter {}
 // MARK: - BackendRegisterFactory methods
 
 extension BackendRegisterFactoryAdapter: BackendRegisterFactory {
-    func makeRegister(bits: String) throws -> BackendRegister {
-        return try Register(bits: bits)
+    func makeRegister(vector: Vector) throws -> BackendRegister {
+        return try Register(vector: vector)
     }
 }

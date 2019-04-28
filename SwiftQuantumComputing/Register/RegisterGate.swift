@@ -32,7 +32,7 @@ struct RegisterGate {
 
     init(matrix: Matrix) throws {
         guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            throw QuantumError.gateMatrixIsNotUnitary
+            throw GateError.gateMatrixIsNotUnitary
         }
 
         self.matrix = matrix
