@@ -29,14 +29,11 @@ struct MainOracleCircuitFactory {}
 extension MainOracleCircuitFactory: OracleCircuitFactory {
     func makeOracleCircuit(geneticCircuit: [GeneticGate],
                            useCase: GeneticUseCase) throws -> OracleCircuit {
-        let tt = useCase.truthTable.truth
-        let ttCount = useCase.truthTable.qubitCount
-
         var gates: [FixedGate] = []
         var oracleIndex: Int? = nil
 
         for (index, gg) in geneticCircuit.enumerated() {
-            let fixed = try gg.makeFixed(truthTable: tt, truthTableQubitCount: ttCount)
+            let fixed = try gg.makeFixed(useCase: useCase)
 
             var doAppendGate = true
             if fixed.didUseTruthTable {

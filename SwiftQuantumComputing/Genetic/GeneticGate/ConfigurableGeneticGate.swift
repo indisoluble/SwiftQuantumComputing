@@ -38,13 +38,13 @@ struct ConfigurableGeneticGate {
 // MARK: - GeneticGate methods
 
 extension ConfigurableGeneticGate: GeneticGate {
-    func makeFixed(truthTable: [String], truthTableQubitCount: Int) throws -> Fixed {
+    func makeFixed(useCase: GeneticUseCase) throws -> Fixed {
         var oracle: OracleGate!
         do {
-            oracle = try OracleGate(truthTable: truthTable,
-                                    truthTableQubitCount: truthTableQubitCount)
+            oracle = try OracleGate(truthTable: useCase.truthTable.truth,
+                                    truthTableQubitCount: useCase.truthTable.qubitCount)
         } catch OracleGate.InitError.truthTableQubitCountHasToBeBiggerThanZero {
-            throw GeneticError.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
+            throw EvolveError.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: useCase)
         } catch {
             fatalError("Unexpected error: \(error).")
         }

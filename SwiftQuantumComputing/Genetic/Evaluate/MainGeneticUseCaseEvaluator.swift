@@ -38,7 +38,7 @@ struct MainGeneticUseCaseEvaluator {
          factory: CircuitFactory,
          oracleFactory: OracleCircuitFactory) throws {
         guard qubitCount > 0 else {
-            throw GeneticError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+            throw EvolveError.useCaseCircuitQubitCountHasToBeBiggerThanZero
         }
 
         self.qubits = Array((0..<qubitCount).reversed())
@@ -59,10 +59,19 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
         let circuit = try! factory.makeCircuit(qubitCount: qubits.count, gates: gates)
 
         let input = useCase.circuit.input
-        let measures = try circuit.measure(qubits: qubits, afterInputting: input)
+        var measures: [Double]!
+        do {
+            measures = try circuit.measure(qubits: qubits, afterInputting: input)
+        } catch {
+            if let error = error as? MeasureError {
+                throw EvolveError.useCaseMeasurementThrowedError(useCase: useCase, error: error)
+            } else {
+                fatalError("Unexpected error: \(error).")
+            }
+        }
 
         guard let index = Int(useCase.circuit.output, radix: 2) else {
-            throw GeneticError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
+            throw EvolveError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: useCase)
         }
 
         return abs(1 - measures[index])

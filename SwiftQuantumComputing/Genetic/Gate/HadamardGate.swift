@@ -34,7 +34,7 @@ public struct HadamardGate {
 extension HadamardGate: Gate {
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard let target = inputs.first else {
-            throw GeneticError.gateInputCountIsBiggerThanCircuitQubitCount
+            throw EvolveError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
 
         return .hadamard(target: target)

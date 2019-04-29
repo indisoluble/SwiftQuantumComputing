@@ -25,5 +25,5 @@ import Foundation
 protocol GeneticGate {
     typealias Fixed = (gate: FixedGate, didUseTruthTable: Bool)
 
-    func makeFixed(truthTable: [String], truthTableQubitCount: Int) throws -> Fixed
+    func makeFixed(useCase: GeneticUseCase) throws -> Fixed
 }

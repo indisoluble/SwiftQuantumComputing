@@ -53,7 +53,7 @@ struct MainGeneticPopulationCrossover {
          score: GeneticCircuitScore,
          randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) throws {
         guard tournamentSize > 0 else {
-            throw GeneticError.configurationTournamentSizeHasToBeBiggerThanZero
+            throw EvolveError.configurationTournamentSizeHasToBeBiggerThanZero
         }
 
         self.tournamentSize = tournamentSize

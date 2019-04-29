@@ -20,16 +20,19 @@
 
 import Foundation
 
-public enum GeneticError: Error {
+// MARK: - Public errors
+
+public enum EvolveError: Error {
     case configurationDepthHasToBeAPositiveNumber
     case configurationDepthIsEmpty
     case configurationPopulationSizeHasToBeBiggerThanZero
     case configurationPopulationSizeIsEmpty
     case configurationTournamentSizeHasToBeBiggerThanZero
-    case gateInputCountIsBiggerThanCircuitQubitCount
-    case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
+    case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: Gate)
+    case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: GeneticUseCase)
     case useCaseCircuitQubitCountHasToBeBiggerThanZero
     case useCaseListIsEmpty
+    case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: MeasureError)
     case useCasesDoNotSpecifySameCircuitQubitCount
-    case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
+    case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: GeneticUseCase)
 }

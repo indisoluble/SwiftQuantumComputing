@@ -40,7 +40,7 @@ public struct PhaseShiftGate {
 extension PhaseShiftGate: Gate {
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard let target = inputs.first else {
-            throw GeneticError.gateInputCountIsBiggerThanCircuitQubitCount
+            throw EvolveError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
 
         return .phaseShift(radians: radians, target: target)
