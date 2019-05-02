@@ -1,5 +1,5 @@
 //
-//  HadamardGate.swift
+//  Gate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -20,23 +20,8 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-public struct HadamardGate {
-
-    // MARK: - Public init methods
-
-    public init() {}
-}
-
-// MARK: - Gate methods
-
-extension HadamardGate: Gate {
-    public func makeFixed(inputs: [Int]) throws -> FixedGate {
-        guard let target = inputs.first else {
-            throw GateMakeFixedError.notEnoughInputsToProduceAGate
-        }
-
-        return .hadamard(target: target)
-    }
+public protocol Gate {
+    func makeFixed(inputs: [Int]) throws -> FixedGate
 }

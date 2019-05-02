@@ -30,25 +30,13 @@ struct Register {
 
     // MARK: - Internal init methods
 
-    enum InitQubitCountError: Error {
-        case qubitCountHasToBeBiggerThanZero
-    }
-
-    init(qubitCount: Int) throws {
-        guard qubitCount > 0 else {
-            throw InitQubitCountError.qubitCountHasToBeBiggerThanZero
-        }
-
-        try! self.init(bits: String(repeating: "0", count: qubitCount))
-    }
-
     enum InitBitsError: Error {
-        case provideNonEmptyStringComposedOnlyOfZerosAndOnes
+        case bitsAreNotAStringComposedOnlyOfZerosAndOnes
     }
 
     init(bits: String) throws {
         guard let value = Int(bits, radix: 2) else {
-            throw InitBitsError.provideNonEmptyStringComposedOnlyOfZerosAndOnes
+            throw InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
 
         try! self.init(vector: Register.makeState(value: value, qubitCount: bits.count))
@@ -90,8 +78,8 @@ extension Register: BackendRegister {
         var nextVector: Vector!
         do {
             nextVector = try gate.apply(to: vector)
-        } catch RegisterGate.ApplyError.vectorDoesNotHaveValidDimension {
-            throw BackendRegisterApplyingError.gateDoesNotHaveValidDimension
+        } catch RegisterGate.ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount {
+            throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }
@@ -99,27 +87,25 @@ extension Register: BackendRegister {
         do {
             return try Register(vector: nextVector)
         } catch Register.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
-            throw BackendRegisterApplyingError.additionOfSquareModulusInNextRegisterIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
+            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
         }
     }
 
     func measure(qubits: [Int]) throws -> [Double] {
         guard qubits.count > 0 else {
-            throw BackendRegisterMeasureError.emptyQubitList
+            throw MeasureError.qubitsCanNotBeAnEmptyList
         }
 
         guard areQubitsUnique(qubits) else {
-            throw BackendRegisterMeasureError.qubitsAreNotUnique
+            throw MeasureError.qubitsAreNotUnique
         }
 
         guard areQubitsInBound(qubits) else {
-            throw BackendRegisterMeasureError.qubitsAreNotInBound
+            throw MeasureError.qubitsAreNotInBound
         }
 
         guard areQubitsSorted(qubits) else {
-            throw BackendRegisterMeasureError.qubitsAreNotSorted
+            throw MeasureError.qubitsAreNotSorted
         }
 
         var result = Array(repeating: Double(0), count: Int.pow(2, qubits.count))

@@ -26,12 +26,14 @@ struct BackendFacade {
 
     // MARK: - Private properties
 
-    private let factory: BackendRegisterGateFactory
+    private let registerFactory: BackendRegisterFactory
+    private let gateFactory: BackendRegisterGateFactory
 
     // MARK: - Internal init methods
 
-    init(factory: BackendRegisterGateFactory) {
-        self.factory = factory
+    init(registerFactory: BackendRegisterFactory, gateFactory: BackendRegisterGateFactory) {
+        self.registerFactory = registerFactory
+        self.gateFactory = gateFactory
     }
 }
 
@@ -39,63 +41,28 @@ struct BackendFacade {
 
 extension BackendFacade: Backend {
     func measure(qubits: [Int], in circuit: Backend.Circuit) throws -> [Double] {
-        var register = circuit.register
-
-        for (index, gate) in circuit.gates.enumerated() {
-            var components: BackendGate.Components!
-            do {
-                components = try gate.extract()
-            } catch BackendGateExtractError.unableToExtractMatrix {
-                throw BackendMeasureError.unableToExtractMatrixFromGate(at: index)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
-
-            var registerGate: RegisterGate!
-            do {
-                registerGate = try factory.makeGate(matrix: components.matrix,
-                                                    inputs: components.inputs)
-            } catch BackendRegisterGateFactoryMakeGateError.matrixIsNotSquare {
-                throw BackendMeasureError.gateMatrixIsNotSquare(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.matrixRowCountHasToBeAPowerOfTwo {
-                throw BackendMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.matrixHandlesMoreQubitsThanAreAvailable {
-                throw BackendMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.inputCountDoesNotMatchMatrixQubitCount {
-                throw BackendMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.inputsAreNotUnique {
-                throw BackendMeasureError.gateInputsAreNotUnique(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.inputsAreNotInBound {
-                throw BackendMeasureError.gateInputsAreNotInBound(at: index)
-            } catch BackendRegisterGateFactoryMakeGateError.gateIsNotUnitary {
-                throw BackendMeasureError.gateIsNotUnitary(at: index)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
-
-            do {
-                register = try register.applying(registerGate)
-            } catch BackendRegisterApplyingError.gateDoesNotHaveValidDimension {
-                throw BackendMeasureError.gateDoesNotHaveValidDimension(at: index)
-            } catch BackendRegisterApplyingError.additionOfSquareModulusInNextRegisterIsNotEqualToOne {
-                throw BackendMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(at: index)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
-        }
-
+        var register: BackendRegister!
         do {
-            return try register.measure(qubits: qubits)
-        } catch BackendRegisterMeasureError.emptyQubitList {
-            throw BackendMeasureError.emptyQubitList
-        } catch BackendRegisterMeasureError.qubitsAreNotUnique {
-            throw BackendMeasureError.qubitsAreNotUnique
-        } catch BackendRegisterMeasureError.qubitsAreNotInBound {
-            throw BackendMeasureError.qubitsAreNotInBound
-        } catch BackendRegisterMeasureError.qubitsAreNotSorted {
-            throw BackendMeasureError.qubitsAreNotSorted
-        } catch {
-            fatalError("Unexpected error: \(error).")
+            register = try registerFactory.makeRegister(bits: circuit.inputBits)
+        } catch MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
+            throw MeasureError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
+
+        for gate in circuit.gates {
+            do {
+                let components = try gate.extract()
+                let registerGate = try gateFactory.makeGate(matrix: components.matrix,
+                                                            inputs: components.inputs)
+                register = try register.applying(registerGate)
+            } catch {
+                if let error = error as? GateError {
+                    throw MeasureError.gateThrowedError(gate: gate.fixedGate, error: error)
+                } else {
+                    fatalError("Unexpected error: \(error).")
+                }
+            }
+        }
+
+        return try register.measure(qubits: qubits)
     }
 }

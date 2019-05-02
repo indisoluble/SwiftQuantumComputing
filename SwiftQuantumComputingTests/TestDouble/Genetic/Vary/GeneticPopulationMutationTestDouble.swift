@@ -31,7 +31,7 @@ final class GeneticPopulationMutationTestDouble {
     private (set) var appliedCount = 0
     private (set) var lastAppliedPopulation: [Fitness.EvalCircuit]?
     var appliedResult: Fitness.EvalCircuit?
-    var appliedError: GeneticPopulationMutationAppliedError?
+    var appliedError: EvolveCircuitError?
 }
 
 // MARK: - GeneticPopulationMutation methods

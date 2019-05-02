@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum InitialPopulationProducerFactoryMakeProducerError: Error {
-    case qubitCountHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol InitialPopulationProducerFactory {

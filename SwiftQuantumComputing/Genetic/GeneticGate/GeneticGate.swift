@@ -20,17 +20,10 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticGateMakeFixedError: Error {
-    case truthTableQubitCountHasToBeBiggerThanZero
-    case truthTableRequiresMoreInputQubitsThatAreAvailable
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticGate {
     typealias Fixed = (gate: FixedGate, didUseTruthTable: Bool)
 
-    func makeFixed(truthTable: [String], truthTableQubitCount: Int) throws -> Fixed
+    func makeFixed(useCase: GeneticUseCase) throws -> Fixed
 }

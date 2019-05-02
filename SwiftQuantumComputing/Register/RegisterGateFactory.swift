@@ -31,29 +31,22 @@ struct RegisterGateFactory {
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
-        case matrixIsNotSquare
-        case matrixRowCountHasToBeAPowerOfTwo
-        case qubitCountHasToBeBiggerThanZero
-        case matrixHandlesMoreQubitsThanAreAvailable
-    }
-
     init(qubitCount: Int, baseMatrix: Matrix) throws {
         guard baseMatrix.isSquare else {
-            throw InitError.matrixIsNotSquare
+            throw GateError.gateMatrixIsNotSquare
         }
 
         guard baseMatrix.rowCount.isPowerOfTwo else {
-            throw InitError.matrixRowCountHasToBeAPowerOfTwo
+            throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
         }
 
         guard qubitCount > 0 else {
-            throw InitError.qubitCountHasToBeBiggerThanZero
+            throw GateError.gateQubitCountHasToBeBiggerThanZero
         }
 
         let matrixQubitCount = Int.log2(baseMatrix.rowCount)
         guard (matrixQubitCount <= qubitCount) else {
-            throw InitError.matrixHandlesMoreQubitsThanAreAvailable
+            throw GateError.gateMatrixHandlesMoreQubitsThatGateActuallyHas
         }
 
         self.qubitCount = qubitCount
@@ -62,35 +55,22 @@ struct RegisterGateFactory {
 
     // MARK: - Internal methods
 
-    enum MakeGateError: Error {
-        case inputCountDoesNotMatchBaseMatrixQubitCount
-        case inputsAreNotUnique
-        case inputsAreNotInBound
-        case gateIsNotUnitary
-    }
-
     func makeGate(inputs: [Int]) throws -> RegisterGate {
         guard doesInputCountMatchBaseMatrixQubitCount(inputs) else {
-            throw MakeGateError.inputCountDoesNotMatchBaseMatrixQubitCount
+            throw GateError.gateInputCountDoesNotMatchGateMatrixQubitCount
         }
 
         guard areInputsUnique(inputs) else {
-            throw MakeGateError.inputsAreNotUnique
+            throw GateError.gateInputsAreNotUnique
         }
 
         guard areInputsInBound(inputs) else {
-            throw MakeGateError.inputsAreNotInBound
+            throw GateError.gateInputsAreNotInBound
         }
 
         let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })
 
-        do {
-            return try RegisterGate(matrix: extended)
-        } catch RegisterGate.InitError.matrixIsNotUnitary {
-            throw MakeGateError.gateIsNotUnitary
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return try RegisterGate(matrix: extended)
     }
 }
 

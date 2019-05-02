@@ -31,7 +31,7 @@ final class GeneticCircuitEvaluatorTestDouble {
     private (set) var evaluateCircuitCount = 0
     private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
     var evaluateCircuitResult: GeneticCircuitEvaluator.Evaluation?
-    var evaluateCircuitError = GeneticCircuitEvaluatorEvaluateCircuitError.useCaseEvaluatorsThrowed(errors: [])
+    var evaluateCircuitError = EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: NotGate())
 
     // MARK: - Private properties
 

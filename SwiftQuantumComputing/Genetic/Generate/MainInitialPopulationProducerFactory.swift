@@ -48,25 +48,9 @@ extension MainInitialPopulationProducerFactory: InitialPopulationProducerFactory
                       threshold: Double,
                       useCases: [GeneticUseCase],
                       gates: [Gate]) throws -> InitialPopulationProducer {
-        var generator: GeneticGatesRandomizer!
-        do {
-            generator = try generatorFactory.makeRandomizer(qubitCount: qubitCount, gates: gates)
-        } catch GeneticGatesRandomizerFactoryMakeRandomizerError.qubitCountHasToBeBiggerThanZero {
-            throw InitialPopulationProducerFactoryMakeProducerError.qubitCountHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let generator = try generatorFactory.makeRandomizer(qubitCount: qubitCount, gates: gates)
 
-        var evaluator: GeneticCircuitEvaluator!
-        do {
-            evaluator = try evaluatorFactory.makeEvaluator(qubitCount: qubitCount,
-                                                           threshold: threshold,
-                                                           useCases: useCases)
-        } catch GeneticCircuitEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero {
-            throw InitialPopulationProducerFactoryMakeProducerError.qubitCountHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let evaluator = try evaluatorFactory.makeEvaluator(threshold: threshold, useCases: useCases)
 
         return MainInitialPopulationProducer(generator: generator,
                                              evaluator: evaluator,

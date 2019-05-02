@@ -1,5 +1,5 @@
 //
-//  Gate.swift
+//  PhaseShiftGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -20,14 +20,29 @@
 
 import Foundation
 
-// MARK: - Errors
+// MARK: - Main body
 
-public enum GateMakeFixedError: Error {
-    case notEnoughInputsToProduceAGate
+public struct PhaseShiftGate {
+
+    // MARK: - Private properties
+
+    private let radians: Double
+
+    // MARK: - Public init methods
+
+    public init(radians: Double) {
+        self.radians = radians
+    }
 }
 
-// MARK: - Protocol definition
+// MARK: - Gate methods
 
-public protocol Gate {
-    func makeFixed(inputs: [Int]) throws -> FixedGate
+extension PhaseShiftGate: Gate {
+    public func makeFixed(inputs: [Int]) throws -> FixedGate {
+        guard let target = inputs.first else {
+            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
+        }
+
+        return .phaseShift(radians: radians, target: target)
+    }
 }

@@ -32,7 +32,7 @@ final class BackendRegisterGateFactoryTestDouble {
     private (set) var lastMakeGateMatrix: Matrix?
     private (set) var lastMakeGateInputs: [Int]?
     var makeGateResult: RegisterGate?
-    var makeGateError = BackendRegisterGateFactoryMakeGateError.gateIsNotUnitary
+    var makeGateError = GateError.gateMatrixIsNotUnitary
 }
 
 // MARK: - BackendRegisterGateFactory methods
