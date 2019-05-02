@@ -77,14 +77,7 @@ extension MainGeneticCircuitMutation: GeneticCircuitMutation {
             return nil
         }
 
-        var m: [GeneticGate]!
-        do {
-            m = try randomizer.make(depth: random(0...remainingDepth))
-        } catch GeneticGatesRandomizerMakeError.gateRequiresMoreQubitsThatAreAvailable(let gate) {
-            throw GeneticCircuitMutationExecuteError.gateInMutationRequiresMoreQubitsThatAreAvailable(gate: gate)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        let m = try randomizer.make(depth: random(0...remainingDepth))
 
         return (c1 + m + c3)
     }

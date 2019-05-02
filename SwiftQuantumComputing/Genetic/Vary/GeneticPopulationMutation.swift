@@ -20,14 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticPopulationMutationAppliedError: Error {
-    case populationIsEmpty
-    case gateInMutationRequiresMoreQubitsThatAreAvailable(gate: Gate)
-    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticPopulationMutation {

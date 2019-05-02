@@ -20,13 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticPopulationCrossoverAppliedError: Error {
-    case populationIsEmpty
-    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticPopulationCrossover {

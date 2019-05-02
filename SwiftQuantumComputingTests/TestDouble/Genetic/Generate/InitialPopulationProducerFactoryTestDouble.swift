@@ -34,7 +34,7 @@ final class InitialPopulationProducerFactoryTestDouble {
     private (set) var lastMakeProducerUseCases: [GeneticUseCase]?
     private (set) var lastMakeProducerGates: [Gate]?
     var makeProducerResult: InitialPopulationProducer?
-    var makeProducerError = InitialPopulationProducerFactoryMakeProducerError.qubitCountHasToBeBiggerThanZero
+    var makeProducerError = EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - InitialPopulationProducerFactory methods

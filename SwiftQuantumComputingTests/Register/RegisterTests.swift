@@ -27,17 +27,6 @@ import XCTest
 class RegisterTests: XCTestCase {
 
     // MARK: - Tests
-
-    func testQubitCountEqualToNegativeValue_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try Register(qubitCount:-1))
-    }
-
-    func testQubitCountEqualToZero_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try Register(qubitCount:0))
-    }
-
     func testEmptyBitsString_init_throwException() {
         // Then
         XCTAssertThrowsError(try Register(bits: ""))
@@ -77,7 +66,7 @@ class RegisterTests: XCTestCase {
 
     func testQubitCountBiggerThanZero_init_returnExpectedRegister() {
         // Then
-        let register = try? Register(qubitCount: 3)
+        let register = try? Register(bits: "000")
 
         let elements = [Complex(1), Complex(0), Complex(0), Complex(0),
                         Complex(0), Complex(0), Complex(0), Complex(0)]
@@ -106,7 +95,7 @@ class RegisterTests: XCTestCase {
 
     func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException() {
         // Given
-        let register = try! Register(qubitCount: 2)
+        let register = try! Register(bits: "00")
 
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let gate = try! RegisterGate(matrix: matrix)
@@ -117,7 +106,7 @@ class RegisterTests: XCTestCase {
 
     func testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister() {
         // Given
-        let register = try! Register(qubitCount: 1)
+        let register = try! Register(bits: "0")
 
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let gate = try! RegisterGate(matrix: matrix)
@@ -132,7 +121,7 @@ class RegisterTests: XCTestCase {
 
     func testAnyRegisterAndZeroQubits_measure_throwException() {
         // Given
-        let register = try! Register(qubitCount: 3)
+        let register = try! Register(bits: "000")
 
         // Then
         XCTAssertThrowsError(try register.measure(qubits: []))
@@ -140,7 +129,7 @@ class RegisterTests: XCTestCase {
 
     func testAnyRegisterAndRepeatedQubits_measure_throwException() {
         // Given
-        let register = try! Register(qubitCount: 3)
+        let register = try! Register(bits: "000")
 
         // Then
         XCTAssertThrowsError(try register.measure(qubits: [0, 0]))
@@ -148,7 +137,7 @@ class RegisterTests: XCTestCase {
 
     func testAnyRegisterAndQubitsOutOfBound_measure_throwException() {
         // Given
-        let register = try! Register(qubitCount: 3)
+        let register = try! Register(bits: "000")
 
         // Then
         XCTAssertThrowsError(try register.measure(qubits: [100, 0]))
@@ -156,7 +145,7 @@ class RegisterTests: XCTestCase {
 
     func testAnyRegisterAndNegativeQubits_measure_throwException() {
         // Given
-        let register = try! Register(qubitCount: 3)
+        let register = try! Register(bits: "000")
 
         // Then
         XCTAssertThrowsError(try register.measure(qubits: [0, -1]))
@@ -164,7 +153,7 @@ class RegisterTests: XCTestCase {
 
     func testAnyRegisterAndUnsortedQubits_measure_throwException() {
         // Given
-        let register = try! Register(qubitCount: 3)
+        let register = try! Register(bits: "000")
 
         // Then
         XCTAssertThrowsError(try register.measure(qubits: [0, 1]))
@@ -211,7 +200,7 @@ class RegisterTests: XCTestCase {
 
     func testRegisterInitializedWithoutAVector_measure_zeroHasProbabilityOne() {
         // Given
-        let register = try! Register(qubitCount: 2)
+        let register = try! Register(bits: "00")
 
         // Then
         let expectedMeasurements = [Double(1), Double(0), Double(0), Double(0)]
@@ -222,7 +211,7 @@ class RegisterTests: XCTestCase {
         // Given
         let qubitCount = 2
 
-        var register = try! Register(qubitCount: qubitCount)
+        var register = try! Register(bits: String(repeating: "0", count: qubitCount))
         
         let notMatrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
         let factory = try! RegisterGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)

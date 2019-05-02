@@ -33,19 +33,14 @@ struct MainGeneticUseCaseEvaluator {
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
-        case qubitCountHasToBeBiggerThanZero
-    }
-
-    init(qubitCount: Int,
-         useCase: GeneticUseCase,
+    init(useCase: GeneticUseCase,
          factory: CircuitFactory,
          oracleFactory: OracleCircuitFactory) throws {
-        guard qubitCount > 0 else {
-            throw InitError.qubitCountHasToBeBiggerThanZero
+        guard useCase.circuit.qubitCount > 0 else {
+            throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
         }
 
-        self.qubits = Array((0..<qubitCount).reversed())
+        self.qubits = Array((0..<useCase.circuit.qubitCount).reversed())
         self.useCase = useCase
         self.factory = factory
         self.oracleFactory = oracleFactory
@@ -56,17 +51,8 @@ struct MainGeneticUseCaseEvaluator {
 
 extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
     func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Double {
-        var oracleCircuit: OracleCircuitFactory.OracleCircuit!
-        do {
-            oracleCircuit = try oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
+        let oracleCircuit = try oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
                                                                 useCase: useCase)
-        } catch OracleCircuitFactoryMakeOracleCircuitError.truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(_) {
-            throw GeneticUseCaseEvaluationError.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
-        } catch OracleCircuitFactoryMakeOracleCircuitError.truthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle(_) {
-            throw GeneticUseCaseEvaluationError.useCaseTruthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
 
         let gates = oracleCircuit.circuit
         let circuit = try! factory.makeCircuit(qubitCount: qubits.count, gates: gates)
@@ -75,40 +61,17 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
         var measures: [Double]!
         do {
             measures = try circuit.measure(qubits: qubits, afterInputting: input)
-        } catch CircuitMeasureError.informBitsAsANonEmptyStringComposedOnlyOfZerosAndOnes {
-            throw GeneticUseCaseEvaluationError.useCaseCircuitInputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
-        } catch CircuitMeasureError.unableToExtractMatrixFromGate(let index) {
-            throw GeneticUseCaseEvaluationError.unableToExtractMatrix(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateMatrixIsNotSquare(let index) {
-            throw GeneticUseCaseEvaluationError.gateMatrixIsNotSquare(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateMatrixRowCountHasToBeAPowerOfTwo(let index) {
-            throw GeneticUseCaseEvaluationError.gateMatrixRowCountHasToBeAPowerOfTwo(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateMatrixHandlesMoreQubitsThanAreAvailable(let index) {
-            throw GeneticUseCaseEvaluationError.gateMatrixHandlesMoreQubitsThanAreAvailable(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateInputCountDoesNotMatchMatrixQubitCount(let index) {
-            throw GeneticUseCaseEvaluationError.gateInputCountDoesNotMatchMatrixQubitCount(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateInputsAreNotUnique(let index) {
-            throw GeneticUseCaseEvaluationError.gateInputsAreNotUnique(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateInputsAreNotInBound(let index) {
-            throw GeneticUseCaseEvaluationError.gateInputsAreNotInBound(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateIsNotUnitary(let index) {
-            throw GeneticUseCaseEvaluationError.gateIsNotUnitary(gate: circuit.gates[index])
-        } catch CircuitMeasureError.gateDoesNotHaveValidDimension(let index) {
-            throw GeneticUseCaseEvaluationError.gateDoesNotHaveValidDimension(gate: circuit.gates[index])
-        } catch CircuitMeasureError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(let index) {
-            throw GeneticUseCaseEvaluationError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate(gate: circuit.gates[index])
-        } catch CircuitMeasureError.qubitsAreNotInBound {
-            throw GeneticUseCaseEvaluationError.evaluatorForCircuitWithMoreQubits
         } catch {
-            fatalError("Unexpected error: \(error).")
+            if let error = error as? MeasureError {
+                throw EvolveCircuitError.useCaseMeasurementThrowedError(useCase: useCase,
+                                                                        error: error)
+            } else {
+                fatalError("Unexpected error: \(error).")
+            }
         }
 
         guard let index = Int(useCase.circuit.output, radix: 2) else {
-            throw GeneticUseCaseEvaluationError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
-        }
-
-        guard (index >= 0) && (index < measures.count) else {
-            throw GeneticUseCaseEvaluationError.useCaseCircuitOutputHasMoreQubitsThatCircuitHas
+            throw EvolveCircuitError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: useCase)
         }
 
         return abs(1 - measures[index])

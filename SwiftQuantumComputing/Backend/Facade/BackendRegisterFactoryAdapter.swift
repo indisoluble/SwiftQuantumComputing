@@ -1,8 +1,8 @@
 //
-//  ControlledNotGate.swift
+//  BackendRegisterFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/12/2018.
+//  Created by Enrique de la Torre on 30/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,21 +22,16 @@ import Foundation
 
 // MARK: - Main body
 
-public struct ControlledNotGate {
+struct BackendRegisterFactoryAdapter {}
 
-    // MARK: - Public init methods
+// MARK: - BackendRegisterFactory methods
 
-    public init() {}
-}
-
-// MARK: - Gate methods
-
-extension ControlledNotGate: Gate {
-    public func makeFixed(inputs: [Int]) throws -> FixedGate {
-        guard inputs.count > 1 else {
-            throw GateMakeFixedError.notEnoughInputsToProduceAGate
+extension BackendRegisterFactoryAdapter: BackendRegisterFactory {
+    func makeRegister(bits: String) throws -> BackendRegister {
+        do {
+            return try Register(bits: bits)
+        } catch Register.InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
+            throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
-
-        return .controlledNot(target: inputs[0], control: inputs[1])
     }
 }

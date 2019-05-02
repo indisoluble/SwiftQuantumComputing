@@ -20,16 +20,9 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticCircuitEvaluatorFactoryMakeEvaluatorError: Error {
-    case qubitCountHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticCircuitEvaluatorFactory {
-    func makeEvaluator(qubitCount: Int,
-                       threshold: Double,
+    func makeEvaluator(threshold: Double,
                        useCases: [GeneticUseCase]) throws -> GeneticCircuitEvaluator
 }

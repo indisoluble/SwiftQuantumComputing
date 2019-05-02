@@ -32,7 +32,7 @@ final class InitialPopulationProducerTestDouble {
     private (set) var lastExecuteSize: Int?
     private (set) var lastExecuteDepth: Range<Int>?
     var executeResult: [Fitness.EvalCircuit]?
-    var executeError = InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: [])
+    var executeError = EvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
 }
 
 // MARK: - InitialPopulationProducer methods

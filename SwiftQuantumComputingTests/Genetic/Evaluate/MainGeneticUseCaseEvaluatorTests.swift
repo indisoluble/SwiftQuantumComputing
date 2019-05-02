@@ -28,7 +28,6 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
 
     // MARK: - Properties
 
-    let qubitCount = 2
     let useCase = try! GeneticUseCase(truthTable: [], circuitInput: "01", circuitOutput: "11")
     let factory = CircuitFactoryTestDouble()
     let oracleFactory = OracleCircuitFactoryTestDouble()
@@ -39,18 +38,9 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testQubitCountEqualToZero_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try MainGeneticUseCaseEvaluator(qubitCount: 0,
-                                                             useCase: useCase,
-                                                             factory: factory,
-                                                             oracleFactory: oracleFactory))
-    }
-
     func testOracleFactoryThatThrowException_evaluateCircuit_throwException() {
         // Given
-        let evaluator = try! MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                         useCase: useCase,
+        let evaluator = try! MainGeneticUseCaseEvaluator(useCase: useCase,
                                                          factory: factory,
                                                          oracleFactory: oracleFactory)
 
@@ -67,8 +57,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         factory.makeCircuitResult = circuit
         circuit.gatesResult = [FixedGate.not(target: 0)]
 
-        let evaluator = try! MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                         useCase: useCase,
+        let evaluator = try! MainGeneticUseCaseEvaluator(useCase: useCase,
                                                          factory: factory,
                                                          oracleFactory: oracleFactory)
 
@@ -89,31 +78,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         let nonSensicalUseCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0,
                                                      circuitOutput: "qwerty")
 
-        let evaluator = try! MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                         useCase: nonSensicalUseCase,
-                                                         factory: factory,
-                                                         oracleFactory: oracleFactory)
-
-        // Then
-        XCTAssertThrowsError(try evaluator.evaluateCircuit(geneticCircuit))
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
-        XCTAssertEqual(factory.makeCircuitCount, 1)
-        XCTAssertEqual(circuit.measureCount, 1)
-        XCTAssertEqual(circuit.lastMeasureBits, nonSensicalUseCase.circuit.input)
-    }
-
-    func testUseCaseWithOutputOutOfRange_evaluateCircuit_throwException() {
-        // Given
-        oracleFactory.makeOracleCircuitResult = oracleCircuit
-        factory.makeCircuitResult = circuit
-        circuit.measureResult = measures
-
-        let circuitOutput = String(repeating: "1", count: qubitCount + 1)
-        let nonSensicalUseCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0,
-                                                     circuitOutput: circuitOutput)
-
-        let evaluator = try! MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                         useCase: nonSensicalUseCase,
+        let evaluator = try! MainGeneticUseCaseEvaluator(useCase: nonSensicalUseCase,
                                                          factory: factory,
                                                          oracleFactory: oracleFactory)
 
@@ -131,8 +96,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         factory.makeCircuitResult = circuit
         circuit.measureResult = measures
 
-        let evaluator = try! MainGeneticUseCaseEvaluator(qubitCount: qubitCount,
-                                                         useCase: useCase,
+        let evaluator = try! MainGeneticUseCaseEvaluator(useCase: useCase,
                                                          factory: factory,
                                                          oracleFactory: oracleFactory)
 

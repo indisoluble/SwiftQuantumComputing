@@ -53,7 +53,7 @@ class MainGeneticPopulationMutationTests: XCTestCase {
                                                                randomElements: randomElements))
     }
 
-    func testFitnessReturnNil_applied_throwException() {
+    func testFitnessReturnNil_applied_returnNil() {
         // Given
         var randomElementsCount = 0
         let randomElements: MainGeneticPopulationMutation.RandomElements = { _, _ in
@@ -69,8 +69,16 @@ class MainGeneticPopulationMutationTests: XCTestCase {
                                                                     score: score,
                                                                     randomElements: randomElements)
 
+        // When
+        var result: Fitness.EvalCircuit?
+        do {
+            result = try populationMutation.applied(to: evalCircuits)
+        } catch {
+            XCTAssert(false)
+        }
+
         // Then
-        XCTAssertThrowsError(try populationMutation.applied(to: evalCircuits))
+        XCTAssertNil(result)
         XCTAssertEqual(randomElementsCount, 1)
         XCTAssertEqual(fitness.fittestCount, 1)
         XCTAssertEqual(mutation.executeCount, 0)
@@ -89,7 +97,7 @@ class MainGeneticPopulationMutationTests: XCTestCase {
 
         fitness.fittestResult = (0, [])
 
-        mutation.executeError = .gateInMutationRequiresMoreQubitsThatAreAvailable(gate: NotGate())
+        mutation.executeError = .gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: NotGate())
 
         let populationMutation = try! MainGeneticPopulationMutation(tournamentSize: tournamentSize,
                                                                     fitness: fitness,

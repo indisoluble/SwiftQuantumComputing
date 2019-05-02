@@ -20,13 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum OracleCircuitFactoryMakeOracleCircuitError: Error {
-    case truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(at: Int)
-    case truthTableRequiresMoreInputQubitsThatAreAvailableToMakeOracle(at: Int)
-}
-
 // MARK: - Protocol definition
 
 protocol OracleCircuitFactory {

@@ -20,14 +20,8 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticUseCaseEvaluatorFactoryMakeEvaluatorError: Error {
-    case qubitCountHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticUseCaseEvaluatorFactory {
-    func makeEvaluator(qubitCount: Int, useCase: GeneticUseCase) throws -> GeneticUseCaseEvaluator
+    func makeEvaluator(useCase: GeneticUseCase) throws -> GeneticUseCaseEvaluator
 }

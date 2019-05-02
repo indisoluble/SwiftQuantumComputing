@@ -90,67 +90,38 @@ extension MainGeneticFactory: GeneticFactory {
                               useCases: [GeneticUseCase],
                               gates: [Gate]) throws -> EvolvedCircuit {
         guard let initSize = config.populationSize.first else {
-            throw GeneticFactoryEvolveCircuitError.configurationPopulationSizeIsEmpty
+            throw EvolveCircuitError.configurationPopulationSizeIsEmpty
         }
         let maxSize = config.populationSize.last!
 
         guard let maxDepth = config.depth.last else {
-            throw GeneticFactoryEvolveCircuitError.configurationDepthIsEmpty
+            throw EvolveCircuitError.configurationDepthIsEmpty
         }
 
         guard let firstCase = useCases.first else {
-            throw GeneticFactoryEvolveCircuitError.useCaseListIsEmpty
+            throw EvolveCircuitError.useCaseListIsEmpty
         }
 
         let qubitCount = firstCase.circuit.qubitCount
         guard useCases.reduce(true, { $0 && $1.circuit.qubitCount == qubitCount })  else {
-            throw GeneticFactoryEvolveCircuitError.useCasesDoNotSpecifySameCircuitQubitCount
+            throw EvolveCircuitError.useCasesDoNotSpecifySameCircuitQubitCount
         }
 
-        var initialPopulation: InitialPopulationProducer!
-        do {
-            initialPopulation = try initialPopulationFactory.makeProducer(qubitCount: qubitCount,
+        let initialPopulation = try initialPopulationFactory.makeProducer(qubitCount: qubitCount,
                                                                           threshold: config.threshold,
                                                                           useCases: useCases,
                                                                           gates: gates)
-        } catch InitialPopulationProducerFactoryMakeProducerError.qubitCountHasToBeBiggerThanZero {
-            throw GeneticFactoryEvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
 
-        var reproduction: GeneticPopulationReproduction!
-        do {
-            reproduction = try reproductionFactory.makeReproduction(qubitCount: qubitCount,
+        let reproduction = try reproductionFactory.makeReproduction(qubitCount: qubitCount,
                                                                     tournamentSize: config.tournamentSize,
                                                                     mutationProbability: config.mutationProbability,
                                                                     threshold: config.threshold,
                                                                     maxDepth: maxDepth,
                                                                     useCases: useCases,
                                                                     gates: gates)
-        } catch GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero {
-            throw GeneticFactoryEvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
-        } catch GeneticPopulationReproductionFactoryMakeReproductionError.tournamentSizeHasToBeBiggerThanZero {
-            throw GeneticFactoryEvolveCircuitError.configurationTournamentSizeHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
 
         os_log("Producing initial population...", log: MainGeneticFactory.logger, type: .info)
-        var population: [Fitness.EvalCircuit]!
-        do {
-            population = try initialPopulation.execute(size: initSize, depth: config.depth)
-        } catch InitialPopulationProducerExecuteError.populationSizeHasToBeBiggerThanZero {
-            throw GeneticFactoryEvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
-        } catch InitialPopulationProducerExecuteError.populationDepthHasToBeAPositiveNumber {
-            throw GeneticFactoryEvolveCircuitError.configurationDepthHasToBeAPositiveNumber
-        } catch InitialPopulationProducerExecuteError.gateRequiredMoreQubitsThatAreAvailable(let gate) {
-            throw GeneticFactoryEvolveCircuitError.gateRequiredMoreQubitsThatAreAvailable(gate: gate)
-        } catch InitialPopulationProducerExecuteError.useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(let errors) {
-            throw GeneticFactoryEvolveCircuitError.useCaseEvaluatorsThrowed(errors: errors)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        var population = try initialPopulation.execute(size: initSize, depth: config.depth)
         os_log("Initial population completed", log: MainGeneticFactory.logger, type: .info)
 
         var candidate = fitness.fittest(in: population)!
@@ -161,17 +132,7 @@ extension MainGeneticFactory: GeneticFactory {
         while (candidate.eval > errProb) && (currGen < genCount) && (population.count < maxSize) {
             os_log("Init. generation %d...", log: MainGeneticFactory.logger, type: .info, currGen)
 
-            var offspring: [Fitness.EvalCircuit]!
-            do {
-                offspring = try reproduction.applied(to: population)
-            } catch GeneticPopulationReproductionAppliedError.gateInMutationRequiresMoreQubitsThatAreAvailable(let gate) {
-                throw GeneticFactoryEvolveCircuitError.gateRequiredMoreQubitsThatAreAvailable(gate: gate)
-            } catch GeneticPopulationReproductionAppliedError.useCaseEvaluatorsThrowed(let errors) {
-                throw GeneticFactoryEvolveCircuitError.useCaseEvaluatorsThrowed(errors: errors)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
-
+            let offspring = try reproduction.applied(to: population)
             if (offspring.isEmpty) {
                 os_log("evolveCircuit: empty offspr.", log: MainGeneticFactory.logger, type: .debug)
             } else {

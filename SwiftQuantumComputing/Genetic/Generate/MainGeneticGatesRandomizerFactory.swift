@@ -31,12 +31,6 @@ extension MainGeneticGatesRandomizerFactory: GeneticGatesRandomizerFactory {
         var factories: [GeneticGateFactory] = gates.map { SimpleGeneticGateFactory(gate: $0) }
         factories.append(ConfigurableGeneticGateFactory())
 
-        do {
-            return try MainGeneticGatesRandomizer(qubitCount: qubitCount, factories: factories)
-        } catch MainGeneticGatesRandomizer.InitError.qubitCountHasToBeBiggerThanZero {
-            throw GeneticGatesRandomizerFactoryMakeRandomizerError.qubitCountHasToBeBiggerThanZero
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return try MainGeneticGatesRandomizer(qubitCount: qubitCount, factories: factories)
     }
 }

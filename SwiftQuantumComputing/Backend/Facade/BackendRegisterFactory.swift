@@ -22,8 +22,8 @@ import Foundation
 
 // MARK: - Errors
 
-enum BackendRegisterFactoryMakeRegisterError: Error {
-    case provideNonEmptyStringComposedOnlyOfZerosAndOnes
+enum MakeRegisterError: Error {
+    case bitsAreNotAStringComposedOnlyOfZerosAndOnes
 }
 
 // MARK: - Protocol definition

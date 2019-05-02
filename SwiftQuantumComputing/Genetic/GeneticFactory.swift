@@ -22,17 +22,19 @@ import Foundation
 
 // MARK: - Errors
 
-public enum GeneticFactoryEvolveCircuitError: Error {
-    case configurationPopulationSizeIsEmpty
-    case configurationPopulationSizeHasToBeBiggerThanZero
-    case configurationDepthIsEmpty
+public enum EvolveCircuitError: Error {
     case configurationDepthHasToBeAPositiveNumber
+    case configurationDepthIsEmpty
+    case configurationPopulationSizeHasToBeBiggerThanZero
+    case configurationPopulationSizeIsEmpty
     case configurationTournamentSizeHasToBeBiggerThanZero
-    case gateRequiredMoreQubitsThatAreAvailable(gate: Gate)
-    case useCaseListIsEmpty
-    case useCasesDoNotSpecifySameCircuitQubitCount
+    case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: Gate)
+    case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: GeneticUseCase)
     case useCaseCircuitQubitCountHasToBeBiggerThanZero
-    case useCaseEvaluatorsThrowed(errors: GeneticCircuitEvaluationErrors)
+    case useCaseListIsEmpty
+    case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: MeasureError)
+    case useCasesDoNotSpecifySameCircuitQubitCount
+    case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: GeneticUseCase)
 }
 
 // MARK: - Protocol definition

@@ -1,9 +1,9 @@
 //
-//  BackendRegisterGateFactoryAdapterTests.swift
+//  HadamardGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/04/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 15/12/2018.
+//  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,23 +18,25 @@
 // limitations under the License.
 //
 
-import XCTest
-
-@testable import SwiftQuantumComputing
+import Foundation
 
 // MARK: - Main body
 
-class BackendRegisterGateFactoryAdapterTests: XCTestCase {
+public struct HadamardGate {
 
-    // MARK: - Tests
+    // MARK: - Public init methods
 
-    func testQubitCountEqualToZero_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try BackendRegisterGateFactoryAdapter(qubitCount: 0))
-    }
+    public init() {}
+}
 
-    func testQubitCountBiggerThanZero_init_returnAdapter() {
-        // Then
-        XCTAssertNoThrow(try BackendRegisterGateFactoryAdapter(qubitCount: 1))
+// MARK: - Gate methods
+
+extension HadamardGate: Gate {
+    public func makeFixed(inputs: [Int]) throws -> FixedGate {
+        guard let target = inputs.first else {
+            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
+        }
+
+        return .hadamard(target: target)
     }
 }

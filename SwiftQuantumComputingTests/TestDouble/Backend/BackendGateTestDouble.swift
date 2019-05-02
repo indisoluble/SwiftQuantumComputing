@@ -28,6 +28,9 @@ final class BackendGateTestDouble {
 
     // MARK: - Internal properties
 
+    private (set) var fixedGateCount = 0
+    var fixedGateResult = FixedGate.not(target: 0)
+
     private (set) var extractCount = 0
     var extractMatrixResult: Matrix?
     var extractInputsResult: [Int]?
@@ -36,6 +39,12 @@ final class BackendGateTestDouble {
 // MARK: - BackendGate methods
 
 extension BackendGateTestDouble: BackendGate {
+    var fixedGate: FixedGate {
+        fixedGateCount += 1
+
+        return fixedGateResult
+    }
+
     func extract() throws -> (matrix: Matrix, inputs: [Int]) {
         extractCount += 1
 
@@ -43,6 +52,6 @@ extension BackendGateTestDouble: BackendGate {
             return (matrix: matrix, inputs: inputs)
         }
 
-        throw BackendGateExtractError.unableToExtractMatrix
+        throw GateError.gateOracleControlsCanNotBeAnEmptyList
     }
 }

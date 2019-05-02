@@ -72,7 +72,7 @@ struct Vector {
     // MARK: - Internal class methods
 
     enum InnerProductError: Error {
-        case vectorsDoNotHaveValidDimensions
+        case vectorsDoNotHaveSameCount
     }
 
     static func innerProduct(_ lhs: Vector, _ rhs: Vector) throws -> Complex {
@@ -80,7 +80,7 @@ struct Vector {
         do {
             matrix = try Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix
         } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
-            throw InnerProductError.vectorsDoNotHaveValidDimensions
+            throw InnerProductError.vectorsDoNotHaveSameCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }
@@ -109,7 +109,7 @@ extension Vector: Equatable {
 
 extension Vector {
     enum ProductError: Error {
-        case parametersDoNotHaveValidDimensions
+        case matrixColumnCountDoesNotMatchVectorCount
     }
 
     static func *(lhs: Matrix, rhs: Vector) throws -> Vector {
@@ -117,7 +117,7 @@ extension Vector {
         do {
             matrix = try lhs * rhs.matrix
         } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
-            throw ProductError.parametersDoNotHaveValidDimensions
+            throw ProductError.matrixColumnCountDoesNotMatchVectorCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }

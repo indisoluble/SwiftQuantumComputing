@@ -20,18 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum BackendRegisterGateFactoryMakeGateError: Error {
-    case matrixIsNotSquare
-    case matrixRowCountHasToBeAPowerOfTwo
-    case matrixHandlesMoreQubitsThanAreAvailable
-    case inputCountDoesNotMatchMatrixQubitCount
-    case inputsAreNotUnique
-    case inputsAreNotInBound
-    case gateIsNotUnitary
-}
-
 // MARK: - Protocol definition
 
 protocol BackendRegisterGateFactory {

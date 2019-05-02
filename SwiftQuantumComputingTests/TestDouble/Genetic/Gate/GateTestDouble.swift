@@ -45,6 +45,6 @@ extension GateTestDouble: Gate {
             return makeFixedResult
         }
 
-        throw GateMakeFixedError.notEnoughInputsToProduceAGate
+        throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
     }
 }

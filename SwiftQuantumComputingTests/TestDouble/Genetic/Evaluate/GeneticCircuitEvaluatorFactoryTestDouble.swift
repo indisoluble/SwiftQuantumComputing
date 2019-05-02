@@ -29,7 +29,6 @@ final class GeneticCircuitEvaluatorFactoryTestDouble {
     // MARK: - Internal properties
 
     private (set) var makeEvaluatorCount = 0
-    private (set) var lastMakeEvaluatorQubitCount: Int?
     private (set) var lastMakeEvaluatorThreshold: Double?
     private (set) var lastMakeEvaluatorUseCases: [GeneticUseCase]?
     var makeEvaluatorResult: GeneticCircuitEvaluator?
@@ -38,12 +37,10 @@ final class GeneticCircuitEvaluatorFactoryTestDouble {
 // MARK: - GeneticCircuitEvaluatorFactoryTestDouble methods
 
 extension GeneticCircuitEvaluatorFactoryTestDouble: GeneticCircuitEvaluatorFactory {
-    func makeEvaluator(qubitCount: Int,
-                       threshold: Double,
+    func makeEvaluator(threshold: Double,
                        useCases: [GeneticUseCase]) throws -> GeneticCircuitEvaluator {
         makeEvaluatorCount += 1
 
-        lastMakeEvaluatorQubitCount = qubitCount
         lastMakeEvaluatorThreshold = threshold
         lastMakeEvaluatorUseCases = useCases
 
@@ -51,6 +48,6 @@ extension GeneticCircuitEvaluatorFactoryTestDouble: GeneticCircuitEvaluatorFacto
             return makeEvaluatorResult
         }
 
-        throw GeneticCircuitEvaluatorFactoryMakeEvaluatorError.qubitCountHasToBeBiggerThanZero
+        throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
     }
 }

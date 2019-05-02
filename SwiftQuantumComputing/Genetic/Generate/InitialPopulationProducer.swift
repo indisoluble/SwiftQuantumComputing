@@ -20,15 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum InitialPopulationProducerExecuteError: Error {
-    case populationSizeHasToBeBiggerThanZero
-    case populationDepthHasToBeAPositiveNumber
-    case gateRequiredMoreQubitsThatAreAvailable(gate: Gate)
-    case useCaseEvaluatorsThrowedErrorsForAtLeastOneCircuit(errors: GeneticCircuitEvaluationErrors)
-}
-
 // MARK: - Protocol definition
 
 protocol InitialPopulationProducer {

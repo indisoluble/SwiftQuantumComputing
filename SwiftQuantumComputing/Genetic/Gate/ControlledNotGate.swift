@@ -1,5 +1,5 @@
 //
-//  MatrixGate.swift
+//  ControlledNotGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -22,38 +22,21 @@ import Foundation
 
 // MARK: - Main body
 
-public struct MatrixGate {
-
-    // MARK: - Private properties
-
-    private let matrix: Matrix
-    private let qubitCount: Int
+public struct ControlledNotGate {
 
     // MARK: - Public init methods
 
-    public enum InitError: Error {
-        case matrixQubitCountHasToBeBiggerThanZero
-    }
-
-    public init(matrix: Matrix) throws {
-        let qc = Int.log2(matrix.rowCount)
-        guard qc > 0 else {
-            throw InitError.matrixQubitCountHasToBeBiggerThanZero
-        }
-
-        self.matrix = matrix
-        qubitCount = qc
-    }
+    public init() {}
 }
 
 // MARK: - Gate methods
 
-extension MatrixGate: Gate {
+extension ControlledNotGate: Gate {
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
-        guard inputs.count >= qubitCount else {
-            throw GateMakeFixedError.notEnoughInputsToProduceAGate
+        guard inputs.count > 1 else {
+            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
 
-        return .matrix(matrix: matrix, inputs: Array(inputs[0..<qubitCount]))
+        return .controlledNot(target: inputs[0], control: inputs[1])
     }
 }

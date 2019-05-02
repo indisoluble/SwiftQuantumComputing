@@ -31,7 +31,7 @@ final class GeneticPopulationCrossoverTestDouble {
     private (set) var appliedCount = 0
     private (set) var lastAppliedPopulation: [Fitness.EvalCircuit]?
     var appliedResult: [Fitness.EvalCircuit]?
-    var appliedError = GeneticPopulationCrossoverAppliedError.useCaseEvaluatorsThrowed(errors: [])
+    var appliedError = EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: NotGate())
 }
 
 // MARK: - GeneticPopulationCrossover methods

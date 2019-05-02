@@ -20,12 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum GeneticPopulationCrossoverFactoryMakeCrossoverError: Error {
-    case tournamentSizeHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 protocol GeneticPopulationCrossoverFactory {

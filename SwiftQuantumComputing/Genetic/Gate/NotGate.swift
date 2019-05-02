@@ -1,5 +1,5 @@
 //
-//  PhaseShiftGate.swift
+//  NotGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -22,27 +22,21 @@ import Foundation
 
 // MARK: - Main body
 
-public struct PhaseShiftGate {
-
-    // MARK: - Private properties
-
-    private let radians: Double
+public struct NotGate {
 
     // MARK: - Public init methods
 
-    public init(radians: Double) {
-        self.radians = radians
-    }
+    public init() {}
 }
 
 // MARK: - Gate methods
 
-extension PhaseShiftGate: Gate {
+extension NotGate: Gate {
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard let target = inputs.first else {
-            throw GateMakeFixedError.notEnoughInputsToProduceAGate
+            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
 
-        return .phaseShift(radians: radians, target: target)
+        return .not(target: target)
     }
 }

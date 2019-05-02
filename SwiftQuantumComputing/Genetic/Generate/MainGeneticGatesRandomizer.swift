@@ -40,13 +40,9 @@ struct MainGeneticGatesRandomizer {
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
-        case qubitCountHasToBeBiggerThanZero
-    }
-
     init(qubitCount: Int, factories: [GeneticGateFactory]) throws {
         guard qubitCount > 0 else {
-            throw InitError.qubitCountHasToBeBiggerThanZero
+            throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
         }
 
         let qubits = Array(0..<qubitCount)
@@ -66,7 +62,7 @@ struct MainGeneticGatesRandomizer {
 extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
     func make(depth: Int) throws -> [GeneticGate] {
         guard depth >= 0 else {
-            throw GeneticGatesRandomizerMakeError.depthHasToBeAPositiveNumber
+            throw EvolveCircuitError.configurationDepthHasToBeAPositiveNumber
         }
 
         var result: [GeneticGate] = []
@@ -76,14 +72,7 @@ extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
                 continue
             }
 
-            var gate: GeneticGate!
-            do {
-                gate = try factory.makeGate(inputs: shuffledQubits())
-            } catch GeneticGateFactoryMakeGateError.notEnoughInputsToProduceAGeneticGate(let gate){
-                throw GeneticGatesRandomizerMakeError.gateRequiresMoreQubitsThatAreAvailable(gate: gate)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
+            let gate = try factory.makeGate(inputs: shuffledQubits())
 
             result.append(gate)
         }
