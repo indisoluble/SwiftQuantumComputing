@@ -30,9 +30,25 @@ struct Register {
 
     // MARK: - Internal init methods
 
+    enum InitBitsError: Error {
+        case bitsAreNotAStringComposedOnlyOfZerosAndOnes
+    }
+
+    init(bits: String) throws {
+        guard let value = Int(bits, radix: 2) else {
+            throw InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
+        }
+
+        try! self.init(vector: Register.makeState(value: value, qubitCount: bits.count))
+    }
+
+    enum InitVectorError: Error {
+        case additionOfSquareModulusIsNotEqualToOne
+    }
+
     init(vector: Vector) throws {
         guard Register.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
-            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
+            throw InitVectorError.additionOfSquareModulusIsNotEqualToOne
         }
 
         self.vector = vector
@@ -68,7 +84,11 @@ extension Register: BackendRegister {
             fatalError("Unexpected error: \(error).")
         }
 
-        return try Register(vector: nextVector)
+        do {
+            return try Register(vector: nextVector)
+        } catch Register.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
+            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
+        }
     }
 
     func measure(qubits: [Int]) throws -> [Double] {
@@ -129,6 +149,15 @@ private extension Register {
     }
 
     // MARK: - Private class methods
+
+    static func makeState(value: Int, qubitCount: Int) -> Vector {
+        let count = Int.pow(2, qubitCount)
+
+        var elements = Array(repeating: Complex(0), count: count)
+        elements[value] = Complex(1)
+
+        return try! Vector(elements)
+    }
 
     static func isAdditionOfSquareModulusInVectorEqualToOne(_ vector: Vector) -> Bool {
         return (abs(vector.squaredNorm - Double(1)) <= Constants.accuracy)

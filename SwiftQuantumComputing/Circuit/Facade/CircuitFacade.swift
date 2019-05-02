@@ -32,15 +32,13 @@ struct CircuitFacade {
 
     private let drawer: Drawable
     private let backend: Backend
-    private let factory: BackendRegisterFactory
 
     // MARK: - Internal init methods
 
-    init(gates: [FixedGate], drawer: Drawable, backend: Backend, factory: BackendRegisterFactory) {
+    init(gates: [FixedGate], drawer: Drawable, backend: Backend) {
         self.gates = gates
         self.drawer = drawer
         self.backend = backend
-        self.factory = factory
     }
 }
 
@@ -64,29 +62,6 @@ extension CircuitFacade: CustomPlaygroundDisplayConvertible {
 
 extension CircuitFacade: Circuit {
     func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
-        guard let value = Int(bits, radix: 2) else {
-            throw MeasureError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
-        }
-
-        let state = CircuitFacade.makeState(value: value, qubitCount: bits.count)
-        let register = try! factory.makeRegister(vector: state)
-
-        return try backend.measure(qubits: qubits, in: (register: register, gates: gates))
-    }
-}
-
-// MARK: - Private body
-
-private extension CircuitFacade {
-
-    // MARK: - Private class methods
-
-    static func makeState(value: Int, qubitCount: Int) -> Vector {
-        let count = Int.pow(2, qubitCount)
-
-        var elements = Array(repeating: Complex(0), count: count)
-        elements[value] = Complex(1)
-
-        return try! Vector(elements)
+        return try backend.measure(qubits: qubits, in: (inputBits: bits, gates: gates))
     }
 }

@@ -786,7 +786,6 @@
 			children = (
 				FF0694DC21CBFEB300B5D469 /* Facade */,
 				FF0694E621CC05CB00B5D469 /* BackendGateTestDouble.swift */,
-				FF0694DD21CBFF2F00B5D469 /* BackendRegisterTestDouble.swift */,
 				FFBB6F7E21CD3E1D00389838 /* BackendTestDouble.swift */,
 			);
 			path = Backend;
@@ -795,7 +794,9 @@
 		FF0694DC21CBFEB300B5D469 /* Facade */ = {
 			isa = PBXGroup;
 			children = (
+				FF8725C421D9578100E1004E /* BackendRegisterFactoryTestDouble.swift */,
 				FF0694E021CC029F00B5D469 /* BackendRegisterGateFactoryTestDouble.swift */,
+				FF0694DD21CBFF2F00B5D469 /* BackendRegisterTestDouble.swift */,
 			);
 			path = Facade;
 			sourceTree = "<group>";
@@ -806,7 +807,6 @@
 				FF9FBCE421C5887F0070D943 /* Facade */,
 				FFDC34E121C1BCBD0052AC90 /* Backend.swift */,
 				FF8B9D9721BD979000A28E34 /* BackendGate.swift */,
-				FF072EFB21BD8A1D002248AA /* BackendRegister.swift */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -1189,14 +1189,6 @@
 			path = ComplexVectorSpace;
 			sourceTree = "<group>";
 		};
-		FF8725C321D9575300E1004E /* Facade */ = {
-			isa = PBXGroup;
-			children = (
-				FF8725C421D9578100E1004E /* BackendRegisterFactoryTestDouble.swift */,
-			);
-			path = Facade;
-			sourceTree = "<group>";
-		};
 		FF97E4BF21CAB9FD008847FE /* CircuitViewDrawer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1230,6 +1222,9 @@
 			isa = PBXGroup;
 			children = (
 				FF072EF821BD88C2002248AA /* BackendFacade.swift */,
+				FF072EFB21BD8A1D002248AA /* BackendRegister.swift */,
+				FF8725BD21D9534600E1004E /* BackendRegisterFactory.swift */,
+				FF8725C021D9535B00E1004E /* BackendRegisterFactoryAdapter.swift */,
 				FF072EF521BD883C002248AA /* BackendRegisterGateFactory.swift */,
 				FF3EAC8F212DF9E4007AF61E /* BackendRegisterGateFactoryAdapter.swift */,
 			);
@@ -1239,8 +1234,6 @@
 		FF9FBCE821C58F650070D943 /* Facade */ = {
 			isa = PBXGroup;
 			children = (
-				FF8725BD21D9534600E1004E /* BackendRegisterFactory.swift */,
-				FF8725C021D9535B00E1004E /* BackendRegisterFactoryAdapter.swift */,
 				FF1A502E212997090023313E /* CircuitFacade.swift */,
 			);
 			path = Facade;
@@ -1486,7 +1479,6 @@
 		FFED68FE212F28A100D46D68 /* Circuit */ = {
 			isa = PBXGroup;
 			children = (
-				FF8725C321D9575300E1004E /* Facade */,
 				FFE479B72216213B003E7727 /* CircuitFactoryTestDouble.swift */,
 				FF265D652135DD6A00179F75 /* CircuitTestDouble.swift */,
 			);

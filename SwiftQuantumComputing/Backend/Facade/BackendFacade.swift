@@ -26,12 +26,14 @@ struct BackendFacade {
 
     // MARK: - Private properties
 
-    private let factory: BackendRegisterGateFactory
+    private let registerFactory: BackendRegisterFactory
+    private let gateFactory: BackendRegisterGateFactory
 
     // MARK: - Internal init methods
 
-    init(factory: BackendRegisterGateFactory) {
-        self.factory = factory
+    init(registerFactory: BackendRegisterFactory, gateFactory: BackendRegisterGateFactory) {
+        self.registerFactory = registerFactory
+        self.gateFactory = gateFactory
     }
 }
 
@@ -39,13 +41,18 @@ struct BackendFacade {
 
 extension BackendFacade: Backend {
     func measure(qubits: [Int], in circuit: Backend.Circuit) throws -> [Double] {
-        var register = circuit.register
+        var register: BackendRegister!
+        do {
+            register = try registerFactory.makeRegister(bits: circuit.inputBits)
+        } catch MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
+            throw MeasureError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+        }
 
         for gate in circuit.gates {
             do {
                 let components = try gate.extract()
-                let registerGate = try factory.makeGate(matrix: components.matrix,
-                                                        inputs: components.inputs)
+                let registerGate = try gateFactory.makeGate(matrix: components.matrix,
+                                                            inputs: components.inputs)
                 register = try register.applying(registerGate)
             } catch {
                 if let error = error as? GateError {

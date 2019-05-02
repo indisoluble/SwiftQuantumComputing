@@ -35,14 +35,10 @@ extension MainCircuitFactory: CircuitFactory {
     public func makeCircuit(qubitCount: Int, gates: [FixedGate]) throws -> Circuit {
         let drawer = try CircuitViewDrawer(qubitCount: qubitCount)
 
-        let gateFactory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
-        let backend = BackendFacade(factory: gateFactory)
-
         let registerFactory = BackendRegisterFactoryAdapter()
+        let gateFactory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
+        let backend = BackendFacade(registerFactory: registerFactory, gateFactory: gateFactory)
 
-        return CircuitFacade(gates: gates,
-                             drawer: drawer,
-                             backend: backend,
-                             factory: registerFactory)
+        return CircuitFacade(gates: gates, drawer: drawer, backend: backend)
     }
 }

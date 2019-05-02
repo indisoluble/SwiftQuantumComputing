@@ -1,5 +1,5 @@
 //
-//  BackendRegisterFactoryAdapter.swift
+//  BackendRegisterFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 30/12/2018.
@@ -20,14 +20,14 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Errors
 
-struct BackendRegisterFactoryAdapter {}
+enum MakeRegisterError: Error {
+    case bitsAreNotAStringComposedOnlyOfZerosAndOnes
+}
 
-// MARK: - BackendRegisterFactory methods
+// MARK: - Protocol definition
 
-extension BackendRegisterFactoryAdapter: BackendRegisterFactory {
-    func makeRegister(vector: Vector) throws -> BackendRegister {
-        return try Register(vector: vector)
-    }
+protocol BackendRegisterFactory {
+    func makeRegister(bits: String) throws -> BackendRegister
 }
