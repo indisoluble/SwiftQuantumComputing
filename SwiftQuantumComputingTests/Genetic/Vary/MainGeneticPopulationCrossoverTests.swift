@@ -55,7 +55,7 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
                                                                 randomElements: randomElements))
     }
 
-    func testFitnessReturnNil_applied_throwException() {
+    func testFitnessReturnNil_applied_returnEmptyList() {
         // Given
         var randomElementsCount = 0
         let randomElements: MainGeneticPopulationCrossover.RandomElements = { _, _ in
@@ -72,9 +72,13 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
                                                                       score: score,
                                                                       randomElements: randomElements)
 
+        // Given
+        let result = try? populationCrossover.applied(to: evalCircuits)
+
         // Then
-        XCTAssertThrowsError(try populationCrossover.applied(to: evalCircuits))
-        XCTAssertEqual(randomElementsCount, 2)
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result?.count, 0)
+        XCTAssertEqual(randomElementsCount, 1)
         XCTAssertEqual(fitness.fittestCount, 1)
         XCTAssertEqual(crossover.executeCount, 0)
         XCTAssertEqual(evaluator.evaluateCircuitCount, 0)

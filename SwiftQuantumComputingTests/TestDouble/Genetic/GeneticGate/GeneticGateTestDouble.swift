@@ -29,20 +29,18 @@ final class GeneticGateTestDouble {
     // MARK: - Internal properties
 
     private (set) var makeFixedCount = 0
-    private (set) var lastMakeFixedTruthTable: [String]?
-    private (set) var lastMakeFixedTruthTableQubitCount: Int?
+    private (set) var lastMakeFixedUseCase: GeneticUseCase?
     var makeFixedResult: GeneticGate.Fixed?
-    var makeFixedError = GeneticGateMakeFixedError.truthTableRequiresMoreInputQubitsThatAreAvailable
+    var makeFixedError = EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: NotGate())
 }
 
 // MARK: - GeneticGate methods
 
 extension GeneticGateTestDouble: GeneticGate {
-    func makeFixed(truthTable: [String], truthTableQubitCount: Int) throws -> GeneticGate.Fixed {
+    func makeFixed(useCase: GeneticUseCase) throws -> GeneticGate.Fixed {
         makeFixedCount += 1
 
-        lastMakeFixedTruthTable = truthTable
-        lastMakeFixedTruthTableQubitCount = truthTableQubitCount
+        lastMakeFixedUseCase = useCase
 
         if let makeFixedResult = makeFixedResult {
             return makeFixedResult

@@ -47,6 +47,6 @@ extension GeneticGatesRandomizerFactoryTestDouble: GeneticGatesRandomizerFactory
             return makeRandomizerResult
         }
 
-        throw GeneticGatesRandomizerFactoryMakeRandomizerError.qubitCountHasToBeBiggerThanZero
+        throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
     }
 }

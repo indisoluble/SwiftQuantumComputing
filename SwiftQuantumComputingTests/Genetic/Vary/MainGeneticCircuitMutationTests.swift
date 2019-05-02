@@ -90,7 +90,7 @@ class MainGeneticCircuitMutationTests: XCTestCase {
             return 0
         }
 
-        randomizer.makeError = GeneticGatesRandomizerMakeError.gateRequiresMoreQubitsThatAreAvailable(gate: NotGate())
+        randomizer.makeError = EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: NotGate())
 
         let mutator = MainGeneticCircuitMutation(maxDepth: maxDepth,
                                                  randomizer: randomizer,

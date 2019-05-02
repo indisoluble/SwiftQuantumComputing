@@ -33,7 +33,7 @@ final class GeneticPopulationCrossoverFactoryTestDouble {
     private (set) var lastMakeCrossoverMaxDepth: Int?
     private (set) var lastMakeCrossoverEvaluator: GeneticCircuitEvaluator?
     var makeCrossoverResult: GeneticPopulationCrossover?
-    var makeCrossoverError = GeneticPopulationCrossoverFactoryMakeCrossoverError.tournamentSizeHasToBeBiggerThanZero
+    var makeCrossoverError = EvolveCircuitError.configurationTournamentSizeHasToBeBiggerThanZero
 }
 
 // MARK: - GeneticPopulationCrossoverFactory methods

@@ -31,12 +31,12 @@ final class BackendRegisterTestDouble {
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: RegisterGate?
     var applyingResult: BackendRegisterTestDouble?
-    var applyingError = BackendRegisterApplyingError.additionOfSquareModulusInNextRegisterIsNotEqualToOne
+    var applyingError = GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
 
     private (set) var measureCount = 0
     private (set) var lastMeasureQubits: [Int]?
     var measureResult: [Double]?
-    var measureError = BackendRegisterMeasureError.qubitsAreNotSorted
+    var measureError = MeasureError.qubitsAreNotSorted
 }
 
 // MARK: - BackendRegister methods

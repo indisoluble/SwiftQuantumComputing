@@ -45,7 +45,7 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
             return randomResult
         }
 
-        mutation.appliedError = GeneticPopulationMutationAppliedError.useCaseEvaluatorsThrowed(errors: [])
+        mutation.appliedError = EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: NotGate())
 
         let reproduction = MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
                                                              mutation: mutation,

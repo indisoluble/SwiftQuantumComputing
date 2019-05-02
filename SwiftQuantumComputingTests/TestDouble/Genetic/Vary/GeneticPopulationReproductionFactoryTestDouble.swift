@@ -37,7 +37,7 @@ final class GeneticPopulationReproductionFactoryTestDouble {
     private (set) var lastMakeReproductionUseCases: [GeneticUseCase]?
     private (set) var lastMakeReproductionGates: [Gate]?
     var makeReproductionResult: GeneticPopulationReproduction?
-    var makeReproductionError = GeneticPopulationReproductionFactoryMakeReproductionError.qubitCountHasToBeBiggerThanZero
+    var makeReproductionError = EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - GeneticPopulationReproductionFactory methods

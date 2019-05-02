@@ -32,7 +32,8 @@ final class OracleCircuitFactoryTestDouble {
     private (set) var lastMakeOracleCircuitGeneticCircuit: [GeneticGate]?
     private (set) var lastMakeOracleCircuitUseCase: GeneticUseCase?
     var makeOracleCircuitResult: OracleCircuitFactory.OracleCircuit?
-    var makeOracleCircuitError = OracleCircuitFactoryMakeOracleCircuitError.truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(at: 0)
+    var makeOracleCircuitError = EvolveCircuitError.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: try! GeneticUseCase(emptyTruthTableQubitCount: 0,
+                                                                                                                                              circuitOutput: "0"))
 }
 
 // MARK: - OracleCircuitFactory methods

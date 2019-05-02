@@ -51,6 +51,6 @@ extension GeneticCircuitMutationFactoryTestDouble: GeneticCircuitMutationFactory
             return makeMutationResult
         }
 
-        throw GeneticCircuitMutationFactoryMakeMutationError.qubitCountHasToBeBiggerThanZero
+        throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
     }
 }

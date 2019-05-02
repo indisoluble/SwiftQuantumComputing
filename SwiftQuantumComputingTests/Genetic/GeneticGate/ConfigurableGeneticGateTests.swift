@@ -31,16 +31,18 @@ class ConfigurableGeneticGateTests: XCTestCase {
     func testAnyGateAndIncorrectTruthTable_makeFixed_throwException() {
         // Given
         let gate = ConfigurableGeneticGate(inputs: [0, 1])
+        let useCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "0")
 
         // Then
-        XCTAssertThrowsError(try gate.makeFixed(truthTable: [], truthTableQubitCount: 0))
+        XCTAssertThrowsError(try gate.makeFixed(useCase: useCase))
     }
 
     func testAnyGateAndCorrectTruthTable_makeFixed_returnValue() {
         // Given
         let gate = ConfigurableGeneticGate(inputs: [0, 1])
+        let useCase = try! GeneticUseCase(emptyTruthTableQubitCount: 1, circuitOutput: "0")
 
         // Then
-        XCTAssertNoThrow(try gate.makeFixed(truthTable: [], truthTableQubitCount: 1))
+        XCTAssertNoThrow(try gate.makeFixed(useCase: useCase))
     }
 }

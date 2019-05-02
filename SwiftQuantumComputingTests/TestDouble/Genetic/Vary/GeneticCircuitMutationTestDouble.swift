@@ -31,7 +31,7 @@ final class GeneticCircuitMutationTestDouble {
     private (set) var executeCount = 0
     private (set) var lastExecuteCircuit: [GeneticGate]?
     var executeResult: [GeneticGate]?
-    var executeError: GeneticCircuitMutationExecuteError?
+    var executeError: EvolveCircuitError?
 }
 
 // MARK: - GeneticCircuitMutation methods
