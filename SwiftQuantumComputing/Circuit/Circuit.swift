@@ -20,6 +20,31 @@
 
 import Foundation
 
+// MARK: - Errors
+
+public enum MeasureError: Error {
+    case qubitsAreNotInBound
+    case qubitsAreNotSorted
+    case qubitsAreNotUnique
+    case qubitsCanNotBeAnEmptyList
+    case inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    case gateThrowedError(gate: FixedGate, error: GateError)
+}
+
+public enum GateError: Error {
+    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
+    case gateInputCountDoesNotMatchGateMatrixQubitCount
+    case gateInputsAreNotInBound
+    case gateInputsAreNotUnique
+    case gateMatrixIsNotSquare
+    case gateMatrixIsNotUnitary
+    case gateMatrixRowCountHasToBeAPowerOfTwo
+    case gateMatrixHandlesMoreQubitsThatGateActuallyHas
+    case gateOracleControlsCanNotBeAnEmptyList
+    case gateQubitCountDoesNotMatchCircuitQubitCount
+    case gateQubitCountHasToBeBiggerThanZero
+}
+
 // MARK: - Protocol definition
 
 public protocol Circuit {

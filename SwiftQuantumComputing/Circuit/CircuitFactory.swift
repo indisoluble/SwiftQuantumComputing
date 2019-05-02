@@ -20,6 +20,12 @@
 
 import Foundation
 
+// MARK: - Errors
+
+public enum MakeCircuitError: Error {
+    case qubitCountHasToBeBiggerThanZero
+}
+
 // MARK: - Protocol definition
 
 public protocol CircuitFactory {

@@ -46,7 +46,7 @@ struct MainGeneticPopulationMutation {
          score: GeneticCircuitScore,
          randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) throws {
         guard tournamentSize > 0 else {
-            throw EvolveError.configurationTournamentSizeHasToBeBiggerThanZero
+            throw EvolveCircuitError.configurationTournamentSizeHasToBeBiggerThanZero
         }
 
         self.tournamentSize = tournamentSize
@@ -67,13 +67,12 @@ extension MainGeneticPopulationMutation: GeneticPopulationMutation {
             return nil
         }
 
-        let mutated = try mutation.execute(winner.circuit)
-        guard let actualMutated = mutated else {
+        guard let mutated = try mutation.execute(winner.circuit) else {
             return nil
         }
 
-        let evaluation = try evaluator.evaluateCircuit(actualMutated)
+        let evaluation = try evaluator.evaluateCircuit(mutated)
 
-        return (score.calculate(evaluation), actualMutated)
+        return (score.calculate(evaluation), mutated)
     }
 }

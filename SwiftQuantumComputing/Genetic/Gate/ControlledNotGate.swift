@@ -34,7 +34,7 @@ public struct ControlledNotGate {
 extension ControlledNotGate: Gate {
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard inputs.count > 1 else {
-            throw EvolveError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
+            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
 
         return .controlledNot(target: inputs[0], control: inputs[1])

@@ -33,15 +33,14 @@ struct MainGeneticUseCaseEvaluator {
 
     // MARK: - Internal init methods
 
-    init(qubitCount: Int,
-         useCase: GeneticUseCase,
+    init(useCase: GeneticUseCase,
          factory: CircuitFactory,
          oracleFactory: OracleCircuitFactory) throws {
-        guard qubitCount > 0 else {
-            throw EvolveError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+        guard useCase.circuit.qubitCount > 0 else {
+            throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
         }
 
-        self.qubits = Array((0..<qubitCount).reversed())
+        self.qubits = Array((0..<useCase.circuit.qubitCount).reversed())
         self.useCase = useCase
         self.factory = factory
         self.oracleFactory = oracleFactory
@@ -64,14 +63,15 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
             measures = try circuit.measure(qubits: qubits, afterInputting: input)
         } catch {
             if let error = error as? MeasureError {
-                throw EvolveError.useCaseMeasurementThrowedError(useCase: useCase, error: error)
+                throw EvolveCircuitError.useCaseMeasurementThrowedError(useCase: useCase,
+                                                                        error: error)
             } else {
                 fatalError("Unexpected error: \(error).")
             }
         }
 
         guard let index = Int(useCase.circuit.output, radix: 2) else {
-            throw EvolveError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: useCase)
+            throw EvolveCircuitError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: useCase)
         }
 
         return abs(1 - measures[index])

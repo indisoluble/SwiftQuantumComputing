@@ -20,6 +20,23 @@
 
 import Foundation
 
+// MARK: - Errors
+
+public enum EvolveCircuitError: Error {
+    case configurationDepthHasToBeAPositiveNumber
+    case configurationDepthIsEmpty
+    case configurationPopulationSizeHasToBeBiggerThanZero
+    case configurationPopulationSizeIsEmpty
+    case configurationTournamentSizeHasToBeBiggerThanZero
+    case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: Gate)
+    case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: GeneticUseCase)
+    case useCaseCircuitQubitCountHasToBeBiggerThanZero
+    case useCaseListIsEmpty
+    case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: MeasureError)
+    case useCasesDoNotSpecifySameCircuitQubitCount
+    case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: GeneticUseCase)
+}
+
 // MARK: - Protocol definition
 
 public protocol GeneticFactory {

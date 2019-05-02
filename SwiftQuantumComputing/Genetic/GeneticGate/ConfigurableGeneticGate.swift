@@ -44,7 +44,7 @@ extension ConfigurableGeneticGate: GeneticGate {
             oracle = try OracleGate(truthTable: useCase.truthTable.truth,
                                     truthTableQubitCount: useCase.truthTable.qubitCount)
         } catch OracleGate.InitError.truthTableQubitCountHasToBeBiggerThanZero {
-            throw EvolveError.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: useCase)
+            throw EvolveCircuitError.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: useCase)
         } catch {
             fatalError("Unexpected error: \(error).")
         }

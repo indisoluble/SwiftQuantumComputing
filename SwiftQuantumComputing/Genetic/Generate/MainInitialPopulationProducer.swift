@@ -53,7 +53,7 @@ struct MainInitialPopulationProducer {
 extension MainInitialPopulationProducer: InitialPopulationProducer {
     func execute(size: Int, depth: Range<Int>) throws -> [Fitness.EvalCircuit] {
         guard size > 0 else {
-            throw EvolveError.configurationPopulationSizeHasToBeBiggerThanZero
+            throw EvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
         }
 
         var population: [Fitness.EvalCircuit] = []

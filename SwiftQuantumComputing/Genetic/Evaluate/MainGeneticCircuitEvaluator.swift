@@ -43,7 +43,7 @@ extension MainGeneticCircuitEvaluator: GeneticCircuitEvaluator {
     func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Evaluation {
         var misses = 0
         var maxProbability = 0.0
-        var finalUseCaseError: Error?
+        var anyUseCaseError: Error?
 
         let queue = DispatchQueue(label: String(reflecting: type(of: self)))
         DispatchQueue.concurrentPerform(iterations: evaluators.count) { index in
@@ -60,15 +60,15 @@ extension MainGeneticCircuitEvaluator: GeneticCircuitEvaluator {
                     misses += (probability > threshold ? 1 : 0)
                     maxProbability = max(maxProbability, probability)
                 } else if let useCaseError = useCaseError {
-                    finalUseCaseError = useCaseError
+                    anyUseCaseError = useCaseError
                 } else {
                     fatalError("Use Case evaluator produced an unknown error type")
                 }
             }
         }
 
-        if let finalUseCaseError = finalUseCaseError {
-            throw finalUseCaseError
+        if let anyUseCaseError = anyUseCaseError {
+            throw anyUseCaseError
         }
 
         return (misses, maxProbability)
