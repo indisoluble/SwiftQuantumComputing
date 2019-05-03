@@ -14,13 +14,13 @@ Pod::Spec.new do |s|
   
   s.source = { :git => "https://github.com/indisoluble/SwiftQuantumComputing.git", :tag => "#{s.version}" }
 
-  s.source_files     = "SwiftQuantumComputing/**/*.swift"
-  s.ios.source_files = "SwiftQuantumComputing_iOS/**/*.swift"
-  s.osx.source_files = "SwiftQuantumComputing_macOS/**/*.swift"
+  s.source_files     = "Sources/SwiftQuantumComputing/**/*.swift"
+  s.ios.source_files = "Sources/SwiftQuantumComputing_iOS/**/*.swift"
+  s.osx.source_files = "Sources/SwiftQuantumComputing_macOS/**/*.swift"
   s.swift_version    = '5.0'
 
-  s.ios.resources = "SwiftQuantumComputing_iOS/**/*.xib"
-  s.osx.resources = "SwiftQuantumComputing_macOS/**/*.xib"
+  s.ios.resources = "Sources/SwiftQuantumComputing_iOS/**/*.xib"
+  s.osx.resources = "Sources/SwiftQuantumComputing_macOS/**/*.xib"
 
   s.frameworks = 'Accelerate'
 end

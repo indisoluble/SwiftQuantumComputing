@@ -1013,12 +1013,8 @@
 		FF65E3AB211A181800AA0BD2 = {
 			isa = PBXGroup;
 			children = (
-				FF64C321216902FD000C2ABD /* SwiftQuantumComputing */,
-				FFBA23AE21691690003E5727 /* SwiftQuantumComputingTests */,
-				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing_iOS */,
-				FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests */,
-				FFBA23ED21691E0F003E5727 /* SwiftQuantumComputing_macOS */,
-				FFBA23F821691E0F003E5727 /* SwiftQuantumComputing_macOSTests */,
+				FFB7F567227CD5E100DF2937 /* Sources */,
+				FFB7F568227CD6F800DF2937 /* Tests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
 				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
 				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
@@ -1266,6 +1262,26 @@
 				FF4F8AAF222C1E3F00A09D61 /* GeneticPopulationReproductionTestDouble.swift */,
 			);
 			path = Vary;
+			sourceTree = "<group>";
+		};
+		FFB7F567227CD5E100DF2937 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				FF64C321216902FD000C2ABD /* SwiftQuantumComputing */,
+				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing_iOS */,
+				FFBA23ED21691E0F003E5727 /* SwiftQuantumComputing_macOS */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		FFB7F568227CD6F800DF2937 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				FFBA23AE21691690003E5727 /* SwiftQuantumComputingTests */,
+				FF65E3C2211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests */,
+				FFBA23F821691E0F003E5727 /* SwiftQuantumComputing_macOSTests */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		FFB8106321C6DAF0006333BB /* Matrix */ = {
@@ -2258,7 +2274,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftQuantumComputing_iOS/Info.plist;
+				INFOPLIST_FILE = Sources/SwiftQuantumComputing_iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2284,7 +2300,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftQuantumComputing_iOS/Info.plist;
+				INFOPLIST_FILE = Sources/SwiftQuantumComputing_iOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2304,7 +2320,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SwiftQuantumComputing_iOSTests/Info.plist;
+				INFOPLIST_FILE = Tests/SwiftQuantumComputing_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2322,7 +2338,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SwiftQuantumComputing_iOSTests/Info.plist;
+				INFOPLIST_FILE = Tests/SwiftQuantumComputing_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2346,7 +2362,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SwiftQuantumComputing_macOS/Info.plist;
+				INFOPLIST_FILE = Sources/SwiftQuantumComputing_macOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2375,7 +2391,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SwiftQuantumComputing_macOS/Info.plist;
+				INFOPLIST_FILE = Sources/SwiftQuantumComputing_macOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2399,7 +2415,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = SwiftQuantumComputing_macOSTests/Info.plist;
+				INFOPLIST_FILE = Tests/SwiftQuantumComputing_macOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2422,7 +2438,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = SwiftQuantumComputing_macOSTests/Info.plist;
+				INFOPLIST_FILE = Tests/SwiftQuantumComputing_macOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
