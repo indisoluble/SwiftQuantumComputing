@@ -1,9 +1,9 @@
 //
-//  DrawerTestDouble.swift
+//  MainDrawerFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 21/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 27/05/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,27 +20,19 @@
 
 import Foundation
 
-@testable import SwiftQuantumComputing
-
 // MARK: - Main body
 
-final class DrawerTestDouble {
+public struct MainDrawerFactory {
 
-    // MARK: - Internal properties
+    // MARK: - Public init methods
 
-    private (set) var drawCircuitCount = 0
-    private (set) var lastDrawCircuitCircuit: [FixedGate]?
-    var drawCircuitResult: SQCView!
+    public init() {}
 }
 
-// MARK: - Drawable methods
+// MARK: - DrawerFactory methods
 
-extension DrawerTestDouble: Drawable {
-    func drawCircuit(_ circuit: [FixedGate]) -> SQCView {
-        drawCircuitCount += 1
-
-        lastDrawCircuitCircuit = circuit
-
-        return drawCircuitResult
+extension MainDrawerFactory: DrawerFactory {
+    public func makeDrawer(qubitCount: Int) throws -> Drawable {
+        return try CircuitViewDrawer(qubitCount: qubitCount)
     }
 }

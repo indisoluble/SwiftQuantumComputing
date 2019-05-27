@@ -20,14 +20,8 @@
 
 import Foundation
 
-// MARK: - Errors
-
-public enum MakeCircuitError: Error {
-    case qubitCountHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 public protocol CircuitFactory {
-    func makeCircuit(qubitCount: Int, gates: [FixedGate]) throws -> Circuit
+    func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit
 }

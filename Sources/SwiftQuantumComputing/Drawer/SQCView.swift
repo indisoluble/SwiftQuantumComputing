@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Internal types
 
 #if os(macOS)
-typealias SQCView = NSView
+public typealias SQCView = NSView
 #else
-typealias SQCView = UIView
+public typealias SQCView = UIView
 #endif

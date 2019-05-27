@@ -32,7 +32,7 @@ struct CircuitViewDrawer {
 
     init(qubitCount: Int) throws {
         guard qubitCount > 0 else {
-            throw MakeCircuitError.qubitCountHasToBeBiggerThanZero
+            throw MakeDrawerError.qubitCountHasToBeBiggerThanZero
         }
 
         self.qubitCount = qubitCount

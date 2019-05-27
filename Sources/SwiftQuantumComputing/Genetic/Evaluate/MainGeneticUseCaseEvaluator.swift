@@ -55,7 +55,7 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
                                                                 useCase: useCase)
 
         let gates = oracleCircuit.circuit
-        let circuit = try! factory.makeCircuit(qubitCount: qubits.count, gates: gates)
+        let circuit = factory.makeCircuit(qubitCount: qubits.count, gates: gates)
 
         let input = useCase.circuit.input
         var measures: [Double]!

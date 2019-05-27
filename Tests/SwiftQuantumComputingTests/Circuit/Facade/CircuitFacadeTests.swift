@@ -29,30 +29,13 @@ class CircuitFacadeTests: XCTestCase {
     // MARK: - Properties
 
     let gates = [FixedGate.hadamard(target: 0), FixedGate.not(target: 0)]
-    let drawer = DrawerTestDouble()
     let backend = BackendTestDouble()
 
     // MARK: - Tests
 
-    func testAnyCircuit_playgroundDescription_forwardCallToDrawer() {
-        // Given
-        let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend)
-
-        let view = SQCView()
-        drawer.drawCircuitResult = view
-
-        // When
-        let result = facade.playgroundDescription
-
-        // Then
-        XCTAssertEqual(drawer.drawCircuitCount, 1)
-        XCTAssertEqual(drawer.lastDrawCircuitCircuit, gates)
-        XCTAssertTrue((result as! SQCView) === view)
-    }
-
     func testAnyCircuit_measure_forwardCallToBackend() {
         // Given
-        let facade = CircuitFacade(gates: gates, drawer: drawer, backend: backend)
+        let facade = CircuitFacade(gates: gates, backend: backend)
 
         let measure = [0.1, 0.9]
         backend.measureResult = measure

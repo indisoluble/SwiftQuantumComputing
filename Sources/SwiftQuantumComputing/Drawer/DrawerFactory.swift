@@ -1,8 +1,8 @@
 //
-//  MainCircuitFactory.swift
+//  DrawerFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 26/01/2019.
+//  Created by Enrique de la Torre on 27/05/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +20,14 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Errors
 
-public struct MainCircuitFactory {
-
-    // MARK: - Public init methods
-
-    public init() {}
+public enum MakeDrawerError: Error {
+    case qubitCountHasToBeBiggerThanZero
 }
 
-// MARK: - CircuitFactory methods
+// MARK: - Protocol definition
 
-extension MainCircuitFactory: CircuitFactory {
-    public func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit {
-        let registerFactory = BackendRegisterFactoryAdapter()
-        let gateFactory = BackendRegisterGateFactoryAdapter(qubitCount: qubitCount)
-        let backend = BackendFacade(registerFactory: registerFactory, gateFactory: gateFactory)
-
-        return CircuitFacade(gates: gates, backend: backend)
-    }
+public protocol DrawerFactory {
+    func makeDrawer(qubitCount: Int) throws -> Drawable
 }

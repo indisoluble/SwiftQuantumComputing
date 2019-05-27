@@ -30,14 +30,12 @@ struct CircuitFacade {
 
     // MARK: - Private properties
 
-    private let drawer: Drawable
     private let backend: Backend
 
     // MARK: - Internal init methods
 
-    init(gates: [FixedGate], drawer: Drawable, backend: Backend) {
+    init(gates: [FixedGate], backend: Backend) {
         self.gates = gates
-        self.drawer = drawer
         self.backend = backend
     }
 }
@@ -47,14 +45,6 @@ struct CircuitFacade {
 extension CircuitFacade: CustomStringConvertible {
     var description: String {
         return gates.description
-    }
-}
-
-// MARK: - CustomPlaygroundDisplayConvertible methods
-
-extension CircuitFacade: CustomPlaygroundDisplayConvertible {
-    var playgroundDescription: Any {
-        return drawer.drawCircuit(gates)
     }
 }
 

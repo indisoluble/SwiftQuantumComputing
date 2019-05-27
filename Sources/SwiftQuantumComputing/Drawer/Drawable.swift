@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol Drawable {
+public protocol Drawable {
     func drawCircuit(_ circuit: [FixedGate]) -> SQCView
 }
