@@ -13,8 +13,8 @@
 
 import SwiftQuantumComputing
 
-public func makeCircuit(evolvedCircuit: GeneticFactory.EvolvedCircuit,
-                        useCase: GeneticUseCase) -> Circuit {
+public func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircuit,
+                                  with useCase: GeneticUseCase) -> [FixedGate] {
     var evolvedGates = evolvedCircuit.gates
 
     if let oracleAt = evolvedCircuit.oracleAt {
@@ -28,6 +28,19 @@ public func makeCircuit(evolvedCircuit: GeneticFactory.EvolvedCircuit,
         }
     }
 
-    return try! MainCircuitFactory().makeCircuit(qubitCount: useCase.circuit.qubitCount,
-                                                 gates: evolvedGates)
+    return evolvedGates
+}
+
+public func drawCircuit(with evolvedGates: [FixedGate], useCase: GeneticUseCase) -> SQCView {
+    let drawer = try! MainDrawerFactory().makeDrawer(qubitCount: useCase.circuit.qubitCount)
+
+    return drawer.drawCircuit(evolvedGates)
+}
+
+public func probabilities(in evolvedGates: [FixedGate],
+                          useCase: GeneticUseCase) -> [String: Double] {
+    let circuit = MainCircuitFactory().makeCircuit(qubitCount: useCase.circuit.qubitCount,
+                                                   gates: evolvedGates)
+
+    return try! circuit.probabilities(afterInputting: useCase.circuit.input)
 }
