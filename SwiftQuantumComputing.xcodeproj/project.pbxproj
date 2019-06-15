@@ -519,6 +519,7 @@
 		FF433870221227CE00AB5C06 /* GeneticGateFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticGateFactoryTestDouble.swift; sourceTree = "<group>"; };
 		FF43387322122C4900AB5C06 /* MainGeneticGatesRandomizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticGatesRandomizerTests.swift; sourceTree = "<group>"; };
 		FF43387622123A9200AB5C06 /* GeneticGateTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticGateTestDouble.swift; sourceTree = "<group>"; };
+		FF43848422B56C2200319473 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		FF4949B9223ECDD50087E821 /* GeneticUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticUseCaseTests.swift; sourceTree = "<group>"; };
 		FF4C1DFF220CEED70088CD3F /* Genetic.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Genetic.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF4F8AA6222C0B1500A09D61 /* InitialPopulationProducerFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialPopulationProducerFactoryTestDouble.swift; sourceTree = "<group>"; };
@@ -1019,6 +1020,7 @@
 				FFB7F567227CD5E100DF2937 /* Sources */,
 				FFB7F568227CD6F800DF2937 /* Tests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
+				FF43848422B56C2200319473 /* Package.swift */,
 				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
 				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
 			);
