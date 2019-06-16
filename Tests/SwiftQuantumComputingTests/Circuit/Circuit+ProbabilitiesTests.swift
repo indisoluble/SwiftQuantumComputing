@@ -79,4 +79,15 @@ class Circuit_ProbabilitiesTests: XCTestCase {
         let expectedResult = ["0011": 0.25, "0101": 0.25, "1000": 0.25, "1101": 0.25]
         XCTAssertEqual(result, expectedResult)
     }
+
+    static var allTests = [
+        ("testNonEmptyBits_probabilitiesWithouQubits_callMeasureWithExpectedQubitsAndBits",
+         testNonEmptyBits_probabilitiesWithouQubits_callMeasureWithExpectedQubitsAndBits),
+        ("testPreselectedQubits_probabilities_callMeasureWithExpectedQubitsAndBits",
+         testPreselectedQubits_probabilities_callMeasureWithExpectedQubitsAndBits),
+        ("testCircuitWithNoMeasurements_probabilities_throwException",
+         testCircuitWithNoMeasurements_probabilities_throwException),
+        ("testCircuitWithMeasurements_probabilities_returnExpectedResult",
+         testCircuitWithMeasurements_probabilities_returnExpectedResult)
+    ]
 }

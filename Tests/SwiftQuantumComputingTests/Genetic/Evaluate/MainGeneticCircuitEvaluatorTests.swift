@@ -77,4 +77,11 @@ class MainGeneticCircuitEvaluatorTests: XCTestCase {
         XCTAssertEqual(eval?.misses, 2)
         XCTAssertEqual(eval?.maxProbability, maxErrorProbability)
     }
+
+    static var allTests = [
+        ("testOneCaseThrowException_evaluateCircuit_throwException",
+         testOneCaseThrowException_evaluateCircuit_throwException),
+        ("testBothCasesReturnErrorProbability_evaluateCircuit_returnExpectedValue",
+         testBothCasesReturnErrorProbability_evaluateCircuit_returnExpectedValue)
+    ]
 }

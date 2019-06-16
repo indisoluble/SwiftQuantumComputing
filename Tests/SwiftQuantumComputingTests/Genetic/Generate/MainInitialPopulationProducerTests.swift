@@ -33,7 +33,7 @@ class MainInitialPopulationProducerTests: XCTestCase {
     let score = GeneticCircuitScoreTestDouble()
     let circuit = [GeneticGateTestDouble()]
     let evaluation: GeneticCircuitEvaluator.Evaluation = (0, 0)
-    let queue = DispatchQueue(label: String(reflecting: type(of: self)))
+    let queue = DispatchQueue(label: "MainInitialPopulationProducerTests")
 
     // MARK: - Tests
 
@@ -152,4 +152,15 @@ class MainInitialPopulationProducerTests: XCTestCase {
         XCTAssertEqual(score.calculateCount, size)
         XCTAssertNotNil(result)
     }
+
+    static var allTests = [
+        ("testSizeEqualToZero_execute_throwException",
+         testSizeEqualToZero_execute_throwException),
+        ("testGeneratorThrowException_execute_throwException",
+         testGeneratorThrowException_execute_throwException),
+        ("testEvaluatorThrowException_execute_throwException",
+         testEvaluatorThrowException_execute_throwException),
+        ("testAllDependenciesReturnValue_execute_returnResult",
+         testAllDependenciesReturnValue_execute_returnResult)
+    ]
 }

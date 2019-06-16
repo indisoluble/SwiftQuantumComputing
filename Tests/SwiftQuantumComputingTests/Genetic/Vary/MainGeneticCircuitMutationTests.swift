@@ -149,4 +149,13 @@ class MainGeneticCircuitMutationTests: XCTestCase {
             }
         }
     }
+
+    static var allTests = [
+        ("testDepthNotEnoughToBuildAMutation_execute_returnNil",
+         testDepthNotEnoughToBuildAMutation_execute_returnNil),
+        ("testBigEnoughDepthAndRandomizerThatThrowException_execute_throwException",
+         testBigEnoughDepthAndRandomizerThatThrowException_execute_throwException),
+        ("testBigEnoughDepthAndRandomizerThatReturnCircuit_execute_returnExpectedCircuit",
+         testBigEnoughDepthAndRandomizerThatReturnCircuit_execute_returnExpectedCircuit)
+    ]
 }

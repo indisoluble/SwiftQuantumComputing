@@ -195,4 +195,19 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
         XCTAssertEqual(randomFactoryCount, 2)
         XCTAssertEqual(shuffledQubitsCount, 2)
     }
+
+    static var allTests = [
+        ("testQubitCountEqualToZero_init_throwException",
+         testQubitCountEqualToZero_init_throwException),
+        ("testAnyRandomizerAndNegativeDepth_make_throwException",
+         testAnyRandomizerAndNegativeDepth_make_throwException),
+        ("testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList",
+         testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList),
+        ("testRandomizerWithZeroFactoriesAndPositiveDepth_make_returnEmptyList",
+         testRandomizerWithZeroFactoriesAndPositiveDepth_make_returnEmptyList),
+        ("testRandomizerWithFactoriesAbleToBuildGatesAndPositiveDepth_make_returnExpectedGates",
+         testRandomizerWithFactoriesAbleToBuildGatesAndPositiveDepth_make_returnExpectedGates),
+        ("testRandomizerWithSomeFactoriesAbleToBuildGatesAndPositiveDepth_make_throwException",
+         testRandomizerWithSomeFactoriesAbleToBuildGatesAndPositiveDepth_make_throwException)
+    ]
 }

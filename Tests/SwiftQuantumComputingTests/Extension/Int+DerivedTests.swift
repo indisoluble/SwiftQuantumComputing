@@ -57,4 +57,19 @@ class Int_DerivedTests: XCTestCase {
         // Then
         XCTAssertEqual(42.derived(takingBitsAt: [1000, 1, 2]), 2)
     }
+
+    static var allTests = [
+        ("testTwoAndTwoSortedPositions_derived_returnExpectedValue",
+         testTwoAndTwoSortedPositions_derived_returnExpectedValue),
+        ("testTwoAndTwoInvertedPositions_derived_returnExpectedValue",
+         testTwoAndTwoInvertedPositions_derived_returnExpectedValue),
+        ("testFiftySevenAndTwoSortedPositions_derived_returnExpectedValue",
+         testFiftySevenAndTwoSortedPositions_derived_returnExpectedValue),
+        ("testFortyTwoAndTwoInvertedPositions_derived_returnExpectedValue",
+         testFortyTwoAndTwoInvertedPositions_derived_returnExpectedValue),
+        ("testAnyNumberAndPositionOutOfRange_derived_returnZero",
+         testAnyNumberAndPositionOutOfRange_derived_returnZero),
+        ("testFortyTwoTwoInvertedPositionAndOneOutOfRange_derived_returnExpectedValue",
+         testFortyTwoTwoInvertedPositionAndOneOutOfRange_derived_returnExpectedValue)
+    ]
 }

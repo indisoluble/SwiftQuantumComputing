@@ -56,4 +56,11 @@ class SimpleGeneticGateFactoryTests: XCTestCase {
         XCTAssertEqual(gate.makeFixedCount, 1)
         XCTAssertEqual(gate.lastMakeFixedInputs, inputs)
     }
+
+    static var allTests = [
+        ("testFactoryWithGateThatReturnNil_makeGate_throwException",
+         testFactoryWithGateThatReturnNil_makeGate_throwException),
+        ("testFactoryWithGateThatReturnValue_makeGate_returnNotNil",
+         testFactoryWithGateThatReturnValue_makeGate_returnNotNil)
+    ]
 }

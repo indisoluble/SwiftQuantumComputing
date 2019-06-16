@@ -141,4 +141,21 @@ class GeneticUseCaseTests: XCTestCase {
                                                 circuitInput: input,
                                                 circuitOutput: output))
     }
+
+    static var allTests = [
+        ("testEmptyTruthTable_init_returnExpectedUseCase",
+         testEmptyTruthTable_init_returnExpectedUseCase),
+        ("testTruthTableWithEmptyValue_init_returnExpectedUseCase",
+         testTruthTableWithEmptyValue_init_returnExpectedUseCase),
+        ("testTruthTableWithMultipleSizedValues_init_returnExpectedUseCase",
+         testTruthTableWithMultipleSizedValues_init_returnExpectedUseCase),
+        ("testAnyTruthTableQubitCount_init_returnExpectedUseCase",
+         testAnyTruthTableQubitCount_init_returnExpectedUseCase),
+        ("testAnyCircuitOutput_init_returnExpectedUseCase",
+         testAnyCircuitOutput_init_returnExpectedUseCase),
+        ("testEmptyCircuitInputAndOutput_init_throwException",
+         testEmptyCircuitInputAndOutput_init_throwException),
+        ("testCircuitInputDifferentSizeThanOutput_init_throwException",
+         testCircuitInputDifferentSizeThanOutput_init_throwException)
+    ]
 }

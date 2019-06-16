@@ -45,4 +45,11 @@ class ConfigurableGeneticGateTests: XCTestCase {
         // Then
         XCTAssertNoThrow(try gate.makeFixed(useCase: useCase))
     }
+
+    static var allTests = [
+        ("testAnyGateAndIncorrectTruthTable_makeFixed_throwException",
+         testAnyGateAndIncorrectTruthTable_makeFixed_throwException),
+        ("testAnyGateAndCorrectTruthTable_makeFixed_returnValue",
+         testAnyGateAndCorrectTruthTable_makeFixed_returnValue)
+    ]
 }

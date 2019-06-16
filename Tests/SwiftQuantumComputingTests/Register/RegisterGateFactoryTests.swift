@@ -210,4 +210,33 @@ class RegisterGateFactoryTests: XCTestCase {
         let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
+
+    static var allTests = [
+        ("testNonSquareMatrix_init_throwException",
+         testNonSquareMatrix_init_throwException),
+        ("testSquareMatrixWithSizeNonPowerOfTwo_init_throwException",
+         testSquareMatrixWithSizeNonPowerOfTwo_init_throwException),
+        ("testSquareMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException",
+         testSquareMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException),
+        ("testOneByOneMatrixAndQubitCountEqualToZero_init_throwException",
+         testOneByOneMatrixAndQubitCountEqualToZero_init_throwException),
+        ("testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnRegisterGateFactory",
+         testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnRegisterGateFactory),
+        ("testAnyRegisterGateFactoryAndRepeatedInputs_makeGate_throwException",
+         testAnyRegisterGateFactoryAndRepeatedInputs_makeGate_throwException),
+        ("testAnyRegisterGateFactoryAndInputsOutOfRange_makeGate_throwException",
+         testAnyRegisterGateFactoryAndInputsOutOfRange_makeGate_throwException),
+        ("testAnyRegisterGateFactoryAndMoreInputsThanGateTakes_makeGate_throwException",
+         testAnyRegisterGateFactoryAndMoreInputsThanGateTakes_makeGate_throwException),
+        ("testAnyRegisterGateFactoryAndLessInputsThanGateTakes_makeGate_throwException",
+         testAnyRegisterGateFactoryAndLessInputsThanGateTakes_makeGate_throwException),
+        ("testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedRegisterGate",
+         testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedRegisterGate),
+        ("testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedRegisterGate",
+         testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedRegisterGate),
+        ("testAnyRegisterGateFactoryAndNonContiguousInputs_makeGate_returnExpectedRegisterGate",
+         testAnyRegisterGateFactoryAndNonContiguousInputs_makeGate_returnExpectedRegisterGate),
+        ("testAnyRegisterGateFactoryAndContiguousInputsButInTheMiddle_makeGate_returnExpectedRegisterGate",
+         testAnyRegisterGateFactoryAndContiguousInputsButInTheMiddle_makeGate_returnExpectedRegisterGate)
+    ]
 }

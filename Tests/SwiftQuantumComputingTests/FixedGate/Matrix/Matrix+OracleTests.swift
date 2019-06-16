@@ -144,4 +144,25 @@ class Matrix_OracleTests: XCTestCase {
         let expectedMatrix = try! Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)
     }
+
+    static var allTests = [
+        ("testNegativeControlCountAndEmptyTruthTable_makeOracle_throwException",
+         testNegativeControlCountAndEmptyTruthTable_makeOracle_throwException),
+        ("testControlCountEqualToZeroAndEmptyTruthTable_makeOracle_throwException",
+         testControlCountEqualToZeroAndEmptyTruthTable_makeOracle_throwException),
+        ("testControlCountBiggerThanZeroAndEmptyTruthTable_makeOracle_returnExpectedIdentity",
+         testControlCountBiggerThanZeroAndEmptyTruthTable_makeOracle_returnExpectedIdentity),
+        ("testControlCountBiggerThanZeroAndTruthTableWithEmptyValue_makeOracle_returnExpectedIdentity",
+         testControlCountBiggerThanZeroAndTruthTableWithEmptyValue_makeOracle_returnExpectedIdentity),
+        ("testControlCountBiggerThanZeroAndNonSensicalTruthTable_makeOracle_returnExpectedIdentity",
+         testControlCountBiggerThanZeroAndNonSensicalTruthTable_makeOracle_returnExpectedIdentity),
+        ("testControlCountBiggerThanZeroAndTruthTableOutOfRange_makeOracle_returnExpectedIdentity",
+         testControlCountBiggerThanZeroAndTruthTableOutOfRange_makeOracle_returnExpectedIdentity),
+        ("testControlCountBiggerThanZeroAndTruthTableWithMoreBitsThanControlsButInRange_makeOracle_returnExpectedMatrix",
+         testControlCountBiggerThanZeroAndTruthTableWithMoreBitsThanControlsButInRange_makeOracle_returnExpectedMatrix),
+        ("testControlCountBiggerThanZeroAndTruthTableWithWithRepeatedCorrectValues_makeOracle_returnExpectedMatrix",
+         testControlCountBiggerThanZeroAndTruthTableWithWithRepeatedCorrectValues_makeOracle_returnExpectedMatrix),
+        ("testValidControlCountAndTruthTable_makeOracle_returnExpectedMatrix",
+         testValidControlCountAndTruthTable_makeOracle_returnExpectedMatrix)
+    ]
 }

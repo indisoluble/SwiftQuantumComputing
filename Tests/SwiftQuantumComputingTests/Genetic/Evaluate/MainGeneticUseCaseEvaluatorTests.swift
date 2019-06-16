@@ -110,4 +110,15 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         XCTAssertEqual(circuit.lastMeasureBits, useCase.circuit.input)
         XCTAssertEqual(prob, 0.0)
     }
+
+    static var allTests = [
+        ("testOracleFactoryThatThrowException_evaluateCircuit_throwException",
+         testOracleFactoryThatThrowException_evaluateCircuit_throwException),
+        ("testCircuitThatThrowException_evaluateCircuit_throwException",
+         testCircuitThatThrowException_evaluateCircuit_throwException),
+        ("testUseCaseWithNonSensicalOutput_evaluateCircuit_throwException",
+         testUseCaseWithNonSensicalOutput_evaluateCircuit_throwException),
+        ("testEvaluatorWithAllParamsValid_evaluateCircuit_returnExpectedErrorProbability",
+         testEvaluatorWithAllParamsValid_evaluateCircuit_returnExpectedErrorProbability)
+    ]
 }

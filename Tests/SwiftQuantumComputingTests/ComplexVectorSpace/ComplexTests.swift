@@ -85,4 +85,19 @@ class ComplexTests: XCTestCase {
         let expectedResult = Complex(real: 7, imag: 11)
         XCTAssertEqual(result, expectedResult)
     }
+
+    static var allTests = [
+        ("testAnyInt_init_returnExpectedComplexNumber",
+         testAnyInt_init_returnExpectedComplexNumber),
+        ("testAnyDouble_init_returnExpectedComplexNumber",
+         testAnyDouble_init_returnExpectedComplexNumber),
+        ("testNotOneByOneMatrix_init_throwException",
+         testNotOneByOneMatrix_init_throwException),
+        ("testOneByOneMatrix_init_returnExpectedComplexNumber",
+         testOneByOneMatrix_init_returnExpectedComplexNumber),
+        ("testAnyComplexNumber_squaredModulus_returnExpectecValue",
+         testAnyComplexNumber_squaredModulus_returnExpectecValue),
+        ("testTwoComplexNumbers_multiply_returnExpectedCompleNumber",
+         testTwoComplexNumbers_multiply_returnExpectedCompleNumber)
+    ]
 }

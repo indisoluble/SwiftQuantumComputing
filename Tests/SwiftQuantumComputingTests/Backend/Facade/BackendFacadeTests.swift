@@ -227,4 +227,23 @@ class BackendFacadeTests: XCTestCase {
         XCTAssertEqual(thirdGate.extractCount, 0)
         XCTAssertEqual(register.applyingCount, 0)
     }
+
+    static var allTests = [
+        ("testRegisterFactoryThrowsError_measureQubits_throwError",
+         testRegisterFactoryThrowsError_measureQubits_throwError),
+        ("testRegisterFactoryReturnsRegisterAndEmptyCircuit_measureQubits_applyMeasureOnInitialRegister",
+         testRegisterFactoryReturnsRegisterAndEmptyCircuit_measureQubits_applyMeasureOnInitialRegister),
+        ("testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_measureQubits_applyMeasureOnInitialRegister",
+         testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_measureQubits_applyMeasureOnInitialRegister),
+        ("testRegisterFactoryReturnsRegisterAndOneGate_measureQubits_applyMeasureOnExpectedRegister",
+         testRegisterFactoryReturnsRegisterAndOneGate_measureQubits_applyMeasureOnExpectedRegister),
+        ("testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_measureQubits_returnNil",
+         testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_measureQubits_returnNil),
+        ("testGateFactoryReturnsNilAndOneGate_measureQubits_returnNil",
+         testGateFactoryReturnsNilAndOneGate_measureQubits_returnNil),
+        ("testRegisterReturnsNilAndOneGate_measureQubits_returnNil",
+         testRegisterReturnsNilAndOneGate_measureQubits_returnNil),
+        ("testGateFactoryReturnsNilAndThreeGates_measureQubits_secondAndThirdGatesAreNotUsed",
+         testGateFactoryReturnsNilAndThreeGates_measureQubits_secondAndThirdGatesAreNotUsed)
+    ]
 }

@@ -59,7 +59,7 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
         XCTAssertEqual(crossover.appliedCount, 0)
     }
 
-    func testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnNil_applied_returnEmptyList () {
+    func testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnNil_applied_returnEmptyList() {
         // Given
         var randomCount = 0
         let randomResult = mutationProbability - 0.1
@@ -203,4 +203,17 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
             XCTAssert(false)
         }
     }
+
+    static var allTests = [
+        ("testRandomReturnProbabilityBelowMutationProbabilityAndMutationThrowException_applied_throwException",
+         testRandomReturnProbabilityBelowMutationProbabilityAndMutationThrowException_applied_throwException),
+        ("testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnNil_applied_returnEmptyList",
+         testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnNil_applied_returnEmptyList),
+        ("testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnValue_applied_returnExpectedValue",
+         testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnValue_applied_returnExpectedValue),
+        ("testRandomReturnProbabilityEqualToMutationProbabilityAndCrossoverThrowException_applied_throwException",
+         testRandomReturnProbabilityEqualToMutationProbabilityAndCrossoverThrowException_applied_throwException),
+        ("testRandomReturnProbabilityEqualToMutationProbabilityAndCrossoverReturnValue_applied_returnExpectedValue",
+         testRandomReturnProbabilityEqualToMutationProbabilityAndCrossoverReturnValue_applied_returnExpectedValue)
+    ]
 }

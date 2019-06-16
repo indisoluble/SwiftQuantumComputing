@@ -85,4 +85,13 @@ class MainOracleCircuitFactoryTests: XCTestCase {
             XCTAssertEqual(fixedGates.oracleAt, 0)
         }
     }
+
+    static var allTests = [
+        ("testEmptyGeneticCircuit_makeOracleCircuit_returnZeroGatesAndOracleIndexToNil",
+         testEmptyGeneticCircuit_makeOracleCircuit_returnZeroGatesAndOracleIndexToNil),
+        ("testGeneticCircuitWithGateThatReturnNil_makeOracleCircuit_returnNil",
+         testGeneticCircuitWithGateThatReturnNil_makeOracleCircuit_returnNil),
+        ("testGeneticCircuitWithTwoOracles_makeOracleCircuit_returnOnlyOneOracle",
+         testGeneticCircuitWithTwoOracles_makeOracleCircuit_returnOnlyOneOracle)
+    ]
 }

@@ -47,4 +47,15 @@ class Int_IsPowerOfTwoTests: XCTestCase {
         // Then
         XCTAssertTrue(1024.isPowerOfTwo)
     }
+
+    static var allTests = [
+        ("testNegativeInt_isPowerOfTwo_returnFalse",
+         testNegativeInt_isPowerOfTwo_returnFalse),
+        ("testZero_isPowerOfTwo_returnFalse",
+         testZero_isPowerOfTwo_returnFalse),
+        ("testPositiveIntNotPowerOfTwo_isPowerOfTwo_returnFalse",
+         testPositiveIntNotPowerOfTwo_isPowerOfTwo_returnFalse),
+        ("testPositiveIntPowerOfTwo_isPowerOfTwo_returnFalse",
+         testPositiveIntPowerOfTwo_isPowerOfTwo_returnFalse)
+    ]
 }

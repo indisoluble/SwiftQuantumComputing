@@ -130,4 +130,15 @@ class MainGeneticPopulationReproductionFactoryTests: XCTestCase {
         XCTAssertEqual(crossoverFactory.makeCrossoverCount, 1)
         XCTAssertNotNil(result)
     }
+
+    static var allTests = [
+        ("testEvaluatorFactoryThatThrowException_makeReproduction_throwException",
+         testEvaluatorFactoryThatThrowException_makeReproduction_throwException),
+        ("testMutationFactoryThrowException_makeReproduction_throwException",
+         testMutationFactoryThrowException_makeReproduction_throwException),
+        ("testcrossoverFactoryThrowException_makeReproduction_throwException",
+         testcrossoverFactoryThrowException_makeReproduction_throwException),
+        ("testAllFActoriesReturnValues_makeReproduction_returnValue",
+         testAllFActoriesReturnValues_makeReproduction_returnValue)
+    ]
 }

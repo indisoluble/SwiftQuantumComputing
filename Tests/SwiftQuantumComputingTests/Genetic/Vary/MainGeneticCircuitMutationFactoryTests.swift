@@ -50,4 +50,11 @@ class MainGeneticCircuitMutationFactoryTests: XCTestCase {
         // Then
         XCTAssertNoThrow(try factory.makeMutation(qubitCount: 0, maxDepth: 0, gates: []))
     }
+
+    static var allTests = [
+        ("testRandomizerFactoryThatThrowException_makeMuration_throwException",
+         testRandomizerFactoryThatThrowException_makeMuration_throwException),
+        ("testRandomizerFactoryThatReturnRamdomizer_makeMuration_returnMutation",
+         testRandomizerFactoryThatReturnRamdomizer_makeMuration_returnMutation)
+    ]
 }

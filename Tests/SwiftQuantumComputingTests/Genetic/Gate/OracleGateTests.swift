@@ -70,4 +70,13 @@ class OracleGateTests: XCTestCase {
             XCTAssert(false)
         }
     }
+
+    static var allTests = [
+        ("testZeroTruthTableQubits_init_throwException",
+         testZeroTruthTableQubits_init_throwException),
+        ("testAnyFactoryAndAsManyInpusAsTruthTableQubits_makeFixed_throwException",
+         testAnyFactoryAndAsManyInpusAsTruthTableQubits_makeFixed_throwException),
+        ("testAnyFactoryAndOneInputMoreThanTruthTableQubits_makeFixed_returnExpectedGate",
+         testAnyFactoryAndOneInputMoreThanTruthTableQubits_makeFixed_returnExpectedGate)
+    ]
 }

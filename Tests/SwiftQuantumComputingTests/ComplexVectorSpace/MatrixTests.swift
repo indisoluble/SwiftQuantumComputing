@@ -298,4 +298,45 @@ class MatrixTests: XCTestCase {
                                           [Complex(real: 9, imag: 7), Complex(real: 1, imag: 29)]])
         XCTAssertEqual(result, expectedResult)
     }
+
+    static var allTests = [
+        ("testEmptyArray_init_throwException",
+         testEmptyArray_init_throwException),
+        ("testEmptyRow_init_throwException",
+         testEmptyRow_init_throwException),
+        ("testRowsWithDifferentColumnCount_init_throwException",
+         testRowsWithDifferentColumnCount_init_throwException),
+        ("testRowsWithSameColumnCount_init_returnMatrixWithExpectedNumberOfRowsAndColumns",
+         testRowsWithSameColumnCount_init_returnMatrixWithExpectedNumberOfRowsAndColumns),
+        ("testNonSquareMatrix_isSquare_returnFalse",
+         testNonSquareMatrix_isSquare_returnFalse),
+        ("testSquareMatrix_isSquare_returnTrue",
+         testSquareMatrix_isSquare_returnTrue),
+        ("testAnyMatrix_first_returnExpectedValue",
+         testAnyMatrix_first_returnExpectedValue),
+        ("testAnyMatrix_subscript_returnExpectedValue",
+         testAnyMatrix_subscript_returnExpectedValue),
+        ("testNonSquareMatrix_isUnitary_returnFalse",
+         testNonSquareMatrix_isUnitary_returnFalse),
+        ("testSquareNonUnitaryMatrix_isUnitary_returnFalse",
+         testSquareNonUnitaryMatrix_isUnitary_returnFalse),
+        ("testUnitaryMatrix_isUnitary_returnTrue",
+         testUnitaryMatrix_isUnitary_returnTrue),
+        ("testCountEqualToZero_makeIdentity_throwException",
+         testCountEqualToZero_makeIdentity_throwException),
+        ("testCountBiggerThanZero_makeIdentity_returnExpectedMatrix",
+         testCountBiggerThanZero_makeIdentity_returnExpectedMatrix),
+        ("testTwoMatrices_tensorProduct_returnExpectedMatrix",
+         testTwoMatrices_tensorProduct_returnExpectedMatrix),
+        ("testOneComplexNumberAndOneMatrix_multiply_returnExpectedMatrix",
+         testOneComplexNumberAndOneMatrix_multiply_returnExpectedMatrix),
+        ("testMatrixWithColumnCountDifferentThanRowCountInSecondMatrix_multiply_throwException",
+         testMatrixWithColumnCountDifferentThanRowCountInSecondMatrix_multiply_throwException),
+        ("testMatrixWithColumnCountEqualToRowCountInSecondMatrix_multiply_returnExpectedMatrix",
+         testMatrixWithColumnCountEqualToRowCountInSecondMatrix_multiply_returnExpectedMatrix),
+        ("testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_adjointedMultiply_throwException",
+         testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_adjointedMultiply_throwException),
+        ("testMatrixWithRowCountEqualToRowCountInSecondMatrix_adjointedMultiply_returnExpectedMatrix",
+         testMatrixWithRowCountEqualToRowCountInSecondMatrix_adjointedMultiply_returnExpectedMatrix)
+    ]
 }

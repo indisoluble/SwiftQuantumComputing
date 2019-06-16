@@ -56,4 +56,8 @@ class CircuitFacadeTests: XCTestCase {
         XCTAssertEqual(lastMeasureGates, gates)
         XCTAssertEqual(result, measure)
     }
+
+    static var allTests = [
+        ("testAnyCircuit_measure_forwardCallToBackend", testAnyCircuit_measure_forwardCallToBackend)
+    ]
 }

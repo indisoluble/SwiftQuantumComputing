@@ -58,4 +58,11 @@ class MainGeneticPopulationCrossoverFactoryTests: XCTestCase {
                                                    maxDepth: 0,
                                                    evaluator: evaluator))
     }
+
+    static var allTests = [
+        ("testTournamentSizeEqualToZero_makeCrossover_throwException",
+         testTournamentSizeEqualToZero_makeCrossover_throwException),
+        ("testTournamentSizeBiggerThanZero_makeCrossover_throwException",
+         testTournamentSizeBiggerThanZero_makeCrossover_throwException)
+    ]
 }

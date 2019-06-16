@@ -226,4 +226,19 @@ class MainGeneticPopulationMutationTests: XCTestCase {
             XCTAssert(false)
         }
     }
+
+    static var allTests = [
+        ("testTournamentSizeEqualToZero_init_throwException",
+         testTournamentSizeEqualToZero_init_throwException),
+        ("testFitnessReturnNil_applied_returnNil",
+         testFitnessReturnNil_applied_returnNil),
+        ("testMutationThrowException_applied_throwException",
+         testMutationThrowException_applied_throwException),
+        ("testMutationReturnNil_applied_returnNil",
+         testMutationReturnNil_applied_returnNil),
+        ("testEvaluatorThrowException_applied_throwException",
+         testEvaluatorThrowException_applied_throwException),
+        ("testDependenciesReturnValidValues_applied_returnExpectedResult",
+         testDependenciesReturnValidValues_applied_returnExpectedResult)
+    ]
 }

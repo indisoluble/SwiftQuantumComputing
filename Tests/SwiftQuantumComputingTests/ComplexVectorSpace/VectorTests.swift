@@ -114,4 +114,23 @@ class VectorTests: XCTestCase {
         let expectedResult = try! Vector([Complex(real: 26, imag: -52), Complex(real: 9, imag: 7)])
         XCTAssertEqual(result, expectedResult)
     }
+
+    static var allTests = [
+        ("testEmptyArray_init_throwException",
+         testEmptyArray_init_throwException),
+        ("testAnyVector_squaredNorm_returnExpectedValue",
+         testAnyVector_squaredNorm_returnExpectedValue),
+        ("testAnyVector_count_returnExpectedValue",
+         testAnyVector_count_returnExpectedValue),
+        ("testAnyVector_subscript_returnExpectedValue",
+         testAnyVector_subscript_returnExpectedValue),
+        ("testTwoVectorWithDifferentDimensions_innerProduct_throwException",
+         testTwoVectorWithDifferentDimensions_innerProduct_throwException),
+        ("testTwoVector_innerProduct_returnExpectedValue",
+         testTwoVector_innerProduct_returnExpectedValue),
+        ("testMatrixWithColumnCountDifferentThanRowCountInVector_multiply_throwException",
+         testMatrixWithColumnCountDifferentThanRowCountInVector_multiply_throwException),
+        ("testMatrixWithColumnCountEqualToRowCountInVector_multiply_returnExpectedMatrix",
+         testMatrixWithColumnCountEqualToRowCountInVector_multiply_returnExpectedMatrix)
+    ]
 }

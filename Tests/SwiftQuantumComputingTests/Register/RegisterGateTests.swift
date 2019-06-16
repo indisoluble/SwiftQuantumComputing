@@ -73,4 +73,15 @@ class RegisterGateTests: XCTestCase {
         let expectedResult = try! Vector([Complex(0), Complex(1)])
         XCTAssertEqual(result, expectedResult)
     }
+
+    static var allTests = [
+        ("testNonUnitaryMatrix_init_throwException",
+         testNonUnitaryMatrix_init_throwException),
+        ("testUnitaryMatrix_init_returnRegisterGate",
+         testUnitaryMatrix_init_returnRegisterGate),
+        ("testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_throwException",
+         testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_throwException),
+        ("testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector",
+         testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector)
+    ]
 }

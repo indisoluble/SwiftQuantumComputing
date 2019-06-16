@@ -70,4 +70,13 @@ class MatrixGateTests: XCTestCase {
             XCTAssert(false)
         }
     }
+
+    static var allTests = [
+        ("testMatrixWithOneRow_init_throwException",
+         testMatrixWithOneRow_init_throwException),
+        ("testFactoryWithTwoQubitsMatrixAndOneInput_makeFixed_throwException",
+         testFactoryWithTwoQubitsMatrixAndOneInput_makeFixed_throwException),
+        ("testFactoryWithTwoQubitsMatrixAndFourInputs_makeFixed_returnExpectedGate",
+         testFactoryWithTwoQubitsMatrixAndFourInputs_makeFixed_returnExpectedGate)
+    ]
 }

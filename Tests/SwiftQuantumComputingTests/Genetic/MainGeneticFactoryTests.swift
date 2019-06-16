@@ -374,4 +374,29 @@ class MainGeneticFactoryTests: XCTestCase {
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
         XCTAssertNotNil(result)
     }
+
+    static var allTests = [
+        ("testEmptyPopulationSize_evolveCircuit_throwException",
+         testEmptyPopulationSize_evolveCircuit_throwException),
+        ("testEmptyDepth_evolveCircuit_throwException",
+         testEmptyDepth_evolveCircuit_throwException),
+        ("testEmptyUseCases_evolveCircuit_throwException",
+         testEmptyUseCases_evolveCircuit_throwException),
+        ("testUseCasesWithDifferentCircuitQubitCount_evolveCircuit_throwException",
+         testUseCasesWithDifferentCircuitQubitCount_evolveCircuit_throwException),
+        ("testInitialPopulationFactoryThrowException_evolveCircuit_throwException",
+         testInitialPopulationFactoryThrowException_evolveCircuit_throwException),
+        ("testReproductionFactoryThrowException_evolveCircuit_throwException",
+         testReproductionFactoryThrowException_evolveCircuit_throwException),
+        ("testInitialPopulationThrowException_evolveCircuit_throwException",
+         testInitialPopulationThrowException_evolveCircuit_throwException),
+        ("testGenerationCountEqualToZero_evolveCircuit_reproductionIsNotApplied",
+         testGenerationCountEqualToZero_evolveCircuit_reproductionIsNotApplied),
+        ("testGenerationBiggerThanZeroAndSmallerThanPopulationSize_evolveCircuit_reproductionIsAppliedExpectedCount",
+         testGenerationBiggerThanZeroAndSmallerThanPopulationSize_evolveCircuit_reproductionIsAppliedExpectedCount),
+        ("testPopulationSizeEqualToZero_evolveCircuit_reproductionIsNotApplied",
+         testPopulationSizeEqualToZero_evolveCircuit_reproductionIsNotApplied),
+        ("testReproductionReturnEmpty_evolveCircuit_fitnessIsAppliedExpectedCount",
+         testReproductionReturnEmpty_evolveCircuit_fitnessIsAppliedExpectedCount)
+    ]
 }

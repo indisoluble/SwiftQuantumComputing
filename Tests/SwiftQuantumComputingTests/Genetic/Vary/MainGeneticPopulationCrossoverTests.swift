@@ -314,4 +314,21 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
             XCTAssert(false)
         }
     }
+
+    static var allTests = [
+        ("testTournamentSizeEqualToZero_init_throwException",
+         testTournamentSizeEqualToZero_init_throwException),
+        ("testFitnessReturnNil_applied_returnEmptyList",
+         testFitnessReturnNil_applied_returnEmptyList),
+        ("testCrossoverThatReturnCrossesBiggerThanAllowed_applied_returnEmptyList",
+         testCrossoverThatReturnCrossesBiggerThanAllowed_applied_returnEmptyList),
+        ("testCrossoverThatReturnFirstCrossBiggerThanAllowed_applied_returnExpectedResult",
+         testCrossoverThatReturnFirstCrossBiggerThanAllowed_applied_returnExpectedResult),
+        ("testCrossoverThatReturnSecondCrossBiggerThanAllowed_applied_returnExpectedResult",
+         testCrossoverThatReturnSecondCrossBiggerThanAllowed_applied_returnExpectedResult),
+        ("testEvaluatorThatThrowException_applied_throwException",
+         testEvaluatorThatThrowException_applied_throwException),
+        ("testDependenciesReturnValidValues_applied_returnExpectedResult",
+         testDependenciesReturnValidValues_applied_returnExpectedResult)
+    ]
 }

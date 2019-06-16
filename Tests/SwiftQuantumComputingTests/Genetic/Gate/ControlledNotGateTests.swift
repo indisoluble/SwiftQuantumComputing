@@ -57,4 +57,11 @@ class ControlledNotGateTests: XCTestCase {
             XCTAssert(false)
         }
     }
+
+    static var allTests = [
+        ("testAnyFactoryAndOnlyOneInput_makeFixed_throwException",
+         testAnyFactoryAndOnlyOneInput_makeFixed_throwException),
+        ("testAnyFactoryAndThreeInputs_makeFixed_returnExpectedGate",
+         testAnyFactoryAndThreeInputs_makeFixed_returnExpectedGate)
+    ]
 }

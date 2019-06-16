@@ -27,6 +27,7 @@ import XCTest
 class RegisterTests: XCTestCase {
 
     // MARK: - Tests
+
     func testEmptyBitsString_init_throwException() {
         // Then
         XCTAssertThrowsError(try Register(bits: ""))
@@ -224,4 +225,45 @@ class RegisterTests: XCTestCase {
         let expectedMeasurements = [Double(0), Double(1), Double(0), Double(0)]
         XCTAssertEqual(try? register.measure(qubits: [1, 0]), expectedMeasurements)
     }
+
+    static var allTests = [
+        ("testEmptyBitsString_init_throwException",
+         testEmptyBitsString_init_throwException),
+        ("testBitsStringWithLeadingSpaces_init_throwException",
+         testBitsStringWithLeadingSpaces_init_throwException),
+        ("testBitsStringWithTrailingSpaces_init_throwException",
+         testBitsStringWithTrailingSpaces_init_throwException),
+        ("testBitsStringWithWrongCharacter_init_throwException",
+         testBitsStringWithWrongCharacter_init_throwException),
+        ("testVectorWhichSumOfSquareModulesIsNotOne_init_throwException",
+         testVectorWhichSumOfSquareModulesIsNotOne_init_throwException),
+        ("testVectorWhichSumOfSquareModulesIsOne_init_returnRegister",
+         testVectorWhichSumOfSquareModulesIsOne_init_returnRegister),
+        ("testQubitCountBiggerThanZero_init_returnExpectedRegister",
+         testQubitCountBiggerThanZero_init_returnExpectedRegister),
+        ("testCorrectBitsString_init_returnExpectedRegister",
+         testCorrectBitsString_init_returnExpectedRegister),
+        ("testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException",
+         testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException),
+        ("testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister",
+         testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister),
+        ("testAnyRegisterAndZeroQubits_measure_throwException",
+         testAnyRegisterAndZeroQubits_measure_throwException),
+        ("testAnyRegisterAndRepeatedQubits_measure_throwException",
+         testAnyRegisterAndRepeatedQubits_measure_throwException),
+        ("testAnyRegisterAndQubitsOutOfBound_measure_throwException",
+         testAnyRegisterAndQubitsOutOfBound_measure_throwException),
+        ("testAnyRegisterAndNegativeQubits_measure_throwException",
+         testAnyRegisterAndNegativeQubits_measure_throwException),
+        ("testAnyRegisterAndUnsortedQubits_measure_throwException",
+         testAnyRegisterAndUnsortedQubits_measure_throwException),
+        ("testAnyRegisterAndOneQubit_measure_returnExpectedProbabilities",
+         testAnyRegisterAndOneQubit_measure_returnExpectedProbabilities),
+        ("testAnyRegisterAndTwoQubits_measure_returnExpectedProbabilities",
+         testAnyRegisterAndTwoQubits_measure_returnExpectedProbabilities),
+        ("testRegisterInitializedWithoutAVector_measure_zeroHasProbabilityOne",
+         testRegisterInitializedWithoutAVector_measure_zeroHasProbabilityOne),
+        ("testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_OneHasProbabilityOne",
+         testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_OneHasProbabilityOne)
+    ]
 }

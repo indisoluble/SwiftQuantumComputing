@@ -78,4 +78,13 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
                                                    useCases: [],
                                                    gates: []))
     }
+
+    static var allTests = [
+        ("testGeneratorFactoryThatThrowException_makeProducer_throwException",
+         testGeneratorFactoryThatThrowException_makeProducer_throwException),
+        ("testEvaluatorFactoryThatThrowException_makeProducer_throwException",
+         testEvaluatorFactoryThatThrowException_makeProducer_throwException),
+        ("testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer",
+         testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer)
+    ]
 }

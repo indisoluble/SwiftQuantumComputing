@@ -85,4 +85,13 @@ class MainGeneticPopulationMutationFactoryTests: XCTestCase {
                                                                 evaluator: evaluator,
                                                                 gates: gates))
     }
+
+    static var allTests = [
+        ("testFactoryThrowException_makeMutation_throwException",
+         testFactoryThrowException_makeMutation_throwException),
+        ("testFactoryReturnMutation_makeMutation_returnValue",
+         testFactoryReturnMutation_makeMutation_returnValue),
+        ("testTournamentSizeEqualToZero_makeMutation_throwException",
+         testTournamentSizeEqualToZero_makeMutation_throwException)
+    ]
 }

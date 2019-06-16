@@ -56,4 +56,11 @@ class HadamardGateTests: XCTestCase {
             XCTAssert(false)
         }
     }
+
+    static var allTests = [
+        ("testAnyFactoryAndZeroInputs_makeFixed_throwException",
+         testAnyFactoryAndZeroInputs_makeFixed_throwException),
+        ("testAnyFactoryAndTwoInputs_makeFixed_returnExpectedGate",
+         testAnyFactoryAndTwoInputs_makeFixed_returnExpectedGate)
+    ]
 }
