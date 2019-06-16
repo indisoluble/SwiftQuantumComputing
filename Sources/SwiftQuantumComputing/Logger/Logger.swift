@@ -1,9 +1,9 @@
 //
-//  LoggerFactory.swift
+//  Logger.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 22/09/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 16/06/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,25 +19,60 @@
 //
 
 import Foundation
+
+#if !os(Linux)
+
 import os.log
+
+#endif
 
 // MARK: - Main body
 
-struct LoggerFactory {
+struct Logger {
 
-    // MARK: - Internal class methods
+    // MARK: - Private properties
 
-    static func makeLogger(filepath: String = #file) -> OSLog {
+    #if !os(Linux)
+
+    private let logger: OSLog
+
+    #endif
+
+    // MARK: - Internal init methods
+
+    init(filepath: String = #file) {
+        #if !os(Linux)
+
         let filename = (filepath as NSString).lastPathComponent
         let category = (filename as NSString).deletingPathExtension
 
-        return OSLog(subsystem: Constants.subsystem, category: category)
+        logger = OSLog(subsystem: Constants.subsystem, category: category)
+
+        #endif
+    }
+
+    // MARK: - Internal methods
+
+    func debug(_ message: String) {
+        #if os(Linux)
+        debugPrint(message)
+        #else
+        os_log("%@", log: logger, type: .debug, message)
+        #endif
+    }
+
+    func info(_ message: String) {
+        #if os(Linux)
+        debugPrint(message)
+        #else
+        os_log("%@", log: logger, type: .info, message)
+        #endif
     }
 }
 
-// MARK: - Main body
+// MARK: - Private body
 
-private extension LoggerFactory {
+private extension Logger {
 
     // MARK: - Constants
 

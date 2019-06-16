@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -41,7 +40,7 @@ struct MainGeneticPopulationCrossover {
 
     // MARK: - Private class properties
 
-    private static let logger = LoggerFactory.makeLogger()
+    private static let logger = Logger()
 
     // MARK: - Internal init methods
 
@@ -95,9 +94,7 @@ extension MainGeneticPopulationCrossover: GeneticPopulationCrossover {
                         firstError = error
                     }
                 } else {
-                    os_log("croossover: first exceeded max. depth",
-                           log: MainGeneticPopulationCrossover.logger,
-                           type: .info)
+                    MainGeneticPopulationCrossover.logger.info("croossover: first exceeded max. depth")
                 }
             } else if (secondCross.count <= maxDepth) {
                 do {
@@ -106,9 +103,7 @@ extension MainGeneticPopulationCrossover: GeneticPopulationCrossover {
                     secondError = error
                 }
             } else {
-                os_log("croossover: second exceeded max. depth",
-                       log: MainGeneticPopulationCrossover.logger,
-                       type: .info)
+                MainGeneticPopulationCrossover.logger.info("croossover: second exceeded max. depth")
             }
         }
 

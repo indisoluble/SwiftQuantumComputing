@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -54,9 +53,7 @@ private extension FixedGate {
     func makeHadamardLayer(qubitCount: Int, target: Int) -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target) else {
-            os_log("makeHadamardLayer failed: target out of range",
-                   log: LoggerFactory.makeLogger(),
-                   type: .debug)
+            Logger().debug("makeHadamardLayer failed: target out of range")
 
             return layer
         }
@@ -69,9 +66,7 @@ private extension FixedGate {
     func makeNotLayer(qubitCount: Int, target: Int) -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target) else {
-            os_log("makeNotLayer failed: target out of range",
-                   log: LoggerFactory.makeLogger(),
-                   type: .debug)
+            Logger().debug("makeNotLayer failed: target out of range")
 
             return layer
         }
@@ -86,9 +81,7 @@ private extension FixedGate {
                              target: Int) -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target) else {
-            os_log("makePhaseShiftLayer failed: target out of range",
-                   log: LoggerFactory.makeLogger(),
-                   type: .debug)
+            Logger().debug("makePhaseShiftLayer failed: target out of range")
 
             return layer
         }
@@ -103,9 +96,7 @@ private extension FixedGate {
                                 control: Int) -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target), layer.indices.contains(control) else {
-            os_log("makeControlledNotLayer failed: target and/or control out of range",
-                   log: LoggerFactory.makeLogger(),
-                   type: .debug)
+            Logger().debug("makeControlledNotLayer failed: target and/or control out of range")
 
             return layer
         }
@@ -125,17 +116,13 @@ private extension FixedGate {
     func makeMatrixLayer(qubitCount: Int, inputs: [Int]) -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard inputs.count > 0 else {
-            os_log("makeMatrixLayer failed: no inputs provided",
-                   log: LoggerFactory.makeLogger(),
-                   type: .debug)
+            Logger().debug("makeMatrixLayer failed: no inputs provided")
 
             return layer
         }
 
         guard inputs.allSatisfy({ layer.indices.contains($0) }) else {
-            os_log("makeMatrixLayer failed: one or more inputs are out of range",
-                   log: LoggerFactory.makeLogger(),
-                   type: .debug)
+            Logger().debug("makeMatrixLayer failed: one or more inputs are out of range")
 
             return layer
         }
@@ -164,25 +151,19 @@ private extension FixedGate {
     func makeOracleLayer(qubitCount: Int, target: Int, controls: [Int]) -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard controls.count > 0 else {
-            os_log("makeOracleLayer failed: no controls provided",
-                   log: LoggerFactory.makeLogger(),
-                   type: .debug)
+            Logger().debug("makeOracleLayer failed: no controls provided")
 
             return layer
         }
 
         guard !controls.contains(target) else {
-            os_log("makeOracleLayer failed: target is also a control",
-                   log: LoggerFactory.makeLogger(),
-                   type: .debug)
+            Logger().debug("makeOracleLayer failed: target is also a control")
 
             return layer
         }
 
         guard (controls + [target]).allSatisfy({ layer.indices.contains($0) }) else {
-            os_log("makeOracleLayer failed: one or more inputs are out of range",
-                   log: LoggerFactory.makeLogger(),
-                   type: .debug)
+            Logger().debug("makeOracleLayer failed: one or more inputs are out of range")
 
             return layer
         }

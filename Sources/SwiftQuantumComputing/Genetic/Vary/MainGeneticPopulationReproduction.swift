@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -38,7 +37,7 @@ struct MainGeneticPopulationReproduction {
 
     // MARK: - Private class properties
 
-    private static let logger = LoggerFactory.makeLogger()
+    private static let logger = Logger()
 
     // MARK: - Internal init methods
 
@@ -61,18 +60,14 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
 
         if (random(0...1) < mutationProbability) {
             if let result = try mutation.applied(to: population) {
-                os_log("reproduction: mutation produced",
-                       log: MainGeneticPopulationReproduction.logger,
-                       type: .info)
+                MainGeneticPopulationReproduction.logger.info("reproduction: mutation produced")
 
                 offspring.append(result)
             }
         } else {
             let result = try crossover.applied(to: population)
             if !result.isEmpty {
-                os_log("reproduction: crossover produced",
-                       log: MainGeneticPopulationReproduction.logger,
-                       type: .info)
+                MainGeneticPopulationReproduction.logger.info("reproduction: crossover produced")
 
                 offspring.append(contentsOf: result)
             }

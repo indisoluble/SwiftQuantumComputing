@@ -36,7 +36,7 @@ struct MainGeneticGatesRandomizer {
 
     // MARK: - Private class properties
 
-    private static let logger = LoggerFactory.makeLogger()
+    private static let logger = Logger()
 
     // MARK: - Internal init methods
 

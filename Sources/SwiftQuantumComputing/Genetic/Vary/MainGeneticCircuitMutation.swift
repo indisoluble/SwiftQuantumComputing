@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -39,7 +38,7 @@ struct MainGeneticCircuitMutation {
 
     // MARK: - Private class properties
 
-    private static let logger = LoggerFactory.makeLogger()
+    private static let logger = Logger()
 
     // MARK: - Internal init methods
 
@@ -70,9 +69,7 @@ extension MainGeneticCircuitMutation: GeneticCircuitMutation {
 
         let remainingDepth = (maxDepth - c1.count - c3.count)
         guard remainingDepth >= 0 else {
-            os_log("execute: unable to produce a mutation with remaining depth",
-                   log: MainGeneticCircuitMutation.logger,
-                   type: .info)
+            MainGeneticCircuitMutation.logger.info("execute: unable to produce a mutation with remaining depth")
 
             return nil
         }

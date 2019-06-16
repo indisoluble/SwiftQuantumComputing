@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import os.log
 
 // MARK: - Main body
 
@@ -34,7 +33,7 @@ public struct MainGeneticFactory {
 
     // MARK: - Private class properties
 
-    private static let logger = LoggerFactory.makeLogger()
+    private static let logger = Logger()
 
     // MARK: - Public init methods
 
@@ -120,9 +119,9 @@ extension MainGeneticFactory: GeneticFactory {
                                                                     useCases: useCases,
                                                                     gates: gates)
 
-        os_log("Producing initial population...", log: MainGeneticFactory.logger, type: .info)
+        MainGeneticFactory.logger.info("Producing initial population...")
         var population = try initialPopulation.execute(size: initSize, depth: config.depth)
-        os_log("Initial population completed", log: MainGeneticFactory.logger, type: .info)
+        MainGeneticFactory.logger.info("Initial population completed")
 
         var candidate = fitness.fittest(in: population)!
 
@@ -130,20 +129,17 @@ extension MainGeneticFactory: GeneticFactory {
         let errProb = config.errorProbability
         let genCount = config.generationCount
         while (candidate.eval > errProb) && (currGen < genCount) && (population.count < maxSize) {
-            os_log("Init. generation %d...", log: MainGeneticFactory.logger, type: .info, currGen)
+            MainGeneticFactory.logger.info("Init. generation \(currGen)...")
 
             let offspring = try reproduction.applied(to: population)
             if (offspring.isEmpty) {
-                os_log("evolveCircuit: empty offspr.", log: MainGeneticFactory.logger, type: .debug)
+                MainGeneticFactory.logger.debug("evolveCircuit: empty offspr.")
             } else {
                 population.append(contentsOf: offspring)
                 candidate = fitness.fittest(in: population)!
             }
 
-            os_log("Generation %d completed. Population: %d. Evaluation: %s",
-                   log: MainGeneticFactory.logger,
-                   type: .info,
-                   currGen, population.count, String(candidate.eval))
+            MainGeneticFactory.logger.info("Generation \(currGen) completed. Population: \(population.count). Evaluation: \(String(candidate.eval))")
 
             currGen += 1
         }
