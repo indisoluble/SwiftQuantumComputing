@@ -18,7 +18,16 @@
 // limitations under the License.
 //
 
+#if os(Linux)
+
+import CBLAS_Linux
+
+#else
+
 import Accelerate
+
+#endif
+
 import Foundation
 
 // MARK: - Main body
