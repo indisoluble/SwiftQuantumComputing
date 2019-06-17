@@ -24,12 +24,14 @@ do {
 print("Solution found. Fitness score: \(evol.eval)")
 
 for useCase in cases {
-    let circuit = makeCircuit(evolvedCircuit: evol, useCase: useCase)
-    let probabilities = try? circuit.probabilities(afterInputting: useCase.circuit.input)
+    let evolvedGates = configureEvolvedGates(in: evol, with: useCase)
+    drawCircuit(with: evolvedGates, useCase: useCase)
+
+    let probs = probabilities(in: evolvedGates, useCase: useCase)
     print(String(format: "Use case: [%@]. Input: %@ -> Output: %@. Probability: %.2f %%",
                  useCase.truthTable.truth.joined(separator: ", "),
                  useCase.circuit.input,
                  useCase.circuit.output,
-                 (probabilities?[useCase.circuit.output] ?? 0.0) * 100))
+                 (probs[useCase.circuit.output] ?? 0.0) * 100))
 }
 
