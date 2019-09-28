@@ -1,5 +1,5 @@
 //
-//  Backend.swift
+//  StatevectorSimulator.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 12/12/2018.
@@ -22,8 +22,8 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol Backend {
-    typealias Circuit = (inputBits: String, gates: [BackendGate])
+protocol StatevectorSimulator {
+    typealias Circuit = (inputBits: String, gates: [StatevectorGate])
 
-    func measure(qubits: [Int], in circuit: Backend.Circuit) throws -> [Double]
+    func measure(qubits: [Int], in circuit: StatevectorSimulator.Circuit) throws -> [Double]
 }

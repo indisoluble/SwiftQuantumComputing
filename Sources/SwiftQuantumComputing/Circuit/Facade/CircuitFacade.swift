@@ -30,13 +30,13 @@ struct CircuitFacade {
 
     // MARK: - Private properties
 
-    private let backend: Backend
+    private let statevectorSimulator: StatevectorSimulator
 
     // MARK: - Internal init methods
 
-    init(gates: [FixedGate], backend: Backend) {
+    init(gates: [FixedGate], statevectorSimulator: StatevectorSimulator) {
         self.gates = gates
-        self.backend = backend
+        self.statevectorSimulator = statevectorSimulator
     }
 }
 
@@ -52,6 +52,6 @@ extension CircuitFacade: CustomStringConvertible {
 
 extension CircuitFacade: Circuit {
     func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
-        return try backend.measure(qubits: qubits, in: (inputBits: bits, gates: gates))
+        return try statevectorSimulator.measure(qubits: qubits, in: (inputBits: bits, gates: gates))
     }
 }

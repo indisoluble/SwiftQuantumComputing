@@ -1,8 +1,8 @@
 //
-//  BackendRegisterFactoryAdapter.swift
+//  StatevectorGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
+//  Created by Enrique de la Torre on 09/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,18 +20,12 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-struct BackendRegisterFactoryAdapter {}
+protocol StatevectorGate {
+    typealias Components = (matrix: Matrix, inputs: [Int])
 
-// MARK: - BackendRegisterFactory methods
+    var fixedGate: FixedGate { get }
 
-extension BackendRegisterFactoryAdapter: BackendRegisterFactory {
-    func makeRegister(bits: String) throws -> BackendRegister {
-        do {
-            return try Register(bits: bits)
-        } catch Register.InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
-            throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
-        }
-    }
+    func extract() throws -> Components
 }

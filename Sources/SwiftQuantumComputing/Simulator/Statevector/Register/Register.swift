@@ -71,9 +71,9 @@ extension Register: Equatable {
     }
 }
 
-// MARK: - BackendRegister methods
+// MARK: - StatevectorRegister methods
 
-extension Register: BackendRegister {
+extension Register: StatevectorRegister {
     func applying(_ gate: RegisterGate) throws -> Register {
         var nextVector: Vector!
         do {

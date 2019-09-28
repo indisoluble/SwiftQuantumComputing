@@ -24,7 +24,7 @@ import XCTest
 
 public func allTests() -> [XCTestCaseEntry] {
     return [
-        testCase(BackendFacadeTests.allTests),
+        testCase(StatevectorSimulatorFacadeTests.allTests),
         testCase(CircuitFacadeTests.allTests),
         testCase(Circuit_ProbabilitiesTests.allTests),
         testCase(ComplexTests.allTests),

@@ -1,8 +1,8 @@
 //
-//  BackendRegisterTestDouble.swift
+//  StatevectorSimulatorTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 20/12/2018.
+//  Created by Enrique de la Torre on 21/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,40 +24,26 @@ import Foundation
 
 // MARK: - Main body
 
-final class BackendRegisterTestDouble {
+final class StatevectorSimulatorTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var applyingCount = 0
-    private (set) var lastApplyingGate: RegisterGate?
-    var applyingResult: BackendRegisterTestDouble?
-    var applyingError = GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
-
     private (set) var measureCount = 0
     private (set) var lastMeasureQubits: [Int]?
+    private (set) var lastMeasureCircuit: StatevectorSimulator.Circuit?
     var measureResult: [Double]?
-    var measureError = MeasureError.qubitsAreNotSorted
+    var measureError = MeasureError.qubitsAreNotInBound
 }
 
-// MARK: - BackendRegister methods
+// MARK: - StatevectorSimulator methods
 
-extension BackendRegisterTestDouble: BackendRegister {
-    func applying(_ gate: RegisterGate) throws -> BackendRegisterTestDouble {
-        applyingCount += 1
-
-        lastApplyingGate = gate
-
-        if let applyingResult = applyingResult {
-            return applyingResult
-        }
-
-        throw applyingError
-    }
-
-    func measure(qubits: [Int]) throws -> [Double] {
+extension StatevectorSimulatorTestDouble: StatevectorSimulator {
+    func measure(qubits: [Int],
+                 in circuit: (inputBits: String, gates: [StatevectorGate])) throws -> [Double] {
         measureCount += 1
 
         lastMeasureQubits = qubits
+        lastMeasureCircuit = circuit
 
         if let measureResult = measureResult {
             return measureResult

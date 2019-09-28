@@ -29,16 +29,16 @@ class CircuitFacadeTests: XCTestCase {
     // MARK: - Properties
 
     let gates = [FixedGate.hadamard(target: 0), FixedGate.not(target: 0)]
-    let backend = BackendTestDouble()
+    let statevectorSimulator = StatevectorSimulatorTestDouble()
 
     // MARK: - Tests
 
-    func testAnyCircuit_measure_forwardCallToBackend() {
+    func testAnyCircuit_measure_forwardCallToStatevectorSimulator() {
         // Given
-        let facade = CircuitFacade(gates: gates, backend: backend)
+        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
         let measure = [0.1, 0.9]
-        backend.measureResult = measure
+        statevectorSimulator.measureResult = measure
 
         let otherQubits = [1]
         let bits = "01"
@@ -47,17 +47,18 @@ class CircuitFacadeTests: XCTestCase {
         let result = try? facade.measure(qubits: otherQubits, afterInputting: bits)
 
         // Then
-        let lastMeasureInputBits = backend.lastMeasureCircuit?.inputBits
-        let lastMeasureGates = backend.lastMeasureCircuit?.gates as? [FixedGate]
+        let lastMeasureInputBits = statevectorSimulator.lastMeasureCircuit?.inputBits
+        let lastMeasureGates = statevectorSimulator.lastMeasureCircuit?.gates as? [FixedGate]
 
-        XCTAssertEqual(backend.measureCount, 1)
-        XCTAssertEqual(backend.lastMeasureQubits, otherQubits)
+        XCTAssertEqual(statevectorSimulator.measureCount, 1)
+        XCTAssertEqual(statevectorSimulator.lastMeasureQubits, otherQubits)
         XCTAssertEqual(lastMeasureInputBits, bits)
         XCTAssertEqual(lastMeasureGates, gates)
         XCTAssertEqual(result, measure)
     }
 
     static var allTests = [
-        ("testAnyCircuit_measure_forwardCallToBackend", testAnyCircuit_measure_forwardCallToBackend)
+        ("testAnyCircuit_measure_forwardCallToStatevectorSimulator",
+         testAnyCircuit_measure_forwardCallToStatevectorSimulator)
     ]
 }
