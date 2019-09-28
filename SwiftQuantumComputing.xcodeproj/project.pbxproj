@@ -765,6 +765,7 @@
 			isa = PBXGroup;
 			children = (
 				FF0694DA21CBFDCF00B5D469 /* Facade */,
+				FF1AAFE0211F286100D3666A /* Register */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -801,6 +802,7 @@
 			isa = PBXGroup;
 			children = (
 				FF9FBCE421C5887F0070D943 /* Facade */,
+				FF34BAD22128B2D50057A803 /* Register */,
 				FFDC34E121C1BCBD0052AC90 /* Backend.swift */,
 				FF8B9D9721BD979000A28E34 /* BackendGate.swift */,
 			);
@@ -1011,7 +1013,6 @@
 				FFF697F021BF23C7004AE4C2 /* FixedGate */,
 				FF2D446A21FA64AB002515EF /* Genetic */,
 				FF9FBCF021C595050070D943 /* Logger */,
-				FF34BAD22128B2D50057A803 /* Register */,
 			);
 			path = SwiftQuantumComputing;
 			sourceTree = "<group>";
@@ -1340,7 +1341,6 @@
 				FF1AAFED211F61CB00D3666A /* Extension */,
 				FF18358121EA358C003E2F04 /* FixedGate */,
 				FF43386C2212258700AB5C06 /* Genetic */,
-				FF1AAFE0211F286100D3666A /* Register */,
 				FFED68FD212F289800D46D68 /* TestDouble */,
 				FF1E5F5422B6EE2A004AEA45 /* XCTestManifests.swift */,
 			);
