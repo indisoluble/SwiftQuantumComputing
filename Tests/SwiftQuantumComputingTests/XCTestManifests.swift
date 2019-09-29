@@ -59,7 +59,8 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(MainGeneticFactoryTests.allTests),
         testCase(RegisterTests.allTests),
         testCase(RegisterGateFactoryTests.allTests),
-        testCase(RegisterGateTests.allTests)
+        testCase(RegisterGateTests.allTests),
+        testCase(Vector_ElementsTests.allTests)
     ]
 }
 
