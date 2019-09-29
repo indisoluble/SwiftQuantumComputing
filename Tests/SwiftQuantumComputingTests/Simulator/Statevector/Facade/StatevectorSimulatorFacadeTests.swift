@@ -37,63 +37,59 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
     let thirdGate = StatevectorGateTestDouble()
     let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
                               [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
-    let qubits = [0, 1, 2]
-    let measurement = [0.1, 0.9]
+    let statevector = try! Vector([Complex(0.1), Complex(0.9)])
 
     // MARK: - Tests
 
-    func testRegisterFactoryThrowsError_measureQubits_throwError() {
+    func testRegisterFactoryThrowsError_statevector_throwError() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
                                                    gateFactory: gateFactory)
 
         // Then
-        XCTAssertThrowsError(try simulator.measure(qubits: qubits,
-                                                   in: (inputBits: inputBits, gates: [firstGate])))
+        XCTAssertThrowsError(try simulator.statevector(afterInputting: inputBits, in: [firstGate]))
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
         XCTAssertEqual(gateFactory.makeGateCount, 0)
     }
 
-    func testRegisterFactoryReturnsRegisterAndEmptyCircuit_measureQubits_applyMeasureOnInitialRegister() {
+    func testRegisterFactoryReturnsRegisterAndEmptyCircuit_statevector_applyStatevectorOnInitialRegister() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
                                                    gateFactory: gateFactory)
 
         registerFactory.makeRegisterResult = register
-        register.measureResult = measurement
+        register.statevectorResult = statevector
 
         // When
-        let result = try? simulator.measure(qubits: qubits, in: (inputBits: inputBits, gates: []))
+        let result = try? simulator.statevector(afterInputting: inputBits, in: [])
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(register.measureCount, 1)
-        XCTAssertEqual(register.lastMeasureQubits, qubits)
-        XCTAssertEqual(result, measurement)
+        XCTAssertEqual(register.statevectorCount, 1)
+        XCTAssertEqual(result, statevector)
     }
 
-    func testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_measureQubits_applyMeasureOnInitialRegister() {
+    func testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_statevector_applyStatevectorOnInitialRegister() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
                                                    gateFactory: gateFactory)
 
         registerFactory.makeRegisterResult = register
-        register.measureResult = measurement
+        register.statevectorResult = statevector
 
         // When
-        let result = try? simulator.measure(qubits: qubits,
-                                            in: (inputBits: inputBits, gates: [firstGate]))
+        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
         XCTAssertEqual(firstGate.extractCount, 1)
         XCTAssertEqual(gateFactory.makeGateCount, 0)
         XCTAssertEqual(register.applyingCount, 0)
-        XCTAssertEqual(register.measureCount, 0)
+        XCTAssertEqual(register.statevectorCount, 0)
         XCTAssertNil(result)
     }
 
-    func testRegisterFactoryReturnsRegisterAndOneGate_measureQubits_applyMeasureOnExpectedRegister() {
+    func testRegisterFactoryReturnsRegisterAndOneGate_statevector_applyStatevectorOnExpectedRegister() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
                                                    gateFactory: gateFactory)
@@ -106,15 +102,14 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         let nextRegister = StatevectorRegisterTestDouble()
         register.applyingResult = nextRegister
 
-        nextRegister.measureResult = measurement
+        nextRegister.statevectorResult = statevector
 
         let inputs = [0, 2]
         firstGate.extractMatrixResult = matrix
         firstGate.extractInputsResult = inputs
 
         // When
-        let result = try? simulator.measure(qubits: qubits,
-                                            in: (inputBits: inputBits, gates: [firstGate]))
+        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -124,12 +119,11 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(gateFactory.lastMakeGateInputs, inputs)
         XCTAssertEqual(register.applyingCount, 1)
         XCTAssertEqual(register.lastApplyingGate, registerGate)
-        XCTAssertEqual(nextRegister.measureCount, 1)
-        XCTAssertEqual(nextRegister.lastMeasureQubits, qubits)
-        XCTAssertEqual(result, measurement)
+        XCTAssertEqual(nextRegister.statevectorCount, 1)
+        XCTAssertEqual(result, statevector)
     }
 
-    func testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_measureQubits_returnNil() {
+    func testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_statevector_returnNil() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
                                                    gateFactory: gateFactory)
@@ -140,8 +134,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         firstGate.extractInputsResult = [0, 2]
 
         // When
-        let result = try? simulator.measure(qubits: qubits,
-                                            in: (inputBits: inputBits, gates: [firstGate]))
+        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -151,7 +144,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    func testGateFactoryReturnsNilAndOneGate_measureQubits_returnNil() {
+    func testGateFactoryReturnsNilAndOneGate_statevector_returnNil() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
                                                    gateFactory: gateFactory)
@@ -165,8 +158,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        let result = try? simulator.measure(qubits: qubits,
-                                            in: (inputBits: inputBits, gates: [firstGate]))
+        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -178,7 +170,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    func testRegisterReturnsNilAndOneGate_measureQubits_returnNil() {
+    func testRegisterReturnsNilAndOneGate_statevector_returnNil() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
                                                    gateFactory: gateFactory)
@@ -195,8 +187,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        let result = try? simulator.measure(qubits: qubits,
-                                            in: (inputBits: inputBits, gates: [firstGate]))
+        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -209,7 +200,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertNil(result)
     }
 
-    func testGateFactoryReturnsNilAndThreeGates_measureQubits_secondAndThirdGatesAreNotUsed() {
+    func testGateFactoryReturnsNilAndThreeGates_statevector_secondAndThirdGatesAreNotUsed() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
                                                    gateFactory: gateFactory)
@@ -223,9 +214,8 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         firstGate.extractInputsResult = inputs
 
         // When
-        _ = try? simulator.measure(qubits: qubits,
-                                   in: (inputBits: inputBits,
-                                        gates: [firstGate, secondGate, thirdGate]))
+        _ = try? simulator.statevector(afterInputting: inputBits,
+                                       in: [firstGate, secondGate, thirdGate])
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -237,21 +227,21 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testRegisterFactoryThrowsError_measureQubits_throwError",
-         testRegisterFactoryThrowsError_measureQubits_throwError),
-        ("testRegisterFactoryReturnsRegisterAndEmptyCircuit_measureQubits_applyMeasureOnInitialRegister",
-         testRegisterFactoryReturnsRegisterAndEmptyCircuit_measureQubits_applyMeasureOnInitialRegister),
-        ("testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_measureQubits_applyMeasureOnInitialRegister",
-         testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_measureQubits_applyMeasureOnInitialRegister),
-        ("testRegisterFactoryReturnsRegisterAndOneGate_measureQubits_applyMeasureOnExpectedRegister",
-         testRegisterFactoryReturnsRegisterAndOneGate_measureQubits_applyMeasureOnExpectedRegister),
-        ("testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_measureQubits_returnNil",
-         testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_measureQubits_returnNil),
-        ("testGateFactoryReturnsNilAndOneGate_measureQubits_returnNil",
-         testGateFactoryReturnsNilAndOneGate_measureQubits_returnNil),
-        ("testRegisterReturnsNilAndOneGate_measureQubits_returnNil",
-         testRegisterReturnsNilAndOneGate_measureQubits_returnNil),
-        ("testGateFactoryReturnsNilAndThreeGates_measureQubits_secondAndThirdGatesAreNotUsed",
-         testGateFactoryReturnsNilAndThreeGates_measureQubits_secondAndThirdGatesAreNotUsed)
+        ("testRegisterFactoryThrowsError_statevector_throwError",
+         testRegisterFactoryThrowsError_statevector_throwError),
+        ("testRegisterFactoryReturnsRegisterAndEmptyCircuit_statevector_applyStatevectorOnInitialRegister",
+         testRegisterFactoryReturnsRegisterAndEmptyCircuit_statevector_applyStatevectorOnInitialRegister),
+        ("testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_statevector_applyStatevectorOnInitialRegister",
+         testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_statevector_applyStatevectorOnInitialRegister),
+        ("testRegisterFactoryReturnsRegisterAndOneGate_statevector_applyStatevectorOnExpectedRegister",
+         testRegisterFactoryReturnsRegisterAndOneGate_statevector_applyStatevectorOnExpectedRegister),
+        ("testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_statevector_returnNil",
+         testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_statevector_returnNil),
+        ("testGateFactoryReturnsNilAndOneGate_statevector_returnNil",
+         testGateFactoryReturnsNilAndOneGate_statevector_returnNil),
+        ("testRegisterReturnsNilAndOneGate_statevector_returnNil",
+         testRegisterReturnsNilAndOneGate_statevector_returnNil),
+        ("testGateFactoryReturnsNilAndThreeGates_statevector_secondAndThirdGatesAreNotUsed",
+         testGateFactoryReturnsNilAndThreeGates_statevector_secondAndThirdGatesAreNotUsed)
     ]
 }

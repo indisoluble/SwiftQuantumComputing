@@ -52,6 +52,55 @@ extension CircuitFacade: CustomStringConvertible {
 
 extension CircuitFacade: Circuit {
     func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
-        return try statevectorSimulator.measure(qubits: qubits, in: (inputBits: bits, gates: gates))
+        guard qubits.count > 0 else {
+            throw MeasureError.qubitsCanNotBeAnEmptyList
+        }
+
+        guard CircuitFacade.areQubitsUnique(qubits) else {
+            throw MeasureError.qubitsAreNotUnique
+        }
+
+        guard CircuitFacade.areQubitsSorted(qubits) else {
+            throw MeasureError.qubitsAreNotSorted
+        }
+
+        let statevector = try statevectorSimulator.statevector(afterInputting: bits, in: gates)
+
+        guard CircuitFacade.areQubitsInsideBounds(qubits, of: statevector) else {
+            throw MeasureError.qubitsAreNotInsideBounds
+        }
+
+        var result = Array(repeating: Double(0), count: Int.pow(2, qubits.count))
+
+        for index in 0..<statevector.count {
+            let derivedIndex = index.derived(takingBitsAt: qubits)
+            let measure = statevector[index].squaredModulus
+
+            result[derivedIndex] += measure
+        }
+
+        return result
+    }
+}
+
+// MARK: - Private body
+
+private extension CircuitFacade {
+
+    // MARK: - Private class methods
+
+    static func areQubitsUnique(_ qubits: [Int]) -> Bool {
+        return (qubits.count == Set(qubits).count)
+    }
+
+    static func areQubitsSorted(_ qubits: [Int]) -> Bool {
+        return (qubits == qubits.sorted(by: >))
+    }
+
+    static func areQubitsInsideBounds(_ qubits: [Int], of vector: Vector) -> Bool {
+        let qubitCount = Int.log2(vector.count)
+        let validQubits = (0..<qubitCount)
+
+        return qubits.allSatisfy { validQubits.contains($0) }
     }
 }

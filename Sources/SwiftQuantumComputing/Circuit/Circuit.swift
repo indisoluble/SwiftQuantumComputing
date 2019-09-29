@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 public enum MeasureError: Error {
-    case qubitsAreNotInBound
+    case qubitsAreNotInsideBounds
     case qubitsAreNotSorted
     case qubitsAreNotUnique
     case qubitsCanNotBeAnEmptyList

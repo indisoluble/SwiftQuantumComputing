@@ -28,37 +28,152 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
+    let bits = "01"
     let gates = [FixedGate.hadamard(target: 0), FixedGate.not(target: 0)]
     let statevectorSimulator = StatevectorSimulatorTestDouble()
 
     // MARK: - Tests
 
-    func testAnyCircuit_measure_forwardCallToStatevectorSimulator() {
+    func testAnyCircuitAndZeroQubits_measure_throwException() {
         // Given
         let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
-        let measure = [0.1, 0.9]
-        statevectorSimulator.measureResult = measure
+        // Then
+        XCTAssertThrowsError(try facade.measure(qubits: [], afterInputting: bits))
+        XCTAssertEqual(statevectorSimulator.statevectorCount, 0)
+    }
 
-        let otherQubits = [1]
-        let bits = "01"
-
-        // When
-        let result = try? facade.measure(qubits: otherQubits, afterInputting: bits)
+    func testAnyCircuitAndRepeatedQubits_measure_throwException() {
+        // Given
+        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
         // Then
-        let lastMeasureInputBits = statevectorSimulator.lastMeasureCircuit?.inputBits
-        let lastMeasureGates = statevectorSimulator.lastMeasureCircuit?.gates as? [FixedGate]
+        XCTAssertThrowsError(try facade.measure(qubits: [0, 0], afterInputting: bits))
+        XCTAssertEqual(statevectorSimulator.statevectorCount, 0)
+    }
 
-        XCTAssertEqual(statevectorSimulator.measureCount, 1)
-        XCTAssertEqual(statevectorSimulator.lastMeasureQubits, otherQubits)
+    func testAnyRegisterAndUnsortedQubits_measure_throwException() {
+        // Given
+        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
+
+        // Then
+        XCTAssertThrowsError(try facade.measure(qubits: [0, 1], afterInputting: bits))
+        XCTAssertEqual(statevectorSimulator.statevectorCount, 0)
+    }
+
+    func testCircuitWithSimulatorThatReturnsVectorAndQubitsOutOfBoundsOfVector_measure_throwException() {
+        // Given
+        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
+
+        statevectorSimulator.statevectorResult = try! Vector([Complex(0),
+                                                              Complex(0),
+                                                              Complex(0),
+                                                              Complex(1)])
+
+        // Then
+        XCTAssertThrowsError(try facade.measure(qubits: [100, 0], afterInputting: bits))
+        XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
+
+        let lastMeasureInputBits = statevectorSimulator.lastStatevectorBits
+        let lastMeasureGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+
         XCTAssertEqual(lastMeasureInputBits, bits)
         XCTAssertEqual(lastMeasureGates, gates)
-        XCTAssertEqual(result, measure)
+    }
+
+    func testAnyCircuitAndNegativeQubits_measure_throwException() {
+        // Given
+        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
+
+        statevectorSimulator.statevectorResult = try! Vector([Complex(0),
+                                                              Complex(0),
+                                                              Complex(0),
+                                                              Complex(1)])
+
+        // Then
+        XCTAssertThrowsError(try facade.measure(qubits: [0, -1], afterInputting: bits))
+        XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
+
+        let lastMeasureInputBits = statevectorSimulator.lastStatevectorBits
+        let lastMeasureGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+
+        XCTAssertEqual(lastMeasureInputBits, bits)
+        XCTAssertEqual(lastMeasureGates, gates)
+    }
+
+    func testCircuitWithSimulatorThatReturnsVectorAndOneQubit_measure_returnExpectedProbabilities() {
+        // Given
+        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
+
+        let prob = (1 / sqrt(5))
+        let vector = try! Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
+                                  Complex(prob), Complex(0), Complex(0), Complex(prob)])
+        statevectorSimulator.statevectorResult = vector
+
+        // When
+        let measures = try! facade.measure(qubits: [0], afterInputting: bits)
+
+        // Then
+        XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
+
+        let lastMeasureInputBits = statevectorSimulator.lastStatevectorBits
+        let lastMeasureGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+
+        XCTAssertEqual(lastMeasureInputBits, bits)
+        XCTAssertEqual(lastMeasureGates, gates)
+
+        let expectedMeasures = [(Double(2) / Double(5)), (Double(3) / Double(5))]
+
+        XCTAssertEqual(measures.count, expectedMeasures.count)
+        for index in 0..<measures.count {
+            XCTAssertEqual(measures[index], expectedMeasures[index], accuracy: 0.001)
+        }
+    }
+
+    func testCircuitWithSimulatorThatReturnsVectorAndTwoQubits_measure_returnExpectedProbabilities() {
+        // Given
+        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
+
+        let prob = (1 / sqrt(5))
+        let vector = try! Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
+                                  Complex(prob), Complex(0), Complex(0), Complex(prob)])
+        statevectorSimulator.statevectorResult = vector
+
+        // When
+        let measures = try! facade.measure(qubits: [1, 0], afterInputting: bits)
+
+        // Then
+        XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
+
+        let lastMeasureInputBits = statevectorSimulator.lastStatevectorBits
+        let lastMeasureGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+
+        XCTAssertEqual(lastMeasureInputBits, bits)
+        XCTAssertEqual(lastMeasureGates, gates)
+
+        let expectedMeasures = [(Double(1) / Double(5)), (Double(1) / Double(5)),
+                                (Double(1) / Double(5)), (Double(2) / Double(5))]
+
+        XCTAssertEqual(measures.count, expectedMeasures.count)
+        for index in 0..<measures.count {
+            XCTAssertEqual(measures[index], expectedMeasures[index], accuracy: 0.001)
+        }
     }
 
     static var allTests = [
-        ("testAnyCircuit_measure_forwardCallToStatevectorSimulator",
-         testAnyCircuit_measure_forwardCallToStatevectorSimulator)
+        ("testAnyCircuitAndZeroQubits_measure_throwException",
+         testAnyCircuitAndZeroQubits_measure_throwException),
+        ("testAnyCircuitAndRepeatedQubits_measure_throwException",
+         testAnyCircuitAndRepeatedQubits_measure_throwException),
+        ("testAnyRegisterAndUnsortedQubits_measure_throwException",
+         testAnyRegisterAndUnsortedQubits_measure_throwException),
+        ("testCircuitWithSimulatorThatReturnsVectorAndQubitsOutOfBoundsOfVector_measure_throwException",
+         testCircuitWithSimulatorThatReturnsVectorAndQubitsOutOfBoundsOfVector_measure_throwException),
+        ("testAnyCircuitAndNegativeQubits_measure_throwException",
+         testAnyCircuitAndNegativeQubits_measure_throwException),
+        ("testCircuitWithSimulatorThatReturnsVectorAndOneQubit_measure_returnExpectedProbabilities",
+         testCircuitWithSimulatorThatReturnsVectorAndOneQubit_measure_returnExpectedProbabilities),
+        ("testCircuitWithSimulatorThatReturnsVectorAndTwoQubits_measure_returnExpectedProbabilities",
+         testCircuitWithSimulatorThatReturnsVectorAndTwoQubits_measure_returnExpectedProbabilities)
     ]
 }

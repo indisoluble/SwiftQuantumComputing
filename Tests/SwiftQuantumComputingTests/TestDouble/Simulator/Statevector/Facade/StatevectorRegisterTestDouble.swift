@@ -28,20 +28,24 @@ final class StatevectorRegisterTestDouble {
 
     // MARK: - Internal properties
 
+    private (set) var statevectorCount = 0
+    var statevectorResult = try! Vector([Complex(0)])
+
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: RegisterGate?
     var applyingResult: StatevectorRegisterTestDouble?
     var applyingError = GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
-
-    private (set) var measureCount = 0
-    private (set) var lastMeasureQubits: [Int]?
-    var measureResult: [Double]?
-    var measureError = MeasureError.qubitsAreNotSorted
 }
 
 // MARK: - StatevectorRegister methods
 
 extension StatevectorRegisterTestDouble: StatevectorRegister {
+    var statevector: Vector {
+        statevectorCount += 1
+
+        return statevectorResult
+    }
+
     func applying(_ gate: RegisterGate) throws -> StatevectorRegisterTestDouble {
         applyingCount += 1
 
@@ -52,17 +56,5 @@ extension StatevectorRegisterTestDouble: StatevectorRegister {
         }
 
         throw applyingError
-    }
-
-    func measure(qubits: [Int]) throws -> [Double] {
-        measureCount += 1
-
-        lastMeasureQubits = qubits
-
-        if let measureResult = measureResult {
-            return measureResult
-        }
-
-        throw measureError
     }
 }

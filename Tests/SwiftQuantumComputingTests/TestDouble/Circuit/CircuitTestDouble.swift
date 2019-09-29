@@ -35,7 +35,7 @@ final class CircuitTestDouble {
     private (set) var lastMeasureQubits: [Int]?
     private (set) var lastMeasureBits: String?
     var measureResult: [Double]?
-    var measureError = MeasureError.qubitsAreNotInBound
+    var measureError = MeasureError.qubitsAreNotInsideBounds
 }
 
 // MARK: - Circuit methods

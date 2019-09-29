@@ -24,9 +24,9 @@ import Foundation
 
 struct Register {
 
-    // MARK: - Private properties
+    // MARK: - StatevectorRegister properties
 
-    private let vector: Vector
+    let statevector: Vector
 
     // MARK: - Internal init methods
 
@@ -51,7 +51,7 @@ struct Register {
             throw InitVectorError.additionOfSquareModulusIsNotEqualToOne
         }
 
-        self.vector = vector
+        self.statevector = vector
     }
 }
 
@@ -59,7 +59,7 @@ struct Register {
 
 extension Register: CustomStringConvertible {
     var description: String {
-        return vector.description
+        return statevector.description
     }
 }
 
@@ -67,7 +67,7 @@ extension Register: CustomStringConvertible {
 
 extension Register: Equatable {
     static func ==(lhs: Register, rhs: Register) -> Bool {
-        return (lhs.vector == rhs.vector)
+        return (lhs.statevector == rhs.statevector)
     }
 }
 
@@ -77,7 +77,7 @@ extension Register: StatevectorRegister {
     func applying(_ gate: RegisterGate) throws -> Register {
         var nextVector: Vector!
         do {
-            nextVector = try gate.apply(to: vector)
+            nextVector = try gate.apply(to: statevector)
         } catch RegisterGate.ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount {
             throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
         } catch {
@@ -90,35 +90,6 @@ extension Register: StatevectorRegister {
             throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
         }
     }
-
-    func measure(qubits: [Int]) throws -> [Double] {
-        guard qubits.count > 0 else {
-            throw MeasureError.qubitsCanNotBeAnEmptyList
-        }
-
-        guard areQubitsUnique(qubits) else {
-            throw MeasureError.qubitsAreNotUnique
-        }
-
-        guard areQubitsInBound(qubits) else {
-            throw MeasureError.qubitsAreNotInBound
-        }
-
-        guard areQubitsSorted(qubits) else {
-            throw MeasureError.qubitsAreNotSorted
-        }
-
-        var result = Array(repeating: Double(0), count: Int.pow(2, qubits.count))
-
-        for index in 0..<vector.count {
-            let derivedIndex = index.derived(takingBitsAt: qubits)
-            let measure = vector[index].squaredModulus
-
-            result[derivedIndex] += measure
-        }
-
-        return result
-    }
 }
 
 // MARK: - Private body
@@ -129,23 +100,6 @@ private extension Register {
 
     enum Constants {
         static let accuracy = 0.001
-    }
-
-    // MARK: - Private methods
-
-    func areQubitsUnique(_ qubits: [Int]) -> Bool {
-        return (qubits.count == Set(qubits).count)
-    }
-
-    func areQubitsInBound(_ qubits: [Int]) -> Bool {
-        let qubitCount = Int.log2(vector.count)
-        let validQubits = (0..<qubitCount)
-
-        return qubits.allSatisfy { validQubits.contains($0) }
-    }
-
-    func areQubitsSorted(_ qubits: [Int]) -> Bool {
-        return (qubits == qubits.sorted(by: >))
     }
 
     // MARK: - Private class methods

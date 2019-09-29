@@ -28,27 +28,26 @@ final class StatevectorSimulatorTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var measureCount = 0
-    private (set) var lastMeasureQubits: [Int]?
-    private (set) var lastMeasureCircuit: StatevectorSimulator.Circuit?
-    var measureResult: [Double]?
-    var measureError = MeasureError.qubitsAreNotInBound
+    private (set) var statevectorCount = 0
+    private (set) var lastStatevectorBits: String?
+    private (set) var lastStatevectorCircuit: [StatevectorGate]?
+    var statevectorResult: Vector?
+    var statevectorError = MeasureError.qubitsAreNotInsideBounds
 }
 
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorTestDouble: StatevectorSimulator {
-    func measure(qubits: [Int],
-                 in circuit: (inputBits: String, gates: [StatevectorGate])) throws -> [Double] {
-        measureCount += 1
+    func statevector(afterInputting bits: String, in circuit: [StatevectorGate]) throws -> Vector {
+        statevectorCount += 1
 
-        lastMeasureQubits = qubits
-        lastMeasureCircuit = circuit
+        lastStatevectorBits = bits
+        lastStatevectorCircuit = circuit
 
-        if let measureResult = measureResult {
-            return measureResult
+        if let statevectorResult = statevectorResult {
+            return statevectorResult
         }
 
-        throw measureError
+        throw statevectorError
     }
 }

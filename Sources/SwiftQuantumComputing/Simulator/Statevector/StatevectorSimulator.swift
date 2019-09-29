@@ -23,7 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol StatevectorSimulator {
-    typealias Circuit = (inputBits: String, gates: [StatevectorGate])
-
-    func measure(qubits: [Int], in circuit: StatevectorSimulator.Circuit) throws -> [Double]
+    func statevector(afterInputting bits: String, in circuit: [StatevectorGate]) throws -> Vector
 }

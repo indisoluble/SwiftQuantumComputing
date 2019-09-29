@@ -23,6 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol StatevectorRegister {
+    var statevector: Vector { get }
+
     func applying(_ gate: RegisterGate) throws -> Self
-    func measure(qubits: [Int]) throws -> [Double]
 }

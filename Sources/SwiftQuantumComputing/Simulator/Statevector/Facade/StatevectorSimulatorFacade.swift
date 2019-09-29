@@ -40,15 +40,15 @@ struct StatevectorSimulatorFacade {
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
-    func measure(qubits: [Int], in circuit: StatevectorSimulator.Circuit) throws -> [Double] {
+    func statevector(afterInputting bits: String, in circuit: [StatevectorGate]) throws -> Vector {
         var register: StatevectorRegister!
         do {
-            register = try registerFactory.makeRegister(bits: circuit.inputBits)
+            register = try registerFactory.makeRegister(bits: bits)
         } catch MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
             throw MeasureError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
 
-        for gate in circuit.gates {
+        for gate in circuit {
             do {
                 let components = try gate.extract()
                 let registerGate = try gateFactory.makeGate(matrix: components.matrix,
@@ -63,6 +63,6 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
             }
         }
 
-        return try register.measure(qubits: qubits)
+        return register.statevector
     }
 }
