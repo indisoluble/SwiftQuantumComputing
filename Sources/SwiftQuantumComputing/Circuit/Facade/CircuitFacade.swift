@@ -51,6 +51,12 @@ extension CircuitFacade: CustomStringConvertible {
 // MARK: - Circuit methods
 
 extension CircuitFacade: Circuit {
+    func statevector(afterInputting bits: String) throws -> [Complex] {
+        let state = try statevectorSimulator.statevector(afterInputting: bits, in: gates)
+
+        return state.elements()
+    }
+
     func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
         guard qubits.count > 0 else {
             throw MeasureError.qubitsCanNotBeAnEmptyList
@@ -64,19 +70,28 @@ extension CircuitFacade: Circuit {
             throw MeasureError.qubitsAreNotSorted
         }
 
-        let statevector = try statevectorSimulator.statevector(afterInputting: bits, in: gates)
+        var state: [Complex]!
+        do {
+            state = try statevector(afterInputting: bits)
+        } catch {
+            if let error = error as? StatevectorError {
+                throw MeasureError.statevectorThrowedError(error: error)
+            } else {
+                fatalError("Unexpected error: \(error).")
+            }
+        }
 
-        guard CircuitFacade.areQubitsInsideBounds(qubits, of: statevector) else {
+        guard CircuitFacade.areQubitsInsideBounds(qubits, of: state) else {
             throw MeasureError.qubitsAreNotInsideBounds
         }
 
         var result = Array(repeating: Double(0), count: Int.pow(2, qubits.count))
 
-        for index in 0..<statevector.count {
+        for (index, element) in state.enumerated() {
             let derivedIndex = index.derived(takingBitsAt: qubits)
-            let measure = statevector[index].squaredModulus
+            let probability = element.squaredModulus
 
-            result[derivedIndex] += measure
+            result[derivedIndex] += probability
         }
 
         return result
@@ -97,8 +112,8 @@ private extension CircuitFacade {
         return (qubits == qubits.sorted(by: >))
     }
 
-    static func areQubitsInsideBounds(_ qubits: [Int], of vector: Vector) -> Bool {
-        let qubitCount = Int.log2(vector.count)
+    static func areQubitsInsideBounds(_ qubits: [Int], of statevector: [Complex]) -> Bool {
+        let qubitCount = Int.log2(statevector.count)
         let validQubits = (0..<qubitCount)
 
         return qubits.allSatisfy { validQubits.contains($0) }

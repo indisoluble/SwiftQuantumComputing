@@ -45,7 +45,7 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
         do {
             register = try registerFactory.makeRegister(bits: bits)
         } catch MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
-            throw MeasureError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+            throw StatevectorError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
 
         for gate in circuit {
@@ -56,7 +56,7 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
                 register = try register.applying(registerGate)
             } catch {
                 if let error = error as? GateError {
-                    throw MeasureError.gateThrowedError(gate: gate.fixedGate, error: error)
+                    throw StatevectorError.gateThrowedError(gate: gate.fixedGate, error: error)
                 } else {
                     fatalError("Unexpected error: \(error).")
                 }

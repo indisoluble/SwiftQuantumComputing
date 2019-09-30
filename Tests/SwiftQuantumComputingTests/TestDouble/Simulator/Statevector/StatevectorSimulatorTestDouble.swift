@@ -32,7 +32,7 @@ final class StatevectorSimulatorTestDouble {
     private (set) var lastStatevectorBits: String?
     private (set) var lastStatevectorCircuit: [StatevectorGate]?
     var statevectorResult: Vector?
-    var statevectorError = MeasureError.qubitsAreNotInsideBounds
+    var statevectorError = StatevectorError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
 }
 
 // MARK: - StatevectorSimulator methods

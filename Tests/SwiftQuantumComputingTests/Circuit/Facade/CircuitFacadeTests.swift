@@ -34,6 +34,26 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testAnyCircuit_statevector_forwardCallToStatevectorSimulator() {
+        // Given
+        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
+
+        let expectedResult = [Complex(0), Complex(1)]
+        statevectorSimulator.statevectorResult = try! Vector(expectedResult)
+
+        // When
+        let result = try? facade.statevector(afterInputting: bits)
+
+        // Then
+        let lastStatevectorBits = statevectorSimulator.lastStatevectorBits
+        let lastStatevectorGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+
+        XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
+        XCTAssertEqual(lastStatevectorBits, bits)
+        XCTAssertEqual(lastStatevectorGates, gates)
+        XCTAssertEqual(result, expectedResult)
+    }
+
     func testAnyCircuitAndZeroQubits_measure_throwException() {
         // Given
         let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
@@ -161,6 +181,8 @@ class CircuitFacadeTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testAnyCircuit_statevector_forwardCallToStatevectorSimulator",
+         testAnyCircuit_statevector_forwardCallToStatevectorSimulator),
         ("testAnyCircuitAndZeroQubits_measure_throwException",
          testAnyCircuitAndZeroQubits_measure_throwException),
         ("testAnyCircuitAndRepeatedQubits_measure_throwException",

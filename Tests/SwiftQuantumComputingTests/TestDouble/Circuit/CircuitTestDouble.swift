@@ -31,6 +31,11 @@ final class CircuitTestDouble {
     private (set) var gatesCount = 0
     var gatesResult: [FixedGate] = []
 
+    private (set) var statevectorCount = 0
+    private (set) var lastStatevectorAfterInputting: String?
+    var statevectorResult: [Complex]?
+    var statevectorError = StatevectorError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+
     private (set) var measureCount = 0
     private (set) var lastMeasureQubits: [Int]?
     private (set) var lastMeasureBits: String?
@@ -45,6 +50,18 @@ extension CircuitTestDouble: Circuit {
         gatesCount += 1
 
         return gatesResult
+    }
+
+    func statevector(afterInputting bits: String) throws -> [Complex] {
+        statevectorCount += 1
+
+        lastStatevectorAfterInputting = bits
+
+        if let statevectorResult = statevectorResult {
+            return statevectorResult
+        }
+
+        throw statevectorError
     }
 
     func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
