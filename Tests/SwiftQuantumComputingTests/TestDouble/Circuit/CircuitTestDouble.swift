@@ -36,11 +36,11 @@ final class CircuitTestDouble {
     var statevectorResult: [Complex]?
     var statevectorError = StatevectorError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
 
-    private (set) var measureCount = 0
-    private (set) var lastMeasureQubits: [Int]?
-    private (set) var lastMeasureBits: String?
-    var measureResult: [Double]?
-    var measureError = MeasureError.qubitsAreNotInsideBounds
+    private (set) var probabilitiesCount = 0
+    private (set) var lastProbabilitiesQubits: [Int]?
+    private (set) var lastProbabilitiesBits: String?
+    var probabilitiesResult: [Double]?
+    var probabilitiesError = ProbabilitiesError.qubitsAreNotInsideBounds
 }
 
 // MARK: - Circuit methods
@@ -64,16 +64,16 @@ extension CircuitTestDouble: Circuit {
         throw statevectorError
     }
 
-    func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
-        measureCount += 1
+    func probabilities(qubits: [Int], afterInputting bits: String) throws -> [Double] {
+        probabilitiesCount += 1
 
-        lastMeasureQubits = qubits
-        lastMeasureBits = bits
+        lastProbabilitiesQubits = qubits
+        lastProbabilitiesBits = bits
 
-        if let measureResult = measureResult {
-            return measureResult
+        if let probabilitiesResult = probabilitiesResult {
+            return probabilitiesResult
         }
 
-        throw measureError
+        throw probabilitiesError
     }
 }

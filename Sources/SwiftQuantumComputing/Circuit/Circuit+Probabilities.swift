@@ -34,17 +34,17 @@ extension Circuit {
 
     public func summarizedProbabilities(qubits: [Int],
                                         afterInputting bits: String) throws -> [String: Double] {
-        let measurements = try measure(qubits: qubits, afterInputting: bits)
+        let probs = try probabilities(qubits: qubits, afterInputting: bits)
 
-        let bitCount = Int.log2(measurements.count)
+        let bitCount = Int.log2(probs.count)
 
         var result: [String: Double] = [:]
-        for (output, measure) in measurements.enumerated() {
-            guard measure > 0 else {
+        for (output, value) in probs.enumerated() {
+            guard value > 0 else {
                 continue
             }
 
-            result[String(output, bitCount: bitCount)] = measure
+            result[String(output, bitCount: bitCount)] = value
         }
 
         return result

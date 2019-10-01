@@ -58,11 +58,11 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
         let circuit = factory.makeCircuit(qubitCount: qubits.count, gates: gates)
 
         let input = useCase.circuit.input
-        var measures: [Double]!
+        var probabilities: [Double]!
         do {
-            measures = try circuit.measure(qubits: qubits, afterInputting: input)
+            probabilities = try circuit.probabilities(qubits: qubits, afterInputting: input)
         } catch {
-            if let error = error as? MeasureError {
+            if let error = error as? ProbabilitiesError {
                 throw EvolveCircuitError.useCaseMeasurementThrowedError(useCase: useCase,
                                                                         error: error)
             } else {
@@ -74,6 +74,6 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
             throw EvolveCircuitError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: useCase)
         }
 
-        return abs(1 - measures[index])
+        return abs(1 - probabilities[index])
     }
 }

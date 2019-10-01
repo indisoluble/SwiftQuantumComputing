@@ -32,7 +32,7 @@ class Circuit_ProbabilitiesTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testNonEmptyBits_summarizedProbabilitiesWithoutQubits_callMeasureWithExpectedQubitsAndBits() {
+    func testNonEmptyBits_summarizedProbabilitiesWithoutQubits_callProbabilitiesWithExpectedQubitsAndBits() {
         // Given
         let bits = "101"
 
@@ -41,12 +41,12 @@ class Circuit_ProbabilitiesTests: XCTestCase {
 
         // Then
         let expectedQubits = [2, 1, 0]
-        XCTAssertEqual(circuit.measureCount, 1)
-        XCTAssertEqual(circuit.lastMeasureQubits, expectedQubits)
-        XCTAssertEqual(circuit.lastMeasureBits, bits)
+        XCTAssertEqual(circuit.probabilitiesCount, 1)
+        XCTAssertEqual(circuit.lastProbabilitiesQubits, expectedQubits)
+        XCTAssertEqual(circuit.lastProbabilitiesBits, bits)
     }
 
-    func testPreselectedQubits_summarizedProbabilities_callMeasureWithExpectedQubitsAndBits() {
+    func testPreselectedQubits_summarizedProbabilities_callProbabilitiesWithExpectedQubitsAndBits() {
         // Given
         let qubits = [9, 3]
         let bits = "101"
@@ -55,22 +55,22 @@ class Circuit_ProbabilitiesTests: XCTestCase {
         _ = try? circuit.summarizedProbabilities(qubits: qubits, afterInputting: bits)
 
         // Then
-        XCTAssertEqual(circuit.measureCount, 1)
-        XCTAssertEqual(circuit.lastMeasureQubits, qubits)
-        XCTAssertEqual(circuit.lastMeasureBits, bits)
+        XCTAssertEqual(circuit.probabilitiesCount, 1)
+        XCTAssertEqual(circuit.lastProbabilitiesQubits, qubits)
+        XCTAssertEqual(circuit.lastProbabilitiesBits, bits)
     }
 
-    func testCircuitWithNoMeasurements_summarizedProbabilities_throwException() {
+    func testCircuitWithNoProbabilities_summarizedProbabilities_throwException() {
         // Given
-        circuit.measureResult = nil
+        circuit.probabilitiesResult = nil
 
         // Then
         XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [], afterInputting: ""))
     }
 
-    func testCircuitWithMeasurements_summarizedProbabilities_returnExpectedResult() {
+    func testCircuitWithProbabilities_summarizedProbabilities_returnExpectedResult() {
         // Given
-        circuit.measureResult = [0, 0, 0, 0.25, 0, 0.25, 0, 0, 0.25, 0, 0, 0, 0, 0.25, 0, 0]
+        circuit.probabilitiesResult = [0, 0, 0, 0.25, 0, 0.25, 0, 0, 0.25, 0, 0, 0, 0, 0.25, 0, 0]
 
         // When
         let result = try? circuit.summarizedProbabilities(qubits: [], afterInputting: "")
@@ -81,13 +81,13 @@ class Circuit_ProbabilitiesTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testNonEmptyBits_summarizedProbabilitiesWithoutQubits_callMeasureWithExpectedQubitsAndBits",
-         testNonEmptyBits_summarizedProbabilitiesWithoutQubits_callMeasureWithExpectedQubitsAndBits),
-        ("testPreselectedQubits_summarizedProbabilities_callMeasureWithExpectedQubitsAndBits",
-         testPreselectedQubits_summarizedProbabilities_callMeasureWithExpectedQubitsAndBits),
-        ("testCircuitWithNoMeasurements_summarizedProbabilities_throwException",
-         testCircuitWithNoMeasurements_summarizedProbabilities_throwException),
-        ("testCircuitWithMeasurements_summarizedProbabilities_returnExpectedResult",
-         testCircuitWithMeasurements_summarizedProbabilities_returnExpectedResult)
+        ("testNonEmptyBits_summarizedProbabilitiesWithoutQubits_callProbabilitiesWithExpectedQubitsAndBits",
+         testNonEmptyBits_summarizedProbabilitiesWithoutQubits_callProbabilitiesWithExpectedQubitsAndBits),
+        ("testPreselectedQubits_summarizedProbabilities_callProbabilitiesWithExpectedQubitsAndBits",
+         testPreselectedQubits_summarizedProbabilities_callProbabilitiesWithExpectedQubitsAndBits),
+        ("testCircuitWithNoProbabilities_summarizedProbabilities_throwException",
+         testCircuitWithNoProbabilities_summarizedProbabilities_throwException),
+        ("testCircuitWithProbabilities_summarizedProbabilities_returnExpectedResult",
+         testCircuitWithProbabilities_summarizedProbabilities_returnExpectedResult)
     ]
 }

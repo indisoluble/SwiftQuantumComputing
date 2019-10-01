@@ -34,7 +34,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
     let oracleCircuit: OracleCircuitFactory.OracleCircuit = ([], 0)
     let geneticCircuit: [GeneticGate] = []
     let circuit = CircuitTestDouble()
-    let measures = [0.0, 0.0, 0.0, 1.0]
+    let probabilities = [0.0, 0.0, 0.0, 1.0]
 
     // MARK: - Tests
 
@@ -48,7 +48,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         XCTAssertThrowsError(try evaluator.evaluateCircuit(geneticCircuit))
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
         XCTAssertEqual(factory.makeCircuitCount, 0)
-        XCTAssertEqual(circuit.measureCount, 0)
+        XCTAssertEqual(circuit.probabilitiesCount, 0)
     }
 
     func testCircuitThatThrowException_evaluateCircuit_throwException() {
@@ -65,15 +65,15 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         XCTAssertThrowsError(try evaluator.evaluateCircuit(geneticCircuit))
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
         XCTAssertEqual(factory.makeCircuitCount, 1)
-        XCTAssertEqual(circuit.measureCount, 1)
-        XCTAssertEqual(circuit.lastMeasureBits, useCase.circuit.input)
+        XCTAssertEqual(circuit.probabilitiesCount, 1)
+        XCTAssertEqual(circuit.lastProbabilitiesBits, useCase.circuit.input)
     }
 
     func testUseCaseWithNonSensicalOutput_evaluateCircuit_throwException() {
         // Given
         oracleFactory.makeOracleCircuitResult = oracleCircuit
         factory.makeCircuitResult = circuit
-        circuit.measureResult = measures
+        circuit.probabilitiesResult = probabilities
 
         let nonSensicalUseCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0,
                                                      circuitOutput: "qwerty")
@@ -86,15 +86,15 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         XCTAssertThrowsError(try evaluator.evaluateCircuit(geneticCircuit))
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
         XCTAssertEqual(factory.makeCircuitCount, 1)
-        XCTAssertEqual(circuit.measureCount, 1)
-        XCTAssertEqual(circuit.lastMeasureBits, nonSensicalUseCase.circuit.input)
+        XCTAssertEqual(circuit.probabilitiesCount, 1)
+        XCTAssertEqual(circuit.lastProbabilitiesBits, nonSensicalUseCase.circuit.input)
     }
 
     func testEvaluatorWithAllParamsValid_evaluateCircuit_returnExpectedErrorProbability() {
         // Given
         oracleFactory.makeOracleCircuitResult = oracleCircuit
         factory.makeCircuitResult = circuit
-        circuit.measureResult = measures
+        circuit.probabilitiesResult = probabilities
 
         let evaluator = try! MainGeneticUseCaseEvaluator(useCase: useCase,
                                                          factory: factory,
@@ -106,8 +106,8 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         // Then
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
         XCTAssertEqual(factory.makeCircuitCount, 1)
-        XCTAssertEqual(circuit.measureCount, 1)
-        XCTAssertEqual(circuit.lastMeasureBits, useCase.circuit.input)
+        XCTAssertEqual(circuit.probabilitiesCount, 1)
+        XCTAssertEqual(circuit.lastProbabilitiesBits, useCase.circuit.input)
         XCTAssertEqual(prob, 0.0)
     }
 

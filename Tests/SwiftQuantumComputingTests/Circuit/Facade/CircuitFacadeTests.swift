@@ -54,34 +54,34 @@ class CircuitFacadeTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
-    func testAnyCircuitAndZeroQubits_measure_throwException() {
+    func testAnyCircuitAndZeroQubits_probabilities_throwException() {
         // Given
         let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
         // Then
-        XCTAssertThrowsError(try facade.measure(qubits: [], afterInputting: bits))
+        XCTAssertThrowsError(try facade.probabilities(qubits: [], afterInputting: bits))
         XCTAssertEqual(statevectorSimulator.statevectorCount, 0)
     }
 
-    func testAnyCircuitAndRepeatedQubits_measure_throwException() {
+    func testAnyCircuitAndRepeatedQubits_probabilities_throwException() {
         // Given
         let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
         // Then
-        XCTAssertThrowsError(try facade.measure(qubits: [0, 0], afterInputting: bits))
+        XCTAssertThrowsError(try facade.probabilities(qubits: [0, 0], afterInputting: bits))
         XCTAssertEqual(statevectorSimulator.statevectorCount, 0)
     }
 
-    func testAnyRegisterAndUnsortedQubits_measure_throwException() {
+    func testAnyRegisterAndUnsortedQubits_probabilities_throwException() {
         // Given
         let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
         // Then
-        XCTAssertThrowsError(try facade.measure(qubits: [0, 1], afterInputting: bits))
+        XCTAssertThrowsError(try facade.probabilities(qubits: [0, 1], afterInputting: bits))
         XCTAssertEqual(statevectorSimulator.statevectorCount, 0)
     }
 
-    func testCircuitWithSimulatorThatReturnsVectorAndQubitsOutOfBoundsOfVector_measure_throwException() {
+    func testCircuitWithSimulatorThatReturnsVectorAndQubitsOutOfBoundsOfVector_probabilities_throwException() {
         // Given
         let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
@@ -91,17 +91,17 @@ class CircuitFacadeTests: XCTestCase {
                                                               Complex(1)])
 
         // Then
-        XCTAssertThrowsError(try facade.measure(qubits: [100, 0], afterInputting: bits))
+        XCTAssertThrowsError(try facade.probabilities(qubits: [100, 0], afterInputting: bits))
         XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
 
-        let lastMeasureInputBits = statevectorSimulator.lastStatevectorBits
-        let lastMeasureGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+        let lastStatevectorBits = statevectorSimulator.lastStatevectorBits
+        let lastStatevectorCircuit = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
 
-        XCTAssertEqual(lastMeasureInputBits, bits)
-        XCTAssertEqual(lastMeasureGates, gates)
+        XCTAssertEqual(lastStatevectorBits, bits)
+        XCTAssertEqual(lastStatevectorCircuit, gates)
     }
 
-    func testAnyCircuitAndNegativeQubits_measure_throwException() {
+    func testAnyCircuitAndNegativeQubits_probabilities_throwException() {
         // Given
         let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
@@ -111,17 +111,17 @@ class CircuitFacadeTests: XCTestCase {
                                                               Complex(1)])
 
         // Then
-        XCTAssertThrowsError(try facade.measure(qubits: [0, -1], afterInputting: bits))
+        XCTAssertThrowsError(try facade.probabilities(qubits: [0, -1], afterInputting: bits))
         XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
 
-        let lastMeasureInputBits = statevectorSimulator.lastStatevectorBits
-        let lastMeasureGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+        let lastStatevectorBits = statevectorSimulator.lastStatevectorBits
+        let lastStatevectorCircuit = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
 
-        XCTAssertEqual(lastMeasureInputBits, bits)
-        XCTAssertEqual(lastMeasureGates, gates)
+        XCTAssertEqual(lastStatevectorBits, bits)
+        XCTAssertEqual(lastStatevectorCircuit, gates)
     }
 
-    func testCircuitWithSimulatorThatReturnsVectorAndOneQubit_measure_returnExpectedProbabilities() {
+    func testCircuitWithSimulatorThatReturnsVectorAndOneQubit_probabilities_returnExpectedProbabilities() {
         // Given
         let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
@@ -131,26 +131,26 @@ class CircuitFacadeTests: XCTestCase {
         statevectorSimulator.statevectorResult = vector
 
         // When
-        let measures = try! facade.measure(qubits: [0], afterInputting: bits)
+        let probabilities = try! facade.probabilities(qubits: [0], afterInputting: bits)
 
         // Then
         XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
 
-        let lastMeasureInputBits = statevectorSimulator.lastStatevectorBits
-        let lastMeasureGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+        let lastStatevectorBits = statevectorSimulator.lastStatevectorBits
+        let lastStatevectorCircuit = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
 
-        XCTAssertEqual(lastMeasureInputBits, bits)
-        XCTAssertEqual(lastMeasureGates, gates)
+        XCTAssertEqual(lastStatevectorBits, bits)
+        XCTAssertEqual(lastStatevectorCircuit, gates)
 
-        let expectedMeasures = [(Double(2) / Double(5)), (Double(3) / Double(5))]
+        let expectedProbabilities = [(Double(2) / Double(5)), (Double(3) / Double(5))]
 
-        XCTAssertEqual(measures.count, expectedMeasures.count)
-        for index in 0..<measures.count {
-            XCTAssertEqual(measures[index], expectedMeasures[index], accuracy: 0.001)
+        XCTAssertEqual(probabilities.count, expectedProbabilities.count)
+        for index in 0..<probabilities.count {
+            XCTAssertEqual(probabilities[index], expectedProbabilities[index], accuracy: 0.001)
         }
     }
 
-    func testCircuitWithSimulatorThatReturnsVectorAndTwoQubits_measure_returnExpectedProbabilities() {
+    func testCircuitWithSimulatorThatReturnsVectorAndTwoQubits_probabilities_returnExpectedProbabilities() {
         // Given
         let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
@@ -160,42 +160,42 @@ class CircuitFacadeTests: XCTestCase {
         statevectorSimulator.statevectorResult = vector
 
         // When
-        let measures = try! facade.measure(qubits: [1, 0], afterInputting: bits)
+        let probabilities = try! facade.probabilities(qubits: [1, 0], afterInputting: bits)
 
         // Then
         XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
 
-        let lastMeasureInputBits = statevectorSimulator.lastStatevectorBits
-        let lastMeasureGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+        let lastStatevectorBits = statevectorSimulator.lastStatevectorBits
+        let lastStatevectorCircuit = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
 
-        XCTAssertEqual(lastMeasureInputBits, bits)
-        XCTAssertEqual(lastMeasureGates, gates)
+        XCTAssertEqual(lastStatevectorBits, bits)
+        XCTAssertEqual(lastStatevectorCircuit, gates)
 
-        let expectedMeasures = [(Double(1) / Double(5)), (Double(1) / Double(5)),
-                                (Double(1) / Double(5)), (Double(2) / Double(5))]
+        let expectedProbabilities = [(Double(1) / Double(5)), (Double(1) / Double(5)),
+                                     (Double(1) / Double(5)), (Double(2) / Double(5))]
 
-        XCTAssertEqual(measures.count, expectedMeasures.count)
-        for index in 0..<measures.count {
-            XCTAssertEqual(measures[index], expectedMeasures[index], accuracy: 0.001)
+        XCTAssertEqual(probabilities.count, expectedProbabilities.count)
+        for index in 0..<probabilities.count {
+            XCTAssertEqual(probabilities[index], expectedProbabilities[index], accuracy: 0.001)
         }
     }
 
     static var allTests = [
         ("testAnyCircuit_statevector_forwardCallToStatevectorSimulator",
          testAnyCircuit_statevector_forwardCallToStatevectorSimulator),
-        ("testAnyCircuitAndZeroQubits_measure_throwException",
-         testAnyCircuitAndZeroQubits_measure_throwException),
-        ("testAnyCircuitAndRepeatedQubits_measure_throwException",
-         testAnyCircuitAndRepeatedQubits_measure_throwException),
-        ("testAnyRegisterAndUnsortedQubits_measure_throwException",
-         testAnyRegisterAndUnsortedQubits_measure_throwException),
-        ("testCircuitWithSimulatorThatReturnsVectorAndQubitsOutOfBoundsOfVector_measure_throwException",
-         testCircuitWithSimulatorThatReturnsVectorAndQubitsOutOfBoundsOfVector_measure_throwException),
-        ("testAnyCircuitAndNegativeQubits_measure_throwException",
-         testAnyCircuitAndNegativeQubits_measure_throwException),
-        ("testCircuitWithSimulatorThatReturnsVectorAndOneQubit_measure_returnExpectedProbabilities",
-         testCircuitWithSimulatorThatReturnsVectorAndOneQubit_measure_returnExpectedProbabilities),
-        ("testCircuitWithSimulatorThatReturnsVectorAndTwoQubits_measure_returnExpectedProbabilities",
-         testCircuitWithSimulatorThatReturnsVectorAndTwoQubits_measure_returnExpectedProbabilities)
+        ("testAnyCircuitAndZeroQubits_probabilities_throwException",
+         testAnyCircuitAndZeroQubits_probabilities_throwException),
+        ("testAnyCircuitAndRepeatedQubits_probabilities_throwException",
+         testAnyCircuitAndRepeatedQubits_probabilities_throwException),
+        ("testAnyRegisterAndUnsortedQubits_probabilities_throwException",
+         testAnyRegisterAndUnsortedQubits_probabilities_throwException),
+        ("testCircuitWithSimulatorThatReturnsVectorAndQubitsOutOfBoundsOfVector_probabilities_throwException",
+         testCircuitWithSimulatorThatReturnsVectorAndQubitsOutOfBoundsOfVector_probabilities_throwException),
+        ("testAnyCircuitAndNegativeQubits_probabilities_throwException",
+         testAnyCircuitAndNegativeQubits_probabilities_throwException),
+        ("testCircuitWithSimulatorThatReturnsVectorAndOneQubit_probabilities_returnExpectedProbabilities",
+         testCircuitWithSimulatorThatReturnsVectorAndOneQubit_probabilities_returnExpectedProbabilities),
+        ("testCircuitWithSimulatorThatReturnsVectorAndTwoQubits_probabilities_returnExpectedProbabilities",
+         testCircuitWithSimulatorThatReturnsVectorAndTwoQubits_probabilities_returnExpectedProbabilities)
     ]
 }

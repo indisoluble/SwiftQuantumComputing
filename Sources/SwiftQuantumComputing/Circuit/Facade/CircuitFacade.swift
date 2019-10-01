@@ -57,17 +57,17 @@ extension CircuitFacade: Circuit {
         return state.elements()
     }
 
-    func measure(qubits: [Int], afterInputting bits: String) throws -> [Double] {
+    func probabilities(qubits: [Int], afterInputting bits: String) throws -> [Double] {
         guard qubits.count > 0 else {
-            throw MeasureError.qubitsCanNotBeAnEmptyList
+            throw ProbabilitiesError.qubitsCanNotBeAnEmptyList
         }
 
         guard CircuitFacade.areQubitsUnique(qubits) else {
-            throw MeasureError.qubitsAreNotUnique
+            throw ProbabilitiesError.qubitsAreNotUnique
         }
 
         guard CircuitFacade.areQubitsSorted(qubits) else {
-            throw MeasureError.qubitsAreNotSorted
+            throw ProbabilitiesError.qubitsAreNotSorted
         }
 
         var state: [Complex]!
@@ -75,14 +75,14 @@ extension CircuitFacade: Circuit {
             state = try statevector(afterInputting: bits)
         } catch {
             if let error = error as? StatevectorError {
-                throw MeasureError.statevectorThrowedError(error: error)
+                throw ProbabilitiesError.statevectorThrowedError(error: error)
             } else {
                 fatalError("Unexpected error: \(error).")
             }
         }
 
         guard CircuitFacade.areQubitsInsideBounds(qubits, of: state) else {
-            throw MeasureError.qubitsAreNotInsideBounds
+            throw ProbabilitiesError.qubitsAreNotInsideBounds
         }
 
         var result = Array(repeating: Double(0), count: Int.pow(2, qubits.count))

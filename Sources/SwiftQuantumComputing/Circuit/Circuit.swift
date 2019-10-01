@@ -41,7 +41,7 @@ public enum StatevectorError: Error {
     case gateThrowedError(gate: FixedGate, error: GateError)
 }
 
-public enum MeasureError: Error {
+public enum ProbabilitiesError: Error {
     case qubitsAreNotInsideBounds
     case qubitsAreNotSorted
     case qubitsAreNotUnique
@@ -56,5 +56,5 @@ public protocol Circuit {
 
     func statevector(afterInputting bits: String) throws -> [Complex]
 
-    func measure(qubits: [Int], afterInputting bits: String) throws -> [Double]
+    func probabilities(qubits: [Int], afterInputting bits: String) throws -> [Double]
 }
