@@ -41,20 +41,10 @@ public enum StatevectorError: Error {
     case gateThrowedError(gate: FixedGate, error: GateError)
 }
 
-public enum ProbabilitiesError: Error {
-    case qubitsAreNotInsideBounds
-    case qubitsAreNotSorted
-    case qubitsAreNotUnique
-    case qubitsCanNotBeAnEmptyList
-    case statevectorThrowedError(error: StatevectorError)
-}
-
 // MARK: - Protocol definition
 
 public protocol Circuit {
     var gates: [FixedGate] { get }
 
     func statevector(afterInputting bits: String) throws -> [Complex]
-
-    func probabilities(qubits: [Int], afterInputting bits: String) throws -> [Double]
 }

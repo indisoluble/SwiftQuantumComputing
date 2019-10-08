@@ -26,7 +26,6 @@ struct MainGeneticUseCaseEvaluator {
 
     // MARK: - Private properties
 
-    private let qubits: [Int]
     private let useCase: GeneticUseCase
     private let factory: CircuitFactory
     private let oracleFactory: OracleCircuitFactory
@@ -40,7 +39,6 @@ struct MainGeneticUseCaseEvaluator {
             throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
         }
 
-        self.qubits = Array((0..<useCase.circuit.qubitCount).reversed())
         self.useCase = useCase
         self.factory = factory
         self.oracleFactory = oracleFactory
@@ -55,12 +53,12 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
                                                                 useCase: useCase)
 
         let gates = oracleCircuit.circuit
-        let circuit = factory.makeCircuit(qubitCount: qubits.count, gates: gates)
+        let circuit = factory.makeCircuit(qubitCount: useCase.circuit.qubitCount, gates: gates)
 
         let input = useCase.circuit.input
         var probabilities: [Double]!
         do {
-            probabilities = try circuit.probabilities(qubits: qubits, afterInputting: input)
+            probabilities = try circuit.probabilities(afterInputting: input)
         } catch {
             if let error = error as? ProbabilitiesError {
                 throw EvolveCircuitError.useCaseMeasurementThrowedError(useCase: useCase,
