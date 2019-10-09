@@ -1,5 +1,5 @@
 //
-//  BackendGate.swift
+//  StatevectorRegister.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 09/12/2018.
@@ -22,10 +22,8 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol BackendGate {
-    typealias Components = (matrix: Matrix, inputs: [Int])
+protocol StatevectorRegister {
+    var statevector: Vector { get }
 
-    var fixedGate: FixedGate { get }
-
-    func extract() throws -> Components
+    func applying(_ gate: RegisterGate) throws -> Self
 }

@@ -1,5 +1,5 @@
 //
-//  BackendRegisterFactoryTestDouble.swift
+//  StatevectorRegisterFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 30/12/2018.
@@ -20,31 +20,18 @@
 
 import Foundation
 
-@testable import SwiftQuantumComputing
-
 // MARK: - Main body
 
-final class BackendRegisterFactoryTestDouble {
+struct StatevectorRegisterFactoryAdapter {}
 
-    // MARK: - Internal properties
+// MARK: - StatevectorRegisterFactory methods
 
-    private (set) var makeRegisterCount = 0
-    private (set) var lastMakeRegisterBits: String?
-    var makeRegisterResult: BackendRegister?
-}
-
-// MARK: - BackendRegisterFactory methods
-
-extension BackendRegisterFactoryTestDouble: BackendRegisterFactory {
-    func makeRegister(bits: String) throws -> BackendRegister {
-        makeRegisterCount += 1
-
-        lastMakeRegisterBits = bits
-
-        if let makeRegisterResult = makeRegisterResult {
-            return makeRegisterResult
+extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
+    func makeRegister(bits: String) throws -> StatevectorRegister {
+        do {
+            return try Register(bits: bits)
+        } catch Register.InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
+            throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
-
-        throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
     }
 }

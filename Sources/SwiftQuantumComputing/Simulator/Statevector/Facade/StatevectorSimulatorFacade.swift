@@ -1,5 +1,5 @@
 //
-//  BackendFacade.swift
+//  StatevectorSimulatorFacade.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 09/12/2018.
@@ -22,33 +22,33 @@ import Foundation
 
 // MARK: - Main body
 
-struct BackendFacade {
+struct StatevectorSimulatorFacade {
 
     // MARK: - Private properties
 
-    private let registerFactory: BackendRegisterFactory
-    private let gateFactory: BackendRegisterGateFactory
+    private let registerFactory: StatevectorRegisterFactory
+    private let gateFactory: StatevectorRegisterGateFactory
 
     // MARK: - Internal init methods
 
-    init(registerFactory: BackendRegisterFactory, gateFactory: BackendRegisterGateFactory) {
+    init(registerFactory: StatevectorRegisterFactory, gateFactory: StatevectorRegisterGateFactory) {
         self.registerFactory = registerFactory
         self.gateFactory = gateFactory
     }
 }
 
-// MARK: - Backend methods
+// MARK: - StatevectorSimulator methods
 
-extension BackendFacade: Backend {
-    func measure(qubits: [Int], in circuit: Backend.Circuit) throws -> [Double] {
-        var register: BackendRegister!
+extension StatevectorSimulatorFacade: StatevectorSimulator {
+    func statevector(afterInputting bits: String, in circuit: [StatevectorGate]) throws -> Vector {
+        var register: StatevectorRegister!
         do {
-            register = try registerFactory.makeRegister(bits: circuit.inputBits)
+            register = try registerFactory.makeRegister(bits: bits)
         } catch MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
-            throw MeasureError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+            throw StatevectorError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
 
-        for gate in circuit.gates {
+        for gate in circuit {
             do {
                 let components = try gate.extract()
                 let registerGate = try gateFactory.makeGate(matrix: components.matrix,
@@ -56,13 +56,13 @@ extension BackendFacade: Backend {
                 register = try register.applying(registerGate)
             } catch {
                 if let error = error as? GateError {
-                    throw MeasureError.gateThrowedError(gate: gate.fixedGate, error: error)
+                    throw StatevectorError.gateThrowedError(gate: gate.fixedGate, error: error)
                 } else {
                     fatalError("Unexpected error: \(error).")
                 }
             }
         }
 
-        return try register.measure(qubits: qubits)
+        return register.statevector
     }
 }

@@ -1,8 +1,8 @@
 //
-//  CircuitTestDouble.swift
-//  SwiftQuantumComputingTests
+//  StatevectorSimulatorTestDouble.swift
+//  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 28/08/2018.
+//  Created by Enrique de la Torre on 21/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,32 +24,25 @@ import Foundation
 
 // MARK: - Main body
 
-final class CircuitTestDouble {
+final class StatevectorSimulatorTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var gatesCount = 0
-    var gatesResult: [FixedGate] = []
-
     private (set) var statevectorCount = 0
-    private (set) var lastStatevectorAfterInputting: String?
-    var statevectorResult: [Complex]?
+    private (set) var lastStatevectorBits: String?
+    private (set) var lastStatevectorCircuit: [StatevectorGate]?
+    var statevectorResult: Vector?
     var statevectorError = StatevectorError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
 }
 
-// MARK: - Circuit methods
+// MARK: - StatevectorSimulator methods
 
-extension CircuitTestDouble: Circuit {
-    var gates: [FixedGate] {
-        gatesCount += 1
-
-        return gatesResult
-    }
-
-    func statevector(afterInputting bits: String) throws -> [Complex] {
+extension StatevectorSimulatorTestDouble: StatevectorSimulator {
+    func statevector(afterInputting bits: String, in circuit: [StatevectorGate]) throws -> Vector {
         statevectorCount += 1
 
-        lastStatevectorAfterInputting = bits
+        lastStatevectorBits = bits
+        lastStatevectorCircuit = circuit
 
         if let statevectorResult = statevectorResult {
             return statevectorResult

@@ -1,8 +1,8 @@
 //
-//  BackendRegister.swift
+//  StatevectorRegisterFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/12/2018.
+//  Created by Enrique de la Torre on 30/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +20,14 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum MakeRegisterError: Error {
+    case bitsAreNotAStringComposedOnlyOfZerosAndOnes
+}
+
 // MARK: - Protocol definition
 
-protocol BackendRegister {
-    func applying(_ gate: RegisterGate) throws -> Self
-    func measure(qubits: [Int]) throws -> [Double]
+protocol StatevectorRegisterFactory {
+    func makeRegister(bits: String) throws -> StatevectorRegister
 }
