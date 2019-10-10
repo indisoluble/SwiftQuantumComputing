@@ -1,9 +1,9 @@
 //
-//  BackendRegisterFactory.swift
+//  Vector+Elements.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 29/09/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,14 +20,8 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum MakeRegisterError: Error {
-    case bitsAreNotAStringComposedOnlyOfZerosAndOnes
-}
-
-// MARK: - Protocol definition
-
-protocol BackendRegisterFactory {
-    func makeRegister(bits: String) throws -> BackendRegister
+extension Vector {
+    func elements() -> [Complex] {
+        return (0..<count).map { self[$0] }
+    }
 }

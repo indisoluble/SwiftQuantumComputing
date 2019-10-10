@@ -1,5 +1,5 @@
 //
-//  BackendRegisterGateFactoryAdapter.swift
+//  StatevectorRegisterGateFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 22/08/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct BackendRegisterGateFactoryAdapter {
+struct StatevectorRegisterGateFactoryAdapter {
 
     // MARK: - Private properties
 
@@ -37,16 +37,16 @@ struct BackendRegisterGateFactoryAdapter {
 
 // MARK: - Equatable methods
 
-extension BackendRegisterGateFactoryAdapter: Equatable {
-    static func ==(lhs: BackendRegisterGateFactoryAdapter,
-                   rhs: BackendRegisterGateFactoryAdapter) -> Bool {
+extension StatevectorRegisterGateFactoryAdapter: Equatable {
+    static func ==(lhs: StatevectorRegisterGateFactoryAdapter,
+                   rhs: StatevectorRegisterGateFactoryAdapter) -> Bool {
         return (lhs.qubitCount == rhs.qubitCount)
     }
 }
 
-// MARK: - BackendRegisterGateFactory methods
+// MARK: - StatevectorRegisterGateFactory methods
 
-extension BackendRegisterGateFactoryAdapter: BackendRegisterGateFactory {
+extension StatevectorRegisterGateFactoryAdapter: StatevectorRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
         let factory = try RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix)
 

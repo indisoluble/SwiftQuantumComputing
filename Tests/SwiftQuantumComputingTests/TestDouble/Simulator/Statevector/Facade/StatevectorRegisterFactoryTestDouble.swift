@@ -1,8 +1,8 @@
 //
-//  BackendTestDouble.swift
+//  StatevectorRegisterFactoryTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 21/12/2018.
+//  Created by Enrique de la Torre on 30/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,31 +24,27 @@ import Foundation
 
 // MARK: - Main body
 
-final class BackendTestDouble {
+final class StatevectorRegisterFactoryTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var measureCount = 0
-    private (set) var lastMeasureQubits: [Int]?
-    private (set) var lastMeasureCircuit: Backend.Circuit?
-    var measureResult: [Double]?
-    var measureError = MeasureError.qubitsAreNotInBound
+    private (set) var makeRegisterCount = 0
+    private (set) var lastMakeRegisterBits: String?
+    var makeRegisterResult: StatevectorRegister?
 }
 
-// MARK: - Backend methods
+// MARK: - StatevectorRegisterFactory methods
 
-extension BackendTestDouble: Backend {
-    func measure(qubits: [Int],
-                 in circuit: (inputBits: String, gates: [BackendGate])) throws -> [Double] {
-        measureCount += 1
+extension StatevectorRegisterFactoryTestDouble: StatevectorRegisterFactory {
+    func makeRegister(bits: String) throws -> StatevectorRegister {
+        makeRegisterCount += 1
 
-        lastMeasureQubits = qubits
-        lastMeasureCircuit = circuit
+        lastMakeRegisterBits = bits
 
-        if let measureResult = measureResult {
-            return measureResult
+        if let makeRegisterResult = makeRegisterResult {
+            return makeRegisterResult
         }
 
-        throw measureError
+        throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
     }
 }

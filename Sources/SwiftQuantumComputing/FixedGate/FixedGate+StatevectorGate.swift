@@ -1,5 +1,5 @@
 //
-//  FixedGate+BackendGate.swift
+//  FixedGate+StatevectorGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 16/12/2018.
@@ -20,9 +20,9 @@
 
 import Foundation
 
-// MARK: - BackendGate methods
+// MARK: - StatevectorGate methods
 
-extension FixedGate: BackendGate {
+extension FixedGate: StatevectorGate {
     var fixedGate: FixedGate {
         return self
     }

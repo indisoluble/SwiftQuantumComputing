@@ -22,15 +22,6 @@ import Foundation
 
 // MARK: - Errors
 
-public enum MeasureError: Error {
-    case qubitsAreNotInBound
-    case qubitsAreNotSorted
-    case qubitsAreNotUnique
-    case qubitsCanNotBeAnEmptyList
-    case inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
-    case gateThrowedError(gate: FixedGate, error: GateError)
-}
-
 public enum GateError: Error {
     case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
     case gateInputCountDoesNotMatchGateMatrixQubitCount
@@ -45,10 +36,15 @@ public enum GateError: Error {
     case gateQubitCountHasToBeBiggerThanZero
 }
 
+public enum StatevectorError: Error {
+    case inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    case gateThrowedError(gate: FixedGate, error: GateError)
+}
+
 // MARK: - Protocol definition
 
 public protocol Circuit {
     var gates: [FixedGate] { get }
 
-    func measure(qubits: [Int], afterInputting bits: String) throws -> [Double]
+    func statevector(afterInputting bits: String) throws -> [Complex]
 }

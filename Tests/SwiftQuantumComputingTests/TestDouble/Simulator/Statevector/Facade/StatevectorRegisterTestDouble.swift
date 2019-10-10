@@ -1,5 +1,5 @@
 //
-//  BackendRegisterTestDouble.swift
+//  StatevectorRegisterTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 20/12/2018.
@@ -24,25 +24,29 @@ import Foundation
 
 // MARK: - Main body
 
-final class BackendRegisterTestDouble {
+final class StatevectorRegisterTestDouble {
 
     // MARK: - Internal properties
 
+    private (set) var statevectorCount = 0
+    var statevectorResult = try! Vector([Complex(0)])
+
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: RegisterGate?
-    var applyingResult: BackendRegisterTestDouble?
+    var applyingResult: StatevectorRegisterTestDouble?
     var applyingError = GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
-
-    private (set) var measureCount = 0
-    private (set) var lastMeasureQubits: [Int]?
-    var measureResult: [Double]?
-    var measureError = MeasureError.qubitsAreNotSorted
 }
 
-// MARK: - BackendRegister methods
+// MARK: - StatevectorRegister methods
 
-extension BackendRegisterTestDouble: BackendRegister {
-    func applying(_ gate: RegisterGate) throws -> BackendRegisterTestDouble {
+extension StatevectorRegisterTestDouble: StatevectorRegister {
+    var statevector: Vector {
+        statevectorCount += 1
+
+        return statevectorResult
+    }
+
+    func applying(_ gate: RegisterGate) throws -> StatevectorRegisterTestDouble {
         applyingCount += 1
 
         lastApplyingGate = gate
@@ -52,17 +56,5 @@ extension BackendRegisterTestDouble: BackendRegister {
         }
 
         throw applyingError
-    }
-
-    func measure(qubits: [Int]) throws -> [Double] {
-        measureCount += 1
-
-        lastMeasureQubits = qubits
-
-        if let measureResult = measureResult {
-            return measureResult
-        }
-
-        throw measureError
     }
 }

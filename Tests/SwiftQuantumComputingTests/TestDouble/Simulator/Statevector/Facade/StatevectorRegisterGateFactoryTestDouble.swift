@@ -1,5 +1,5 @@
 //
-//  BackendRegisterGateFactoryTestDouble.swift
+//  StatevectorRegisterGateFactoryTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 20/12/2018.
@@ -24,7 +24,7 @@ import Foundation
 
 // MARK: - Main body
 
-final class BackendRegisterGateFactoryTestDouble {
+final class StatevectorRegisterGateFactoryTestDouble {
 
     // MARK: - Internal properties
 
@@ -35,9 +35,9 @@ final class BackendRegisterGateFactoryTestDouble {
     var makeGateError = GateError.gateMatrixIsNotUnitary
 }
 
-// MARK: - BackendRegisterGateFactory methods
+// MARK: - StatevectorRegisterGateFactory methods
 
-extension BackendRegisterGateFactoryTestDouble: BackendRegisterGateFactory {
+extension StatevectorRegisterGateFactoryTestDouble: StatevectorRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
         makeGateCount += 1
 

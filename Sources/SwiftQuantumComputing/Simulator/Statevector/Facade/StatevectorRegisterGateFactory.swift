@@ -1,5 +1,5 @@
 //
-//  BackendRegisterGateFactory.swift
+//  StatevectorRegisterGateFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 09/12/2018.
@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol BackendRegisterGateFactory {
+protocol StatevectorRegisterGateFactory {
     func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate
 }

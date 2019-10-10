@@ -32,7 +32,7 @@ public enum EvolveCircuitError: Error {
     case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: GeneticUseCase)
     case useCaseCircuitQubitCountHasToBeBiggerThanZero
     case useCaseListIsEmpty
-    case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: MeasureError)
+    case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: ProbabilitiesError)
     case useCasesDoNotSpecifySameCircuitQubitCount
     case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: GeneticUseCase)
 }

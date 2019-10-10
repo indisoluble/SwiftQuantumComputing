@@ -42,5 +42,5 @@ public func probabilities(in evolvedGates: [FixedGate],
     let circuit = MainCircuitFactory().makeCircuit(qubitCount: useCase.circuit.qubitCount,
                                                    gates: evolvedGates)
 
-    return try! circuit.probabilities(afterInputting: useCase.circuit.input)
+    return try! circuit.summarizedProbabilities(afterInputting: useCase.circuit.input)
 }

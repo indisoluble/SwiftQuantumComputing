@@ -28,36 +28,34 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
+    let bits = "01"
     let gates = [FixedGate.hadamard(target: 0), FixedGate.not(target: 0)]
-    let backend = BackendTestDouble()
+    let statevectorSimulator = StatevectorSimulatorTestDouble()
 
     // MARK: - Tests
 
-    func testAnyCircuit_measure_forwardCallToBackend() {
+    func testAnyCircuit_statevector_forwardCallToStatevectorSimulator() {
         // Given
-        let facade = CircuitFacade(gates: gates, backend: backend)
+        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
 
-        let measure = [0.1, 0.9]
-        backend.measureResult = measure
-
-        let otherQubits = [1]
-        let bits = "01"
+        let expectedResult = [Complex(0), Complex(1)]
+        statevectorSimulator.statevectorResult = try! Vector(expectedResult)
 
         // When
-        let result = try? facade.measure(qubits: otherQubits, afterInputting: bits)
+        let result = try? facade.statevector(afterInputting: bits)
 
         // Then
-        let lastMeasureInputBits = backend.lastMeasureCircuit?.inputBits
-        let lastMeasureGates = backend.lastMeasureCircuit?.gates as? [FixedGate]
+        let lastStatevectorBits = statevectorSimulator.lastStatevectorBits
+        let lastStatevectorGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
 
-        XCTAssertEqual(backend.measureCount, 1)
-        XCTAssertEqual(backend.lastMeasureQubits, otherQubits)
-        XCTAssertEqual(lastMeasureInputBits, bits)
-        XCTAssertEqual(lastMeasureGates, gates)
-        XCTAssertEqual(result, measure)
+        XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
+        XCTAssertEqual(lastStatevectorBits, bits)
+        XCTAssertEqual(lastStatevectorGates, gates)
+        XCTAssertEqual(result, expectedResult)
     }
 
     static var allTests = [
-        ("testAnyCircuit_measure_forwardCallToBackend", testAnyCircuit_measure_forwardCallToBackend)
+        ("testAnyCircuit_statevector_forwardCallToStatevectorSimulator",
+         testAnyCircuit_statevector_forwardCallToStatevectorSimulator)
     ]
 }

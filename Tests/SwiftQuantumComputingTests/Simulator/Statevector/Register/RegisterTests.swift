@@ -120,95 +120,16 @@ class RegisterTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
-    func testAnyRegisterAndZeroQubits_measure_throwException() {
-        // Given
-        let register = try! Register(bits: "000")
-
-        // Then
-        XCTAssertThrowsError(try register.measure(qubits: []))
-    }
-
-    func testAnyRegisterAndRepeatedQubits_measure_throwException() {
-        // Given
-        let register = try! Register(bits: "000")
-
-        // Then
-        XCTAssertThrowsError(try register.measure(qubits: [0, 0]))
-    }
-
-    func testAnyRegisterAndQubitsOutOfBound_measure_throwException() {
-        // Given
-        let register = try! Register(bits: "000")
-
-        // Then
-        XCTAssertThrowsError(try register.measure(qubits: [100, 0]))
-    }
-
-    func testAnyRegisterAndNegativeQubits_measure_throwException() {
-        // Given
-        let register = try! Register(bits: "000")
-
-        // Then
-        XCTAssertThrowsError(try register.measure(qubits: [0, -1]))
-    }
-
-    func testAnyRegisterAndUnsortedQubits_measure_throwException() {
-        // Given
-        let register = try! Register(bits: "000")
-
-        // Then
-        XCTAssertThrowsError(try register.measure(qubits: [0, 1]))
-    }
-
-    func testAnyRegisterAndOneQubit_measure_returnExpectedProbabilities() {
-        // Given
-        let prob = (1 / sqrt(5))
-        let vector = try! Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
-                                  Complex(prob), Complex(0), Complex(0), Complex(prob)])
-        let register = try! Register(vector: vector)
-
-        // When
-        let measures = try! register.measure(qubits: [0])
-
-        // Then
-        let expectedMeasures = [(Double(2) / Double(5)), (Double(3) / Double(5))]
-
-        XCTAssertEqual(measures.count, expectedMeasures.count)
-        for index in 0..<measures.count {
-            XCTAssertEqual(measures[index], expectedMeasures[index], accuracy: 0.001)
-        }
-    }
-
-    func testAnyRegisterAndTwoQubits_measure_returnExpectedProbabilities() {
-        // Given
-        let prob = (1 / sqrt(5))
-        let vector = try! Vector([Complex(0), Complex(prob), Complex(prob), Complex(prob),
-                                  Complex(prob), Complex(0), Complex(0), Complex(prob)])
-        let register = try! Register(vector: vector)
-
-        // When
-        let measures = try! register.measure(qubits: [1, 0])
-
-        // Then
-        let expectedMeasures = [(Double(1) / Double(5)), (Double(1) / Double(5)),
-                                (Double(1) / Double(5)), (Double(2) / Double(5))]
-
-        XCTAssertEqual(measures.count, expectedMeasures.count)
-        for index in 0..<measures.count {
-            XCTAssertEqual(measures[index], expectedMeasures[index], accuracy: 0.001)
-        }
-    }
-
-    func testRegisterInitializedWithoutAVector_measure_zeroHasProbabilityOne() {
+    func testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne() {
         // Given
         let register = try! Register(bits: "00")
 
         // Then
-        let expectedMeasurements = [Double(1), Double(0), Double(0), Double(0)]
-        XCTAssertEqual(try? register.measure(qubits: [1, 0]), expectedMeasurements)
+        let expectedVector = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
+        XCTAssertEqual(register.statevector, expectedVector)
     }
 
-    func testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_OneHasProbabilityOne() {
+    func testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne() {
         // Given
         let qubitCount = 2
 
@@ -222,8 +143,8 @@ class RegisterTests: XCTestCase {
         register = try! register.applying(notGate)
 
         // Then
-        let expectedMeasurements = [Double(0), Double(1), Double(0), Double(0)]
-        XCTAssertEqual(try? register.measure(qubits: [1, 0]), expectedMeasurements)
+        let expectedVector = try! Vector([Complex(0), Complex(1), Complex(0), Complex(0)])
+        XCTAssertEqual(register.statevector, expectedVector)
     }
 
     static var allTests = [
@@ -247,23 +168,9 @@ class RegisterTests: XCTestCase {
          testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException),
         ("testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister",
          testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister),
-        ("testAnyRegisterAndZeroQubits_measure_throwException",
-         testAnyRegisterAndZeroQubits_measure_throwException),
-        ("testAnyRegisterAndRepeatedQubits_measure_throwException",
-         testAnyRegisterAndRepeatedQubits_measure_throwException),
-        ("testAnyRegisterAndQubitsOutOfBound_measure_throwException",
-         testAnyRegisterAndQubitsOutOfBound_measure_throwException),
-        ("testAnyRegisterAndNegativeQubits_measure_throwException",
-         testAnyRegisterAndNegativeQubits_measure_throwException),
-        ("testAnyRegisterAndUnsortedQubits_measure_throwException",
-         testAnyRegisterAndUnsortedQubits_measure_throwException),
-        ("testAnyRegisterAndOneQubit_measure_returnExpectedProbabilities",
-         testAnyRegisterAndOneQubit_measure_returnExpectedProbabilities),
-        ("testAnyRegisterAndTwoQubits_measure_returnExpectedProbabilities",
-         testAnyRegisterAndTwoQubits_measure_returnExpectedProbabilities),
-        ("testRegisterInitializedWithoutAVector_measure_zeroHasProbabilityOne",
-         testRegisterInitializedWithoutAVector_measure_zeroHasProbabilityOne),
-        ("testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_OneHasProbabilityOne",
-         testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_OneHasProbabilityOne)
+        ("testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne",
+         testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne),
+        ("testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne",
+         testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne)
     ]
 }
