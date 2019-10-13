@@ -40,7 +40,7 @@ struct StatevectorSimulatorFacade {
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
-    func statevector(afterInputting bits: String, in circuit: [StatevectorGate]) throws -> Vector {
+    func statevector(afterInputting bits: String, in circuit: [SimulatorGate]) throws -> Vector {
         var register: StatevectorRegister!
         do {
             register = try registerFactory.makeRegister(bits: bits)

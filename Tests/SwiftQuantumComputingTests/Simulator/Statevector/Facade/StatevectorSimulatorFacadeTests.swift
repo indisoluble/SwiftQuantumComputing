@@ -32,9 +32,9 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
     let gateFactory = StatevectorRegisterGateFactoryTestDouble()
     let inputBits = "000"
     let register = StatevectorRegisterTestDouble()
-    let firstGate = StatevectorGateTestDouble()
-    let secondGate = StatevectorGateTestDouble()
-    let thirdGate = StatevectorGateTestDouble()
+    let firstGate = SimulatorGateTestDouble()
+    let secondGate = SimulatorGateTestDouble()
+    let thirdGate = SimulatorGateTestDouble()
     let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
                               [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
     let statevector = try! Vector([Complex(0.1), Complex(0.9)])

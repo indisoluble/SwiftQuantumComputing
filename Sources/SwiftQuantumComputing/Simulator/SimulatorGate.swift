@@ -1,5 +1,5 @@
 //
-//  StatevectorGate.swift
+//  SimulatorGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 09/12/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol StatevectorGate {
+protocol SimulatorGate {
     typealias Components = (matrix: Matrix, inputs: [Int])
 
     var fixedGate: FixedGate { get }
