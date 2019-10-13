@@ -24,6 +24,12 @@ import Foundation
 
 struct Register {
 
+    // MARK: - Internal properties
+
+    var qubitCount: Int {
+        return Int.log2(statevector.count)
+    }
+
     // MARK: - StatevectorRegister properties
 
     let statevector: Vector
@@ -43,10 +49,15 @@ struct Register {
     }
 
     enum InitVectorError: Error {
+        case vectorCountHasToBeAPowerOfTwo
         case additionOfSquareModulusIsNotEqualToOne
     }
 
     init(vector: Vector) throws {
+        guard vector.count.isPowerOfTwo else {
+            throw InitVectorError.vectorCountHasToBeAPowerOfTwo
+        }
+
         guard Register.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
             throw InitVectorError.additionOfSquareModulusIsNotEqualToOne
         }
@@ -88,6 +99,8 @@ extension Register: StatevectorRegister {
             return try Register(vector: nextVector)
         } catch Register.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
             throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
     }
 }

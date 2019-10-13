@@ -48,6 +48,16 @@ class RegisterTests: XCTestCase {
         XCTAssertThrowsError(try Register(bits: "10#1"))
     }
 
+    func testVectorWhichLengthIsNotPowerOfTwo_init_throwException() {
+        // Given
+        let vector = try! Vector([Complex(real: sqrt(1 / 2), imag: 0),
+                                  Complex(real: 0, imag: sqrt(1 / 2)),
+                                  Complex(real: 0, imag: 0)])
+
+        // Then
+        XCTAssertThrowsError(try Register(vector: vector))
+    }
+
     func testVectorWhichSumOfSquareModulesIsNotOne_init_throwException() {
         // Given
         let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
@@ -92,6 +102,15 @@ class RegisterTests: XCTestCase {
         XCTAssertNotNil(register)
         XCTAssertNotNil(expectedRegister)
         XCTAssertEqual(register, expectedRegister)
+    }
+
+    func testAnyRegister_qubitCount_returnExpectedValue() {
+        // Given
+        let bits = "000"
+        let register = try! Register(bits: bits)
+
+        // Then
+        XCTAssertEqual(register.qubitCount, bits.count)
     }
 
     func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException() {
@@ -156,6 +175,8 @@ class RegisterTests: XCTestCase {
          testBitsStringWithTrailingSpaces_init_throwException),
         ("testBitsStringWithWrongCharacter_init_throwException",
          testBitsStringWithWrongCharacter_init_throwException),
+        ("testVectorWhichLengthIsNotPowerOfTwo_init_throwException",
+         testVectorWhichLengthIsNotPowerOfTwo_init_throwException),
         ("testVectorWhichSumOfSquareModulesIsNotOne_init_throwException",
          testVectorWhichSumOfSquareModulesIsNotOne_init_throwException),
         ("testVectorWhichSumOfSquareModulesIsOne_init_returnRegister",
@@ -164,6 +185,8 @@ class RegisterTests: XCTestCase {
          testQubitCountBiggerThanZero_init_returnExpectedRegister),
         ("testCorrectBitsString_init_returnExpectedRegister",
          testCorrectBitsString_init_returnExpectedRegister),
+        ("testAnyRegister_qubitCount_returnExpectedValue",
+         testAnyRegister_qubitCount_returnExpectedValue),
         ("testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException",
          testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException),
         ("testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister",
