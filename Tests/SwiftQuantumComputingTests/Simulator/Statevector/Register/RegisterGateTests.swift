@@ -74,6 +74,32 @@ class RegisterGateTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
+    func testAnyRegisterGateAndMatrixWithRowCountDifferentThanGateMatrixColumnCount_apply_throwException() {
+        // Given
+        let matrixGate = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+        let gate = try! RegisterGate(matrix: matrixGate)
+
+        let matrix = try! Matrix([[Complex(1), Complex(0)]])
+
+        // Then
+        XCTAssertThrowsError(try gate.apply(to: matrix))
+    }
+
+    func testAnyRegisterGateAndMatrixWithRowCountSameThanGateMatrixColumnCount_apply_returnExpectedVector() {
+        // Given
+        let matrixGate = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+        let gate = try! RegisterGate(matrix: matrixGate)
+
+        let matrix = try! Matrix([[Complex(1)], [Complex(0)]])
+
+        // When
+        let result = try? gate.apply(to: matrix)
+
+        // Then
+        let expectedResult = try! Matrix([[Complex(0)], [Complex(1)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
     static var allTests = [
         ("testNonUnitaryMatrix_init_throwException",
          testNonUnitaryMatrix_init_throwException),
@@ -82,6 +108,10 @@ class RegisterGateTests: XCTestCase {
         ("testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_throwException",
          testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_throwException),
         ("testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector",
-         testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector)
+         testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector),
+        ("testAnyRegisterGateAndMatrixWithRowCountDifferentThanGateMatrixColumnCount_apply_throwException",
+         testAnyRegisterGateAndMatrixWithRowCountDifferentThanGateMatrixColumnCount_apply_throwException),
+        ("testAnyRegisterGateAndMatrixWithRowCountSameThanGateMatrixColumnCount_apply_returnExpectedVector",
+         testAnyRegisterGateAndMatrixWithRowCountSameThanGateMatrixColumnCount_apply_returnExpectedVector)
     ]
 }

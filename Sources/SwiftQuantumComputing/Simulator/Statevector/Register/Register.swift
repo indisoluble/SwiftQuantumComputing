@@ -78,7 +78,7 @@ extension Register: StatevectorRegister {
         var nextVector: Vector!
         do {
             nextVector = try gate.apply(to: statevector)
-        } catch RegisterGate.ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount {
+        } catch RegisterGate.ApplyVectorError.vectorCountDoesNotMatchGateMatrixColumnCount {
             throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
         } catch {
             fatalError("Unexpected error: \(error).")

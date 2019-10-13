@@ -40,7 +40,7 @@ struct RegisterGate {
 
     // MARK: - Internal methods
 
-    enum ApplyError: Error {
+    enum ApplyVectorError: Error {
         case vectorCountDoesNotMatchGateMatrixColumnCount
     }
 
@@ -48,7 +48,21 @@ struct RegisterGate {
         do {
             return try matrix * vector
         } catch Vector.ProductError.matrixColumnCountDoesNotMatchVectorCount {
-            throw ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount
+            throw ApplyVectorError.vectorCountDoesNotMatchGateMatrixColumnCount
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
+    }
+
+    enum ApplyMatrixError: Error {
+        case matrixRowCountDoesNotMatchGateMatrixColumnCount
+    }
+
+    func apply(to matrix: Matrix) throws -> Matrix {
+        do {
+            return try self.matrix * matrix
+        } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
+            throw ApplyMatrixError.matrixRowCountDoesNotMatchGateMatrixColumnCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }
