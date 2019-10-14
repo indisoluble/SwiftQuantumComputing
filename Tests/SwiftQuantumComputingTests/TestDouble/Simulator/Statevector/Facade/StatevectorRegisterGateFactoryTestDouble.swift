@@ -29,6 +29,7 @@ final class StatevectorRegisterGateFactoryTestDouble {
     // MARK: - Internal properties
 
     private (set) var makeGateCount = 0
+    private (set) var lastMakeGateQubitCount: Int?
     private (set) var lastMakeGateMatrix: Matrix?
     private (set) var lastMakeGateInputs: [Int]?
     var makeGateResult: RegisterGate?
@@ -38,9 +39,10 @@ final class StatevectorRegisterGateFactoryTestDouble {
 // MARK: - StatevectorRegisterGateFactory methods
 
 extension StatevectorRegisterGateFactoryTestDouble: StatevectorRegisterGateFactory {
-    func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
+    func makeGate(qubitCount: Int, matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
         makeGateCount += 1
 
+        lastMakeGateQubitCount = qubitCount
         lastMakeGateMatrix = matrix
         lastMakeGateInputs = inputs
 

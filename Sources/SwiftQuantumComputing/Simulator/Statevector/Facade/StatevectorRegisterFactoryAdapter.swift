@@ -22,16 +22,30 @@ import Foundation
 
 // MARK: - Main body
 
-struct StatevectorRegisterFactoryAdapter {}
+struct StatevectorRegisterFactoryAdapter {
+
+    // MARK: - Private properties
+
+    private let gateFactory: StatevectorRegisterGateFactory
+
+    // MARK: - Internal init methods
+
+    init(gateFactory: StatevectorRegisterGateFactory) {
+        self.gateFactory = gateFactory
+    }
+}
 
 // MARK: - StatevectorRegisterFactory methods
 
 extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
     func makeRegister(bits: String) throws -> StatevectorRegister {
+        var register: Register!
         do {
-            return try Register(bits: bits)
+            register = try Register(bits: bits)
         } catch Register.InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
             throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
+
+        return StatevectorRegisterAdapter(register: register, gateFactory: gateFactory)
     }
 }

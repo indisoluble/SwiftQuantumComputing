@@ -25,5 +25,5 @@ import Foundation
 protocol StatevectorRegister {
     var statevector: Vector { get }
 
-    func applying(_ gate: RegisterGate) throws -> Self
+    func applying(_ gate: SimulatorGate) throws -> Self
 }

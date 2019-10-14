@@ -29,7 +29,6 @@ final class CircuitFactoryTestDouble {
     // MARK: - Internal properties
 
     private (set) var makeCircuitCount = 0
-    private (set) var lastMakeCircuitQubitCount: Int?
     private (set) var lastMakeCircuitGates: [FixedGate]?
     var makeCircuitResult = CircuitTestDouble()
 }
@@ -37,10 +36,9 @@ final class CircuitFactoryTestDouble {
 // MARK: - CircuitFactory methods
 
 extension CircuitFactoryTestDouble: CircuitFactory {
-    func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit {
+    func makeCircuit(gates: [FixedGate]) -> Circuit {
         makeCircuitCount += 1
 
-        lastMakeCircuitQubitCount = qubitCount
         lastMakeCircuitGates = gates
 
         return makeCircuitResult

@@ -32,7 +32,7 @@ final class StatevectorRegisterTestDouble {
     var statevectorResult = try! Vector([Complex(0)])
 
     private (set) var applyingCount = 0
-    private (set) var lastApplyingGate: RegisterGate?
+    private (set) var lastApplyingGate: SimulatorGate?
     var applyingResult: StatevectorRegisterTestDouble?
     var applyingError = GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
 }
@@ -46,7 +46,7 @@ extension StatevectorRegisterTestDouble: StatevectorRegister {
         return statevectorResult
     }
 
-    func applying(_ gate: RegisterGate) throws -> StatevectorRegisterTestDouble {
+    func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterTestDouble {
         applyingCount += 1
 
         lastApplyingGate = gate

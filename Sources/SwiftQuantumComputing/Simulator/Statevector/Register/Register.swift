@@ -26,13 +26,11 @@ struct Register {
 
     // MARK: - Internal properties
 
+    let statevector: Vector
+
     var qubitCount: Int {
         return Int.log2(statevector.count)
     }
-
-    // MARK: - StatevectorRegister properties
-
-    let statevector: Vector
 
     // MARK: - Internal init methods
 
@@ -64,27 +62,9 @@ struct Register {
 
         self.statevector = vector
     }
-}
 
-// MARK: - CustomStringConvertible methods
+    // MARK: - Internal methods
 
-extension Register: CustomStringConvertible {
-    var description: String {
-        return statevector.description
-    }
-}
-
-// MARK: - Equatable methods
-
-extension Register: Equatable {
-    static func ==(lhs: Register, rhs: Register) -> Bool {
-        return (lhs.statevector == rhs.statevector)
-    }
-}
-
-// MARK: - StatevectorRegister methods
-
-extension Register: StatevectorRegister {
     func applying(_ gate: RegisterGate) throws -> Register {
         var nextVector: Vector!
         do {
@@ -102,6 +82,22 @@ extension Register: StatevectorRegister {
         } catch {
             fatalError("Unexpected error: \(error).")
         }
+    }
+}
+
+// MARK: - CustomStringConvertible methods
+
+extension Register: CustomStringConvertible {
+    var description: String {
+        return statevector.description
+    }
+}
+
+// MARK: - Equatable methods
+
+extension Register: Equatable {
+    static func ==(lhs: Register, rhs: Register) -> Bool {
+        return (lhs.statevector == rhs.statevector)
     }
 }
 

@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol StatevectorRegisterGateFactory {
-    func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate
+    func makeGate(qubitCount: Int, matrix: Matrix, inputs: [Int]) throws -> RegisterGate
 }

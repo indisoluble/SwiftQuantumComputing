@@ -22,32 +22,12 @@ import Foundation
 
 // MARK: - Main body
 
-struct StatevectorRegisterGateFactoryAdapter {
-
-    // MARK: - Private properties
-
-    private let qubitCount: Int
-
-    // MARK: - Internal init methods
-
-    init(qubitCount: Int) {
-        self.qubitCount = qubitCount
-    }
-}
-
-// MARK: - Equatable methods
-
-extension StatevectorRegisterGateFactoryAdapter: Equatable {
-    static func ==(lhs: StatevectorRegisterGateFactoryAdapter,
-                   rhs: StatevectorRegisterGateFactoryAdapter) -> Bool {
-        return (lhs.qubitCount == rhs.qubitCount)
-    }
-}
+struct StatevectorRegisterGateFactoryAdapter {}
 
 // MARK: - StatevectorRegisterGateFactory methods
 
 extension StatevectorRegisterGateFactoryAdapter: StatevectorRegisterGateFactory {
-    func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
+    func makeGate(qubitCount: Int, matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
         let factory = try RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix)
 
         return try factory.makeGate(inputs: inputs)
