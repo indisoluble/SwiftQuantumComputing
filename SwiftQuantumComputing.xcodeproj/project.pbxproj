@@ -777,7 +777,6 @@
 			isa = PBXGroup;
 			children = (
 				FF0694DA21CBFDCF00B5D469 /* Facade */,
-				FF1AAFE0211F286100D3666A /* Register */,
 			);
 			path = Statevector;
 			sourceTree = "<group>";
@@ -814,7 +813,6 @@
 			isa = PBXGroup;
 			children = (
 				FF9FBCE421C5887F0070D943 /* Facade */,
-				FF34BAD22128B2D50057A803 /* Register */,
 				FFDC34E121C1BCBD0052AC90 /* StatevectorSimulator.swift */,
 			);
 			path = Statevector;
@@ -1143,6 +1141,7 @@
 		FF7469B1233FED77004AFB83 /* Simulator */ = {
 			isa = PBXGroup;
 			children = (
+				FF34BAD22128B2D50057A803 /* Register */,
 				FF072EF421BD8763002248AA /* Statevector */,
 				FF8B9D9721BD979000A28E34 /* SimulatorGate.swift */,
 			);
@@ -1152,6 +1151,7 @@
 		FF7469B2233FF046004AFB83 /* Simulator */ = {
 			isa = PBXGroup;
 			children = (
+				FF1AAFE0211F286100D3666A /* Register */,
 				FF0694D921CBFDC300B5D469 /* Statevector */,
 			);
 			path = Simulator;
