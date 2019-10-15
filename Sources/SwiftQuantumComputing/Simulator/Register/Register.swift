@@ -62,27 +62,6 @@ struct Register {
 
         self.statevector = vector
     }
-
-    // MARK: - Internal methods
-
-    func applying(_ gate: RegisterGate) throws -> Register {
-        var nextVector: Vector!
-        do {
-            nextVector = try gate.apply(to: statevector)
-        } catch RegisterGate.ApplyVectorError.vectorCountDoesNotMatchGateMatrixColumnCount {
-            throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        do {
-            return try Register(vector: nextVector)
-        } catch Register.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
-            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-    }
 }
 
 // MARK: - CustomStringConvertible methods

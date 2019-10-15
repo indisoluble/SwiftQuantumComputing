@@ -113,56 +113,12 @@ class RegisterTests: XCTestCase {
         XCTAssertEqual(register.qubitCount, bits.count)
     }
 
-    func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException() {
-        // Given
-        let register = try! Register(bits: "00")
-
-        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = try! RegisterGate(matrix: matrix)
-
-        // Then
-        XCTAssertThrowsError(try register.applying(gate))
-    }
-
-    func testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister() {
-        // Given
-        let register = try! Register(bits: "0")
-
-        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = try! RegisterGate(matrix: matrix)
-
-        // When
-        let result = try? register.applying(gate)
-
-        // Then
-        let expectedResult = try! Register(vector: try! Vector([Complex(0), Complex(1)]))
-        XCTAssertEqual(result, expectedResult)
-    }
-
     func testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne() {
         // Given
         let register = try! Register(bits: "00")
 
         // Then
         let expectedVector = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
-        XCTAssertEqual(register.statevector, expectedVector)
-    }
-
-    func testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne() {
-        // Given
-        let qubitCount = 2
-
-        var register = try! Register(bits: String(repeating: "0", count: qubitCount))
-        
-        let notMatrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let factory = try! RegisterGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)
-        let notGate = try! factory.makeGate(inputs: [0])
-
-        // When
-        register = try! register.applying(notGate)
-
-        // Then
-        let expectedVector = try! Vector([Complex(0), Complex(1), Complex(0), Complex(0)])
         XCTAssertEqual(register.statevector, expectedVector)
     }
 
@@ -187,13 +143,7 @@ class RegisterTests: XCTestCase {
          testCorrectBitsString_init_returnExpectedRegister),
         ("testAnyRegister_qubitCount_returnExpectedValue",
          testAnyRegister_qubitCount_returnExpectedValue),
-        ("testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException",
-         testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException),
-        ("testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister",
-         testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister),
         ("testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne",
-         testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne),
-        ("testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne",
-         testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne)
+         testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne)
     ]
 }
