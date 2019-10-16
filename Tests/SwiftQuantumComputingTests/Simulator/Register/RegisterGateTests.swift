@@ -48,56 +48,14 @@ class RegisterGateTests: XCTestCase {
         XCTAssertNoThrow(try RegisterGate(matrix: matrix))
     }
 
-    func testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_throwException() {
+    func testAnyRegisterGate_matrix_returnExpectedMatrix() {
         // Given
-        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+        let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
+                                  [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
         let gate = try! RegisterGate(matrix: matrix)
 
-        let vector = try! Vector([Complex(1), Complex(0), Complex(0)])
-
         // Then
-        XCTAssertThrowsError(try gate.apply(to: vector))
-    }
-
-    func testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector() {
-        // Given
-        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = try! RegisterGate(matrix: matrix)
-
-        let vector = try! Vector([Complex(1), Complex(0)])
-
-        // When
-        let result = try? gate.apply(to: vector)
-
-        // Then
-        let expectedResult = try! Vector([Complex(0), Complex(1)])
-        XCTAssertEqual(result, expectedResult)
-    }
-
-    func testAnyRegisterGateAndMatrixWithRowCountDifferentThanGateMatrixColumnCount_apply_throwException() {
-        // Given
-        let matrixGate = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = try! RegisterGate(matrix: matrixGate)
-
-        let matrix = try! Matrix([[Complex(1), Complex(0)]])
-
-        // Then
-        XCTAssertThrowsError(try gate.apply(to: matrix))
-    }
-
-    func testAnyRegisterGateAndMatrixWithRowCountSameThanGateMatrixColumnCount_apply_returnExpectedVector() {
-        // Given
-        let matrixGate = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = try! RegisterGate(matrix: matrixGate)
-
-        let matrix = try! Matrix([[Complex(1)], [Complex(0)]])
-
-        // When
-        let result = try? gate.apply(to: matrix)
-
-        // Then
-        let expectedResult = try! Matrix([[Complex(0)], [Complex(1)]])
-        XCTAssertEqual(result, expectedResult)
+        XCTAssertEqual(gate.matrix, matrix)
     }
 
     static var allTests = [
@@ -105,13 +63,7 @@ class RegisterGateTests: XCTestCase {
          testNonUnitaryMatrix_init_throwException),
         ("testUnitaryMatrix_init_returnRegisterGate",
          testUnitaryMatrix_init_returnRegisterGate),
-        ("testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_throwException",
-         testAnyRegisterGateAndVectorWithDifferentSizeThanGate_apply_throwException),
-        ("testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector",
-         testAnyRegisterGateAndVectorWithSameSizeThanGate_apply_returnExpectedVector),
-        ("testAnyRegisterGateAndMatrixWithRowCountDifferentThanGateMatrixColumnCount_apply_throwException",
-         testAnyRegisterGateAndMatrixWithRowCountDifferentThanGateMatrixColumnCount_apply_throwException),
-        ("testAnyRegisterGateAndMatrixWithRowCountSameThanGateMatrixColumnCount_apply_returnExpectedVector",
-         testAnyRegisterGateAndMatrixWithRowCountSameThanGateMatrixColumnCount_apply_returnExpectedVector)
+        ("testAnyRegisterGate_matrix_returnExpectedMatrix",
+         testAnyRegisterGate_matrix_returnExpectedMatrix)
     ]
 }

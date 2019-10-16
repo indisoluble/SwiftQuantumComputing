@@ -24,8 +24,8 @@ extension Register {
     func applying(_ gate: RegisterGate) throws -> Register {
         var nextVector: Vector!
         do {
-            nextVector = try gate.apply(to: statevector)
-        } catch RegisterGate.ApplyVectorError.vectorCountDoesNotMatchGateMatrixColumnCount {
+            nextVector = try gate.matrix * statevector
+        } catch Vector.ProductError.matrixColumnCountDoesNotMatchVectorCount {
             throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
         } catch {
             fatalError("Unexpected error: \(error).")

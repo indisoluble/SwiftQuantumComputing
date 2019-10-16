@@ -24,9 +24,9 @@ import Foundation
 
 struct RegisterGate {
 
-    // MARK: - Private properties
+    // MARK: - Internal properties
 
-    private let matrix: Matrix
+    let matrix: Matrix
 
     // MARK: - Internal init methods
 
@@ -36,36 +36,6 @@ struct RegisterGate {
         }
 
         self.matrix = matrix
-    }
-
-    // MARK: - Internal methods
-
-    enum ApplyVectorError: Error {
-        case vectorCountDoesNotMatchGateMatrixColumnCount
-    }
-
-    func apply(to vector: Vector) throws -> Vector {
-        do {
-            return try matrix * vector
-        } catch Vector.ProductError.matrixColumnCountDoesNotMatchVectorCount {
-            throw ApplyVectorError.vectorCountDoesNotMatchGateMatrixColumnCount
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-    }
-
-    enum ApplyMatrixError: Error {
-        case matrixRowCountDoesNotMatchGateMatrixColumnCount
-    }
-
-    func apply(to matrix: Matrix) throws -> Matrix {
-        do {
-            return try self.matrix * matrix
-        } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
-            throw ApplyMatrixError.matrixRowCountDoesNotMatchGateMatrixColumnCount
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
     }
 }
 
