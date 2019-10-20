@@ -1,9 +1,9 @@
 //
-//  StatevectorRegisterTestDouble.swift
+//  UnitaryGateTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 20/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 20/10/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,29 +24,29 @@ import Foundation
 
 // MARK: - Main body
 
-final class StatevectorRegisterTestDouble {
+final class UnitaryGateTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var statevectorCount = 0
-    var statevectorResult = try! Vector([Complex(0)])
+    private (set) var unitaryCount = 0
+    var unitaryResult = try! Matrix([[Complex(0)]])
 
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: SimulatorGate?
-    var applyingResult: StatevectorRegisterTestDouble?
-    var applyingError = GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
+    var applyingResult: UnitaryGateTestDouble?
+    var applyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
 }
 
-// MARK: - StatevectorRegister methods
+// MARK: - UnitaryGate methods
 
-extension StatevectorRegisterTestDouble: StatevectorRegister {
-    var statevector: Vector {
-        statevectorCount += 1
+extension UnitaryGateTestDouble: UnitaryGate {
+    var unitary: Matrix {
+        unitaryCount += 1
 
-        return statevectorResult
+        return unitaryResult
     }
 
-    func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterTestDouble {
+    func applying(_ gate: SimulatorGate) throws -> UnitaryGateTestDouble {
         applyingCount += 1
 
         lastApplyingGate = gate

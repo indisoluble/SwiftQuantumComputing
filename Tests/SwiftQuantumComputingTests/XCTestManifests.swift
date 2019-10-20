@@ -26,6 +26,9 @@ public func allTests() -> [XCTestCaseEntry] {
     return [
         testCase(StatevectorRegisterAdapterTests.allTests),
         testCase(StatevectorSimulatorFacadeTests.allTests),
+        testCase(UnitaryGateAdapterTests.allTests),
+        testCase(UnitaryGateFactoryAdapterTests.allTests),
+        testCase(UnitarySimulatorFacadeTests.allTests),
         testCase(CircuitFacadeTests.allTests),
         testCase(Circuit_ProbabilitiesTests.allTests),
         testCase(ComplexTests.allTests),
@@ -61,6 +64,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Register_ApplyingGateTests.allTests),
         testCase(RegisterTests.allTests),
         testCase(RegisterGateFactoryTests.allTests),
+        testCase(RegisterGate_ApplyingGateTests.allTests),
         testCase(RegisterGateTests.allTests),
         testCase(Vector_ElementsTests.allTests)
     ]

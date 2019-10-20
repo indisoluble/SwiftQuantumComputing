@@ -1,8 +1,8 @@
 //
-//  Register+ApplyingGate.swift
+//  RegisterGate+ApplyingGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/10/2019.
+//  Created by Enrique de la Torre on 18/10/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,21 +20,21 @@
 
 import Foundation
 
-extension Register {
-    func applying(_ gate: RegisterGate) throws -> Register {
-        var nextVector: Vector!
+extension RegisterGate {
+    func applying(_ gate: RegisterGate) throws -> RegisterGate {
+        var nextMatrix: Matrix!
         do {
-            nextVector = try gate.matrix * statevector
-        } catch Vector.ProductError.matrixColumnCountDoesNotMatchVectorCount {
+            nextMatrix = try gate.matrix * matrix
+        } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
             throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
         do {
-            return try Register(vector: nextVector)
-        } catch Register.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
-            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
+            return try RegisterGate(matrix: nextMatrix)
+        } catch GateError.gateMatrixIsNotUnitary {
+            throw GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
         } catch {
             fatalError("Unexpected error: \(error).")
         }

@@ -23,7 +23,8 @@ import Foundation
 // MARK: - Errors
 
 public enum GateError: Error {
-    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
+    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
+    case resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
     case gateInputCountDoesNotMatchGateMatrixQubitCount
     case gateInputsAreNotInBound
     case gateInputsAreNotUnique
@@ -38,6 +39,11 @@ public enum GateError: Error {
 
 public enum StatevectorError: Error {
     case inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    case gateThrowedError(gate: FixedGate, error: GateError)
+}
+
+public enum UnitaryError: Error {
+    case circuitCanNotBeAnEmptyList
     case gateThrowedError(gate: FixedGate, error: GateError)
 }
 

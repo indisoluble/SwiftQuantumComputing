@@ -58,12 +58,24 @@ class RegisterGateTests: XCTestCase {
         XCTAssertEqual(gate.matrix, matrix)
     }
 
+    func testAnyRegisterGate_qubitCount_returnExpectedValue() {
+        // Given
+        let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
+                                  [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
+        let gate = try! RegisterGate(matrix: matrix)
+
+        // Then
+        XCTAssertEqual(gate.qubitCount, 1)
+    }
+
     static var allTests = [
         ("testNonUnitaryMatrix_init_throwException",
          testNonUnitaryMatrix_init_throwException),
         ("testUnitaryMatrix_init_returnRegisterGate",
          testUnitaryMatrix_init_returnRegisterGate),
         ("testAnyRegisterGate_matrix_returnExpectedMatrix",
-         testAnyRegisterGate_matrix_returnExpectedMatrix)
+         testAnyRegisterGate_matrix_returnExpectedMatrix),
+        ("testAnyRegisterGate_qubitCount_returnExpectedValue",
+         testAnyRegisterGate_qubitCount_returnExpectedValue)
     ]
 }

@@ -28,6 +28,10 @@ struct RegisterGate {
 
     let matrix: Matrix
 
+    var qubitCount: Int {
+        return Int.log2(matrix.rowCount)
+    }
+
     // MARK: - Internal init methods
 
     init(matrix: Matrix) throws {
