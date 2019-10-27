@@ -1,5 +1,5 @@
 //
-//  RegisterGateFactoryTests.swift
+//  QuantumGateFactoryTests.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 11/08/2018.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class RegisterGateFactoryTests: XCTestCase {
+class QuantumGateFactoryTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -42,8 +42,8 @@ class RegisterGateFactoryTests: XCTestCase {
         let matrix = try! Matrix([[complex], [complex]])
 
         // Then
-        XCTAssertThrowsError(try RegisterGateFactory(qubitCount: validQubitCount,
-                                                     baseMatrix: matrix))
+        XCTAssertThrowsError(try QuantumGateFactory(qubitCount: validQubitCount,
+                                                    baseMatrix: matrix))
     }
 
     func testSquareMatrixWithSizeNonPowerOfTwo_init_throwException() {
@@ -54,8 +54,8 @@ class RegisterGateFactoryTests: XCTestCase {
                                   [complex, complex, complex]])
 
         // Then
-        XCTAssertThrowsError(try RegisterGateFactory(qubitCount: validQubitCount,
-                                                     baseMatrix: matrix))
+        XCTAssertThrowsError(try QuantumGateFactory(qubitCount: validQubitCount,
+                                                    baseMatrix: matrix))
     }
 
     func testSquareMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException() {
@@ -63,8 +63,8 @@ class RegisterGateFactoryTests: XCTestCase {
         let qubitCount = 1
 
         // Then
-        XCTAssertThrowsError(try RegisterGateFactory(qubitCount: qubitCount,
-                                                     baseMatrix: validMatrix))
+        XCTAssertThrowsError(try QuantumGateFactory(qubitCount: qubitCount,
+                                                    baseMatrix: validMatrix))
     }
 
     func testOneByOneMatrixAndQubitCountEqualToZero_init_throwException() {
@@ -73,62 +73,62 @@ class RegisterGateFactoryTests: XCTestCase {
         let qubitCount = 0
 
         // Then
-        XCTAssertThrowsError(try RegisterGateFactory(qubitCount: qubitCount, baseMatrix: matrix))
+        XCTAssertThrowsError(try QuantumGateFactory(qubitCount: qubitCount, baseMatrix: matrix))
     }
 
-    func testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnRegisterGateFactory() {
+    func testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnGateFactory() {
         // Then
-        XCTAssertNoThrow(try RegisterGateFactory(qubitCount: validQubitCount,
-                                                 baseMatrix: validMatrix))
+        XCTAssertNoThrow(try QuantumGateFactory(qubitCount: validQubitCount,
+                                                baseMatrix: validMatrix))
     }
 
-    func testAnyRegisterGateFactoryAndRepeatedInputs_makeGate_throwException() {
+    func testAnyGateFactoryAndRepeatedInputs_makeGate_throwException() {
         // Given
-        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
+        let factory = try! QuantumGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // Then
         XCTAssertThrowsError(try factory.makeGate(inputs: [1, 1]))
     }
 
-    func testAnyRegisterGateFactoryAndInputsOutOfRange_makeGate_throwException() {
+    func testAnyGateFactoryAndInputsOutOfRange_makeGate_throwException() {
         // Given
-        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
+        let factory = try! QuantumGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // Then
         XCTAssertThrowsError(try factory.makeGate(inputs: [validQubitCount]))
     }
 
-    func testAnyRegisterGateFactoryAndMoreInputsThanGateTakes_makeGate_throwException() {
+    func testAnyGateFactoryAndMoreInputsThanGateTakes_makeGate_throwException() {
         // Given
-        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
+        let factory = try! QuantumGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // Then
         XCTAssertThrowsError(try factory.makeGate(inputs: [2, 1, 0]))
     }
 
-    func testAnyRegisterGateFactoryAndLessInputsThanGateTakes_makeGate_throwException() {
+    func testAnyGateFactoryAndLessInputsThanGateTakes_makeGate_throwException() {
         // Given
-        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
+        let factory = try! QuantumGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // Then
         XCTAssertThrowsError(try factory.makeGate(inputs: []))
     }
 
-    func testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedRegisterGate() {
+    func testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedGate() {
         // Given
-        let factory = try! RegisterGateFactory(qubitCount: 2, baseMatrix: validMatrix)
+        let factory = try! QuantumGateFactory(qubitCount: 2, baseMatrix: validMatrix)
 
         // When
         let gate = try? factory.makeGate(inputs: [1, 0])
 
         // Then
-        let expectedGate = try! RegisterGate(matrix: validMatrix)
+        let expectedGate = try! QuantumGate(matrix: validMatrix)
         XCTAssertEqual(gate, expectedGate)
     }
 
-    func testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedRegisterGate() {
+    func testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedGate() {
         // Given
-        let factory = try! RegisterGateFactory(qubitCount: 2, baseMatrix: validMatrix)
+        let factory = try! QuantumGateFactory(qubitCount: 2, baseMatrix: validMatrix)
 
         // When
         let gate = try? factory.makeGate(inputs: [0, 1])
@@ -140,13 +140,13 @@ class RegisterGateFactoryTests: XCTestCase {
             [Complex(0), Complex(0), Complex(1), Complex(0)],
             [Complex(0), Complex(1), Complex(0), Complex(0)]
         ]
-        let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
+        let expectedGate = try! QuantumGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
 
-    func testAnyRegisterGateFactoryAndNonContiguousInputs_makeGate_returnExpectedRegisterGate() {
+    func testAnyGateFactoryAndNonContiguousInputs_makeGate_returnExpectedGate() {
         // Given
-        let factory = try! RegisterGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
+        let factory = try! QuantumGateFactory(qubitCount: validQubitCount, baseMatrix: validMatrix)
 
         // When
         let gate = try? factory.makeGate(inputs: [0, 2])
@@ -162,13 +162,13 @@ class RegisterGateFactoryTests: XCTestCase {
             [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0)],
             [Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0)]
         ]
-        let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
+        let expectedGate = try! QuantumGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
 
-    func testAnyRegisterGateFactoryAndContiguousInputsButInTheMiddle_makeGate_returnExpectedRegisterGate() {
+    func testAnyGateFactoryAndContiguousInputsButInTheMiddle_makeGate_returnExpectedGate() {
         // Given
-        let factory = try! RegisterGateFactory(qubitCount: 4, baseMatrix: validMatrix)
+        let factory = try! QuantumGateFactory(qubitCount: 4, baseMatrix: validMatrix)
 
         // When
         let gate = try? factory.makeGate(inputs: [2, 1])
@@ -207,7 +207,7 @@ class RegisterGateFactoryTests: XCTestCase {
              Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0)],
             [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
              Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0)]]
-        let expectedGate = try! RegisterGate(matrix: try! Matrix(expectedElements))
+        let expectedGate = try! QuantumGate(matrix: try! Matrix(expectedElements))
         XCTAssertEqual(gate, expectedGate)
     }
 
@@ -220,23 +220,23 @@ class RegisterGateFactoryTests: XCTestCase {
          testSquareMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException),
         ("testOneByOneMatrixAndQubitCountEqualToZero_init_throwException",
          testOneByOneMatrixAndQubitCountEqualToZero_init_throwException),
-        ("testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnRegisterGateFactory",
-         testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnRegisterGateFactory),
-        ("testAnyRegisterGateFactoryAndRepeatedInputs_makeGate_throwException",
-         testAnyRegisterGateFactoryAndRepeatedInputs_makeGate_throwException),
-        ("testAnyRegisterGateFactoryAndInputsOutOfRange_makeGate_throwException",
-         testAnyRegisterGateFactoryAndInputsOutOfRange_makeGate_throwException),
-        ("testAnyRegisterGateFactoryAndMoreInputsThanGateTakes_makeGate_throwException",
-         testAnyRegisterGateFactoryAndMoreInputsThanGateTakes_makeGate_throwException),
-        ("testAnyRegisterGateFactoryAndLessInputsThanGateTakes_makeGate_throwException",
-         testAnyRegisterGateFactoryAndLessInputsThanGateTakes_makeGate_throwException),
-        ("testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedRegisterGate",
-         testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedRegisterGate),
-        ("testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedRegisterGate",
-         testAnyRegisterGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedRegisterGate),
-        ("testAnyRegisterGateFactoryAndNonContiguousInputs_makeGate_returnExpectedRegisterGate",
-         testAnyRegisterGateFactoryAndNonContiguousInputs_makeGate_returnExpectedRegisterGate),
-        ("testAnyRegisterGateFactoryAndContiguousInputsButInTheMiddle_makeGate_returnExpectedRegisterGate",
-         testAnyRegisterGateFactoryAndContiguousInputsButInTheMiddle_makeGate_returnExpectedRegisterGate)
+        ("testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnGateFactory",
+         testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnGateFactory),
+        ("testAnyGateFactoryAndRepeatedInputs_makeGate_throwException",
+         testAnyGateFactoryAndRepeatedInputs_makeGate_throwException),
+        ("testAnyGateFactoryAndInputsOutOfRange_makeGate_throwException",
+         testAnyGateFactoryAndInputsOutOfRange_makeGate_throwException),
+        ("testAnyGateFactoryAndMoreInputsThanGateTakes_makeGate_throwException",
+         testAnyGateFactoryAndMoreInputsThanGateTakes_makeGate_throwException),
+        ("testAnyGateFactoryAndLessInputsThanGateTakes_makeGate_throwException",
+         testAnyGateFactoryAndLessInputsThanGateTakes_makeGate_throwException),
+        ("testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedGate",
+         testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedGate),
+        ("testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedGate",
+         testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedGate),
+        ("testAnyGateFactoryAndNonContiguousInputs_makeGate_returnExpectedGate",
+         testAnyGateFactoryAndNonContiguousInputs_makeGate_returnExpectedGate),
+        ("testAnyGateFactoryAndContiguousInputsButInTheMiddle_makeGate_returnExpectedGate",
+         testAnyGateFactoryAndContiguousInputsButInTheMiddle_makeGate_returnExpectedGate)
     ]
 }

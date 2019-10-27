@@ -1,9 +1,9 @@
 //
-//  StatevectorRegister.swift
+//  Matrix+Elements.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 27/10/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@
 
 import Foundation
 
-// MARK: - Protocol definition
-
-protocol StatevectorRegister {
-    var statevector: Vector { get }
-
-    func applying(_ gate: SimulatorGate) throws -> Self
+extension Matrix {
+    func elements() -> [[Complex]] {
+        return (0..<rowCount).map { row -> [Complex] in
+            return (0..<columnCount).map { self[row, $0] }
+        }
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  RegisterGate.swift
+//  QuantumGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 11/08/2018.
@@ -22,11 +22,15 @@ import Foundation
 
 // MARK: - Main body
 
-struct RegisterGate {
+struct QuantumGate {
 
-    // MARK: - Private properties
+    // MARK: - Internal properties
 
-    private let matrix: Matrix
+    let matrix: Matrix
+
+    var qubitCount: Int {
+        return Int.log2(matrix.rowCount)
+    }
 
     // MARK: - Internal init methods
 
@@ -37,35 +41,19 @@ struct RegisterGate {
 
         self.matrix = matrix
     }
-
-    // MARK: - Internal methods
-
-    enum ApplyError: Error {
-        case vectorCountDoesNotMatchGateMatrixColumnCount
-    }
-
-    func apply(to vector: Vector) throws -> Vector {
-        do {
-            return try matrix * vector
-        } catch Vector.ProductError.matrixColumnCountDoesNotMatchVectorCount {
-            throw ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-    }
 }
 
 // MARK: - Equatable methods
 
-extension RegisterGate: Equatable {
-    static func ==(lhs: RegisterGate, rhs: RegisterGate) -> Bool {
+extension QuantumGate: Equatable {
+    static func ==(lhs: QuantumGate, rhs: QuantumGate) -> Bool {
         return (lhs.matrix == rhs.matrix)
     }
 }
 
 // MARK: - Private body
 
-private extension RegisterGate {
+private extension QuantumGate {
 
     // MARK: - Constants
 

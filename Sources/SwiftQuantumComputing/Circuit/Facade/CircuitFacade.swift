@@ -30,12 +30,16 @@ struct CircuitFacade {
 
     // MARK: - Private properties
 
+    private let unitarySimulator: UnitarySimulator
     private let statevectorSimulator: StatevectorSimulator
 
     // MARK: - Internal init methods
 
-    init(gates: [FixedGate], statevectorSimulator: StatevectorSimulator) {
+    init(gates: [FixedGate],
+         unitarySimulator: UnitarySimulator,
+         statevectorSimulator: StatevectorSimulator) {
         self.gates = gates
+        self.unitarySimulator = unitarySimulator
         self.statevectorSimulator = statevectorSimulator
     }
 }
@@ -51,6 +55,12 @@ extension CircuitFacade: CustomStringConvertible {
 // MARK: - Circuit methods
 
 extension CircuitFacade: Circuit {
+    func unitary(usingQubitCount qubitCount: Int) throws -> [[Complex]] {
+        let matrix = try unitarySimulator.unitary(with: gates, qubitCount: qubitCount)
+
+        return matrix.elements()
+    }
+
     func statevector(afterInputting bits: String) throws -> [Complex] {
         let state = try statevectorSimulator.statevector(afterInputting: bits, in: gates)
 

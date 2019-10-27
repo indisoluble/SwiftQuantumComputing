@@ -30,7 +30,7 @@ final class StatevectorSimulatorTestDouble {
 
     private (set) var statevectorCount = 0
     private (set) var lastStatevectorBits: String?
-    private (set) var lastStatevectorCircuit: [StatevectorGate]?
+    private (set) var lastStatevectorCircuit: [SimulatorGate]?
     var statevectorResult: Vector?
     var statevectorError = StatevectorError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
 }
@@ -38,7 +38,7 @@ final class StatevectorSimulatorTestDouble {
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorTestDouble: StatevectorSimulator {
-    func statevector(afterInputting bits: String, in circuit: [StatevectorGate]) throws -> Vector {
+    func statevector(afterInputting bits: String, in circuit: [SimulatorGate]) throws -> Vector {
         statevectorCount += 1
 
         lastStatevectorBits = bits

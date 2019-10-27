@@ -1,5 +1,5 @@
 //
-//  StatevectorGateTestDouble.swift
+//  SimulatorGateTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 20/12/2018.
@@ -24,7 +24,7 @@ import Foundation
 
 // MARK: - Main body
 
-final class StatevectorGateTestDouble {
+final class SimulatorGateTestDouble {
 
     // MARK: - Internal properties
 
@@ -36,9 +36,9 @@ final class StatevectorGateTestDouble {
     var extractInputsResult: [Int]?
 }
 
-// MARK: - StatevectorGate methods
+// MARK: - SimulatorGate methods
 
-extension StatevectorGateTestDouble: StatevectorGate {
+extension SimulatorGateTestDouble: SimulatorGate {
     var fixedGate: FixedGate {
         fixedGateCount += 1
 

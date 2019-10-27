@@ -24,7 +24,11 @@ import XCTest
 
 public func allTests() -> [XCTestCaseEntry] {
     return [
+        testCase(StatevectorRegisterAdapterTests.allTests),
         testCase(StatevectorSimulatorFacadeTests.allTests),
+        testCase(UnitaryGateAdapterTests.allTests),
+        testCase(UnitaryGateFactoryAdapterTests.allTests),
+        testCase(UnitarySimulatorFacadeTests.allTests),
         testCase(CircuitFacadeTests.allTests),
         testCase(Circuit_ProbabilitiesTests.allTests),
         testCase(ComplexTests.allTests),
@@ -57,9 +61,12 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(MainGeneticPopulationReproductionFactoryTests.allTests),
         testCase(GeneticUseCaseTests.allTests),
         testCase(MainGeneticFactoryTests.allTests),
-        testCase(RegisterTests.allTests),
-        testCase(RegisterGateFactoryTests.allTests),
-        testCase(RegisterGateTests.allTests),
+        testCase(QuantumRegister_ApplyingGateTests.allTests),
+        testCase(QuantumRegisterTests.allTests),
+        testCase(QuantumGateFactoryTests.allTests),
+        testCase(QuantumGate_ApplyingGateTests.allTests),
+        testCase(QuantumGateTests.allTests),
+        testCase(Matrix_ElementsTests.allTests),
         testCase(Vector_ElementsTests.allTests)
     ]
 }

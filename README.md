@@ -17,6 +17,12 @@ To create a circuit gate by gate:
 
 Check `DeutschAlgorithm.playground` for the actual code.
 
+Previous playground shows how to produce a statevector for a given circuit. To get the unitary matrix that represents a circuit:
+
+![Unitary matrix for a circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Unitary.jpg)
+
+Full code is in `Unitary.playground`.
+
 Or check `Genetic.playground` to see how to configure the genetic algorithm to produce a quantum circuit:
 
 ![Circuit generated with a genetic algorithm](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Genetic.jpg)

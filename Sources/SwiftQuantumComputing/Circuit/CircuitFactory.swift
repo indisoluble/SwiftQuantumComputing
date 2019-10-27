@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 public protocol CircuitFactory {
-    func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit
+    func makeCircuit(gates: [FixedGate]) -> Circuit
 }
