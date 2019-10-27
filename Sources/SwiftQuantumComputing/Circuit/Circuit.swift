@@ -23,7 +23,8 @@ import Foundation
 // MARK: - Errors
 
 public enum GateError: Error {
-    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
+    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
+    case resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
     case gateInputCountDoesNotMatchGateMatrixQubitCount
     case gateInputsAreNotInBound
     case gateInputsAreNotUnique
@@ -41,10 +42,16 @@ public enum StatevectorError: Error {
     case gateThrowedError(gate: FixedGate, error: GateError)
 }
 
+public enum UnitaryError: Error {
+    case circuitCanNotBeAnEmptyList
+    case gateThrowedError(gate: FixedGate, error: GateError)
+}
+
 // MARK: - Protocol definition
 
 public protocol Circuit {
     var gates: [FixedGate] { get }
 
+    func unitary(usingQubitCount qubitCount: Int) throws -> [[Complex]]
     func statevector(afterInputting bits: String) throws -> [Complex]
 }

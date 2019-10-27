@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterGateFactoryTestDouble.swift
+//  SimulatorQuantumGateFactoryTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 20/12/2018.
@@ -24,23 +24,25 @@ import Foundation
 
 // MARK: - Main body
 
-final class StatevectorRegisterGateFactoryTestDouble {
+final class SimulatorQuantumGateFactoryTestDouble {
 
     // MARK: - Internal properties
 
     private (set) var makeGateCount = 0
+    private (set) var lastMakeGateQubitCount: Int?
     private (set) var lastMakeGateMatrix: Matrix?
     private (set) var lastMakeGateInputs: [Int]?
-    var makeGateResult: RegisterGate?
+    var makeGateResult: QuantumGate?
     var makeGateError = GateError.gateMatrixIsNotUnitary
 }
 
-// MARK: - StatevectorRegisterGateFactory methods
+// MARK: - SimulatorQuantumGateFactory methods
 
-extension StatevectorRegisterGateFactoryTestDouble: StatevectorRegisterGateFactory {
-    func makeGate(matrix: Matrix, inputs: [Int]) throws -> RegisterGate {
+extension SimulatorQuantumGateFactoryTestDouble: SimulatorQuantumGateFactory {
+    func makeGate(qubitCount: Int, matrix: Matrix, inputs: [Int]) throws -> QuantumGate {
         makeGateCount += 1
 
+        lastMakeGateQubitCount = qubitCount
         lastMakeGateMatrix = matrix
         lastMakeGateInputs = inputs
 

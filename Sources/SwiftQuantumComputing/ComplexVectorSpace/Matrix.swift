@@ -44,16 +44,16 @@ public struct Matrix {
     }
 
     var first: Complex {
-        return elements.first!
+        return values.first!
     }
 
     subscript(row: Int, column: Int) -> Complex {
-        return elements[(column * rowCount) + row]
+        return values[(column * rowCount) + row]
     }
 
     // MARK: - Private properties
 
-    private let elements: [Complex]
+    private let values: [Complex]
 
     // MARK: - Public init methods
 
@@ -79,19 +79,19 @@ public struct Matrix {
         }
 
         let rowCount = rows.count
-        let elements = Matrix.serializedRowsByColumn(rows,
-                                                     rowCount: rowCount,
-                                                     columnCount: columnCount)
+        let values = Matrix.serializedRowsByColumn(rows,
+                                                   rowCount: rowCount,
+                                                   columnCount: columnCount)
 
-        self.init(rowCount: rowCount, columnCount: columnCount, elements: elements)
+        self.init(rowCount: rowCount, columnCount: columnCount, values: values)
     }
 
     // MARK: - Private init methods
 
-    private init(rowCount: Int, columnCount: Int, elements: [Complex]) {
+    private init(rowCount: Int, columnCount: Int, values: [Complex]) {
         self.rowCount = rowCount
         self.columnCount = columnCount
-        self.elements = elements
+        self.values = values
     }
 
     // MARK: - Internal methods
@@ -124,7 +124,7 @@ public struct Matrix {
             columns[(i * count) + i] = Complex(1)
         }
 
-        return Matrix(rowCount: count, columnCount: count, elements: columns)
+        return Matrix(rowCount: count, columnCount: count, values: columns)
     }
 
     static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
@@ -146,7 +146,7 @@ public struct Matrix {
             }
         }
 
-        return Matrix(rowCount: tensorRowCount, columnCount: tensorColumnCount, elements: tensor)
+        return Matrix(rowCount: tensorRowCount, columnCount: tensorColumnCount, values: tensor)
     }
 }
 
@@ -172,7 +172,7 @@ extension Matrix: CustomStringConvertible {
 
 extension Matrix: Equatable {
     public static func ==(lhs: Matrix, rhs: Matrix) -> Bool {
-        return (lhs.elements == rhs.elements)
+        return (lhs.values == rhs.values)
     }
 }
 
@@ -190,9 +190,9 @@ extension Matrix {
     // MARK: - Internal operators
 
     static func *(complex: Complex, matrix: Matrix) -> Matrix {
-        let columns = matrix.elements.map { complex * $0 }
+        let columns = matrix.values.map { complex * $0 }
 
-        return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, elements: columns)
+        return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, values: columns)
     }
 
     static func *(lhs: Matrix, rhs: Matrix) throws -> Matrix {
@@ -238,7 +238,7 @@ private extension Matrix {
             return false
         }
 
-        return elements.elementsEqual(matrix.elements) {
+        return values.elementsEqual(matrix.values) {
             let realInRange = (abs($0.real - $1.real) <= accuracy)
             let imagInRange = (abs($0.imag - $1.imag) <= accuracy)
 
@@ -271,9 +271,9 @@ private extension Matrix {
         let n = (rhsTrans == CblasNoTrans ? rhs.columnCount : rhs.rowCount)
         let k = (lhsTrans == CblasNoTrans ? lhs.columnCount : lhs.rowCount)
         var alpha = Complex(1)
-        var aBuffer = lhs.elements
+        var aBuffer = lhs.values
         let lda = lhs.rowCount
-        var bBuffer = rhs.elements
+        var bBuffer = rhs.values
         let ldb = rhs.rowCount
         var beta = Complex(0)
         var cBuffer = Array(repeating: Complex(0), count: (m * n))
@@ -294,6 +294,6 @@ private extension Matrix {
                     &cBuffer,
                     Int32(ldc))
 
-        return Matrix(rowCount: m, columnCount: n, elements: cBuffer)
+        return Matrix(rowCount: m, columnCount: n, values: cBuffer)
     }
 }

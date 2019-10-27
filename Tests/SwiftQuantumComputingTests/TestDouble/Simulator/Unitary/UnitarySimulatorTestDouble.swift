@@ -1,8 +1,8 @@
 //
-//  CircuitFactoryTestDouble.swift
+//  UnitarySimulatorTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/02/2019.
+//  Created by Enrique de la Torre on 27/10/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,23 +24,30 @@ import Foundation
 
 // MARK: - Main body
 
-final class CircuitFactoryTestDouble {
+final class UnitarySimulatorTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var makeCircuitCount = 0
-    private (set) var lastMakeCircuitGates: [FixedGate]?
-    var makeCircuitResult = CircuitTestDouble()
+    private (set) var unitaryCount = 0
+    private (set) var lastUnitaryCircuit: [SimulatorGate]?
+    private (set) var lastUnitaryQubitCount: Int?
+    var unitaryResult: Matrix?
+    var unitaryError = UnitaryError.circuitCanNotBeAnEmptyList
 }
 
-// MARK: - CircuitFactory methods
+// MARK: - UnitarySimulator methods
 
-extension CircuitFactoryTestDouble: CircuitFactory {
-    func makeCircuit(gates: [FixedGate]) -> Circuit {
-        makeCircuitCount += 1
+extension UnitarySimulatorTestDouble: UnitarySimulator {
+    func unitary(with circuit: [SimulatorGate], qubitCount: Int) throws -> Matrix {
+        unitaryCount += 1
 
-        lastMakeCircuitGates = gates
+        lastUnitaryCircuit = circuit
+        lastUnitaryQubitCount = qubitCount
 
-        return makeCircuitResult
+        if let unitaryResult = unitaryResult {
+            return unitaryResult
+        }
+
+        throw unitaryError
     }
 }

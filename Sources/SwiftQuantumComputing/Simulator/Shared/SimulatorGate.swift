@@ -1,5 +1,5 @@
 //
-//  StatevectorRegister.swift
+//  SimulatorGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 09/12/2018.
@@ -22,8 +22,10 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol StatevectorRegister {
-    var statevector: Vector { get }
+protocol SimulatorGate {
+    typealias Components = (matrix: Matrix, inputs: [Int])
 
-    func applying(_ gate: SimulatorGate) throws -> Self
+    var fixedGate: FixedGate { get }
+
+    func extract() throws -> Components
 }

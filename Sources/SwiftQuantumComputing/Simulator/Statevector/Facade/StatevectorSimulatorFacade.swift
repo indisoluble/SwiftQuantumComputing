@@ -27,20 +27,18 @@ struct StatevectorSimulatorFacade {
     // MARK: - Private properties
 
     private let registerFactory: StatevectorRegisterFactory
-    private let gateFactory: StatevectorRegisterGateFactory
 
     // MARK: - Internal init methods
 
-    init(registerFactory: StatevectorRegisterFactory, gateFactory: StatevectorRegisterGateFactory) {
+    init(registerFactory: StatevectorRegisterFactory) {
         self.registerFactory = registerFactory
-        self.gateFactory = gateFactory
     }
 }
 
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
-    func statevector(afterInputting bits: String, in circuit: [StatevectorGate]) throws -> Vector {
+    func statevector(afterInputting bits: String, in circuit: [SimulatorGate]) throws -> Vector {
         var register: StatevectorRegister!
         do {
             register = try registerFactory.makeRegister(bits: bits)
@@ -50,10 +48,7 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
 
         for gate in circuit {
             do {
-                let components = try gate.extract()
-                let registerGate = try gateFactory.makeGate(matrix: components.matrix,
-                                                            inputs: components.inputs)
-                register = try register.applying(registerGate)
+                register = try register.applying(gate)
             } catch {
                 if let error = error as? GateError {
                     throw StatevectorError.gateThrowedError(gate: gate.fixedGate, error: error)

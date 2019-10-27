@@ -1,5 +1,5 @@
 //
-//  RegisterTests.swift
+//  QuantumRegisterTests.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 10/08/2018.
@@ -24,28 +24,38 @@ import XCTest
 
 // MARK: - Main body
 
-class RegisterTests: XCTestCase {
+class QuantumRegisterTests: XCTestCase {
 
     // MARK: - Tests
 
     func testEmptyBitsString_init_throwException() {
         // Then
-        XCTAssertThrowsError(try Register(bits: ""))
+        XCTAssertThrowsError(try QuantumRegister(bits: ""))
     }
 
     func testBitsStringWithLeadingSpaces_init_throwException() {
         // Then
-        XCTAssertThrowsError(try Register(bits: "  1001"))
+        XCTAssertThrowsError(try QuantumRegister(bits: "  1001"))
     }
 
     func testBitsStringWithTrailingSpaces_init_throwException() {
         // Then
-        XCTAssertThrowsError(try Register(bits: "1001  "))
+        XCTAssertThrowsError(try QuantumRegister(bits: "1001  "))
     }
 
     func testBitsStringWithWrongCharacter_init_throwException() {
         // Then
-        XCTAssertThrowsError(try Register(bits: "10#1"))
+        XCTAssertThrowsError(try QuantumRegister(bits: "10#1"))
+    }
+
+    func testVectorWhichLengthIsNotPowerOfTwo_init_throwException() {
+        // Given
+        let vector = try! Vector([Complex(real: sqrt(1 / 2), imag: 0),
+                                  Complex(real: 0, imag: sqrt(1 / 2)),
+                                  Complex(real: 0, imag: 0)])
+
+        // Then
+        XCTAssertThrowsError(try QuantumRegister(vector: vector))
     }
 
     func testVectorWhichSumOfSquareModulesIsNotOne_init_throwException() {
@@ -53,7 +63,7 @@ class RegisterTests: XCTestCase {
         let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
 
         // Then
-        XCTAssertThrowsError(try Register(vector: vector))
+        XCTAssertThrowsError(try QuantumRegister(vector: vector))
     }
 
     func testVectorWhichSumOfSquareModulesIsOne_init_returnRegister() {
@@ -62,17 +72,17 @@ class RegisterTests: XCTestCase {
                                   Complex(real: 0, imag: sqrt(1 / 2))])
 
         // Then
-        XCTAssertNoThrow(try Register(vector: vector))
+        XCTAssertNoThrow(try QuantumRegister(vector: vector))
     }
 
     func testQubitCountBiggerThanZero_init_returnExpectedRegister() {
         // Then
-        let register = try? Register(bits: "000")
+        let register = try? QuantumRegister(bits: "000")
 
         let elements = [Complex(1), Complex(0), Complex(0), Complex(0),
                         Complex(0), Complex(0), Complex(0), Complex(0)]
         let vector = try! Vector(elements)
-        let expectedRegister = try? Register(vector: vector)
+        let expectedRegister = try? QuantumRegister(vector: vector)
 
         XCTAssertNotNil(register)
         XCTAssertNotNil(expectedRegister)
@@ -82,68 +92,33 @@ class RegisterTests: XCTestCase {
     func testCorrectBitsString_init_returnExpectedRegister() {
         // Then
         let bits = "011"
-        let register = try? Register(bits: bits)
+        let register = try? QuantumRegister(bits: bits)
 
         let elements = [Complex(0), Complex(0), Complex(0), Complex(1),
                         Complex(0), Complex(0), Complex(0), Complex(0)]
         let vector = try! Vector(elements)
-        let expectedRegister = try? Register(vector: vector)
+        let expectedRegister = try? QuantumRegister(vector: vector)
 
         XCTAssertNotNil(register)
         XCTAssertNotNil(expectedRegister)
         XCTAssertEqual(register, expectedRegister)
     }
 
-    func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException() {
+    func testAnyRegister_qubitCount_returnExpectedValue() {
         // Given
-        let register = try! Register(bits: "00")
-
-        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = try! RegisterGate(matrix: matrix)
+        let bits = "000"
+        let register = try! QuantumRegister(bits: bits)
 
         // Then
-        XCTAssertThrowsError(try register.applying(gate))
-    }
-
-    func testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister() {
-        // Given
-        let register = try! Register(bits: "0")
-
-        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = try! RegisterGate(matrix: matrix)
-
-        // When
-        let result = try? register.applying(gate)
-
-        // Then
-        let expectedResult = try! Register(vector: try! Vector([Complex(0), Complex(1)]))
-        XCTAssertEqual(result, expectedResult)
+        XCTAssertEqual(register.qubitCount, bits.count)
     }
 
     func testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne() {
         // Given
-        let register = try! Register(bits: "00")
+        let register = try! QuantumRegister(bits: "00")
 
         // Then
         let expectedVector = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
-        XCTAssertEqual(register.statevector, expectedVector)
-    }
-
-    func testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne() {
-        // Given
-        let qubitCount = 2
-
-        var register = try! Register(bits: String(repeating: "0", count: qubitCount))
-        
-        let notMatrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let factory = try! RegisterGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)
-        let notGate = try! factory.makeGate(inputs: [0])
-
-        // When
-        register = try! register.applying(notGate)
-
-        // Then
-        let expectedVector = try! Vector([Complex(0), Complex(1), Complex(0), Complex(0)])
         XCTAssertEqual(register.statevector, expectedVector)
     }
 
@@ -156,6 +131,8 @@ class RegisterTests: XCTestCase {
          testBitsStringWithTrailingSpaces_init_throwException),
         ("testBitsStringWithWrongCharacter_init_throwException",
          testBitsStringWithWrongCharacter_init_throwException),
+        ("testVectorWhichLengthIsNotPowerOfTwo_init_throwException",
+         testVectorWhichLengthIsNotPowerOfTwo_init_throwException),
         ("testVectorWhichSumOfSquareModulesIsNotOne_init_throwException",
          testVectorWhichSumOfSquareModulesIsNotOne_init_throwException),
         ("testVectorWhichSumOfSquareModulesIsOne_init_returnRegister",
@@ -164,13 +141,9 @@ class RegisterTests: XCTestCase {
          testQubitCountBiggerThanZero_init_returnExpectedRegister),
         ("testCorrectBitsString_init_returnExpectedRegister",
          testCorrectBitsString_init_returnExpectedRegister),
-        ("testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException",
-         testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException),
-        ("testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister",
-         testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister),
+        ("testAnyRegister_qubitCount_returnExpectedValue",
+         testAnyRegister_qubitCount_returnExpectedValue),
         ("testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne",
-         testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne),
-        ("testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne",
-         testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne)
+         testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne)
     ]
 }

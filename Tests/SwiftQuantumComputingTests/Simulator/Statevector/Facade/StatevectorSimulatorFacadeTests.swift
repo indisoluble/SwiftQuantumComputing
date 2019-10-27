@@ -29,33 +29,30 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
     // MARK: - Properties
 
     let registerFactory = StatevectorRegisterFactoryTestDouble()
-    let gateFactory = StatevectorRegisterGateFactoryTestDouble()
     let inputBits = "000"
     let register = StatevectorRegisterTestDouble()
-    let firstGate = StatevectorGateTestDouble()
-    let secondGate = StatevectorGateTestDouble()
-    let thirdGate = StatevectorGateTestDouble()
-    let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
-                              [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
+    let firstGate = SimulatorGateTestDouble()
+    let firstRegister = StatevectorRegisterTestDouble()
+    let secondGate = SimulatorGateTestDouble()
+    let secondRegister = StatevectorRegisterTestDouble()
+    let thirdGate = SimulatorGateTestDouble()
+    let thirdRegister = StatevectorRegisterTestDouble()
     let statevector = try! Vector([Complex(0.1), Complex(0.9)])
 
     // MARK: - Tests
 
     func testRegisterFactoryThrowsError_statevector_throwError() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
-                                                   gateFactory: gateFactory)
+        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         // Then
         XCTAssertThrowsError(try simulator.statevector(afterInputting: inputBits, in: [firstGate]))
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 0)
     }
 
     func testRegisterFactoryReturnsRegisterAndEmptyCircuit_statevector_applyStatevectorOnInitialRegister() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
-                                                   gateFactory: gateFactory)
+        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
         register.statevectorResult = statevector
@@ -65,165 +62,129 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
+        XCTAssertEqual(register.applyingCount, 0)
         XCTAssertEqual(register.statevectorCount, 1)
         XCTAssertEqual(result, statevector)
     }
 
-    func testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_statevector_applyStatevectorOnInitialRegister() {
+    func testRegisterFactoryReturnsRegisterAndRegisterThrowsError_statevector_throwError() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
-                                                   gateFactory: gateFactory)
+        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
-        register.statevectorResult = statevector
-
-        // When
-        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
 
         // Then
+        XCTAssertThrowsError(try simulator.statevector(afterInputting: inputBits, in: [firstGate]))
+
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(firstGate.extractCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 0)
-        XCTAssertEqual(register.applyingCount, 0)
+        XCTAssertEqual(register.applyingCount, 1)
+        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastApplyingGate === firstGate)
+        } else {
+            XCTAssert(false)
+        }
         XCTAssertEqual(register.statevectorCount, 0)
-        XCTAssertNil(result)
     }
 
-    func testRegisterFactoryReturnsRegisterAndOneGate_statevector_applyStatevectorOnExpectedRegister() {
+    func testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_statevector_applyStatevectorOnExpectedRegister() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
-                                                   gateFactory: gateFactory)
+        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
-
-        let registerGate = try! RegisterGate(matrix: matrix)
-        gateFactory.makeGateResult = registerGate
-
-        let nextRegister = StatevectorRegisterTestDouble()
-        register.applyingResult = nextRegister
-
-        nextRegister.statevectorResult = statevector
-
-        let inputs = [0, 2]
-        firstGate.extractMatrixResult = matrix
-        firstGate.extractInputsResult = inputs
+        register.applyingResult = firstRegister
+        firstRegister.statevectorResult = statevector
 
         // When
         let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(firstGate.extractCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateMatrix, matrix)
-        XCTAssertEqual(gateFactory.lastMakeGateInputs, inputs)
         XCTAssertEqual(register.applyingCount, 1)
-        XCTAssertEqual(register.lastApplyingGate, registerGate)
-        XCTAssertEqual(nextRegister.statevectorCount, 1)
+        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastApplyingGate === firstGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(firstRegister.applyingCount, 0)
+        XCTAssertEqual(firstRegister.statevectorCount, 1)
         XCTAssertEqual(result, statevector)
     }
 
-    func testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_statevector_returnNil() {
+    func testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_statevector_throwError() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
-                                                   gateFactory: gateFactory)
+        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
-
-        firstGate.extractMatrixResult = nil
-        firstGate.extractInputsResult = [0, 2]
-
-        // When
-        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
+        register.applyingResult = firstRegister
+        firstRegister.applyingResult = secondRegister
 
         // Then
+        XCTAssertThrowsError(try simulator.statevector(afterInputting: inputBits,
+                                                       in: [firstGate, secondGate, thirdGate]))
+
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(firstGate.extractCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 0)
-        XCTAssertEqual(register.applyingCount, 0)
-        XCTAssertNil(result)
-    }
-
-    func testGateFactoryReturnsNilAndOneGate_statevector_returnNil() {
-        // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
-                                                   gateFactory: gateFactory)
-
-        registerFactory.makeRegisterResult = register
-
-        gateFactory.makeGateResult = nil
-
-        let inputs = [0, 2]
-        firstGate.extractMatrixResult = matrix
-        firstGate.extractInputsResult = inputs
-
-        // When
-        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
-
-        // Then
-        XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(firstGate.extractCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateMatrix, matrix)
-        XCTAssertEqual(gateFactory.lastMakeGateInputs, inputs)
-        XCTAssertEqual(register.applyingCount, 0)
-        XCTAssertNil(result)
-    }
-
-    func testRegisterReturnsNilAndOneGate_statevector_returnNil() {
-        // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
-                                                   gateFactory: gateFactory)
-
-        registerFactory.makeRegisterResult = register
-
-        let registerGate = try! RegisterGate(matrix: matrix)
-        gateFactory.makeGateResult = registerGate
-
-        register.applyingResult = nil
-
-        let inputs = [0, 2]
-        firstGate.extractMatrixResult = matrix
-        firstGate.extractInputsResult = inputs
-
-        // When
-        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
-
-        // Then
-        XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(firstGate.extractCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateMatrix, matrix)
-        XCTAssertEqual(gateFactory.lastMakeGateInputs, inputs)
         XCTAssertEqual(register.applyingCount, 1)
-        XCTAssertEqual(register.lastApplyingGate, registerGate)
-        XCTAssertNil(result)
+        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastApplyingGate === firstGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(firstRegister.applyingCount, 1)
+        if let lastApplyingGate = firstRegister.lastApplyingGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastApplyingGate === secondGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(secondRegister.applyingCount, 1)
+        if let lastApplyingGate = secondRegister.lastApplyingGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastApplyingGate === thirdGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(register.statevectorCount, 0)
+        XCTAssertEqual(firstRegister.statevectorCount, 0)
+        XCTAssertEqual(secondRegister.statevectorCount, 0)
     }
 
-    func testGateFactoryReturnsNilAndThreeGates_statevector_secondAndThirdGatesAreNotUsed() {
+    func testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_statevector_applyStatevectorOnExpectedRegister() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
-                                                   gateFactory: gateFactory)
+        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
-
-        gateFactory.makeGateResult = nil
-
-        let inputs = [0, 2]
-        firstGate.extractMatrixResult = matrix
-        firstGate.extractInputsResult = inputs
+        register.applyingResult = firstRegister
+        firstRegister.applyingResult = secondRegister
+        secondRegister.applyingResult = thirdRegister
+        thirdRegister.statevectorResult = statevector
 
         // When
-        _ = try? simulator.statevector(afterInputting: inputBits,
-                                       in: [firstGate, secondGate, thirdGate])
+        let result = try? simulator.statevector(afterInputting: inputBits,
+                                                in: [firstGate, secondGate, thirdGate])
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(firstGate.extractCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(secondGate.extractCount, 0)
-        XCTAssertEqual(thirdGate.extractCount, 0)
-        XCTAssertEqual(register.applyingCount, 0)
+        XCTAssertEqual(register.applyingCount, 1)
+        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastApplyingGate === firstGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(firstRegister.applyingCount, 1)
+        if let lastApplyingGate = firstRegister.lastApplyingGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastApplyingGate === secondGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(secondRegister.applyingCount, 1)
+        if let lastApplyingGate = secondRegister.lastApplyingGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastApplyingGate === thirdGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(register.statevectorCount, 0)
+        XCTAssertEqual(firstRegister.statevectorCount, 0)
+        XCTAssertEqual(secondRegister.statevectorCount, 0)
+        XCTAssertEqual(thirdRegister.statevectorCount, 1)
+        XCTAssertEqual(result, statevector)
     }
 
     static var allTests = [
@@ -231,17 +192,13 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
          testRegisterFactoryThrowsError_statevector_throwError),
         ("testRegisterFactoryReturnsRegisterAndEmptyCircuit_statevector_applyStatevectorOnInitialRegister",
          testRegisterFactoryReturnsRegisterAndEmptyCircuit_statevector_applyStatevectorOnInitialRegister),
-        ("testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_statevector_applyStatevectorOnInitialRegister",
-         testRegisterFactoryReturnsRegisterAndOneGateUnableToExtractMatrix_statevector_applyStatevectorOnInitialRegister),
-        ("testRegisterFactoryReturnsRegisterAndOneGate_statevector_applyStatevectorOnExpectedRegister",
-         testRegisterFactoryReturnsRegisterAndOneGate_statevector_applyStatevectorOnExpectedRegister),
-        ("testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_statevector_returnNil",
-         testRegisterFactoryReturnsRegisterAndGateReturnsMatrixToNil_statevector_returnNil),
-        ("testGateFactoryReturnsNilAndOneGate_statevector_returnNil",
-         testGateFactoryReturnsNilAndOneGate_statevector_returnNil),
-        ("testRegisterReturnsNilAndOneGate_statevector_returnNil",
-         testRegisterReturnsNilAndOneGate_statevector_returnNil),
-        ("testGateFactoryReturnsNilAndThreeGates_statevector_secondAndThirdGatesAreNotUsed",
-         testGateFactoryReturnsNilAndThreeGates_statevector_secondAndThirdGatesAreNotUsed)
+        ("testRegisterFactoryReturnsRegisterAndRegisterThrowsError_statevector_throwError",
+         testRegisterFactoryReturnsRegisterAndRegisterThrowsError_statevector_throwError),
+        ("testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_statevector_applyStatevectorOnExpectedRegister",
+         testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_statevector_applyStatevectorOnExpectedRegister),
+        ("testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_statevector_throwError",
+         testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_statevector_throwError),
+        ("testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_statevector_applyStatevectorOnExpectedRegister",
+         testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_statevector_applyStatevectorOnExpectedRegister)
     ]
 }

@@ -32,12 +32,17 @@ public struct MainCircuitFactory {
 // MARK: - CircuitFactory methods
 
 extension MainCircuitFactory: CircuitFactory {
-    public func makeCircuit(qubitCount: Int, gates: [FixedGate]) -> Circuit {
-        let registerFactory = StatevectorRegisterFactoryAdapter()
-        let gateFactory = StatevectorRegisterGateFactoryAdapter(qubitCount: qubitCount)
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
-                                                   gateFactory: gateFactory)
+    public func makeCircuit(gates: [FixedGate]) -> Circuit {
+        let gateFactory = SimulatorQuantumGateFactoryAdapter()
 
-        return CircuitFacade(gates: gates, statevectorSimulator: simulator)
+        let unitaryGateFactory = UnitaryGateFactoryAdapter(gateFactory: gateFactory)
+        let unitarySimulator = UnitarySimulatorFacade(gateFactory: unitaryGateFactory)
+
+        let statevectorRegisterFactory = StatevectorRegisterFactoryAdapter(gateFactory: gateFactory)
+        let statevectorSimulator = StatevectorSimulatorFacade(registerFactory: statevectorRegisterFactory)
+
+        return CircuitFacade(gates: gates,
+                             unitarySimulator: unitarySimulator,
+                             statevectorSimulator: statevectorSimulator)
     }
 }

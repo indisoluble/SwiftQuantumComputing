@@ -1,9 +1,9 @@
 //
-//  StatevectorRegisterFactoryAdapter.swift
+//  UnitaryGateFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 17/10/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct StatevectorRegisterFactoryAdapter {
+struct UnitaryGateFactoryAdapter {
 
     // MARK: - Private properties
 
@@ -35,17 +35,16 @@ struct StatevectorRegisterFactoryAdapter {
     }
 }
 
-// MARK: - StatevectorRegisterFactory methods
+// MARK: - UnitaryGateFactory methods
 
-extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
-    func makeRegister(bits: String) throws -> StatevectorRegister {
-        var register: QuantumRegister!
-        do {
-            register = try QuantumRegister(bits: bits)
-        } catch QuantumRegister.InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
-            throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
-        }
+extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
+    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) throws -> UnitaryGate {
+        let components = try simulatorGate.extract()
 
-        return StatevectorRegisterAdapter(register: register, gateFactory: gateFactory)
+        let quantumGate = try gateFactory.makeGate(qubitCount: qubitCount,
+                                                   matrix: components.matrix,
+                                                   inputs: components.inputs)
+
+        return UnitaryGateAdapter(quantumGate: quantumGate, gateFactory: gateFactory)
     }
 }

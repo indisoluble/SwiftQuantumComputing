@@ -1,8 +1,8 @@
 //
-//  CircuitFactoryTestDouble.swift
+//  Matrix+ElementsTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/02/2019.
+//  Created by Enrique de la Torre on 27/10/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,29 +18,31 @@
 // limitations under the License.
 //
 
-import Foundation
+import XCTest
 
 @testable import SwiftQuantumComputing
 
 // MARK: - Main body
 
-final class CircuitFactoryTestDouble {
+class Matrix_ElementsTests: XCTestCase {
 
-    // MARK: - Internal properties
+    // MARK: - Tests
 
-    private (set) var makeCircuitCount = 0
-    private (set) var lastMakeCircuitGates: [FixedGate]?
-    var makeCircuitResult = CircuitTestDouble()
-}
+    func testAnyMatrix_elements_returnExpectedArray() {
+        // Given
+        let expectedElements = [
+            [Complex(1), Complex(0), Complex(0)],
+            [Complex(0), Complex(1), Complex(0)],
+            [Complex(0), Complex(0), Complex(1)]
+        ]
 
-// MARK: - CircuitFactory methods
+        let matrix = try! Matrix(expectedElements)
 
-extension CircuitFactoryTestDouble: CircuitFactory {
-    func makeCircuit(gates: [FixedGate]) -> Circuit {
-        makeCircuitCount += 1
-
-        lastMakeCircuitGates = gates
-
-        return makeCircuitResult
+        // Then
+        XCTAssertEqual(matrix.elements(), expectedElements)
     }
+
+    static var allTests = [
+        ("testAnyMatrix_elements_returnExpectedArray", testAnyMatrix_elements_returnExpectedArray)
+    ]
 }

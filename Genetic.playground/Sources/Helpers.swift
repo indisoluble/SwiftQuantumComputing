@@ -39,8 +39,7 @@ public func drawCircuit(with evolvedGates: [FixedGate], useCase: GeneticUseCase)
 
 public func probabilities(in evolvedGates: [FixedGate],
                           useCase: GeneticUseCase) -> [String: Double] {
-    let circuit = MainCircuitFactory().makeCircuit(qubitCount: useCase.circuit.qubitCount,
-                                                   gates: evolvedGates)
+    let circuit = MainCircuitFactory().makeCircuit(gates: evolvedGates)
 
     return try! circuit.summarizedProbabilities(afterInputting: useCase.circuit.input)
 }

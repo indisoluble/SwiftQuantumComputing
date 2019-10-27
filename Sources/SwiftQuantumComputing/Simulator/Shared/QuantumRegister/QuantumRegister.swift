@@ -1,5 +1,5 @@
 //
-//  Register.swift
+//  QuantumRegister.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 10/08/2018.
@@ -22,11 +22,15 @@ import Foundation
 
 // MARK: - Main body
 
-struct Register {
+struct QuantumRegister {
 
-    // MARK: - StatevectorRegister properties
+    // MARK: - Internal properties
 
     let statevector: Vector
+
+    var qubitCount: Int {
+        return Int.log2(statevector.count)
+    }
 
     // MARK: - Internal init methods
 
@@ -39,15 +43,20 @@ struct Register {
             throw InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
 
-        try! self.init(vector: Register.makeState(value: value, qubitCount: bits.count))
+        try! self.init(vector: QuantumRegister.makeState(value: value, qubitCount: bits.count))
     }
 
     enum InitVectorError: Error {
+        case vectorCountHasToBeAPowerOfTwo
         case additionOfSquareModulusIsNotEqualToOne
     }
 
     init(vector: Vector) throws {
-        guard Register.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
+        guard vector.count.isPowerOfTwo else {
+            throw InitVectorError.vectorCountHasToBeAPowerOfTwo
+        }
+
+        guard QuantumRegister.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
             throw InitVectorError.additionOfSquareModulusIsNotEqualToOne
         }
 
@@ -57,7 +66,7 @@ struct Register {
 
 // MARK: - CustomStringConvertible methods
 
-extension Register: CustomStringConvertible {
+extension QuantumRegister: CustomStringConvertible {
     var description: String {
         return statevector.description
     }
@@ -65,36 +74,15 @@ extension Register: CustomStringConvertible {
 
 // MARK: - Equatable methods
 
-extension Register: Equatable {
-    static func ==(lhs: Register, rhs: Register) -> Bool {
+extension QuantumRegister: Equatable {
+    static func ==(lhs: QuantumRegister, rhs: QuantumRegister) -> Bool {
         return (lhs.statevector == rhs.statevector)
-    }
-}
-
-// MARK: - StatevectorRegister methods
-
-extension Register: StatevectorRegister {
-    func applying(_ gate: RegisterGate) throws -> Register {
-        var nextVector: Vector!
-        do {
-            nextVector = try gate.apply(to: statevector)
-        } catch RegisterGate.ApplyError.vectorCountDoesNotMatchGateMatrixColumnCount {
-            throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        do {
-            return try Register(vector: nextVector)
-        } catch Register.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
-            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGate
-        }
     }
 }
 
 // MARK: - Private body
 
-private extension Register {
+private extension QuantumRegister {
 
     // MARK: - Constants
 
