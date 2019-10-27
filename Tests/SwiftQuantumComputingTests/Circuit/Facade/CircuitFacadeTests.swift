@@ -29,14 +29,18 @@ class CircuitFacadeTests: XCTestCase {
     // MARK: - Properties
 
     let bits = "01"
+    let qubitCount = 2
     let gates = [FixedGate.hadamard(target: 0), FixedGate.not(target: 0)]
+    let unitarySimulator = UnitarySimulatorTestDouble()
     let statevectorSimulator = StatevectorSimulatorTestDouble()
 
     // MARK: - Tests
 
     func testAnyCircuit_statevector_forwardCallToStatevectorSimulator() {
         // Given
-        let facade = CircuitFacade(gates: gates, statevectorSimulator: statevectorSimulator)
+        let facade = CircuitFacade(gates: gates,
+                                   unitarySimulator: unitarySimulator,
+                                   statevectorSimulator: statevectorSimulator)
 
         let expectedResult = [Complex(0), Complex(1)]
         statevectorSimulator.statevectorResult = try! Vector(expectedResult)
@@ -54,8 +58,32 @@ class CircuitFacadeTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
+    func testAnyCircuit_unitary_forwardCallToUnitarySimulator() {
+        // Given
+        let facade = CircuitFacade(gates: gates,
+                                   unitarySimulator: unitarySimulator,
+                                   statevectorSimulator: statevectorSimulator)
+
+        let expectedResult = [[Complex(0), Complex(1)], [Complex(1), Complex(0)]]
+        unitarySimulator.unitaryResult = try! Matrix(expectedResult)
+
+        // When
+        let result = try? facade.unitary(usingQubitCount: qubitCount)
+
+        // Then
+        let lastUnitaryQubitCount = unitarySimulator.lastUnitaryQubitCount
+        let lastUnitaryGates = unitarySimulator.lastUnitaryCircuit as? [FixedGate]
+
+        XCTAssertEqual(unitarySimulator.unitaryCount, 1)
+        XCTAssertEqual(lastUnitaryQubitCount, qubitCount)
+        XCTAssertEqual(lastUnitaryGates, gates)
+        XCTAssertEqual(result, expectedResult)
+    }
+
     static var allTests = [
         ("testAnyCircuit_statevector_forwardCallToStatevectorSimulator",
-         testAnyCircuit_statevector_forwardCallToStatevectorSimulator)
+         testAnyCircuit_statevector_forwardCallToStatevectorSimulator),
+        ("testAnyCircuit_unitary_forwardCallToUnitarySimulator",
+         testAnyCircuit_unitary_forwardCallToUnitarySimulator)
     ]
 }
