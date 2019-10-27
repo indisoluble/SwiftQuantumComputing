@@ -721,6 +721,7 @@
 		FFD05D762365F9B700872BBA /* Matrix+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Elements.swift"; sourceTree = "<group>"; };
 		FFD05D792365FEE200872BBA /* Matrix+ElementsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+ElementsTests.swift"; sourceTree = "<group>"; };
 		FFD05D7C23660CC500872BBA /* UnitarySimulatorTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitarySimulatorTestDouble.swift; sourceTree = "<group>"; };
+		FFD05D7F236614C900872BBA /* Unitary.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Unitary.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FFDC34E121C1BCBD0052AC90 /* StatevectorSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorSimulator.swift; sourceTree = "<group>"; };
 		FFDDFE822359085500683CF9 /* UnitaryGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitaryGate.swift; sourceTree = "<group>"; };
 		FFDDFE852359099000683CF9 /* UnitaryGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitaryGateFactory.swift; sourceTree = "<group>"; };
@@ -1119,6 +1120,7 @@
 				FF43848422B56C2200319473 /* Package.swift */,
 				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
 				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
+				FFD05D7F236614C900872BBA /* Unitary.playground */,
 			);
 			sourceTree = "<group>";
 		};
