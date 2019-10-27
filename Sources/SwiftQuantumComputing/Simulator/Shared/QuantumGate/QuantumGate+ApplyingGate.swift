@@ -1,5 +1,5 @@
 //
-//  RegisterGate+ApplyingGate.swift
+//  QuantumGate+ApplyingGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 18/10/2019.
@@ -20,8 +20,8 @@
 
 import Foundation
 
-extension RegisterGate {
-    func applying(_ gate: RegisterGate) throws -> RegisterGate {
+extension QuantumGate {
+    func applying(_ gate: QuantumGate) throws -> QuantumGate {
         var nextMatrix: Matrix!
         do {
             nextMatrix = try gate.matrix * matrix
@@ -32,7 +32,7 @@ extension RegisterGate {
         }
 
         do {
-            return try RegisterGate(matrix: nextMatrix)
+            return try QuantumGate(matrix: nextMatrix)
         } catch GateError.gateMatrixIsNotUnitary {
             throw GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
         } catch {

@@ -1,8 +1,8 @@
 //
-//  StatevectorRegisterGateFactory.swift
+//  SimulatorQuantumGateFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/12/2018.
+//  Created by Enrique de la Torre on 22/08/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,16 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol StatevectorRegisterGateFactory {
-    func makeGate(qubitCount: Int, matrix: Matrix, inputs: [Int]) throws -> RegisterGate
+struct SimulatorQuantumGateFactoryAdapter {}
+
+// MARK: - SimulatorQuantumGateFactory methods
+
+extension SimulatorQuantumGateFactoryAdapter: SimulatorQuantumGateFactory {
+    func makeGate(qubitCount: Int, matrix: Matrix, inputs: [Int]) throws -> QuantumGate {
+        let factory = try QuantumGateFactory(qubitCount: qubitCount, baseMatrix: matrix)
+
+        return try factory.makeGate(inputs: inputs)
+    }
 }

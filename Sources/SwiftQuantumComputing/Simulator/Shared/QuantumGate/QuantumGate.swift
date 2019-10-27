@@ -1,5 +1,5 @@
 //
-//  RegisterGate.swift
+//  QuantumGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 11/08/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct RegisterGate {
+struct QuantumGate {
 
     // MARK: - Internal properties
 
@@ -45,15 +45,15 @@ struct RegisterGate {
 
 // MARK: - Equatable methods
 
-extension RegisterGate: Equatable {
-    static func ==(lhs: RegisterGate, rhs: RegisterGate) -> Bool {
+extension QuantumGate: Equatable {
+    static func ==(lhs: QuantumGate, rhs: QuantumGate) -> Bool {
         return (lhs.matrix == rhs.matrix)
     }
 }
 
 // MARK: - Private body
 
-private extension RegisterGate {
+private extension QuantumGate {
 
     // MARK: - Constants
 

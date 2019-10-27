@@ -28,7 +28,7 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let gateFactory = StatevectorRegisterGateFactoryTestDouble()
+    let gateFactory = SimulatorQuantumGateFactoryTestDouble()
     let qubitCount = 1
     let simulatorGate = SimulatorGateTestDouble()
     let matrix = Matrix.makeNot()
@@ -72,7 +72,7 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         simulatorGate.extractInputsResult = inputs
         simulatorGate.extractMatrixResult = matrix
 
-        gateFactory.makeGateResult = try! RegisterGate(matrix: Matrix.makeNot())
+        gateFactory.makeGateResult = try! QuantumGate(matrix: Matrix.makeNot())
 
         // When
         let result = try? adapter.makeGate(qubitCount: qubitCount, simulatorGate: simulatorGate)

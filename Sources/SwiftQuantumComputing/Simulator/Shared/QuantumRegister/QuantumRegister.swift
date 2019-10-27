@@ -1,5 +1,5 @@
 //
-//  Register.swift
+//  QuantumRegister.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 10/08/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct Register {
+struct QuantumRegister {
 
     // MARK: - Internal properties
 
@@ -43,7 +43,7 @@ struct Register {
             throw InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
 
-        try! self.init(vector: Register.makeState(value: value, qubitCount: bits.count))
+        try! self.init(vector: QuantumRegister.makeState(value: value, qubitCount: bits.count))
     }
 
     enum InitVectorError: Error {
@@ -56,7 +56,7 @@ struct Register {
             throw InitVectorError.vectorCountHasToBeAPowerOfTwo
         }
 
-        guard Register.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
+        guard QuantumRegister.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
             throw InitVectorError.additionOfSquareModulusIsNotEqualToOne
         }
 
@@ -66,7 +66,7 @@ struct Register {
 
 // MARK: - CustomStringConvertible methods
 
-extension Register: CustomStringConvertible {
+extension QuantumRegister: CustomStringConvertible {
     var description: String {
         return statevector.description
     }
@@ -74,15 +74,15 @@ extension Register: CustomStringConvertible {
 
 // MARK: - Equatable methods
 
-extension Register: Equatable {
-    static func ==(lhs: Register, rhs: Register) -> Bool {
+extension QuantumRegister: Equatable {
+    static func ==(lhs: QuantumRegister, rhs: QuantumRegister) -> Bool {
         return (lhs.statevector == rhs.statevector)
     }
 }
 
 // MARK: - Private body
 
-private extension Register {
+private extension QuantumRegister {
 
     // MARK: - Constants
 

@@ -28,8 +28,8 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let registerGate = try! RegisterGate(matrix: Matrix.makeHadamard())
-    let gateFactory = StatevectorRegisterGateFactoryTestDouble()
+    let quantumGate = try! QuantumGate(matrix: Matrix.makeHadamard())
+    let gateFactory = SimulatorQuantumGateFactoryTestDouble()
     let simulatorGate = SimulatorGateTestDouble()
     let matrix = Matrix.makeNot()
     let inputs = [0]
@@ -38,7 +38,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testSimulatorGateThatThrowsError_applying_throwError() {
         // Given
-        let adapter = UnitaryGateAdapter(registerGate: registerGate, gateFactory: gateFactory)
+        let adapter = UnitaryGateAdapter(quantumGate: quantumGate, gateFactory: gateFactory)
 
         // Then
         XCTAssertThrowsError(try adapter.applying(simulatorGate))
@@ -48,7 +48,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testGateFactoryThatThrowsError_applying_throwError() {
         // Given
-        let adapter = UnitaryGateAdapter(registerGate: registerGate, gateFactory: gateFactory)
+        let adapter = UnitaryGateAdapter(quantumGate: quantumGate, gateFactory: gateFactory)
 
         simulatorGate.extractInputsResult = inputs
         simulatorGate.extractMatrixResult = matrix
@@ -57,19 +57,19 @@ class UnitaryGateAdapterTests: XCTestCase {
         XCTAssertThrowsError(try adapter.applying(simulatorGate))
         XCTAssertEqual(simulatorGate.extractCount, 1)
         XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, registerGate.qubitCount)
+        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, quantumGate.qubitCount)
         XCTAssertEqual(gateFactory.lastMakeGateMatrix, matrix)
         XCTAssertEqual(gateFactory.lastMakeGateInputs, inputs)
     }
 
     func testGateFactoryReturnsGate_applying_returnValue() {
         // Given
-        let adapter = UnitaryGateAdapter(registerGate: registerGate, gateFactory: gateFactory)
+        let adapter = UnitaryGateAdapter(quantumGate: quantumGate, gateFactory: gateFactory)
 
         simulatorGate.extractInputsResult = inputs
         simulatorGate.extractMatrixResult = matrix
 
-        gateFactory.makeGateResult = try! RegisterGate(matrix: Matrix.makeNot())
+        gateFactory.makeGateResult = try! QuantumGate(matrix: Matrix.makeNot())
 
         // When
         let result = try? adapter.applying(simulatorGate)
@@ -77,7 +77,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         // Then
         XCTAssertEqual(simulatorGate.extractCount, 1)
         XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, registerGate.qubitCount)
+        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, quantumGate.qubitCount)
         XCTAssertEqual(gateFactory.lastMakeGateMatrix, matrix)
         XCTAssertEqual(gateFactory.lastMakeGateInputs, inputs)
 

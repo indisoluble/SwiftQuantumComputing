@@ -1,5 +1,5 @@
 //
-//  RegisterGate+ApplyingGateTests.swift
+//  QuantumGate+ApplyingGateTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 20/10/2019.
@@ -24,26 +24,26 @@ import XCTest
 
 // MARK: - Main body
 
-class RegisterGate_ApplyingGateTests: XCTestCase {
+class QuantumGate_ApplyingGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyRegisterGateAndInputRegisterGateWithDifferentQubitCount_applying_throwError() {
+    func testAnyGateAndInputGateWithDifferentQubitCount_applying_throwError() {
         // Given
         let firstMatrix = try! Matrix.makeIdentity(count: 1)
-        let firstGate = try! RegisterGate(matrix: firstMatrix)
+        let firstGate = try! QuantumGate(matrix: firstMatrix)
 
         let secondMatrix = try! Matrix.makeIdentity(count: 2)
-        let secondGate = try! RegisterGate(matrix: secondMatrix)
+        let secondGate = try! QuantumGate(matrix: secondMatrix)
 
         // Then
         XCTAssertThrowsError(try firstGate.applying(secondGate))
     }
 
-    func testTwoRegisterGates_applying_returnExpectedRegisterGate() {
+    func testTwoGates_applying_returnExpectedGate() {
         // Given
-        let gate = try! RegisterGate(matrix: Matrix.makeNot())
-        let otherGate = try! RegisterGate(matrix: Matrix.makeHadamard())
+        let gate = try! QuantumGate(matrix: Matrix.makeNot())
+        let otherGate = try! QuantumGate(matrix: Matrix.makeHadamard())
 
         // When
         let result = try! gate.applying(otherGate)
@@ -51,15 +51,15 @@ class RegisterGate_ApplyingGateTests: XCTestCase {
         // Then
         let expectedMatrix = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex(1), Complex(1)],
                                                                    [Complex(-1), Complex(1)]])))
-        let expectedResult = try! RegisterGate(matrix: expectedMatrix)
+        let expectedResult = try! QuantumGate(matrix: expectedMatrix)
 
         XCTAssertEqual(result, expectedResult)
     }
 
-    func testTwoRegisterGates_applyingInDifferentOrder_returnExpectedRegisterGate() {
+    func testTwoGates_applyingInDifferentOrder_returnExpectedGate() {
         // Given
-        let gate = try! RegisterGate(matrix: Matrix.makeNot())
-        let otherGate = try! RegisterGate(matrix: Matrix.makeHadamard())
+        let gate = try! QuantumGate(matrix: Matrix.makeNot())
+        let otherGate = try! QuantumGate(matrix: Matrix.makeHadamard())
 
         // When
         let result = try! otherGate.applying(gate)
@@ -67,17 +67,17 @@ class RegisterGate_ApplyingGateTests: XCTestCase {
         // Then
         let expectedMatrix = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex(1), Complex(-1)],
                                                                    [Complex(1), Complex(1)]])))
-        let expectedResult = try! RegisterGate(matrix: expectedMatrix)
+        let expectedResult = try! QuantumGate(matrix: expectedMatrix)
 
         XCTAssertEqual(result, expectedResult)
     }
 
     static var allTests = [
-        ("testAnyRegisterGateAndInputRegisterGateWithDifferentQubitCount_applying_throwError",
-         testAnyRegisterGateAndInputRegisterGateWithDifferentQubitCount_applying_throwError),
-        ("testTwoRegisterGates_applying_returnExpectedRegisterGate",
-         testTwoRegisterGates_applying_returnExpectedRegisterGate),
-        ("testTwoRegisterGates_applyingInDifferentOrder_returnExpectedRegisterGate",
-         testTwoRegisterGates_applyingInDifferentOrder_returnExpectedRegisterGate)
+        ("testAnyGateAndInputGateWithDifferentQubitCount_applying_throwError",
+         testAnyGateAndInputGateWithDifferentQubitCount_applying_throwError),
+        ("testTwoGates_applying_returnExpectedGate",
+         testTwoGates_applying_returnExpectedGate),
+        ("testTwoGates_applyingInDifferentOrder_returnExpectedGate",
+         testTwoGates_applyingInDifferentOrder_returnExpectedGate)
     ]
 }

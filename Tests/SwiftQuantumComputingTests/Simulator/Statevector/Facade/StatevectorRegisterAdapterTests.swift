@@ -28,12 +28,12 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let register = try! Register(bits: "0")
-    let gateFactory = StatevectorRegisterGateFactoryTestDouble()
+    let register = try! QuantumRegister(bits: "0")
+    let gateFactory = SimulatorQuantumGateFactoryTestDouble()
     let gate = SimulatorGateTestDouble()
     let matrix = Matrix.makeNot()
     let inputs = [0]
-    let registerGate = try! RegisterGate(matrix: Matrix.makeNot())
+    let quantumGate = try! QuantumGate(matrix: Matrix.makeNot())
 
     // MARK: - Tests
 
@@ -70,7 +70,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         gate.extractInputsResult = inputs
         gate.extractMatrixResult = matrix
 
-        gateFactory.makeGateResult = registerGate
+        gateFactory.makeGateResult = quantumGate
 
         // When
         let result = try? adapter.applying(gate)

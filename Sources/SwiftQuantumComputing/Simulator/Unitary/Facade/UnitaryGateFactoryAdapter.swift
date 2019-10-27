@@ -26,11 +26,11 @@ struct UnitaryGateFactoryAdapter {
 
     // MARK: - Private properties
 
-    private let gateFactory: StatevectorRegisterGateFactory
+    private let gateFactory: SimulatorQuantumGateFactory
 
     // MARK: - Internal init methods
 
-    init(gateFactory: StatevectorRegisterGateFactory) {
+    init(gateFactory: SimulatorQuantumGateFactory) {
         self.gateFactory = gateFactory
     }
 }
@@ -41,10 +41,10 @@ extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
     func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) throws -> UnitaryGate {
         let components = try simulatorGate.extract()
 
-        let registerGate = try gateFactory.makeGate(qubitCount: qubitCount,
-                                                    matrix: components.matrix,
-                                                    inputs: components.inputs)
+        let quantumGate = try gateFactory.makeGate(qubitCount: qubitCount,
+                                                   matrix: components.matrix,
+                                                   inputs: components.inputs)
 
-        return UnitaryGateAdapter(registerGate: registerGate, gateFactory: gateFactory)
+        return UnitaryGateAdapter(quantumGate: quantumGate, gateFactory: gateFactory)
     }
 }

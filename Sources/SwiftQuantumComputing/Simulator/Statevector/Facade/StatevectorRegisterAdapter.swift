@@ -32,12 +32,12 @@ struct StatevectorRegisterAdapter {
 
     // MARK: - Private properties
 
-    private let register: Register
-    private let gateFactory: StatevectorRegisterGateFactory
+    private let register: QuantumRegister
+    private let gateFactory: SimulatorQuantumGateFactory
 
     // MARK: - Internal init methods
 
-    init(register: Register, gateFactory: StatevectorRegisterGateFactory) {
+    init(register: QuantumRegister, gateFactory: SimulatorQuantumGateFactory) {
         self.register = register
         self.gateFactory = gateFactory
     }

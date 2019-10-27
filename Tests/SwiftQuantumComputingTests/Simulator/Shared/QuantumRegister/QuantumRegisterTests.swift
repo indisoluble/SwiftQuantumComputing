@@ -1,5 +1,5 @@
 //
-//  RegisterTests.swift
+//  QuantumRegisterTests.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 10/08/2018.
@@ -24,28 +24,28 @@ import XCTest
 
 // MARK: - Main body
 
-class RegisterTests: XCTestCase {
+class QuantumRegisterTests: XCTestCase {
 
     // MARK: - Tests
 
     func testEmptyBitsString_init_throwException() {
         // Then
-        XCTAssertThrowsError(try Register(bits: ""))
+        XCTAssertThrowsError(try QuantumRegister(bits: ""))
     }
 
     func testBitsStringWithLeadingSpaces_init_throwException() {
         // Then
-        XCTAssertThrowsError(try Register(bits: "  1001"))
+        XCTAssertThrowsError(try QuantumRegister(bits: "  1001"))
     }
 
     func testBitsStringWithTrailingSpaces_init_throwException() {
         // Then
-        XCTAssertThrowsError(try Register(bits: "1001  "))
+        XCTAssertThrowsError(try QuantumRegister(bits: "1001  "))
     }
 
     func testBitsStringWithWrongCharacter_init_throwException() {
         // Then
-        XCTAssertThrowsError(try Register(bits: "10#1"))
+        XCTAssertThrowsError(try QuantumRegister(bits: "10#1"))
     }
 
     func testVectorWhichLengthIsNotPowerOfTwo_init_throwException() {
@@ -55,7 +55,7 @@ class RegisterTests: XCTestCase {
                                   Complex(real: 0, imag: 0)])
 
         // Then
-        XCTAssertThrowsError(try Register(vector: vector))
+        XCTAssertThrowsError(try QuantumRegister(vector: vector))
     }
 
     func testVectorWhichSumOfSquareModulesIsNotOne_init_throwException() {
@@ -63,7 +63,7 @@ class RegisterTests: XCTestCase {
         let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
 
         // Then
-        XCTAssertThrowsError(try Register(vector: vector))
+        XCTAssertThrowsError(try QuantumRegister(vector: vector))
     }
 
     func testVectorWhichSumOfSquareModulesIsOne_init_returnRegister() {
@@ -72,17 +72,17 @@ class RegisterTests: XCTestCase {
                                   Complex(real: 0, imag: sqrt(1 / 2))])
 
         // Then
-        XCTAssertNoThrow(try Register(vector: vector))
+        XCTAssertNoThrow(try QuantumRegister(vector: vector))
     }
 
     func testQubitCountBiggerThanZero_init_returnExpectedRegister() {
         // Then
-        let register = try? Register(bits: "000")
+        let register = try? QuantumRegister(bits: "000")
 
         let elements = [Complex(1), Complex(0), Complex(0), Complex(0),
                         Complex(0), Complex(0), Complex(0), Complex(0)]
         let vector = try! Vector(elements)
-        let expectedRegister = try? Register(vector: vector)
+        let expectedRegister = try? QuantumRegister(vector: vector)
 
         XCTAssertNotNil(register)
         XCTAssertNotNil(expectedRegister)
@@ -92,12 +92,12 @@ class RegisterTests: XCTestCase {
     func testCorrectBitsString_init_returnExpectedRegister() {
         // Then
         let bits = "011"
-        let register = try? Register(bits: bits)
+        let register = try? QuantumRegister(bits: bits)
 
         let elements = [Complex(0), Complex(0), Complex(0), Complex(1),
                         Complex(0), Complex(0), Complex(0), Complex(0)]
         let vector = try! Vector(elements)
-        let expectedRegister = try? Register(vector: vector)
+        let expectedRegister = try? QuantumRegister(vector: vector)
 
         XCTAssertNotNil(register)
         XCTAssertNotNil(expectedRegister)
@@ -107,7 +107,7 @@ class RegisterTests: XCTestCase {
     func testAnyRegister_qubitCount_returnExpectedValue() {
         // Given
         let bits = "000"
-        let register = try! Register(bits: bits)
+        let register = try! QuantumRegister(bits: bits)
 
         // Then
         XCTAssertEqual(register.qubitCount, bits.count)
@@ -115,7 +115,7 @@ class RegisterTests: XCTestCase {
 
     func testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne() {
         // Given
-        let register = try! Register(bits: "00")
+        let register = try! QuantumRegister(bits: "00")
 
         // Then
         let expectedVector = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])

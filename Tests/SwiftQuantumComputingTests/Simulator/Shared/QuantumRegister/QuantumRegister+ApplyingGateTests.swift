@@ -1,5 +1,5 @@
 //
-//  Register+ApplyingGateTests.swift
+//  QuantumRegister+ApplyingGateTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 16/10/2019.
@@ -24,33 +24,33 @@ import XCTest
 
 // MARK: - Main body
 
-class Register_ApplyingGateTests: XCTestCase {
+class QuantumRegister_ApplyingGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException() {
+    func testAnyRegisterAndGateWithDifferentSizeThanRegister_applying_throwException() {
         // Given
-        let register = try! Register(bits: "00")
+        let register = try! QuantumRegister(bits: "00")
 
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = try! RegisterGate(matrix: matrix)
+        let gate = try! QuantumGate(matrix: matrix)
 
         // Then
         XCTAssertThrowsError(try register.applying(gate))
     }
 
-    func testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister() {
+    func testAnyRegisterAndGateWithSameSizeThanRegister_applying_returnExpectedRegister() {
         // Given
-        let register = try! Register(bits: "0")
+        let register = try! QuantumRegister(bits: "0")
 
         let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let gate = try! RegisterGate(matrix: matrix)
+        let gate = try! QuantumGate(matrix: matrix)
 
         // When
         let result = try? register.applying(gate)
 
         // Then
-        let expectedResult = try! Register(vector: try! Vector([Complex(0), Complex(1)]))
+        let expectedResult = try! QuantumRegister(vector: try! Vector([Complex(0), Complex(1)]))
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -58,10 +58,10 @@ class Register_ApplyingGateTests: XCTestCase {
         // Given
         let qubitCount = 2
 
-        var register = try! Register(bits: String(repeating: "0", count: qubitCount))
+        var register = try! QuantumRegister(bits: String(repeating: "0", count: qubitCount))
 
         let notMatrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
-        let factory = try! RegisterGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)
+        let factory = try! QuantumGateFactory(qubitCount: qubitCount, baseMatrix: notMatrix)
         let notGate = try! factory.makeGate(inputs: [0])
 
         // When
@@ -73,10 +73,10 @@ class Register_ApplyingGateTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException",
-         testAnyRegisterAndRegisterGateWithDifferentSizeThanRegister_applying_throwException),
-        ("testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister",
-         testAnyRegisterAndRegisterGateWithSameSizeThanRegister_applying_returnExpectedRegister),
+        ("testAnyRegisterAndGateWithDifferentSizeThanRegister_applying_throwException",
+         testAnyRegisterAndGateWithDifferentSizeThanRegister_applying_throwException),
+        ("testAnyRegisterAndGateWithSameSizeThanRegister_applying_returnExpectedRegister",
+         testAnyRegisterAndGateWithSameSizeThanRegister_applying_returnExpectedRegister),
         ("testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne",
          testTwoQubitsRegisterInitializedWithoutAVectorAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne)
     ]

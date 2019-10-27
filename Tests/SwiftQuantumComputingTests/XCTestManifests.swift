@@ -61,11 +61,11 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(MainGeneticPopulationReproductionFactoryTests.allTests),
         testCase(GeneticUseCaseTests.allTests),
         testCase(MainGeneticFactoryTests.allTests),
-        testCase(Register_ApplyingGateTests.allTests),
-        testCase(RegisterTests.allTests),
-        testCase(RegisterGateFactoryTests.allTests),
-        testCase(RegisterGate_ApplyingGateTests.allTests),
-        testCase(RegisterGateTests.allTests),
+        testCase(QuantumRegister_ApplyingGateTests.allTests),
+        testCase(QuantumRegisterTests.allTests),
+        testCase(QuantumGateFactoryTests.allTests),
+        testCase(QuantumGate_ApplyingGateTests.allTests),
+        testCase(QuantumGateTests.allTests),
         testCase(Vector_ElementsTests.allTests)
     ]
 }

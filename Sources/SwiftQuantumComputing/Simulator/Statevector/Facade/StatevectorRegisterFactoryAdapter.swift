@@ -26,11 +26,11 @@ struct StatevectorRegisterFactoryAdapter {
 
     // MARK: - Private properties
 
-    private let gateFactory: StatevectorRegisterGateFactory
+    private let gateFactory: SimulatorQuantumGateFactory
 
     // MARK: - Internal init methods
 
-    init(gateFactory: StatevectorRegisterGateFactory) {
+    init(gateFactory: SimulatorQuantumGateFactory) {
         self.gateFactory = gateFactory
     }
 }
@@ -39,10 +39,10 @@ struct StatevectorRegisterFactoryAdapter {
 
 extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
     func makeRegister(bits: String) throws -> StatevectorRegister {
-        var register: Register!
+        var register: QuantumRegister!
         do {
-            register = try Register(bits: bits)
-        } catch Register.InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
+            register = try QuantumRegister(bits: bits)
+        } catch QuantumRegister.InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
             throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
 

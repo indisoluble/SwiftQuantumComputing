@@ -1,5 +1,5 @@
 //
-//  RegisterGateTests.swift
+//  QuantumGateTests.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 11/08/2018.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class RegisterGateTests: XCTestCase {
+class QuantumGateTests: XCTestCase {
 
     // MARK: - Tests
 
@@ -36,46 +36,42 @@ class RegisterGateTests: XCTestCase {
                                   [complex, complex, complex]])
 
         // Then
-        XCTAssertThrowsError(try RegisterGate(matrix: matrix))
+        XCTAssertThrowsError(try QuantumGate(matrix: matrix))
     }
 
-    func testUnitaryMatrix_init_returnRegisterGate() {
+    func testUnitaryMatrix_init_returnGate() {
         // Given
         let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
                                   [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
 
         // Then
-        XCTAssertNoThrow(try RegisterGate(matrix: matrix))
+        XCTAssertNoThrow(try QuantumGate(matrix: matrix))
     }
 
-    func testAnyRegisterGate_matrix_returnExpectedMatrix() {
+    func testAnyGate_matrix_returnExpectedMatrix() {
         // Given
         let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
                                   [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
-        let gate = try! RegisterGate(matrix: matrix)
+        let gate = try! QuantumGate(matrix: matrix)
 
         // Then
         XCTAssertEqual(gate.matrix, matrix)
     }
 
-    func testAnyRegisterGate_qubitCount_returnExpectedValue() {
+    func testAnyGate_qubitCount_returnExpectedValue() {
         // Given
         let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
                                   [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
-        let gate = try! RegisterGate(matrix: matrix)
+        let gate = try! QuantumGate(matrix: matrix)
 
         // Then
         XCTAssertEqual(gate.qubitCount, 1)
     }
 
     static var allTests = [
-        ("testNonUnitaryMatrix_init_throwException",
-         testNonUnitaryMatrix_init_throwException),
-        ("testUnitaryMatrix_init_returnRegisterGate",
-         testUnitaryMatrix_init_returnRegisterGate),
-        ("testAnyRegisterGate_matrix_returnExpectedMatrix",
-         testAnyRegisterGate_matrix_returnExpectedMatrix),
-        ("testAnyRegisterGate_qubitCount_returnExpectedValue",
-         testAnyRegisterGate_qubitCount_returnExpectedValue)
+        ("testNonUnitaryMatrix_init_throwException", testNonUnitaryMatrix_init_throwException),
+        ("testUnitaryMatrix_init_returnGate", testUnitaryMatrix_init_returnGate),
+        ("testAnyGate_matrix_returnExpectedMatrix", testAnyGate_matrix_returnExpectedMatrix),
+        ("testAnyGate_qubitCount_returnExpectedValue", testAnyGate_qubitCount_returnExpectedValue)
     ]
 }

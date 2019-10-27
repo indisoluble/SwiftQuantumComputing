@@ -1,5 +1,5 @@
 //
-//  Register+ApplyingGate.swift
+//  QuantumRegister+ApplyingGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/10/2019.
@@ -20,8 +20,8 @@
 
 import Foundation
 
-extension Register {
-    func applying(_ gate: RegisterGate) throws -> Register {
+extension QuantumRegister {
+    func applying(_ gate: QuantumGate) throws -> QuantumRegister {
         var nextVector: Vector!
         do {
             nextVector = try gate.matrix * statevector
@@ -32,8 +32,8 @@ extension Register {
         }
 
         do {
-            return try Register(vector: nextVector)
-        } catch Register.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
+            return try QuantumRegister(vector: nextVector)
+        } catch QuantumRegister.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
             throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
         } catch {
             fatalError("Unexpected error: \(error).")
