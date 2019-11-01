@@ -26,12 +26,16 @@ struct Vector {
 
     // MARK: - Internal properties
 
+    var count: Int {
+        return matrix.rowCount
+    }
+
     var squaredNorm: Double {
         return try! Vector.innerProduct(self, self).real
     }
 
-    var count: Int {
-        return matrix.rowCount
+    var elements: [Complex] {
+        return (0..<count).map { self[$0] }
     }
 
     subscript(index: Int) -> Complex {

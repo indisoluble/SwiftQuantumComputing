@@ -92,6 +92,20 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix.first, expectedValue)
     }
 
+    func testAnyMatrix_elements_returnExpectedArray() {
+        // Given
+        let expectedElements = [
+            [Complex(1), Complex(0), Complex(0)],
+            [Complex(0), Complex(1), Complex(0)],
+            [Complex(0), Complex(0), Complex(1)]
+        ]
+
+        let matrix = try! Matrix(expectedElements)
+
+        // Then
+        XCTAssertEqual(matrix.elements, expectedElements)
+    }
+
     func testAnyMatrix_subscript_returnExpectedValue() {
         // Given
         let expectedValue = Complex(real: 10, imag: 10)
@@ -314,6 +328,8 @@ class MatrixTests: XCTestCase {
          testSquareMatrix_isSquare_returnTrue),
         ("testAnyMatrix_first_returnExpectedValue",
          testAnyMatrix_first_returnExpectedValue),
+        ("testAnyMatrix_elements_returnExpectedArray",
+         testAnyMatrix_elements_returnExpectedArray),
         ("testAnyMatrix_subscript_returnExpectedValue",
          testAnyMatrix_subscript_returnExpectedValue),
         ("testNonSquareMatrix_isUnitary_returnFalse",

@@ -47,6 +47,12 @@ public struct Matrix {
         return values.first!
     }
 
+    var elements: [[Complex]] {
+        return (0..<rowCount).map { row -> [Complex] in
+            return (0..<columnCount).map { self[row, $0] }
+        }
+    }
+
     subscript(row: Int, column: Int) -> Complex {
         return values[(column * rowCount) + row]
     }
@@ -63,8 +69,8 @@ public struct Matrix {
         case subArraysHaveToHaveSameSize
     }
 
-    public init(_ rows: [[Complex]]) throws {
-        guard let firstRow = rows.first else {
+    public init(_ elements: [[Complex]]) throws {
+        guard let firstRow = elements.first else {
             throw InitError.doNotPassAnEmptyArray
         }
 
@@ -73,13 +79,13 @@ public struct Matrix {
             throw InitError.subArraysMustNotBeEmpty
         }
 
-        let sameCountOnEachRow = rows.allSatisfy { $0.count == columnCount }
+        let sameCountOnEachRow = elements.allSatisfy { $0.count == columnCount }
         guard sameCountOnEachRow else {
             throw InitError.subArraysHaveToHaveSameSize
         }
 
-        let rowCount = rows.count
-        let values = Matrix.serializedRowsByColumn(rows,
+        let rowCount = elements.count
+        let values = Matrix.serializedRowsByColumn(elements,
                                                    rowCount: rowCount,
                                                    columnCount: columnCount)
 

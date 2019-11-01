@@ -58,12 +58,12 @@ extension CircuitFacade: Circuit {
     func unitary(usingQubitCount qubitCount: Int) throws -> [[Complex]] {
         let matrix = try unitarySimulator.unitary(with: gates, qubitCount: qubitCount)
 
-        return matrix.elements()
+        return matrix.elements
     }
 
     func statevector(afterInputting bits: String) throws -> [Complex] {
         let state = try statevectorSimulator.statevector(afterInputting: bits, in: gates)
 
-        return state.elements()
+        return state.elements
     }
 }

@@ -33,14 +33,6 @@ class VectorTests: XCTestCase {
         XCTAssertThrowsError(try Vector([]))
     }
 
-    func testAnyVector_squaredNorm_returnExpectedValue() {
-        // Given
-        let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
-
-        // Then
-        XCTAssertEqual(vector.squaredNorm, 10)
-    }
-
     func testAnyVector_count_returnExpectedValue() {
         // Given
         let complex = Complex(real: 0, imag: 0)
@@ -49,6 +41,24 @@ class VectorTests: XCTestCase {
 
         // Then
         XCTAssertEqual(vector.count, elements.count)
+    }
+
+    func testAnyVector_squaredNorm_returnExpectedValue() {
+        // Given
+        let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
+
+        // Then
+        XCTAssertEqual(vector.squaredNorm, 10)
+    }
+
+    func testAnyVector_elements_returnExpectedArray() {
+        // Given
+        let expectedElements = [Complex(1), Complex(0), Complex(1)]
+
+        let vector = try! Vector(expectedElements)
+
+        // Then
+        XCTAssertEqual(vector.elements, expectedElements)
     }
 
     func testAnyVector_subscript_returnExpectedValue() {
@@ -118,10 +128,12 @@ class VectorTests: XCTestCase {
     static var allTests = [
         ("testEmptyArray_init_throwException",
          testEmptyArray_init_throwException),
-        ("testAnyVector_squaredNorm_returnExpectedValue",
-         testAnyVector_squaredNorm_returnExpectedValue),
         ("testAnyVector_count_returnExpectedValue",
          testAnyVector_count_returnExpectedValue),
+        ("testAnyVector_squaredNorm_returnExpectedValue",
+         testAnyVector_squaredNorm_returnExpectedValue),
+        ("testAnyVector_elements_returnExpectedArray",
+         testAnyVector_elements_returnExpectedArray),
         ("testAnyVector_subscript_returnExpectedValue",
          testAnyVector_subscript_returnExpectedValue),
         ("testTwoVectorWithDifferentDimensions_innerProduct_throwException",
