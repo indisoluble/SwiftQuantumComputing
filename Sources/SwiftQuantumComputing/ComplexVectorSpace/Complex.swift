@@ -24,10 +24,12 @@ import Foundation
 
 public struct Complex {
 
-    // MARK: - Internal properties
+    // MARK: - Public properties
 
-    let real: Double
-    let imag: Double
+    public let real: Double
+    public let imag: Double
+
+    // MARK: - Internal properties
 
     var squaredModulus: Double {
         return (pow(real, 2) + pow(imag, 2))
@@ -84,6 +86,9 @@ extension Complex: Equatable {
 // MARK: - Overloaded operators
 
 extension Complex {
+
+    // MARK: - Internal operators
+
     static func *(lhs: Complex, rhs: Complex) -> Complex {
         let real = ((lhs.real * rhs.real) - (lhs.imag * rhs.imag))
         let imag = ((lhs.real * rhs.imag) + (rhs.real * lhs.imag))

@@ -22,37 +22,39 @@ import Foundation
 
 // MARK: - Main body
 
-struct Vector {
+public struct Vector {
 
-    // MARK: - Internal properties
+    // MARK: - Public properties
 
-    var count: Int {
+    public var count: Int {
         return matrix.rowCount
     }
 
-    var squaredNorm: Double {
-        return try! Vector.innerProduct(self, self).real
-    }
-
-    var elements: [Complex] {
+    public var elements: [Complex] {
         return (0..<count).map { self[$0] }
     }
 
-    subscript(index: Int) -> Complex {
+    public subscript(index: Int) -> Complex {
         return matrix[index,0]
+    }
+
+    // MARK: - Internal properties
+
+    var squaredNorm: Double {
+        return try! Vector.innerProduct(self, self).real
     }
 
     // MARK: - Private properties
 
     private let matrix: Matrix
 
-    // MARK: - Internal init methods
+    // MARK: - Public init methods
 
-    enum InitError: Error {
+    public enum InitError: Error {
         case doNotPassAnEmptyArray
     }
 
-    init(_ elements: [Complex]) throws {
+    public init(_ elements: [Complex]) throws {
         let rows = elements.map { [$0] }
 
         var matrix: Matrix!
@@ -96,7 +98,7 @@ struct Vector {
 // MARK: - CustomStringConvertible methods
 
 extension Vector: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         return matrix.description
     }
 }
@@ -104,7 +106,7 @@ extension Vector: CustomStringConvertible {
 // MARK: - Equatable methods
 
 extension Vector: Equatable {
-    static func ==(lhs: Vector, rhs: Vector) -> Bool {
+    public static func ==(lhs: Vector, rhs: Vector) -> Bool {
         return (lhs.matrix == rhs.matrix)
     }
 }
@@ -112,9 +114,14 @@ extension Vector: Equatable {
 // MARK: - Overloaded operators
 
 extension Vector {
+
+    // MARK: - Internal types
+
     enum ProductError: Error {
         case matrixColumnCountDoesNotMatchVectorCount
     }
+
+    // MARK: - Internal operators
 
     static func *(lhs: Matrix, rhs: Vector) throws -> Vector {
         var matrix: Matrix!

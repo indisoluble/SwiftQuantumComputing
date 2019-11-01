@@ -34,27 +34,29 @@ import Foundation
 
 public struct Matrix {
 
-    // MARK: - Internal properties
+    // MARK: - Public properties
 
-    let rowCount: Int
-    let columnCount: Int
+    public let rowCount: Int
+    public let columnCount: Int
 
-    var isSquare: Bool {
-        return (rowCount == columnCount)
-    }
-
-    var first: Complex {
+    public var first: Complex {
         return values.first!
     }
 
-    var elements: [[Complex]] {
+    public var elements: [[Complex]] {
         return (0..<rowCount).map { row -> [Complex] in
             return (0..<columnCount).map { self[row, $0] }
         }
     }
 
-    subscript(row: Int, column: Int) -> Complex {
+    public subscript(row: Int, column: Int) -> Complex {
         return values[(column * rowCount) + row]
+    }
+
+    // MARK: - Internal properties
+
+    var isSquare: Bool {
+        return (rowCount == columnCount)
     }
 
     // MARK: - Private properties

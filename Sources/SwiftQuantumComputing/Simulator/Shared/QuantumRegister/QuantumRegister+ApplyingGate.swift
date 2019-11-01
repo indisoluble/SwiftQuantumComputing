@@ -21,6 +21,9 @@
 import Foundation
 
 extension QuantumRegister {
+
+    // MARK: - Internal methods
+
     func applying(_ gate: QuantumGate) throws -> QuantumRegister {
         var nextVector: Vector!
         do {
