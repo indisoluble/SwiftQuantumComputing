@@ -34,7 +34,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
     let oracleCircuit: OracleCircuitFactory.OracleCircuit = ([], 0)
     let geneticCircuit: [GeneticGate] = []
     let circuit = CircuitTestDouble()
-    let statevector = [Complex(0), Complex(0), Complex(0), Complex(1)]
+    let statevector = try! Vector([Complex(0), Complex(0), Complex(0), Complex(1)])
 
     // MARK: - Tests
 

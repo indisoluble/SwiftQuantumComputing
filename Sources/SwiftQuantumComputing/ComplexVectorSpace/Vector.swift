@@ -111,6 +111,16 @@ extension Vector: Equatable {
     }
 }
 
+// MARK: - Sequence methods
+
+extension Vector: Sequence {
+    public typealias Iterator = Array<Complex>.Iterator
+
+    public func makeIterator() -> Vector.Iterator {
+        return matrix.makeIterator()
+    }
+}
+
 // MARK: - Overloaded operators
 
 extension Vector {

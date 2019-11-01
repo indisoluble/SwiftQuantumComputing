@@ -52,6 +52,6 @@ public enum UnitaryError: Error {
 public protocol Circuit {
     var gates: [FixedGate] { get }
 
-    func unitary(usingQubitCount qubitCount: Int) throws -> [[Complex]]
-    func statevector(afterInputting bits: String) throws -> [Complex]
+    func unitary(usingQubitCount qubitCount: Int) throws -> Matrix
+    func statevector(afterInputting bits: String) throws -> Vector
 }

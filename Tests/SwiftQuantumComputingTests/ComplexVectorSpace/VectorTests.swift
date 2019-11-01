@@ -71,6 +71,18 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(vector[1], expectedValue)
     }
 
+    func testAnyVector_loop_returnExpectedSequence() {
+        // Given
+        let elements = [Complex(1), Complex(0), Complex(2)]
+        let vector = try! Vector(elements)
+
+        // When
+        let sequence = vector.map { $0 }
+
+        // Then
+        XCTAssertEqual(sequence, elements)
+    }
+
     func testTwoVectorWithDifferentDimensions_innerProduct_throwException() {
         // Given
         let complex = Complex(real: 0, imag: 0)

@@ -55,15 +55,11 @@ extension CircuitFacade: CustomStringConvertible {
 // MARK: - Circuit methods
 
 extension CircuitFacade: Circuit {
-    func unitary(usingQubitCount qubitCount: Int) throws -> [[Complex]] {
-        let matrix = try unitarySimulator.unitary(with: gates, qubitCount: qubitCount)
-
-        return matrix.elements
+    func unitary(usingQubitCount qubitCount: Int) throws -> Matrix {
+        return try unitarySimulator.unitary(with: gates, qubitCount: qubitCount)
     }
 
-    func statevector(afterInputting bits: String) throws -> [Complex] {
-        let state = try statevectorSimulator.statevector(afterInputting: bits, in: gates)
-
-        return state.elements
+    func statevector(afterInputting bits: String) throws -> Vector {
+        return try statevectorSimulator.statevector(afterInputting: bits, in: gates)
     }
 }

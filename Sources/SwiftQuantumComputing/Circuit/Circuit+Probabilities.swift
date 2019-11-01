@@ -37,7 +37,7 @@ extension Circuit {
     // MARK: - Public methods
 
     public func probabilities(afterInputting bits: String) throws -> [Double] {
-        var state: [Complex]!
+        var state: Vector!
         do {
             state = try statevector(afterInputting: bits)
         } catch {

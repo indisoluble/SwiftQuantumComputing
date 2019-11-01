@@ -184,6 +184,16 @@ extension Matrix: Equatable {
     }
 }
 
+// MARK: - Sequence methods
+
+extension Matrix: Sequence {
+    public typealias Iterator = Array<Complex>.Iterator
+
+    public func makeIterator() -> Matrix.Iterator {
+        return values.makeIterator()
+    }
+}
+
 // MARK: - Overloaded operators
 
 extension Matrix {
