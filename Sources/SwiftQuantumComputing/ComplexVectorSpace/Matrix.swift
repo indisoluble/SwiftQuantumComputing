@@ -43,12 +43,6 @@ public struct Matrix {
         return values.first!
     }
 
-    public var elements: [[Complex]] {
-        return (0..<rowCount).map { row -> [Complex] in
-            return (0..<columnCount).map { self[row, $0] }
-        }
-    }
-
     public subscript(row: Int, column: Int) -> Complex {
         return values[(column * rowCount) + row]
     }

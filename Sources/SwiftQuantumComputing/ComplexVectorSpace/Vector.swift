@@ -30,10 +30,6 @@ public struct Vector {
         return matrix.rowCount
     }
 
-    public var elements: [Complex] {
-        return (0..<count).map { self[$0] }
-    }
-
     public subscript(index: Int) -> Complex {
         return matrix[index,0]
     }
