@@ -15,7 +15,7 @@ func isFunctionConstant(truthTable: [String]) -> Bool {
     drawer.drawCircuit(gates)
 
     let circuit = circuitFactory.makeCircuit(gates: gates)
-    let probabilities = try! circuit.summarizedProbabilities(qubits: [1], afterInputting: "01")
+    let probabilities = try! circuit.summarizedProbabilities(qubits: [1], initialBits: "01")
 
     return (abs(1 - (probabilities["0"] ?? 0.0)) < 0.001)
 }
