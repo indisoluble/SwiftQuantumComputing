@@ -34,21 +34,9 @@ struct QuantumRegister {
 
     // MARK: - Internal init methods
 
-    enum InitBitsError: Error {
-        case bitsAreNotAStringComposedOnlyOfZerosAndOnes
-    }
-
-    init(bits: String) throws {
-        guard let value = Int(bits, radix: 2) else {
-            throw InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
-        }
-
-        try! self.init(vector: QuantumRegister.makeState(value: value, qubitCount: bits.count))
-    }
-
     enum InitVectorError: Error {
         case vectorCountHasToBeAPowerOfTwo
-        case additionOfSquareModulusIsNotEqualToOne
+        case vectorAdditionOfSquareModulusIsNotEqualToOne
     }
 
     init(vector: Vector) throws {
@@ -57,7 +45,7 @@ struct QuantumRegister {
         }
 
         guard QuantumRegister.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
-            throw InitVectorError.additionOfSquareModulusIsNotEqualToOne
+            throw InitVectorError.vectorAdditionOfSquareModulusIsNotEqualToOne
         }
 
         self.statevector = vector
@@ -91,15 +79,6 @@ private extension QuantumRegister {
     }
 
     // MARK: - Private class methods
-
-    static func makeState(value: Int, qubitCount: Int) -> Vector {
-        let count = Int.pow(2, qubitCount)
-
-        var elements = Array(repeating: Complex(0), count: count)
-        elements[value] = Complex(1)
-
-        return try! Vector(elements)
-    }
 
     static func isAdditionOfSquareModulusInVectorEqualToOne(_ vector: Vector) -> Bool {
         return (abs(vector.squaredNorm - Double(1)) <= Constants.accuracy)

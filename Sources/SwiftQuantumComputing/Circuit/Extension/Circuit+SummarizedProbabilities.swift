@@ -1,8 +1,8 @@
 //
-//  Circuit+Probabilities.swift
+//  Circuit+SummarizedProbabilities.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 03/10/2019.
+//  Created by Enrique de la Torre on 01/11/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,12 +22,12 @@ import Foundation
 
 // MARK: - Errors
 
-public enum ProbabilitiesError: Error {
+public enum SummarizedProbabilitiesError: Error {
     case qubitsAreNotInsideBounds
     case qubitsAreNotSorted
     case qubitsAreNotUnique
     case qubitsCanNotBeAnEmptyList
-    case statevectorThrowedError(error: StatevectorError)
+    case probabilitiesThrowedError(error: ProbabilitiesError)
 }
 
 // MARK: - Main body
@@ -36,23 +36,8 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    public func probabilities(afterInputting bits: String) throws -> [Double] {
-        var state: [Complex]!
-        do {
-            state = try statevector(afterInputting: bits)
-        } catch {
-            if let error = error as? StatevectorError {
-                throw ProbabilitiesError.statevectorThrowedError(error: error)
-            } else {
-                fatalError("Unexpected error: \(error).")
-            }
-        }
-
-        return state.map { $0.squaredModulus }
-    }
-
-    public func summarizedProbabilities(afterInputting bits: String) throws -> [String: Double] {
-        let probs = try probabilities(afterInputting: bits)
+    public func summarizedProbabilities(withInitialBits initialBits: String) throws -> [String: Double] {
+        let probs = try errorCapturedProbabilities(withInitialBits: initialBits)
         let bitCount = Int.log2(probs.count)
 
         var result: [String: Double] = [:]
@@ -66,23 +51,23 @@ extension Circuit {
     }
 
     public func summarizedProbabilities(qubits: [Int],
-                                        afterInputting bits: String) throws -> [String: Double] {
+                                        initialBits: String) throws -> [String: Double] {
         guard qubits.count > 0 else {
-            throw ProbabilitiesError.qubitsCanNotBeAnEmptyList
+            throw SummarizedProbabilitiesError.qubitsCanNotBeAnEmptyList
         }
 
-        guard CircuitFacade.areQubitsUnique(qubits) else {
-            throw ProbabilitiesError.qubitsAreNotUnique
+        guard Self.areQubitsUnique(qubits) else {
+            throw SummarizedProbabilitiesError.qubitsAreNotUnique
         }
 
-        guard CircuitFacade.areQubitsSorted(qubits) else {
-            throw ProbabilitiesError.qubitsAreNotSorted
+        guard Self.areQubitsSorted(qubits) else {
+            throw SummarizedProbabilitiesError.qubitsAreNotSorted
         }
 
-        let probs = try probabilities(afterInputting: bits)
+        let probs = try errorCapturedProbabilities(withInitialBits: initialBits)
 
-        guard CircuitFacade.areQubitsInsideBounds(qubits, of: probs) else {
-            throw ProbabilitiesError.qubitsAreNotInsideBounds
+        guard Self.areQubitsInsideBounds(qubits, of: probs) else {
+            throw SummarizedProbabilitiesError.qubitsAreNotInsideBounds
         }
 
         var result: [String: Double] = [:]
@@ -101,7 +86,21 @@ extension Circuit {
 
 // MARK: - Private body
 
-private extension CircuitFacade {
+private extension Circuit {
+
+    // MARK: - Private methods
+
+    func errorCapturedProbabilities(withInitialBits initialBits: String) throws -> [Double] {
+        do {
+            return try probabilities(withInitialBits: initialBits)
+        } catch {
+            if let error = error as? ProbabilitiesError {
+                throw SummarizedProbabilitiesError.probabilitiesThrowedError(error: error)
+            } else {
+                fatalError("Unexpected error: \(error).")
+            }
+        }
+    }
 
     // MARK: - Private class methods
 

@@ -29,7 +29,8 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
     // MARK: - Properties
 
     let registerFactory = StatevectorRegisterFactoryTestDouble()
-    let inputBits = "000"
+    let initialStatevector = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0),
+                                          Complex(0), Complex(0), Complex(0), Complex(0)])
     let register = StatevectorRegisterTestDouble()
     let firstGate = SimulatorGateTestDouble()
     let firstRegister = StatevectorRegisterTestDouble()
@@ -41,16 +42,16 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testRegisterFactoryThrowsError_statevector_throwError() {
+    func testRegisterFactoryThrowsError_apply_throwError() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         // Then
-        XCTAssertThrowsError(try simulator.statevector(afterInputting: inputBits, in: [firstGate]))
+        XCTAssertThrowsError(try simulator.apply(circuit: [firstGate], to: initialStatevector))
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
     }
 
-    func testRegisterFactoryReturnsRegisterAndEmptyCircuit_statevector_applyStatevectorOnInitialRegister() {
+    func testRegisterFactoryReturnsRegisterAndEmptyCircuit_apply_applyStatevectorOnInitialRegister() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
@@ -58,7 +59,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         register.statevectorResult = statevector
 
         // When
-        let result = try? simulator.statevector(afterInputting: inputBits, in: [])
+        let result = try? simulator.apply(circuit: [], to: initialStatevector)
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -67,14 +68,14 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(result, statevector)
     }
 
-    func testRegisterFactoryReturnsRegisterAndRegisterThrowsError_statevector_throwError() {
+    func testRegisterFactoryReturnsRegisterAndRegisterThrowsError_apply_throwError() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
 
         // Then
-        XCTAssertThrowsError(try simulator.statevector(afterInputting: inputBits, in: [firstGate]))
+        XCTAssertThrowsError(try simulator.apply(circuit: [firstGate], to: initialStatevector))
 
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
         XCTAssertEqual(register.applyingCount, 1)
@@ -86,7 +87,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(register.statevectorCount, 0)
     }
 
-    func testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_statevector_applyStatevectorOnExpectedRegister() {
+    func testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_apply_applyStatevectorOnExpectedRegister() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
@@ -95,7 +96,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         firstRegister.statevectorResult = statevector
 
         // When
-        let result = try? simulator.statevector(afterInputting: inputBits, in: [firstGate])
+        let result = try? simulator.apply(circuit: [firstGate], to: initialStatevector)
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -110,7 +111,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(result, statevector)
     }
 
-    func testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_statevector_throwError() {
+    func testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_apply_throwError() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
@@ -119,8 +120,8 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         firstRegister.applyingResult = secondRegister
 
         // Then
-        XCTAssertThrowsError(try simulator.statevector(afterInputting: inputBits,
-                                                       in: [firstGate, secondGate, thirdGate]))
+        XCTAssertThrowsError(try simulator.apply(circuit: [firstGate, secondGate, thirdGate],
+                                                 to: initialStatevector))
 
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
         XCTAssertEqual(register.applyingCount, 1)
@@ -146,7 +147,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(secondRegister.statevectorCount, 0)
     }
 
-    func testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_statevector_applyStatevectorOnExpectedRegister() {
+    func testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_apply_applyStatevectorOnExpectedRegister() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
@@ -157,8 +158,8 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         thirdRegister.statevectorResult = statevector
 
         // When
-        let result = try? simulator.statevector(afterInputting: inputBits,
-                                                in: [firstGate, secondGate, thirdGate])
+        let result = try? simulator.apply(circuit: [firstGate, secondGate, thirdGate],
+                                          to: initialStatevector)
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -188,17 +189,17 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testRegisterFactoryThrowsError_statevector_throwError",
-         testRegisterFactoryThrowsError_statevector_throwError),
-        ("testRegisterFactoryReturnsRegisterAndEmptyCircuit_statevector_applyStatevectorOnInitialRegister",
-         testRegisterFactoryReturnsRegisterAndEmptyCircuit_statevector_applyStatevectorOnInitialRegister),
-        ("testRegisterFactoryReturnsRegisterAndRegisterThrowsError_statevector_throwError",
-         testRegisterFactoryReturnsRegisterAndRegisterThrowsError_statevector_throwError),
-        ("testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_statevector_applyStatevectorOnExpectedRegister",
-         testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_statevector_applyStatevectorOnExpectedRegister),
-        ("testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_statevector_throwError",
-         testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_statevector_throwError),
-        ("testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_statevector_applyStatevectorOnExpectedRegister",
-         testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_statevector_applyStatevectorOnExpectedRegister)
+        ("testRegisterFactoryThrowsError_apply_throwError",
+         testRegisterFactoryThrowsError_apply_throwError),
+        ("testRegisterFactoryReturnsRegisterAndEmptyCircuit_apply_applyStatevectorOnInitialRegister",
+         testRegisterFactoryReturnsRegisterAndEmptyCircuit_apply_applyStatevectorOnInitialRegister),
+        ("testRegisterFactoryReturnsRegisterAndRegisterThrowsError_apply_throwError",
+         testRegisterFactoryReturnsRegisterAndRegisterThrowsError_apply_throwError),
+        ("testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_apply_applyStatevectorOnExpectedRegister",
+         testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_apply_applyStatevectorOnExpectedRegister),
+        ("testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_apply_throwError",
+         testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_apply_throwError),
+        ("testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_apply_applyStatevectorOnExpectedRegister",
+         testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_apply_applyStatevectorOnExpectedRegister)
     ]
 }

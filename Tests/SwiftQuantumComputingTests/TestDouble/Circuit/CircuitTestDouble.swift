@@ -33,13 +33,14 @@ final class CircuitTestDouble {
 
     private (set) var unitaryCount = 0
     private (set) var lastUnitaryQubitCount: Int?
-    var unitaryResult: [[Complex]]?
+    var unitaryResult: Matrix?
     var unitaryError = UnitaryError.circuitCanNotBeAnEmptyList
 
     private (set) var statevectorCount = 0
-    private (set) var lastStatevectorAfterInputting: String?
-    var statevectorResult: [Complex]?
-    var statevectorError = StatevectorError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    private (set) var lastStatevectorInitialStatevector: Vector?
+    var statevectorResult: Vector?
+    var statevectorError = StatevectorError.gateThrowedError(gate: .not(target: 0),
+                                                             error: .additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector)
 }
 
 // MARK: - Circuit methods
@@ -51,7 +52,7 @@ extension CircuitTestDouble: Circuit {
         return gatesResult
     }
 
-    func unitary(usingQubitCount qubitCount: Int) throws -> [[Complex]] {
+    func unitary(withQubitCount qubitCount: Int) throws -> Matrix {
         unitaryCount += 1
 
         lastUnitaryQubitCount = qubitCount
@@ -63,10 +64,10 @@ extension CircuitTestDouble: Circuit {
         throw unitaryError
     }
 
-    func statevector(afterInputting bits: String) throws -> [Complex] {
+    func statevector(withInitialStatevector initialStatevector: Vector) throws -> Vector {
         statevectorCount += 1
 
-        lastStatevectorAfterInputting = bits
+        lastStatevectorInitialStatevector = initialStatevector
 
         if let statevectorResult = statevectorResult {
             return statevectorResult

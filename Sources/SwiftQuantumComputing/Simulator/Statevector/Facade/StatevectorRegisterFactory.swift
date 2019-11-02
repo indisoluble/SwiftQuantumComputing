@@ -23,11 +23,12 @@ import Foundation
 // MARK: - Errors
 
 enum MakeRegisterError: Error {
-    case bitsAreNotAStringComposedOnlyOfZerosAndOnes
+    case stateCountHasToBeAPowerOfTwo
+    case stateAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - Protocol definition
 
 protocol StatevectorRegisterFactory {
-    func makeRegister(bits: String) throws -> StatevectorRegister
+    func makeRegister(state: Vector) throws -> StatevectorRegister
 }

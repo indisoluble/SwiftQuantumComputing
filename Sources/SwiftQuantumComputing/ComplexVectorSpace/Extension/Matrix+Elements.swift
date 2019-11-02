@@ -1,8 +1,8 @@
 //
-//  Vector+Elements.swift
+//  Matrix+Elements.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 29/09/2019.
+//  Created by Enrique de la Torre on 02/11/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,15 @@
 
 import Foundation
 
-extension Vector {
-    func elements() -> [Complex] {
-        return (0..<count).map { self[$0] }
+// MARK: - Main body
+
+extension Matrix {
+
+    // MARK: - Public properties
+
+    public var elements: [[Complex]] {
+        return (0..<rowCount).map { row -> [Complex] in
+            return (0..<columnCount).map { self[row, $0] }
+        }
     }
 }

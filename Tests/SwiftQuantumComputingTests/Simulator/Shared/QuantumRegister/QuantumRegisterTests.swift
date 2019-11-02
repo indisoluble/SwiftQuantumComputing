@@ -28,26 +28,6 @@ class QuantumRegisterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testEmptyBitsString_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try QuantumRegister(bits: ""))
-    }
-
-    func testBitsStringWithLeadingSpaces_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try QuantumRegister(bits: "  1001"))
-    }
-
-    func testBitsStringWithTrailingSpaces_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try QuantumRegister(bits: "1001  "))
-    }
-
-    func testBitsStringWithWrongCharacter_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try QuantumRegister(bits: "10#1"))
-    }
-
     func testVectorWhichLengthIsNotPowerOfTwo_init_throwException() {
         // Given
         let vector = try! Vector([Complex(real: sqrt(1 / 2), imag: 0),
@@ -75,75 +55,27 @@ class QuantumRegisterTests: XCTestCase {
         XCTAssertNoThrow(try QuantumRegister(vector: vector))
     }
 
-    func testQubitCountBiggerThanZero_init_returnExpectedRegister() {
-        // Then
-        let register = try? QuantumRegister(bits: "000")
-
-        let elements = [Complex(1), Complex(0), Complex(0), Complex(0),
-                        Complex(0), Complex(0), Complex(0), Complex(0)]
-        let vector = try! Vector(elements)
-        let expectedRegister = try? QuantumRegister(vector: vector)
-
-        XCTAssertNotNil(register)
-        XCTAssertNotNil(expectedRegister)
-        XCTAssertEqual(register, expectedRegister)
-    }
-
-    func testCorrectBitsString_init_returnExpectedRegister() {
-        // Then
-        let bits = "011"
-        let register = try? QuantumRegister(bits: bits)
-
-        let elements = [Complex(0), Complex(0), Complex(0), Complex(1),
-                        Complex(0), Complex(0), Complex(0), Complex(0)]
-        let vector = try! Vector(elements)
-        let expectedRegister = try? QuantumRegister(vector: vector)
-
-        XCTAssertNotNil(register)
-        XCTAssertNotNil(expectedRegister)
-        XCTAssertEqual(register, expectedRegister)
-    }
-
     func testAnyRegister_qubitCount_returnExpectedValue() {
         // Given
-        let bits = "000"
-        let register = try! QuantumRegister(bits: bits)
+        let qubitCount = 3
+        var elements = Array(repeating: Complex(0), count: Int.pow(2, qubitCount))
+        elements[0] = Complex(1)
+
+        let vector = try! Vector(elements)
+        let register = try! QuantumRegister(vector: vector)
 
         // Then
-        XCTAssertEqual(register.qubitCount, bits.count)
-    }
-
-    func testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne() {
-        // Given
-        let register = try! QuantumRegister(bits: "00")
-
-        // Then
-        let expectedVector = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
-        XCTAssertEqual(register.statevector, expectedVector)
+        XCTAssertEqual(register.qubitCount, qubitCount)
     }
 
     static var allTests = [
-        ("testEmptyBitsString_init_throwException",
-         testEmptyBitsString_init_throwException),
-        ("testBitsStringWithLeadingSpaces_init_throwException",
-         testBitsStringWithLeadingSpaces_init_throwException),
-        ("testBitsStringWithTrailingSpaces_init_throwException",
-         testBitsStringWithTrailingSpaces_init_throwException),
-        ("testBitsStringWithWrongCharacter_init_throwException",
-         testBitsStringWithWrongCharacter_init_throwException),
         ("testVectorWhichLengthIsNotPowerOfTwo_init_throwException",
          testVectorWhichLengthIsNotPowerOfTwo_init_throwException),
         ("testVectorWhichSumOfSquareModulesIsNotOne_init_throwException",
          testVectorWhichSumOfSquareModulesIsNotOne_init_throwException),
         ("testVectorWhichSumOfSquareModulesIsOne_init_returnRegister",
          testVectorWhichSumOfSquareModulesIsOne_init_returnRegister),
-        ("testQubitCountBiggerThanZero_init_returnExpectedRegister",
-         testQubitCountBiggerThanZero_init_returnExpectedRegister),
-        ("testCorrectBitsString_init_returnExpectedRegister",
-         testCorrectBitsString_init_returnExpectedRegister),
         ("testAnyRegister_qubitCount_returnExpectedValue",
-         testAnyRegister_qubitCount_returnExpectedValue),
-        ("testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne",
-         testRegisterInitializedWithoutAVector_statevector_zeroHasProbabilityOne)
+         testAnyRegister_qubitCount_returnExpectedValue)
     ]
 }

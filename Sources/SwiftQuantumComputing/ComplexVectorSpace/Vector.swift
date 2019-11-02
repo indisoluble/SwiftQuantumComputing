@@ -22,7 +22,17 @@ import Foundation
 
 // MARK: - Main body
 
-struct Vector {
+public struct Vector {
+
+    // MARK: - Public properties
+
+    public var count: Int {
+        return matrix.rowCount
+    }
+
+    public subscript(index: Int) -> Complex {
+        return matrix[index,0]
+    }
 
     // MARK: - Internal properties
 
@@ -30,25 +40,17 @@ struct Vector {
         return try! Vector.innerProduct(self, self).real
     }
 
-    var count: Int {
-        return matrix.rowCount
-    }
-
-    subscript(index: Int) -> Complex {
-        return matrix[index,0]
-    }
-
     // MARK: - Private properties
 
     private let matrix: Matrix
 
-    // MARK: - Internal init methods
+    // MARK: - Public init methods
 
-    enum InitError: Error {
+    public enum InitError: Error {
         case doNotPassAnEmptyArray
     }
 
-    init(_ elements: [Complex]) throws {
+    public init(_ elements: [Complex]) throws {
         let rows = elements.map { [$0] }
 
         var matrix: Matrix!
@@ -92,7 +94,7 @@ struct Vector {
 // MARK: - CustomStringConvertible methods
 
 extension Vector: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         return matrix.description
     }
 }
@@ -100,17 +102,32 @@ extension Vector: CustomStringConvertible {
 // MARK: - Equatable methods
 
 extension Vector: Equatable {
-    static func ==(lhs: Vector, rhs: Vector) -> Bool {
+    public static func ==(lhs: Vector, rhs: Vector) -> Bool {
         return (lhs.matrix == rhs.matrix)
+    }
+}
+
+// MARK: - Sequence methods
+
+extension Vector: Sequence {
+    public typealias Iterator = Array<Complex>.Iterator
+
+    public func makeIterator() -> Vector.Iterator {
+        return matrix.makeIterator()
     }
 }
 
 // MARK: - Overloaded operators
 
 extension Vector {
+
+    // MARK: - Internal types
+
     enum ProductError: Error {
         case matrixColumnCountDoesNotMatchVectorCount
     }
+
+    // MARK: - Internal operators
 
     static func *(lhs: Matrix, rhs: Vector) throws -> Vector {
         var matrix: Matrix!

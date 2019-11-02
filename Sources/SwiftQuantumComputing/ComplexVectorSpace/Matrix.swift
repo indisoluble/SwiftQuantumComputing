@@ -34,21 +34,23 @@ import Foundation
 
 public struct Matrix {
 
-    // MARK: - Internal properties
+    // MARK: - Public properties
 
-    let rowCount: Int
-    let columnCount: Int
+    public let rowCount: Int
+    public let columnCount: Int
 
-    var isSquare: Bool {
-        return (rowCount == columnCount)
-    }
-
-    var first: Complex {
+    public var first: Complex {
         return values.first!
     }
 
-    subscript(row: Int, column: Int) -> Complex {
+    public subscript(row: Int, column: Int) -> Complex {
         return values[(column * rowCount) + row]
+    }
+
+    // MARK: - Internal properties
+
+    var isSquare: Bool {
+        return (rowCount == columnCount)
     }
 
     // MARK: - Private properties
@@ -63,8 +65,8 @@ public struct Matrix {
         case subArraysHaveToHaveSameSize
     }
 
-    public init(_ rows: [[Complex]]) throws {
-        guard let firstRow = rows.first else {
+    public init(_ elements: [[Complex]]) throws {
+        guard let firstRow = elements.first else {
             throw InitError.doNotPassAnEmptyArray
         }
 
@@ -73,13 +75,13 @@ public struct Matrix {
             throw InitError.subArraysMustNotBeEmpty
         }
 
-        let sameCountOnEachRow = rows.allSatisfy { $0.count == columnCount }
+        let sameCountOnEachRow = elements.allSatisfy { $0.count == columnCount }
         guard sameCountOnEachRow else {
             throw InitError.subArraysHaveToHaveSameSize
         }
 
-        let rowCount = rows.count
-        let values = Matrix.serializedRowsByColumn(rows,
+        let rowCount = elements.count
+        let values = Matrix.serializedRowsByColumn(elements,
                                                    rowCount: rowCount,
                                                    columnCount: columnCount)
 
@@ -173,6 +175,16 @@ extension Matrix: CustomStringConvertible {
 extension Matrix: Equatable {
     public static func ==(lhs: Matrix, rhs: Matrix) -> Bool {
         return (lhs.values == rhs.values)
+    }
+}
+
+// MARK: - Sequence methods
+
+extension Matrix: Sequence {
+    public typealias Iterator = Array<Complex>.Iterator
+
+    public func makeIterator() -> Matrix.Iterator {
+        return values.makeIterator()
     }
 }
 

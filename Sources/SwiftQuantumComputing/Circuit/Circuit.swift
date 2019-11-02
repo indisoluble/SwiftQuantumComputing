@@ -38,7 +38,8 @@ public enum GateError: Error {
 }
 
 public enum StatevectorError: Error {
-    case inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    case initialStatevectorCountHasToBeAPowerOfTwo
+    case initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
     case gateThrowedError(gate: FixedGate, error: GateError)
 }
 
@@ -52,6 +53,6 @@ public enum UnitaryError: Error {
 public protocol Circuit {
     var gates: [FixedGate] { get }
 
-    func unitary(usingQubitCount qubitCount: Int) throws -> [[Complex]]
-    func statevector(afterInputting bits: String) throws -> [Complex]
+    func unitary(withQubitCount qubitCount: Int) throws -> Matrix
+    func statevector(withInitialStatevector initialStatevector: Vector) throws -> Vector
 }
