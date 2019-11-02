@@ -38,12 +38,16 @@ struct StatevectorRegisterFactoryAdapter {
 // MARK: - StatevectorRegisterFactory methods
 
 extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
-    func makeRegister(bits: String) throws -> StatevectorRegister {
+    func makeRegister(state: Vector) throws -> StatevectorRegister {
         var register: QuantumRegister!
         do {
-            register = try QuantumRegister(bits: bits)
-        } catch QuantumRegister.InitBitsError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
-            throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
+            register = try QuantumRegister(vector: state)
+        } catch QuantumRegister.InitVectorError.vectorAdditionOfSquareModulusIsNotEqualToOne {
+            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
+        } catch QuantumRegister.InitVectorError.vectorCountHasToBeAPowerOfTwo {
+            throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         return StatevectorRegisterAdapter(register: register, gateFactory: gateFactory)

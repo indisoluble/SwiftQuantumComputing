@@ -28,7 +28,7 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
-    let bits = "01"
+    let initialStatevector = try! Vector([Complex(0), Complex(1), Complex(0), Complex(0),])
     let qubitCount = 2
     let gates = [FixedGate.hadamard(target: 0), FixedGate.not(target: 0)]
     let unitarySimulator = UnitarySimulatorTestDouble()
@@ -43,17 +43,17 @@ class CircuitFacadeTests: XCTestCase {
                                    statevectorSimulator: statevectorSimulator)
 
         let expectedResult = try! Vector([Complex(0), Complex(1)])
-        statevectorSimulator.statevectorResult = expectedResult
+        statevectorSimulator.applyResult = expectedResult
 
         // When
-        let result = try? facade.statevector(afterInputting: bits)
+        let result = try? facade.statevector(withInitialStatevector: initialStatevector)
 
         // Then
-        let lastStatevectorBits = statevectorSimulator.lastStatevectorBits
-        let lastStatevectorGates = statevectorSimulator.lastStatevectorCircuit as? [FixedGate]
+        let lastApplyInitialStatevector = statevectorSimulator.lastApplyInitialStatevector
+        let lastStatevectorGates = statevectorSimulator.lastApplyCircuit as? [FixedGate]
 
-        XCTAssertEqual(statevectorSimulator.statevectorCount, 1)
-        XCTAssertEqual(lastStatevectorBits, bits)
+        XCTAssertEqual(statevectorSimulator.applyCount, 1)
+        XCTAssertEqual(lastApplyInitialStatevector, initialStatevector)
         XCTAssertEqual(lastStatevectorGates, gates)
         XCTAssertEqual(result, expectedResult)
     }
@@ -68,7 +68,7 @@ class CircuitFacadeTests: XCTestCase {
         unitarySimulator.unitaryResult = expectedResult
 
         // When
-        let result = try? facade.unitary(usingQubitCount: qubitCount)
+        let result = try? facade.unitary(withQubitCount: qubitCount)
 
         // Then
         let lastUnitaryQubitCount = unitarySimulator.lastUnitaryQubitCount

@@ -41,6 +41,10 @@
 		FF072EFA21BD88C2002248AA /* StatevectorSimulatorFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF072EF821BD88C2002248AA /* StatevectorSimulatorFacade.swift */; };
 		FF072EFC21BD8A1D002248AA /* StatevectorRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF072EFB21BD8A1D002248AA /* StatevectorRegister.swift */; };
 		FF072EFD21BD8A1D002248AA /* StatevectorRegister.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF072EFB21BD8A1D002248AA /* StatevectorRegister.swift */; };
+		FF10373A236DF4010011706D /* Circuit+SummarizedProbabilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF103739236DF4010011706D /* Circuit+SummarizedProbabilitiesTests.swift */; };
+		FF10373B236DF4010011706D /* Circuit+SummarizedProbabilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF103739236DF4010011706D /* Circuit+SummarizedProbabilitiesTests.swift */; };
+		FF10373D236DF71C0011706D /* Circuit+StatevectorWithInitialBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF10373C236DF71C0011706D /* Circuit+StatevectorWithInitialBitsTests.swift */; };
+		FF10373E236DF71C0011706D /* Circuit+StatevectorWithInitialBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF10373C236DF71C0011706D /* Circuit+StatevectorWithInitialBitsTests.swift */; };
 		FF149DE9222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF149DE8222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift */; };
 		FF149DEA222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF149DE8222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift */; };
 		FF149DEC222B01E400408E2D /* GeneticPopulationCrossoverFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF149DEB222B01E400408E2D /* GeneticPopulationCrossoverFactoryTestDouble.swift */; };
@@ -386,6 +390,10 @@
 		FFBCD5E2214DB6D90047020B /* CircuitViewPosition+PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCD5E1214DB6D90047020B /* CircuitViewPosition+PositionView.swift */; };
 		FFBCD5E5214DBBA60047020B /* LineHorizontalPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */; };
 		FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */; };
+		FFC11B38236CC47B001D3F39 /* Circuit+StatevectorWithInitialBits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC11B37236CC47B001D3F39 /* Circuit+StatevectorWithInitialBits.swift */; };
+		FFC11B39236CC47B001D3F39 /* Circuit+StatevectorWithInitialBits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC11B37236CC47B001D3F39 /* Circuit+StatevectorWithInitialBits.swift */; };
+		FFC11B3B236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC11B3A236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift */; };
+		FFC11B3C236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC11B3A236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift */; };
 		FFC5964E2203AFB500151355 /* GeneticFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC5964D2203AFB500151355 /* GeneticFactory.swift */; };
 		FFC5964F2203AFB500151355 /* GeneticFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC5964D2203AFB500151355 /* GeneticFactory.swift */; };
 		FFC596512203B30D00151355 /* GeneticConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC596502203B30D00151355 /* GeneticConfiguration.swift */; };
@@ -503,6 +511,8 @@
 		FF072EF521BD883C002248AA /* SimulatorQuantumGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorQuantumGateFactory.swift; sourceTree = "<group>"; };
 		FF072EF821BD88C2002248AA /* StatevectorSimulatorFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorSimulatorFacade.swift; sourceTree = "<group>"; };
 		FF072EFB21BD8A1D002248AA /* StatevectorRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorRegister.swift; sourceTree = "<group>"; };
+		FF103739236DF4010011706D /* Circuit+SummarizedProbabilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+SummarizedProbabilitiesTests.swift"; sourceTree = "<group>"; };
+		FF10373C236DF71C0011706D /* Circuit+StatevectorWithInitialBitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+StatevectorWithInitialBitsTests.swift"; sourceTree = "<group>"; };
 		FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DeutschAlgorithm.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF149DE8222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticPopulationReproductionFactoryTests.swift; sourceTree = "<group>"; };
 		FF149DEB222B01E400408E2D /* GeneticPopulationCrossoverFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticPopulationCrossoverFactoryTestDouble.swift; sourceTree = "<group>"; };
@@ -701,6 +711,8 @@
 		FFBCD5E1214DB6D90047020B /* CircuitViewPosition+PositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitViewPosition+PositionView.swift"; sourceTree = "<group>"; };
 		FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineHorizontalPositionView.xib; sourceTree = "<group>"; };
 		FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineHorizontalPositionView.swift; sourceTree = "<group>"; };
+		FFC11B37236CC47B001D3F39 /* Circuit+StatevectorWithInitialBits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+StatevectorWithInitialBits.swift"; sourceTree = "<group>"; };
+		FFC11B3A236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+SummarizedProbabilities.swift"; sourceTree = "<group>"; };
 		FFC5964D2203AFB500151355 /* GeneticFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticFactory.swift; sourceTree = "<group>"; };
 		FFC596502203B30D00151355 /* GeneticConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticConfiguration.swift; sourceTree = "<group>"; };
 		FFCC7292221CB0FA00D28A5D /* GeneticPopulationMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticPopulationMutation.swift; sourceTree = "<group>"; };
@@ -996,6 +1008,8 @@
 				FF9FBCE821C58F650070D943 /* Facade */,
 				FFB0D227212E0A650093BB3B /* Circuit.swift */,
 				FFDEAF942346A4840027673C /* Circuit+Probabilities.swift */,
+				FFC11B37236CC47B001D3F39 /* Circuit+StatevectorWithInitialBits.swift */,
+				FFC11B3A236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift */,
 				FF3EAC93212E06F0007AF61E /* CircuitFactory.swift */,
 				FF002BCF21FCC9A800E40C3A /* MainCircuitFactory.swift */,
 			);
@@ -1674,6 +1688,8 @@
 			children = (
 				FFED6905212F2D5900D46D68 /* Facade */,
 				FF2F5CD3234A893B00D36F24 /* Circuit+ProbabilitiesTests.swift */,
+				FF10373C236DF71C0011706D /* Circuit+StatevectorWithInitialBitsTests.swift */,
+				FF103739236DF4010011706D /* Circuit+SummarizedProbabilitiesTests.swift */,
 			);
 			path = Circuit;
 			sourceTree = "<group>";
@@ -1943,6 +1959,7 @@
 				FFCC729D221CB98400D28A5D /* MainFitness.swift in Sources */,
 				FFDEAF952346A4840027673C /* Circuit+Probabilities.swift in Sources */,
 				FF9FBCD621C5792E0070D943 /* ControlledNotGate.swift in Sources */,
+				FFC11B3B236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift in Sources */,
 				FF2D446D21FA65D2002515EF /* GeneticGate.swift in Sources */,
 				FFEB7B4921EBCC24009B916B /* OracleBottomPositionView.swift in Sources */,
 				FFDDFE862359099000683CF9 /* UnitaryGateFactory.swift in Sources */,
@@ -2014,6 +2031,7 @@
 				FFEB3EE621FFB91C00DD3586 /* GeneticCircuitMutation.swift in Sources */,
 				FFEB7B4C21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */,
 				FF9BBE34214E7A4C00AD1F78 /* MatrixPositionView.swift in Sources */,
+				FFC11B38236CC47B001D3F39 /* Circuit+StatevectorWithInitialBits.swift in Sources */,
 				FF1CF5F4229C8D2B003948F6 /* DrawerFactory.swift in Sources */,
 				FF5920F62221D48700C86F6A /* GeneticPopulationMutationFactory.swift in Sources */,
 				FF23727A235675E600E611A7 /* QuantumRegister+ApplyingGate.swift in Sources */,
@@ -2101,6 +2119,7 @@
 				FFE8FAA3212205BE005686FE /* Int+DerivedTests.swift in Sources */,
 				FF23373B222ABE6100FD5301 /* GeneticCircuitMutationFactoryTestDouble.swift in Sources */,
 				FF433871221227CE00AB5C06 /* GeneticGateFactoryTestDouble.swift in Sources */,
+				FF10373D236DF71C0011706D /* Circuit+StatevectorWithInitialBitsTests.swift in Sources */,
 				FF74B1652219B79200561A1F /* MainOracleCircuitFactoryTests.swift in Sources */,
 				FFBB6F8F21CD619E00389838 /* PhaseShiftGateTests.swift in Sources */,
 				FF0694E121CC029F00B5D469 /* SimulatorQuantumGateFactoryTestDouble.swift in Sources */,
@@ -2127,6 +2146,7 @@
 				FF79DA0F2219E2EF00D093AA /* GeneticUseCaseEvaluatorTestDouble.swift in Sources */,
 				FFB124812225F38E00E44DC6 /* MainGeneticPopulationCrossoverTests.swift in Sources */,
 				FF0694E721CC05CB00B5D469 /* SimulatorGateTestDouble.swift in Sources */,
+				FF10373A236DF4010011706D /* Circuit+SummarizedProbabilitiesTests.swift in Sources */,
 				FF18359121EABB87003E2F04 /* OracleGateTests.swift in Sources */,
 				FF1AAFEA211F502F00D3666A /* QuantumGateFactoryTests.swift in Sources */,
 				FF9BBE7C214ECEDB00AD1F78 /* FixedGate+CircuitViewPositionTests.swift in Sources */,
@@ -2226,6 +2246,7 @@
 				FFB5B55E216A3B8A009C59FC /* MatrixMiddleUnconnectedPositionView.swift in Sources */,
 				FF18358F21EAB099003E2F04 /* OracleGate.swift in Sources */,
 				FFDC34E321C1BCBD0052AC90 /* StatevectorSimulator.swift in Sources */,
+				FFC11B39236CC47B001D3F39 /* Circuit+StatevectorWithInitialBits.swift in Sources */,
 				FFDDFE8D23590C3500683CF9 /* UnitaryGateAdapter.swift in Sources */,
 				FF330714220611F300C92BD1 /* Array+RandomElements.swift in Sources */,
 				FF5920FA2221D51900C86F6A /* MainGeneticPopulationMutationFactory.swift in Sources */,
@@ -2242,6 +2263,7 @@
 				FF46EDF9216925180044C3CA /* Int+IsPowerOfTwo.swift in Sources */,
 				FF8B9D9921BD979000A28E34 /* SimulatorGate.swift in Sources */,
 				FFA50BB42357BEDC00BA9BAC /* UnitarySimulatorFacade.swift in Sources */,
+				FFC11B3C236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift in Sources */,
 				FF002BC121FC929600E40C3A /* GeneticGateFactory.swift in Sources */,
 				FF46EDFC216925200044C3CA /* QuantumRegister.swift in Sources */,
 				FF663D41216A2630002298BA /* LineHorizontalPositionView.swift in Sources */,
@@ -2322,6 +2344,7 @@
 				FF0694E221CC029F00B5D469 /* SimulatorQuantumGateFactoryTestDouble.swift in Sources */,
 				FF23373C222ABE6100FD5301 /* GeneticCircuitMutationFactoryTestDouble.swift in Sources */,
 				FF433872221227CE00AB5C06 /* GeneticGateFactoryTestDouble.swift in Sources */,
+				FF10373E236DF71C0011706D /* Circuit+StatevectorWithInitialBitsTests.swift in Sources */,
 				FF74B1662219B79200561A1F /* MainOracleCircuitFactoryTests.swift in Sources */,
 				FF46EDB2216924130044C3CA /* FixedGate+CircuitViewPositionTests.swift in Sources */,
 				FFBB6F8A21CD5E3700389838 /* NotGateTests.swift in Sources */,
@@ -2348,6 +2371,7 @@
 				FFB124822225F38E00E44DC6 /* MainGeneticPopulationCrossoverTests.swift in Sources */,
 				FF0694E821CC05CB00B5D469 /* SimulatorGateTestDouble.swift in Sources */,
 				FF46EDC8216924640044C3CA /* QuantumGateTests.swift in Sources */,
+				FF10373B236DF4010011706D /* Circuit+SummarizedProbabilitiesTests.swift in Sources */,
 				FF18359221EABB87003E2F04 /* OracleGateTests.swift in Sources */,
 				FF46EDC6216924640044C3CA /* QuantumRegisterTests.swift in Sources */,
 				FF46EDC52169245C0044C3CA /* Int+IsPowerOfTwoTests.swift in Sources */,

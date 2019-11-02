@@ -36,7 +36,7 @@ extension QuantumRegister {
 
         do {
             return try QuantumRegister(vector: nextVector)
-        } catch QuantumRegister.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
+        } catch QuantumRegister.InitVectorError.vectorAdditionOfSquareModulusIsNotEqualToOne {
             throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
         } catch {
             fatalError("Unexpected error: \(error).")

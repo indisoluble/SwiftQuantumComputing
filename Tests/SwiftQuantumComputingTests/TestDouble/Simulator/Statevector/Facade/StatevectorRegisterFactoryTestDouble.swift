@@ -29,22 +29,23 @@ final class StatevectorRegisterFactoryTestDouble {
     // MARK: - Internal properties
 
     private (set) var makeRegisterCount = 0
-    private (set) var lastMakeRegisterBits: String?
+    private (set) var lastMakeRegisterState: Vector?
     var makeRegisterResult: StatevectorRegister?
+    var makeRegisterError = MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - StatevectorRegisterFactory methods
 
 extension StatevectorRegisterFactoryTestDouble: StatevectorRegisterFactory {
-    func makeRegister(bits: String) throws -> StatevectorRegister {
+    func makeRegister(state: Vector) throws -> StatevectorRegister {
         makeRegisterCount += 1
 
-        lastMakeRegisterBits = bits
+        lastMakeRegisterState = state
 
         if let makeRegisterResult = makeRegisterResult {
             return makeRegisterResult
         }
 
-        throw MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes
+        throw makeRegisterError
     }
 }

@@ -38,12 +38,16 @@ struct StatevectorSimulatorFacade {
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
-    func statevector(afterInputting bits: String, in circuit: [SimulatorGate]) throws -> Vector {
+    func apply(circuit: [SimulatorGate], to initialStatevector: Vector) throws -> Vector {
         var register: StatevectorRegister!
         do {
-            register = try registerFactory.makeRegister(bits: bits)
-        } catch MakeRegisterError.bitsAreNotAStringComposedOnlyOfZerosAndOnes {
-            throw StatevectorError.inputBitsAreNotAStringComposedOnlyOfZerosAndOnes
+            register = try registerFactory.makeRegister(state: initialStatevector)
+        } catch MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne {
+            throw StatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
+        } catch MakeRegisterError.stateCountHasToBeAPowerOfTwo {
+            throw StatevectorError.initialStatevectorCountHasToBeAPowerOfTwo
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         for gate in circuit {
