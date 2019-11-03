@@ -1,8 +1,8 @@
 //
-//  Vector+ElementsTests.swift
+//  Vector+Elements.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 29/09/2019.
+//  Created by Enrique de la Torre on 02/11/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,27 +18,15 @@
 // limitations under the License.
 //
 
-import XCTest
-
-@testable import SwiftQuantumComputing
+import Foundation
 
 // MARK: - Main body
 
-class Vector_ElementsTests: XCTestCase {
+extension Vector {
 
-    // MARK: - Tests
+    // MARK: - Public properties
 
-    func testAnyVector_elements_returnExpectedArray() {
-        // Given
-        let expectedElements = [Complex(1), Complex(0), Complex(1)]
-
-        let vector = try! Vector(expectedElements)
-
-        // Then
-        XCTAssertEqual(vector.elements(), expectedElements)
+    public var elements: [Complex] {
+        return (0..<count).map { self[$0] }
     }
-
-    static var allTests = [
-        ("testAnyVector_elements_returnExpectedArray", testAnyVector_elements_returnExpectedArray)
-    ]
 }

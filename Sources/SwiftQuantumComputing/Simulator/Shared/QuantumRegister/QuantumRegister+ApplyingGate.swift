@@ -21,6 +21,9 @@
 import Foundation
 
 extension QuantumRegister {
+
+    // MARK: - Internal methods
+
     func applying(_ gate: QuantumGate) throws -> QuantumRegister {
         var nextVector: Vector!
         do {
@@ -33,7 +36,7 @@ extension QuantumRegister {
 
         do {
             return try QuantumRegister(vector: nextVector)
-        } catch QuantumRegister.InitVectorError.additionOfSquareModulusIsNotEqualToOne {
+        } catch QuantumRegister.InitVectorError.vectorAdditionOfSquareModulusIsNotEqualToOne {
             throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
         } catch {
             fatalError("Unexpected error: \(error).")

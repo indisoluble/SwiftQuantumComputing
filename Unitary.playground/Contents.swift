@@ -13,10 +13,10 @@ let drawer = try! MainDrawerFactory().makeDrawer(qubitCount: qubitCount)
 drawer.drawCircuit(gates)
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
-let unitary = try! circuit.unitary(usingQubitCount: qubitCount)
+let unitary = try! circuit.unitary(withQubitCount: qubitCount)
 
 print("Unitary: [")
-for row in unitary {
+for row in unitary.elements {
     print(row)
 }
 print("]")

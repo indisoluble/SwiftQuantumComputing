@@ -107,6 +107,27 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix[1,1], expectedValue)
     }
 
+    func testAnyMatrix_loop_returnExpectedSequence() {
+        // Given
+        let elements = [
+            [Complex(1), Complex(0), Complex(2)],
+            [Complex(1), Complex(0), Complex(2)],
+            [Complex(1), Complex(0), Complex(2)]
+        ]
+        let matrix = try! Matrix(elements)
+
+        // When
+        let sequence = matrix.map { $0 }
+
+        // Then
+        let expectedSequence = [
+            Complex(1), Complex(1), Complex(1),
+            Complex(0), Complex(0), Complex(0),
+            Complex(2), Complex(2), Complex(2)
+        ]
+        XCTAssertEqual(sequence, expectedSequence)
+    }
+
     func testNonSquareMatrix_isUnitary_returnFalse() {
         // Given
         let complex = Complex(real: 1, imag: 0)

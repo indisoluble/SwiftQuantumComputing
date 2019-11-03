@@ -41,5 +41,5 @@ public func probabilities(in evolvedGates: [FixedGate],
                           useCase: GeneticUseCase) -> [String: Double] {
     let circuit = MainCircuitFactory().makeCircuit(gates: evolvedGates)
 
-    return try! circuit.summarizedProbabilities(afterInputting: useCase.circuit.input)
+    return try! circuit.summarizedProbabilities(withInitialBits: useCase.circuit.input)
 }

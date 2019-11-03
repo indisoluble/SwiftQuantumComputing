@@ -21,6 +21,9 @@
 import Foundation
 
 extension QuantumGate {
+
+    // MARK: - Internal methods
+
     func applying(_ gate: QuantumGate) throws -> QuantumGate {
         var nextMatrix: Matrix!
         do {

@@ -33,14 +33,6 @@ class VectorTests: XCTestCase {
         XCTAssertThrowsError(try Vector([]))
     }
 
-    func testAnyVector_squaredNorm_returnExpectedValue() {
-        // Given
-        let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
-
-        // Then
-        XCTAssertEqual(vector.squaredNorm, 10)
-    }
-
     func testAnyVector_count_returnExpectedValue() {
         // Given
         let complex = Complex(real: 0, imag: 0)
@@ -51,6 +43,14 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(vector.count, elements.count)
     }
 
+    func testAnyVector_squaredNorm_returnExpectedValue() {
+        // Given
+        let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
+
+        // Then
+        XCTAssertEqual(vector.squaredNorm, 10)
+    }
+
     func testAnyVector_subscript_returnExpectedValue() {
         // Given
         let expectedValue = Complex(real: 10, imag: 10)
@@ -59,6 +59,18 @@ class VectorTests: XCTestCase {
 
         // Then
         XCTAssertEqual(vector[1], expectedValue)
+    }
+
+    func testAnyVector_loop_returnExpectedSequence() {
+        // Given
+        let elements = [Complex(1), Complex(0), Complex(2)]
+        let vector = try! Vector(elements)
+
+        // When
+        let sequence = vector.map { $0 }
+
+        // Then
+        XCTAssertEqual(sequence, elements)
     }
 
     func testTwoVectorWithDifferentDimensions_innerProduct_throwException() {
@@ -118,10 +130,10 @@ class VectorTests: XCTestCase {
     static var allTests = [
         ("testEmptyArray_init_throwException",
          testEmptyArray_init_throwException),
-        ("testAnyVector_squaredNorm_returnExpectedValue",
-         testAnyVector_squaredNorm_returnExpectedValue),
         ("testAnyVector_count_returnExpectedValue",
          testAnyVector_count_returnExpectedValue),
+        ("testAnyVector_squaredNorm_returnExpectedValue",
+         testAnyVector_squaredNorm_returnExpectedValue),
         ("testAnyVector_subscript_returnExpectedValue",
          testAnyVector_subscript_returnExpectedValue),
         ("testTwoVectorWithDifferentDimensions_innerProduct_throwException",

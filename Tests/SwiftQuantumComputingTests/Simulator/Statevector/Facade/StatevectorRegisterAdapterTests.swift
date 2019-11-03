@@ -28,7 +28,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let register = try! QuantumRegister(bits: "0")
+    let register = try! QuantumRegister(vector: try! Vector([Complex(1), Complex(0)]))
     let gateFactory = SimulatorQuantumGateFactoryTestDouble()
     let gate = SimulatorGateTestDouble()
     let matrix = Matrix.makeNot()
