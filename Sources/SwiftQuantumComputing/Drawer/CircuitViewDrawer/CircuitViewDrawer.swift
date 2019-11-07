@@ -42,7 +42,7 @@ struct CircuitViewDrawer {
 // MARK: - Drawable methods
 
 extension CircuitViewDrawer: Drawable {
-    func drawCircuit(_ circuit: [FixedGate]) -> SQCView {
+    func drawCircuit(_ circuit: [FixedGate]) throws -> SQCView {
         let container = makeContainerView(layerCount: (1 + circuit.count))
 
         var column = 0
@@ -53,7 +53,7 @@ extension CircuitViewDrawer: Drawable {
         for gate in circuit {
             column += 1
 
-            layer = gate.makeLayer(qubitCount: qubitCount)
+            layer = try gate.makeLayer(qubitCount: qubitCount)
             addLayer(layer, to: container, at: column)
         }
 

@@ -20,8 +20,16 @@
 
 import Foundation
 
+// MARK: - Errors
+
+public enum DrawCircuitError: Error {
+    case gateWithOneOrMoreInputsOutOfRange(gate: FixedGate)
+    case gateWithEmptyInputList(gate: FixedGate)
+    case gateTargetIsAlsoAControl(gate: FixedGate)
+}
+
 // MARK: - Protocol definition
 
 public protocol Drawable {
-    func drawCircuit(_ circuit: [FixedGate]) -> SQCView
+    func drawCircuit(_ circuit: [FixedGate]) throws -> SQCView
 }
