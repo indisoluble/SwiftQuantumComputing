@@ -20,14 +20,8 @@
 
 import Foundation
 
-// MARK: - Errors
-
-public enum MakeDrawerError: Error {
-    case qubitCountHasToBeBiggerThanZero
-}
-
 // MARK: - Protocol definition
 
 public protocol DrawerFactory {
-    func makeDrawer(qubitCount: Int) throws -> Drawable
+    func makeDrawer() -> Drawable
 }

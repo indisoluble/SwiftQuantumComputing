@@ -22,28 +22,17 @@ import Foundation
 
 // MARK: - Main body
 
-struct CircuitViewDrawer {
-
-    // MARK: - Private properties
-
-    private let qubitCount: Int
-
-    // MARK: - Internal init methods
-
-    init(qubitCount: Int) throws {
-        guard qubitCount > 0 else {
-            throw MakeDrawerError.qubitCountHasToBeBiggerThanZero
-        }
-
-        self.qubitCount = qubitCount
-    }
-}
+struct CircuitViewDrawer {}
 
 // MARK: - Drawable methods
 
 extension CircuitViewDrawer: Drawable {
-    func drawCircuit(_ circuit: [FixedGate]) throws -> SQCView {
-        let container = makeContainerView(layerCount: (1 + circuit.count))
+    func drawCircuit(_ circuit: [FixedGate], qubitCount: Int) throws -> SQCView {
+        guard qubitCount > 0 else {
+            throw DrawCircuitError.qubitCountHasToBeBiggerThanZero
+        }
+
+        let container = makeContainerView(layerCount: (1 + circuit.count), qubitCount: qubitCount)
 
         var column = 0
 
@@ -73,7 +62,7 @@ private extension CircuitViewDrawer {
 
     // MARK: - Private methods
 
-    func makeContainerView(layerCount: Int) -> SQCView {
+    func makeContainerView(layerCount: Int, qubitCount: Int) -> SQCView {
         let width = (CGFloat(layerCount) * Constants.positionSize.width)
         let height = (CGFloat(qubitCount) * Constants.positionSize.height)
         let frame = CGRect(x: 0, y: 0, width: width, height: height)

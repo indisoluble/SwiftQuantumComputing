@@ -23,6 +23,7 @@ import Foundation
 // MARK: - Errors
 
 public enum DrawCircuitError: Error {
+    case qubitCountHasToBeBiggerThanZero
     case gateWithOneOrMoreInputsOutOfRange(gate: FixedGate)
     case gateWithEmptyInputList(gate: FixedGate)
     case gateTargetIsAlsoAControl(gate: FixedGate)
@@ -31,5 +32,5 @@ public enum DrawCircuitError: Error {
 // MARK: - Protocol definition
 
 public protocol Drawable {
-    func drawCircuit(_ circuit: [FixedGate]) throws -> SQCView
+    func drawCircuit(_ circuit: [FixedGate], qubitCount: Int) throws -> SQCView
 }
