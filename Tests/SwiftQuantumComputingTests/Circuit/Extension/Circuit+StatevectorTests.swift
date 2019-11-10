@@ -35,21 +35,29 @@ class Circuit_StatevectorTests: XCTestCase {
     func testEmptyBitsString_statevectorWithInitialBits_throwException() {
         // Then
         XCTAssertThrowsError(try circuit.statevector(withInitialBits: ""))
+        XCTAssertEqual(circuit.gatesCount, 0)
+        XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testBitsStringWithLeadingSpaces_statevectorWithInitialBits_throwException() {
         // Then
         XCTAssertThrowsError(try circuit.statevector(withInitialBits: "  1001"))
+        XCTAssertEqual(circuit.gatesCount, 0)
+        XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testBitsStringWithTrailingSpaces_statevectorWithInitialBits_throwException() {
         // Then
         XCTAssertThrowsError(try circuit.statevector(withInitialBits: "1001  "))
+        XCTAssertEqual(circuit.gatesCount, 0)
+        XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testBitsStringWithWrongCharacter_statevectorWithInitialBits_throwException() {
         // Then
         XCTAssertThrowsError(try circuit.statevector(withInitialBits: "10#1"))
+        XCTAssertEqual(circuit.gatesCount, 0)
+        XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testValidBitString_statevectorWithInitialBits_produceExpectedVector() {
@@ -65,6 +73,7 @@ class Circuit_StatevectorTests: XCTestCase {
         let expectedInitialStatevector = try! Vector(initialElements)
 
         XCTAssertEqual(circuit.gatesCount, 0)
+        XCTAssertEqual(circuit.statevectorCount, 1)
         XCTAssertEqual(circuit.lastStatevectorInitialStatevector, expectedInitialStatevector)
     }
 
@@ -83,6 +92,7 @@ class Circuit_StatevectorTests: XCTestCase {
         let expectedInitialStatevector = try! Vector(initialElements)
 
         XCTAssertEqual(circuit.gatesCount, 1)
+        XCTAssertEqual(circuit.statevectorCount, 1)
         XCTAssertEqual(circuit.lastStatevectorInitialStatevector, expectedInitialStatevector)
     }
 

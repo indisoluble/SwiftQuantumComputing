@@ -2,7 +2,7 @@
 //  ArraySimulatorGate+QubitCountTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre (dev) on 10/11/2019.
+//  Created by Enrique de la Torre on 10/11/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");

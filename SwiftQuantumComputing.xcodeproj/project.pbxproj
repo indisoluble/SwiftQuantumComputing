@@ -110,6 +110,10 @@
 		FF24312E22137CF000D7388E /* ConfigurableGeneticGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF24312C22137CF000D7388E /* ConfigurableGeneticGateTests.swift */; };
 		FF2431302213840300D7388E /* SimpleGeneticGateFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF24312F2213840300D7388E /* SimpleGeneticGateFactoryTests.swift */; };
 		FF2431312213840300D7388E /* SimpleGeneticGateFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF24312F2213840300D7388E /* SimpleGeneticGateFactoryTests.swift */; };
+		FF2600A82378CA93002342AD /* Circuit+Unitary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2600A72378CA93002342AD /* Circuit+Unitary.swift */; };
+		FF2600A92378CA93002342AD /* Circuit+Unitary.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2600A72378CA93002342AD /* Circuit+Unitary.swift */; };
+		FF2600AB2378CF79002342AD /* Circuit+UnitaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2600AA2378CF79002342AD /* Circuit+UnitaryTests.swift */; };
+		FF2600AC2378CF79002342AD /* Circuit+UnitaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2600AA2378CF79002342AD /* Circuit+UnitaryTests.swift */; };
 		FF265D662135DD6A00179F75 /* CircuitTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF265D652135DD6A00179F75 /* CircuitTestDouble.swift */; };
 		FF2B47CB21EBF1CC004D4789 /* OracleBottomPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CA21EBF1CC004D4789 /* OracleBottomPositionView.xib */; };
 		FF2B47CD21EBF29C004D4789 /* OracleDownPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CC21EBF29C004D4789 /* OracleDownPositionView.xib */; };
@@ -565,6 +569,8 @@
 		FF243128221379C700D7388E /* GateTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GateTestDouble.swift; sourceTree = "<group>"; };
 		FF24312C22137CF000D7388E /* ConfigurableGeneticGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableGeneticGateTests.swift; sourceTree = "<group>"; };
 		FF24312F2213840300D7388E /* SimpleGeneticGateFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleGeneticGateFactoryTests.swift; sourceTree = "<group>"; };
+		FF2600A72378CA93002342AD /* Circuit+Unitary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+Unitary.swift"; sourceTree = "<group>"; };
+		FF2600AA2378CF79002342AD /* Circuit+UnitaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+UnitaryTests.swift"; sourceTree = "<group>"; };
 		FF265D652135DD6A00179F75 /* CircuitTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitTestDouble.swift; sourceTree = "<group>"; };
 		FF2B47CA21EBF1CC004D4789 /* OracleBottomPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleBottomPositionView.xib; sourceTree = "<group>"; };
 		FF2B47CC21EBF29C004D4789 /* OracleDownPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleDownPositionView.xib; sourceTree = "<group>"; };
@@ -896,6 +902,7 @@
 				FFDEAF942346A4840027673C /* Circuit+Probabilities.swift */,
 				FFC11B37236CC47B001D3F39 /* Circuit+Statevector.swift */,
 				FFC11B3A236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift */,
+				FF2600A72378CA93002342AD /* Circuit+Unitary.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -906,6 +913,7 @@
 				FF2F5CD3234A893B00D36F24 /* Circuit+ProbabilitiesTests.swift */,
 				FF10373C236DF71C0011706D /* Circuit+StatevectorTests.swift */,
 				FF103739236DF4010011706D /* Circuit+SummarizedProbabilitiesTests.swift */,
+				FF2600AA2378CF79002342AD /* Circuit+UnitaryTests.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2033,6 +2041,7 @@
 				FF2CD9FA211E177500EA7E86 /* QuantumRegister.swift in Sources */,
 				FFA50BAF2357BAEE00BA9BAC /* UnitarySimulator.swift in Sources */,
 				FF330713220611F300C92BD1 /* Array+RandomElements.swift in Sources */,
+				FF2600A82378CA93002342AD /* Circuit+Unitary.swift in Sources */,
 				FF2BD6F221FE3CFA007410EB /* GeneticCircuitCrossover.swift in Sources */,
 				FF410F3E221F591200D257EE /* MainGeneticPopulationCrossover.swift in Sources */,
 				FFFEA1852222CE7300E6B45C /* MainGeneticPopulationCrossoverFactory.swift in Sources */,
@@ -2211,6 +2220,7 @@
 				FFE1A963222349C900A2F285 /* GeneticGatesRandomizerFactoryTestDouble.swift in Sources */,
 				FF9301D0235CDC86008DD87E /* UnitarySimulatorFacadeTests.swift in Sources */,
 				FF233738222ABD3B00FD5301 /* MainGeneticPopulationMutationFactoryTests.swift in Sources */,
+				FF2600AB2378CF79002342AD /* Circuit+UnitaryTests.swift in Sources */,
 				FF43387722123A9200AB5C06 /* GeneticGateTestDouble.swift in Sources */,
 				FF4949BA223ECDD50087E821 /* GeneticUseCaseTests.swift in Sources */,
 				FF233744222ADE4C00FD5301 /* GeneticPopulationCrossoverTestDouble.swift in Sources */,
@@ -2357,6 +2367,7 @@
 				FF46EDFC216925200044C3CA /* QuantumRegister.swift in Sources */,
 				FF663D41216A2630002298BA /* LineHorizontalPositionView.swift in Sources */,
 				FF663D44216A2697002298BA /* NotPositionView.swift in Sources */,
+				FF2600A92378CA93002342AD /* Circuit+Unitary.swift in Sources */,
 				FFFEA1832222CE0200E6B45C /* GeneticPopulationCrossoverFactory.swift in Sources */,
 				FFB8106221C6CC37006333BB /* FixedGate+SimulatorGate.swift in Sources */,
 				FF46EDFA216925180044C3CA /* Int+Log2.swift in Sources */,
@@ -2442,6 +2453,7 @@
 				FFE1A964222349C900A2F285 /* GeneticGatesRandomizerFactoryTestDouble.swift in Sources */,
 				FF9301D1235CDC86008DD87E /* UnitarySimulatorFacadeTests.swift in Sources */,
 				FF233739222ABD3B00FD5301 /* MainGeneticPopulationMutationFactoryTests.swift in Sources */,
+				FF2600AC2378CF79002342AD /* Circuit+UnitaryTests.swift in Sources */,
 				FF43387822123A9200AB5C06 /* GeneticGateTestDouble.swift in Sources */,
 				FF4949BB223ECDD50087E821 /* GeneticUseCaseTests.swift in Sources */,
 				FF233745222ADE4C00FD5301 /* GeneticPopulationCrossoverTestDouble.swift in Sources */,

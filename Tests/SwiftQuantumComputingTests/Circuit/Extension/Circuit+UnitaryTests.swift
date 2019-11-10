@@ -1,8 +1,8 @@
 //
-//  Vector+ElementsTests.swift
+//  Circuit+UnitaryTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 02/11/2019.
+//  Created by Enrique de la Torre on 11/11/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,21 +24,32 @@ import XCTest
 
 // MARK: - Main body
 
-class Vector_ElementsTests: XCTestCase {
+class Circuit_UnitaryTests: XCTestCase {
+
+    // MARK: - Properties
+
+    let circuit = CircuitTestDouble()
 
     // MARK: - Tests
 
-    func testAnyVector_elements_returnExpectedArray() {
+    func testCircuitWithKnownQubitCount_unitaryWithoutQubitCount_useKnownQubitCount() {
         // Given
-        let expectedElements = [Complex(1), Complex(0), Complex(1)]
+        let gates = [FixedGate.not(target: 0), FixedGate.hadamard(target: 2)]
+        let qubitCount = 3
 
-        let vector = try! Vector(expectedElements)
+        circuit.gatesResult = gates
+
+        // When
+        _ = try? circuit.unitary()
 
         // Then
-        XCTAssertEqual(vector.elements, expectedElements)
+        XCTAssertEqual(circuit.gatesCount, 1)
+        XCTAssertEqual(circuit.unitaryCount, 1)
+        XCTAssertEqual(circuit.lastUnitaryQubitCount, qubitCount)
     }
 
     static var allTests = [
-        ("testAnyVector_elements_returnExpectedArray", testAnyVector_elements_returnExpectedArray)
+        ("testCircuitWithKnownQubitCount_unitaryWithoutQubitCount_useKnownQubitCount",
+         testCircuitWithKnownQubitCount_unitaryWithoutQubitCount_useKnownQubitCount)
     ]
 }
