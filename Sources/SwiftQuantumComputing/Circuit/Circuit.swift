@@ -34,7 +34,7 @@ public enum GateError: Error {
     case gateMatrixHandlesMoreQubitsThatGateActuallyHas
     case gateOracleControlsCanNotBeAnEmptyList
     case gateQubitCountDoesNotMatchCircuitQubitCount
-    case gateQubitCountHasToBeBiggerThanZero
+    case circuitQubitCountHasToBeBiggerThanZero
 }
 
 public enum StatevectorError: Error {
