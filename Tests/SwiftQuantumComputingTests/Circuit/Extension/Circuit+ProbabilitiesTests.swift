@@ -36,8 +36,6 @@ class Circuit_ProbabilitiesTests: XCTestCase {
     // MARK: - Tests
 
     func testCircuitThatThrowException_probabilities_throwException() {
-        // Given
-
         // Then
         XCTAssertThrowsError(try circuit.probabilities(withInitialBits: bits))
         XCTAssertEqual(circuit.statevectorCount, 1)

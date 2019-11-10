@@ -37,7 +37,7 @@ public enum GateError: Error {
     case circuitQubitCountHasToBeBiggerThanZero
 }
 
-public enum StatevectorError: Error {
+public enum StatevectorWithInitialStatevectorError: Error {
     case initialStatevectorCountHasToBeAPowerOfTwo
     case initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
     case gateThrowedError(gate: FixedGate, error: GateError)

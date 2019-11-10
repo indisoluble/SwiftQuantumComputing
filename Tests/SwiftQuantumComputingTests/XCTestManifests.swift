@@ -32,7 +32,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(UnitarySimulatorFacadeTests.allTests),
         testCase(CircuitFacadeTests.allTests),
         testCase(Circuit_ProbabilitiesTests.allTests),
-        testCase(Circuit_StatevectorWithInitialBitsTests.allTests),
+        testCase(Circuit_StatevectorTests.allTests),
         testCase(Circuit_SummarizedProbabilitiesTests.allTests),
         testCase(ComplexTests.allTests),
         testCase(MatrixTests.allTests),

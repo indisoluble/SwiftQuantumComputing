@@ -36,7 +36,7 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    public func summarizedProbabilities(withInitialBits initialBits: String) throws -> [String: Double] {
+    public func summarizedProbabilities(withInitialBits initialBits: String? = nil) throws -> [String: Double] {
         let probs = try errorCapturedProbabilities(withInitialBits: initialBits)
         let bitCount = Int.log2(probs.count)
 
@@ -51,7 +51,7 @@ extension Circuit {
     }
 
     public func summarizedProbabilities(qubits: [Int],
-                                        initialBits: String) throws -> [String: Double] {
+                                        initialBits: String? = nil) throws -> [String: Double] {
         guard qubits.count > 0 else {
             throw SummarizedProbabilitiesError.qubitsCanNotBeAnEmptyList
         }
@@ -90,7 +90,7 @@ private extension Circuit {
 
     // MARK: - Private methods
 
-    func errorCapturedProbabilities(withInitialBits initialBits: String) throws -> [Double] {
+    func errorCapturedProbabilities(withInitialBits initialBits: String?) throws -> [Double] {
         do {
             return try probabilities(withInitialBits: initialBits)
         } catch {
