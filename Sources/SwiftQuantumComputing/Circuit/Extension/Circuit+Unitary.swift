@@ -26,7 +26,7 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    func unitary() throws -> Matrix {
+    public func unitary() throws -> Matrix {
         let qubitCount = (gates as [SimulatorGate]).qubitCount()
 
         return try unitary(withQubitCount: qubitCount)
