@@ -32,9 +32,9 @@ public func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircu
 }
 
 public func drawCircuit(with evolvedGates: [FixedGate], useCase: GeneticUseCase) -> SQCView {
-    let drawer = try! MainDrawerFactory().makeDrawer(qubitCount: useCase.circuit.qubitCount)
+    let drawer = MainDrawerFactory().makeDrawer()
 
-    return drawer.drawCircuit(evolvedGates)
+    return try! drawer.drawCircuit(evolvedGates, qubitCount: useCase.circuit.qubitCount)
 }
 
 public func probabilities(in evolvedGates: [FixedGate],

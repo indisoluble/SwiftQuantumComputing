@@ -1,21 +1,20 @@
 import SwiftQuantumComputing // for iOS
 
 let circuitFactory = MainCircuitFactory()
-let drawerFactory = MainDrawerFactory()
+let drawer = MainDrawerFactory().makeDrawer()
 
 func isFunctionConstant(truthTable: [String]) -> Bool {
-    let qubitCount = 2
     let gates = [
-        FixedGate.hadamard(target: 1),
+        FixedGate.not(target: 0),
         FixedGate.hadamard(target: 0),
+        FixedGate.hadamard(target: 1),
         FixedGate.oracle(truthTable: truthTable, target: 0, controls: [1]),
         FixedGate.hadamard(target: 1)
     ]
-    let drawer = try! drawerFactory.makeDrawer(qubitCount: qubitCount)
-    drawer.drawCircuit(gates)
+    try! drawer.drawCircuit(gates)
 
     let circuit = circuitFactory.makeCircuit(gates: gates)
-    let probabilities = try! circuit.summarizedProbabilities(qubits: [1], initialBits: "01")
+    let probabilities = try! circuit.summarizedProbabilities(qubits: [1])
 
     return (abs(1 - (probabilities["0"] ?? 0.0)) < 0.001)
 }

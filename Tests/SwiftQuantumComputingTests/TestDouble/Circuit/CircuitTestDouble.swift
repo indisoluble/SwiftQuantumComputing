@@ -39,8 +39,8 @@ final class CircuitTestDouble {
     private (set) var statevectorCount = 0
     private (set) var lastStatevectorInitialStatevector: Vector?
     var statevectorResult: Vector?
-    var statevectorError = StatevectorError.gateThrowedError(gate: .not(target: 0),
-                                                             error: .additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector)
+    var statevectorError = StatevectorWithInitialStatevectorError.gateThrowedError(gate: .not(target: 0),
+                                                                                   error: .additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector)
 }
 
 // MARK: - Circuit methods

@@ -39,7 +39,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.controlledNot(target: 1, control: 3)
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -58,7 +58,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.hadamard(target: 1)
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -75,7 +75,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.not(target: 1)
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -86,21 +86,13 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testZeroQubitMatrixGate_makeLayer_returnExpectedPositions() {
+    func testZeroQubitMatrixGate_makeLayer_throwException() {
         // Given
         let qubitCount = 3
         let gate = FixedGate.matrix(matrix: matrix, inputs: [])
 
-        // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
-
         // Then
-        let expectedPositions = [
-            CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.lineHorizontal
-        ]
-        XCTAssertEqual(positions, expectedPositions)
+        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
     }
 
     func testSingleQubitMatrixGate_makeLayer_returnExpectedPositions() {
@@ -109,7 +101,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.matrix(matrix: matrix, inputs: [1])
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -127,7 +119,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.matrix(matrix: matrix, inputs: inputs)
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -149,7 +141,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.phaseShift(radians: radians, target: 1)
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -160,55 +152,31 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testOracleGateWithoutControls_makeLayer_returnExpectedPositions() {
+    func testOracleGateWithoutControls_makeLayer_throwException() {
         // Given
         let qubitCount = 3
         let gate = FixedGate.oracle(truthTable: [], target: 0, controls: [])
 
-        // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
-
         // Then
-        let expectedPositions = [
-            CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.lineHorizontal
-        ]
-        XCTAssertEqual(positions, expectedPositions)
+        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
     }
 
-    func testOracleGateWithTargetEqualToOneOfTheControls_makeLayer_returnExpectedPositions() {
+    func testOracleGateWithTargetEqualToOneOfTheControls_makeLayer_throwException() {
         // Given
         let qubitCount = 3
         let gate = FixedGate.oracle(truthTable: [], target: 0, controls: [0, 2])
 
-        // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
-
         // Then
-        let expectedPositions = [
-            CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.lineHorizontal
-        ]
-        XCTAssertEqual(positions, expectedPositions)
+        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
     }
 
-    func testOracleGateWithTargetOutOfRange_makeLayer_returnExpectedPositions() {
+    func testOracleGateWithTargetOutOfRange_makeLayer_throwException() {
         // Given
         let qubitCount = 3
         let gate = FixedGate.oracle(truthTable: [], target: qubitCount, controls: [0, 2])
 
-        // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
-
         // Then
-        let expectedPositions = [
-            CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.lineHorizontal
-        ]
-        XCTAssertEqual(positions, expectedPositions)
+        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
     }
 
     func testOracleGateWithOneControlOnTopOfTarget_makeLayer_returnExpectedPositions() {
@@ -217,7 +185,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.oracle(truthTable: [], target: 1, controls: [3])
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -236,7 +204,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.oracle(truthTable: [], target: 3, controls: [1])
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -256,7 +224,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.oracle(truthTable: [], target: 5, controls: controls)
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -280,7 +248,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.oracle(truthTable: [], target: 7, controls: controls)
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [
@@ -304,7 +272,7 @@ class FixedGate_CircuitViewPositionTests: XCTestCase {
         let gate = FixedGate.oracle(truthTable: [], target: 1, controls: controls)
 
         // When
-        let positions = gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount)
 
         // Then
         let expectedPositions = [

@@ -1,8 +1,8 @@
 //
-//  Vector+ElementsTests.swift
+//  ArraySimulatorGate+QubitCount.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 02/11/2019.
+//  Created by Enrique de la Torre on 08/11/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,27 +18,18 @@
 // limitations under the License.
 //
 
-import XCTest
+import Foundation
 
-@testable import SwiftQuantumComputing
+extension Array where Element == SimulatorGate {
+    func qubitCount() -> Int {
+        let maxInput = reduce(0) { currentMax, gate in
+            guard let otherMax = try? gate.extract().inputs.max() else {
+                return currentMax
+            }
 
-// MARK: - Main body
+            return otherMax > currentMax ? otherMax : currentMax
+        }
 
-class Vector_ElementsTests: XCTestCase {
-
-    // MARK: - Tests
-
-    func testAnyVector_elements_returnExpectedArray() {
-        // Given
-        let expectedElements = [Complex(1), Complex(0), Complex(1)]
-
-        let vector = try! Vector(expectedElements)
-
-        // Then
-        XCTAssertEqual(vector.elements, expectedElements)
+        return maxInput + 1
     }
-
-    static var allTests = [
-        ("testAnyVector_elements_returnExpectedArray", testAnyVector_elements_returnExpectedArray)
-    ]
 }

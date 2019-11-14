@@ -32,7 +32,7 @@ public struct MainDrawerFactory {
 // MARK: - DrawerFactory methods
 
 extension MainDrawerFactory: DrawerFactory {
-    public func makeDrawer(qubitCount: Int) throws -> Drawable {
-        return try CircuitViewDrawer(qubitCount: qubitCount)
+    public func makeDrawer() -> Drawable {
+        return CircuitViewDrawer()
     }
 }
