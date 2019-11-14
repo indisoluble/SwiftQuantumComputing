@@ -26,20 +26,22 @@ extension FixedGate {
 
     // MARK: - Internal methods
 
-    func makeLayer(qubitCount: Int) -> [CircuitViewPosition] {
+    func makeLayer(qubitCount: Int) throws -> [CircuitViewPosition] {
         switch self {
         case .controlledNot(let target, let control):
-            return makeControlledNotLayer(qubitCount: qubitCount, target: target, control: control)
+            return try makeControlledNotLayer(qubitCount: qubitCount,
+                                              target: target,
+                                              control: control)
         case .hadamard(let target):
-            return makeHadamardLayer(qubitCount: qubitCount, target: target)
+            return try makeHadamardLayer(qubitCount: qubitCount, target: target)
         case .matrix(_, let inputs):
-            return makeMatrixLayer(qubitCount: qubitCount, inputs: inputs)
+            return try makeMatrixLayer(qubitCount: qubitCount, inputs: inputs)
         case .not(let target):
-            return makeNotLayer(qubitCount: qubitCount, target: target)
+            return try makeNotLayer(qubitCount: qubitCount, target: target)
         case .oracle(_, let target, let controls):
-            return makeOracleLayer(qubitCount: qubitCount, target: target, controls: controls)
+            return try makeOracleLayer(qubitCount: qubitCount, target: target, controls: controls)
         case .phaseShift(let radians, let target):
-            return makePhaseShiftLayer(qubitCount: qubitCount, radians: radians, target: target)
+            return try makePhaseShiftLayer(qubitCount: qubitCount, radians: radians, target: target)
         }
     }
 }
@@ -50,12 +52,10 @@ private extension FixedGate {
 
     // MARK: - Private methods
 
-    func makeHadamardLayer(qubitCount: Int, target: Int) -> [CircuitViewPosition] {
+    func makeHadamardLayer(qubitCount: Int, target: Int) throws -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target) else {
-            Logger().debug("makeHadamardLayer failed: target out of range")
-
-            return layer
+            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
         }
 
         layer[target] = .hadamard
@@ -63,12 +63,10 @@ private extension FixedGate {
         return layer
     }
 
-    func makeNotLayer(qubitCount: Int, target: Int) -> [CircuitViewPosition] {
+    func makeNotLayer(qubitCount: Int, target: Int) throws -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target) else {
-            Logger().debug("makeNotLayer failed: target out of range")
-
-            return layer
+            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
         }
 
         layer[target] = .not
@@ -78,12 +76,10 @@ private extension FixedGate {
 
     func makePhaseShiftLayer(qubitCount: Int,
                              radians: Double,
-                             target: Int) -> [CircuitViewPosition] {
+                             target: Int) throws -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target) else {
-            Logger().debug("makePhaseShiftLayer failed: target out of range")
-
-            return layer
+            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
         }
 
         layer[target] = .phaseShift(radians: radians)
@@ -93,12 +89,10 @@ private extension FixedGate {
 
     func makeControlledNotLayer(qubitCount: Int,
                                 target: Int,
-                                control: Int) -> [CircuitViewPosition] {
+                                control: Int) throws -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target), layer.indices.contains(control) else {
-            Logger().debug("makeControlledNotLayer failed: target and/or control out of range")
-
-            return layer
+            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
         }
 
         let isTargetOnTop = (target > control)
@@ -113,18 +107,14 @@ private extension FixedGate {
         return layer
     }
 
-    func makeMatrixLayer(qubitCount: Int, inputs: [Int]) -> [CircuitViewPosition] {
+    func makeMatrixLayer(qubitCount: Int, inputs: [Int]) throws -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard inputs.count > 0 else {
-            Logger().debug("makeMatrixLayer failed: no inputs provided")
-
-            return layer
+            throw DrawCircuitError.gateWithEmptyInputList(gate: self)
         }
 
         guard inputs.allSatisfy({ layer.indices.contains($0) }) else {
-            Logger().debug("makeMatrixLayer failed: one or more inputs are out of range")
-
-            return layer
+            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
         }
 
         if (inputs.count == 1) {
@@ -148,24 +138,20 @@ private extension FixedGate {
         return layer
     }
 
-    func makeOracleLayer(qubitCount: Int, target: Int, controls: [Int]) -> [CircuitViewPosition] {
+    func makeOracleLayer(qubitCount: Int,
+                         target: Int,
+                         controls: [Int]) throws -> [CircuitViewPosition] {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard controls.count > 0 else {
-            Logger().debug("makeOracleLayer failed: no controls provided")
-
-            return layer
+            throw DrawCircuitError.gateWithEmptyInputList(gate: self)
         }
 
         guard !controls.contains(target) else {
-            Logger().debug("makeOracleLayer failed: target is also a control")
-
-            return layer
+            throw DrawCircuitError.gateTargetIsAlsoAControl(gate: self)
         }
 
         guard (controls + [target]).allSatisfy({ layer.indices.contains($0) }) else {
-            Logger().debug("makeOracleLayer failed: one or more inputs are out of range")
-
-            return layer
+            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
         }
 
         let sortedControls = controls.sorted()

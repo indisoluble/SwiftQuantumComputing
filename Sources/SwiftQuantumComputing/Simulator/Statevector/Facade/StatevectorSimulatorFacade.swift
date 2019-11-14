@@ -43,9 +43,9 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
         do {
             register = try registerFactory.makeRegister(state: initialStatevector)
         } catch MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne {
-            throw StatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
+            throw StatevectorWithInitialStatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
         } catch MakeRegisterError.stateCountHasToBeAPowerOfTwo {
-            throw StatevectorError.initialStatevectorCountHasToBeAPowerOfTwo
+            throw StatevectorWithInitialStatevectorError.initialStatevectorCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")
         }
@@ -55,7 +55,8 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
                 register = try register.applying(gate)
             } catch {
                 if let error = error as? GateError {
-                    throw StatevectorError.gateThrowedError(gate: gate.fixedGate, error: error)
+                    throw StatevectorWithInitialStatevectorError.gateThrowedError(gate: gate.fixedGate,
+                                                                                  error: error)
                 } else {
                     fatalError("Unexpected error: \(error).")
                 }

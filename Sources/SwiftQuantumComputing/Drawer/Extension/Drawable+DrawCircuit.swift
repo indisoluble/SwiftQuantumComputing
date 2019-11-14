@@ -1,8 +1,8 @@
 //
-//  Vector+ElementsTests.swift
+//  Drawable+DrawCircuit.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 02/11/2019.
+//  Created by Enrique de la Torre on 12/11/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,27 +18,17 @@
 // limitations under the License.
 //
 
-import XCTest
-
-@testable import SwiftQuantumComputing
+import Foundation
 
 // MARK: - Main body
 
-class Vector_ElementsTests: XCTestCase {
+extension Drawable {
 
-    // MARK: - Tests
+    // MARK: - Public methods
 
-    func testAnyVector_elements_returnExpectedArray() {
-        // Given
-        let expectedElements = [Complex(1), Complex(0), Complex(1)]
+    public func drawCircuit(_ circuit: [FixedGate]) throws -> SQCView {
+        let qubitCount = (circuit as [SimulatorGate]).qubitCount()
 
-        let vector = try! Vector(expectedElements)
-
-        // Then
-        XCTAssertEqual(vector.elements, expectedElements)
+        return try drawCircuit(circuit, qubitCount: qubitCount)
     }
-
-    static var allTests = [
-        ("testAnyVector_elements_returnExpectedArray", testAnyVector_elements_returnExpectedArray)
-    ]
 }

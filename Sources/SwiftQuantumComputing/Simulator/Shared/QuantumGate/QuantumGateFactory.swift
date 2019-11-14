@@ -41,7 +41,7 @@ struct QuantumGateFactory {
         }
 
         guard qubitCount > 0 else {
-            throw GateError.gateQubitCountHasToBeBiggerThanZero
+            throw GateError.circuitQubitCountHasToBeBiggerThanZero
         }
 
         let matrixQubitCount = Int.log2(baseMatrix.rowCount)

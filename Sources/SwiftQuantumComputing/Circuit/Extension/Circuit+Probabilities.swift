@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 public enum ProbabilitiesError: Error {
-    case statevectorThrowedError(error: StatevectorWithInitialBitsError)
+    case statevectorThrowedError(error: StatevectorError)
 }
 
 // MARK: - Main body
@@ -32,12 +32,12 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    public func probabilities(withInitialBits initialBits: String) throws -> [Double] {
+    public func probabilities(withInitialBits initialBits: String? = nil) throws -> [Double] {
         var state: Vector!
         do {
             state = try statevector(withInitialBits: initialBits)
         } catch {
-            if let error = error as? StatevectorWithInitialBitsError {
+            if let error = error as? StatevectorError {
                 throw ProbabilitiesError.statevectorThrowedError(error: error)
             } else {
                 fatalError("Unexpected error: \(error).")

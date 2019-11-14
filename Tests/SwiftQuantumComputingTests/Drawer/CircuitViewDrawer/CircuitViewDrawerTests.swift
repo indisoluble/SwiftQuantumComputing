@@ -1,9 +1,9 @@
 //
 //  CircuitViewDrawerTests.swift
-//  SwiftQuantumComputingTests
+//  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 16/09/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 07/11/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,8 +28,11 @@ class CircuitViewDrawerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testZeroQubits_init_throwException() {
+    func testQubitCountIsZero_drawCircuit_throwException() {
+        // Given
+        let drawer = CircuitViewDrawer()
+
         // Then
-        XCTAssertThrowsError(try CircuitViewDrawer(qubitCount: 0))
+        XCTAssertThrowsError(try drawer.drawCircuit([], qubitCount: 0))
     }
 }

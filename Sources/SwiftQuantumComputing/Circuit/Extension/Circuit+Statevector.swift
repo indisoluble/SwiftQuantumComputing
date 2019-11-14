@@ -1,5 +1,5 @@
 //
-//  Circuit+StatevectorWithInitialBits.swift
+//  Circuit+Statevector.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 01/11/2019.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-public enum StatevectorWithInitialBitsError: Error {
+public enum StatevectorError: Error {
     case initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
     case gateThrowedError(gate: FixedGate, error: GateError)
 }
@@ -33,21 +33,21 @@ extension Circuit {
 
     // MARK: - Public methods
 
-    public func statevector(withInitialBits initialBits: String) throws -> Vector {
-        guard let value = Int(initialBits, radix: 2) else {
-            throw StatevectorWithInitialBitsError.initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    public func statevector(withInitialBits initialBits: String? = nil) throws -> Vector {
+        guard let value = Int(initialBits ?? "0", radix: 2) else {
+            throw StatevectorError.initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
+        let qubitCount = (initialBits?.count ?? (gates as [SimulatorGate]).qubitCount())
 
-        let initialStatevector = Self.makeState(value: value, qubitCount: initialBits.count)
+        let initialStatevector = Self.makeState(value: value, qubitCount: qubitCount)
 
         do {
             return try statevector(withInitialStatevector: initialStatevector)
         } catch {
-            if let error = error as? StatevectorError {
+            if let error = error as? StatevectorWithInitialStatevectorError {
                 switch error {
                 case .gateThrowedError(let gate, let gateError):
-                    throw StatevectorWithInitialBitsError.gateThrowedError(gate: gate,
-                                                                           error: gateError)
+                    throw StatevectorError.gateThrowedError(gate: gate, error: gateError)
                 default:
                     fatalError("Unexpected error: \(error).")
                 }
