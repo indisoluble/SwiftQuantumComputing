@@ -34,9 +34,13 @@ struct QuantumGate {
 
     // MARK: - Internal init methods
 
+    enum InitError: Error {
+        case matrixIsNotUnitary
+    }
+
     init(matrix: Matrix) throws {
         guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            throw GateError.gateMatrixIsNotUnitary
+            throw InitError.matrixIsNotUnitary
         }
 
         self.matrix = matrix

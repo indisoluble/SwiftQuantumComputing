@@ -22,6 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
+/// Conforms `MainCircuitFactory`. Use to create new `Circuit` instances
 public struct MainCircuitFactory {
 
     // MARK: - Public init methods

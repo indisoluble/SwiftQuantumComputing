@@ -52,7 +52,15 @@ extension StatevectorRegisterAdapter: StatevectorRegister {
         let registerGate = try gateFactory.makeGate(qubitCount: register.qubitCount,
                                                     matrix: components.matrix,
                                                     inputs: components.inputs)
-        let nextRegister = try register.applying(registerGate)
+
+        var nextRegister: QuantumRegister!
+        do {
+            nextRegister = try register.applying(registerGate)
+        } catch QuantumRegister.ApplyingError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector {
+            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
 
         return StatevectorRegisterAdapter(register: nextRegister, gateFactory: gateFactory)
     }

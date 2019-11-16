@@ -22,8 +22,11 @@ import Foundation
 
 // MARK: - Errors
 
+/// Errors throwed by `Circuit.statevector(withInitialBits:)`
 public enum StatevectorError: Error {
+    /// Throwed when `initialBits` is not composed only of 0's & 1's
     case initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: FixedGate, error: GateError)
 }
 
@@ -33,6 +36,15 @@ extension Circuit {
 
     // MARK: - Public methods
 
+    /**
+     Initializes circuit with `initialBits` and applies `gates` to get the probabilities of each possible combinations of qubits.
+
+     - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+
+     - Throws: `StatevectorError`.
+
+     - Returns: A statevector, result of applying `gates` to `initialBits`.
+     */
     public func statevector(withInitialBits initialBits: String? = nil) throws -> Vector {
         guard let value = Int(initialBits ?? "0", radix: 2) else {
             throw StatevectorError.initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
