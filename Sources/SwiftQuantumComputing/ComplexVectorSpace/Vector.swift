@@ -22,14 +22,17 @@ import Foundation
 
 // MARK: - Main body
 
+/// Swift representation of a complex vector
 public struct Vector {
 
     // MARK: - Public properties
 
+    /// Number of elements in the vector
     public var count: Int {
         return matrix.rowCount
     }
 
+    /// Use [index] to access elements in the vector
     public subscript(index: Int) -> Complex {
         return matrix[index,0]
     }
@@ -46,10 +49,21 @@ public struct Vector {
 
     // MARK: - Public init methods
 
+    /// Errors throwed by `Vector.init()`
     public enum InitError: Error {
+        /// Throwed when no `Complex` element is provided to initialize a new vector
         case doNotPassAnEmptyArray
     }
 
+    /**
+     Initializes a new `Vector` instance with `elements`.
+
+     - Parameter elements: List of `Complex` values.
+
+     - Throws: `Vector.InitError`.
+
+     - Returns: A new `Vector` instance.
+     */
     public init(_ elements: [Complex]) throws {
         let rows = elements.map { [$0] }
 
