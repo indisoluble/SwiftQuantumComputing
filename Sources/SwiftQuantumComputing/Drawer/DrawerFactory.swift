@@ -22,6 +22,9 @@ import Foundation
 
 // MARK: - Protocol definition
 
+/// Factory to build `Drawable` instances
 public protocol DrawerFactory {
+
+    /// Returns a `Drawable` instance
     func makeDrawer() -> Drawable
 }
