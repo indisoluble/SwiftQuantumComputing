@@ -705,6 +705,7 @@
 		FF9BBE5D214E9A1E00AD1F78 /* MatrixMiddleUnconnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixMiddleUnconnectedPositionView.xib; sourceTree = "<group>"; };
 		FF9BBE5F214EAABD00AD1F78 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		FF9BBE7B214ECEDB00AD1F78 /* FixedGate+CircuitViewPositionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FixedGate+CircuitViewPositionTests.swift"; sourceTree = "<group>"; };
+		FF9CE7EF238B18A90098E5C8 /* Drawer.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Drawer.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF9FBCD221C56C270070D943 /* Gate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gate.swift; sourceTree = "<group>"; };
 		FF9FBCD521C5792E0070D943 /* ControlledNotGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledNotGate.swift; sourceTree = "<group>"; };
 		FF9FBCD821C579CF0070D943 /* HadamardGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HadamardGate.swift; sourceTree = "<group>"; };
@@ -754,7 +755,7 @@
 		FFCC729C221CB98400D28A5D /* MainFitness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFitness.swift; sourceTree = "<group>"; };
 		FFCC729F221CC1D600D28A5D /* MainGeneticCircuitMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticCircuitMutation.swift; sourceTree = "<group>"; };
 		FFD05D7C23660CC500872BBA /* UnitarySimulatorTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitarySimulatorTestDouble.swift; sourceTree = "<group>"; };
-		FFD05D7F236614C900872BBA /* Unitary.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Unitary.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FFD05D7F236614C900872BBA /* Circuit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Circuit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FFDC34E121C1BCBD0052AC90 /* StatevectorSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorSimulator.swift; sourceTree = "<group>"; };
 		FFDDFE822359085500683CF9 /* UnitaryGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitaryGate.swift; sourceTree = "<group>"; };
 		FFDDFE852359099000683CF9 /* UnitaryGateFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitaryGateFactory.swift; sourceTree = "<group>"; };
@@ -1187,9 +1188,10 @@
 				FFB7F568227CD6F800DF2937 /* Tests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
 				FF43848422B56C2200319473 /* Package.swift */,
+				FFD05D7F236614C900872BBA /* Circuit.playground */,
 				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
+				FF9CE7EF238B18A90098E5C8 /* Drawer.playground */,
 				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
-				FFD05D7F236614C900872BBA /* Unitary.playground */,
 			);
 			sourceTree = "<group>";
 		};
