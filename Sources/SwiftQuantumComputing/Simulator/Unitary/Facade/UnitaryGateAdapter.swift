@@ -52,7 +52,15 @@ extension UnitaryGateAdapter: UnitaryGate {
         let otherQuantumGate = try gateFactory.makeGate(qubitCount: quantumGate.qubitCount,
                                                         matrix: components.matrix,
                                                         inputs: components.inputs)
-        let nextQuantumGate = try quantumGate.applying(otherQuantumGate)
+
+        var nextQuantumGate: QuantumGate!
+        do {
+            nextQuantumGate = try quantumGate.applying(otherQuantumGate)
+        } catch QuantumGate.ApplyingError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary {
+            throw GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
 
         return UnitaryGateAdapter(quantumGate: nextQuantumGate, gateFactory: gateFactory)
     }

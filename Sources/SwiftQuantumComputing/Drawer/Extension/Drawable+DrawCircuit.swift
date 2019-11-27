@@ -26,6 +26,15 @@ extension Drawable {
 
     // MARK: - Public methods
 
+    /**
+     Prints a `circuit` in a view.
+
+     - Parameter circuit: Circuit to be printed in a view..
+
+     - Throws: `DrawCircuitError`.
+
+     - Returns: A view with a representation of the `circuit` inside.
+     */
     public func drawCircuit(_ circuit: [FixedGate]) throws -> SQCView {
         let qubitCount = (circuit as [SimulatorGate]).qubitCount()
 

@@ -5,29 +5,94 @@
 [![Version](https://img.shields.io/cocoapods/v/SwiftQuantumComputing.svg)](http://cocoapods.org/pods/SwiftQuantumComputing)
 ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
 
-In this repository you can find a quantum circuit simulator written in Swift and speeded up with [Accelerate.framework](https://developer.apple.com/documentation/accelerate) in iOS/macOS and [BLAS](http://www.netlib.org/blas/) in Linux. Along side the simulator there is also a genetic algorithm to automatically generate circuits able to solve a given quantum problem.
+In this repository you can find a quantum circuit simulator written in Swift and speeded up with [Accelerate.framework](https://developer.apple.com/documentation/accelerate) in iOS/macOS and [BLAS](http://www.netlib.org/blas/) in Linux. Along side the simulator there is also a genetic algorithm to automatically generate circuits.
 
 The code written so far is mostly based on the content of: [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965), with a few tips from [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X). It is also inspired by [IBM Qiskit](https://github.com/Qiskit/qiskit-terra).
 
 ## Usage
 
-To create a circuit gate by gate:
+### Build & use a quantum circuit
 
-![Deutsch's Algorithm](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/DeutschAlgorithm.jpg)
+```swift
+import SwiftQuantumComputing // for macOS
+//: 1. Compose a list of quantum gates. Insert them in the same order
+//:    you want them to appear in the quantum circuit
+let gates = [
+    FixedGate.controlledNot(target: 0, control: 2),
+    FixedGate.hadamard(target: 1),
+    FixedGate.matrix(matrix: Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]]),
+                     inputs: [2]),
+    FixedGate.not(target: 1),
+    FixedGate.oracle(truthTable: ["00", "11"], target: 0, controls: [2, 1]),
+    FixedGate.phaseShift(radians: 0, target: 2)
+]
+//: 2. (Optional) Draw the quantum circuit to see how it looks
+let drawer = MainDrawerFactory().makeDrawer()
+drawer.drawCircuit(gates)
+//: 3. Build the quantum circuit with the list of gates
+let circuit = MainCircuitFactory().makeCircuit(gates: gates)
+//: 4. Use the quantum circuit
+print("Statevector: \(circuit.statevector())\n")
+print("Probabilities: \(circuit.probabilities())\n")
+print("Summarized probabilities: \(circuit.summarizedProbabilities())\n")
+print("Unitary: \(circuit.unitary())\n")
+```
 
-Check `DeutschAlgorithm.playground` for the actual code.
+Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Circuit.playground).
 
-Previous playground shows how to produce a statevector for a given circuit. To get the unitary matrix that represents a circuit:
+### Use a genetic algorithm to automatically generate a quantum circuit
 
-![Unitary matrix for a circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Unitary.jpg)
+```swift
+import SwiftQuantumComputing // for macOS
+//: 1. Define a configuration for the genetic algorithm
+let config = GeneticConfiguration(depth: (1..<50),
+                                  generationCount: 2000,
+                                  populationSize: (2500..<6500),
+                                  tournamentSize: 7,
+                                  mutationProbability: 0.2,
+                                  threshold: 0.48,
+                                  errorProbability: 0.000000000000001)
+//: 2. Also the uses cases, i.e. the circuit outputs you want to get
+//:    when the oracle is configured with the different truth tables
+let cases = [
+    GeneticUseCase(emptyTruthTableQubitCount: 1, circuitOutput: "00"),
+    GeneticUseCase(truthTable: ["0", "1"], circuitOutput: "00"),
+    GeneticUseCase(truthTable: ["0"], circuitOutput: "10"),
+    GeneticUseCase(truthTable: ["1"], circuitOutput: "10")
+]
+//: 3. And which gates can be used to find a solution
+let gates: [Gate] = [HadamardGate(), NotGate()]
+//: 4. Now, run the genetic algorithm to find/evolve a circuit that solves
+//:    the problem modeled with the use cases
+let evolvedCircuit = MainGeneticFactory().evolveCircuit(configuration: config,
+                                                        useCases: cases,
+                                                        gates: gates)
+print("Solution found. Fitness score: \(evolvedCircuit.eval)")
 
-Full code is in `Unitary.playground`.
+for useCase in cases {
+//: 5. (Optional) Draw the solution (check `Sources` folder in Playground for the source code)
+    let evolvedGates = configureEvolvedGates(in: evolvedCircuit, with: useCase)
+    drawCircuit(with: evolvedGates, useCase: useCase)
+//: 6. (Optional) Check how well the solution found meets each use case
+//:    (check `Sources` folder in Playground for the source code)
+    let probs = probabilities(in: evolvedGates, useCase: useCase)
+    print(String(format: "Use case: [%@]. Input: %@ -> Output: %@. Probability: %.2f %%",
+                 useCase.truthTable.truth.joined(separator: ", "),
+                 useCase.circuit.input,
+                 useCase.circuit.output,
+                 (probs[useCase.circuit.output] ?? 0.0) * 100))
+}
+```
 
-Or check `Genetic.playground` to see how to configure the genetic algorithm to produce a quantum circuit:
+Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Genetic.playground).
 
-![Circuit generated with a genetic algorithm](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Genetic.jpg)
+### Draw a quantum circuit
 
-### Linux
+![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
+
+Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Drawer.playground).
+
+## Linux
 
 As mentioned above, this package depends on [BLAS](http://www.netlib.org/blas/) if running on Linux, more exactly, [Ubuntu](https://www.ubuntu.com).
 

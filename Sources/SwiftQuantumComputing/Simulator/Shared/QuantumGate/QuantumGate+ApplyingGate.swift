@@ -24,20 +24,25 @@ extension QuantumGate {
 
     // MARK: - Internal methods
 
+    enum ApplyingError: Error {
+        case gateQubitCountDoesNotMatchCircuitQubitCount
+        case resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+    }
+
     func applying(_ gate: QuantumGate) throws -> QuantumGate {
         var nextMatrix: Matrix!
         do {
             nextMatrix = try gate.matrix * matrix
         } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
-            throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
+            throw ApplyingError.gateQubitCountDoesNotMatchCircuitQubitCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
         do {
             return try QuantumGate(matrix: nextMatrix)
-        } catch GateError.gateMatrixIsNotUnitary {
-            throw GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+        } catch QuantumGate.InitError.matrixIsNotUnitary {
+            throw ApplyingError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
         } catch {
             fatalError("Unexpected error: \(error).")
         }

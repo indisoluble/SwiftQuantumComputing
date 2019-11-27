@@ -46,7 +46,7 @@ struct QuantumGateFactory {
 
         let matrixQubitCount = Int.log2(baseMatrix.rowCount)
         guard (matrixQubitCount <= qubitCount) else {
-            throw GateError.gateMatrixHandlesMoreQubitsThatGateActuallyHas
+            throw GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
         }
 
         self.qubitCount = qubitCount
@@ -70,7 +70,13 @@ struct QuantumGateFactory {
 
         let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })
 
-        return try QuantumGate(matrix: extended)
+        do {
+            return try QuantumGate(matrix: extended)
+        } catch QuantumGate.InitError.matrixIsNotUnitary {
+            throw GateError.gateMatrixCanNotBeExtendedIntoACircuitUnitary
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }
 

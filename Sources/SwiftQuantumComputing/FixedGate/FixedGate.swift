@@ -22,6 +22,7 @@ import Foundation
 
 // MARK: - Public types
 
+/// A quantum gate. with fixed inputs
 public enum FixedGate {
     case controlledNot(target: Int, control: Int)
     case hadamard(target: Int)

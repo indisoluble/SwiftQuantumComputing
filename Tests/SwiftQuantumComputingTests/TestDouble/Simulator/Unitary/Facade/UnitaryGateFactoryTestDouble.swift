@@ -32,7 +32,7 @@ final class UnitaryGateFactoryTestDouble {
     private (set) var lastMakeGateQubitCount: Int?
     private (set) var lastMakeGateSimulatorGate: SimulatorGate?
     var applyingResult: UnitaryGateTestDouble?
-    var applyingError = GateError.gateMatrixHandlesMoreQubitsThatGateActuallyHas
+    var applyingError = GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
 }
 
 // MARK: - UnitaryGateFactory methods

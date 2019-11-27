@@ -22,6 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
+/// A quantum gate used on genetic programming: Oracle
 public struct OracleGate {
 
     // MARK: - Private properties
@@ -31,10 +32,23 @@ public struct OracleGate {
 
     // MARK: - Public init methods
 
+    /// Errors throwed by `OracleGate.init(truthTable:truthTableQubitCount:)`
     public enum InitError: Error {
+        /// Throwed when `truthTableQubitCount` is 0 or less
         case truthTableQubitCountHasToBeBiggerThanZero
     }
 
+    /**
+     Initializes a `Gate` instance with a given `truthTable`.
+
+     - Parameter truthTable: List of qubit combinations for which the `control` in a
+     `FixedGate.controlledNot(target:,control:)` is activated.
+     - Parameter truthTableQubitCount: Total number of qubits for all qubits combinations in `truthTable`.
+
+     - Throws: `OracleGate.InitError`.
+
+     - Returns: A `Gate` instance.
+     */
     public init(truthTable: [String], truthTableQubitCount: Int) throws {
         guard truthTableQubitCount > 0 else {
             throw InitError.truthTableQubitCountHasToBeBiggerThanZero

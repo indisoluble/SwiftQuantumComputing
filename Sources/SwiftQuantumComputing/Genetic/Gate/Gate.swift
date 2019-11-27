@@ -22,6 +22,17 @@ import Foundation
 
 // MARK: - Protocol definition
 
+/// A quantum gate used on genetic programming
 public protocol Gate {
+
+    /**
+     Produces a `FixedGate` instance using as many `inputs` as necessary to configure it.
+
+     - Parameter inputs: A list of qubits/indexes in any order.
+
+     - Throws: `EvolveCircuitError`.
+
+     - Returns: A `FixedGate` instance.
+     */
     func makeFixed(inputs: [Int]) throws -> FixedGate
 }
