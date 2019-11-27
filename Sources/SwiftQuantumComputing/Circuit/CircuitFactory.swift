@@ -22,6 +22,15 @@ import Foundation
 
 // MARK: - Protocol definition
 
+/// Factory to build `Circuit` instances
 public protocol CircuitFactory {
+
+    /**
+     Builds `Circuit` instances.
+
+     - Parameter gates: Sequence of gates in the circuit to be built.
+
+     - Returns: A `Circuit` instance.
+     */
     func makeCircuit(gates: [FixedGate]) -> Circuit
 }

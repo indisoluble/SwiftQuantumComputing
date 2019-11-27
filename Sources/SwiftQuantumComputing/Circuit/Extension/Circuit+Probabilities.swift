@@ -22,7 +22,9 @@ import Foundation
 
 // MARK: - Errors
 
+/// Errors throwed by `Circuit.probabilities(withInitialBits:)`
 public enum ProbabilitiesError: Error {
+    /// Throwed if `Circuit.statevector(withInitialBits:)` throws `StatevectorError`
     case statevectorThrowedError(error: StatevectorError)
 }
 
@@ -32,6 +34,16 @@ extension Circuit {
 
     // MARK: - Public methods
 
+    /**
+     Initializes circuit with `initialBits` and applies `gates` to get the probabilities of each possible combinations of qubits.
+
+     - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+
+     - Throws: `ProbabilitiesError`.
+
+     - Returns: A list in which each position represents a qubit combination and the value in a position the probability of
+     such combination.
+     */
     public func probabilities(withInitialBits initialBits: String? = nil) throws -> [Double] {
         var state: Vector!
         do {

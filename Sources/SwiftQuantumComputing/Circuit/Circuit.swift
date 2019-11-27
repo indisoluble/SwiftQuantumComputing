@@ -22,37 +22,78 @@ import Foundation
 
 // MARK: - Errors
 
+/// Errors throwed  while acting on or using a `FixedGate` in a `Circuit`
 public enum GateError: Error {
+    /// Throwed when the resulting statevector after applying a gate is no longer valid
     case additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
-    case resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
-    case gateInputCountDoesNotMatchGateMatrixQubitCount
-    case gateInputsAreNotInBound
-    case gateInputsAreNotUnique
-    case gateMatrixIsNotSquare
-    case gateMatrixIsNotUnitary
-    case gateMatrixRowCountHasToBeAPowerOfTwo
-    case gateMatrixHandlesMoreQubitsThatGateActuallyHas
-    case gateOracleControlsCanNotBeAnEmptyList
-    case gateQubitCountDoesNotMatchCircuitQubitCount
+    /// Throwed when the number of qubits (informed or inferred) to create a circuit is 0
     case circuitQubitCountHasToBeBiggerThanZero
+    /// Throwed when a gate does not uses as many qubits as its matrix is able to handle
+    case gateInputCountDoesNotMatchGateMatrixQubitCount
+    /// Throwed when a gate references one or more qubits that does not exist
+    case gateInputsAreNotInBound
+    /// Throwed when a gate references same qubit/s multiple times
+    case gateInputsAreNotUnique
+    /// Throwed when the matrix provided by a gate can not be extended to produce an unitary that applies to entire circuit
+    case gateMatrixCanNotBeExtendedIntoACircuitUnitary
+    /// Throwed when a gate requires more qubits that the circuit actually has
+    case gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
+    /// Throwed when a non-square matrix is used to build a quantum gate
+    case gateMatrixIsNotSquare
+    /// Throwed when the number of rows in a matrix used to build a quantum gate is not a power of 2. A matrix has to
+    /// handle all possible combinations for a given number of qubits which is (number of qubits)^2
+    case gateMatrixRowCountHasToBeAPowerOfTwo
+    /// Throwed when a `FixedGate.oracle` without `controls` is used in a circuit
+    case gateOracleControlsCanNotBeAnEmptyList
+    /// Throwed when the resulting matrix after applying a gate is no longer unitary
+    case resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
 }
 
+/// Errors throwed by `Circuit.statevector(withInitialStatevector:)`
 public enum StatevectorWithInitialStatevectorError: Error {
-    case initialStatevectorCountHasToBeAPowerOfTwo
-    case initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
+    /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: FixedGate, error: GateError)
+    /// Throwed when `initialStatevector` is not valid
+    case initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
+    /// Throwed when the length of `initialStatevector` is not a power of 2. An `initialStatevector` represents
+    /// all possible qubit combinations, tnis is (qubitCount)^2
+    case initialStatevectorCountHasToBeAPowerOfTwo
 }
 
+/// Errors throwed by `Circuit.unitary(withQubitCount:)`
 public enum UnitaryError: Error {
+    /// Throwed when the circuit has no gate from which to produce an unitary matrix
     case circuitCanNotBeAnEmptyList
+    /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: FixedGate, error: GateError)
 }
 
 // MARK: - Protocol definition
 
+/// A quantum circuit
 public protocol Circuit {
+    /// Gates in the circuit
     var gates: [FixedGate] { get }
 
+    /**
+     Produces unitary matrix that represents entire list of `gates`.
+
+     - Parameter qubitCount: Number of qubits in the circuit.
+
+     - Throws: `UnitaryError`.
+
+     - Returns: Unitary matrix that represents entire list of `gates`.
+     */
     func unitary(withQubitCount qubitCount: Int) throws -> Matrix
+
+    /**
+     Applies `gates` to `initialStatevector` to produce a new statevector.
+
+     - Parameter initialStatevector: Used to initialized circuit to given state.
+
+     - Throws: `StatevectorWithInitialStatevectorError`.
+
+     - Returns: Another statevector, result of applying `gates` to `initialStatevector`.
+     */
     func statevector(withInitialStatevector initialStatevector: Vector) throws -> Vector
 }

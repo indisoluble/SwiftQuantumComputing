@@ -32,17 +32,23 @@ import Foundation
 
 // MARK: - Main body
 
+/// Swift representation of a complex 2-dimensional matrix
 public struct Matrix {
 
     // MARK: - Public properties
 
+    /// Number of rows in the matrix
     public let rowCount: Int
+
+    /// Number of columns per row in the matrix
     public let columnCount: Int
 
+    /// Returns first element in first row
     public var first: Complex {
         return values.first!
     }
 
+    /// Use [row, column] to access elements in the matrix
     public subscript(row: Int, column: Int) -> Complex {
         return values[(column * rowCount) + row]
     }
@@ -59,12 +65,25 @@ public struct Matrix {
 
     // MARK: - Public init methods
 
+    /// Errors throwed by `Matrix()`
     public enum InitError: Error {
+        /// Throwed when no `Complex` element is provided to initialize a new matrix
         case doNotPassAnEmptyArray
-        case subArraysMustNotBeEmpty
+        /// Throwed if any sub-list/row does not have the same length that the others
         case subArraysHaveToHaveSameSize
+        /// Throwed if any sub-list/row is empty
+        case subArraysMustNotBeEmpty
     }
 
+    /**
+     Initializes a new `Matrix` instance with `elememts`
+
+     - Parameter elements: List of sub-list where each sub-list is a row in the matrix.
+
+     - Throws: `Matrix.InitError`.
+
+     - Returns: A new `Matrix` instance.
+     */
     public init(_ elements: [[Complex]]) throws {
         guard let firstRow = elements.first else {
             throw InitError.doNotPassAnEmptyArray
@@ -183,6 +202,7 @@ extension Matrix: Equatable {
 extension Matrix: Sequence {
     public typealias Iterator = Array<Complex>.Iterator
 
+    /// Returns iterator that traverses the matrix by column
     public func makeIterator() -> Matrix.Iterator {
         return values.makeIterator()
     }

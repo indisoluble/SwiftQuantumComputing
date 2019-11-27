@@ -22,6 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
+/// A quantum gate used on genetic programming: PhaseShift
 public struct PhaseShiftGate {
 
     // MARK: - Private properties
@@ -30,6 +31,13 @@ public struct PhaseShiftGate {
 
     // MARK: - Public init methods
 
+    /**
+     Initializes a `Gate` instance with a given phase shift angle.
+
+     - Parameter radians: Phase shift angle in radians.
+
+     - Returns: A `Gate` instance.
+     */
     public init(radians: Double) {
         self.radians = radians
     }

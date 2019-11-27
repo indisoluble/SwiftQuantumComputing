@@ -22,6 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
+/// A quantum gate used on genetic programming: Not
 public struct NotGate {
 
     // MARK: - Public init methods

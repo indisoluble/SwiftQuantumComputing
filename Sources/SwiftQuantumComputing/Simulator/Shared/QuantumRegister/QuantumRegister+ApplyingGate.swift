@@ -24,12 +24,17 @@ extension QuantumRegister {
 
     // MARK: - Internal methods
 
+    enum ApplyingError: Error {
+        case gateQubitCountDoesNotMatchCircuitQubitCount
+        case additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
+    }
+
     func applying(_ gate: QuantumGate) throws -> QuantumRegister {
         var nextVector: Vector!
         do {
             nextVector = try gate.matrix * statevector
         } catch Vector.ProductError.matrixColumnCountDoesNotMatchVectorCount {
-            throw GateError.gateQubitCountDoesNotMatchCircuitQubitCount
+            throw ApplyingError.gateQubitCountDoesNotMatchCircuitQubitCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }
@@ -37,7 +42,7 @@ extension QuantumRegister {
         do {
             return try QuantumRegister(vector: nextVector)
         } catch QuantumRegister.InitVectorError.vectorAdditionOfSquareModulusIsNotEqualToOne {
-            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
+            throw ApplyingError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
         } catch {
             fatalError("Unexpected error: \(error).")
         }

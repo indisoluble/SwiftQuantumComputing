@@ -22,6 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
+/// A quantum gate used on genetic programming: Hadamard
 public struct HadamardGate {
 
     // MARK: - Public init methods

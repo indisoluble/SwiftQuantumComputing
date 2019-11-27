@@ -33,7 +33,7 @@ final class SimulatorQuantumGateFactoryTestDouble {
     private (set) var lastMakeGateMatrix: Matrix?
     private (set) var lastMakeGateInputs: [Int]?
     var makeGateResult: QuantumGate?
-    var makeGateError = GateError.gateMatrixIsNotUnitary
+    var makeGateError = GateError.gateMatrixCanNotBeExtendedIntoACircuitUnitary
 }
 
 // MARK: - SimulatorQuantumGateFactory methods

@@ -26,6 +26,7 @@ extension Vector {
 
     // MARK: - Public properties
 
+    /// Maps vector into a list
     public var elements: [Complex] {
         return (0..<count).map { self[$0] }
     }

@@ -22,6 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
+/// A quantum gate used on genetic programming: Matrix
 public struct MatrixGate {
 
     // MARK: - Private properties
@@ -31,10 +32,21 @@ public struct MatrixGate {
 
     // MARK: - Public init methods
 
+    /// Errors throwed by `MatrixGate.init(matrix:)`
     public enum InitError: Error {
+        /// Throwed when `matrix` is not able to handle at least 1 qubit
         case matrixQubitCountHasToBeBiggerThanZero
     }
 
+    /**
+     Initializes a `Gate` instance with a given `matrix`.
+
+     - Parameter matrix: A matrix able to handle at least 1 qubits, i.e. with 2^qubitCount rows.
+
+     - Throws: `MatrixGate.InitError`.
+
+     - Returns: A `Gate` instance.
+     */
     public init(matrix: Matrix) throws {
         let qc = Int.log2(matrix.rowCount)
         guard qc > 0 else {
