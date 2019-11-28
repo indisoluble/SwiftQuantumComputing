@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Circuit Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Protocol/Circuit" class="dashAnchor"></a>
+
+    <a title="Circuit Protocol Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          SwiftQuantumComputing Docs
+        </a>
+         (90% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">SwiftQuantumComputing Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      Circuit Protocol Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../readme.html">README</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DrawCircuitError.html">DrawCircuitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/EvolveCircuitError.html">EvolveCircuitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/FixedGate.html">FixedGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/GateError.html">GateError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/StatevectorError.html">StatevectorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/UnitaryError.html">UnitaryError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Circuit.html">Circuit</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Drawable.html">Drawable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DrawerFactory.html">DrawerFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Gate.html">Gate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GeneticFactory.html">GeneticFactory</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Complex.html">Complex</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ControlledNotGate.html">ControlledNotGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticUseCase.html">GeneticUseCase</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticUseCase/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticUseCase/TruthTable.html">– TruthTable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticUseCase/Circuit.html">– Circuit</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/HadamardGate.html">HadamardGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainDrawerFactory.html">MainDrawerFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainGeneticFactory.html">MainGeneticFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Matrix.html">Matrix</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Matrix/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MatrixGate.html">MatrixGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MatrixGate/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/NotGate.html">NotGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/OracleGate.html">OracleGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/OracleGate/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PhaseShiftGate.html">PhaseShiftGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector.html">Vector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector/InitError.html">– InitError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/SQCView">SQCView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:21SwiftQuantumComputing7SQCViewa">SQCView</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>Circuit</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Circuit</span></code></pre>
+
+                </div>
+              </div>
+            <p>A quantum circuit</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp"></a>
+                    <a name="//apple_ref/swift/Property/gates" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gates in the circuit</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">gates</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/FixedGate.html">FixedGate</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing7CircuitP7unitary14withQubitCountAA6MatrixVSi_tKF"></a>
+                    <a name="//apple_ref/swift/Method/unitary(withQubitCount:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitP7unitary14withQubitCountAA6MatrixVSi_tKF">unitary(withQubitCount:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code>.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/UnitaryError.html">UnitaryError</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">unitary</span><span class="p">(</span><span class="n">withQubitCount</span> <span class="nv">qubitCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Matrix.html">Matrix</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>qubitCount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of qubits in the circuit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing7CircuitP11statevector22withInitialStatevectorAA6VectorVAG_tKF"></a>
+                    <a name="//apple_ref/swift/Method/statevector(withInitialStatevector:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitP11statevector22withInitialStatevectorAA6VectorVAG_tKF">statevector(withInitialStatevector:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code> to <code>initialStatevector</code> to produce a new statevector.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">statevector</span><span class="p">(</span><span class="n">withInitialStatevector</span> <span class="nv">initialStatevector</span><span class="p">:</span> <span class="kt"><a href="../Structs/Vector.html">Vector</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Vector.html">Vector</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>initialStatevector</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Used to initialized circuit to given state.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Another statevector, result of applying <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code> to <code>initialStatevector</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20methods"></a>
+                <a name="//apple_ref/swift/Section/Public methods" class="dashAnchor"></a>
+                <a href="#/Public%20methods">
+                  <h3 class="section-name">Public methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE13probabilities15withInitialBitsSaySdGSSSg_tKF"></a>
+                    <a name="//apple_ref/swift/Method/probabilities(withInitialBits:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE13probabilities15withInitialBitsSaySdGSSSg_tKF">probabilities(withInitialBits:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code> to get the probabilities of each possible combinations of qubits.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">probabilities</span><span class="p">(</span><span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Double</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>initialBits</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A list in which each position represents a qubit combination and the value in a position the probability of
+such combination.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20methods2"></a>
+                <a name="//apple_ref/swift/Section/Public methods" class="dashAnchor"></a>
+                <a href="#/Public%20methods2">
+                  <h3 class="section-name">Public methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE11statevector15withInitialBitsAA6VectorVSSSg_tKF"></a>
+                    <a name="//apple_ref/swift/Method/statevector(withInitialBits:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE11statevector15withInitialBitsAA6VectorVSSSg_tKF">statevector(withInitialBits:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code> to get the probabilities of each possible combinations of qubits.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/StatevectorError.html">StatevectorError</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">statevector</span><span class="p">(</span><span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Vector.html">Vector</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>initialBits</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A statevector, result of applying <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code> to <code>initialBits</code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20methods3"></a>
+                <a name="//apple_ref/swift/Section/Public methods" class="dashAnchor"></a>
+                <a href="#/Public%20methods3">
+                  <h3 class="section-name">Public methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities15withInitialBitsSDySSSdGSSSg_tKF"></a>
+                    <a name="//apple_ref/swift/Method/summarizedProbabilities(withInitialBits:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities15withInitialBitsSDySSSdGSSSg_tKF">summarizedProbabilities(withInitialBits:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code> to get the probabilities of each possible combinations of qubits.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/SummarizedProbabilitiesError.html#/s:21SwiftQuantumComputing28SummarizedProbabilitiesErrorO020probabilitiesThrowedF0yAcA0eF0O_tcACmF">SummarizedProbabilitiesError.probabilitiesThrowedError(error:)</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">summarizedProbabilities</span><span class="p">(</span><span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>initialBits</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
+with probability 0 are not included.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities6qubits11initialBitsSDySSSdGSaySiG_SSSgtKF"></a>
+                    <a name="//apple_ref/swift/Method/summarizedProbabilities(qubits:initialBits:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities6qubits11initialBitsSDySSSdGSaySiG_SSSgtKF">summarizedProbabilities(qubits:initialBits:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code> to get the probabilities of each possible combinations of qubits
+in <code>qubits</code>.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">summarizedProbabilities</span><span class="p">(</span><span class="nv">qubits</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                                    <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Double</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>qubits</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>List of qubits for which we want to know the probability of each combination.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>initialBits</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
+with probability 0 are not included.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20methods4"></a>
+                <a name="//apple_ref/swift/Section/Public methods" class="dashAnchor"></a>
+                <a href="#/Public%20methods4">
+                  <h3 class="section-name">Public methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE7unitaryAA6MatrixVyKF"></a>
+                    <a name="//apple_ref/swift/Method/unitary()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE7unitaryAA6MatrixVyKF">unitary()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Extension method
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code>.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/UnitaryError.html">UnitaryError</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">unitary</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Matrix.html">Matrix</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA9FixedGateOGvp">gates</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2019-11-29)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
