@@ -4,6 +4,7 @@
 [![codecov.io](https://codecov.io/github/indisoluble/SwiftQuantumComputing/coverage.svg)](https://codecov.io/github/indisoluble/SwiftQuantumComputing)
 [![Version](https://img.shields.io/cocoapods/v/SwiftQuantumComputing.svg)](http://cocoapods.org/pods/SwiftQuantumComputing)
 ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
+[![Documentation](https://indisoluble.github.io/SwiftQuantumComputing/badge.svg)](https://indisoluble.github.io/SwiftQuantumComputing)
 
 In this repository you can find a quantum circuit simulator written in Swift and speeded up with [Accelerate.framework](https://developer.apple.com/documentation/accelerate) in iOS/macOS and [BLAS](http://www.netlib.org/blas/) in Linux. Along side the simulator there is also a genetic algorithm to automatically generate circuits.
 
@@ -91,6 +92,10 @@ Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuan
 ![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
 
 Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Drawer.playground).
+
+## Documentation
+
+Documentation for the project can be found [here](https://indisoluble.github.io/SwiftQuantumComputing).
 
 ## Linux
 
