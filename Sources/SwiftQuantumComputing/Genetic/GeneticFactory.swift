@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-/// Errors throwed by `GeneticFactory.evolveCircuit(configuration:,useCases:,gates:)`
+/// Errors throwed by `GeneticFactory.evolveCircuit(configuration:useCases:gates:)`
 public enum EvolveCircuitError: Error {
     /// Throwed when `GeneticConfiguration.depth` starts with a negative number
     case configurationDepthHasToBeAPositiveNumber
@@ -54,16 +54,16 @@ public enum EvolveCircuitError: Error {
 
 // MARK: - Protocol definition
 
-/// A genetic algorithm to find a quantum circuit that includes a `FixedGate.oracle(truthTable:,target:,controls:)`
+/// A genetic algorithm to find a quantum circuit that includes a `FixedGate.oracle(truthTable:target:controls:)`
 /// and solves a list of `GeneticUseCase` instances.
 public protocol GeneticFactory {
     /**
-     Result type returned by `GeneticFactory.evolveCircuit(configuration:,useCases:,gates:)`.
+     Result type returned by `GeneticFactory.evolveCircuit(configuration:useCases:gates:)`.
 
      Values returned:
      - `eval`: Score of the evolded circuit. The nearer to 0, the better solution the circuit is.
      - `gates`: Evolved circuit.
-     - `oracleAt`: Position of `FixedGate.oracle(truthTable:,target:,controls:)` in `gates`.
+     - `oracleAt`: Position of `FixedGate.oracle(truthTable:target:controls:)` in `gates`.
      */
     typealias EvolvedCircuit = (eval: Double, gates: [FixedGate], oracleAt: Int?)
 
