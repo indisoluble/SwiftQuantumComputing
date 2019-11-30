@@ -37,6 +37,7 @@ public struct MainGeneticFactory {
 
     // MARK: - Public init methods
 
+    /// Initialize a `MainGeneticFactory` instance
     public init() {
         let generatorFactory = MainGeneticGatesRandomizerFactory()
         let circuitFactory = MainCircuitFactory()
@@ -85,6 +86,8 @@ public struct MainGeneticFactory {
 // MARK: - GeneticFactory methods
 
 extension MainGeneticFactory: GeneticFactory {
+
+    /// Check `GeneticFactory.evolveCircuit(configuration:useCases:gates:)`
     public func evolveCircuit(configuration config: GeneticConfiguration,
                               useCases: [GeneticUseCase],
                               gates: [Gate]) throws -> EvolvedCircuit {

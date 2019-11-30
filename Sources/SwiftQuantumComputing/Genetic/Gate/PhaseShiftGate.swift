@@ -46,6 +46,8 @@ public struct PhaseShiftGate {
 // MARK: - Gate methods
 
 extension PhaseShiftGate: Gate {
+
+    /// Check `Gate.makeFixed(inputs:)`
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard let target = inputs.first else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)

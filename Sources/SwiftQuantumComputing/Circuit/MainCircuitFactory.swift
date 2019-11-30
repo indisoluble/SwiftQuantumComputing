@@ -27,12 +27,15 @@ public struct MainCircuitFactory {
 
     // MARK: - Public init methods
 
+    /// Initialize a `MainCircuitFactory` instance
     public init() {}
 }
 
 // MARK: - CircuitFactory methods
 
 extension MainCircuitFactory: CircuitFactory {
+
+    /// Check `CircuitFactory.makeCircuit(gates:)`
     public func makeCircuit(gates: [FixedGate]) -> Circuit {
         let gateFactory = SimulatorQuantumGateFactoryAdapter()
 
