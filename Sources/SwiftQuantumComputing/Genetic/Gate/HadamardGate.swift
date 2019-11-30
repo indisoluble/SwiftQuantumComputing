@@ -27,12 +27,15 @@ public struct HadamardGate {
 
     // MARK: - Public init methods
 
+    /// Initialize a `HadamardGate` instance
     public init() {}
 }
 
 // MARK: - Gate methods
 
 extension HadamardGate: Gate {
+
+    /// Check `Gate.makeFixed(inputs:)`
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard let target = inputs.first else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)

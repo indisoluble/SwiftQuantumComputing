@@ -50,6 +50,7 @@ public struct GeneticConfiguration {
 
     // MARK: - Public init methods
 
+    /// Initialize a `GeneticConfiguration` instance
     public init(depth: Range<Int>,
                 generationCount: Int,
                 populationSize: Range<Int>,

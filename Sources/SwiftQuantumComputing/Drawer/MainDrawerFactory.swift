@@ -26,12 +26,15 @@ public struct MainDrawerFactory {
 
     // MARK: - Public init methods
 
+    /// Initialize a `MainDrawerFactory` instance
     public init() {}
 }
 
 // MARK: - DrawerFactory methods
 
 extension MainDrawerFactory: DrawerFactory {
+
+    /// Check `DrawerFactory.makeDrawer()`
     public func makeDrawer() -> Drawable {
         return CircuitViewDrawer()
     }

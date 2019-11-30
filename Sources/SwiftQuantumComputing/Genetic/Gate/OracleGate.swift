@@ -62,6 +62,8 @@ public struct OracleGate {
 // MARK: - Gate methods
 
 extension OracleGate: Gate {
+
+    /// Check `Gate.makeFixed(inputs:)`
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard inputs.count >= (truthTableQubitCount + 1) else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)

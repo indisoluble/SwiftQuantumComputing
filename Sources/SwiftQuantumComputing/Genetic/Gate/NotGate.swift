@@ -27,12 +27,15 @@ public struct NotGate {
 
     // MARK: - Public init methods
 
+    /// Initialize a `NotGate` instance
     public init() {}
 }
 
 // MARK: - Gate methods
 
 extension NotGate: Gate {
+
+    /// Check `Gate.makeFixed(inputs:)`
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard let target = inputs.first else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
