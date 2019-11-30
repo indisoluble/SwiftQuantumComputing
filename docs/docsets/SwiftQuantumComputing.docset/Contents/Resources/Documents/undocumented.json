@@ -1,0 +1,131 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Circuit/MainCircuitFactory.swift",
+      "line": 30,
+      "symbol": "MainCircuitFactory.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Drawer/MainDrawerFactory.swift",
+      "line": 25,
+      "symbol": "MainDrawerFactory",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Drawer/MainDrawerFactory.swift",
+      "line": 29,
+      "symbol": "MainDrawerFactory.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Drawer/MainDrawerFactory.swift",
+      "line": 34,
+      "symbol": "MainDrawerFactory",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Drawer/SQCView.swift",
+      "line": 28,
+      "symbol": "SQCView",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/FixedGate/FixedGate.swift",
+      "line": 27,
+      "symbol": "FixedGate.controlledNot(target:control:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/FixedGate/FixedGate.swift",
+      "line": 28,
+      "symbol": "FixedGate.hadamard(target:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/FixedGate/FixedGate.swift",
+      "line": 29,
+      "symbol": "FixedGate.matrix(matrix:inputs:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/FixedGate/FixedGate.swift",
+      "line": 30,
+      "symbol": "FixedGate.not(target:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/FixedGate/FixedGate.swift",
+      "line": 31,
+      "symbol": "FixedGate.oracle(truthTable:target:controls:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/FixedGate/FixedGate.swift",
+      "line": 32,
+      "symbol": "FixedGate.phaseShift(radians:target:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/Gate/ControlledNotGate.swift",
+      "line": 30,
+      "symbol": "ControlledNotGate.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/Gate/HadamardGate.swift",
+      "line": 30,
+      "symbol": "HadamardGate.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/Gate/NotGate.swift",
+      "line": 30,
+      "symbol": "NotGate.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/GeneticConfiguration.swift",
+      "line": 53,
+      "symbol": "GeneticConfiguration.init(depth:generationCount:populationSize:tournamentSize:mutationProbability:threshold:errorProbability:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/MainGeneticFactory.swift",
+      "line": 25,
+      "symbol": "MainGeneticFactory",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/MainGeneticFactory.swift",
+      "line": 40,
+      "symbol": "MainGeneticFactory.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/MainGeneticFactory.swift",
+      "line": 87,
+      "symbol": "MainGeneticFactory",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing"
+}
