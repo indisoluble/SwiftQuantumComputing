@@ -36,7 +36,7 @@ public struct HadamardGate {
 extension HadamardGate: ConfigurableGate {
 
     /// Check `ConfigurableGate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> FixedGate {
+    public func makeFixed(inputs: [Int]) throws -> Gate {
         guard let target = inputs.first else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }

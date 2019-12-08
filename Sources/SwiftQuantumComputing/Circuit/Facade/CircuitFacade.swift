@@ -26,7 +26,7 @@ struct CircuitFacade {
 
     // MARK: - Circuit properties
 
-    let gates: [FixedGate]
+    let gates: [Gate]
 
     // MARK: - Private properties
 
@@ -35,7 +35,7 @@ struct CircuitFacade {
 
     // MARK: - Internal init methods
 
-    init(gates: [FixedGate],
+    init(gates: [Gate],
          unitarySimulator: UnitarySimulator,
          statevectorSimulator: StatevectorSimulator) {
         self.gates = gates

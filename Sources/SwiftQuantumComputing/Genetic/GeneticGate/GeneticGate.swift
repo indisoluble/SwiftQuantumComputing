@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol GeneticGate {
-    typealias Fixed = (gate: FixedGate, didUseTruthTable: Bool)
+    typealias Fixed = (gate: Gate, didUseTruthTable: Bool)
 
     func makeFixed(useCase: GeneticUseCase) throws -> Fixed
 }

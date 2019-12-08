@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol OracleCircuitFactory {
-    typealias OracleCircuit = (circuit: [FixedGate], oracleAt: Int?)
+    typealias OracleCircuit = (circuit: [Gate], oracleAt: Int?)
 
     func makeOracleCircuit(geneticCircuit: [GeneticGate],
                            useCase: GeneticUseCase) throws -> OracleCircuit

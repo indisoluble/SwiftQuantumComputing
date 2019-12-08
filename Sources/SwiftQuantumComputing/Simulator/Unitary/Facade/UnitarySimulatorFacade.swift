@@ -51,7 +51,7 @@ extension UnitarySimulatorFacade: UnitarySimulator {
                     try unitaryGate!.applying(gate))
             } catch {
                 if let error = error as? GateError {
-                    throw UnitaryError.gateThrowedError(gate: gate.fixedGate, error: error)
+                    throw UnitaryError.gateThrowedError(gate: gate.gate, error: error)
                 } else {
                     fatalError("Unexpected error: \(error).")
                 }

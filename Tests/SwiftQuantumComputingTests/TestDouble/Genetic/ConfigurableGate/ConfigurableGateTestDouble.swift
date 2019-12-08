@@ -30,13 +30,13 @@ final class ConfigurableGateTestDouble {
 
     private (set) var makeFixedCount = 0
     private (set) var lastMakeFixedInputs: [Int]?
-    var makeFixedResult: FixedGate?
+    var makeFixedResult: Gate?
 }
 
 // MARK: - ConfigurableGate methods
 
 extension ConfigurableGateTestDouble: ConfigurableGate {
-    func makeFixed(inputs: [Int]) throws -> FixedGate {
+    func makeFixed(inputs: [Int]) throws -> Gate {
         makeFixedCount += 1
 
         lastMakeFixedInputs = inputs

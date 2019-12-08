@@ -26,13 +26,13 @@ import Foundation
 public protocol ConfigurableGate {
 
     /**
-     Produces a `FixedGate` instance using as many `inputs` as necessary to configure it.
+     Produces a `Gate` instance using as many `inputs` as necessary to configure it.
 
      - Parameter inputs: A list of qubits/indexes in any order.
 
      - Throws: `EvolveCircuitError`.
 
-     - Returns: A `FixedGate` instance.
+     - Returns: A `Gate` instance.
      */
-    func makeFixed(inputs: [Int]) throws -> FixedGate
+    func makeFixed(inputs: [Int]) throws -> Gate
 }

@@ -36,7 +36,7 @@ public struct MainCircuitFactory {
 extension MainCircuitFactory: CircuitFactory {
 
     /// Check `CircuitFactory.makeCircuit(gates:)`
-    public func makeCircuit(gates: [FixedGate]) -> Circuit {
+    public func makeCircuit(gates: [Gate]) -> Circuit {
         let gateFactory = SimulatorQuantumGateFactoryAdapter()
 
         let unitaryGateFactory = UnitaryGateFactoryAdapter(gateFactory: gateFactory)

@@ -29,7 +29,7 @@ final class DrawableTestDouble {
     // MARK: - Internal properties
 
     private (set) var drawCircuitCount = 0
-    private (set) var lastDrawCircuitCircuit: [FixedGate]?
+    private (set) var lastDrawCircuitCircuit: [Gate]?
     private (set) var lastDrawCircuitQubitCount: Int?
     var drawCircuitResult: SQCView?
     var drawCircuitError = DrawCircuitError.qubitCountHasToBeBiggerThanZero
@@ -38,7 +38,7 @@ final class DrawableTestDouble {
 // MARK: - Drawable methods
 
 extension DrawableTestDouble: Drawable {
-    func drawCircuit(_ circuit: [FixedGate], qubitCount: Int) throws -> SQCView {
+    func drawCircuit(_ circuit: [Gate], qubitCount: Int) throws -> SQCView {
         drawCircuitCount += 1
 
         lastDrawCircuitCircuit = circuit

@@ -28,8 +28,8 @@ final class SimulatorGateTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var fixedGateCount = 0
-    var fixedGateResult = FixedGate.not(target: 0)
+    private (set) var gateCount = 0
+    var gateResult = Gate.not(target: 0)
 
     private (set) var extractCount = 0
     var extractMatrixResult: Matrix?
@@ -39,10 +39,10 @@ final class SimulatorGateTestDouble {
 // MARK: - SimulatorGate methods
 
 extension SimulatorGateTestDouble: SimulatorGate {
-    var fixedGate: FixedGate {
-        fixedGateCount += 1
+    var gate: Gate {
+        gateCount += 1
 
-        return fixedGateResult
+        return gateResult
     }
 
     func extract() throws -> (matrix: Matrix, inputs: [Int]) {

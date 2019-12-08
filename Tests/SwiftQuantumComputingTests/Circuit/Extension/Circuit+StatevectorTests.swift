@@ -79,7 +79,7 @@ class Circuit_StatevectorTests: XCTestCase {
 
     func testCircuitWithKnownQubitCount_statevector_produceExpectedVector() {
         // Given
-        let gates = [FixedGate.not(target: 0), FixedGate.hadamard(target: 2)]
+        let gates = [Gate.not(target: 0), Gate.hadamard(target: 2)]
 
         circuit.gatesResult = gates
 

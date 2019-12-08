@@ -54,7 +54,7 @@ public enum EvolveCircuitError: Error {
 
 // MARK: - Protocol definition
 
-/// A genetic algorithm to find a quantum circuit that includes a `FixedGate.oracle(truthTable:target:controls:)`
+/// A genetic algorithm to find a quantum circuit that includes a `Gate.oracle(truthTable:target:controls:)`
 /// and solves a list of `GeneticUseCase` instances.
 public protocol GeneticFactory {
     /**
@@ -63,9 +63,9 @@ public protocol GeneticFactory {
      Values returned:
      - `eval`: Score of the evolded circuit. The nearer to 0, the better solution the circuit is.
      - `gates`: Evolved circuit.
-     - `oracleAt`: Position of `FixedGate.oracle(truthTable:target:controls:)` in `gates`.
+     - `oracleAt`: Position of `Gate.oracle(truthTable:target:controls:)` in `gates`.
      */
-    typealias EvolvedCircuit = (eval: Double, gates: [FixedGate], oracleAt: Int?)
+    typealias EvolvedCircuit = (eval: Double, gates: [Gate], oracleAt: Int?)
 
     /**
      Look for a quantum circuit that solves a list of `useCases` using only `gates` and the parameter informed in the
