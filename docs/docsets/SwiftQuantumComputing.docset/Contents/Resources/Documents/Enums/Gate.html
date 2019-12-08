@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>StatevectorError Enumeration Reference</title>
+    <title>Gate Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/StatevectorError" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/Gate" class="dashAnchor"></a>
 
-    <a title="StatevectorError Enumeration Reference"></a>
+    <a title="Gate Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SwiftQuantumComputing Reference</a>
       <img class="carat" src="../img/carat.png" />
-      StatevectorError Enumeration Reference
+      Gate Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -192,14 +192,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>StatevectorError</h1>
+            <h1>Gate</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">StatevectorError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Gate</span></code></pre>
 
                 </div>
               </div>
-            <p>Errors throwed by <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11statevector15withInitialBitsAA6VectorVSSSg_tKF">Circuit.statevector(withInitialBits:)</a></code></p>
+            <p>A quantum gate with fixed inputs</p>
 
           </div>
         </section>
@@ -211,9 +211,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing16StatevectorErrorO50initialBitsAreNotAStringComposedOnlyOfZerosAndOnesyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/initialBitsAreNotAStringComposedOnlyOfZerosAndOnes" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16StatevectorErrorO50initialBitsAreNotAStringComposedOnlyOfZerosAndOnesyA2CmF">initialBitsAreNotAStringComposedOnlyOfZerosAndOnes</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO13controlledNotyACSi_SitcACmF"></a>
+                    <a name="//apple_ref/swift/Element/controlledNot(target:control:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO13controlledNotyACSi_SitcACmF">controlledNot(target:control:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -221,14 +221,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed when <code>initialBits</code> is not composed only of 0&rsquo;s &amp; 1&rsquo;s</p>
+                        <p>Controlled not gate with 2 inputs: <code>target</code> &amp; <code>control</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">initialBitsAreNotAStringComposedOnlyOfZerosAndOnes</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">controlledNot</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">control</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -238,9 +238,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing16StatevectorErrorO011gateThrowedE0yAcA4GateO_AA0hE0OtcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateThrowedError(gate:error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16StatevectorErrorO011gateThrowedE0yAcA4GateO_AA0hE0OtcACmF">gateThrowedError(gate:error:)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO8hadamardyACSi_tcACmF"></a>
+                    <a name="//apple_ref/swift/Element/hadamard(target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO8hadamardyACSi_tcACmF">hadamard(target:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -248,14 +248,161 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed if <code>gate</code> throws <code>error</code></p>
+                        <p>Hadamard gate with 1 input: <code>target</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateThrowedError</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Enums/GateError.html">GateError</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO6matrixyAcA6MatrixV_SaySiGtcACmF"></a>
+                    <a name="//apple_ref/swift/Element/matrix(matrix:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6matrixyAcA6MatrixV_SaySiGtcACmF">matrix(matrix:inputs:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generic quantum gate built with a <code>matrix</code> (it is expected to be unitary) and any number of <code>inputs</code>
+(as many inputs as <code>matrix</code> is able to handle)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">matrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="kt"><a href="../Structs/Matrix.html">Matrix</a></span><span class="p">,</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO3notyACSi_tcACmF"></a>
+                    <a name="//apple_ref/swift/Element/not(target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO3notyACSi_tcACmF">not(target:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Not gate with 1 input: <code>target</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SiSaySiGtcACmF"></a>
+                    <a name="//apple_ref/swift/Element/oracle(truthTable:target:controls:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SiSaySiGtcACmF">oracle(truthTable:target:controls:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Oracle gate composed of a <code>truthtable</code> that specifies which <code>controls</code> activate a controlled not
+gate applied to <code>target</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO10phaseShiftyACSd_SitcACmF"></a>
+                    <a name="//apple_ref/swift/Element/phaseShift(radians:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO10phaseShiftyACSd_SitcACmF">phaseShift(radians:target:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Quantum gate that shifts phase of the quantum state in <code>target</code> by <code>radians</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Equatable%20methods"></a>
+                <a name="//apple_ref/swift/Section/Equatable methods" class="dashAnchor"></a>
+                <a href="#/Equatable%20methods">
+                  <h3 class="section-name">Equatable methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>

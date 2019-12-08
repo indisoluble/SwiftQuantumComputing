@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>StatevectorError Enumeration Reference</title>
+    <title>ConfigurableGate Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/StatevectorError" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/ConfigurableGate" class="dashAnchor"></a>
 
-    <a title="StatevectorError Enumeration Reference"></a>
+    <a title="ConfigurableGate Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SwiftQuantumComputing Reference</a>
       <img class="carat" src="../img/carat.png" />
-      StatevectorError Enumeration Reference
+      ConfigurableGate Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -192,14 +192,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>StatevectorError</h1>
+            <h1>ConfigurableGate</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">StatevectorError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ConfigurableGate</span></code></pre>
 
                 </div>
               </div>
-            <p>Errors throwed by <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11statevector15withInitialBitsAA6VectorVSSSg_tKF">Circuit.statevector(withInitialBits:)</a></code></p>
+            <p>A quantum gate used on genetic programming</p>
 
           </div>
         </section>
@@ -211,9 +211,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing16StatevectorErrorO50initialBitsAreNotAStringComposedOnlyOfZerosAndOnesyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/initialBitsAreNotAStringComposedOnlyOfZerosAndOnes" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16StatevectorErrorO50initialBitsAreNotAStringComposedOnlyOfZerosAndOnesyA2CmF">initialBitsAreNotAStringComposedOnlyOfZerosAndOnes</a>
+                    <a name="/s:21SwiftQuantumComputing16ConfigurableGateP9makeFixed6inputsAA0E0OSaySiG_tKF"></a>
+                    <a name="//apple_ref/swift/Method/makeFixed(inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing16ConfigurableGateP9makeFixed6inputsAA0E0OSaySiG_tKF">makeFixed(inputs:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -221,43 +221,44 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed when <code>initialBits</code> is not composed only of 0&rsquo;s &amp; 1&rsquo;s</p>
+                        <p>Produces a <code><a href="../Enums/Gate.html">Gate</a></code> instance using as many <code>inputs</code> as necessary to configure it.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/EvolveCircuitError.html">EvolveCircuitError</a></code>.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">initialBitsAreNotAStringComposedOnlyOfZerosAndOnes</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">makeFixed</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span></code></pre>
 
                         </div>
                       </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing16StatevectorErrorO011gateThrowedE0yAcA4GateO_AA0hE0OtcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateThrowedError(gate:error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16StatevectorErrorO011gateThrowedE0yAcA4GateO_AA0hE0OtcACmF">gateThrowedError(gate:error:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed if <code>gate</code> throws <code>error</code></p>
-
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inputs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A list of qubits/indexes in any order.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateThrowedError</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Enums/GateError.html">GateError</a></span><span class="p">)</span></code></pre>
-
-                        </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Enums/Gate.html">Gate</a></code> instance.</p>
                       </div>
                     </section>
                   </div>
