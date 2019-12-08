@@ -2,13 +2,12 @@ import SwiftQuantumComputing // for macOS
 //: 1. Compose a list of quantum gates. Insert them in the same order
 //:    you want them to appear in the quantum circuit
 let gates = [
-    FixedGate.controlledNot(target: 0, control: 2),
-    FixedGate.hadamard(target: 1),
-    FixedGate.matrix(matrix: Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]]),
-                     inputs: [2]),
-    FixedGate.not(target: 1),
-    FixedGate.oracle(truthTable: ["00", "11"], target: 0, controls: [2, 1]),
-    FixedGate.phaseShift(radians: 0, target: 2)
+    Gate.controlledNot(target: 0, control: 2),
+    Gate.hadamard(target: 1),
+    Gate.matrix(matrix: Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]]), inputs: [2]),
+    Gate.not(target: 1),
+    Gate.oracle(truthTable: ["00", "11"], target: 0, controls: [2, 1]),
+    Gate.phaseShift(radians: 0, target: 2)
 ]
 //: 2. (Optional) Draw the quantum circuit to see how it looks
 let drawer = MainDrawerFactory().makeDrawer()
