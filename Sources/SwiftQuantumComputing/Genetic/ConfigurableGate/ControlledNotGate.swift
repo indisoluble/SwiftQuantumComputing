@@ -1,5 +1,5 @@
 //
-//  HadamardGate.swift
+//  ControlledNotGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -22,25 +22,25 @@ import Foundation
 
 // MARK: - Main body
 
-/// A quantum gate used on genetic programming: Hadamard
-public struct HadamardGate {
+/// A quantum gate used on genetic programming: ControlledNot
+public struct ControlledNotGate {
 
     // MARK: - Public init methods
 
-    /// Initialize a `HadamardGate` instance
+    /// Initialize a `ControlledNotGate` instance
     public init() {}
 }
 
-// MARK: - Gate methods
+// MARK: - ConfigurableGate methods
 
-extension HadamardGate: Gate {
+extension ControlledNotGate: ConfigurableGate {
 
-    /// Check `Gate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> FixedGate {
-        guard let target = inputs.first else {
+    /// Check `ConfigurableGate.makeFixed(inputs:)`
+    public func makeFixed(inputs: [Int]) throws -> Gate {
+        guard inputs.count > 1 else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
 
-        return .hadamard(target: target)
+        return .controlledNot(target: inputs[0], control: inputs[1])
     }
 }

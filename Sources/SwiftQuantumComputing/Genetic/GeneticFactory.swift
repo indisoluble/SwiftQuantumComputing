@@ -37,7 +37,7 @@ public enum EvolveCircuitError: Error {
     /// requires at least 1 circuit in the tournament
     case configurationTournamentSizeHasToBeBiggerThanZero
     /// Throwed if `gate` requires more qubits than `GeneticUseCase.Circuit.qubitCount` specifies
-    case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: Gate)
+    case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: ConfigurableGate)
     /// Throwed if `useCase.Circuit.output` is not composed exclusively of 0's and 1's
     case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: GeneticUseCase)
     /// Throwed if any `GeneticUseCase.Circuit.qubitCount` is 0 or a negative number
@@ -54,7 +54,7 @@ public enum EvolveCircuitError: Error {
 
 // MARK: - Protocol definition
 
-/// A genetic algorithm to find a quantum circuit that includes a `FixedGate.oracle(truthTable:target:controls:)`
+/// A genetic algorithm to find a quantum circuit that includes a `Gate.oracle(truthTable:target:controls:)`
 /// and solves a list of `GeneticUseCase` instances.
 public protocol GeneticFactory {
     /**
@@ -63,9 +63,9 @@ public protocol GeneticFactory {
      Values returned:
      - `eval`: Score of the evolded circuit. The nearer to 0, the better solution the circuit is.
      - `gates`: Evolved circuit.
-     - `oracleAt`: Position of `FixedGate.oracle(truthTable:target:controls:)` in `gates`.
+     - `oracleAt`: Position of `Gate.oracle(truthTable:target:controls:)` in `gates`.
      */
-    typealias EvolvedCircuit = (eval: Double, gates: [FixedGate], oracleAt: Int?)
+    typealias EvolvedCircuit = (eval: Double, gates: [Gate], oracleAt: Int?)
 
     /**
      Look for a quantum circuit that solves a list of `useCases` using only `gates` and the parameter informed in the
@@ -83,5 +83,5 @@ public protocol GeneticFactory {
      */
     func evolveCircuit(configuration config: GeneticConfiguration,
                        useCases: [GeneticUseCase],
-                       gates: [Gate]) throws -> EvolvedCircuit
+                       gates: [ConfigurableGate]) throws -> EvolvedCircuit
 }

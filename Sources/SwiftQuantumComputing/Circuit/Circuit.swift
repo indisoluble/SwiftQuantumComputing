@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-/// Errors throwed  while acting on or using a `FixedGate` in a `Circuit`
+/// Errors throwed  while acting on or using a `Gate` in a `Circuit`
 public enum GateError: Error {
     /// Throwed when the resulting statevector after applying a gate is no longer valid
     case additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
@@ -43,7 +43,7 @@ public enum GateError: Error {
     /// Throwed when the number of rows in a matrix used to build a quantum gate is not a power of 2. A matrix has to
     /// handle all possible combinations for a given number of qubits which is (number of qubits)^2
     case gateMatrixRowCountHasToBeAPowerOfTwo
-    /// Throwed when a `FixedGate.oracle(truthTable:target:controls:)` without `controls` is used in a circuit
+    /// Throwed when a `Gate.oracle(truthTable:target:controls:)` without `controls` is used in a circuit
     case gateOracleControlsCanNotBeAnEmptyList
     /// Throwed when the resulting matrix after applying a gate is no longer unitary
     case resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
@@ -52,7 +52,7 @@ public enum GateError: Error {
 /// Errors throwed by `Circuit.statevector(withInitialStatevector:)`
 public enum StatevectorWithInitialStatevectorError: Error {
     /// Throwed if `gate` throws `error`
-    case gateThrowedError(gate: FixedGate, error: GateError)
+    case gateThrowedError(gate: Gate, error: GateError)
     /// Throwed when `initialStatevector` is not valid
     case initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
     /// Throwed when the length of `initialStatevector` is not a power of 2. An `initialStatevector` represents
@@ -65,7 +65,7 @@ public enum UnitaryError: Error {
     /// Throwed when the circuit has no gate from which to produce an unitary matrix
     case circuitCanNotBeAnEmptyList
     /// Throwed if `gate` throws `error`
-    case gateThrowedError(gate: FixedGate, error: GateError)
+    case gateThrowedError(gate: Gate, error: GateError)
 }
 
 // MARK: - Protocol definition
@@ -73,7 +73,7 @@ public enum UnitaryError: Error {
 /// A quantum circuit
 public protocol Circuit {
     /// Gates in the circuit
-    var gates: [FixedGate] { get }
+    var gates: [Gate] { get }
 
     /**
      Produces unitary matrix that represents entire list of `gates`.

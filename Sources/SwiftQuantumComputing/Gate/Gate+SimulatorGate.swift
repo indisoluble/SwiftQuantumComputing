@@ -1,5 +1,5 @@
 //
-//  FixedGate+SimulatorGate.swift
+//  Gate+SimulatorGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 16/12/2018.
@@ -22,8 +22,8 @@ import Foundation
 
 // MARK: - SimulatorGate methods
 
-extension FixedGate: SimulatorGate {
-    var fixedGate: FixedGate {
+extension Gate: SimulatorGate {
+    var gate: Gate {
         return self
     }
 
@@ -49,7 +49,7 @@ extension FixedGate: SimulatorGate {
 
 // MARK: - Private body
 
-private extension FixedGate {
+private extension Gate {
 
     // MARK: - Constants
 

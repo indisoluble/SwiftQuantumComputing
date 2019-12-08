@@ -62,7 +62,7 @@
                 <a class="nav-group-task-link" href="Enums/EvolveCircuitError.html">EvolveCircuitError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/FixedGate.html">FixedGate</a>
+                <a class="nav-group-task-link" href="Enums/Gate.html">Gate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/GateError.html">GateError</a>
@@ -94,13 +94,13 @@
                 <a class="nav-group-task-link" href="Protocols/CircuitFactory.html">CircuitFactory</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/ConfigurableGate.html">ConfigurableGate</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Drawable.html">Drawable</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/DrawerFactory.html">DrawerFactory</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/Gate.html">Gate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/GeneticFactory.html">GeneticFactory</a>
@@ -222,7 +222,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed  while acting on or using a <code><a href="Enums/FixedGate.html">FixedGate</a></code> in a <code><a href="Protocols/Circuit.html">Circuit</a></code></p>
+                        <p>Errors throwed  while acting on or using a <code><a href="Enums/Gate.html">Gate</a></code> in a <code><a href="Protocols/Circuit.html">Circuit</a></code></p>
 
                         <a href="Enums/GateError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -434,7 +434,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="Protocols/Drawable.html#/s:21SwiftQuantumComputing8DrawableP11drawCircuit_10qubitCountSo6UIViewCSayAA9FixedGateOG_SitKF">Drawable.drawCircuit(_:qubitCount:)</a></code></p>
+                        <p>Errors throwed by <code><a href="Protocols/Drawable.html#/s:21SwiftQuantumComputing8DrawableP11drawCircuit_10qubitCountSo6UIViewCSayAA4GateOG_SitKF">Drawable.drawCircuit(_:qubitCount:)</a></code></p>
 
                         <a href="Enums/DrawCircuitError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -463,9 +463,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing9FixedGateO"></a>
-                    <a name="//apple_ref/swift/Enum/FixedGate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing9FixedGateO">FixedGate</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO"></a>
+                    <a name="//apple_ref/swift/Enum/Gate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO">Gate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -473,15 +473,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A quantum gate. with fixed inputs</p>
+                        <p>A quantum gate with fixed inputs</p>
 
-                        <a href="Enums/FixedGate.html" class="slightly-smaller">See more</a>
+                        <a href="Enums/Gate.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FixedGate</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Gate</span></code></pre>
 
                         </div>
                       </div>
@@ -512,7 +512,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="Protocols/GeneticFactory.html#/s:21SwiftQuantumComputing14GeneticFactoryP13evolveCircuit13configuration8useCases5gatesSd4eval_SayAA9FixedGateOGAGSiSg8oracleAttAA0D13ConfigurationV_SayAA0D7UseCaseVGSayAA0N0_pGtKF">GeneticFactory.evolveCircuit(configuration:useCases:gates:)</a></code></p>
+                        <p>Errors throwed by <code><a href="Protocols/GeneticFactory.html#/s:21SwiftQuantumComputing14GeneticFactoryP13evolveCircuit13configuration8useCases5gatesSd4eval_SayAA4GateOGAGSiSg8oracleAttAA0D13ConfigurationV_SayAA0D7UseCaseVGSayAA012ConfigurableM0_pGtKF">GeneticFactory.evolveCircuit(configuration:useCases:gates:)</a></code></p>
 
                         <a href="Enums/EvolveCircuitError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -535,7 +535,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2019-11-30)</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2019-12-08)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -1,5 +1,5 @@
 //
-//  GateTestDouble.swift
+//  ConfigurableGateTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 12/02/2019.
@@ -24,19 +24,19 @@ import Foundation
 
 // MARK: - Main body
 
-final class GateTestDouble {
+final class ConfigurableGateTestDouble {
 
     // MARK: - Internal properties
 
     private (set) var makeFixedCount = 0
     private (set) var lastMakeFixedInputs: [Int]?
-    var makeFixedResult: FixedGate?
+    var makeFixedResult: Gate?
 }
 
-// MARK: - Gate methods
+// MARK: - ConfigurableGate methods
 
-extension GateTestDouble: Gate {
-    func makeFixed(inputs: [Int]) throws -> FixedGate {
+extension ConfigurableGateTestDouble: ConfigurableGate {
+    func makeFixed(inputs: [Int]) throws -> Gate {
         makeFixedCount += 1
 
         lastMakeFixedInputs = inputs

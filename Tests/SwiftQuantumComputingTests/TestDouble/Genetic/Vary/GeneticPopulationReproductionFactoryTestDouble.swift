@@ -35,7 +35,7 @@ final class GeneticPopulationReproductionFactoryTestDouble {
     private (set) var lastMakeReproductionThreshold: Double?
     private (set) var lastMakeReproductionMaxDepth: Int?
     private (set) var lastMakeReproductionUseCases: [GeneticUseCase]?
-    private (set) var lastMakeReproductionGates: [Gate]?
+    private (set) var lastMakeReproductionGates: [ConfigurableGate]?
     var makeReproductionResult: GeneticPopulationReproduction?
     var makeReproductionError = EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
 }
@@ -49,7 +49,7 @@ extension GeneticPopulationReproductionFactoryTestDouble: GeneticPopulationRepro
                           threshold: Double,
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
-                          gates: [Gate]) throws -> GeneticPopulationReproduction {
+                          gates: [ConfigurableGate]) throws -> GeneticPopulationReproduction {
         makeReproductionCount += 1
 
         lastMakeReproductionQubitCount = qubitCount

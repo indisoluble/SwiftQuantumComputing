@@ -31,7 +31,7 @@ class Drawable_DrawCircuitTests: XCTestCase {
     func testEmptyCircuit_drawCircuit_execMethodWithQubitCountSetToOne() {
         // Given
         let drawer = DrawableTestDouble()
-        let circuit: [FixedGate] = []
+        let circuit: [Gate] = []
 
         // When
         _ = try? drawer.drawCircuit(circuit)

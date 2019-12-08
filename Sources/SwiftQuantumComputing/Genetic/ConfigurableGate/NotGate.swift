@@ -1,5 +1,5 @@
 //
-//  ControlledNotGate.swift
+//  NotGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -22,25 +22,25 @@ import Foundation
 
 // MARK: - Main body
 
-/// A quantum gate used on genetic programming: ControlledNot
-public struct ControlledNotGate {
+/// A quantum gate used on genetic programming: Not
+public struct NotGate {
 
     // MARK: - Public init methods
 
-    /// Initialize a `ControlledNotGate` instance
+    /// Initialize a `NotGate` instance
     public init() {}
 }
 
-// MARK: - Gate methods
+// MARK: - ConfigurableGate methods
 
-extension ControlledNotGate: Gate {
+extension NotGate: ConfigurableGate {
 
-    /// Check `Gate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> FixedGate {
-        guard inputs.count > 1 else {
+    /// Check `ConfigurableGate.makeFixed(inputs:)`
+    public func makeFixed(inputs: [Int]) throws -> Gate {
+        guard let target = inputs.first else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
 
-        return .controlledNot(target: inputs[0], control: inputs[1])
+        return .not(target: target)
     }
 }

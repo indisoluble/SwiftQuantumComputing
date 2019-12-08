@@ -5,11 +5,11 @@ let drawer = MainDrawerFactory().makeDrawer()
 
 func isFunctionConstant(truthTable: [String]) -> Bool {
     let gates = [
-        FixedGate.not(target: 0),
-        FixedGate.hadamard(target: 0),
-        FixedGate.hadamard(target: 1),
-        FixedGate.oracle(truthTable: truthTable, target: 0, controls: [1]),
-        FixedGate.hadamard(target: 1)
+        Gate.not(target: 0),
+        Gate.hadamard(target: 0),
+        Gate.hadamard(target: 1),
+        Gate.oracle(truthTable: truthTable, target: 0, controls: [1]),
+        Gate.hadamard(target: 1)
     ]
     try! drawer.drawCircuit(gates)
 

@@ -27,11 +27,11 @@ public enum DrawCircuitError: Error {
     /// Throwed when `qubitCount` is 0, i.e. a circuit requires at least 1 qubit
     case qubitCountHasToBeBiggerThanZero
     /// Throwed when one or more of the inputs/targets/controls in `gate` reference a qubit that does not exist
-    case gateWithOneOrMoreInputsOutOfRange(gate: FixedGate)
+    case gateWithOneOrMoreInputsOutOfRange(gate: Gate)
     /// Throwed when `gate` informs no inputs/controls
-    case gateWithEmptyInputList(gate: FixedGate)
+    case gateWithEmptyInputList(gate: Gate)
     /// Throwed when `gate` tries to use a target qubit also as a control qubit
-    case gateTargetIsAlsoAControl(gate: FixedGate)
+    case gateTargetIsAlsoAControl(gate: Gate)
 }
 
 // MARK: - Protocol definition
@@ -49,5 +49,5 @@ public protocol Drawable {
 
      - Returns: A view with a representation of the `circuit` inside.
      */
-    func drawCircuit(_ circuit: [FixedGate], qubitCount: Int) throws -> SQCView
+    func drawCircuit(_ circuit: [Gate], qubitCount: Int) throws -> SQCView
 }

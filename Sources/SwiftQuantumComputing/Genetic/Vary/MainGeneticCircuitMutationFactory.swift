@@ -40,7 +40,7 @@ struct MainGeneticCircuitMutationFactory {
 extension MainGeneticCircuitMutationFactory: GeneticCircuitMutationFactory {
     func makeMutation(qubitCount: Int,
                       maxDepth: Int,
-                      gates: [Gate]) throws -> GeneticCircuitMutation {
+                      gates: [ConfigurableGate]) throws -> GeneticCircuitMutation {
         let randomizer = try factory.makeRandomizer(qubitCount: qubitCount, gates: gates)
 
         return MainGeneticCircuitMutation(maxDepth: maxDepth, randomizer: randomizer)

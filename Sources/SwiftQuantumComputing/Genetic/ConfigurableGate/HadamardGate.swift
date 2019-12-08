@@ -1,5 +1,5 @@
 //
-//  PhaseShiftGate.swift
+//  HadamardGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -22,37 +22,25 @@ import Foundation
 
 // MARK: - Main body
 
-/// A quantum gate used on genetic programming: PhaseShift
-public struct PhaseShiftGate {
-
-    // MARK: - Private properties
-
-    private let radians: Double
+/// A quantum gate used on genetic programming: Hadamard
+public struct HadamardGate {
 
     // MARK: - Public init methods
 
-    /**
-     Initializes a `Gate` instance with a given phase shift angle.
-
-     - Parameter radians: Phase shift angle in radians.
-
-     - Returns: A `Gate` instance.
-     */
-    public init(radians: Double) {
-        self.radians = radians
-    }
+    /// Initialize a `HadamardGate` instance
+    public init() {}
 }
 
-// MARK: - Gate methods
+// MARK: - ConfigurableGate methods
 
-extension PhaseShiftGate: Gate {
+extension HadamardGate: ConfigurableGate {
 
-    /// Check `Gate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> FixedGate {
+    /// Check `ConfigurableGate.makeFixed(inputs:)`
+    public func makeFixed(inputs: [Int]) throws -> Gate {
         guard let target = inputs.first else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
 
-        return .phaseShift(radians: radians, target: target)
+        return .hadamard(target: target)
     }
 }

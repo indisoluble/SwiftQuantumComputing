@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-/// A genetic algorithm looks for a quantum circuit that includes a `FixedGate.oracle(truthTable:target:controls:)`
+/// A genetic algorithm looks for a quantum circuit that includes a `Gate.oracle(truthTable:target:controls:)`
 /// and solves a list of `GeneticUseCase` instances. Each `GeneticUseCase` defines the expected `output` for the circuit
 /// when its qubits are set to a given `input` and the oracle gate is initialized with a particular `truthTable`
 public struct GeneticUseCase {
@@ -45,7 +45,7 @@ public struct GeneticUseCase {
 
         // MARK: - Public properties
 
-        /// List of qubit combinations for which the `control` in a `FixedGate.controlledNot(target:control:)`
+        /// List of qubit combinations for which the `control` in a `Gate.controlledNot(target:control:)`
         /// is activated
         public let truth: [String]
         /// Total number of qubits for all qubits combinations in `truth`
@@ -95,7 +95,7 @@ public struct GeneticUseCase {
      Initializes a `GeneticUseCase` instance.
 
      - Parameter truthTable: List of qubit combinations for which the `control` in a
-     `FixedGate.controlledNot(target:control:)` is activated.
+     `Gate.controlledNot(target:control:)` is activated.
      - Parameter circuitInput: 0's and 1's that set the values of the qubits before applying any quantum gate. If not input is
      provided, qubits are set to 0.
      - Parameter circuitOutput: 0's and 1's that specify the expected values of the qubits once the quantum gates are applied.
@@ -115,7 +115,7 @@ public struct GeneticUseCase {
      Initializes a `GeneticUseCase` instance.
 
      - Parameter emptyTruthTableQubitCount: An oracle gate with an empty truth table never activates the `control`
-     in a `FixedGate.controlledNot(target:control:)`, so the `target` never changes. However, it is still necessary to
+     in a `Gate.controlledNot(target:control:)`, so the `target` never changes. However, it is still necessary to
      specify how many qubits the truth table handles.
      - Parameter circuitInput: 0's and 1's that set the values of the qubits before applying any quantum gate. If not input is
      provided, qubits are set to 0.

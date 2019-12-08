@@ -33,7 +33,7 @@ final class GeneticPopulationMutationFactoryTestDouble {
     private (set) var lastMakeMutationTournamentSize: Int?
     private (set) var lastMakeMutationMaxDepth: Int?
     private (set) var lastMakeMutationEvaluator: GeneticCircuitEvaluator?
-    private (set) var lastMakeMutationGates: [Gate]?
+    private (set) var lastMakeMutationGates: [ConfigurableGate]?
     var makeMutationResult: GeneticPopulationMutation?
 }
 
@@ -44,7 +44,7 @@ extension GeneticPopulationMutationFactoryTestDouble: GeneticPopulationMutationF
                       tournamentSize: Int,
                       maxDepth: Int,
                       evaluator: GeneticCircuitEvaluator,
-                      gates: [Gate]) throws -> GeneticPopulationMutation {
+                      gates: [ConfigurableGate]) throws -> GeneticPopulationMutation {
         makeMutationCount += 1
 
         lastMakeMutationQubitCount = qubitCount

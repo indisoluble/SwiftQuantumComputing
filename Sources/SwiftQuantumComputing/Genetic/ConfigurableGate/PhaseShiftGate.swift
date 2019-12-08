@@ -1,5 +1,5 @@
 //
-//  NotGate.swift
+//  PhaseShiftGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -22,25 +22,37 @@ import Foundation
 
 // MARK: - Main body
 
-/// A quantum gate used on genetic programming: Not
-public struct NotGate {
+/// A quantum gate used on genetic programming: PhaseShift
+public struct PhaseShiftGate {
+
+    // MARK: - Private properties
+
+    private let radians: Double
 
     // MARK: - Public init methods
 
-    /// Initialize a `NotGate` instance
-    public init() {}
+    /**
+     Initializes a `ConfigurableGate` instance with a given phase shift angle.
+
+     - Parameter radians: Phase shift angle in radians.
+
+     - Returns: A `ConfigurableGate` instance.
+     */
+    public init(radians: Double) {
+        self.radians = radians
+    }
 }
 
-// MARK: - Gate methods
+// MARK: - ConfigurableGate methods
 
-extension NotGate: Gate {
+extension PhaseShiftGate: ConfigurableGate {
 
-    /// Check `Gate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> FixedGate {
+    /// Check `ConfigurableGate.makeFixed(inputs:)`
+    public func makeFixed(inputs: [Int]) throws -> Gate {
         guard let target = inputs.first else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
 
-        return .not(target: target)
+        return .phaseShift(radians: radians, target: target)
     }
 }

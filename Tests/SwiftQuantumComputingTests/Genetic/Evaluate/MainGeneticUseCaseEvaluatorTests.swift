@@ -56,7 +56,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         // Given
         oracleFactory.makeOracleCircuitResult = oracleCircuit
         factory.makeCircuitResult = circuit
-        circuit.gatesResult = [FixedGate.not(target: 0)]
+        circuit.gatesResult = [Gate.not(target: 0)]
 
         let evaluator = try! MainGeneticUseCaseEvaluator(useCase: useCase,
                                                          factory: factory,

@@ -61,7 +61,7 @@
                 <a class="nav-group-task-link" href="Enums/EvolveCircuitError.html">EvolveCircuitError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/FixedGate.html">FixedGate</a>
+                <a class="nav-group-task-link" href="Enums/Gate.html">Gate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/GateError.html">GateError</a>
@@ -93,13 +93,13 @@
                 <a class="nav-group-task-link" href="Protocols/CircuitFactory.html">CircuitFactory</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/ConfigurableGate.html">ConfigurableGate</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Drawable.html">Drawable</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/DrawerFactory.html">DrawerFactory</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/Gate.html">Gate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/GeneticFactory.html">GeneticFactory</a>
@@ -209,13 +209,12 @@
 <span class="c1">//: 1. Compose a list of quantum gates. Insert them in the same order</span>
 <span class="c1">//:    you want them to appear in the quantum circuit</span>
 <span class="k">let</span> <span class="nv">gates</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="kt">FixedGate</span><span class="o">.</span><span class="nf">controlledNot</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">control</span><span class="p">:</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="kt">FixedGate</span><span class="o">.</span><span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span>
-    <span class="kt">FixedGate</span><span class="o">.</span><span class="nf">matrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="kt">Matrix</span><span class="p">([[</span><span class="kt">Complex</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="kt">Complex</span><span class="p">(</span><span class="mi">1</span><span class="p">)],</span> <span class="p">[</span><span class="kt">Complex</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="kt">Complex</span><span class="p">(</span><span class="mi">0</span><span class="p">)]]),</span>
-                     <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
-    <span class="kt">FixedGate</span><span class="o">.</span><span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span>
-    <span class="kt">FixedGate</span><span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"00"</span><span class="p">,</span> <span class="s">"11"</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
-    <span class="kt">FixedGate</span><span class="o">.</span><span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">controlledNot</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">control</span><span class="p">:</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">matrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="kt">Matrix</span><span class="p">([[</span><span class="kt">Complex</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="kt">Complex</span><span class="p">(</span><span class="mi">1</span><span class="p">)],</span> <span class="p">[</span><span class="kt">Complex</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="kt">Complex</span><span class="p">(</span><span class="mi">0</span><span class="p">)]]),</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"00"</span><span class="p">,</span> <span class="s">"11"</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
 <span class="p">]</span>
 <span class="c1">//: 2. (Optional) Draw the quantum circuit to see how it looks</span>
 <span class="k">let</span> <span class="nv">drawer</span> <span class="o">=</span> <span class="kt">MainDrawerFactory</span><span class="p">()</span><span class="o">.</span><span class="nf">makeDrawer</span><span class="p">()</span>
@@ -249,7 +248,7 @@
     <span class="kt">GeneticUseCase</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"1"</span><span class="p">],</span> <span class="nv">circuitOutput</span><span class="p">:</span> <span class="s">"10"</span><span class="p">)</span>
 <span class="p">]</span>
 <span class="c1">//: 3. And which gates can be used to find a solution</span>
-<span class="k">let</span> <span class="nv">gates</span><span class="p">:</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kt">HadamardGate</span><span class="p">(),</span> <span class="kt">NotGate</span><span class="p">()]</span>
+<span class="k">let</span> <span class="nv">gates</span><span class="p">:</span> <span class="p">[</span><span class="kt">ConfigurableGate</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kt">HadamardGate</span><span class="p">(),</span> <span class="kt">NotGate</span><span class="p">()]</span>
 <span class="c1">//: 4. Now, run the genetic algorithm to find/evolve a circuit that solves</span>
 <span class="c1">//:    the problem modeled with the use cases</span>
 <span class="k">let</span> <span class="nv">evolvedCircuit</span> <span class="o">=</span> <span class="kt">MainGeneticFactory</span><span class="p">()</span><span class="o">.</span><span class="nf">evolveCircuit</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
@@ -298,7 +297,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2019-11-30)</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2019-12-08)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

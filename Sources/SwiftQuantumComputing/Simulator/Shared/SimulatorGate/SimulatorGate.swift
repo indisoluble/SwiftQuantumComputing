@@ -25,7 +25,7 @@ import Foundation
 protocol SimulatorGate {
     typealias Components = (matrix: Matrix, inputs: [Int])
 
-    var fixedGate: FixedGate { get }
+    var gate: Gate { get }
 
     func extract() throws -> Components
 }

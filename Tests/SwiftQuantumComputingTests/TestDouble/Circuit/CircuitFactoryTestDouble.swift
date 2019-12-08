@@ -29,14 +29,14 @@ final class CircuitFactoryTestDouble {
     // MARK: - Internal properties
 
     private (set) var makeCircuitCount = 0
-    private (set) var lastMakeCircuitGates: [FixedGate]?
+    private (set) var lastMakeCircuitGates: [Gate]?
     var makeCircuitResult = CircuitTestDouble()
 }
 
 // MARK: - CircuitFactory methods
 
 extension CircuitFactoryTestDouble: CircuitFactory {
-    func makeCircuit(gates: [FixedGate]) -> Circuit {
+    func makeCircuit(gates: [Gate]) -> Circuit {
         makeCircuitCount += 1
 
         lastMakeCircuitGates = gates

@@ -39,15 +39,15 @@ public struct OracleGate {
     }
 
     /**
-     Initializes a `Gate` instance with a given `truthTable`.
+     Initializes a `ConfigurableGate` instance with a given `truthTable`.
 
      - Parameter truthTable: List of qubit combinations for which the `control` in a
-     `FixedGate.controlledNot(target:control:)` is activated.
+     `Gate.controlledNot(target:control:)` is activated.
      - Parameter truthTableQubitCount: Total number of qubits for all qubits combinations in `truthTable`.
 
      - Throws: `OracleGate.InitError`.
 
-     - Returns: A `Gate` instance.
+     - Returns: A `ConfigurableGate` instance.
      */
     public init(truthTable: [String], truthTableQubitCount: Int) throws {
         guard truthTableQubitCount > 0 else {
@@ -59,12 +59,12 @@ public struct OracleGate {
     }
 }
 
-// MARK: - Gate methods
+// MARK: - ConfigurableGate methods
 
-extension OracleGate: Gate {
+extension OracleGate: ConfigurableGate {
 
-    /// Check `Gate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> FixedGate {
+    /// Check `ConfigurableGate.makeFixed(inputs:)`
+    public func makeFixed(inputs: [Int]) throws -> Gate {
         guard inputs.count >= (truthTableQubitCount + 1) else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
         }
