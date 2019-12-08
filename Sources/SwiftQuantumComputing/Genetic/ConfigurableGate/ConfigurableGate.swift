@@ -1,5 +1,5 @@
 //
-//  HadamardGate.swift
+//  ConfigurableGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -20,27 +20,19 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-/// A quantum gate used on genetic programming: Hadamard
-public struct HadamardGate {
+/// A quantum gate used on genetic programming
+public protocol ConfigurableGate {
 
-    // MARK: - Public init methods
+    /**
+     Produces a `FixedGate` instance using as many `inputs` as necessary to configure it.
 
-    /// Initialize a `HadamardGate` instance
-    public init() {}
-}
+     - Parameter inputs: A list of qubits/indexes in any order.
 
-// MARK: - Gate methods
+     - Throws: `EvolveCircuitError`.
 
-extension HadamardGate: Gate {
-
-    /// Check `Gate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> FixedGate {
-        guard let target = inputs.first else {
-            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
-        }
-
-        return .hadamard(target: target)
-    }
+     - Returns: A `FixedGate` instance.
+     */
+    func makeFixed(inputs: [Int]) throws -> FixedGate
 }

@@ -30,7 +30,7 @@ class SimpleGeneticGateFactoryTests: XCTestCase {
 
     func testFactoryWithGateThatReturnNil_makeGate_throwException() {
         // Given
-        let gate = GateTestDouble()
+        let gate = ConfigurableGateTestDouble()
         let factory = SimpleGeneticGateFactory(gate: gate)
 
         let inputs = [0, 1]
@@ -43,7 +43,7 @@ class SimpleGeneticGateFactoryTests: XCTestCase {
 
     func testFactoryWithGateThatReturnValue_makeGate_returnNotNil() {
         // Given
-        let gate = GateTestDouble()
+        let gate = ConfigurableGateTestDouble()
         gate.makeFixedResult = FixedGate.not(target: 0)
         let factory = SimpleGeneticGateFactory(gate: gate)
 

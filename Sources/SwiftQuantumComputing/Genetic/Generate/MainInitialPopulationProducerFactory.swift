@@ -47,7 +47,7 @@ extension MainInitialPopulationProducerFactory: InitialPopulationProducerFactory
     func makeProducer(qubitCount: Int,
                       threshold: Double,
                       useCases: [GeneticUseCase],
-                      gates: [Gate]) throws -> InitialPopulationProducer {
+                      gates: [ConfigurableGate]) throws -> InitialPopulationProducer {
         let generator = try generatorFactory.makeRandomizer(qubitCount: qubitCount, gates: gates)
 
         let evaluator = try evaluatorFactory.makeEvaluator(threshold: threshold, useCases: useCases)

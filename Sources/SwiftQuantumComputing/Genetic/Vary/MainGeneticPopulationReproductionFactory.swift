@@ -50,7 +50,7 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                           threshold: Double,
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
-                          gates: [Gate]) throws -> GeneticPopulationReproduction {
+                          gates: [ConfigurableGate]) throws -> GeneticPopulationReproduction {
         let evaluator = try evaluatorFactory.makeEvaluator(threshold: threshold, useCases: useCases)
 
         let mutation = try mutationFactory.makeMutation(qubitCount: qubitCount,

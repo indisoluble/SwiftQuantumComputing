@@ -1,5 +1,5 @@
 //
-//  Gate.swift
+//  NotGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/12/2018.
@@ -20,19 +20,27 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-/// A quantum gate used on genetic programming
-public protocol Gate {
+/// A quantum gate used on genetic programming: Not
+public struct NotGate {
 
-    /**
-     Produces a `FixedGate` instance using as many `inputs` as necessary to configure it.
+    // MARK: - Public init methods
 
-     - Parameter inputs: A list of qubits/indexes in any order.
+    /// Initialize a `NotGate` instance
+    public init() {}
+}
 
-     - Throws: `EvolveCircuitError`.
+// MARK: - ConfigurableGate methods
 
-     - Returns: A `FixedGate` instance.
-     */
-    func makeFixed(inputs: [Int]) throws -> FixedGate
+extension NotGate: ConfigurableGate {
+
+    /// Check `ConfigurableGate.makeFixed(inputs:)`
+    public func makeFixed(inputs: [Int]) throws -> FixedGate {
+        guard let target = inputs.first else {
+            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
+        }
+
+        return .not(target: target)
+    }
 }

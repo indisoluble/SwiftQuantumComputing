@@ -90,7 +90,7 @@ extension MainGeneticFactory: GeneticFactory {
     /// Check `GeneticFactory.evolveCircuit(configuration:useCases:gates:)`
     public func evolveCircuit(configuration config: GeneticConfiguration,
                               useCases: [GeneticUseCase],
-                              gates: [Gate]) throws -> EvolvedCircuit {
+                              gates: [ConfigurableGate]) throws -> EvolvedCircuit {
         guard let initSize = config.populationSize.first else {
             throw EvolveCircuitError.configurationPopulationSizeIsEmpty
         }

@@ -31,11 +31,11 @@ public struct ControlledNotGate {
     public init() {}
 }
 
-// MARK: - Gate methods
+// MARK: - ConfigurableGate methods
 
-extension ControlledNotGate: Gate {
+extension ControlledNotGate: ConfigurableGate {
 
-    /// Check `Gate.makeFixed(inputs:)`
+    /// Check `ConfigurableGate.makeFixed(inputs:)`
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard inputs.count > 1 else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)

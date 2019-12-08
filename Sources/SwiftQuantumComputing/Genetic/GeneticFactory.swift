@@ -37,7 +37,7 @@ public enum EvolveCircuitError: Error {
     /// requires at least 1 circuit in the tournament
     case configurationTournamentSizeHasToBeBiggerThanZero
     /// Throwed if `gate` requires more qubits than `GeneticUseCase.Circuit.qubitCount` specifies
-    case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: Gate)
+    case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: ConfigurableGate)
     /// Throwed if `useCase.Circuit.output` is not composed exclusively of 0's and 1's
     case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: GeneticUseCase)
     /// Throwed if any `GeneticUseCase.Circuit.qubitCount` is 0 or a negative number
@@ -83,5 +83,5 @@ public protocol GeneticFactory {
      */
     func evolveCircuit(configuration config: GeneticConfiguration,
                        useCases: [GeneticUseCase],
-                       gates: [Gate]) throws -> EvolvedCircuit
+                       gates: [ConfigurableGate]) throws -> EvolvedCircuit
 }

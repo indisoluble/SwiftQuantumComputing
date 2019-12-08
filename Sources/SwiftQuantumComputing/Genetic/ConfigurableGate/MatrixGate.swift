@@ -39,13 +39,13 @@ public struct MatrixGate {
     }
 
     /**
-     Initializes a `Gate` instance with a given `matrix`.
+     Initializes a `ConfigurableGate` instance with a given `matrix`.
 
      - Parameter matrix: A matrix able to handle at least 1 qubits, i.e. with 2^qubitCount rows.
 
      - Throws: `MatrixGate.InitError`.
 
-     - Returns: A `Gate` instance.
+     - Returns: A `ConfigurableGate` instance.
      */
     public init(matrix: Matrix) throws {
         let qc = Int.log2(matrix.rowCount)
@@ -58,11 +58,11 @@ public struct MatrixGate {
     }
 }
 
-// MARK: - Gate methods
+// MARK: - ConfigurableGate methods
 
-extension MatrixGate: Gate {
+extension MatrixGate: ConfigurableGate {
 
-    /// Check `Gate.makeFixed(inputs:)`
+    /// Check `ConfigurableGate.makeFixed(inputs:)`
     public func makeFixed(inputs: [Int]) throws -> FixedGate {
         guard inputs.count >= qubitCount else {
             throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)

@@ -30,14 +30,15 @@ final class GeneticGatesRandomizerFactoryTestDouble {
 
     private (set) var makeRandomizerCount = 0
     private (set) var lastMakeRandomizerQubitCount: Int?
-    private (set) var lastMakeRandomizerGates: [Gate]?
+    private (set) var lastMakeRandomizerGates: [ConfigurableGate]?
     var makeRandomizerResult: GeneticGatesRandomizer?
 }
 
 // MARK: - GeneticGatesRandomizerFactory methods
 
 extension GeneticGatesRandomizerFactoryTestDouble: GeneticGatesRandomizerFactory {
-    func makeRandomizer(qubitCount: Int, gates: [Gate]) throws -> GeneticGatesRandomizer {
+    func makeRandomizer(qubitCount: Int,
+                        gates: [ConfigurableGate]) throws -> GeneticGatesRandomizer {
         makeRandomizerCount += 1
 
         lastMakeRandomizerQubitCount = qubitCount

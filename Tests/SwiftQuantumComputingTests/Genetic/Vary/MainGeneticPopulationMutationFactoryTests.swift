@@ -36,7 +36,7 @@ class MainGeneticPopulationMutationFactoryTests: XCTestCase {
     let tournamentSize = 1
     let maxDepth = 0
     let evaluator = GeneticCircuitEvaluatorTestDouble()
-    let gates: [Gate] = []
+    let gates: [ConfigurableGate] = []
 
     // MARK: - Tests
 

@@ -39,7 +39,7 @@ class MainGeneticPopulationReproductionFactoryTests: XCTestCase {
     let threshold = 0.0
     let maxDepth = 0
     let useCases: [GeneticUseCase] = []
-    let gates: [Gate] = []
+    let gates: [ConfigurableGate] = []
 
     // MARK: - Tests
 
