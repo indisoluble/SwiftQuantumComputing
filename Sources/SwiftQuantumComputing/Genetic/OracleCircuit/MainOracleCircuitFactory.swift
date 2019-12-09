@@ -29,7 +29,7 @@ struct MainOracleCircuitFactory {}
 extension MainOracleCircuitFactory: OracleCircuitFactory {
     func makeOracleCircuit(geneticCircuit: [GeneticGate],
                            useCase: GeneticUseCase) throws -> OracleCircuit {
-        var gates: [FixedGate] = []
+        var gates: [Gate] = []
         var oracleIndex: Int? = nil
 
         for (index, gg) in geneticCircuit.enumerated() {

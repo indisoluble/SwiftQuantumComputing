@@ -26,11 +26,11 @@ struct SimpleGeneticGate {
 
     // MARK: - Private properties
 
-    private let gate: FixedGate
+    private let gate: Gate
 
     // MARK: - Internal init methods
 
-    init(gate: FixedGate) {
+    init(gate: Gate) {
         self.gate = gate
     }
 }

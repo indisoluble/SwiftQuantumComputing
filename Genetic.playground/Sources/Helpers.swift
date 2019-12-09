@@ -14,15 +14,15 @@
 import SwiftQuantumComputing
 
 public func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircuit,
-                                  with useCase: GeneticUseCase) -> [FixedGate] {
+                                  with useCase: GeneticUseCase) -> [Gate] {
     var evolvedGates = evolvedCircuit.gates
 
     if let oracleAt = evolvedCircuit.oracleAt {
         switch evolvedGates[oracleAt] {
         case let .oracle(_, target, controls):
-            evolvedGates[oracleAt] = FixedGate.oracle(truthTable: useCase.truthTable.truth,
-                                                      target: target,
-                                                      controls: controls)
+            evolvedGates[oracleAt] = Gate.oracle(truthTable: useCase.truthTable.truth,
+                                                 target: target,
+                                                 controls: controls)
         default:
             fatalError("No oracle found")
         }
@@ -31,14 +31,13 @@ public func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircu
     return evolvedGates
 }
 
-public func drawCircuit(with evolvedGates: [FixedGate], useCase: GeneticUseCase) -> SQCView {
+public func drawCircuit(with evolvedGates: [Gate], useCase: GeneticUseCase) -> SQCView {
     let drawer = MainDrawerFactory().makeDrawer()
 
     return try! drawer.drawCircuit(evolvedGates, qubitCount: useCase.circuit.qubitCount)
 }
 
-public func probabilities(in evolvedGates: [FixedGate],
-                          useCase: GeneticUseCase) -> [String: Double] {
+public func probabilities(in evolvedGates: [Gate], useCase: GeneticUseCase) -> [String: Double] {
     let circuit = MainCircuitFactory().makeCircuit(gates: evolvedGates)
 
     return try! circuit.summarizedProbabilities(withInitialBits: useCase.circuit.input)

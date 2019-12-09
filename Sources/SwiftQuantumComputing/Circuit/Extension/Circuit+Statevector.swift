@@ -27,7 +27,7 @@ public enum StatevectorError: Error {
     /// Throwed when `initialBits` is not composed only of 0's & 1's
     case initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
     /// Throwed if `gate` throws `error`
-    case gateThrowedError(gate: FixedGate, error: GateError)
+    case gateThrowedError(gate: Gate, error: GateError)
 }
 
 // MARK: - Main body

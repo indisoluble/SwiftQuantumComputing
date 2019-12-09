@@ -39,7 +39,7 @@ class MainGeneticFactoryTests: XCTestCase {
     let oracleFactory = OracleCircuitFactoryTestDouble()
     let oracleCircuit: OracleCircuitFactory.OracleCircuit = ([], nil)
     let useCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "0")
-    let gates: [Gate] = []
+    let gates: [ConfigurableGate] = []
 
     // MARK: - Tests
 

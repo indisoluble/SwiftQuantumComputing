@@ -16,7 +16,7 @@ let cases = [
     GeneticUseCase(truthTable: ["1"], circuitOutput: "10")
 ]
 //: 3. And which gates can be used to find a solution
-let gates: [Gate] = [HadamardGate(), NotGate()]
+let gates: [ConfigurableGate] = [HadamardGate(), NotGate()]
 //: 4. Now, run the genetic algorithm to find/evolve a circuit that solves
 //:    the problem modeled with the use cases
 let evolvedCircuit = MainGeneticFactory().evolveCircuit(configuration: config,
@@ -37,4 +37,3 @@ for useCase in cases {
                  useCase.circuit.output,
                  (probs[useCase.circuit.output] ?? 0.0) * 100))
 }
-

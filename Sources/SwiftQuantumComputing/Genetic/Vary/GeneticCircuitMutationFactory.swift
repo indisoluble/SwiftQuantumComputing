@@ -25,5 +25,5 @@ import Foundation
 protocol GeneticCircuitMutationFactory {
     func makeMutation(qubitCount: Int,
                       maxDepth: Int,
-                      gates: [Gate]) throws -> GeneticCircuitMutation
+                      gates: [ConfigurableGate]) throws -> GeneticCircuitMutation
 }

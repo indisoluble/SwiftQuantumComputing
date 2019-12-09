@@ -31,7 +31,7 @@ final class GeneticCircuitMutationFactoryTestDouble {
     private (set) var makeMutationCount = 0
     private (set) var lastMakeMutationQubitCount: Int?
     private (set) var lastMakeMutationMaxDepth: Int?
-    private (set) var lastMakeMutationGates: [Gate]?
+    private (set) var lastMakeMutationGates: [ConfigurableGate]?
     var makeMutationResult: GeneticCircuitMutation?
 }
 
@@ -40,7 +40,7 @@ final class GeneticCircuitMutationFactoryTestDouble {
 extension GeneticCircuitMutationFactoryTestDouble: GeneticCircuitMutationFactory {
     func makeMutation(qubitCount: Int,
                       maxDepth: Int,
-                      gates: [Gate]) throws -> GeneticCircuitMutation {
+                      gates: [ConfigurableGate]) throws -> GeneticCircuitMutation {
         makeMutationCount += 1
 
         lastMakeMutationQubitCount = qubitCount

@@ -55,7 +55,7 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
                 register = try register.applying(gate)
             } catch {
                 if let error = error as? GateError {
-                    throw StatevectorWithInitialStatevectorError.gateThrowedError(gate: gate.fixedGate,
+                    throw StatevectorWithInitialStatevectorError.gateThrowedError(gate: gate.gate,
                                                                                   error: error)
                 } else {
                     fatalError("Unexpected error: \(error).")

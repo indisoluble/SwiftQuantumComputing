@@ -34,7 +34,7 @@ class Circuit_UnitaryTests: XCTestCase {
 
     func testCircuitWithKnownQubitCount_unitaryWithoutQubitCount_useKnownQubitCount() {
         // Given
-        let gates = [FixedGate.not(target: 0), FixedGate.hadamard(target: 2)]
+        let gates = [Gate.not(target: 0), Gate.hadamard(target: 2)]
         let qubitCount = 3
 
         circuit.gatesResult = gates

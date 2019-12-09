@@ -1,5 +1,5 @@
 //
-//  FixedGate+CircuitViewPosition.swift
+//  Gate+CircuitViewPosition.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/09/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-extension FixedGate {
+extension Gate {
 
     // MARK: - Internal methods
 
@@ -48,7 +48,7 @@ extension FixedGate {
 
 // MARK: - Private body
 
-private extension FixedGate {
+private extension Gate {
 
     // MARK: - Private methods
 

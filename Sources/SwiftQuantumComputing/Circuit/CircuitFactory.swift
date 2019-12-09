@@ -32,5 +32,5 @@ public protocol CircuitFactory {
 
      - Returns: A `Circuit` instance.
      */
-    func makeCircuit(gates: [FixedGate]) -> Circuit
+    func makeCircuit(gates: [Gate]) -> Circuit
 }

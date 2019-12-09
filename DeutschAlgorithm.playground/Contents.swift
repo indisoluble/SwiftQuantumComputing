@@ -4,13 +4,15 @@ let circuitFactory = MainCircuitFactory()
 let drawer = MainDrawerFactory().makeDrawer()
 
 func isFunctionConstant(truthTable: [String]) -> Bool {
-    let gates = [
-        FixedGate.not(target: 0),
-        FixedGate.hadamard(target: 0),
-        FixedGate.hadamard(target: 1),
-        FixedGate.oracle(truthTable: truthTable, target: 0, controls: [1]),
-        FixedGate.hadamard(target: 1)
+    var gates = [
+        Gate.not(target: 0)
     ]
+    gates += Gate.hadamard(targets: 0, 1)
+    gates += [
+        Gate.oracle(truthTable: truthTable, target: 0, controls: [1]),
+        Gate.hadamard(target: 1)
+    ]
+
     try! drawer.drawCircuit(gates)
 
     let circuit = circuitFactory.makeCircuit(gates: gates)

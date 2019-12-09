@@ -27,7 +27,7 @@ struct CircuitViewDrawer {}
 // MARK: - Drawable methods
 
 extension CircuitViewDrawer: Drawable {
-    func drawCircuit(_ circuit: [FixedGate], qubitCount: Int) throws -> SQCView {
+    func drawCircuit(_ circuit: [Gate], qubitCount: Int) throws -> SQCView {
         guard qubitCount > 0 else {
             throw DrawCircuitError.qubitCountHasToBeBiggerThanZero
         }
