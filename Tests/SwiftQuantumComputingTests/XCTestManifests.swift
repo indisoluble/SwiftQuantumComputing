@@ -43,6 +43,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Int_DerivedTests.allTests),
         testCase(Int_IsPowerOfTwoTests.allTests),
         testCase(Matrix_OracleTests.allTests),
+        testCase(Gate_SingleQubitGateReplicatorTests.allTests),
         testCase(MainGeneticCircuitEvaluatorTests.allTests),
         testCase(MainGeneticUseCaseEvaluatorTests.allTests),
         testCase(ControlledNotGateTests.allTests),
