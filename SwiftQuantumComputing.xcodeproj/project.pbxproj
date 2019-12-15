@@ -912,6 +912,33 @@
 			path = Statevector;
 			sourceTree = "<group>";
 		};
+		FF09865A23A67DE8009CEC4E /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				FF09865C23A681C4009CEC4E /* Example */,
+				FF09865B23A67ED5009CEC4E /* Usage */,
+			);
+			path = Playground;
+			sourceTree = "<group>";
+		};
+		FF09865B23A67ED5009CEC4E /* Usage */ = {
+			isa = PBXGroup;
+			children = (
+				FFD05D7F236614C900872BBA /* Circuit.playground */,
+				FF9CE7EF238B18A90098E5C8 /* Drawer.playground */,
+				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
+			);
+			path = Usage;
+			sourceTree = "<group>";
+		};
+		FF09865C23A681C4009CEC4E /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
 		FF10373F236E09090011706D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1191,14 +1218,11 @@
 		FF65E3AB211A181800AA0BD2 = {
 			isa = PBXGroup;
 			children = (
+				FF09865A23A67DE8009CEC4E /* Playground */,
 				FFB7F567227CD5E100DF2937 /* Sources */,
 				FFB7F568227CD6F800DF2937 /* Tests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
 				FF43848422B56C2200319473 /* Package.swift */,
-				FFD05D7F236614C900872BBA /* Circuit.playground */,
-				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
-				FF9CE7EF238B18A90098E5C8 /* Drawer.playground */,
-				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
 			);
 			sourceTree = "<group>";
 		};
