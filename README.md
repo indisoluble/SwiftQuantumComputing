@@ -92,6 +92,13 @@ Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuan
 
 Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground).
 
+## Other examples
+
+Check following playgrounds for more examples:
+
+* [DeutschAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground) - Deutsch's algorithm.
+* [DeutschJozsaAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground) - Deutsch-Jozsa algorithm.
+
 ## Documentation
 
 Documentation for the project can be found [here](https://indisoluble.github.io/SwiftQuantumComputing).
