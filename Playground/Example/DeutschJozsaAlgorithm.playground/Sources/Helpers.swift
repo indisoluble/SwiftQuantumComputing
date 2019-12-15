@@ -1,10 +1,3 @@
-//
-//  Int+Pow.swift
-//  SwiftQuantumComputing
-//
-//  Created by Enrique de la Torre on 11/08/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
-//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -18,11 +11,12 @@
 // limitations under the License.
 //
 
-import Foundation
+import SwiftQuantumComputing
 
-extension Int {
-    /// Returns a `base` raised to a given `exp`
-    public static func pow(_ base: Int, _ exp: Int) -> Int {
-        return Int(Foundation.pow(Double(base), Double(exp)))
-    }
+public func makeQubitCombinations(qubitCount: Int) -> [String] {
+    return (0..<Int.pow(2, qubitCount)).map { String($0, bitCount: qubitCount) }
+}
+
+public func selectHalfQubitCombinations(_ combinations: [String]) -> [String] {
+    return combinations.randomElements(count: combinations.count / 2)
 }

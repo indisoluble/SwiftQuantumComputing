@@ -181,6 +181,24 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         }
     }
 
+    func testCircuitThatReturnStatevectorAndQubitRange_summarizedProbabilitiesWithQubitRange_doNotThrowException() {
+        // Given
+        circuit.statevectorResult = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
+
+        // Then
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(reversedQubits: 0..<2,
+                                                             initialBits: bits))
+    }
+
+    func testCircuitThatReturnStatevectorAndQubitClosedRange_summarizedProbabilitiesWithQubitClosedRange_doNotThrowException() {
+        // Given
+        circuit.statevectorResult = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
+
+        // Then
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(reversedQubits: 0...1,
+                                                             initialBits: bits))
+    }
+
     static var allTests = [
         ("testCircuitThatReturnStatevector_summarizedProbabilities_returnExpectedProbabilities",
          testCircuitThatReturnStatevector_summarizedProbabilities_returnExpectedProbabilities),
@@ -197,6 +215,10 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ("testCircuitThatReturnStatevectorAndOneQubit_summarizedProbabilities_returnExpectedProbabilities",
          testCircuitThatReturnStatevectorAndOneQubit_summarizedProbabilities_returnExpectedProbabilities),
         ("testCircuitThatReturnStatevectorAndTwoQubits_summarizedProbabilities_returnExpectedProbabilities",
-         testCircuitThatReturnStatevectorAndTwoQubits_summarizedProbabilities_returnExpectedProbabilities)
+         testCircuitThatReturnStatevectorAndTwoQubits_summarizedProbabilities_returnExpectedProbabilities),
+        ("testCircuitThatReturnStatevectorAndQubitRange_summarizedProbabilitiesWithQubitRange_doNotThrowException",
+         testCircuitThatReturnStatevectorAndQubitRange_summarizedProbabilitiesWithQubitRange_doNotThrowException),
+        ("testCircuitThatReturnStatevectorAndQubitClosedRange_summarizedProbabilitiesWithQubitClosedRange_doNotThrowException",
+         testCircuitThatReturnStatevectorAndQubitClosedRange_summarizedProbabilitiesWithQubitClosedRange_doNotThrowException)
     ]
 }

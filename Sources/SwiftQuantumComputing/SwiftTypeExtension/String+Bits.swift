@@ -21,13 +21,15 @@
 import Foundation
 
 extension String {
-    init(_ value: Int, bitCount: Int) {
+    /// Given a `value`, returns its bit string representation with `bitCount` length
+    public init(_ value: Int, bitCount: Int) {
         let bits = Array((0..<bitCount).reversed())
 
         self.init(value, bits: bits)
     }
 
-    init(_ value: Int, bits: [Int]) {
+    /// Given a `value`, transforms it into its bit string representation and extract `bits` from it
+    public init(_ value: Int, bits: [Int]) {
         let binary = String(value, radix: 2).reversed()
         let characters = bits.map { (index) -> Character in
             guard (index < binary.count) else {
