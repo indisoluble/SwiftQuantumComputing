@@ -38,7 +38,7 @@ print("Summarized probabilities: \(circuit.summarizedProbabilities())\n")
 print("Unitary: \(circuit.unitary())\n")
 ```
 
-Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Circuit.playground).
+Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground).
 
 ### Use a genetic algorithm to automatically generate a quantum circuit
 
@@ -84,13 +84,13 @@ for useCase in cases {
 }
 ```
 
-Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Genetic.playground).
+Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground).
 
 ### Draw a quantum circuit
 
 ![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
 
-Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Drawer.playground).
+Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground).
 
 ## Documentation
 

@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source_files     = "Sources/SwiftQuantumComputing/**/*.swift"
   s.ios.source_files = "Sources/SwiftQuantumComputing_iOS/**/*.swift"
   s.osx.source_files = "Sources/SwiftQuantumComputing_macOS/**/*.swift"
-  s.swift_version    = '5.0'
+  s.swift_version    = '5.1'
 
   s.ios.resources = "Sources/SwiftQuantumComputing_iOS/**/*.xib"
   s.osx.resources = "Sources/SwiftQuantumComputing_macOS/**/*.xib"
