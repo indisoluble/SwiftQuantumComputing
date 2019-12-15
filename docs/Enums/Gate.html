@@ -85,6 +85,20 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -386,6 +400,131 @@ gate applied to <code>target</code></p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target8controlsACSaySSG_SiSnySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:target:controls:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target8controlsACSaySSG_SiSnySiGtFZ">oracle(truthTable:target:controls:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target8controlsACSaySSG_SiSNySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:target:controls:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target8controlsACSaySSG_SiSNySiGtFZ">oracle(truthTable:target:controls:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
+                          <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target16reversedControlsACSaySSG_SiSnySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:target:reversedControls:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target16reversedControlsACSaySSG_SiSnySiGtFZ">oracle(truthTable:target:reversedControls:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate reversing <code>reversedControls</code> before creating the gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
+                          <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                          <span class="nv">reversedControls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target16reversedControlsACSaySSG_SiSNySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:target:reversedControls:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target16reversedControlsACSaySSG_SiSNySiGtFZ">oracle(truthTable:target:reversedControls:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate reversing <code>reversedControls</code> before creating the gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
+                          <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                          <span class="nv">reversedControls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20class%20methods2"></a>
+                <a name="//apple_ref/swift/Section/Public class methods" class="dashAnchor"></a>
+                <a href="#/Public%20class%20methods2">
+                  <h3 class="section-name">Public class methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:21SwiftQuantumComputing4GateO8hadamard7targetsSayACGSnySiG_tFZ"></a>
                     <a name="//apple_ref/swift/Method/hadamard(targets:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:21SwiftQuantumComputing4GateO8hadamard7targetsSayACGSnySiG_tFZ">hadamard(targets:)</a>
@@ -644,7 +783,7 @@ gate applied to <code>target</code></p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2019-12-09)</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2019-12-15)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
