@@ -110,6 +110,44 @@ extension Circuit {
 
         return result
     }
+
+    /**
+     Initializes circuit with `initialBits` and applies `gates` to get the probabilities of each possible combinations of qubits
+     in `reversedQubits` once these qubits are reversed.
+
+     - Parameter reversedQubits: Range of qubits for which we want to know the probability of each combination, however
+     these qubits are reversed before being used because qubits are expected from higher to lower.
+     - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+
+     - Throws: `SummarizedProbabilitiesError`.
+
+     - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
+     with probability 0 are not included.
+     */
+    public func summarizedProbabilities(reversedQubits: Range<Int>,
+                                        initialBits: String? = nil) throws -> [String: Double] {
+        return try summarizedProbabilities(qubits: Array(reversedQubits.reversed()),
+                                           initialBits: initialBits)
+    }
+
+    /**
+     Initializes circuit with `initialBits` and applies `gates` to get the probabilities of each possible combinations of qubits
+     in `reversedQubits` once these qubits are reversed.
+
+     - Parameter reversedQubits: Range of qubits for which we want to know the probability of each combination, however
+     these qubits are reversed before being used because qubits are expected from higher to lower.
+     - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+
+     - Throws: `SummarizedProbabilitiesError`.
+
+     - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
+     with probability 0 are not included.
+     */
+    public func summarizedProbabilities(reversedQubits: ClosedRange<Int>,
+                                        initialBits: String? = nil) throws -> [String: Double] {
+        return try summarizedProbabilities(qubits: Array(reversedQubits.reversed()),
+                                           initialBits: initialBits)
+    }
 }
 
 // MARK: - Private body

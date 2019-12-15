@@ -21,7 +21,8 @@
 import Foundation
 
 extension Array {
-    func randomElements(count: Int) -> Array {
+    /// Returns `count` elements selected at random
+    public func randomElements(count: Int) -> Array {
         let actualCount = (count < self.count ? count : self.count)
 
         return Array(shuffled()[0..<actualCount])

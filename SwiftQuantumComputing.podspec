@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SwiftQuantumComputing"
-  s.version      = "16.0.0"
+  s.version      = "16.1.0"
   s.summary      = "A quantum circuit simulator."
   s.description  = <<-DESC
   A quantum circuit simulator written in Swift and speeded up with Accelerate.framework in iOS/macOS and BLAS in Linux. It also counts with a genetic algorithm to find a circuit that solves a given quantum problem.
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source_files     = "Sources/SwiftQuantumComputing/**/*.swift"
   s.ios.source_files = "Sources/SwiftQuantumComputing_iOS/**/*.swift"
   s.osx.source_files = "Sources/SwiftQuantumComputing_macOS/**/*.swift"
-  s.swift_version    = '5.0'
+  s.swift_version    = '5.1'
 
   s.ios.resources = "Sources/SwiftQuantumComputing_iOS/**/*.xib"
   s.osx.resources = "Sources/SwiftQuantumComputing_macOS/**/*.xib"

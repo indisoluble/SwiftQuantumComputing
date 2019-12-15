@@ -21,7 +21,8 @@
 import Foundation
 
 extension Int {
-    static func pow(_ base: Int, _ exp: Int) -> Int {
+    /// Returns a `base` raised to a given `exp`
+    public static func pow(_ base: Int, _ exp: Int) -> Int {
         return Int(Foundation.pow(Double(base), Double(exp)))
     }
 }
