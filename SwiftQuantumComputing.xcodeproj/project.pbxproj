@@ -991,8 +991,8 @@
 			isa = PBXGroup;
 			children = (
 				FF18358221EA359A003E2F04 /* Matrix */,
-				FF09866123A690E0009CEC4E /* Gate+OracleWithRangeControlsTests.swift */,
-				FFDEC06A239EC482009AC180 /* Gate+SingleQubitGateReplicatorTests.swift */,
+				FF8B40CE23AEB89300A51475 /* Range */,
+				FF8B40CC23AEB80A00A51475 /* Replicator */,
 			);
 			path = Gate;
 			sourceTree = "<group>";
@@ -1470,6 +1470,38 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		FF8B40CB23AEB7EB00A51475 /* Replicator */ = {
+			isa = PBXGroup;
+			children = (
+				FF6D5744239EB5E300A951A1 /* Gate+SingleQubitGateReplicator.swift */,
+			);
+			path = Replicator;
+			sourceTree = "<group>";
+		};
+		FF8B40CC23AEB80A00A51475 /* Replicator */ = {
+			isa = PBXGroup;
+			children = (
+				FFDEC06A239EC482009AC180 /* Gate+SingleQubitGateReplicatorTests.swift */,
+			);
+			path = Replicator;
+			sourceTree = "<group>";
+		};
+		FF8B40CD23AEB88100A51475 /* Range */ = {
+			isa = PBXGroup;
+			children = (
+				FF09865E23A68D35009CEC4E /* Gate+OracleWithRangeControls.swift */,
+			);
+			path = Range;
+			sourceTree = "<group>";
+		};
+		FF8B40CE23AEB89300A51475 /* Range */ = {
+			isa = PBXGroup;
+			children = (
+				FF09866123A690E0009CEC4E /* Gate+OracleWithRangeControlsTests.swift */,
+			);
+			path = Range;
+			sourceTree = "<group>";
+		};
 		FF9301C7235CC002008DD87E /* Unitary */ = {
 			isa = PBXGroup;
 			children = (
@@ -1872,10 +1904,10 @@
 			isa = PBXGroup;
 			children = (
 				FFB8106321C6DAF0006333BB /* Matrix */,
+				FF8B40CD23AEB88100A51475 /* Range */,
+				FF8B40CB23AEB7EB00A51475 /* Replicator */,
 				FFE5F56921C30F140027519B /* Gate.swift */,
-				FF09865E23A68D35009CEC4E /* Gate+OracleWithRangeControls.swift */,
 				FFB8106021C6CC37006333BB /* Gate+SimulatorGate.swift */,
-				FF6D5744239EB5E300A951A1 /* Gate+SingleQubitGateReplicator.swift */,
 			);
 			path = Gate;
 			sourceTree = "<group>";
