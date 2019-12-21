@@ -44,6 +44,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Int_IsPowerOfTwoTests.allTests),
         testCase(Matrix_OracleTests.allTests),
         testCase(Gate_OracleWithRangeControlsTests.allTests),
+        testCase(Gate_SingleQubitGateRangeTargetsTests.allTests),
         testCase(Gate_SingleQubitGateReplicatorTests.allTests),
         testCase(MainGeneticCircuitEvaluatorTests.allTests),
         testCase(MainGeneticUseCaseEvaluatorTests.allTests),
