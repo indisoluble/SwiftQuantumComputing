@@ -27,6 +27,7 @@ import XCTest
 class Gate_OracleWithRangeControlsTests: XCTestCase {
 
     // MARK: - Properties
+
     let truthTable = ["0", "1"]
     let target = 0
 
