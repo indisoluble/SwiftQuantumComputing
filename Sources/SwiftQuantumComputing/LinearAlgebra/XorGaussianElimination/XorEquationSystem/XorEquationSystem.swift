@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol XorEquationSystem {
-    func solves(activatingVariables: [Int]) -> Bool
+    func solves(activatingVariables: XorEquationSystemSolver.ActivatedVariables) -> Bool
 }

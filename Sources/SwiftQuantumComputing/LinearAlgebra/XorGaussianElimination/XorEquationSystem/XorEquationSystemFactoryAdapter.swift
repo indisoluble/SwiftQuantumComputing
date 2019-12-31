@@ -27,7 +27,7 @@ struct XorEquationSystemFactoryAdapter {}
 // MARK: - XorEquationSystemFactory methods
 
 extension XorEquationSystemFactoryAdapter: XorEquationSystemFactory {
-    func makeSystem(equations: [Equation]) -> XorEquationSystem {
+    func makeSystem(equations: [XorEquationSystemSolver.Equation]) -> XorEquationSystem {
         return XorEquationSystemAdapter(equations: equations)
     }
 }
