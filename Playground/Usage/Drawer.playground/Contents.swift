@@ -16,7 +16,3 @@ let gates = [
 //: 2. Draw the quantum circuit to see how it looks
 let drawer = MainDrawerFactory().makeDrawer()
 drawer.drawCircuit(gates)
-
-
-let j = (0...0).map { $0 }
-print(j)

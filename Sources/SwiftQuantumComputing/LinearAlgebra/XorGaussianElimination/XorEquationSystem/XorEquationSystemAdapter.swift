@@ -38,10 +38,9 @@ struct XorEquationSystemAdapter {
 // MARK: - XorEquationSystem methods
 
 extension XorEquationSystemAdapter: XorEquationSystem {
-    func solves(activatingVariables: XorEquationSystemSolver.ActivatedVariables) -> Bool {
+    func solves(activatingVariables variables: XorEquationSystemSolver.ActivatedVariables) -> Bool {
         return equations.reduce(true) { (result, equation) in
-            let value = XorEquationSystemAdapter.value(of: equation,
-                                                       activatedVariables: activatingVariables)
+            let value = XorEquationSystemAdapter.value(of: equation, activatedVariables: variables)
 
             return result && (value == 0)
         }
