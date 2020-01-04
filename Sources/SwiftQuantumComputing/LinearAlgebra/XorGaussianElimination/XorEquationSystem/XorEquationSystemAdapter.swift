@@ -39,10 +39,9 @@ struct XorEquationSystemAdapter {
 
 extension XorEquationSystemAdapter: XorEquationSystem {
     func solves(activatingVariables variables: XorEquationSystemSolver.ActivatedVariables) -> Bool {
-        return equations.reduce(true) { (result, equation) in
-            let value = XorEquationSystemAdapter.value(of: equation, activatedVariables: variables)
-
-            return result && (value == 0)
+        return equations.reduce(true) { (acc, equation) in
+            return acc && !XorEquationSystemAdapter.value(of: equation,
+                                                          activatedVariables: variables)
         }
     }
 }
@@ -54,22 +53,20 @@ private extension XorEquationSystemAdapter {
     // MARK: - Private class methods
 
     static func value(of equation: XorEquationSystemSolver.Equation,
-                      activatedVariables: [Int]) -> Int {
-        return equation.reduce(0) { (acc, component) in
+                      activatedVariables: XorEquationSystemSolver.ActivatedVariables) -> Bool {
+        return equation.reduce(false) { (acc, component) in
             return acc ^ XorEquationSystemAdapter.value(of: component,
                                                         activatedVariables: activatedVariables)
         }
     }
 
-    static func value(of component: XorEquationComponent, activatedVariables: [Int]) -> Int {
-        var doActivated = false
+    static func value(of component: XorEquationComponent,
+                      activatedVariables: XorEquationSystemSolver.ActivatedVariables) -> Bool {
         switch component {
         case .constant(let activated):
-            doActivated = activated
+            return activated
         case .variable(let id):
-            doActivated = activatedVariables.contains(id)
+            return activatedVariables.contains(id)
         }
-
-        return (doActivated ? 1 : 0)
     }
 }
