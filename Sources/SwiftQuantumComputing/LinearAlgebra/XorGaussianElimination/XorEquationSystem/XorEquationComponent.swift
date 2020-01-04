@@ -29,15 +29,4 @@ enum XorEquationComponent {
 
 // MARK: - Equatable methods
 
-extension XorEquationComponent: Equatable {
-    public static func ==(lhs: XorEquationComponent, rhs: XorEquationComponent) -> Bool {
-        switch (lhs, rhs) {
-        case (.constant(let a1), .constant(let a2)):
-            return (a1 == a2)
-        case (.variable(let i1), .variable(let i2)):
-            return (i1 == i2)
-        default:
-            return false
-        }
-    }
-}
+extension XorEquationComponent: Equatable {}

@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Internal types
 
-enum CircuitViewPosition: Equatable {
+enum CircuitViewPosition {
     case qubit(index: Int)
     case lineHorizontal
     case crossedLines
@@ -44,3 +44,7 @@ enum CircuitViewPosition: Equatable {
     case oracleTop(controls: [Int], connected: Bool)
     case oracleBottom(connected: Bool)
 } 
+
+// MARK: - Equatable methods
+
+extension CircuitViewPosition: Equatable {}

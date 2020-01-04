@@ -115,11 +115,7 @@ extension Vector: CustomStringConvertible {
 
 // MARK: - Equatable methods
 
-extension Vector: Equatable {
-    public static func ==(lhs: Vector, rhs: Vector) -> Bool {
-        return (lhs.matrix == rhs.matrix)
-    }
-}
+extension Vector: Equatable {}
 
 // MARK: - Sequence methods
 
