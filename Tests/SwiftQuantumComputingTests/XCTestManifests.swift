@@ -41,6 +41,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(VectorTests.allTests),
         testCase(Vector_ElementsTests.allTests),
         testCase(Array_CombinationsTests.allTests),
+        testCase(Bool_XorTests.allTests),
         testCase(Int_DerivedTests.allTests),
         testCase(Int_IsPowerOfTwoTests.allTests),
         testCase(String_BitXorTests.allTests),
@@ -80,7 +81,8 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(QuantumGate_ApplyingGateTests.allTests),
         testCase(QuantumGateTests.allTests),
         testCase(XorEquationSystemAdapterTests.allTests),
-        testCase(XorEquationSystemBruteForceSolverTests.allTests)
+        testCase(XorEquationSystemBruteForceSolverTests.allTests),
+        testCase(XorEquationSystemPreSimplificationSolverTests.allTests)
     ]
 }
 
