@@ -29,14 +29,14 @@ final class XorEquationSystemTestDouble {
     // MARK: - Internal properties
 
     private (set) var solvesCount = 0
-    private (set) var lastSolvesVariables: XorEquationSystemSimpleSolver.ActivatedVariables?
+    private (set) var lastSolvesVariables: [Int]?
     var solvesResult = false
 }
 
 // MARK: - XorEquationSystem methods
 
 extension XorEquationSystemTestDouble: XorEquationSystem {
-    func solves(activatingVariables variables: XorEquationSystemSimpleSolver.ActivatedVariables) -> Bool {
+    func solves(activatingVariables variables: [Int]) -> Bool {
         solvesCount += 1
 
         lastSolvesVariables = variables

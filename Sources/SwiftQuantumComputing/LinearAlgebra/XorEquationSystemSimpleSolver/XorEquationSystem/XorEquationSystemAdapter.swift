@@ -26,11 +26,11 @@ struct XorEquationSystemAdapter {
 
     // MARK: - Private properties
 
-    private let equations: [XorEquationSystemSimpleSolver.Equation]
+    private let equations: [[XorEquationComponent]]
 
     // MARK: - Internal init methods
 
-    init(equations: [XorEquationSystemSimpleSolver.Equation]) {
+    init(equations: [[XorEquationComponent]]) {
         self.equations = equations
     }
 }
@@ -38,7 +38,7 @@ struct XorEquationSystemAdapter {
 // MARK: - XorEquationSystem methods
 
 extension XorEquationSystemAdapter: XorEquationSystem {
-    func solves(activatingVariables variables: XorEquationSystemSimpleSolver.ActivatedVariables) -> Bool {
+    func solves(activatingVariables variables: [Int]) -> Bool {
         return equations.reduce(true) { (acc, equation) in
             return acc && !XorEquationSystemAdapter.value(of: equation,
                                                           activatedVariables: variables)
@@ -52,8 +52,8 @@ private extension XorEquationSystemAdapter {
 
     // MARK: - Private class methods
 
-    static func value(of equation: XorEquationSystemSimpleSolver.Equation,
-                      activatedVariables: XorEquationSystemSimpleSolver.ActivatedVariables) -> Bool {
+    static func value(of equation: [XorEquationComponent],
+                      activatedVariables: [Int]) -> Bool {
         return equation.reduce(false) { (acc, component) in
             return acc ^ XorEquationSystemAdapter.value(of: component,
                                                         activatedVariables: activatedVariables)
@@ -61,7 +61,7 @@ private extension XorEquationSystemAdapter {
     }
 
     static func value(of component: XorEquationComponent,
-                      activatedVariables: XorEquationSystemSimpleSolver.ActivatedVariables) -> Bool {
+                      activatedVariables: [Int]) -> Bool {
         switch component {
         case .constant(let activated):
             return activated

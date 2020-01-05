@@ -29,14 +29,14 @@ final class XorEquationSystemFactoryTestDouble {
     // MARK: - Internal properties
 
     private (set) var makeSystemCount = 0
-    private (set) var lastMakeSystemEquations: [XorEquationSystemSimpleSolver.Equation]?
+    private (set) var lastMakeSystemEquations: [[XorEquationComponent]]?
     var makeSystemResult = XorEquationSystemTestDouble()
 }
 
 // MARK - XorEquationSystemFactory methods
 
 extension XorEquationSystemFactoryTestDouble: XorEquationSystemFactory {
-    func makeSystem(equations: [XorEquationSystemSimpleSolver.Equation]) -> XorEquationSystem {
+    func makeSystem(equations: [[XorEquationComponent]]) -> XorEquationSystem {
         makeSystemCount += 1
 
         lastMakeSystemEquations = equations

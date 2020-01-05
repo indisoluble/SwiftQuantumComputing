@@ -32,11 +32,11 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnySolverAndEquations_findSolutions_returnExpectedResult() {
+    func testAnySolverAndEquations_findActivatedVariablesInEquations_returnExpectedResult() {
         // Given
         let solver = XorEquationSystemBruteForceSolver(factory: factory)
 
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [
+        let equations: [[XorEquationComponent]] = [
             [.variable(id: 0), .variable(id: 1), .constant(activated: true)],
             [.variable(id: 1), .variable(id: 2), .constant(activated: false)]
         ]
@@ -44,10 +44,10 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
         factory.makeSystemResult.solvesResult = true
 
         // When
-        let result = solver.findSolutions(for: equations)
+        let result = solver.findActivatedVariablesInEquations(equations)
 
         // Then
-        let expectedResult: [XorEquationSystemSimpleSolver.ActivatedVariables] = [
+        let expectedResult: [[Int]] = [
             [],
             [0], [1], [2],
             [0, 1], [0, 2], [1, 2],
@@ -62,10 +62,10 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
         })
     }
 
-    func testAnySolverAndEquationsWithRepeatedVariables_findSolutions_returnEmptyResult() {
+    func testAnySolverAndEquationsWithRepeatedVariables_findActivatedVariablesInEquations_returnEmptyResult() {
         let solver = XorEquationSystemBruteForceSolver(factory: factory)
 
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [
+        let equations: [[XorEquationComponent]] = [
             [.variable(id: 0), .variable(id: 0), .constant(activated: true)],
             [.variable(id: 1), .variable(id: 1), .constant(activated: false)]
         ]
@@ -73,10 +73,10 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
         factory.makeSystemResult.solvesResult = true
 
         // When
-        let result = solver.findSolutions(for: equations)
+        let result = solver.findActivatedVariablesInEquations(equations)
 
         // Then
-        let expectedResult: [XorEquationSystemSimpleSolver.ActivatedVariables] = [
+        let expectedResult: [[Int]] = [
             [], [0], [1], [0, 1],
         ]
 
@@ -88,27 +88,27 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
         })
     }
 
-    func testAnySolverAndEquationsOnlyWithConstants_findSolutions_returnEmptyResult() {
+    func testAnySolverAndEquationsOnlyWithConstants_findActivatedVariablesInEquations_returnEmptyResult() {
         // Given
         let solver = XorEquationSystemBruteForceSolver(factory: factory)
 
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [
+        let equations: [[XorEquationComponent]] = [
             [.constant(activated: true), .constant(activated: false)],
             [.constant(activated: false), .constant(activated: true)]
         ]
 
         // Then
-        XCTAssertEqual(solver.findSolutions(for: equations), [])
+        XCTAssertEqual(solver.findActivatedVariablesInEquations(equations), [])
         XCTAssertEqual(factory.makeSystemCount, 1)
         XCTAssertEqual(factory.makeSystemResult.solvesCount, 0)
     }
 
     static var allTests = [
-        ("testAnySolverAndEquations_findSolutions_returnExpectedResult",
-         testAnySolverAndEquations_findSolutions_returnExpectedResult),
-        ("testAnySolverAndEquationsWithRepeatedVariables_findSolutions_returnEmptyResult",
-         testAnySolverAndEquationsWithRepeatedVariables_findSolutions_returnEmptyResult),
-        ("testAnySolverAndEquationsOnlyWithConstants_findSolutions_returnEmptyResult",
-         testAnySolverAndEquationsOnlyWithConstants_findSolutions_returnEmptyResult)
+        ("testAnySolverAndEquations_findActivatedVariablesInEquations_returnExpectedResult",
+         testAnySolverAndEquations_findActivatedVariablesInEquations_returnExpectedResult),
+        ("testAnySolverAndEquationsWithRepeatedVariables_findActivatedVariablesInEquations_returnEmptyResult",
+         testAnySolverAndEquationsWithRepeatedVariables_findActivatedVariablesInEquations_returnEmptyResult),
+        ("testAnySolverAndEquationsOnlyWithConstants_findActivatedVariablesInEquations_returnEmptyResult",
+         testAnySolverAndEquationsOnlyWithConstants_findActivatedVariablesInEquations_returnEmptyResult)
     ]
 }

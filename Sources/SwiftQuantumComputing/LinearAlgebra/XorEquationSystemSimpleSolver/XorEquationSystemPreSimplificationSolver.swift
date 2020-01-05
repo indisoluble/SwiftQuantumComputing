@@ -38,7 +38,7 @@ struct XorEquationSystemPreSimplificationSolver {
 // MARK: - XorEquationSystemSimpleSolver methods
 
 extension XorEquationSystemPreSimplificationSolver: XorEquationSystemSimpleSolver {
-    func findSolutions(for equations: [Equation]) -> [ActivatedVariables] {
+    func findActivatedVariablesInEquations(_ equations: [[XorEquationComponent]]) -> [[Int]] {
         guard !equations.isEmpty else {
             return []
         }
@@ -56,7 +56,9 @@ extension XorEquationSystemPreSimplificationSolver: XorEquationSystemSimpleSolve
             next = next.map { simplifyEquantion($0, replacingVariable: ids[0], with: constant) }
         }
 
-        return (next.isEmpty ? [activated] : solver.findSolutions(for: next).map { $0 + activated })
+        return (next.isEmpty ?
+            [activated] :
+            solver.findActivatedVariablesInEquations(next).map { $0 + activated })
     }
 }
 
@@ -70,7 +72,7 @@ private extension XorEquationSystemPreSimplificationSolver {
 
     // MARK: - Private methods
 
-    func countVariables(in equation: Equation) -> Int {
+    func countVariables(in equation: [XorEquationComponent]) -> Int {
         var count = 0
         for case .variable(_) in equation {
             count += 1
@@ -79,7 +81,7 @@ private extension XorEquationSystemPreSimplificationSolver {
         return count
     }
 
-    func reduceConstants(in equation: Equation) -> SingleConstantEquation {
+    func reduceConstants(in equation: [XorEquationComponent]) -> SingleConstantEquation {
         return equation.reduce(([], false) as SingleConstantEquation) { (acc, component) in
             switch component {
             case .variable(let id):
@@ -90,9 +92,9 @@ private extension XorEquationSystemPreSimplificationSolver {
         }
     }
 
-    func simplifyEquantion(_ equation: Equation,
+    func simplifyEquantion(_ equation: [XorEquationComponent],
                            replacingVariable variableId: Int,
-                           with constant: Bool) -> Equation {
+                           with constant: Bool) -> [XorEquationComponent] {
         return equation.map { component in
             if case .variable(let id) = component, id == variableId {
                 return .constant(activated: constant)

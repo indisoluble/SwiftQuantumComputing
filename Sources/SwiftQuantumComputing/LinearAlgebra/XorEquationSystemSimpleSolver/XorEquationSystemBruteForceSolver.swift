@@ -38,7 +38,7 @@ struct XorEquationSystemBruteForceSolver {
 // MARK: - XorEquationSystemSimpleSolver methods
 
 extension XorEquationSystemBruteForceSolver: XorEquationSystemSimpleSolver {
-    func findSolutions(for equations: [Equation]) -> [ActivatedVariables] {
+    func findActivatedVariablesInEquations(_ equations: [[XorEquationComponent]]) -> [[Int]] {
         let combinations = extractVariableIds(from: equations).combinations()
         let system = factory.makeSystem(equations: equations)
 
@@ -52,7 +52,7 @@ private extension XorEquationSystemBruteForceSolver {
 
     // MARK: - Private methods
 
-    func extractVariableIds(from equations: [Equation]) -> [Int] {
+    func extractVariableIds(from equations: [[XorEquationComponent]]) -> [Int] {
         var ids: Set<Int> = []
 
         for equation in equations {

@@ -28,19 +28,19 @@ final class XorEquationSystemSimpleSolverTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var findSolutionsCount = 0
-    private (set) var lastFindSolutionsEquations: [Equation]?
-    var findSolutionsResult: [ActivatedVariables] = []
+    private (set) var findActivatedVariablesInEquationsCount = 0
+    private (set) var lastFindActivatedVariablesInEquationsEquations: [[XorEquationComponent]]?
+    var findActivatedVariablesInEquationsResult: [[Int]] = []
 }
 
 // MARK: - XorEquationSystemSimpleSolver methods
 
 extension XorEquationSystemSimpleSolverTestDouble: XorEquationSystemSimpleSolver {
-    func findSolutions(for equations: [Equation]) -> [ActivatedVariables] {
-        findSolutionsCount += 1
+    func findActivatedVariablesInEquations(_ equations: [[XorEquationComponent]]) -> [[Int]] {
+        findActivatedVariablesInEquationsCount += 1
 
-        lastFindSolutionsEquations = equations
+        lastFindActivatedVariablesInEquationsEquations = equations
 
-        return findSolutionsResult
+        return findActivatedVariablesInEquationsResult
     }
 }

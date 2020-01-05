@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol XorEquationSystemFactory {
-    func makeSystem(equations: [XorEquationSystemSimpleSolver.Equation]) -> XorEquationSystem
+    func makeSystem(equations: [[XorEquationComponent]]) -> XorEquationSystem
 }

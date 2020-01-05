@@ -32,18 +32,18 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testNoEquations_findSolutions_returnNoSolutions() {
+    func testNoEquations_findActivatedVariablesInEquations_returnNoSolutions() {
         // Given
         let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
 
         // Then
-        XCTAssertEqual(sut.findSolutions(for: []), [])
-        XCTAssertEqual(secondarySolver.findSolutionsCount, 0)
+        XCTAssertEqual(sut.findActivatedVariablesInEquations([]), [])
+        XCTAssertEqual(secondarySolver.findActivatedVariablesInEquationsCount, 0)
     }
 
-    func testAllEquationsWithMoreThanOneVariable_findSolutions_returnSolutionFoundBySecondarySolver() {
+    func testAllEquationsWithMoreThanOneVariable_findActivatedVariablesInEquations_returnSolutionFoundBySecondarySolver() {
         // Given
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [
+        let equations: [[XorEquationComponent]] = [
             [.variable(id: 0), .variable(id: 1)],
             [.variable(id: 1), .variable(id: 2)]
         ]
@@ -51,74 +51,74 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
         let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
 
         let expectedSolutions = [[0, 1, 2], []]
-        secondarySolver.findSolutionsResult = expectedSolutions
+        secondarySolver.findActivatedVariablesInEquationsResult = expectedSolutions
 
         // Then
-        XCTAssertEqual(sut.findSolutions(for: equations), expectedSolutions)
-        XCTAssertEqual(secondarySolver.findSolutionsCount, 1)
-        XCTAssertEqual(secondarySolver.lastFindSolutionsEquations, equations)
+        XCTAssertEqual(sut.findActivatedVariablesInEquations(equations), expectedSolutions)
+        XCTAssertEqual(secondarySolver.findActivatedVariablesInEquationsCount, 1)
+        XCTAssertEqual(secondarySolver.lastFindActivatedVariablesInEquationsEquations, equations)
     }
 
-    func testEquationWithOneVarRepeatedThreeTimesAndOneActivatedCte_findSolutions_returnOneSolution() {
+    func testEquationWithOneVarRepeatedThreeTimesAndOneActivatedCte_findActivatedVariablesInEquations_returnOneSolution() {
         // Given
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [
+        let equations: [[XorEquationComponent]] = [
             [.variable(id: 0), .variable(id: 0), .variable(id: 0), .constant(activated: true)]
         ]
 
         let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
 
         let expectedSolutions = [[0]]
-        secondarySolver.findSolutionsResult = expectedSolutions
+        secondarySolver.findActivatedVariablesInEquationsResult = expectedSolutions
 
         // Then
-        XCTAssertEqual(sut.findSolutions(for: equations), expectedSolutions)
-        XCTAssertEqual(secondarySolver.findSolutionsCount, 1)
-        XCTAssertEqual(secondarySolver.lastFindSolutionsEquations, equations)
+        XCTAssertEqual(sut.findActivatedVariablesInEquations(equations), expectedSolutions)
+        XCTAssertEqual(secondarySolver.findActivatedVariablesInEquationsCount, 1)
+        XCTAssertEqual(secondarySolver.lastFindActivatedVariablesInEquationsEquations, equations)
     }
 
-    func testEquationWithOneVar_findSolutions_returnEmptySolution() {
+    func testEquationWithOneVar_findActivatedVariablesInEquations_returnEmptySolution() {
         // Given
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [[.variable(id: 0)]]
+        let equations: [[XorEquationComponent]] = [[.variable(id: 0)]]
 
         let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
 
         // Then
-        XCTAssertEqual(sut.findSolutions(for: equations), [[]])
-        XCTAssertEqual(secondarySolver.findSolutionsCount, 0)
+        XCTAssertEqual(sut.findActivatedVariablesInEquations(equations), [[]])
+        XCTAssertEqual(secondarySolver.findActivatedVariablesInEquationsCount, 0)
     }
 
-    func testEquationWithOneVarAndTwoActivatedCte_findSolutions_returnEmptySolution() {
+    func testEquationWithOneVarAndTwoActivatedCte_findActivatedVariablesInEquations_returnEmptySolution() {
         // Given
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [
+        let equations: [[XorEquationComponent]] = [
             [.variable(id: 0), .constant(activated: true), .constant(activated: true)]
         ]
 
         let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
 
         // Then
-        XCTAssertEqual(sut.findSolutions(for: equations), [[]])
-        XCTAssertEqual(secondarySolver.findSolutionsCount, 0)
+        XCTAssertEqual(sut.findActivatedVariablesInEquations(equations), [[]])
+        XCTAssertEqual(secondarySolver.findActivatedVariablesInEquationsCount, 0)
     }
 
-    func testEquationWithOneVarOneActivatedCteAndOneDeactivatedCte_findSolutions_returnOneSolution() {
+    func testEquationWithOneVarOneActivatedCteAndOneDeactivatedCte_findActivatedVariablesInEquations_returnOneSolution() {
         // Given
         let varId = 0
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [
+        let equations: [[XorEquationComponent]] = [
             [.variable(id: varId), .constant(activated: true), .constant(activated: false)]
         ]
 
         let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
 
         // Then
-        XCTAssertEqual(sut.findSolutions(for: equations), [[varId]])
-        XCTAssertEqual(secondarySolver.findSolutionsCount, 0)
+        XCTAssertEqual(sut.findActivatedVariablesInEquations(equations), [[varId]])
+        XCTAssertEqual(secondarySolver.findActivatedVariablesInEquationsCount, 0)
     }
 
-    func testTwoSimplifiableEquations_findSolutions_returnExpectedSolution() {
+    func testTwoSimplifiableEquations_findActivatedVariablesInEquations_returnExpectedSolution() {
         // Given
         let firstVarId = 0
         let secondVarId = 1
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [
+        let equations: [[XorEquationComponent]] = [
             [.variable(id: firstVarId), .constant(activated: true), .constant(activated: false)],
             [.variable(id: firstVarId), .variable(id: secondVarId), .constant(activated: false)]
         ]
@@ -126,18 +126,18 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
         let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
 
         // Then
-        XCTAssertEqual(Set(sut.findSolutions(for: equations).map { Set($0) }),
+        XCTAssertEqual(Set(sut.findActivatedVariablesInEquations(equations).map { Set($0) }),
                        Set([Set([firstVarId, secondVarId])]))
-        XCTAssertEqual(secondarySolver.findSolutionsCount, 0)
+        XCTAssertEqual(secondarySolver.findActivatedVariablesInEquationsCount, 0)
     }
 
-    func testTwoSimplifiableEquationsAndOneThatIsNot_findSolutions_returnExpectedSolution() {
+    func testTwoSimplifiableEquationsAndOneThatIsNot_findActivatedVariablesInEquations_returnExpectedSolution() {
         // Given
         let firstVarId = 0
         let secondVarId = 1
         let thirdVarId = 2
         let forthVarId = 3
-        let equations: [XorEquationSystemSimpleSolver.Equation] = [
+        let equations: [[XorEquationComponent]] = [
             [.variable(id: firstVarId),
              .constant(activated: true), .constant(activated: false)],
             [.variable(id: firstVarId), .variable(id: secondVarId),
@@ -148,39 +148,39 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
 
         let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
 
-        secondarySolver.findSolutionsResult = [[thirdVarId, forthVarId], []]
+        secondarySolver.findActivatedVariablesInEquationsResult = [[thirdVarId, forthVarId], []]
 
         // Then
-        let expectedSecondaryEquations: [XorEquationSystemSimpleSolver.Equation] = [
+        let expectedSecondaryEquations: [[XorEquationComponent]] = [
             [
                 .constant(activated: true), .constant(activated: true),
                 .variable(id: thirdVarId), .variable(id: forthVarId)
             ]
         ]
 
-        XCTAssertEqual(Set(sut.findSolutions(for: equations).map { Set($0) }),
+        XCTAssertEqual(Set(sut.findActivatedVariablesInEquations(equations).map { Set($0) }),
                        Set([Set([thirdVarId, forthVarId, firstVarId, secondVarId]),
                             Set([firstVarId, secondVarId])]))
-        XCTAssertEqual(secondarySolver.findSolutionsCount, 1)
-        XCTAssertEqual(secondarySolver.lastFindSolutionsEquations, expectedSecondaryEquations)
+        XCTAssertEqual(secondarySolver.findActivatedVariablesInEquationsCount, 1)
+        XCTAssertEqual(secondarySolver.lastFindActivatedVariablesInEquationsEquations, expectedSecondaryEquations)
     }
 
     static var allTests = [
-        ("testNoEquations_findSolutions_returnNoSolutions",
-         testNoEquations_findSolutions_returnNoSolutions),
-        ("testAllEquationsWithMoreThanOneVariable_findSolutions_returnSolutionFoundBySecondarySolver",
-         testAllEquationsWithMoreThanOneVariable_findSolutions_returnSolutionFoundBySecondarySolver),
-        ("testEquationWithOneVarRepeatedThreeTimesAndOneActivatedCte_findSolutions_returnOneSolution",
-         testEquationWithOneVarRepeatedThreeTimesAndOneActivatedCte_findSolutions_returnOneSolution),
-        ("testEquationWithOneVar_findSolutions_returnEmptySolution",
-         testEquationWithOneVar_findSolutions_returnEmptySolution),
-        ("testEquationWithOneVarAndTwoActivatedCte_findSolutions_returnEmptySolution",
-         testEquationWithOneVarAndTwoActivatedCte_findSolutions_returnEmptySolution),
-        ("testEquationWithOneVarOneActivatedCteAndOneDeactivatedCte_findSolutions_returnOneSolution",
-         testEquationWithOneVarOneActivatedCteAndOneDeactivatedCte_findSolutions_returnOneSolution),
-        ("testTwoSimplifiableEquations_findSolutions_returnExpectedSolution",
-         testTwoSimplifiableEquations_findSolutions_returnExpectedSolution),
-        ("testTwoSimplifiableEquationsAndOneThatIsNot_findSolutions_returnExpectedSolution",
-         testTwoSimplifiableEquationsAndOneThatIsNot_findSolutions_returnExpectedSolution)
+        ("testNoEquations_findActivatedVariablesInEquations_returnNoSolutions",
+         testNoEquations_findActivatedVariablesInEquations_returnNoSolutions),
+        ("testAllEquationsWithMoreThanOneVariable_findActivatedVariablesInEquations_returnSolutionFoundBySecondarySolver",
+         testAllEquationsWithMoreThanOneVariable_findActivatedVariablesInEquations_returnSolutionFoundBySecondarySolver),
+        ("testEquationWithOneVarRepeatedThreeTimesAndOneActivatedCte_findActivatedVariablesInEquations_returnOneSolution",
+         testEquationWithOneVarRepeatedThreeTimesAndOneActivatedCte_findActivatedVariablesInEquations_returnOneSolution),
+        ("testEquationWithOneVar_findActivatedVariablesInEquations_returnEmptySolution",
+         testEquationWithOneVar_findActivatedVariablesInEquations_returnEmptySolution),
+        ("testEquationWithOneVarAndTwoActivatedCte_findActivatedVariablesInEquations_returnEmptySolution",
+         testEquationWithOneVarAndTwoActivatedCte_findActivatedVariablesInEquations_returnEmptySolution),
+        ("testEquationWithOneVarOneActivatedCteAndOneDeactivatedCte_findActivatedVariablesInEquations_returnOneSolution",
+         testEquationWithOneVarOneActivatedCteAndOneDeactivatedCte_findActivatedVariablesInEquations_returnOneSolution),
+        ("testTwoSimplifiableEquations_findActivatedVariablesInEquations_returnExpectedSolution",
+         testTwoSimplifiableEquations_findActivatedVariablesInEquations_returnExpectedSolution),
+        ("testTwoSimplifiableEquationsAndOneThatIsNot_findActivatedVariablesInEquations_returnExpectedSolution",
+         testTwoSimplifiableEquationsAndOneThatIsNot_findActivatedVariablesInEquations_returnExpectedSolution)
     ]
 }

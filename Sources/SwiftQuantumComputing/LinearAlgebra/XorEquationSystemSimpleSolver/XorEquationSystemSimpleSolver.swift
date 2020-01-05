@@ -29,9 +29,6 @@ enum XorEquationComponent: Equatable {
 
 // MARK: - Protocol definition
 
-protocol XorEquationSystemSimpleSolver {
-    typealias Equation = [XorEquationComponent]
-    typealias ActivatedVariables = [Int]
-    
-    func findSolutions(for equations: [Equation]) -> [ActivatedVariables]
+protocol XorEquationSystemSimpleSolver { 
+    func findActivatedVariablesInEquations(_ equations: [[XorEquationComponent]]) -> [[Int]]
 }
