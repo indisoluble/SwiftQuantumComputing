@@ -165,6 +165,27 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
         XCTAssertEqual(secondarySolver.lastFindActivatedVariablesInEquationsEquations, expectedSecondaryEquations)
     }
 
+    func testOneSimplifiableEquationAndOneComposeOfConstants_findActivatedVariablesInEquations_returnExpectedSolution() {
+        // Given
+        let equations: [[XorEquationComponent]] = [
+            [.variable(id: 0), .constant(activated: true)],
+            [.constant(activated: true), .constant(activated: false)]
+        ]
+
+        let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
+
+        secondarySolver.findActivatedVariablesInEquationsResult = []
+
+        // Then
+        let expectedSecondaryEquations: [[XorEquationComponent]] = [
+            [.constant(activated: true), .constant(activated: false)]
+        ]
+
+        XCTAssertEqual(sut.findActivatedVariablesInEquations(equations), [])
+        XCTAssertEqual(secondarySolver.findActivatedVariablesInEquationsCount, 1)
+        XCTAssertEqual(secondarySolver.lastFindActivatedVariablesInEquationsEquations, expectedSecondaryEquations)
+    }
+
     static var allTests = [
         ("testNoEquations_findActivatedVariablesInEquations_returnNoSolutions",
          testNoEquations_findActivatedVariablesInEquations_returnNoSolutions),
@@ -181,6 +202,8 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
         ("testTwoSimplifiableEquations_findActivatedVariablesInEquations_returnExpectedSolution",
          testTwoSimplifiableEquations_findActivatedVariablesInEquations_returnExpectedSolution),
         ("testTwoSimplifiableEquationsAndOneThatIsNot_findActivatedVariablesInEquations_returnExpectedSolution",
-         testTwoSimplifiableEquationsAndOneThatIsNot_findActivatedVariablesInEquations_returnExpectedSolution)
+         testTwoSimplifiableEquationsAndOneThatIsNot_findActivatedVariablesInEquations_returnExpectedSolution),
+        ("testOneSimplifiableEquationAndOneComposeOfConstants_findActivatedVariablesInEquations_returnExpectedSolution",
+         testOneSimplifiableEquationAndOneComposeOfConstants_findActivatedVariablesInEquations_returnExpectedSolution)
     ]
 }
