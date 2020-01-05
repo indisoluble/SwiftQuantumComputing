@@ -26,18 +26,18 @@ struct XorEquationSystemPreSimplificationSolver {
 
     // MARK: - Private properties
 
-    private let solver: XorEquationSystemSolver
+    private let solver: XorEquationSystemSimpleSolver
 
     // MARK: - Internal init methods
 
-    init(solver: XorEquationSystemSolver) {
+    init(solver: XorEquationSystemSimpleSolver) {
         self.solver = solver
     }
 }
 
-// MARK: - XorEquationSystemSolver methods
+// MARK: - XorEquationSystemSimpleSolver methods
 
-extension XorEquationSystemPreSimplificationSolver: XorEquationSystemSolver {
+extension XorEquationSystemPreSimplificationSolver: XorEquationSystemSimpleSolver {
     func findSolutions(for equations: [Equation]) -> [ActivatedVariables] {
         guard !equations.isEmpty else {
             return []

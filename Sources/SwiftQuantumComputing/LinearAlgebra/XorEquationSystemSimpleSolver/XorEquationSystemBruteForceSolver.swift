@@ -35,9 +35,9 @@ struct XorEquationSystemBruteForceSolver {
     }
 }
 
-// MARK: - XorEquationSystemSolver methods
+// MARK: - XorEquationSystemSimpleSolver methods
 
-extension XorEquationSystemBruteForceSolver: XorEquationSystemSolver {
+extension XorEquationSystemBruteForceSolver: XorEquationSystemSimpleSolver {
     func findSolutions(for equations: [Equation]) -> [ActivatedVariables] {
         let combinations = extractVariableIds(from: equations).combinations()
         let system = factory.makeSystem(equations: equations)

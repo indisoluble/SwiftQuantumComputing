@@ -1,5 +1,5 @@
 //
-//  XorEquationSystemFactoryTestDouble.swift
+//  XorEquationSystemTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 01/01/2020.
@@ -24,23 +24,23 @@ import Foundation
 
 // MARK: - Main body
 
-final class XorEquationSystemFactoryTestDouble {
+final class XorEquationSystemTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var makeSystemCount = 0
-    private (set) var lastMakeSystemEquations: [XorEquationSystemSolver.Equation]?
-    var makeSystemResult = XorEquationSystemTestDouble()
+    private (set) var solvesCount = 0
+    private (set) var lastSolvesVariables: XorEquationSystemSimpleSolver.ActivatedVariables?
+    var solvesResult = false
 }
 
-// MARK - XorEquationSystemFactory methods
+// MARK: - XorEquationSystem methods
 
-extension XorEquationSystemFactoryTestDouble: XorEquationSystemFactory {
-    func makeSystem(equations: [XorEquationSystemSolver.Equation]) -> XorEquationSystem {
-        makeSystemCount += 1
+extension XorEquationSystemTestDouble: XorEquationSystem {
+    func solves(activatingVariables variables: XorEquationSystemSimpleSolver.ActivatedVariables) -> Bool {
+        solvesCount += 1
 
-        lastMakeSystemEquations = equations
+        lastSolvesVariables = variables
 
-        return makeSystemResult
+        return solvesResult
     }
 }

@@ -36,7 +36,7 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
         // Given
         let solver = XorEquationSystemBruteForceSolver(factory: factory)
 
-        let equations: [XorEquationSystemSolver.Equation] = [
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [
             [.variable(id: 0), .variable(id: 1), .constant(activated: true)],
             [.variable(id: 1), .variable(id: 2), .constant(activated: false)]
         ]
@@ -47,7 +47,7 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
         let result = solver.findSolutions(for: equations)
 
         // Then
-        let expectedResult: [XorEquationSystemSolver.ActivatedVariables] = [
+        let expectedResult: [XorEquationSystemSimpleSolver.ActivatedVariables] = [
             [],
             [0], [1], [2],
             [0, 1], [0, 2], [1, 2],
@@ -65,7 +65,7 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
     func testAnySolverAndEquationsWithRepeatedVariables_findSolutions_returnEmptyResult() {
         let solver = XorEquationSystemBruteForceSolver(factory: factory)
 
-        let equations: [XorEquationSystemSolver.Equation] = [
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [
             [.variable(id: 0), .variable(id: 0), .constant(activated: true)],
             [.variable(id: 1), .variable(id: 1), .constant(activated: false)]
         ]
@@ -76,7 +76,7 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
         let result = solver.findSolutions(for: equations)
 
         // Then
-        let expectedResult: [XorEquationSystemSolver.ActivatedVariables] = [
+        let expectedResult: [XorEquationSystemSimpleSolver.ActivatedVariables] = [
             [], [0], [1], [0, 1],
         ]
 
@@ -92,7 +92,7 @@ class XorEquationSystemBruteForceSolverTests: XCTestCase {
         // Given
         let solver = XorEquationSystemBruteForceSolver(factory: factory)
 
-        let equations: [XorEquationSystemSolver.Equation] = [
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [
             [.constant(activated: true), .constant(activated: false)],
             [.constant(activated: false), .constant(activated: true)]
         ]

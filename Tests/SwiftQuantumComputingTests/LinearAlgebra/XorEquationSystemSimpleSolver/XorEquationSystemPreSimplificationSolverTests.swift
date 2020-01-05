@@ -28,7 +28,7 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
 
     // MARK: - Properties
 
-    let secondarySolver = XorEquationSystemSolverTestDouble()
+    let secondarySolver = XorEquationSystemSimpleSolverTestDouble()
 
     // MARK: - Tests
 
@@ -43,7 +43,7 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
 
     func testAllEquationsWithMoreThanOneVariable_findSolutions_returnSolutionFoundBySecondarySolver() {
         // Given
-        let equations: [XorEquationSystemSolver.Equation] = [
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [
             [.variable(id: 0), .variable(id: 1)],
             [.variable(id: 1), .variable(id: 2)]
         ]
@@ -61,7 +61,7 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
 
     func testEquationWithOneVarRepeatedThreeTimesAndOneActivatedCte_findSolutions_returnOneSolution() {
         // Given
-        let equations: [XorEquationSystemSolver.Equation] = [
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [
             [.variable(id: 0), .variable(id: 0), .variable(id: 0), .constant(activated: true)]
         ]
 
@@ -78,7 +78,7 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
 
     func testEquationWithOneVar_findSolutions_returnEmptySolution() {
         // Given
-        let equations: [XorEquationSystemSolver.Equation] = [[.variable(id: 0)]]
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [[.variable(id: 0)]]
 
         let sut = XorEquationSystemPreSimplificationSolver(solver: secondarySolver)
 
@@ -89,7 +89,7 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
 
     func testEquationWithOneVarAndTwoActivatedCte_findSolutions_returnEmptySolution() {
         // Given
-        let equations: [XorEquationSystemSolver.Equation] = [
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [
             [.variable(id: 0), .constant(activated: true), .constant(activated: true)]
         ]
 
@@ -103,7 +103,7 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
     func testEquationWithOneVarOneActivatedCteAndOneDeactivatedCte_findSolutions_returnOneSolution() {
         // Given
         let varId = 0
-        let equations: [XorEquationSystemSolver.Equation] = [
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [
             [.variable(id: varId), .constant(activated: true), .constant(activated: false)]
         ]
 
@@ -118,7 +118,7 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
         // Given
         let firstVarId = 0
         let secondVarId = 1
-        let equations: [XorEquationSystemSolver.Equation] = [
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [
             [.variable(id: firstVarId), .constant(activated: true), .constant(activated: false)],
             [.variable(id: firstVarId), .variable(id: secondVarId), .constant(activated: false)]
         ]
@@ -137,7 +137,7 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
         let secondVarId = 1
         let thirdVarId = 2
         let forthVarId = 3
-        let equations: [XorEquationSystemSolver.Equation] = [
+        let equations: [XorEquationSystemSimpleSolver.Equation] = [
             [.variable(id: firstVarId),
              .constant(activated: true), .constant(activated: false)],
             [.variable(id: firstVarId), .variable(id: secondVarId),
@@ -151,7 +151,7 @@ class XorEquationSystemPreSimplificationSolverTests: XCTestCase {
         secondarySolver.findSolutionsResult = [[thirdVarId, forthVarId], []]
 
         // Then
-        let expectedSecondaryEquations: [XorEquationSystemSolver.Equation] = [
+        let expectedSecondaryEquations: [XorEquationSystemSimpleSolver.Equation] = [
             [
                 .constant(activated: true), .constant(activated: true),
                 .variable(id: thirdVarId), .variable(id: forthVarId)

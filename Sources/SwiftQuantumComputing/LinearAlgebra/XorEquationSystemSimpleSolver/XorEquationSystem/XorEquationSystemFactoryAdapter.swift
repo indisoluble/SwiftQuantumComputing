@@ -1,5 +1,5 @@
 //
-//  XorEquationSystemFactory.swift
+//  XorEquationSystemFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 29/12/2019.
@@ -20,8 +20,14 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol XorEquationSystemFactory {
-    func makeSystem(equations: [XorEquationSystemSolver.Equation]) -> XorEquationSystem
+struct XorEquationSystemFactoryAdapter {}
+
+// MARK: - XorEquationSystemFactory methods
+
+extension XorEquationSystemFactoryAdapter: XorEquationSystemFactory {
+    func makeSystem(equations: [XorEquationSystemSimpleSolver.Equation]) -> XorEquationSystem {
+        return XorEquationSystemAdapter(equations: equations)
+    }
 }

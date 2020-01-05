@@ -1,8 +1,8 @@
 //
-//  XorEquationSystemTestDouble.swift
+//  XorEquationSystemSimpleSolverTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 01/01/2020.
+//  Created by Enrique de la Torre on 04/01/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,23 +24,23 @@ import Foundation
 
 // MARK: - Main body
 
-final class XorEquationSystemTestDouble {
+final class XorEquationSystemSimpleSolverTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var solvesCount = 0
-    private (set) var lastSolvesVariables: XorEquationSystemSolver.ActivatedVariables?
-    var solvesResult = false
+    private (set) var findSolutionsCount = 0
+    private (set) var lastFindSolutionsEquations: [Equation]?
+    var findSolutionsResult: [ActivatedVariables] = []
 }
 
-// MARK: - XorEquationSystem methods
+// MARK: - XorEquationSystemSimpleSolver methods
 
-extension XorEquationSystemTestDouble: XorEquationSystem {
-    func solves(activatingVariables variables: XorEquationSystemSolver.ActivatedVariables) -> Bool {
-        solvesCount += 1
+extension XorEquationSystemSimpleSolverTestDouble: XorEquationSystemSimpleSolver {
+    func findSolutions(for equations: [Equation]) -> [ActivatedVariables] {
+        findSolutionsCount += 1
 
-        lastSolvesVariables = variables
+        lastFindSolutionsEquations = equations
 
-        return solvesResult
+        return findSolutionsResult
     }
 }

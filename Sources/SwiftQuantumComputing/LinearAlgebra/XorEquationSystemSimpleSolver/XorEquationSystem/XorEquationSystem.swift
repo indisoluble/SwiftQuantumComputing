@@ -1,8 +1,8 @@
 //
-//  XorEquationSystemSolver.swift
+//  XorEquationSystem.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 31/12/2019.
+//  Created by Enrique de la Torre on 29/12/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol XorEquationSystemSolver {
-    typealias Equation = [XorEquationComponent]
-    typealias ActivatedVariables = [Int]
-    
-    func findSolutions(for equations: [Equation]) -> [ActivatedVariables]
+protocol XorEquationSystem {
+    func solves(activatingVariables variables: XorEquationSystemSimpleSolver.ActivatedVariables) -> Bool
 }
