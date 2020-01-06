@@ -1,9 +1,9 @@
 //
-//  XorEquationSystemSimpleSolver.swift
+//  XorGaussianEliminationSolver.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 31/12/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 05/01/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,15 +20,8 @@
 
 import Foundation
 
-// MARK: - Internal types
-
-enum XorEquationComponent: Hashable {
-    case constant(activated: Bool)
-    case variable(id: Int)
-}
-
 // MARK: - Protocol definition
 
-protocol XorEquationSystemSimpleSolver { 
-    func findActivatedVariablesInEquations(_ equations: [[XorEquationComponent]]) -> [[Int]]
+protocol XorGaussianEliminationSolver {
+    func findActivatedVariablesInEquations(_ equations: Set<Set<Int>>) -> [[Int]]
 }

@@ -82,7 +82,8 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(QuantumGateTests.allTests),
         testCase(XorEquationSystemAdapterTests.allTests),
         testCase(XorEquationSystemBruteForceSolverTests.allTests),
-        testCase(XorEquationSystemPreSimplificationSolverTests.allTests)
+        testCase(XorEquationSystemPreSimplificationSolverTests.allTests),
+        testCase(XorGaussianEliminationSolverFacadeTests.allTests)
     ]
 }
 
