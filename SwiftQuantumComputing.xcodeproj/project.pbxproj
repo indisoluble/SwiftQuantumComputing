@@ -1093,7 +1093,6 @@
 		FF121F4123B7D9F400C09FD2 /* LinearAlgebra */ = {
 			isa = PBXGroup;
 			children = (
-				FF032F3823B8E824000FCA3D /* XorEquationSystemSimpleSolver */,
 				FFA6F2B123C24DA600C678C3 /* XorGaussianEliminationSolver */,
 			);
 			path = LinearAlgebra;
@@ -1538,7 +1537,6 @@
 		FF78EF5623B9220A00BA53A1 /* LinearAlgebra */ = {
 			isa = PBXGroup;
 			children = (
-				FF78EF5823B9222700BA53A1 /* XorEquationSystemSimpleSolver */,
 				FFA6F2B923C27A5A00C678C3 /* XorGaussianEliminationSolver */,
 			);
 			path = LinearAlgebra;
@@ -1584,6 +1582,14 @@
 				FFE1D711211A1B2700A50D9C /* VectorTests.swift */,
 			);
 			path = ComplexVectorSpace;
+			sourceTree = "<group>";
+		};
+		FF7E557823C5437E00A2FEEC /* XorGaussianEliminationSolver */ = {
+			isa = PBXGroup;
+			children = (
+				FFDDDD8F23BCEC7100772A03 /* XorEquationSystemSimpleSolver */,
+			);
+			path = XorGaussianEliminationSolver;
 			sourceTree = "<group>";
 		};
 		FF7EC7DC237B600C0006C3FA /* Extension */ = {
@@ -1765,6 +1771,7 @@
 			isa = PBXGroup;
 			children = (
 				FFA6F2B523C2608C00C678C3 /* Facade */,
+				FF032F3823B8E824000FCA3D /* XorEquationSystemSimpleSolver */,
 				FFA6F2C423C2B22A00C678C3 /* MainXorGaussianEliminationSolverFactory.swift */,
 				FFA6F2B223C24DE600C678C3 /* XorGaussianEliminationSolver.swift */,
 				FFA6F2C123C2B1E100C678C3 /* XorGaussianEliminationSolverFactory.swift */,
@@ -1784,6 +1791,7 @@
 			isa = PBXGroup;
 			children = (
 				FFA6F2BA23C27A7200C678C3 /* Facade */,
+				FF78EF5823B9222700BA53A1 /* XorEquationSystemSimpleSolver */,
 			);
 			path = XorGaussianEliminationSolver;
 			sourceTree = "<group>";
@@ -2027,7 +2035,7 @@
 		FFDDDD8D23BCEC4800772A03 /* LinearAlgebra */ = {
 			isa = PBXGroup;
 			children = (
-				FFDDDD8F23BCEC7100772A03 /* XorEquationSystemSimpleSolver */,
+				FF7E557823C5437E00A2FEEC /* XorGaussianEliminationSolver */,
 			);
 			path = LinearAlgebra;
 			sourceTree = "<group>";
