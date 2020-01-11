@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name         = "SwiftQuantumComputing"
-  s.version      = "16.1.0"
-  s.summary      = "A quantum circuit simulator."
+  s.version      = "16.2.0"
+  s.summary      = "Quantum circuit simulator in Swift."
   s.description  = <<-DESC
-  A quantum circuit simulator written in Swift and speeded up with Accelerate.framework in iOS/macOS and BLAS in Linux. It also counts with a genetic algorithm to find a circuit that solves a given quantum problem.
+  Quantum circuit simulator written in Swift and speeded up with Accelerate.framework in iOS/macOS and BLAS in Linux. It also counts with a genetic algorithm to automatically generate circuits and an implementation of Gaussian elimination algorithm to solve systems of XOR equations.
                    DESC
   s.homepage     = "https://github.com/indisoluble/SwiftQuantumComputing"
   s.license      = "Apache License, Version 2.0"
