@@ -42,23 +42,4 @@ public enum Gate {
 
 // MARK: - Equatable methods
 
-extension Gate: Equatable {
-    public static func ==(lhs: Gate, rhs: Gate) -> Bool {
-        switch (lhs, rhs) {
-        case (let .controlledNot(t1, c1), let .controlledNot(t2, c2)):
-            return ((t1 == t2) && (c1 == c2))
-        case (let .hadamard(t1), let .hadamard(t2)):
-            return (t1 == t2)
-        case (let .matrix(m1, i1), let .matrix(m2, i2)):
-            return ((m1 == m2) && (i1 == i2))
-        case (let .not(t1), let .not(t2)):
-            return (t1 == t2)
-        case (let .oracle(tt1, t1, c1), let .oracle(tt2, t2, c2)):
-            return ((tt1 == tt2) && (t1 == t2) && (c1 == c2))
-        case (let .phaseShift(r1, t1), let .phaseShift(r2, t2)):
-            return ((r1 == r2) && (t1 == t2))
-        default:
-            return false
-        }
-    }
-}
+extension Gate: Equatable {}

@@ -49,11 +49,7 @@ struct QuantumGate {
 
 // MARK: - Equatable methods
 
-extension QuantumGate: Equatable {
-    static func ==(lhs: QuantumGate, rhs: QuantumGate) -> Bool {
-        return (lhs.matrix == rhs.matrix)
-    }
-}
+extension QuantumGate: Equatable {}
 
 // MARK: - Private body
 

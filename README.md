@@ -1,4 +1,4 @@
-# A quantum circuit simulator in Swift
+# Quantum circuit simulator in Swift
 
 [![CI Status](https://travis-ci.org/indisoluble/SwiftQuantumComputing.svg)](https://travis-ci.org/indisoluble/SwiftQuantumComputing)
 [![codecov.io](https://codecov.io/github/indisoluble/SwiftQuantumComputing/coverage.svg)](https://codecov.io/github/indisoluble/SwiftQuantumComputing)
@@ -6,7 +6,9 @@
 ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
 [![Documentation](https://indisoluble.github.io/SwiftQuantumComputing/badge.svg)](https://indisoluble.github.io/SwiftQuantumComputing)
 
-In this repository you can find a quantum circuit simulator written in Swift and speeded up with [Accelerate.framework](https://developer.apple.com/documentation/accelerate) in iOS/macOS and [BLAS](http://www.netlib.org/blas/) in Linux. Along side the simulator there is also a genetic algorithm to automatically generate circuits.
+Here you can find a quantum circuit simulator written in Swift and speeded up with [Accelerate.framework](https://developer.apple.com/documentation/accelerate) in iOS/macOS and [BLAS](http://www.netlib.org/blas/) in Linux.
+
+Along side the simulator there is also a genetic algorithm to automatically generate circuits and an implementation of Gaussian elimination algorithm for system of XOR equations.
 
 The code written so far is mostly based on the content of: [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965), with a few tips from [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X). It is also inspired by [IBM Qiskit](https://github.com/Qiskit/qiskit-terra).
 
@@ -86,6 +88,35 @@ for useCase in cases {
 
 Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground).
 
+### Solve a system of XOR equations
+
+```swift
+import SwiftQuantumComputing // for macOS
+//: 1. Define system of XOR equations:
+//:    * `x6 ^      x4 ^      x2 ^ x1      = 0`
+//:    * `          x4 ^                x0 = 0`
+//:    * `x6 ^ x5 ^           x2 ^      x0 = 0`
+//:    * `          x4 ^ x3 ^      x1 ^ x0 = 0`
+//:    * `     x5 ^      x3 ^           x0 = 0`
+//:    * `          x4 ^ x3 ^      x1      = 0`
+//:    * `     x5 ^ x4 ^      x2 ^ x1 ^ x0 = 0`
+let equations = [
+    "1010110",
+    "0010001",
+    "1100101",
+    "0011011",
+    "0101001",
+    "0011010",
+    "0110111"
+]
+//: 2. Build Gaussian elimination solver
+let solver = MainXorGaussianEliminationSolverFactory().makeSolver()
+//: 3. Use solver
+print("Solutions: \(solver.findActivatedVariablesInEquations(equations))")
+```
+
+Check full code in [XorGaussianElimination.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/XorGaussianElimination.playground).
+
 ### Draw a quantum circuit
 
 ![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
@@ -98,6 +129,7 @@ Check following playgrounds for more examples:
 
 * [DeutschAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground) - Deutsch's algorithm.
 * [DeutschJozsaAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground) - Deutsch-Jozsa algorithm.
+* [SimonPeriodicityAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground) - Simon's periodicity algorithm.
 
 ## Documentation
 

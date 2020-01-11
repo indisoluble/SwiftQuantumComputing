@@ -1,0 +1,30 @@
+import SwiftQuantumComputing // for macOS 
+
+let secret = "110"
+
+let bitCount = secret.count
+
+var gates = Gate.hadamard(targets: bitCount..<2*bitCount)
+gates += Gate.oracle(truthTable: makeSimonTruthTable(secret: secret),
+                     targets: 0..<bitCount,
+                     reversedControls: bitCount..<2*bitCount)
+gates += Gate.hadamard(targets: bitCount..<2*bitCount)
+
+MainDrawerFactory().makeDrawer().drawCircuit(gates)
+
+let circuit = MainCircuitFactory().makeCircuit(gates: gates)
+let probabilities = circuit.summarizedProbabilities(reversedQubits: bitCount..<2*bitCount)
+
+let allZeros = String(repeating: "0", count: bitCount)
+
+var foundSecret = ""
+if probabilities.count == Int(pow(2.0, Double(bitCount))) {
+    foundSecret = allZeros
+} else {
+    let solver = MainXorGaussianEliminationSolverFactory().makeSolver()
+    let solutions = solver.findActivatedVariablesInEquations(Array(probabilities.keys))
+
+    foundSecret = solutions.filter({ $0 != allZeros }).first!
+}
+
+print("Secret: \(secret). Found secret: \(foundSecret). Success? \(secret == foundSecret)")

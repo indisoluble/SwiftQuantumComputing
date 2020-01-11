@@ -62,11 +62,7 @@ extension QuantumRegister: CustomStringConvertible {
 
 // MARK: - Equatable methods
 
-extension QuantumRegister: Equatable {
-    static func ==(lhs: QuantumRegister, rhs: QuantumRegister) -> Bool {
-        return (lhs.statevector == rhs.statevector)
-    }
-}
+extension QuantumRegister: Equatable {}
 
 // MARK: - Private body
 

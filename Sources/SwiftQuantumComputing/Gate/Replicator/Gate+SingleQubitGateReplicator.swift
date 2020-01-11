@@ -27,38 +27,8 @@ extension Gate {
     // MARK: - Public class methods
 
     /// Produces a list of `Gate.hadamard(target:)`, each gate on one of the `targets`
-    public static func hadamard(targets: Range<Int>) -> [Gate] {
-        return hadamard(targets: Array(targets))
-    }
-
-    /// Produces a list of `Gate.hadamard(target:)`, each gate on one of the `targets`
-    public static func hadamard(targets: ClosedRange<Int>) -> [Gate] {
-        return hadamard(targets: Array(targets))
-    }
-
-    /// Produces a list of `Gate.hadamard(target:)`, each gate on one of the `targets`
-    public static func hadamard(targets: Int...) -> [Gate] {
-        return hadamard(targets: targets)
-    }
-
-    /// Produces a list of `Gate.hadamard(target:)`, each gate on one of the `targets`
     public static func hadamard(targets: [Int]) -> [Gate] {
         return targets.map { .hadamard(target: $0) }
-    }
-
-    /// Produces a list of `Gate.not(target:)`, each gate on one of the `targets`
-    public static func not(targets: Range<Int>) -> [Gate] {
-        return not(targets: Array(targets))
-    }
-
-    /// Produces a list of `Gate.not(target:)`, each gate on one of the `targets`
-    public static func not(targets: ClosedRange<Int>) -> [Gate] {
-        return not(targets: Array(targets))
-    }
-
-    /// Produces a list of `Gate.not(target:)`, each gate on one of the `targets`
-    public static func not(targets: Int...) -> [Gate] {
-        return not(targets: targets)
     }
 
     /// Produces a list of `Gate.not(target:)`, each gate on one of the `targets`

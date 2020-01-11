@@ -27,7 +27,7 @@ import Foundation
 /// when its qubits are set to a given `input` and the oracle gate is initialized with a particular `truthTable`
 public struct GeneticUseCase {
 
-    // MARK: - Errors
+    // MARK: - Public errors
 
     /// Errors throwed by `GeneticUseCase.Circuit.init(input:output:)`
     public enum InitError: Error {
@@ -37,7 +37,7 @@ public struct GeneticUseCase {
         case circuitQubitCountHasToBeBiggerThanZero
     }
 
-    // MARK: - Types
+    // MARK: - Public types
 
     /// A `GeneticUseCase` provides enough data to configure a circuit as well as the oracle gate inside the circuit.
     /// `TruthTable` provides the data for the latter

@@ -40,10 +40,17 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Matrix_ElementsTests.allTests),
         testCase(VectorTests.allTests),
         testCase(Vector_ElementsTests.allTests),
+        testCase(Array_CombinationsTests.allTests),
+        testCase(Bool_XorTests.allTests),
         testCase(Int_DerivedTests.allTests),
         testCase(Int_IsPowerOfTwoTests.allTests),
+        testCase(String_ActivatedBitsTests.allTests),
+        testCase(String_BitXorTests.allTests),
+        testCase(String_IsBitActivatedTests.allTests),
         testCase(Matrix_OracleTests.allTests),
-        testCase(Gate_OracleWithRangeControlsTests.allTests),
+        testCase(Gate_OracleWithRangeInputsTests.allTests),
+        testCase(Gate_SingleQubitGateRangeTargetsTests.allTests),
+        testCase(Gate_OracleReplicatorTests.allTests),
         testCase(Gate_SingleQubitGateReplicatorTests.allTests),
         testCase(MainGeneticCircuitEvaluatorTests.allTests),
         testCase(MainGeneticUseCaseEvaluatorTests.allTests),
@@ -73,7 +80,12 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(QuantumRegisterTests.allTests),
         testCase(QuantumGateFactoryTests.allTests),
         testCase(QuantumGate_ApplyingGateTests.allTests),
-        testCase(QuantumGateTests.allTests)
+        testCase(QuantumGateTests.allTests),
+        testCase(XorEquationSystemAdapterTests.allTests),
+        testCase(XorEquationSystemBruteForceSolverTests.allTests),
+        testCase(XorEquationSystemPreSimplificationSolverTests.allTests),
+        testCase(XorGaussianEliminationSolverFacadeTests.allTests),
+        testCase(XorGaussianEliminationSolver_ActivatedBitsTests.allTests)
     ]
 }
 
