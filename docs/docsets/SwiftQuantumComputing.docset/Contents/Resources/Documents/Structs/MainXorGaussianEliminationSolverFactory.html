@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DrawCircuitError Enumeration Reference</title>
+    <title>MainXorGaussianEliminationSolverFactory Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/DrawCircuitError" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/MainXorGaussianEliminationSolverFactory" class="dashAnchor"></a>
 
-    <a title="DrawCircuitError Enumeration Reference"></a>
+    <a title="MainXorGaussianEliminationSolverFactory Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SwiftQuantumComputing Reference</a>
       <img class="carat" src="../img/carat.png" />
-      DrawCircuitError Enumeration Reference
+      MainXorGaussianEliminationSolverFactory Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -215,14 +215,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>DrawCircuitError</h1>
+            <h1>MainXorGaussianEliminationSolverFactory</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">DrawCircuitError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MainXorGaussianEliminationSolverFactory</span></code></pre>
 
                 </div>
               </div>
-            <p>Errors throwed by <code><a href="../Protocols/Drawable.html#/s:21SwiftQuantumComputing8DrawableP11drawCircuit_10qubitCountSo6UIViewCSayAA4GateOG_SitKF">Drawable.drawCircuit(_:qubitCount:)</a></code></p>
+            <p>Conforms <code><a href="../Protocols/XorGaussianEliminationSolverFactory.html">XorGaussianEliminationSolverFactory</a></code>. Use to create new <code><a href="../Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a></code> instances</p>
 
           </div>
         </section>
@@ -230,13 +230,20 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20init%20methods"></a>
+                <a name="//apple_ref/swift/Section/Public init methods" class="dashAnchor"></a>
+                <a href="#/Public%20init%20methods">
+                  <h3 class="section-name">Public init methods</h3>
+                </a>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO31qubitCountHasToBeBiggerThanZeroyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/qubitCountHasToBeBiggerThanZero" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO31qubitCountHasToBeBiggerThanZeroyA2CmF">qubitCountHasToBeBiggerThanZero</a>
+                    <a name="/s:21SwiftQuantumComputing39MainXorGaussianEliminationSolverFactoryVACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing39MainXorGaussianEliminationSolverFactoryVACycfc">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -244,26 +251,37 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed when <code>qubitCount</code> is 0, i.e. a circuit requires at least 1 qubit</p>
+                        <p>Initialize a <code>MainXorGaussianEliminationSolverFactory</code> instance</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">qubitCountHasToBeBiggerThanZero</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/XorGaussianEliminationSolverFactory%20methods"></a>
+                <a name="//apple_ref/swift/Section/XorGaussianEliminationSolverFactory methods" class="dashAnchor"></a>
+                <a href="#/XorGaussianEliminationSolverFactory%20methods">
+                  <h3 class="section-name">XorGaussianEliminationSolverFactory methods</h3>
+                </a>
+              </div>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO33gateWithOneOrMoreInputsOutOfRangeyAcA4GateO_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateWithOneOrMoreInputsOutOfRange(gate:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO33gateWithOneOrMoreInputsOutOfRangeyAcA4GateO_tcACmF">gateWithOneOrMoreInputsOutOfRange(gate:)</a>
+                    <a name="/s:21SwiftQuantumComputing39MainXorGaussianEliminationSolverFactoryV04makeH0AA0efgH0_pyF"></a>
+                    <a name="//apple_ref/swift/Method/makeSolver()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing39MainXorGaussianEliminationSolverFactoryV04makeH0AA0efgH0_pyF">makeSolver()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -271,68 +289,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed when one or more of the inputs/targets/controls in <code>gate</code> reference a qubit that does not exist</p>
+                        <p>Check <code><a href="../Protocols/XorGaussianEliminationSolverFactory.html#/s:21SwiftQuantumComputing35XorGaussianEliminationSolverFactoryP04makeG0AA0defG0_pyF">XorGaussianEliminationSolverFactory.makeSolver()</a></code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateWithOneOrMoreInputsOutOfRange</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO22gateWithEmptyInputListyAcA4GateO_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateWithEmptyInputList(gate:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO22gateWithEmptyInputListyAcA4GateO_tcACmF">gateWithEmptyInputList(gate:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when <code>gate</code> informs no inputs/controls</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateWithEmptyInputList</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO24gateTargetIsAlsoAControlyAcA4GateO_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateTargetIsAlsoAControl(gate:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO24gateTargetIsAlsoAControlyAcA4GateO_tcACmF">gateTargetIsAlsoAControl(gate:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when <code>gate</code> tries to use a target qubit also as a control qubit</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateTargetIsAlsoAControl</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeSolver</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a></span></code></pre>
 
                         </div>
                       </div>

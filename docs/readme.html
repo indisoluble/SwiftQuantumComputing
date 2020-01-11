@@ -118,6 +118,12 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/GeneticFactory.html">GeneticFactory</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/XorGaussianEliminationSolverFactory.html">XorGaussianEliminationSolverFactory</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -155,6 +161,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/MainGeneticFactory.html">MainGeneticFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/MainXorGaussianEliminationSolverFactory.html">MainXorGaussianEliminationSolverFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Matrix.html">Matrix</a>
@@ -206,7 +215,7 @@
         <section class="section">
           <div class="section-content">
             
-            <h1 id='a-quantum-circuit-simulator-in-swift' class='heading'>A quantum circuit simulator in Swift</h1>
+            <h1 id='quantum-circuit-simulator-in-swift' class='heading'>Quantum circuit simulator in Swift</h1>
 
 <p><a href="https://travis-ci.org/indisoluble/SwiftQuantumComputing"><img src="https://travis-ci.org/indisoluble/SwiftQuantumComputing.svg" alt="CI Status"></a>
 <a href="https://codecov.io/github/indisoluble/SwiftQuantumComputing"><img src="https://codecov.io/github/indisoluble/SwiftQuantumComputing/coverage.svg" alt="codecov.io"></a>
@@ -214,7 +223,9 @@
 <img src="https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="platforms">
 <a href="https://indisoluble.github.io/SwiftQuantumComputing"><img src="https://indisoluble.github.io/SwiftQuantumComputing/badge.svg" alt="Documentation"></a></p>
 
-<p>In this repository you can find a quantum circuit simulator written in Swift and speeded up with <a href="https://developer.apple.com/documentation/accelerate">Accelerate.framework</a> in iOS/macOS and <a href="http://www.netlib.org/blas/">BLAS</a> in Linux. Along side the simulator there is also a genetic algorithm to automatically generate circuits.</p>
+<p>Here you can find a quantum circuit simulator written in Swift and speeded up with <a href="https://developer.apple.com/documentation/accelerate">Accelerate.framework</a> in iOS/macOS and <a href="http://www.netlib.org/blas/">BLAS</a> in Linux.</p>
+
+<p>Along side the simulator there is also a genetic algorithm to automatically generate circuits and an implementation of Gaussian elimination algorithm to solve systems of XOR equations.</p>
 
 <p>The code written so far is mostly based on the content of: <a href="https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965">Quantum Computing for Computer Scientists</a>, with a few tips from <a href="https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X">Automatic Quantum Computer Programming: A Genetic Programming Approach</a>. It is also inspired by <a href="https://github.com/Qiskit/qiskit-terra">IBM Qiskit</a>.</p>
 <h2 id='usage' class='heading'>Usage</h2>
@@ -286,6 +297,32 @@
 </code></pre>
 
 <p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground">Genetic.playground</a>.</p>
+<h3 id='solve-a-system-of-xor-equations' class='heading'>Solve a system of XOR equations</h3>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftQuantumComputing</span> <span class="c1">// for macOS</span>
+<span class="c1">//: 1. Define system of XOR equations:</span>
+<span class="c1">//:    * `x6 ^      x4 ^      x2 ^ x1      = 0`</span>
+<span class="c1">//:    * `          x4 ^                x0 = 0`</span>
+<span class="c1">//:    * `x6 ^ x5 ^           x2 ^      x0 = 0`</span>
+<span class="c1">//:    * `          x4 ^ x3 ^      x1 ^ x0 = 0`</span>
+<span class="c1">//:    * `     x5 ^      x3 ^           x0 = 0`</span>
+<span class="c1">//:    * `          x4 ^ x3 ^      x1      = 0`</span>
+<span class="c1">//:    * `     x5 ^ x4 ^      x2 ^ x1 ^ x0 = 0`</span>
+<span class="k">let</span> <span class="nv">equations</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">"1010110"</span><span class="p">,</span>
+    <span class="s">"0010001"</span><span class="p">,</span>
+    <span class="s">"1100101"</span><span class="p">,</span>
+    <span class="s">"0011011"</span><span class="p">,</span>
+    <span class="s">"0101001"</span><span class="p">,</span>
+    <span class="s">"0011010"</span><span class="p">,</span>
+    <span class="s">"0110111"</span>
+<span class="p">]</span>
+<span class="c1">//: 2. Build Gaussian elimination solver</span>
+<span class="k">let</span> <span class="nv">solver</span> <span class="o">=</span> <span class="kt">MainXorGaussianEliminationSolverFactory</span><span class="p">()</span><span class="o">.</span><span class="nf">makeSolver</span><span class="p">()</span>
+<span class="c1">//: 3. Use solver</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Solutions: </span><span class="se">\(</span><span class="n">solver</span><span class="o">.</span><span class="nf">findActivatedVariablesInEquations</span><span class="p">(</span><span class="n">equations</span><span class="p">)</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+</code></pre>
+
+<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/XorGaussianElimination.playground">XorGaussianElimination.playground</a>.</p>
 <h3 id='draw-a-quantum-circuit' class='heading'>Draw a quantum circuit</h3>
 
 <p><img src="https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg" alt="Draw a quantum circuit"></p>
@@ -298,6 +335,7 @@
 <ul>
 <li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground">DeutschAlgorithm.playground</a> - Deutsch&rsquo;s algorithm.</li>
 <li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground">DeutschJozsaAlgorithm.playground</a> - Deutsch-Jozsa algorithm.</li>
+<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground">SimonPeriodicityAlgorithm.playground</a> - Simon&rsquo;s periodicity algorithm.</li>
 </ul>
 <h2 id='documentation' class='heading'>Documentation</h2>
 
@@ -319,7 +357,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2019-12-15)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-01-12)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
