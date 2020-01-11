@@ -768,6 +768,7 @@
 		FF8B40D823AEDAFC00A51475 /* Gate+OracleReplicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+OracleReplicator.swift"; sourceTree = "<group>"; };
 		FF8B9D9721BD979000A28E34 /* SimulatorGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorGate.swift; sourceTree = "<group>"; };
 		FF8BD4AB211E28DA00F01FF8 /* QuantumRegisterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantumRegisterTests.swift; sourceTree = "<group>"; };
+		FF8E49C223CA76AD00C8FD48 /* XorGaussianElimination.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = XorGaussianElimination.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF9301C4235CB0FB008DD87E /* QuantumGate+ApplyingGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuantumGate+ApplyingGateTests.swift"; sourceTree = "<group>"; };
 		FF9301C9235CC05E008DD87E /* UnitaryGateAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitaryGateAdapterTests.swift; sourceTree = "<group>"; };
 		FF9301CC235CD7E4008DD87E /* UnitaryGateFactoryAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitaryGateFactoryAdapterTests.swift; sourceTree = "<group>"; };
@@ -1051,6 +1052,7 @@
 				FFD05D7F236614C900872BBA /* Circuit.playground */,
 				FF9CE7EF238B18A90098E5C8 /* Drawer.playground */,
 				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
+				FF8E49C223CA76AD00C8FD48 /* XorGaussianElimination.playground */,
 			);
 			path = Usage;
 			sourceTree = "<group>";
