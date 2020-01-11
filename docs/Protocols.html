@@ -119,6 +119,12 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/GeneticFactory.html">GeneticFactory</a>
               </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/XorGaussianEliminationSolverFactory.html">XorGaussianEliminationSolverFactory</a>
+              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -156,6 +162,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/MainGeneticFactory.html">MainGeneticFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/MainXorGaussianEliminationSolverFactory.html">MainXorGaussianEliminationSolverFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Matrix.html">Matrix</a>
@@ -449,13 +458,92 @@ and solves a list of <code><a href="Structs/GeneticUseCase.html">GeneticUseCase<
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Protocol%20definition7"></a>
+                <a name="//apple_ref/swift/Section/Protocol definition" class="dashAnchor"></a>
+                <a href="#/Protocol%20definition7">
+                  <h3 class="section-name">Protocol definition</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing28XorGaussianEliminationSolverP"></a>
+                    <a name="//apple_ref/swift/Protocol/XorGaussianEliminationSolver" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing28XorGaussianEliminationSolverP">XorGaussianEliminationSolver</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implementation of Gaussian elimination algorithm for system of XOR equations, i.e. equations like the following:
+x2 ^ x1 ^ x0 = 0.</p>
+
+                        <a href="Protocols/XorGaussianEliminationSolver.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">XorGaussianEliminationSolver</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Protocol%20definition8"></a>
+                <a name="//apple_ref/swift/Section/Protocol definition" class="dashAnchor"></a>
+                <a href="#/Protocol%20definition8">
+                  <h3 class="section-name">Protocol definition</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing35XorGaussianEliminationSolverFactoryP"></a>
+                    <a name="//apple_ref/swift/Protocol/XorGaussianEliminationSolverFactory" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing35XorGaussianEliminationSolverFactoryP">XorGaussianEliminationSolverFactory</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Factory to build <code><a href="Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a></code> instances</p>
+
+                        <a href="Protocols/XorGaussianEliminationSolverFactory.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">XorGaussianEliminationSolverFactory</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2019 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2019-12-15)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-01-12)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
