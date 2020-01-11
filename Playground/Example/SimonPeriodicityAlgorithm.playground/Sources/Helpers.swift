@@ -13,7 +13,7 @@
 
 import SwiftQuantumComputing
 
-public func makeTruthTable(secret: String) -> [Gate.ExtendedTruth] {
+public func makeSimonTruthTable(secret: String) -> [Gate.ExtendedTruth] {
     let bitCount = secret.count
 
     let combinations = (0..<Int.pow(2, bitCount)).map { String($0, bitCount: bitCount) }

@@ -22,12 +22,17 @@ import Foundation
 
 // MARK: - Main body
 
-struct MainXorGaussianEliminationSolverFactory {}
+public struct MainXorGaussianEliminationSolverFactory {
+
+    // MARK: - Public init methods
+
+    public init() {}
+}
 
 // MARK: - XorGaussianEliminationSolverFactory methods
 
 extension MainXorGaussianEliminationSolverFactory: XorGaussianEliminationSolverFactory {
-    func makeSolver() -> XorGaussianEliminationSolver {
+    public func makeSolver() -> XorGaussianEliminationSolver {
         let systemFactory = XorEquationSystemFactoryAdapter()
         let bruteForceSolver = XorEquationSystemBruteForceSolver(factory: systemFactory)
         let preSolver = XorEquationSystemPreSimplificationSolver(solver: bruteForceSolver)

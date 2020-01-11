@@ -24,9 +24,9 @@ import Foundation
 
 extension XorGaussianEliminationSolver {
 
-    // MARK: - Internal methods
+    // MARK: - Public methods
 
-    func findActivatedVariablesInEquations(_ equations: [String]) -> [String] {
+    public func findActivatedVariablesInEquations(_ equations: [String]) -> [String] {
         let minCount = equations.reduce(0) { $0 > $1.count ? $0 : $1.count }
         let result = findActivatedVariablesInEquations(Set(equations.map { $0.activatedBits }))
 

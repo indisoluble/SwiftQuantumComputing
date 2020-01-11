@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol XorGaussianEliminationSolverFactory {
+public protocol XorGaussianEliminationSolverFactory {
     func makeSolver() -> XorGaussianEliminationSolver
 }

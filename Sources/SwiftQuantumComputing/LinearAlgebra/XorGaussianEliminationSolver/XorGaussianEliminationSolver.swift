@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol XorGaussianEliminationSolver {
+public protocol XorGaussianEliminationSolver {
     func findActivatedVariablesInEquations(_ equations: Set<Set<Int>>) -> [[Int]]
 }
