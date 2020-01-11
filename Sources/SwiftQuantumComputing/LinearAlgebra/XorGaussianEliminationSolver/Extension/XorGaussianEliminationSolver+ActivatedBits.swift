@@ -26,6 +26,15 @@ extension XorGaussianEliminationSolver {
 
     // MARK: - Public methods
 
+    /**
+     Find all possible solutions for a system of XOR equations.
+
+     - Parameter equations: List of equations where each equation is represented by a binary string. For example,
+     the following equation: x2 ^ x0 = 0, is represented with this string: '101'.
+
+     - Returns: A list of solutions where each solution is a binary string. If a system of equations if composed of variables:
+     x0, x1 & x2 and in a given solution x1=0 while x0=1 & x2=1, the string for this solutions is: '101'
+     */
     public func findActivatedVariablesInEquations(_ equations: [String]) -> [String] {
         let minCount = equations.reduce(0) { $0 > $1.count ? $0 : $1.count }
         let result = findActivatedVariablesInEquations(Set(equations.map { $0.activatedBits }))

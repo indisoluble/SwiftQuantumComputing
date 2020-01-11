@@ -22,16 +22,20 @@ import Foundation
 
 // MARK: - Main body
 
+/// Conforms `XorGaussianEliminationSolverFactory`. Use to create new `XorGaussianEliminationSolver` instances
 public struct MainXorGaussianEliminationSolverFactory {
 
     // MARK: - Public init methods
 
+    /// Initialize a `MainXorGaussianEliminationSolverFactory` instance
     public init() {}
 }
 
 // MARK: - XorGaussianEliminationSolverFactory methods
 
 extension MainXorGaussianEliminationSolverFactory: XorGaussianEliminationSolverFactory {
+
+    /// Check `XorGaussianEliminationSolverFactory.makeSolver()`
     public func makeSolver() -> XorGaussianEliminationSolver {
         let systemFactory = XorEquationSystemFactoryAdapter()
         let bruteForceSolver = XorEquationSystemBruteForceSolver(factory: systemFactory)

@@ -22,6 +22,20 @@ import Foundation
 
 // MARK: - Protocol definition
 
+/**
+ Implementation of Gaussian elimination algorithm for system of XOR equations, i.e. equations like the following:
+ x2 ^ x1 ^ x0 = 0.
+ */
 public protocol XorGaussianEliminationSolver {
+
+    /**
+     Find all possible solutions for a system of XOR equations.
+
+     - Parameter equations: Set of equations where each equation is represented by a set of indexes. For example,
+     the following equation: x2 ^ x0 = 0, is represented with this set: (2, 0).
+
+     - Returns: A list of solutions where each solution is a list of indexes. If a system of equations if composed of variables:
+     x0, x1 & x2 and in a given solution x1=0 while x0=1 & x2=1, the list of indexes for this solutions is: (2, 0)
+     */
     func findActivatedVariablesInEquations(_ equations: Set<Set<Int>>) -> [[Int]]
 }

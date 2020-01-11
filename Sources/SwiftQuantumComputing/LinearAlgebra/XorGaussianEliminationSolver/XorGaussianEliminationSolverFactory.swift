@@ -22,6 +22,9 @@ import Foundation
 
 // MARK: - Protocol definition
 
+/// Factory to build `XorGaussianEliminationSolver` instances
 public protocol XorGaussianEliminationSolverFactory {
+
+    /// Builds `XorGaussianEliminationSolver` instances
     func makeSolver() -> XorGaussianEliminationSolver
 }
