@@ -1,8 +1,8 @@
 //
-//  Gate+SingleQubitGateReplicatorTests.swift
+//  Gate+SingleQubitGateRangeTargetsTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/12/2019.
+//  Created by Enrique de la Torre on 21/12/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,13 +18,14 @@
 // limitations under the License.
 //
 
+
 import XCTest
 
 @testable import SwiftQuantumComputing
 
 // MARK: - Main body
 
-class Gate_SingleQubitGateReplicatorTests: XCTestCase {
+class Gate_SingleQubitGateRangeTargetsTests: XCTestCase {
 
     // MARK: - Tests
 
@@ -46,12 +47,6 @@ class Gate_SingleQubitGateReplicatorTests: XCTestCase {
                        [Gate.hadamard(target: 0), Gate.hadamard(target: 1)])
     }
 
-    func testListOfTargets_hadamard_returnExpectedList() {
-        // Then
-        XCTAssertEqual(Gate.hadamard(targets: [2, 2]),
-                       [Gate.hadamard(target: 2), Gate.hadamard(target: 2)])
-    }
-
     func testRangeOfTargets_not_returnExpectedList() {
         // Then
         XCTAssertEqual(Gate.not(targets: 0..<2), [Gate.not(target: 0), Gate.not(target: 1)])
@@ -67,11 +62,6 @@ class Gate_SingleQubitGateReplicatorTests: XCTestCase {
         XCTAssertEqual(Gate.not(targets: 0, 1), [Gate.not(target: 0), Gate.not(target: 1)])
     }
 
-    func testListOfTargets_not_returnExpectedList() {
-        // Then
-        XCTAssertEqual(Gate.not(targets: [2, 2]), [Gate.not(target: 2), Gate.not(target: 2)])
-    }
-
     static var allTests = [
         ("testRangeOfTargets_hadamard_returnExpectedList",
          testRangeOfTargets_hadamard_returnExpectedList),
@@ -79,15 +69,11 @@ class Gate_SingleQubitGateReplicatorTests: XCTestCase {
          testClosedRangeOfTargets_hadamard_returnExpectedList),
         ("testVariadicTargets_hadamard_returnExpectedList",
          testVariadicTargets_hadamard_returnExpectedList),
-        ("testListOfTargets_hadamard_returnExpectedList",
-         testListOfTargets_hadamard_returnExpectedList),
         ("testRangeOfTargets_not_returnExpectedList",
          testRangeOfTargets_not_returnExpectedList),
         ("testClosedRangeOfTargets_not_returnExpectedList",
          testClosedRangeOfTargets_not_returnExpectedList),
         ("testVariadicTargets_not_returnExpectedList",
-         testVariadicTargets_not_returnExpectedList),
-        ("testListOfTargets_not_returnExpectedList",
-         testListOfTargets_not_returnExpectedList)
+         testVariadicTargets_not_returnExpectedList)
     ]
 }

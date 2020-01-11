@@ -95,11 +95,7 @@ extension Complex: CustomStringConvertible {
 
 // MARK: - Equatable methods
 
-extension Complex: Equatable {
-    public static func ==(lhs: Complex, rhs: Complex) -> Bool {
-        return ((lhs.real == rhs.real) && (lhs.imag == rhs.imag))
-    }
-}
+extension Complex: Equatable {}
 
 // MARK: - Overloaded operators
 

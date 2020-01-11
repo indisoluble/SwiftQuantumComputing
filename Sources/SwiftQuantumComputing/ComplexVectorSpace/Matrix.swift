@@ -191,11 +191,7 @@ extension Matrix: CustomStringConvertible {
 
 // MARK: - Equatable methods
 
-extension Matrix: Equatable {
-    public static func ==(lhs: Matrix, rhs: Matrix) -> Bool {
-        return (lhs.values == rhs.values)
-    }
-}
+extension Matrix: Equatable {}
 
 // MARK: - Sequence methods
 
