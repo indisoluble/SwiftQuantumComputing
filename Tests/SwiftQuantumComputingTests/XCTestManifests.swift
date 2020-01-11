@@ -84,7 +84,8 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(XorEquationSystemAdapterTests.allTests),
         testCase(XorEquationSystemBruteForceSolverTests.allTests),
         testCase(XorEquationSystemPreSimplificationSolverTests.allTests),
-        testCase(XorGaussianEliminationSolverFacadeTests.allTests)
+        testCase(XorGaussianEliminationSolverFacadeTests.allTests),
+        testCase(XorGaussianEliminationSolver_ActivatedBitsTests.allTests)
     ]
 }
 
