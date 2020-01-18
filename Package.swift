@@ -40,7 +40,8 @@ let package = Package(
                 "SwiftQuantumComputing"
             ],
             exclude: [
-                "Drawer"
+                "Drawer",
+                "TestDouble/Drawer"
             ]
         )
     ]
