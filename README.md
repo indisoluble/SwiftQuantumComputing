@@ -42,6 +42,12 @@ print("Unitary: \(circuit.unitary())\n")
 
 Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground).
 
+### Draw a quantum circuit
+
+![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
+
+Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground).
+
 ### Use a genetic algorithm to automatically generate a quantum circuit
 
 ```swift
@@ -116,12 +122,6 @@ print("Solutions: \(solver.findActivatedVariablesInEquations(equations))")
 ```
 
 Check full code in [XorGaussianElimination.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/XorGaussianElimination.playground).
-
-### Draw a quantum circuit
-
-![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
-
-Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground).
 
 ## Other examples
 

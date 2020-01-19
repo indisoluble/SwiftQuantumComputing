@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SwiftQuantumComputing"
-  s.version      = "16.2.0"
+  s.version      = "17.0.0"
   s.summary      = "Quantum circuit simulator in Swift."
   s.description  = <<-DESC
   Quantum circuit simulator written in Swift and speeded up with Accelerate.framework in iOS/macOS and BLAS in Linux. It also counts with a genetic algorithm to automatically generate circuits and an implementation of Gaussian elimination algorithm to solve systems of XOR equations.
