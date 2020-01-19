@@ -1,0 +1,54 @@
+name: build
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  xcode:
+
+    runs-on: macOS-latest
+
+    strategy:
+      matrix:
+        destination: ['platform=macOS', 'platform=iOS Simulator,name=iPhone 8,OS=13.2.2']
+        include:
+          - destination: 'platform=macOS'
+            scheme: SwiftQuantumComputing_macOS
+            sdk: macosx
+          - destination: 'platform=iOS Simulator,name=iPhone 8,OS=13.2.2'
+            scheme: SwiftQuantumComputing_iOS
+            sdk: iphonesimulator
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build & test
+      run: |
+        set -o pipefail
+        xcodebuild -scheme ${{ matrix.scheme }} -project SwiftQuantumComputing.xcodeproj -sdk ${{ matrix.sdk }} -destination '${{ matrix.destination }}' build test | xcpretty
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1.0.5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+
+  swift:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: swift build
+    - name: Run tests
+      run: swift test
+
+  cocoapod:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Lint
+      run: pod lib lint

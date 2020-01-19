@@ -1,7 +1,7 @@
 # Quantum circuit simulator in Swift
 
-[![CI Status](https://travis-ci.org/indisoluble/SwiftQuantumComputing.svg)](https://travis-ci.org/indisoluble/SwiftQuantumComputing)
-[![codecov.io](https://codecov.io/github/indisoluble/SwiftQuantumComputing/coverage.svg)](https://codecov.io/github/indisoluble/SwiftQuantumComputing)
+![CI Status](https://github.com/indisoluble/SwiftQuantumComputing/workflows/build/badge.svg?branch=master)
+[![codecov](https://codecov.io/gh/indisoluble/SwiftQuantumComputing/branch/master/graph/badge.svg)](https://codecov.io/gh/indisoluble/SwiftQuantumComputing)
 [![Version](https://img.shields.io/cocoapods/v/SwiftQuantumComputing.svg)](http://cocoapods.org/pods/SwiftQuantumComputing)
 ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
 [![Documentation](https://indisoluble.github.io/SwiftQuantumComputing/badge.svg)](https://indisoluble.github.io/SwiftQuantumComputing)
@@ -41,6 +41,12 @@ print("Unitary: \(circuit.unitary())\n")
 ```
 
 Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground).
+
+### Draw a quantum circuit
+
+![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
+
+Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground).
 
 ### Use a genetic algorithm to automatically generate a quantum circuit
 
@@ -116,12 +122,6 @@ print("Solutions: \(solver.findActivatedVariablesInEquations(equations))")
 ```
 
 Check full code in [XorGaussianElimination.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/XorGaussianElimination.playground).
-
-### Draw a quantum circuit
-
-![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
-
-Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground).
 
 ## Other examples
 
