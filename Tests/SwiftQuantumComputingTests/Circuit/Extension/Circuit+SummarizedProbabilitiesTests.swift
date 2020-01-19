@@ -186,7 +186,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
 
         // Then
-        XCTAssertNoThrow(try circuit.summarizedProbabilities(reversedQubits: 0..<2,
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0..<2).reversed(),
                                                              initialBits: bits))
     }
 
@@ -195,7 +195,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
 
         // Then
-        XCTAssertNoThrow(try circuit.summarizedProbabilities(reversedQubits: 0...1,
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0...1).reversed(),
                                                              initialBits: bits))
     }
 
