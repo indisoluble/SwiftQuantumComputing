@@ -7,13 +7,13 @@ let bitCount = secret.count
 var gates = Gate.hadamard(targets: bitCount..<2*bitCount)
 gates += Gate.oracle(truthTable: makeSimonTruthTable(secret: secret),
                      targets: 0..<bitCount,
-                     reversedControls: bitCount..<2*bitCount)
+                     controls: (bitCount..<2*bitCount).reversed())
 gates += Gate.hadamard(targets: bitCount..<2*bitCount)
 
 MainDrawerFactory().makeDrawer().drawCircuit(gates)
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
-let probabilities = circuit.summarizedProbabilities(reversedQubits: bitCount..<2*bitCount)
+let probabilities = circuit.summarizedProbabilities(qubits: (bitCount..<2*bitCount).reversed())
 
 let allZeros = String(repeating: "0", count: bitCount)
 
