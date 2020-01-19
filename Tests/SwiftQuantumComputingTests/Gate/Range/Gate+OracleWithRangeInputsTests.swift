@@ -48,13 +48,17 @@ class Gate_OracleWithRangeInputsTests: XCTestCase {
 
     func testAnyRange_oracleWithReversedControls_returnExpectedGate() {
         // Then
-        XCTAssertEqual(Gate.oracle(truthTable: truthTable, target: target, reversedControls: 0..<3),
+        XCTAssertEqual(Gate.oracle(truthTable: truthTable,
+                                   target: target,
+                                   controls: (0..<3).reversed()),
                        Gate.oracle(truthTable: truthTable, target: target, controls: [2, 1, 0]))
     }
 
     func testAnyClosedRange_oracleWithReversedControls_returnExpectedGate() {
         // Then
-        XCTAssertEqual(Gate.oracle(truthTable: truthTable, target: target, reversedControls: 0...2),
+        XCTAssertEqual(Gate.oracle(truthTable: truthTable,
+                                   target: target,
+                                   controls: (0...2).reversed()),
                        Gate.oracle(truthTable: truthTable, target: target, controls: [2, 1, 0]))
     }
 
@@ -88,7 +92,7 @@ class Gate_OracleWithRangeInputsTests: XCTestCase {
         // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0..<3,
-                                   reversedControls: 0..<3),
+                                   controls: (0..<3).reversed()),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [2, 1, 0])])
@@ -98,7 +102,7 @@ class Gate_OracleWithRangeInputsTests: XCTestCase {
         // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0..<3,
-                                   reversedControls: 0...2),
+                                   controls: (0...2).reversed()),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [2, 1, 0])])
@@ -134,7 +138,7 @@ class Gate_OracleWithRangeInputsTests: XCTestCase {
         // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0...2,
-                                   reversedControls: 0..<3),
+                                   controls: (0..<3).reversed()),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [2, 1, 0])])
@@ -144,7 +148,7 @@ class Gate_OracleWithRangeInputsTests: XCTestCase {
         // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0...2,
-                                   reversedControls: 0...2),
+                                   controls: (0...2).reversed()),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [2, 1, 0])])
