@@ -21,6 +21,15 @@
 import Foundation
 
 extension String {
+    /// Returns the result of combining the bits in the bit string using XOR
+    public func bitXor() -> Bool? {
+        let result = reduce("0") { (acc, ch) -> String? in
+            return (acc == nil ? nil : String.bitXor(acc!, String(ch)))
+        }
+
+        return (result == nil ? nil : result == "1")
+    }
+
     /// Applies XOR to two bit strings
     public static func bitXor(_ inputA: String, _ inputB: String) -> String? {
         guard let a = Int(inputA, radix: 2), let b = Int(inputB, radix: 2) else {

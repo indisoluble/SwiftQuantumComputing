@@ -28,6 +28,21 @@ class String_BitXorTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testInvalidString_bitXor_returnNil() {
+        // Then
+        XCTAssertNil("a00".bitXor())
+    }
+
+    func testValidString_bitXor_returnTrue() {
+        // Then
+        XCTAssertTrue("11010".bitXor()!)
+    }
+
+    func testValidString_bitXor_returnFalse() {
+        // Then
+        XCTAssertFalse("110101".bitXor()!)
+    }
+
     func testInvalidInputA_bitXor_returnNil() {
         // Then
         XCTAssertNil(String.bitXor("a00", "000"))
@@ -57,6 +72,12 @@ class String_BitXorTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testInvalidString_bitXor_returnNil",
+         testInvalidString_bitXor_returnNil),
+        ("testValidString_bitXor_returnTrue",
+         testValidString_bitXor_returnTrue),
+        ("testValidString_bitXor_returnFalse",
+         testValidString_bitXor_returnFalse),
         ("testInvalidInputA_bitXor_returnNil",
          testInvalidInputA_bitXor_returnNil),
         ("testInvalidInputB_bitXor_returnNil",
