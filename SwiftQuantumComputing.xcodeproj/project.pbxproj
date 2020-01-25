@@ -174,6 +174,10 @@
 		FF43387522122C4900AB5C06 /* MainGeneticGatesRandomizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF43387322122C4900AB5C06 /* MainGeneticGatesRandomizerTests.swift */; };
 		FF43387722123A9200AB5C06 /* GeneticGateTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF43387622123A9200AB5C06 /* GeneticGateTestDouble.swift */; };
 		FF43387822123A9200AB5C06 /* GeneticGateTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF43387622123A9200AB5C06 /* GeneticGateTestDouble.swift */; };
+		FF43393423DCCD0800E26FA4 /* String+BitAnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF43393323DCCD0800E26FA4 /* String+BitAnd.swift */; };
+		FF43393523DCCD0800E26FA4 /* String+BitAnd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF43393323DCCD0800E26FA4 /* String+BitAnd.swift */; };
+		FF43393723DCCF1400E26FA4 /* String+BitAndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF43393623DCCF1400E26FA4 /* String+BitAndTests.swift */; };
+		FF43393823DCCF1400E26FA4 /* String+BitAndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF43393623DCCF1400E26FA4 /* String+BitAndTests.swift */; };
 		FF46EDB1216924050044C3CA /* CircuitFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFED6908212F2DE600D46D68 /* CircuitFacadeTests.swift */; };
 		FF46EDB2216924130044C3CA /* Gate+CircuitViewPositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE7B214ECEDB00AD1F78 /* Gate+CircuitViewPositionTests.swift */; };
 		FF46EDC0216924510044C3CA /* ComplexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */; };
@@ -690,6 +694,9 @@
 		FF433870221227CE00AB5C06 /* GeneticGateFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticGateFactoryTestDouble.swift; sourceTree = "<group>"; };
 		FF43387322122C4900AB5C06 /* MainGeneticGatesRandomizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticGatesRandomizerTests.swift; sourceTree = "<group>"; };
 		FF43387622123A9200AB5C06 /* GeneticGateTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticGateTestDouble.swift; sourceTree = "<group>"; };
+		FF43393323DCCD0800E26FA4 /* String+BitAnd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+BitAnd.swift"; sourceTree = "<group>"; };
+		FF43393623DCCF1400E26FA4 /* String+BitAndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+BitAndTests.swift"; sourceTree = "<group>"; };
+		FF43393923DCD36600E26FA4 /* BernsteinVaziraniAlgorithm.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BernsteinVaziraniAlgorithm.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF43848422B56C2200319473 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		FF4949B9223ECDD50087E821 /* GeneticUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticUseCaseTests.swift; sourceTree = "<group>"; };
 		FF4C1DFF220CEED70088CD3F /* Genetic.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Genetic.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1060,6 +1067,7 @@
 		FF09865C23A681C4009CEC4E /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				FF43393923DCD36600E26FA4 /* BernsteinVaziraniAlgorithm.playground */,
 				FF14031D2121C8D40025AD27 /* DeutschAlgorithm.playground */,
 				FF09865D23A6883C009CEC4E /* DeutschJozsaAlgorithm.playground */,
 				FF1116B423B15DA100AFD0AF /* SimonPeriodicityAlgorithm.playground */,
@@ -1154,6 +1162,7 @@
 				FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */,
 				FF1AAFF0211F66D400D3666A /* Int+Pow.swift */,
 				FF7E557923C5466700A2FEEC /* String+ActivatedBits.swift */,
+				FF43393323DCCD0800E26FA4 /* String+BitAnd.swift */,
 				FF79037021964D6F00FFC31D /* String+Bits.swift */,
 				FF1116B523B183D300AFD0AF /* String+BitXor.swift */,
 				FFF3929B23AFCCB200470C58 /* String+IsBitActivated.swift */,
@@ -1169,6 +1178,7 @@
 				FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */,
 				FF1AAFE7211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift */,
 				FF28D97823C7DD9B0070132F /* String+ActivatedBitsTests.swift */,
+				FF43393623DCCF1400E26FA4 /* String+BitAndTests.swift */,
 				FF1116B823B1916A00AFD0AF /* String+BitXorTests.swift */,
 				FFF3929E23AFD84000470C58 /* String+IsBitActivatedTests.swift */,
 			);
@@ -2420,6 +2430,7 @@
 				FF8B40D323AED0A100A51475 /* Gate+SingleQubitGateRangeTargets.swift in Sources */,
 				FF9BBE2C214E76E800AD1F78 /* HadamardPositionView.swift in Sources */,
 				FF002BCA21FCC0E700E40C3A /* MainGeneticUseCaseEvaluator.swift in Sources */,
+				FF43393423DCCD0800E26FA4 /* String+BitAnd.swift in Sources */,
 				FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */,
 				FF9FBCF321C598B10070D943 /* Matrix+Swap.swift in Sources */,
 				FF79DA18221A143200D093AA /* MainGeneticGatesRandomizerFactory.swift in Sources */,
@@ -2665,6 +2676,7 @@
 				FF149DE9222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift in Sources */,
 				FF6AF8FE2214CB8F00B35ECC /* GeneticGatesRandomizerTestDouble.swift in Sources */,
 				FFB1247E2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift in Sources */,
+				FF43393723DCCF1400E26FA4 /* String+BitAndTests.swift in Sources */,
 				FF79DA0F2219E2EF00D093AA /* GeneticUseCaseEvaluatorTestDouble.swift in Sources */,
 				FFB124812225F38E00E44DC6 /* MainGeneticPopulationCrossoverTests.swift in Sources */,
 				FF0694E721CC05CB00B5D469 /* SimulatorGateTestDouble.swift in Sources */,
@@ -2681,6 +2693,7 @@
 			files = (
 				FF46EDDF216924EE0044C3CA /* Matrix+ControlledNot.swift in Sources */,
 				FF46EDF2216925100044C3CA /* Complex.swift in Sources */,
+				FF43393523DCCD0800E26FA4 /* String+BitAnd.swift in Sources */,
 				FFF3929D23AFCCB300470C58 /* String+IsBitActivated.swift in Sources */,
 				FF46EDF5216925100044C3CA /* Vector.swift in Sources */,
 				FF74B1622219B16900561A1F /* MainOracleCircuitFactory.swift in Sources */,
@@ -2940,6 +2953,7 @@
 				FF6AF8FF2214CB9000B35ECC /* GeneticGatesRandomizerTestDouble.swift in Sources */,
 				FFB1247F2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift in Sources */,
 				FF79DA102219E2EF00D093AA /* GeneticUseCaseEvaluatorTestDouble.swift in Sources */,
+				FF43393823DCCF1400E26FA4 /* String+BitAndTests.swift in Sources */,
 				FFB124822225F38E00E44DC6 /* MainGeneticPopulationCrossoverTests.swift in Sources */,
 				FF0694E821CC05CB00B5D469 /* SimulatorGateTestDouble.swift in Sources */,
 				FF46EDC8216924640044C3CA /* QuantumGateTests.swift in Sources */,
@@ -3103,7 +3117,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 17.0.0;
+				MARKETING_VERSION = 17.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
 				PRODUCT_NAME = "${PROJECT_NAME}";
 				SKIP_INSTALL = YES;
@@ -3130,7 +3144,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 17.0.0;
+				MARKETING_VERSION = 17.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
 				PRODUCT_NAME = "${PROJECT_NAME}";
 				SKIP_INSTALL = YES;
@@ -3194,7 +3208,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 17.0.0;
+				MARKETING_VERSION = 17.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
@@ -3224,7 +3238,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
-				MARKETING_VERSION = 17.0.0;
+				MARKETING_VERSION = 17.1.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.indisoluble.SwiftQuantumComputing;
 				PRODUCT_NAME = "${PROJECT_NAME}";

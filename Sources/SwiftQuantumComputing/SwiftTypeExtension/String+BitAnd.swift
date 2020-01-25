@@ -1,9 +1,9 @@
 //
-//  String+BitXor.swift
+//  String+BitAnd.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 24/12/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 25/01/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,22 +20,15 @@
 
 import Foundation
 
+import Foundation
+
 extension String {
-    /// Returns the result of combining the bits in the bit string using XOR
-    public func bitXor() -> Bool? {
-        let result = reduce("0") { (acc, ch) -> String? in
-            return (acc == nil ? nil : String.bitXor(acc!, String(ch)))
-        }
-
-        return (result == nil ? nil : result == "1")
-    }
-
-    /// Applies XOR to two bit strings
-    public static func bitXor(_ inputA: String, _ inputB: String) -> String? {
+    /// Applies AND to two bit strings
+    public static func &(_ inputA: String, _ inputB: String) -> String? {
         guard let a = Int(inputA, radix: 2), let b = Int(inputB, radix: 2) else {
             return nil
         }
 
-        return String(a ^ b, bitCount: Swift.max(inputA.count, inputB.count))
+        return String(a & b, bitCount: Swift.max(inputA.count, inputB.count))
     }
 }
