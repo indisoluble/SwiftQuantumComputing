@@ -127,6 +127,7 @@ Check full code in [XorGaussianElimination.playground](https://github.com/indiso
 
 Check following playgrounds for more examples:
 
+* [BernsteinVaziraniAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/BernsteinVaziraniAlgorithm.playground) - Bernstein–Vazirani algorithm.
 * [DeutschAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground) - Deutsch's algorithm.
 * [DeutschJozsaAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground) - Deutsch-Jozsa algorithm.
 * [SimonPeriodicityAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground) - Simon's periodicity algorithm.
