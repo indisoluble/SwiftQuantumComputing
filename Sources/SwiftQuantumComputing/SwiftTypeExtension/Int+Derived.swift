@@ -22,6 +22,10 @@ import Foundation
 
 extension Int {
     func derived(takingBitsAt positions: [Int]) -> Int {
-        return Int(String(self, bits: positions), radix: 2)!
+        return positions.reversed().enumerated().reduce(0) { (acc, arg) -> Int in
+            let (next_pos, current_pos) = arg
+
+            return acc + ((self & (1 << current_pos)) >> (current_pos - next_pos))
+        }
     }
 }
