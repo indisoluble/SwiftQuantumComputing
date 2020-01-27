@@ -68,10 +68,8 @@ struct QuantumGateFactory {
             throw GateError.gateInputsAreNotInBound
         }
 
-        let extended = makeExtendedMatrix(indices: inputs.map { qubitCount - $0 - 1 })
-
         do {
-            return try QuantumGate(matrix: extended)
+            return try QuantumGate(matrix: makeExtendedMatrix(indexes: inputs))
         } catch QuantumGate.InitError.matrixIsNotUnitary {
             throw GateError.gateMatrixCanNotBeExtendedIntoACircuitUnitary
         } catch {
@@ -83,13 +81,6 @@ struct QuantumGateFactory {
 // MARK: - Private body
 
 private extension QuantumGateFactory {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let baseIdentity = try! Matrix.makeIdentity(count: 2)
-        static let baseSwap = Matrix.makeSwap()
-    }
 
     // MARK: - Private methods
 
@@ -109,55 +100,26 @@ private extension QuantumGateFactory {
         return (inputs.count == matrixQubitCount)
     }
 
-    func makeExtendedMatrix(indices: [Int]) -> Matrix {
-        guard let (pos, index) = firstIndexNotAlignedToBaseMatrix(indices) else {
-            return makeExtendedMatrixWithBaseMatrixOnTopLeftCorner()
+    func makeExtendedMatrix(indexes: [Int]) -> Matrix {
+        let zero = Complex(0)
+        let count = Int.pow(2, qubitCount)
+
+        let remainingIndexes = (0..<qubitCount).reversed().filter { !indexes.contains($0) }
+
+        var derives: [Int: (base: Int, remaining: Int)] = [:]
+        for value in 0..<count {
+            derives[value] = (value.derived(takingBitsAt: indexes),
+                              value.derived(takingBitsAt: remainingIndexes))
         }
 
-        let swappedIndex = (index - 1)
-        var swappedIndices = indices.map { ($0 == swappedIndex) ? index : $0 }
-        swappedIndices[pos] = swappedIndex
+        return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { r, c -> Complex in
+            let baseRow = derives[r]!.base
+            let baseColumn = derives[c]!.base
 
-        let extended = makeExtendedMatrix(indices: swappedIndices)
-        let swap = makeSwapMatrix(index: swappedIndex)
+            let remainingRow = derives[r]!.remaining
+            let remainingColumn = derives[c]!.remaining
 
-        return (try! swap * (try! extended * swap))
-    }
-
-    func firstIndexNotAlignedToBaseMatrix(_ indices: [Int]) -> (pos: Int, index: Int)? {
-        return zip((0..<indices.count), indices).first(where: !=)
-    }
-
-    func makeExtendedMatrixWithBaseMatrixOnTopLeftCorner() -> Matrix {
-        let matrixQubitCount = Int.log2(baseMatrix.rowCount)
-        let remainingQubits = (qubitCount - matrixQubitCount)
-        guard (remainingQubits > 0) else {
-            return baseMatrix
+            return (remainingRow == remainingColumn ? baseMatrix[baseRow, baseColumn] : zero)
         }
-
-        let identity = makeIdentityMatrix(qubits: remainingQubits)
-        return Matrix.tensorProduct(baseMatrix, identity)
-    }
-
-    func makeIdentityMatrix(qubits: Int) -> Matrix {
-        return (1..<qubits).reduce(Constants.baseIdentity) { (partial, _) in
-            return Matrix.tensorProduct(partial, Constants.baseIdentity)
-        }
-    }
-
-    func makeSwapMatrix(index: Int) -> Matrix {
-        let topQubitCount = index
-        let swapQubitCount = Int.log2(Constants.baseSwap.rowCount)
-        let bottomQubitCount = (qubitCount - topQubitCount - swapQubitCount)
-
-        var swap = Constants.baseSwap
-        if (bottomQubitCount > 0) {
-            swap = Matrix.tensorProduct(swap, makeIdentityMatrix(qubits: bottomQubitCount))
-        }
-        if (topQubitCount > 0) {
-            swap = Matrix.tensorProduct(makeIdentityMatrix(qubits: topQubitCount), swap)
-        }
-
-        return swap
     }
 }

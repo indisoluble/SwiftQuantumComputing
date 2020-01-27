@@ -33,6 +33,7 @@ class QuantumGateFactoryTests: XCTestCase {
                                    [Complex(0), Complex(1), Complex(0), Complex(0)],
                                    [Complex(0), Complex(0), Complex(0), Complex(1)],
                                    [Complex(0), Complex(0), Complex(1), Complex(0)]])
+    let otherValidMatrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
 
     // MARK: - Tests
 
@@ -123,6 +124,18 @@ class QuantumGateFactoryTests: XCTestCase {
 
         // Then
         let expectedGate = try! QuantumGate(matrix: validMatrix)
+        XCTAssertEqual(gate, expectedGate)
+    }
+
+    func testAnyGateFactoryWithSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_makeGate_returnExpectedGate() {
+        // Given
+        let factory = try! QuantumGateFactory(qubitCount: 1, baseMatrix: otherValidMatrix)
+
+        // When
+        let gate = try? factory.makeGate(inputs: [0])
+
+        // Then
+        let expectedGate = try! QuantumGate(matrix: otherValidMatrix)
         XCTAssertEqual(gate, expectedGate)
     }
 
@@ -232,6 +245,8 @@ class QuantumGateFactoryTests: XCTestCase {
          testAnyGateFactoryAndLessInputsThanGateTakes_makeGate_throwException),
         ("testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedGate",
          testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeGate_returnExpectedGate),
+        ("testAnyGateFactoryWithSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_makeGate_returnExpectedGate",
+         testAnyGateFactoryWithSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_makeGate_returnExpectedGate),
         ("testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedGate",
          testAnyGateFactoryWithSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeGate_returnExpectedGate),
         ("testAnyGateFactoryAndNonContiguousInputs_makeGate_returnExpectedGate",

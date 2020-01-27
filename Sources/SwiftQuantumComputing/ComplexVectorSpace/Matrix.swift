@@ -148,6 +148,28 @@ public struct Matrix {
         return Matrix(rowCount: count, columnCount: count, values: columns)
     }
 
+    enum MakeMatrixError: Error {
+        case passRowCountBiggerThanZero
+        case passColumnCountBiggerThanZero
+    }
+
+    static func makeMatrix(rowCount: Int,
+                           columnCount: Int,
+                           value: (Int, Int) -> Complex) throws -> Matrix {
+        guard (rowCount > 0) else {
+            throw MakeMatrixError.passRowCountBiggerThanZero
+        }
+
+        guard (columnCount > 0) else {
+            throw MakeMatrixError.passColumnCountBiggerThanZero
+        }
+
+        let count = (rowCount * columnCount)
+        let values = (0..<count).map { value($0 % rowCount, $0 / rowCount)  }
+
+        return Matrix(rowCount: rowCount, columnCount: columnCount, values: values)
+    }
+
     static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
         var tensor: [Complex] = []
 
