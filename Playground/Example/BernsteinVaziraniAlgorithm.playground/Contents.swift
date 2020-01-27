@@ -1,6 +1,6 @@
 import SwiftQuantumComputing // for macOS
 
-let secret = "110"
+let secret = "110101"
 
 var gates = [Gate.not(target: 0)]
 gates += Gate.hadamard(targets: 0...secret.count)
