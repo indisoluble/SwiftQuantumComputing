@@ -38,8 +38,8 @@ public enum GateError: Error {
     case gateMatrixCanNotBeExtendedIntoACircuitUnitary
     /// Throwed when a gate requires more qubits that the circuit actually has
     case gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
-    /// Throwed when a non-square matrix is used to build a quantum gate
-    case gateMatrixIsNotSquare
+    /// Throwed when the matrix provided by a gate is not unitary
+    case gateMatrixIsNotUnitary
     /// Throwed when the number of rows in a matrix used to build a quantum gate is not a power of 2. A matrix has to
     /// handle all possible combinations for a given number of qubits which is (number of qubits)^2
     case gateMatrixRowCountHasToBeAPowerOfTwo

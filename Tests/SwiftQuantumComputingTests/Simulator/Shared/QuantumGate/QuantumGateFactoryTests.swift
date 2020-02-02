@@ -37,17 +37,7 @@ class QuantumGateFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testNonSquareMatrix_init_throwException() {
-        // Given
-        let complex = Complex(real: 0, imag: 0)
-        let matrix = try! Matrix([[complex], [complex]])
-
-        // Then
-        XCTAssertThrowsError(try QuantumGateFactory(qubitCount: validQubitCount,
-                                                    baseMatrix: matrix))
-    }
-
-    func testSquareMatrixWithSizeNonPowerOfTwo_init_throwException() {
+    func testMatrixWithSizeNonPowerOfTwo_init_throwException() {
         // Given
         let complex = Complex(real: 0, imag: 0)
         let matrix = try! Matrix([[complex, complex, complex],
@@ -59,7 +49,25 @@ class QuantumGateFactoryTests: XCTestCase {
                                                     baseMatrix: matrix))
     }
 
-    func testSquareMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException() {
+    func testNonUnitaryMatrix_init_throwException() {
+        // Given
+        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(1)]])
+
+        // Then
+        XCTAssertThrowsError(try QuantumGateFactory(qubitCount: validQubitCount,
+                                                    baseMatrix: matrix))
+    }
+
+    func testUnitaryMatrixAndQubitCountEqualToZero_init_throwException() {
+        // Given
+        let qubitCount = 0
+
+        // Then
+        XCTAssertThrowsError(try QuantumGateFactory(qubitCount: qubitCount,
+                                                    baseMatrix: validMatrix))
+    }
+
+    func testUnitaryMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException() {
         // Given
         let qubitCount = 1
 
@@ -68,16 +76,7 @@ class QuantumGateFactoryTests: XCTestCase {
                                                     baseMatrix: validMatrix))
     }
 
-    func testOneByOneMatrixAndQubitCountEqualToZero_init_throwException() {
-        // Given
-        let matrix = try! Matrix([[Complex(0)]])
-        let qubitCount = 0
-
-        // Then
-        XCTAssertThrowsError(try QuantumGateFactory(qubitCount: qubitCount, baseMatrix: matrix))
-    }
-
-    func testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnGateFactory() {
+    func testUnitaryMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnGateFactory() {
         // Then
         XCTAssertNoThrow(try QuantumGateFactory(qubitCount: validQubitCount,
                                                 baseMatrix: validMatrix))
@@ -225,16 +224,16 @@ class QuantumGateFactoryTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testNonSquareMatrix_init_throwException",
-         testNonSquareMatrix_init_throwException),
-        ("testSquareMatrixWithSizeNonPowerOfTwo_init_throwException",
-         testSquareMatrixWithSizeNonPowerOfTwo_init_throwException),
-        ("testSquareMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException",
-         testSquareMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException),
-        ("testOneByOneMatrixAndQubitCountEqualToZero_init_throwException",
-         testOneByOneMatrixAndQubitCountEqualToZero_init_throwException),
-        ("testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnGateFactory",
-         testSquareMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnGateFactory),
+        ("testMatrixWithSizeNonPowerOfTwo_init_throwException",
+         testMatrixWithSizeNonPowerOfTwo_init_throwException),
+        ("testNonUnitaryMatrix_init_throwException",
+         testNonUnitaryMatrix_init_throwException),
+        ("testUnitaryMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException",
+         testUnitaryMatrixWithSizePowerOfTwoButBiggerThanQubitCount_init_throwException),
+        ("testUnitaryMatrixAndQubitCountEqualToZero_init_throwException",
+         testUnitaryMatrixAndQubitCountEqualToZero_init_throwException),
+        ("testUnitaryMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnGateFactory",
+         testUnitaryMatrixWithSizePowerOfTwoAndSmallerThanQubitCount_init_returnGateFactory),
         ("testAnyGateFactoryAndRepeatedInputs_makeGate_throwException",
          testAnyGateFactoryAndRepeatedInputs_makeGate_throwException),
         ("testAnyGateFactoryAndInputsOutOfRange_makeGate_throwException",

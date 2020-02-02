@@ -32,12 +32,12 @@ struct QuantumGateFactory {
     // MARK: - Internal init methods
 
     init(qubitCount: Int, baseMatrix: Matrix) throws {
-        guard baseMatrix.isSquare else {
-            throw GateError.gateMatrixIsNotSquare
-        }
-
         guard baseMatrix.rowCount.isPowerOfTwo else {
             throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
+        }
+
+        guard baseMatrix.isUnitary(accuracy: Constants.accuracy) else {
+            throw GateError.gateMatrixIsNotUnitary
         }
 
         guard qubitCount > 0 else {
@@ -81,6 +81,12 @@ struct QuantumGateFactory {
 // MARK: - Private body
 
 private extension QuantumGateFactory {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let accuracy = 0.001
+    }
 
     // MARK: - Private methods
 
