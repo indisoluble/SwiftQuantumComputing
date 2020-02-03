@@ -82,6 +82,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(QuantumGateFactoryTests.allTests),
         testCase(QuantumGate_ApplyingGateTests.allTests),
         testCase(QuantumGateTests.allTests),
+        testCase(SimulatorCircuitMatrixFactoryAdapterTests.allTests),
         testCase(XorEquationSystemAdapterTests.allTests),
         testCase(XorEquationSystemBruteForceSolverTests.allTests),
         testCase(XorEquationSystemPreSimplificationSolverTests.allTests),
