@@ -24,12 +24,6 @@ import Foundation
 
 struct StatevectorRegisterAdapter {
 
-    // MARK: - StatevectorRegister properties
-
-    var statevector: Vector {
-        return register.statevector
-    }
-
     // MARK: - Private properties
 
     private let register: QuantumRegister
@@ -46,6 +40,10 @@ struct StatevectorRegisterAdapter {
 // MARK: - StatevectorRegister methods
 
 extension StatevectorRegisterAdapter: StatevectorRegister {
+    func statevector() -> Vector {
+        return register.statevector
+    }
+
     func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterAdapter {
         let components = try gate.extract()
 

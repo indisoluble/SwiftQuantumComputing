@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol StatevectorRegister {
-    var statevector: Vector { get }
+    func statevector() -> Vector
 
     func applying(_ gate: SimulatorGate) throws -> Self
 }

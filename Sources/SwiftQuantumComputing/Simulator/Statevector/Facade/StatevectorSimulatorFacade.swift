@@ -63,6 +63,6 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
             }
         }
 
-        return register.statevector
+        return register.statevector()
     }
 }

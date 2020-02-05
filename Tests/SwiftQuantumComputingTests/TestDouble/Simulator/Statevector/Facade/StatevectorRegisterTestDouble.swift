@@ -40,7 +40,7 @@ final class StatevectorRegisterTestDouble {
 // MARK: - StatevectorRegister methods
 
 extension StatevectorRegisterTestDouble: StatevectorRegister {
-    var statevector: Vector {
+    func statevector() -> Vector {
         statevectorCount += 1
 
         return statevectorResult
