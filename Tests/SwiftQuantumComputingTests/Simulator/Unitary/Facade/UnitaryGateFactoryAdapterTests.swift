@@ -83,7 +83,7 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
         XCTAssertEqual(gateFactory.lastMakeGateMatrix, matrix)
         XCTAssertEqual(gateFactory.lastMakeGateInputs, inputs)
-        XCTAssertEqual(result?.unitary, Matrix.makeNot())
+        XCTAssertEqual(result?.unitary(), Matrix.makeNot())
     }
 
     static var allTests = [

@@ -40,7 +40,7 @@ final class UnitaryGateTestDouble {
 // MARK: - UnitaryGate methods
 
 extension UnitaryGateTestDouble: UnitaryGate {
-    var unitary: Matrix {
+    func unitary() -> Matrix {
         unitaryCount += 1
 
         return unitaryResult

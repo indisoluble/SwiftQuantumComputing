@@ -83,7 +83,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
         let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex(1), Complex(-1)],
                                                                     [Complex(1), Complex(1)]])))
-        XCTAssertEqual(result?.unitary, expectedUnitary)
+        XCTAssertEqual(result?.unitary(), expectedUnitary)
     }
 
     static var allTests = [

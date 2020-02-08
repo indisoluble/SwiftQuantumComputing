@@ -24,12 +24,6 @@ import Foundation
 
 struct UnitaryGateAdapter {
 
-    // MARK: - UnitaryGate properties
-
-    var unitary: Matrix {
-        return quantumGate.matrix
-    }
-
     // MARK: - Private properties
 
     private let quantumGate: QuantumGate
@@ -46,6 +40,10 @@ struct UnitaryGateAdapter {
 // MARK: - UnitaryGate methods
 
 extension UnitaryGateAdapter: UnitaryGate {
+    func unitary() -> Matrix {
+        return quantumGate.matrix
+    }
+
     func applying(_ gate: SimulatorGate) throws -> UnitaryGateAdapter {
         let components = try gate.extract()
 

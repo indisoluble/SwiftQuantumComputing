@@ -58,6 +58,6 @@ extension UnitarySimulatorFacade: UnitarySimulator {
             }
         }
 
-        return unitaryGate!.unitary
+        return unitaryGate!.unitary()
     }
 }
