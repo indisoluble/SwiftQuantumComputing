@@ -111,6 +111,27 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(result, statevector)
     }
 
+    func testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegisterWhichStatevectorThrowsError_apply_throwError() {
+        // Given
+        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
+
+        registerFactory.makeRegisterResult = register
+        register.applyingResult = firstRegister
+
+        // Then
+        XCTAssertThrowsError(try simulator.apply(circuit: [firstGate], to: initialStatevector))
+
+        XCTAssertEqual(registerFactory.makeRegisterCount, 1)
+        XCTAssertEqual(register.applyingCount, 1)
+        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastApplyingGate === firstGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(firstRegister.applyingCount, 0)
+        XCTAssertEqual(firstRegister.statevectorCount, 1)
+    }
+
     func testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_apply_throwError() {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
@@ -197,6 +218,8 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
          testRegisterFactoryReturnsRegisterAndRegisterThrowsError_apply_throwError),
         ("testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_apply_applyStatevectorOnExpectedRegister",
          testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_apply_applyStatevectorOnExpectedRegister),
+        ("testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegisterWhichStatevectorThrowsError_apply_throwError",
+         testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegisterWhichStatevectorThrowsError_apply_throwError),
         ("testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_apply_throwError",
          testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_apply_throwError),
         ("testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_apply_applyStatevectorOnExpectedRegister",

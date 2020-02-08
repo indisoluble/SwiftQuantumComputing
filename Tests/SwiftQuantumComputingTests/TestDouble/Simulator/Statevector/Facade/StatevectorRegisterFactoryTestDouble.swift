@@ -31,7 +31,7 @@ final class StatevectorRegisterFactoryTestDouble {
     private (set) var makeRegisterCount = 0
     private (set) var lastMakeRegisterState: Vector?
     var makeRegisterResult: StatevectorRegister?
-    var makeRegisterError = MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
+    var makeRegisterError = MakeRegisterError.stateCountHasToBeAPowerOfTwo
 }
 
 // MARK: - StatevectorRegisterFactory methods

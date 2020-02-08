@@ -26,40 +26,61 @@ struct StatevectorRegisterAdapter {
 
     // MARK: - Private properties
 
-    private let register: QuantumRegister
-    private let gateFactory: SimulatorQuantumGateFactory
+    private let vector: Vector
+    private let matrixFactory: SimulatorCircuitMatrixFactory
+
+    private let qubitCount: Int
 
     // MARK: - Internal init methods
 
-    init(register: QuantumRegister, gateFactory: SimulatorQuantumGateFactory) {
-        self.register = register
-        self.gateFactory = gateFactory
+    enum InitError: Error {
+        case vectorCountHasToBeAPowerOfTwo
+    }
+    
+    init(vector: Vector, matrixFactory: SimulatorCircuitMatrixFactory) throws {
+        guard vector.count.isPowerOfTwo else {
+            throw InitError.vectorCountHasToBeAPowerOfTwo
+        }
+
+        qubitCount = Int.log2(vector.count)
+
+        self.vector = vector
+        self.matrixFactory = matrixFactory
     }
 }
 
 // MARK: - StatevectorRegister methods
 
 extension StatevectorRegisterAdapter: StatevectorRegister {
-    func statevector() -> Vector {
-        return register.statevector
+    func statevector() throws -> Vector {
+        guard StatevectorRegisterAdapter.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
+            throw StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne
+        }
+
+        return vector
     }
 
     func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterAdapter {
-        let components = try gate.extract()
+        let matrix = try matrixFactory.makeCircuitMatrix(qubitCount: qubitCount, gate: gate)
+        let nextVector = try! matrix * vector
 
-        let registerGate = try gateFactory.makeGate(qubitCount: register.qubitCount,
-                                                    matrix: components.matrix,
-                                                    inputs: components.inputs)
+        return try! StatevectorRegisterAdapter(vector: nextVector, matrixFactory: matrixFactory)
+    }
+}
 
-        var nextRegister: QuantumRegister!
-        do {
-            nextRegister = try register.applying(registerGate)
-        } catch QuantumRegister.ApplyingError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector {
-            throw GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+// MARK: - Private body
 
-        return StatevectorRegisterAdapter(register: nextRegister, gateFactory: gateFactory)
+private extension StatevectorRegisterAdapter {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let accuracy = 0.001
+    }
+
+    // MARK: - Private class methods
+
+    static func isAdditionOfSquareModulusInVectorEqualToOne(_ vector: Vector) -> Bool {
+        return (abs(vector.squaredNorm - Double(1)) <= Constants.accuracy)
     }
 }

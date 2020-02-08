@@ -29,21 +29,26 @@ final class StatevectorRegisterTestDouble {
     // MARK: - Internal properties
 
     private (set) var statevectorCount = 0
-    var statevectorResult = try! Vector([Complex(0)])
+    var statevectorResult: Vector?
+    var statevectorError = StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne
 
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: SimulatorGate?
     var applyingResult: StatevectorRegisterTestDouble?
-    var applyingError = GateError.additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
+    var applyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
 }
 
 // MARK: - StatevectorRegister methods
 
 extension StatevectorRegisterTestDouble: StatevectorRegister {
-    func statevector() -> Vector {
+    func statevector() throws -> Vector {
         statevectorCount += 1
 
-        return statevectorResult
+        if let statevectorResult = statevectorResult {
+            return statevectorResult
+        }
+
+        throw statevectorError
     }
 
     func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterTestDouble {

@@ -42,10 +42,10 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
         var register: StatevectorRegister!
         do {
             register = try registerFactory.makeRegister(state: initialStatevector)
-        } catch MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne {
-            throw StatevectorWithInitialStatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
         } catch MakeRegisterError.stateCountHasToBeAPowerOfTwo {
             throw StatevectorWithInitialStatevectorError.initialStatevectorCountHasToBeAPowerOfTwo
+        } catch MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne {
+            throw StatevectorWithInitialStatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
         } catch {
             fatalError("Unexpected error: \(error).")
         }
@@ -53,16 +53,23 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
         for gate in circuit {
             do {
                 register = try register.applying(gate)
+            } catch let error as GateError {
+                throw StatevectorWithInitialStatevectorError.gateThrowedError(gate: gate.gate,
+                                                                              error: error)
             } catch {
-                if let error = error as? GateError {
-                    throw StatevectorWithInitialStatevectorError.gateThrowedError(gate: gate.gate,
-                                                                                  error: error)
-                } else {
-                    fatalError("Unexpected error: \(error).")
-                }
+                fatalError("Unexpected error: \(error).")
             }
         }
 
-        return register.statevector()
+        var vector: Vector!
+        do {
+            vector = try register.statevector()
+        } catch StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
+            throw StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
+
+        return vector
     }
 }

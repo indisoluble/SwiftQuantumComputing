@@ -40,7 +40,7 @@ final class CircuitTestDouble {
     private (set) var lastStatevectorInitialStatevector: Vector?
     var statevectorResult: Vector?
     var statevectorError = StatevectorWithInitialStatevectorError.gateThrowedError(gate: .not(target: 0),
-                                                                                   error: .additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector)
+                                                                                   error: .resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary)
 }
 
 // MARK: - Circuit methods

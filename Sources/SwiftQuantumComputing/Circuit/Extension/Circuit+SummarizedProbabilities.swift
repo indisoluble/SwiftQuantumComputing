@@ -155,12 +155,10 @@ private extension Circuit {
     func errorCapturedProbabilities(withInitialBits initialBits: String?) throws -> [Double] {
         do {
             return try probabilities(withInitialBits: initialBits)
+        } catch let error as ProbabilitiesError {
+            throw SummarizedProbabilitiesError.probabilitiesThrowedError(error: error)
         } catch {
-            if let error = error as? ProbabilitiesError {
-                throw SummarizedProbabilitiesError.probabilitiesThrowedError(error: error)
-            } else {
-                fatalError("Unexpected error: \(error).")
-            }
+            fatalError("Unexpected error: \(error).")
         }
     }
 
