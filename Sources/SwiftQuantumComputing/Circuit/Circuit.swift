@@ -67,6 +67,8 @@ public enum UnitaryError: Error {
     case circuitCanNotBeAnEmptyList
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
+    /// Throwed when the resulting matrix lost too much precision after applying `gates`
+    case resultingMatrixIsNotUnitary
 }
 
 // MARK: - Protocol definition

@@ -29,7 +29,8 @@ final class UnitaryGateTestDouble {
     // MARK: - Internal properties
 
     private (set) var unitaryCount = 0
-    var unitaryResult = try! Matrix([[Complex(0)]])
+    var unitaryResult: Matrix?
+    var unitaryError = UnitaryError.resultingMatrixIsNotUnitary
 
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: SimulatorGate?
@@ -40,10 +41,14 @@ final class UnitaryGateTestDouble {
 // MARK: - UnitaryGate methods
 
 extension UnitaryGateTestDouble: UnitaryGate {
-    func unitary() -> Matrix {
+    func unitary() throws -> Matrix {
         unitaryCount += 1
 
-        return unitaryResult
+        if let unitaryResult = unitaryResult {
+            return unitaryResult
+        }
+
+        throw unitaryError
     }
 
     func applying(_ gate: SimulatorGate) throws -> UnitaryGateTestDouble {
