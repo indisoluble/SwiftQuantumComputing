@@ -26,6 +26,7 @@ public func allTests() -> [XCTestCaseEntry] {
     return [
         testCase(ArraySimulatorGate_QubitCountTests.allTests),
         testCase(StatevectorRegisterAdapterTests.allTests),
+        testCase(StatevectorRegisterFactoryAdapterTests.allTests),
         testCase(StatevectorSimulatorFacadeTests.allTests),
         testCase(UnitaryGateAdapterTests.allTests),
         testCase(UnitaryGateFactoryAdapterTests.allTests),
@@ -82,6 +83,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(QuantumGateFactoryTests.allTests),
         testCase(QuantumGate_ApplyingGateTests.allTests),
         testCase(QuantumGateTests.allTests),
+        testCase(SimulatorCircuitMatrixFactoryAdapterTests.allTests),
         testCase(XorEquationSystemAdapterTests.allTests),
         testCase(XorEquationSystemBruteForceSolverTests.allTests),
         testCase(XorEquationSystemPreSimplificationSolverTests.allTests),

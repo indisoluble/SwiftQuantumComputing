@@ -48,12 +48,10 @@ extension Circuit {
         var state: Vector!
         do {
             state = try statevector(withInitialBits: initialBits)
+        } catch let error as StatevectorError {
+            throw ProbabilitiesError.statevectorThrowedError(error: error)
         } catch {
-            if let error = error as? StatevectorError {
-                throw ProbabilitiesError.statevectorThrowedError(error: error)
-            } else {
-                fatalError("Unexpected error: \(error).")
-            }
+            fatalError("Unexpected error: \(error).")
         }
 
         return state.map { $0.squaredModulus }

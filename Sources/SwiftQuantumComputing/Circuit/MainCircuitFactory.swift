@@ -37,12 +37,12 @@ extension MainCircuitFactory: CircuitFactory {
 
     /// Check `CircuitFactory.makeCircuit(gates:)`
     public func makeCircuit(gates: [Gate]) -> Circuit {
-        let gateFactory = SimulatorQuantumGateFactoryAdapter()
+        let matrixFactory = SimulatorCircuitMatrixFactoryAdapter()
 
-        let unitaryGateFactory = UnitaryGateFactoryAdapter(gateFactory: gateFactory)
+        let unitaryGateFactory = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
         let unitarySimulator = UnitarySimulatorFacade(gateFactory: unitaryGateFactory)
 
-        let statevectorRegisterFactory = StatevectorRegisterFactoryAdapter(gateFactory: gateFactory)
+        let statevectorRegisterFactory = StatevectorRegisterFactoryAdapter(matrixFactory: matrixFactory)
         let statevectorSimulator = StatevectorSimulatorFacade(registerFactory: statevectorRegisterFactory)
 
         return CircuitFacade(gates: gates,

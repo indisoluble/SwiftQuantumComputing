@@ -26,12 +26,12 @@ struct StatevectorRegisterFactoryAdapter {
 
     // MARK: - Private properties
 
-    private let gateFactory: SimulatorQuantumGateFactory
+    private let matrixFactory: SimulatorCircuitMatrixFactory
 
     // MARK: - Internal init methods
 
-    init(gateFactory: SimulatorQuantumGateFactory) {
-        self.gateFactory = gateFactory
+    init(matrixFactory: SimulatorCircuitMatrixFactory) {
+        self.matrixFactory = matrixFactory
     }
 }
 
@@ -39,17 +39,23 @@ struct StatevectorRegisterFactoryAdapter {
 
 extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
     func makeRegister(state: Vector) throws -> StatevectorRegister {
-        var register: QuantumRegister!
+        var register: StatevectorRegister!
         do {
-            register = try QuantumRegister(vector: state)
-        } catch QuantumRegister.InitVectorError.vectorAdditionOfSquareModulusIsNotEqualToOne {
-            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
-        } catch QuantumRegister.InitVectorError.vectorCountHasToBeAPowerOfTwo {
+            register = try StatevectorRegisterAdapter(vector: state, matrixFactory: matrixFactory)
+        } catch StatevectorRegisterAdapter.InitError.vectorCountHasToBeAPowerOfTwo {
             throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
-        return StatevectorRegisterAdapter(register: register, gateFactory: gateFactory)
+        do {
+            _ = try register.statevector()
+        } catch StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
+            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
+
+        return register
     }
 }

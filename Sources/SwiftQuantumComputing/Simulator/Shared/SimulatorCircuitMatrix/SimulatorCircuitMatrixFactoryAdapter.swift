@@ -1,9 +1,9 @@
 //
-//  QuantumGateFactory.swift
+//  SimulatorCircuitMatrixFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 11/08/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 03/02/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,41 +22,34 @@ import Foundation
 
 // MARK: - Main body
 
-struct QuantumGateFactory {
+struct SimulatorCircuitMatrixFactoryAdapter {}
 
-    // MARK: - Private properties
+// MARK: - SimulatorCircuitMatrixFactory methods
 
-    private let qubitCount: Int
-    private let baseMatrix: Matrix
+extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
+    func makeCircuitMatrix(qubitCount: Int, gate: SimulatorGate) throws -> Matrix {
+        let components = try gate.extract()
+        let matrix = components.matrix
+        let inputs = components.inputs
 
-    // MARK: - Internal init methods
-
-    init(qubitCount: Int, baseMatrix: Matrix) throws {
-        guard baseMatrix.isSquare else {
-            throw GateError.gateMatrixIsNotSquare
+        guard matrix.rowCount.isPowerOfTwo else {
+            throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
         }
 
-        guard baseMatrix.rowCount.isPowerOfTwo else {
-            throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
+        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
+            throw GateError.gateMatrixIsNotUnitary
         }
 
         guard qubitCount > 0 else {
             throw GateError.circuitQubitCountHasToBeBiggerThanZero
         }
 
-        let matrixQubitCount = Int.log2(baseMatrix.rowCount)
+        let matrixQubitCount = Int.log2(matrix.rowCount)
         guard (matrixQubitCount <= qubitCount) else {
             throw GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
         }
 
-        self.qubitCount = qubitCount
-        self.baseMatrix = baseMatrix
-    }
-
-    // MARK: - Internal methods
-
-    func makeGate(inputs: [Int]) throws -> QuantumGate {
-        guard doesInputCountMatchBaseMatrixQubitCount(inputs) else {
+        guard doesInputCountMatchBaseMatrixQubitCount(inputs, baseMatrix: matrix) else {
             throw GateError.gateInputCountDoesNotMatchGateMatrixQubitCount
         }
 
@@ -64,23 +57,23 @@ struct QuantumGateFactory {
             throw GateError.gateInputsAreNotUnique
         }
 
-        guard areInputsInBound(inputs) else {
+        guard areInputsInBound(inputs, qubitCount: qubitCount) else {
             throw GateError.gateInputsAreNotInBound
         }
 
-        do {
-            return try QuantumGate(matrix: makeExtendedMatrix(indexes: inputs))
-        } catch QuantumGate.InitError.matrixIsNotUnitary {
-            throw GateError.gateMatrixCanNotBeExtendedIntoACircuitUnitary
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return makeExtendedMatrix(qubitCount: qubitCount, inputs: inputs, baseMatrix: matrix)
     }
 }
 
 // MARK: - Private body
 
-private extension QuantumGateFactory {
+private extension SimulatorCircuitMatrixFactoryAdapter {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let accuracy = 0.001
+    }
 
     // MARK: - Private methods
 
@@ -88,28 +81,28 @@ private extension QuantumGateFactory {
         return (inputs.count == Set(inputs).count)
     }
 
-    func areInputsInBound(_ inputs: [Int]) -> Bool {
+    func areInputsInBound(_ inputs: [Int], qubitCount: Int) -> Bool {
         let validInputs = (0..<qubitCount)
 
         return inputs.allSatisfy { validInputs.contains($0) }
     }
 
-    func doesInputCountMatchBaseMatrixQubitCount(_ inputs: [Int]) -> Bool {
+    func doesInputCountMatchBaseMatrixQubitCount(_ inputs: [Int], baseMatrix: Matrix) -> Bool {
         let matrixQubitCount = Int.log2(baseMatrix.rowCount)
 
         return (inputs.count == matrixQubitCount)
     }
 
-    func makeExtendedMatrix(indexes: [Int]) -> Matrix {
+    func makeExtendedMatrix(qubitCount: Int, inputs: [Int], baseMatrix: Matrix) -> Matrix {
         let zero = Complex(0)
         let count = Int.pow(2, qubitCount)
 
-        let remainingIndexes = (0..<qubitCount).reversed().filter { !indexes.contains($0) }
+        let remainingInputs = (0..<qubitCount).reversed().filter { !inputs.contains($0) }
 
         var derives: [Int: (base: Int, remaining: Int)] = [:]
         for value in 0..<count {
-            derives[value] = (value.derived(takingBitsAt: indexes),
-                              value.derived(takingBitsAt: remainingIndexes))
+            derives[value] = (value.derived(takingBitsAt: inputs),
+                              value.derived(takingBitsAt: remainingInputs))
         }
 
         return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { r, c -> Complex in

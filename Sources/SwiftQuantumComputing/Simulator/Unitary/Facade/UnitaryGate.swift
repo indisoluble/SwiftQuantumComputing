@@ -23,7 +23,6 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol UnitaryGate {
-    var unitary: Matrix { get }
-
+    func unitary() throws -> Matrix
     func applying(_ gate: SimulatorGate) throws -> Self
 }

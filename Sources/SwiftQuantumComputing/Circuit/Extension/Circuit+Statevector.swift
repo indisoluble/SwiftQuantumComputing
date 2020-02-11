@@ -24,10 +24,12 @@ import Foundation
 
 /// Errors throwed by `Circuit.statevector(withInitialBits:)`
 public enum StatevectorError: Error {
-    /// Throwed when `initialBits` is not composed only of 0's & 1's
-    case initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
+    /// Throwed when `initialBits` is not composed only of 0's & 1's
+    case initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
+    /// Throwed when the resulting state vector lost too much precision after applying `gates`
+    case resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - Main body
@@ -55,17 +57,12 @@ extension Circuit {
 
         do {
             return try statevector(withInitialStatevector: initialStatevector)
+        } catch StatevectorWithInitialStatevectorError.gateThrowedError(let gate, let gateError) {
+            throw StatevectorError.gateThrowedError(gate: gate, error: gateError)
+        } catch StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne {
+            throw StatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
         } catch {
-            if let error = error as? StatevectorWithInitialStatevectorError {
-                switch error {
-                case .gateThrowedError(let gate, let gateError):
-                    throw StatevectorError.gateThrowedError(gate: gate, error: gateError)
-                default:
-                    fatalError("Unexpected error: \(error).")
-                }
-            } else {
-                fatalError("Unexpected error: \(error).")
-            }
+            fatalError("Unexpected error: \(error).")
         }
     }
 }
