@@ -24,44 +24,62 @@ import Foundation
 
 struct UnitaryGateAdapter {
 
-    // MARK: - UnitaryGate properties
-
-    var unitary: Matrix {
-        return quantumGate.matrix
-    }
-
     // MARK: - Private properties
 
-    private let quantumGate: QuantumGate
-    private let gateFactory: SimulatorQuantumGateFactory
+    private let matrix: Matrix
+    private let matrixFactory: SimulatorCircuitMatrixFactory
+
+    private let qubitCount: Int
 
     // MARK: - Internal init methods
 
-    init(quantumGate: QuantumGate, gateFactory: SimulatorQuantumGateFactory) {
-        self.quantumGate = quantumGate
-        self.gateFactory = gateFactory
+    enum InitError: Error {
+        case matrixIsNotSquare
+        case matrixRowCountHasToBeAPowerOfTwo
+    }
+
+    init(matrix: Matrix, matrixFactory: SimulatorCircuitMatrixFactory) throws {
+        guard matrix.isSquare else {
+            throw InitError.matrixIsNotSquare
+        }
+
+        guard matrix.rowCount.isPowerOfTwo else {
+            throw InitError.matrixRowCountHasToBeAPowerOfTwo
+        }
+
+        qubitCount = Int.log2(matrix.rowCount)
+
+        self.matrix = matrix
+        self.matrixFactory = matrixFactory
     }
 }
 
 // MARK: - UnitaryGate methods
 
 extension UnitaryGateAdapter: UnitaryGate {
-    func applying(_ gate: SimulatorGate) throws -> UnitaryGateAdapter {
-        let components = try gate.extract()
-
-        let otherQuantumGate = try gateFactory.makeGate(qubitCount: quantumGate.qubitCount,
-                                                        matrix: components.matrix,
-                                                        inputs: components.inputs)
-
-        var nextQuantumGate: QuantumGate!
-        do {
-            nextQuantumGate = try quantumGate.applying(otherQuantumGate)
-        } catch QuantumGate.ApplyingError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary {
-            throw GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
-        } catch {
-            fatalError("Unexpected error: \(error).")
+    func unitary() throws -> Matrix {
+        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
+            throw UnitaryError.resultingMatrixIsNotUnitary
         }
 
-        return UnitaryGateAdapter(quantumGate: nextQuantumGate, gateFactory: gateFactory)
+        return matrix
+    }
+
+    func applying(_ gate: SimulatorGate) throws -> UnitaryGateAdapter {
+        let otherMatrix = try matrixFactory.makeCircuitMatrix(qubitCount: qubitCount, gate: gate)
+        let nextMatrix = try! otherMatrix * matrix
+
+        return try! UnitaryGateAdapter(matrix: nextMatrix, matrixFactory: matrixFactory)
+    }
+}
+
+// MARK: - Private body
+
+private extension UnitaryGateAdapter {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let accuracy = 0.001
     }
 }

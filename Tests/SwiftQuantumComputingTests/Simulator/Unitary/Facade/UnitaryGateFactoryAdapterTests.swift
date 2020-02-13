@@ -28,70 +28,53 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let gateFactory = SimulatorQuantumGateFactoryTestDouble()
+    let matrixFactory = SimulatorCircuitMatrixFactoryTestDouble()
     let qubitCount = 1
     let simulatorGate = SimulatorGateTestDouble()
-    let matrix = Matrix.makeNot()
-    let inputs = [0]
 
     // MARK: - Tests
 
-    func testSimulatorGateThatThrowsError_applying_throwError() {
+    func testMatrixFactoryThatThrowsError_applying_throwError() {
         // Given
-        let adapter = UnitaryGateFactoryAdapter(gateFactory: gateFactory)
-
-        // Then
-        XCTAssertThrowsError(try adapter.makeGate(qubitCount: qubitCount,
-                                                  simulatorGate: simulatorGate))
-        XCTAssertEqual(simulatorGate.extractCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 0)
-    }
-
-    func testGateFactoryThatThrowsError_applying_throwError() {
-        // Given
-        let adapter = UnitaryGateFactoryAdapter(gateFactory: gateFactory)
-
-        simulatorGate.extractInputsResult = inputs
-        simulatorGate.extractMatrixResult = matrix
+        let adapter = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
 
         // Then
         XCTAssertThrowsError(try adapter.makeGate(qubitCount: qubitCount,
                                                   simulatorGate: simulatorGate))
 
-        XCTAssertEqual(simulatorGate.extractCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
-        XCTAssertEqual(gateFactory.lastMakeGateMatrix, matrix)
-        XCTAssertEqual(gateFactory.lastMakeGateInputs, inputs)
+        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
+        if let appliedGate = matrixFactory.lastMakeCircuitMatrixGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(appliedGate === simulatorGate)
+        } else {
+            XCTAssert(false)
+        }
     }
 
-    func testGateFactoryReturnsGate_applying_returnValue() {
+    func testMatrixFactoryReturnsGate_applying_returnValue() {
         // Given
-        let adapter = UnitaryGateFactoryAdapter(gateFactory: gateFactory)
+        let adapter = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
 
-        simulatorGate.extractInputsResult = inputs
-        simulatorGate.extractMatrixResult = matrix
-
-        gateFactory.makeGateResult = try! QuantumGate(matrix: Matrix.makeNot())
+        matrixFactory.makeCircuitMatrixResult = Matrix.makeNot()
 
         // When
         let result = try? adapter.makeGate(qubitCount: qubitCount, simulatorGate: simulatorGate)
 
         // Then
-        XCTAssertEqual(simulatorGate.extractCount, 1)
-        XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
-        XCTAssertEqual(gateFactory.lastMakeGateMatrix, matrix)
-        XCTAssertEqual(gateFactory.lastMakeGateInputs, inputs)
-        XCTAssertEqual(result?.unitary, Matrix.makeNot())
+        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
+        if let appliedGate = matrixFactory.lastMakeCircuitMatrixGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(appliedGate === simulatorGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(try? result?.unitary(), Matrix.makeNot())
     }
 
     static var allTests = [
-        ("testSimulatorGateThatThrowsError_applying_throwError",
-         testSimulatorGateThatThrowsError_applying_throwError),
-        ("testGateFactoryThatThrowsError_applying_throwError",
-         testGateFactoryThatThrowsError_applying_throwError),
-        ("testGateFactoryReturnsGate_applying_returnValue",
-         testGateFactoryReturnsGate_applying_returnValue)
+        ("testMatrixFactoryThatThrowsError_applying_throwError",
+         testMatrixFactoryThatThrowsError_applying_throwError),
+        ("testMatrixFactoryReturnsGate_applying_returnValue",
+         testMatrixFactoryReturnsGate_applying_returnValue)
     ]
 }

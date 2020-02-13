@@ -20,10 +20,15 @@
 
 import Foundation
 
+// MARK: - Errors
+
+enum StatevectorRegisterError: Error {
+    case statevectorAdditionOfSquareModulusIsNotEqualToOne
+}
+
 // MARK: - Protocol definition
 
 protocol StatevectorRegister {
-    var statevector: Vector { get }
-
+    func statevector() throws -> Vector
     func applying(_ gate: SimulatorGate) throws -> Self
 }

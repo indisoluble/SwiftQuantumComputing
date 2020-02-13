@@ -49,15 +49,13 @@ extension UnitarySimulatorFacade: UnitarySimulator {
                 unitaryGate = (unitaryGate == nil ?
                     try gateFactory.makeGate(qubitCount: qubitCount, simulatorGate: gate) :
                     try unitaryGate!.applying(gate))
+            } catch let error as GateError {
+                throw UnitaryError.gateThrowedError(gate: gate.gate, error: error)
             } catch {
-                if let error = error as? GateError {
-                    throw UnitaryError.gateThrowedError(gate: gate.gate, error: error)
-                } else {
-                    fatalError("Unexpected error: \(error).")
-                }
+                fatalError("Unexpected error: \(error).")
             }
         }
 
-        return unitaryGate!.unitary
+        return try unitaryGate!.unitary()
     }
 }

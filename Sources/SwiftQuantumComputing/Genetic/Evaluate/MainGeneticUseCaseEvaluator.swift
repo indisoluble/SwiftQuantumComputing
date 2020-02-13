@@ -59,13 +59,10 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
         var probabilities: [Double]!
         do {
             probabilities = try circuit.probabilities(withInitialBits: input)
+        } catch let error as ProbabilitiesError {
+            throw EvolveCircuitError.useCaseMeasurementThrowedError(useCase: useCase, error: error)
         } catch {
-            if let error = error as? ProbabilitiesError {
-                throw EvolveCircuitError.useCaseMeasurementThrowedError(useCase: useCase,
-                                                                        error: error)
-            } else {
-                fatalError("Unexpected error: \(error).")
-            }
+            fatalError("Unexpected error: \(error).")
         }
 
         guard let index = Int(useCase.circuit.output, radix: 2) else {

@@ -92,6 +92,27 @@ class UnitarySimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
+    func testOneGateCircuitAndGateFactoryThatReturnsGateWhichUnitaryThrowsError_unitary_throwError() {
+        // Given
+        let simulator = UnitarySimulatorFacade(gateFactory: gateFactory)
+
+        gateFactory.applyingResult = firstUnitaryGate
+
+        let circuit = [firstSimulatorGate]
+
+        // Then
+        XCTAssertThrowsError(try simulator.unitary(with: circuit, qubitCount: qubitCount))
+        XCTAssertEqual(gateFactory.makeGateCount, 1)
+        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
+        if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? SimulatorGateTestDouble {
+            XCTAssertTrue(lastMakeGateSimulatorGate === firstSimulatorGate)
+        } else {
+            XCTAssert(false)
+        }
+        XCTAssertEqual(firstUnitaryGate.applyingCount, 0)
+        XCTAssertEqual(firstUnitaryGate.unitaryCount, 1)
+    }
+
     func testTwoGatesCircuitFactoryThatReturnsUnitaryAndUnitaryThatThrowsError_unitary_throwError() {
         // Given
         let simulator = UnitarySimulatorFacade(gateFactory: gateFactory)
@@ -165,6 +186,8 @@ class UnitarySimulatorFacadeTests: XCTestCase {
          testNonEmptyCircuitAndGateFactoryThatThrowsError_unitary_throwError),
         ("testOneGateCircuitAndGateFactoryThatReturnsGate_unitary_returnExpectedMatrix",
          testOneGateCircuitAndGateFactoryThatReturnsGate_unitary_returnExpectedMatrix),
+        ("testOneGateCircuitAndGateFactoryThatReturnsGateWhichUnitaryThrowsError_unitary_throwError",
+         testOneGateCircuitAndGateFactoryThatReturnsGateWhichUnitaryThrowsError_unitary_throwError),
         ("testTwoGatesCircuitFactoryThatReturnsUnitaryAndUnitaryThatThrowsError_unitary_throwError",
          testTwoGatesCircuitFactoryThatReturnsUnitaryAndUnitaryThatThrowsError_unitary_throwError),
         ("testThreeGatesCircuitFactoryThatReturnsUnitaryAndUnitariesThatDoTheSame_unitary_returnExpectedMatrix",

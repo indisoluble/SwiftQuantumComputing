@@ -32,7 +32,7 @@ final class StatevectorSimulatorTestDouble {
     private (set) var lastApplyCircuit: [SimulatorGate]?
     private (set) var lastApplyInitialStatevector: Vector?
     var applyResult: Vector?
-    var applyError = StatevectorWithInitialStatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
+    var applyError = StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - StatevectorSimulator methods

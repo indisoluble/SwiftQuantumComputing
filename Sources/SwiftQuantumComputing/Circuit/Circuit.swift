@@ -24,8 +24,6 @@ import Foundation
 
 /// Errors throwed  while acting on or using a `Gate` in a `Circuit`
 public enum GateError: Error {
-    /// Throwed when the resulting statevector after applying a gate is no longer valid
-    case additionOfSquareModulusIsNotEqualToOneAfterApplyingGateToStatevector
     /// Throwed when the number of qubits (informed or inferred) to create a circuit is 0
     case circuitQubitCountHasToBeBiggerThanZero
     /// Throwed when a gate does not uses as many qubits as its matrix is able to handle
@@ -38,8 +36,8 @@ public enum GateError: Error {
     case gateMatrixCanNotBeExtendedIntoACircuitUnitary
     /// Throwed when a gate requires more qubits that the circuit actually has
     case gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
-    /// Throwed when a non-square matrix is used to build a quantum gate
-    case gateMatrixIsNotSquare
+    /// Throwed when the matrix provided by a gate is not unitary
+    case gateMatrixIsNotUnitary
     /// Throwed when the number of rows in a matrix used to build a quantum gate is not a power of 2. A matrix has to
     /// handle all possible combinations for a given number of qubits which is (number of qubits)^2
     case gateMatrixRowCountHasToBeAPowerOfTwo
@@ -53,11 +51,14 @@ public enum GateError: Error {
 public enum StatevectorWithInitialStatevectorError: Error {
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
-    /// Throwed when `initialStatevector` is not valid
+    /// Throwed when `initialStatevector` is not valid or the resulting state vector lost too much precision
+    /// after applying `gates`
     case initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
     /// Throwed when the length of `initialStatevector` is not a power of 2. An `initialStatevector` represents
     /// all possible qubit combinations, tnis is (qubitCount)^2
     case initialStatevectorCountHasToBeAPowerOfTwo
+    /// Throwed when the resulting state vector lost too much precision after applying `gates`
+    case resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 /// Errors throwed by `Circuit.unitary(withQubitCount:)`
@@ -66,6 +67,8 @@ public enum UnitaryError: Error {
     case circuitCanNotBeAnEmptyList
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
+    /// Throwed when the resulting matrix lost too much precision after applying `gates`
+    case resultingMatrixIsNotUnitary
 }
 
 // MARK: - Protocol definition

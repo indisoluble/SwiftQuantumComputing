@@ -183,6 +183,45 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix, expectedMatrix)
     }
 
+    func testZeroRowCount_makeMatrix_throwException() {
+        // Then
+        XCTAssertThrowsError(try Matrix.makeMatrix(rowCount: 0,
+                                                   columnCount: 1,
+                                                   value: { _,_ in Complex(0) }))
+    }
+
+    func testZeroColumnCount_makeMatrix_throwException() {
+        // Then
+        XCTAssertThrowsError(try Matrix.makeMatrix(rowCount: 1,
+                                                   columnCount: 0,
+                                                   value: { _,_ in Complex(0) }))
+    }
+
+    func testOneRowOneColumn_makeMatrix_returnExpectedMatrix() {
+        // When
+        let matrix = try? Matrix.makeMatrix(rowCount: 1, columnCount: 1) { _,_ in Complex(1) }
+
+        // Then
+        let expectedMatrix = try? Matrix([[Complex(1)]])
+
+        XCTAssertEqual(matrix, expectedMatrix)
+    }
+
+    func testAnyRowsAndColumns_makeMatrix_returnExpectedMatrix() {
+        // When
+        let matrix = try? Matrix.makeMatrix(rowCount: 2, columnCount: 3) { (r, c) -> Complex in
+            return Complex(real: Double(r), imag: Double(c))
+        }
+
+        // Then
+        let expectedMatrix = try? Matrix([
+            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 1), Complex(real: 0, imag: 2)],
+            [Complex(real: 1, imag: 0), Complex(real: 1, imag: 1), Complex(real: 1, imag: 2)]
+        ])
+
+        XCTAssertEqual(matrix, expectedMatrix)
+    }
+
     func testTwoMatrices_tensorProduct_returnExpectedMatrix() {
         // Given
         let lhsElements = [
@@ -347,6 +386,14 @@ class MatrixTests: XCTestCase {
          testCountEqualToZero_makeIdentity_throwException),
         ("testCountBiggerThanZero_makeIdentity_returnExpectedMatrix",
          testCountBiggerThanZero_makeIdentity_returnExpectedMatrix),
+        ("testZeroRowCount_makeMatrix_throwException",
+         testZeroRowCount_makeMatrix_throwException),
+        ("testZeroColumnCount_makeMatrix_throwException",
+         testZeroColumnCount_makeMatrix_throwException),
+        ("testOneRowOneColumn_makeMatrix_returnExpectedMatrix",
+         testOneRowOneColumn_makeMatrix_returnExpectedMatrix),
+        ("testAnyRowsAndColumns_makeMatrix_returnExpectedMatrix",
+         testAnyRowsAndColumns_makeMatrix_returnExpectedMatrix),
         ("testTwoMatrices_tensorProduct_returnExpectedMatrix",
          testTwoMatrices_tensorProduct_returnExpectedMatrix),
         ("testOneComplexNumberAndOneMatrix_multiply_returnExpectedMatrix",

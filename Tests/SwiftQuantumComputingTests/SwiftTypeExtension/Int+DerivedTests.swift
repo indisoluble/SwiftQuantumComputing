@@ -28,6 +28,11 @@ class Int_DerivedTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testTwoAndNoPositions_derived_returnExpectedValue() {
+        // Then
+        XCTAssertEqual(2.derived(takingBitsAt: []), 0)
+    }
+
     func testTwoAndTwoSortedPositions_derived_returnExpectedValue() {
         // Then
         XCTAssertEqual(2.derived(takingBitsAt: [2, 1]), 1)
@@ -59,6 +64,8 @@ class Int_DerivedTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testTwoAndNoPositions_derived_returnExpectedValue",
+         testTwoAndNoPositions_derived_returnExpectedValue),
         ("testTwoAndTwoSortedPositions_derived_returnExpectedValue",
          testTwoAndTwoSortedPositions_derived_returnExpectedValue),
         ("testTwoAndTwoInvertedPositions_derived_returnExpectedValue",

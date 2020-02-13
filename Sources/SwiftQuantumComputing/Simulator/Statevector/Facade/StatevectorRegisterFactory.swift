@@ -23,8 +23,8 @@ import Foundation
 // MARK: - Errors
 
 enum MakeRegisterError: Error {
-    case stateCountHasToBeAPowerOfTwo
     case stateAdditionOfSquareModulusIsNotEqualToOne
+    case stateCountHasToBeAPowerOfTwo
 }
 
 // MARK: - Protocol definition
