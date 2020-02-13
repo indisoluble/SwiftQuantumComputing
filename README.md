@@ -1,14 +1,14 @@
 # Quantum circuit simulator in Swift
 
-![CI Status](https://github.com/indisoluble/SwiftQuantumComputing/workflows/build/badge.svg?branch=master)
+[![CI Status](https://github.com/indisoluble/SwiftQuantumComputing/workflows/build/badge.svg?branch=master)](https://github.com/indisoluble/SwiftQuantumComputing/actions?query=branch%3Amaster)
 [![codecov](https://codecov.io/gh/indisoluble/SwiftQuantumComputing/branch/master/graph/badge.svg)](https://codecov.io/gh/indisoluble/SwiftQuantumComputing)
 [![Version](https://img.shields.io/cocoapods/v/SwiftQuantumComputing.svg)](http://cocoapods.org/pods/SwiftQuantumComputing)
 ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
 [![Documentation](https://indisoluble.github.io/SwiftQuantumComputing/badge.svg)](https://indisoluble.github.io/SwiftQuantumComputing)
 
-Here you can find a quantum circuit simulator written in Swift and speeded up with [Accelerate.framework](https://developer.apple.com/documentation/accelerate) in iOS/macOS and [BLAS](http://www.netlib.org/blas/) in Linux.
+A quantum circuit simulator written in Swift and accelerated with [Accelerate.framework](https://developer.apple.com/documentation/accelerate) in iOS/macOS and [BLAS](http://www.netlib.org/blas/) in Linux.
 
-Along side the simulator there is also a genetic algorithm to automatically generate circuits and an implementation of Gaussian elimination algorithm to solve systems of XOR equations.
+Along side the simulator there is a genetic algorithm to automatically generate circuits and an implementation of Gaussian elimination algorithm to solve systems of XOR equations.
 
 The code written so far is mostly based on the content of: [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965), with a few tips from [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X). It is also inspired by [IBM Qiskit](https://github.com/Qiskit/qiskit-terra).
 
