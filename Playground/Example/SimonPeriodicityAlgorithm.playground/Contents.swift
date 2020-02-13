@@ -1,6 +1,6 @@
 import SwiftQuantumComputing // for macOS 
 
-let secret = "110"
+let secret = "1101"
 
 let bitCount = secret.count
 
