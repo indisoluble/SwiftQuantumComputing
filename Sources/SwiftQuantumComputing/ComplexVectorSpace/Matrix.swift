@@ -131,23 +131,6 @@ public struct Matrix {
 
     // MARK: - Internal class methods
 
-    enum MakeIdentityError: Error {
-        case passCountBiggerThanZero
-    }
-
-    static func makeIdentity(count: Int) throws -> Matrix {
-        guard (count > 0) else {
-            throw MakeIdentityError.passCountBiggerThanZero
-        }
-
-        var columns = Array(repeating: Complex(0), count: count * count)
-        for i in 0..<count {
-            columns[(i * count) + i] = Complex(1)
-        }
-
-        return Matrix(rowCount: count, columnCount: count, values: columns)
-    }
-
     enum MakeMatrixError: Error {
         case passRowCountBiggerThanZero
         case passColumnCountBiggerThanZero

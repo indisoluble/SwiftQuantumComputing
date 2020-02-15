@@ -167,22 +167,6 @@ class MatrixTests: XCTestCase {
         XCTAssertTrue(matrix.isUnitary(accuracy: 0.001))
     }
 
-    func testCountEqualToZero_makeIdentity_throwException() {
-        // Then
-        XCTAssertThrowsError(try Matrix.makeIdentity(count: 0))
-    }
-
-    func testCountBiggerThanZero_makeIdentity_returnExpectedMatrix() {
-        // When
-        let matrix = try? Matrix.makeIdentity(count: 3)
-
-        // Then
-        let expectedMatrix = try? Matrix([[Complex(1), Complex(0), Complex(0)],
-                                          [Complex(0), Complex(1), Complex(0)],
-                                          [Complex(0), Complex(0), Complex(1)]])
-        XCTAssertEqual(matrix, expectedMatrix)
-    }
-
     func testZeroRowCount_makeMatrix_throwException() {
         // Then
         XCTAssertThrowsError(try Matrix.makeMatrix(rowCount: 0,
@@ -382,10 +366,6 @@ class MatrixTests: XCTestCase {
          testSquareNonUnitaryMatrix_isUnitary_returnFalse),
         ("testUnitaryMatrix_isUnitary_returnTrue",
          testUnitaryMatrix_isUnitary_returnTrue),
-        ("testCountEqualToZero_makeIdentity_throwException",
-         testCountEqualToZero_makeIdentity_throwException),
-        ("testCountBiggerThanZero_makeIdentity_returnExpectedMatrix",
-         testCountBiggerThanZero_makeIdentity_returnExpectedMatrix),
         ("testZeroRowCount_makeMatrix_throwException",
          testZeroRowCount_makeMatrix_throwException),
         ("testZeroColumnCount_makeMatrix_throwException",
