@@ -27,7 +27,7 @@ extension Matrix {
     // MARK: - Internal class methods
 
     static func makeHadamard() -> Matrix {
-        return (Complex(1 / sqrt(2)) * (try! Matrix([[Complex(1), Complex(1)],
-                                                     [Complex(1), Complex(-1)]])))
+        return (Complex(1 / sqrt(2)) * (try! Matrix([[Complex.one, Complex.one],
+                                                     [Complex.one, Complex(-1)]])))
     }
 }

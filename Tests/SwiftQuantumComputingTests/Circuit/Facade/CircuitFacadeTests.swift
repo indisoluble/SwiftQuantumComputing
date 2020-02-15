@@ -28,7 +28,7 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
-    let initialStatevector = try! Vector([Complex(0), Complex(1), Complex(0), Complex(0),])
+    let initialStatevector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
     let qubitCount = 2
     let gates = [Gate.hadamard(target: 0), Gate.not(target: 0)]
     let unitarySimulator = UnitarySimulatorTestDouble()
@@ -42,7 +42,7 @@ class CircuitFacadeTests: XCTestCase {
                                    unitarySimulator: unitarySimulator,
                                    statevectorSimulator: statevectorSimulator)
 
-        let expectedResult = try! Vector([Complex(0), Complex(1)])
+        let expectedResult = try! Vector([Complex.zero, Complex.one])
         statevectorSimulator.applyResult = expectedResult
 
         // When
@@ -64,7 +64,7 @@ class CircuitFacadeTests: XCTestCase {
                                    unitarySimulator: unitarySimulator,
                                    statevectorSimulator: statevectorSimulator)
 
-        let expectedResult = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+        let expectedResult = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
         unitarySimulator.unitaryResult = expectedResult
 
         // When

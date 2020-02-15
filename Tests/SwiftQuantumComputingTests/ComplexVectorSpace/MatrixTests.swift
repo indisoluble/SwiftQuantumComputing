@@ -110,9 +110,9 @@ class MatrixTests: XCTestCase {
     func testAnyMatrix_loop_returnExpectedSequence() {
         // Given
         let elements = [
-            [Complex(1), Complex(0), Complex(2)],
-            [Complex(1), Complex(0), Complex(2)],
-            [Complex(1), Complex(0), Complex(2)]
+            [Complex.one, Complex.zero, Complex(2)],
+            [Complex.one, Complex.zero, Complex(2)],
+            [Complex.one, Complex.zero, Complex(2)]
         ]
         let matrix = try! Matrix(elements)
 
@@ -121,8 +121,8 @@ class MatrixTests: XCTestCase {
 
         // Then
         let expectedSequence = [
-            Complex(1), Complex(1), Complex(1),
-            Complex(0), Complex(0), Complex(0),
+            Complex.one, Complex.one, Complex.one,
+            Complex.zero, Complex.zero, Complex.zero,
             Complex(2), Complex(2), Complex(2)
         ]
         XCTAssertEqual(sequence, expectedSequence)
@@ -171,22 +171,22 @@ class MatrixTests: XCTestCase {
         // Then
         XCTAssertThrowsError(try Matrix.makeMatrix(rowCount: 0,
                                                    columnCount: 1,
-                                                   value: { _,_ in Complex(0) }))
+                                                   value: { _,_ in Complex.zero }))
     }
 
     func testZeroColumnCount_makeMatrix_throwException() {
         // Then
         XCTAssertThrowsError(try Matrix.makeMatrix(rowCount: 1,
                                                    columnCount: 0,
-                                                   value: { _,_ in Complex(0) }))
+                                                   value: { _,_ in Complex.zero }))
     }
 
     func testOneRowOneColumn_makeMatrix_returnExpectedMatrix() {
         // When
-        let matrix = try? Matrix.makeMatrix(rowCount: 1, columnCount: 1) { _,_ in Complex(1) }
+        let matrix = try? Matrix.makeMatrix(rowCount: 1, columnCount: 1) { _,_ in Complex.one }
 
         // Then
-        let expectedMatrix = try? Matrix([[Complex(1)]])
+        let expectedMatrix = try? Matrix([[Complex.one]])
 
         XCTAssertEqual(matrix, expectedMatrix)
     }

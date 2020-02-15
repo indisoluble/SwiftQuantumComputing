@@ -28,11 +28,11 @@ class MatrixGateTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrix = try! Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)],
-                              [Complex(1), Complex(0), Complex(0), Complex(0)],
-                              [Complex(0), Complex(0), Complex(1), Complex(0)],
-                              [Complex(0), Complex(0), Complex(0), Complex(1)]])
-    let oneRow = try! Matrix([[Complex(0), Complex(1), Complex(0), Complex(0)]])
+    let matrix = try! Matrix([[Complex.zero, Complex.one, Complex.zero, Complex.zero],
+                              [Complex.one, Complex.zero, Complex.zero, Complex.zero],
+                              [Complex.zero, Complex.zero, Complex.one, Complex.zero],
+                              [Complex.zero, Complex.zero, Complex.zero, Complex.one]])
+    let oneRow = try! Matrix([[Complex.zero, Complex.one, Complex.zero, Complex.zero]])
 
     // MARK: - Tests
 

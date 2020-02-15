@@ -63,7 +63,7 @@ class VectorTests: XCTestCase {
 
     func testAnyVector_loop_returnExpectedSequence() {
         // Given
-        let elements = [Complex(1), Complex(0), Complex(2)]
+        let elements = [Complex.one, Complex.zero, Complex(2)]
         let vector = try! Vector(elements)
 
         // When

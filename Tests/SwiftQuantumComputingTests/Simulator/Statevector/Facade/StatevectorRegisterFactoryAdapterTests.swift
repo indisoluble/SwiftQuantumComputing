@@ -34,7 +34,7 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
 
     func testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError() {
         // Given
-        let vector = try! Vector([Complex(0), Complex(0), Complex(1)])
+        let vector = try! Vector([Complex.zero, Complex.zero, Complex.one])
 
         // Then
         XCTAssertThrowsError(try adapter.makeRegister(state: vector))
@@ -42,7 +42,7 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
 
     func testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError() {
         // Given
-        let vector = try! Vector([Complex(0), Complex(0), Complex(1), Complex(1)])
+        let vector = try! Vector([Complex.zero, Complex.zero, Complex.one, Complex.one])
 
         // Then
         XCTAssertThrowsError(try adapter.makeRegister(state: vector))

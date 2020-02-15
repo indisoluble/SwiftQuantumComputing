@@ -303,13 +303,13 @@ private extension Matrix {
         let m = (lhsTrans == CblasNoTrans ? lhs.rowCount : lhs.columnCount)
         let n = (rhsTrans == CblasNoTrans ? rhs.columnCount : rhs.rowCount)
         let k = (lhsTrans == CblasNoTrans ? lhs.columnCount : lhs.rowCount)
-        var alpha = Complex(1)
+        var alpha = Complex.one
         var aBuffer = lhs.values
         let lda = lhs.rowCount
         var bBuffer = rhs.values
         let ldb = rhs.rowCount
-        var beta = Complex(0)
-        var cBuffer = Array(repeating: Complex(0), count: (m * n))
+        var beta = Complex.zero
+        var cBuffer = Array(repeating: Complex.zero, count: (m * n))
         let ldc = m
 
         cblas_zgemm(CblasColMajor,

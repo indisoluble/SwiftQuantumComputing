@@ -30,8 +30,8 @@ class Circuit_ProbabilitiesTests: XCTestCase {
 
     let circuit = CircuitTestDouble()
     let bits = "101"
-    let initialStatevector = try! Vector([Complex(0), Complex(0), Complex(0), Complex(0),
-                                          Complex(0), Complex(1), Complex(0), Complex(0)])
+    let initialStatevector = try! Vector([Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+                                          Complex.zero, Complex.one, Complex.zero, Complex.zero])
 
     // MARK: - Tests
 
@@ -45,9 +45,9 @@ class Circuit_ProbabilitiesTests: XCTestCase {
     func testCircuitThatReturnStatevector_probabilities_returnExpectedProbabilities() {
         // Given
         circuit.statevectorResult = try! Vector([
-            Complex(0),
+            Complex.zero,
             Complex(real: 1 / sqrt(2), imag: 0),
-            Complex(0),
+            Complex.zero,
             Complex(real: 0, imag: 1 / sqrt(2)),
         ])
 

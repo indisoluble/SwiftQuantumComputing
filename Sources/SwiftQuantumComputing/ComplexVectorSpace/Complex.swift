@@ -25,6 +25,13 @@ import Foundation
 /// Swift representation of a complex number
 public struct Complex {
 
+    // MARK: - Public constants
+
+    /// Constant: Complex(0)
+    public static let zero = Complex(0)
+    /// Constant: Complex(1)
+    public static let one = Complex(1)
+
     // MARK: - Public properties
 
     /// Real part

@@ -36,7 +36,7 @@ extension Matrix {
         }
 
         return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { (row, column) in
-            return row == column ? Complex(1) : Complex(0)
+            return row == column ? Complex.one : Complex.zero
         }
     }
 }

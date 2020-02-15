@@ -38,9 +38,9 @@ class Matrix_IdentityTests: XCTestCase {
         let matrix = try? Matrix.makeIdentity(count: 3)
 
         // Then
-        let expectedMatrix = try? Matrix([[Complex(1), Complex(0), Complex(0)],
-                                          [Complex(0), Complex(1), Complex(0)],
-                                          [Complex(0), Complex(0), Complex(1)]])
+        let expectedMatrix = try? Matrix([[Complex.one, Complex.zero, Complex.zero],
+                                          [Complex.zero, Complex.one, Complex.zero],
+                                          [Complex.zero, Complex.zero, Complex.one]])
         XCTAssertEqual(matrix, expectedMatrix)
     }
 

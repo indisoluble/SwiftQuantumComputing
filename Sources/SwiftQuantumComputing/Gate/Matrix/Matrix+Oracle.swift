@@ -39,12 +39,12 @@ extension Matrix {
         for controlValue in 0..<Int.pow(2, controlCount) {
             let isControlValueTrue = truthTableAsInts.contains(controlValue)
 
-            var row = Array(repeating: Complex(0), count: columnCount)
-            row[2 * controlValue + (isControlValueTrue ? 1 : 0)] = Complex(1)
+            var row = Array(repeating: Complex.zero, count: columnCount)
+            row[2 * controlValue + (isControlValueTrue ? 1 : 0)] = Complex.one
             rows.append(row)
 
-            row = Array(repeating: Complex(0), count: columnCount)
-            row[2 * controlValue + (isControlValueTrue ? 0 : 1)] = Complex(1)
+            row = Array(repeating: Complex.zero, count: columnCount)
+            row[2 * controlValue + (isControlValueTrue ? 0 : 1)] = Complex.one
             rows.append(row)
         }
 

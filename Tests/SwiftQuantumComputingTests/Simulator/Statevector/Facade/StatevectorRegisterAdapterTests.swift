@@ -35,7 +35,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     func testVectorWhichLengthIsNotPowerOfTwo_init_throwException() {
         // Given
-        let noPowerOfTwoVector = try! Vector([Complex(1), Complex(0), Complex(0)])
+        let noPowerOfTwoVector = try! Vector([Complex.one, Complex.zero, Complex.zero])
 
         // Then
         XCTAssertThrowsError(try StatevectorRegisterAdapter(vector: noPowerOfTwoVector,
@@ -44,7 +44,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException() {
         // Given
-        let addSquareModulusNotEqualToOneVector = try! Vector([Complex(1), Complex(1)])
+        let addSquareModulusNotEqualToOneVector = try! Vector([Complex.one, Complex.one])
         let adapter = try! StatevectorRegisterAdapter(vector: addSquareModulusNotEqualToOneVector,
                                                       matrixFactory: matrixFactory)
 
@@ -54,7 +54,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     func testValidVector_statevector_returnValue() {
         // Given
-        let vector = try! Vector([Complex(1), Complex(0)])
+        let vector = try! Vector([Complex.one, Complex.zero])
         let adapter = try! StatevectorRegisterAdapter(vector: vector, matrixFactory: matrixFactory)
 
         // When
@@ -66,7 +66,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     func testMatrixFactoryThatThrowsError_applying_throwError() {
         // Given
-        let vector = try! Vector([Complex(1), Complex(0)])
+        let vector = try! Vector([Complex.one, Complex.zero])
         let vectorQubitCount = 1
         let adapter = try! StatevectorRegisterAdapter(vector: vector, matrixFactory: matrixFactory)
 
@@ -84,13 +84,13 @@ class StatevectorRegisterAdapterTests: XCTestCase {
     func testMatrixFactoryReturnsMatrix_applying_returnValue() {
         // Given
         let vectorQubitCount = 1
-        var elements = Array(repeating: Complex(0), count: Int.pow(2, vectorQubitCount))
-        elements[0] = Complex(1)
+        var elements = Array(repeating: Complex.zero, count: Int.pow(2, vectorQubitCount))
+        elements[0] = Complex.one
 
         let vector = try! Vector(elements)
         let adapter = try! StatevectorRegisterAdapter(vector: vector, matrixFactory: matrixFactory)
 
-        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+        let matrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
         matrixFactory.makeCircuitMatrixResult = matrix
 
         // When
@@ -105,15 +105,15 @@ class StatevectorRegisterAdapterTests: XCTestCase {
             XCTAssert(false)
         }
 
-        let expectedVector = try! Vector([Complex(0), Complex(1)])
+        let expectedVector = try! Vector([Complex.zero, Complex.one])
         XCTAssertEqual(try? result?.statevector(), expectedVector)
     }
 
     func testTwoQubitsRegisterInitializedToZeroAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne() {
         // Given
         let qubitCount = 2
-        var elements = Array(repeating: Complex(0), count: Int.pow(2, qubitCount))
-        elements[0] = Complex(1)
+        var elements = Array(repeating: Complex.zero, count: Int.pow(2, qubitCount))
+        elements[0] = Complex.one
 
         let vector = try! Vector(elements)
         let adapter = try! StatevectorRegisterAdapter(vector: vector, matrixFactory: matrixFactory)
@@ -134,7 +134,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
             XCTAssert(false)
         }
 
-        let expectedVector = try! Vector([Complex(0), Complex(1), Complex(0), Complex(0)])
+        let expectedVector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
         XCTAssertEqual(try? result?.statevector(), expectedVector)
     }
 
