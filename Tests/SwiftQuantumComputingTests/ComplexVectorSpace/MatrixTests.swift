@@ -206,6 +206,46 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix, expectedMatrix)
     }
 
+    func testMatricesWithDifferentRowCount_add_throwException() {
+        // Given
+        let lhs = try! Matrix([[Complex.zero, Complex.zero]])
+        let rhs = try! Matrix([[Complex.zero, Complex.zero],
+                               [Complex.zero, Complex.zero]])
+
+        // Then
+        XCTAssertThrowsError(try lhs + rhs)
+    }
+
+    func testMatricesWithDifferentColumnCount_add_throwException() {
+        // Given
+        let lhs = try! Matrix([[Complex.zero],
+                               [Complex.zero]])
+        let rhs = try! Matrix([[Complex.zero, Complex.zero],
+                               [Complex.zero, Complex.zero]])
+
+        // Then
+        XCTAssertThrowsError(try lhs + rhs)
+    }
+
+    func testMatricesWithSameSize_add_returnExpectedMatrix() {
+        // Given
+        let lhs = try! Matrix([[Complex.zero, Complex.one, Complex.zero],
+                               [Complex.one, Complex.zero, Complex.one],
+                               [Complex.one, Complex.one, Complex.one]])
+        let rhs = try! Matrix([[Complex.one, Complex.zero, Complex.one],
+                               [Complex.zero, Complex.one, Complex.zero],
+                               [Complex.one, Complex.one, Complex.one]])
+
+        // When
+        let result = (try? lhs + rhs)
+
+        // Then
+        let expectedResult = try! Matrix([[Complex.one, Complex.one, Complex.one],
+                                          [Complex.one, Complex.one, Complex.one],
+                                          [Complex(2), Complex(2), Complex(2)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
     func testOneComplexNumberAndOneMatrix_multiply_returnExpectedMatrix() {
         // Given
         let complex = Complex(real: 3, imag: 2)
@@ -321,6 +361,12 @@ class MatrixTests: XCTestCase {
          testOneRowOneColumn_makeMatrix_returnExpectedMatrix),
         ("testAnyRowsAndColumns_makeMatrix_returnExpectedMatrix",
          testAnyRowsAndColumns_makeMatrix_returnExpectedMatrix),
+        ("testMatricesWithDifferentRowCount_add_throwException",
+         testMatricesWithDifferentRowCount_add_throwException),
+        ("testMatricesWithDifferentColumnCount_add_throwException",
+         testMatricesWithDifferentColumnCount_add_throwException),
+        ("testMatricesWithSameSize_add_returnExpectedMatrix",
+         testMatricesWithSameSize_add_returnExpectedMatrix),
         ("testOneComplexNumberAndOneMatrix_multiply_returnExpectedMatrix",
          testOneComplexNumberAndOneMatrix_multiply_returnExpectedMatrix),
         ("testMatrixWithColumnCountDifferentThanRowCountInSecondMatrix_multiply_throwException",

@@ -200,6 +200,31 @@ extension Matrix {
 
     // MARK: - Internal operators
 
+    enum AddError: Error {
+        case matricesDoNotHaveSameRowCount
+        case matricesDoNotHaveSameColumnCount
+    }
+
+    static func +(lhs: Matrix, rhs: Matrix) throws -> Matrix {
+        guard lhs.rowCount == rhs.rowCount else {
+            throw AddError.matricesDoNotHaveSameRowCount
+        }
+
+        guard lhs.columnCount == rhs.columnCount else {
+            throw AddError.matricesDoNotHaveSameColumnCount
+        }
+
+        let N = Int32(lhs.values.count)
+        var alpha = Complex.one
+        let X = lhs.values
+        let inc = Int32(1)
+        var Y = Array(rhs.values)
+
+        cblas_zaxpy(N, &alpha, X, inc, &Y, inc)
+
+        return Matrix(rowCount: lhs.rowCount, columnCount: lhs.columnCount, values: Y)
+    }
+
     static func *(complex: Complex, matrix: Matrix) -> Matrix {
         let N = Int32(matrix.values.count)
         var alpha = complex
