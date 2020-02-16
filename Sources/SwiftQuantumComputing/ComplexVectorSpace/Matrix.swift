@@ -201,9 +201,14 @@ extension Matrix {
     // MARK: - Internal operators
 
     static func *(complex: Complex, matrix: Matrix) -> Matrix {
-        let columns = matrix.values.map { complex * $0 }
+        let N = Int32(matrix.values.count)
+        var alpha = complex
+        var X = Array(matrix.values)
+        let incX = Int32(1)
 
-        return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, values: columns)
+        cblas_zscal(N, &alpha, &X, incX)
+
+        return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, values: X)
     }
 
     static func *(lhs: Matrix, rhs: Matrix) throws -> Matrix {
