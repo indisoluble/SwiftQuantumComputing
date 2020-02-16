@@ -57,6 +57,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Gate_SingleQubitGateRangeTargetsTests.allTests),
         testCase(Gate_OracleReplicatorTests.allTests),
         testCase(Gate_SingleQubitGateReplicatorTests.allTests),
+        testCase(Gate_InversionAboutMeanTests.allTests),
         testCase(MainGeneticCircuitEvaluatorTests.allTests),
         testCase(MainGeneticUseCaseEvaluatorTests.allTests),
         testCase(ControlledNotGateTests.allTests),
