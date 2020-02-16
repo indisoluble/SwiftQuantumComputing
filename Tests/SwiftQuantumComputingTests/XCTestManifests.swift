@@ -41,6 +41,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Matrix_AverageTests.allTests),
         testCase(Matrix_ElementsTests.allTests),
         testCase(Matrix_IdentityTests.allTests),
+        testCase(Matrix_TensorProductTests.allTests),
         testCase(VectorTests.allTests),
         testCase(Vector_ElementsTests.allTests),
         testCase(Array_CombinationsTests.allTests),

@@ -152,28 +152,6 @@ public struct Matrix {
 
         return Matrix(rowCount: rowCount, columnCount: columnCount, values: values)
     }
-
-    static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
-        var tensor: [Complex] = []
-
-        let tensorRowCount = (lhs.rowCount * rhs.rowCount)
-        let tensorColumnCount = (lhs.columnCount * rhs.columnCount)
-        tensor.reserveCapacity(tensorRowCount * tensorColumnCount)
-
-        for column in 0..<tensorColumnCount {
-            for row in 0..<tensorRowCount {
-                let lhsColumn = (column / rhs.columnCount)
-                let lhsRow = (row / rhs.rowCount)
-
-                let rhsColumn = (column % rhs.columnCount)
-                let rhsRow = (row % rhs.rowCount)
-
-                tensor.append(lhs[lhsRow,lhsColumn] * rhs[rhsRow,rhsColumn])
-            }
-        }
-
-        return Matrix(rowCount: tensorRowCount, columnCount: tensorColumnCount, values: tensor)
-    }
 }
 
 // MARK: - CustomStringConvertible methods
