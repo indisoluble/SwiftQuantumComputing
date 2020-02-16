@@ -1061,6 +1061,27 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
+		FF0C3FAE23F97F6200623A6A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FFB8106321C6DAF0006333BB /* Matrix */,
+				FF8B40CD23AEB88100A51475 /* Range */,
+				FF8B40CB23AEB7EB00A51475 /* Replicator */,
+				FFB8106021C6CC37006333BB /* Gate+SimulatorGate.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FF0C3FAF23F97FAA00623A6A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FF18358221EA359A003E2F04 /* Matrix */,
+				FF8B40CE23AEB89300A51475 /* Range */,
+				FF8B40CC23AEB80A00A51475 /* Replicator */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		FF10373F236E09090011706D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1116,9 +1137,7 @@
 		FF18358121EA358C003E2F04 /* Gate */ = {
 			isa = PBXGroup;
 			children = (
-				FF18358221EA359A003E2F04 /* Matrix */,
-				FF8B40CE23AEB89300A51475 /* Range */,
-				FF8B40CC23AEB80A00A51475 /* Replicator */,
+				FF0C3FAF23F97FAA00623A6A /* Extension */,
 			);
 			path = Gate;
 			sourceTree = "<group>";
@@ -2141,11 +2160,8 @@
 		FFF697F021BF23C7004AE4C2 /* Gate */ = {
 			isa = PBXGroup;
 			children = (
-				FFB8106321C6DAF0006333BB /* Matrix */,
-				FF8B40CD23AEB88100A51475 /* Range */,
-				FF8B40CB23AEB7EB00A51475 /* Replicator */,
+				FF0C3FAE23F97F6200623A6A /* Extension */,
 				FFE5F56921C30F140027519B /* Gate.swift */,
-				FFB8106021C6CC37006333BB /* Gate+SimulatorGate.swift */,
 			);
 			path = Gate;
 			sourceTree = "<group>";
