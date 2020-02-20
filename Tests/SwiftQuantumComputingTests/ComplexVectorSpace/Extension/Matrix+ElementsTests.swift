@@ -31,9 +31,9 @@ class Matrix_ElementsTests: XCTestCase {
     func testAnyMatrix_elements_returnExpectedArray() {
         // Given
         let expectedElements = [
-            [Complex(1), Complex(0), Complex(0)],
-            [Complex(0), Complex(1), Complex(0)],
-            [Complex(0), Complex(0), Complex(1)]
+            [Complex.one, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.one, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.one]
         ]
 
         let matrix = try! Matrix(expectedElements)

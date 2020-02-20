@@ -28,7 +28,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrix = try! Matrix([[Complex(0)]])
+    let matrix = try! Matrix([[Complex.zero]])
     let truthTable = [""]
 
     // MARK: - Tests

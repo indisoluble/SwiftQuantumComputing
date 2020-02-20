@@ -76,8 +76,8 @@ private extension Circuit {
     static func makeState(value: Int, qubitCount: Int) -> Vector {
         let count = Int.pow(2, qubitCount)
 
-        var elements = Array(repeating: Complex(0), count: count)
-        elements[value] = Complex(1)
+        var elements = Array(repeating: Complex.zero, count: count)
+        elements[value] = Complex.one
 
         return try! Vector(elements)
     }

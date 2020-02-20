@@ -37,7 +37,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testNonSquareMatrix_init_throwError() {
         // Given
-        let nonSquareMatrix = try! Matrix([[Complex(0), Complex(1)]])
+        let nonSquareMatrix = try! Matrix([[Complex.zero, Complex.one]])
 
         // Then
         XCTAssertThrowsError(try UnitaryGateAdapter(matrix: nonSquareMatrix,
@@ -46,9 +46,9 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testSquareMatrixWithNotPowerOfTwoRowCount_init_throwError() {
         // Given
-        let notPowerOfTwoMatrix = try! Matrix([[Complex(0), Complex(1), Complex(1)],
-                                               [Complex(0), Complex(1), Complex(1)],
-                                               [Complex(0), Complex(1), Complex(1)]])
+        let notPowerOfTwoMatrix = try! Matrix([[Complex.zero, Complex.one, Complex.one],
+                                               [Complex.zero, Complex.one, Complex.one],
+                                               [Complex.zero, Complex.one, Complex.one]])
 
         // Then
         XCTAssertThrowsError(try UnitaryGateAdapter(matrix: notPowerOfTwoMatrix,
@@ -65,8 +65,8 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testNonUnitaryMatrix_unitary_throwError() {
         // Given
-        let nonUnitaryMatrix = try! Matrix([[Complex(0), Complex(1)],
-                                            [Complex(0), Complex(0)]])
+        let nonUnitaryMatrix = try! Matrix([[Complex.zero, Complex.one],
+                                            [Complex.zero, Complex.zero]])
         let adapter = try! UnitaryGateAdapter(matrix: nonUnitaryMatrix,
                                               matrixFactory: matrixFactory)
 
@@ -118,8 +118,8 @@ class UnitaryGateAdapterTests: XCTestCase {
             XCTAssert(false)
         }
 
-        let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex(1), Complex(-1)],
-                                                                    [Complex(1), Complex(1)]])))
+        let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex.one, Complex(-1)],
+                                                                    [Complex.one, Complex.one]])))
         XCTAssertEqual(try? result?.unitary(), expectedUnitary)
     }
 
@@ -141,8 +141,8 @@ class UnitaryGateAdapterTests: XCTestCase {
             XCTAssert(false)
         }
 
-        let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex(1), Complex(1)],
-                                                                    [Complex(-1), Complex(1)]])))
+        let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex.one, Complex.one],
+                                                                    [Complex(-1), Complex.one]])))
         XCTAssertEqual(try? result?.unitary(), expectedUnitary)
     }
 

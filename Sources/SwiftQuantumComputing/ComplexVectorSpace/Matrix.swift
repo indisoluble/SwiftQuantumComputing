@@ -131,23 +131,6 @@ public struct Matrix {
 
     // MARK: - Internal class methods
 
-    enum MakeIdentityError: Error {
-        case passCountBiggerThanZero
-    }
-
-    static func makeIdentity(count: Int) throws -> Matrix {
-        guard (count > 0) else {
-            throw MakeIdentityError.passCountBiggerThanZero
-        }
-
-        var columns = Array(repeating: Complex(0), count: count * count)
-        for i in 0..<count {
-            columns[(i * count) + i] = Complex(1)
-        }
-
-        return Matrix(rowCount: count, columnCount: count, values: columns)
-    }
-
     enum MakeMatrixError: Error {
         case passRowCountBiggerThanZero
         case passColumnCountBiggerThanZero
@@ -168,28 +151,6 @@ public struct Matrix {
         let values = (0..<count).map { value($0 % rowCount, $0 / rowCount)  }
 
         return Matrix(rowCount: rowCount, columnCount: columnCount, values: values)
-    }
-
-    static func tensorProduct(_ lhs: Matrix, _ rhs: Matrix) -> Matrix {
-        var tensor: [Complex] = []
-
-        let tensorRowCount = (lhs.rowCount * rhs.rowCount)
-        let tensorColumnCount = (lhs.columnCount * rhs.columnCount)
-        tensor.reserveCapacity(tensorRowCount * tensorColumnCount)
-
-        for column in 0..<tensorColumnCount {
-            for row in 0..<tensorRowCount {
-                let lhsColumn = (column / rhs.columnCount)
-                let lhsRow = (row / rhs.rowCount)
-
-                let rhsColumn = (column % rhs.columnCount)
-                let rhsRow = (row % rhs.rowCount)
-
-                tensor.append(lhs[lhsRow,lhsColumn] * rhs[rhsRow,rhsColumn])
-            }
-        }
-
-        return Matrix(rowCount: tensorRowCount, columnCount: tensorColumnCount, values: tensor)
     }
 }
 
@@ -239,10 +200,40 @@ extension Matrix {
 
     // MARK: - Internal operators
 
-    static func *(complex: Complex, matrix: Matrix) -> Matrix {
-        let columns = matrix.values.map { complex * $0 }
+    enum AddError: Error {
+        case matricesDoNotHaveSameRowCount
+        case matricesDoNotHaveSameColumnCount
+    }
 
-        return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, values: columns)
+    static func +(lhs: Matrix, rhs: Matrix) throws -> Matrix {
+        guard lhs.rowCount == rhs.rowCount else {
+            throw AddError.matricesDoNotHaveSameRowCount
+        }
+
+        guard lhs.columnCount == rhs.columnCount else {
+            throw AddError.matricesDoNotHaveSameColumnCount
+        }
+
+        let N = Int32(lhs.values.count)
+        var alpha = Complex.one
+        let X = lhs.values
+        let inc = Int32(1)
+        var Y = Array(rhs.values)
+
+        cblas_zaxpy(N, &alpha, X, inc, &Y, inc)
+
+        return Matrix(rowCount: lhs.rowCount, columnCount: lhs.columnCount, values: Y)
+    }
+
+    static func *(complex: Complex, matrix: Matrix) -> Matrix {
+        let N = Int32(matrix.values.count)
+        var alpha = complex
+        var X = Array(matrix.values)
+        let incX = Int32(1)
+
+        cblas_zscal(N, &alpha, &X, incX)
+
+        return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, values: X)
     }
 
     static func *(lhs: Matrix, rhs: Matrix) throws -> Matrix {
@@ -320,13 +311,13 @@ private extension Matrix {
         let m = (lhsTrans == CblasNoTrans ? lhs.rowCount : lhs.columnCount)
         let n = (rhsTrans == CblasNoTrans ? rhs.columnCount : rhs.rowCount)
         let k = (lhsTrans == CblasNoTrans ? lhs.columnCount : lhs.rowCount)
-        var alpha = Complex(1)
+        var alpha = Complex.one
         var aBuffer = lhs.values
         let lda = lhs.rowCount
         var bBuffer = rhs.values
         let ldb = rhs.rowCount
-        var beta = Complex(0)
-        var cBuffer = Array(repeating: Complex(0), count: (m * n))
+        var beta = Complex.zero
+        var cBuffer = Array(repeating: Complex.zero, count: (m * n))
         let ldc = m
 
         cblas_zgemm(CblasColMajor,

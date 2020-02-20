@@ -1,10 +1,10 @@
 import SwiftQuantumComputing // for macOS
 //: 1. Compose a list of quantum gates. Insert them in the same order
 //:    you want them to appear in the quantum circuit
-let matrix = Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
-                     [Complex(0), Complex(1), Complex(0), Complex(0)],
-                     [Complex(0), Complex(0), Complex(0), Complex(1)],
-                     [Complex(0), Complex(0), Complex(1), Complex(0)]])
+let matrix = Matrix([[Complex.one, Complex.zero, Complex.zero, Complex.zero],
+                     [Complex.zero, Complex.one, Complex.zero, Complex.zero],
+                     [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+                     [Complex.zero, Complex.zero, Complex.one, Complex.zero]])
 let gates = [
     Gate.controlledNot(target: 0, control: 3),
     Gate.phaseShift(radians: 0, target: 1),

@@ -94,7 +94,6 @@ private extension SimulatorCircuitMatrixFactoryAdapter {
     }
 
     func makeExtendedMatrix(qubitCount: Int, inputs: [Int], baseMatrix: Matrix) -> Matrix {
-        let zero = Complex(0)
         let count = Int.pow(2, qubitCount)
 
         let remainingInputs = (0..<qubitCount).reversed().filter { !inputs.contains($0) }
@@ -112,7 +111,9 @@ private extension SimulatorCircuitMatrixFactoryAdapter {
             let remainingRow = derives[r]!.remaining
             let remainingColumn = derives[c]!.remaining
 
-            return (remainingRow == remainingColumn ? baseMatrix[baseRow, baseColumn] : zero)
+            return (remainingRow == remainingColumn ?
+                baseMatrix[baseRow, baseColumn] :
+                Complex.zero)
         }
     }
 }

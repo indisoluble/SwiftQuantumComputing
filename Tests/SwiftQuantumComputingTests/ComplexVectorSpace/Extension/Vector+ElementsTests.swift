@@ -30,7 +30,7 @@ class Vector_ElementsTests: XCTestCase {
 
     func testAnyVector_elements_returnExpectedArray() {
         // Given
-        let expectedElements = [Complex(1), Complex(0), Complex(1)]
+        let expectedElements = [Complex.one, Complex.zero, Complex.one]
 
         let vector = try! Vector(expectedElements)
 

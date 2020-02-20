@@ -68,8 +68,8 @@ class Circuit_StatevectorTests: XCTestCase {
         _ = try? circuit.statevector(withInitialBits: bits)
 
         // Then
-        let initialElements = [Complex(0), Complex(0), Complex(0), Complex(1),
-                               Complex(0), Complex(0), Complex(0), Complex(0)]
+        let initialElements = [Complex.zero, Complex.zero, Complex.zero, Complex.one,
+                               Complex.zero, Complex.zero, Complex.zero, Complex.zero]
         let expectedInitialStatevector = try! Vector(initialElements)
 
         XCTAssertEqual(circuit.gatesCount, 0)
@@ -87,8 +87,8 @@ class Circuit_StatevectorTests: XCTestCase {
         _ = try? circuit.statevector()
 
         // Then
-        let initialElements = [Complex(1), Complex(0), Complex(0), Complex(0),
-                               Complex(0), Complex(0), Complex(0), Complex(0)]
+        let initialElements = [Complex.one, Complex.zero, Complex.zero, Complex.zero,
+                               Complex.zero, Complex.zero, Complex.zero, Complex.zero]
         let expectedInitialStatevector = try! Vector(initialElements)
 
         XCTAssertEqual(circuit.gatesCount, 1)

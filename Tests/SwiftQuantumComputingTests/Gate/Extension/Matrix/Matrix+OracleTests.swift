@@ -86,10 +86,10 @@ class Matrix_OracleTests: XCTestCase {
 
         // Then
         let rows = [
-            [Complex(1), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(1), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(1)],
-            [Complex(0), Complex(0), Complex(1), Complex(0)]
+            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.one, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+            [Complex.zero, Complex.zero, Complex.one, Complex.zero]
         ]
         let expectedMatrix = try! Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)
@@ -105,10 +105,10 @@ class Matrix_OracleTests: XCTestCase {
 
         // Then
         let rows = [
-            [Complex(1), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(1), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(1)],
-            [Complex(0), Complex(0), Complex(1), Complex(0)]
+            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.one, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+            [Complex.zero, Complex.zero, Complex.one, Complex.zero]
         ]
         let expectedMatrix = try! Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)
@@ -124,22 +124,22 @@ class Matrix_OracleTests: XCTestCase {
 
         // Then
         let rows = [
-            [Complex(1), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(1), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(1),
-             Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(1), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(1), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(1), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(1)],
-            [Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(1), Complex(0)]
+            [Complex.one, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.one, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.one,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.one, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.one, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.one, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.one],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.one, Complex.zero]
         ]
         let expectedMatrix = try! Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)
