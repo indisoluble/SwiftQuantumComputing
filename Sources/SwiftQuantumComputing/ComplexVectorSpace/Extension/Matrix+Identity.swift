@@ -1,9 +1,9 @@
 //
-//  Matrix+Not.swift
+//  Matrix+Identity.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 26/08/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 15/02/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,7 +26,17 @@ extension Matrix {
 
     // MARK: - Internal class methods
 
-    static func makeNot() -> Matrix {
-        return try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+    enum MakeIdentityError: Error {
+        case passCountBiggerThanZero
+    }
+
+    static func makeIdentity(count: Int) throws -> Matrix {
+        guard (count > 0) else {
+            throw MakeIdentityError.passCountBiggerThanZero
+        }
+
+        return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { (row, column) in
+            return row == column ? Complex.one : Complex.zero
+        }
     }
 }

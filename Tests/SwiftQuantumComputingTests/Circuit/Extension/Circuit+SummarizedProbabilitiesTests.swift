@@ -30,17 +30,17 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     let circuit = CircuitTestDouble()
     let bits = "101"
-    let initialStatevector = try! Vector([Complex(0), Complex(0), Complex(0), Complex(0),
-                                          Complex(0), Complex(1), Complex(0), Complex(0)])
+    let initialStatevector = try! Vector([Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+                                          Complex.zero, Complex.one, Complex.zero, Complex.zero])
 
     // MARK: - Tests
 
     func testCircuitThatReturnStatevector_summarizedProbabilities_returnExpectedProbabilities() {
         // Given
         circuit.statevectorResult = try! Vector([
-            Complex(0),
+            Complex.zero,
             Complex(real: 1 / sqrt(2), imag: 0),
-            Complex(0),
+            Complex.zero,
             Complex(real: 0, imag: 1 / sqrt(2)),
         ])
 
@@ -90,7 +90,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     func testCircuitThatReturnStatevectorAndQubitsOutOfBoundsOfVector_summarizedProbabilities_throwException() {
         // Given
-        circuit.statevectorResult = try! Vector([Complex(0), Complex(1)])
+        circuit.statevectorResult = try! Vector([Complex.zero, Complex.one])
 
         // Then
         XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [100, 0],
@@ -101,7 +101,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     func testCircuitThatReturnStatevectorAndNegativeQubits_summarizedProbabilities_throwException() {
         // Given
-        circuit.statevectorResult = try! Vector([Complex(0), Complex(1)])
+        circuit.statevectorResult = try! Vector([Complex.zero, Complex.one])
 
         // Then
         XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [0, -1],
@@ -113,9 +113,9 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
     func testCircuitThatReturnStatevectorAndOneQubit_summarizedProbabilities_returnExpectedProbabilities() {
         // Given
         circuit.statevectorResult = try! Vector([
-            Complex(0),
+            Complex.zero,
             Complex(real: 1 / sqrt(2), imag: 0),
-            Complex(0),
+            Complex.zero,
             Complex(real: 0, imag: 1 / sqrt(2)),
         ])
 
@@ -146,13 +146,13 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         // Given
         circuit.statevectorResult = try! Vector([
             Complex(real: 1 / sqrt(3), imag: 0),
-            Complex(0),
-            Complex(0),
-            Complex(0),
+            Complex.zero,
+            Complex.zero,
+            Complex.zero,
             Complex(real: 1 / sqrt(3), imag: 0),
-            Complex(0),
+            Complex.zero,
             Complex(real: 1 / sqrt(3), imag: 0),
-            Complex(0)
+            Complex.zero
         ])
 
         // When
@@ -183,7 +183,9 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     func testCircuitThatReturnStatevectorAndQubitRange_summarizedProbabilitiesWithQubitRange_doNotThrowException() {
         // Given
-        circuit.statevectorResult = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
+        circuit.statevectorResult = try! Vector([
+            Complex.one, Complex.zero, Complex.zero, Complex.zero
+        ])
 
         // Then
         XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0..<2).reversed(),
@@ -192,7 +194,9 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     func testCircuitThatReturnStatevectorAndQubitClosedRange_summarizedProbabilitiesWithQubitClosedRange_doNotThrowException() {
         // Given
-        circuit.statevectorResult = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0)])
+        circuit.statevectorResult = try! Vector([
+            Complex.one, Complex.zero, Complex.zero, Complex.zero
+        ])
 
         // Then
         XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0...1).reversed(),

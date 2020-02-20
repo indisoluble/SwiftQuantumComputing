@@ -34,8 +34,8 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
     let geneticCircuit: [GeneticGate] = []
     let circuit = CircuitTestDouble()
     let useCase = try! GeneticUseCase(truthTable: [], circuitInput: "01", circuitOutput: "11")
-    let statevectorInput = try! Vector([Complex(0), Complex(1), Complex(0), Complex(0)])
-    let statevectorOutput = try! Vector([Complex(0), Complex(0), Complex(0), Complex(1)])
+    let statevectorInput = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
+    let statevectorOutput = try! Vector([Complex.zero, Complex.zero, Complex.zero, Complex.one])
 
     // MARK: - Tests
 
@@ -79,9 +79,9 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         let nonSensicalCircuitOutput = "qwerty"
         let nonSensicalUseCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0,
                                                      circuitOutput: nonSensicalCircuitOutput)
-        var nonSensicalInputElements = Array(repeating: Complex(0),
+        var nonSensicalInputElements = Array(repeating: Complex.zero,
                                              count: Int.pow(2, nonSensicalCircuitOutput.count))
-        nonSensicalInputElements[0] = Complex(1)
+        nonSensicalInputElements[0] = Complex.one
         let nonSensicalStatevectorInput = try! Vector(nonSensicalInputElements)
 
         let evaluator = try! MainGeneticUseCaseEvaluator(useCase: nonSensicalUseCase,

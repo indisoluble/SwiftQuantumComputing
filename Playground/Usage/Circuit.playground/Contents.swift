@@ -4,7 +4,8 @@ import SwiftQuantumComputing // for macOS
 let gates = [
     Gate.controlledNot(target: 0, control: 2),
     Gate.hadamard(target: 1),
-    Gate.matrix(matrix: Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]]), inputs: [2]),
+    Gate.matrix(matrix: Matrix([[Complex.zero, Complex.one],
+                                [Complex.one, Complex.zero]]), inputs: [2]),
     Gate.not(target: 1),
     Gate.oracle(truthTable: ["00", "11"], target: 0, controls: [2, 1]),
     Gate.phaseShift(radians: 0, target: 2)

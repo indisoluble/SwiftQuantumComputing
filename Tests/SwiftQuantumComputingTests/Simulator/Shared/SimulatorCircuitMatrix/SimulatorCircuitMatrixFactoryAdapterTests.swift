@@ -29,12 +29,12 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
     // MARK: - Properties
 
     let validQubitCount = 3
-    let validMatrix = try! Matrix([[Complex(1), Complex(0), Complex(0), Complex(0)],
-                                   [Complex(0), Complex(1), Complex(0), Complex(0)],
-                                   [Complex(0), Complex(0), Complex(0), Complex(1)],
-                                   [Complex(0), Complex(0), Complex(1), Complex(0)]])
+    let validMatrix = try! Matrix([[Complex.one, Complex.zero, Complex.zero, Complex.zero],
+                                   [Complex.zero, Complex.one, Complex.zero, Complex.zero],
+                                   [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+                                   [Complex.zero, Complex.zero, Complex.one, Complex.zero]])
     let validInputs = [1, 0]
-    let otherValidMatrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]])
+    let otherValidMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
     let otherValidInputs = [0]
 
     let sut = SimulatorCircuitMatrixFactoryAdapter()
@@ -55,7 +55,7 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
 
     func testNonUnitaryMatrix_makeCircuitMatrix_throwException() {
         // Given
-        let matrix = try! Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(1)]])
+        let matrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.one]])
         let gate = Gate.matrix(matrix: matrix, inputs: [0])
 
         // Then
@@ -143,10 +143,10 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
 
         // Then
         let expectedElements = [
-            [Complex(1), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(1)],
-            [Complex(0), Complex(0), Complex(1), Complex(0)],
-            [Complex(0), Complex(1), Complex(0), Complex(0)]
+            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+            [Complex.zero, Complex.zero, Complex.one, Complex.zero],
+            [Complex.zero, Complex.one, Complex.zero, Complex.zero]
         ]
         XCTAssertEqual(matrix, try? Matrix(expectedElements))
     }
@@ -160,14 +160,14 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
 
         // Then
         let expectedElements = [
-            [Complex(1), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0)]
+            [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero]
         ]
         XCTAssertEqual(matrix, try? Matrix(expectedElements))
     }
@@ -181,38 +181,38 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
 
         // Then
         let expectedElements = [
-            [Complex(1), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(1), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0), Complex(0)],
-            [Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(0),
-             Complex(0), Complex(0), Complex(0), Complex(0), Complex(0), Complex(1), Complex(0), Complex(0)]]
+            [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero]]
         XCTAssertEqual(matrix, try? Matrix(expectedElements))
     }
 

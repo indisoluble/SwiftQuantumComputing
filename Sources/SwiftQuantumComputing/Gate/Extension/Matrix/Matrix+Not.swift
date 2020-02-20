@@ -1,5 +1,5 @@
 //
-//  Matrix+Hadamard.swift
+//  Matrix+Not.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 26/08/2018.
@@ -26,8 +26,7 @@ extension Matrix {
 
     // MARK: - Internal class methods
 
-    static func makeHadamard() -> Matrix {
-        return (Complex(1 / sqrt(2)) * (try! Matrix([[Complex(1), Complex(1)],
-                                                     [Complex(1), Complex(-1)]])))
+    static func makeNot() -> Matrix {
+        return try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
     }
 }

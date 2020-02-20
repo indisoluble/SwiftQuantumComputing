@@ -29,8 +29,8 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
     // MARK: - Properties
 
     let registerFactory = StatevectorRegisterFactoryTestDouble()
-    let initialStatevector = try! Vector([Complex(1), Complex(0), Complex(0), Complex(0),
-                                          Complex(0), Complex(0), Complex(0), Complex(0)])
+    let initialStatevector = try! Vector([Complex.one, Complex.zero, Complex.zero, Complex.zero,
+                                          Complex.zero, Complex.zero, Complex.zero, Complex.zero])
     let register = StatevectorRegisterTestDouble()
     let firstGate = SimulatorGateTestDouble()
     let firstRegister = StatevectorRegisterTestDouble()
