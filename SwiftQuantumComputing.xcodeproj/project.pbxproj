@@ -1150,12 +1150,12 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		FF121F4123B7D9F400C09FD2 /* LinearAlgebra */ = {
+		FF121F4123B7D9F400C09FD2 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
-				FFA6F2B123C24DA600C678C3 /* XorGaussianEliminationSolver */,
+				FFA6F2B123C24DA600C678C3 /* XorGaussianElimination */,
 			);
-			path = LinearAlgebra;
+			path = Algorithm;
 			sourceTree = "<group>";
 		};
 		FF18358121EA358C003E2F04 /* Gate */ = {
@@ -1410,7 +1410,7 @@
 				FFB8106621C6FEC8006333BB /* Drawer */,
 				FFF697F021BF23C7004AE4C2 /* Gate */,
 				FF2D446A21FA64AB002515EF /* Genetic */,
-				FF121F4123B7D9F400C09FD2 /* LinearAlgebra */,
+				FF121F4123B7D9F400C09FD2 /* Algorithm */,
 				FF9FBCF021C595050070D943 /* Logger */,
 				FF7469B1233FED77004AFB83 /* Simulator */,
 				FF1AAFEC211F61AF00D3666A /* SwiftTypeExtension */,
@@ -1599,12 +1599,12 @@
 			path = OracleCircuit;
 			sourceTree = "<group>";
 		};
-		FF78EF5623B9220A00BA53A1 /* LinearAlgebra */ = {
+		FF78EF5623B9220A00BA53A1 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
-				FFA6F2B923C27A5A00C678C3 /* XorGaussianEliminationSolver */,
+				FFA6F2B923C27A5A00C678C3 /* XorGaussianElimination */,
 			);
-			path = LinearAlgebra;
+			path = Algorithm;
 			sourceTree = "<group>";
 		};
 		FF78EF5823B9222700BA53A1 /* XorEquationSystemSimpleSolver */ = {
@@ -1649,13 +1649,13 @@
 			path = ComplexVectorSpace;
 			sourceTree = "<group>";
 		};
-		FF7E557823C5437E00A2FEEC /* XorGaussianEliminationSolver */ = {
+		FF7E557823C5437E00A2FEEC /* XorGaussianElimination */ = {
 			isa = PBXGroup;
 			children = (
 				FFDDDD8F23BCEC7100772A03 /* XorEquationSystemSimpleSolver */,
 				FF56B0B823CA48300087F7FA /* XorGaussianEliminationSolverTestDouble.swift */,
 			);
-			path = XorGaussianEliminationSolver;
+			path = XorGaussianElimination;
 			sourceTree = "<group>";
 		};
 		FF7EC7DC237B600C0006C3FA /* Extension */ = {
@@ -1835,7 +1835,7 @@
 			path = Facade;
 			sourceTree = "<group>";
 		};
-		FFA6F2B123C24DA600C678C3 /* XorGaussianEliminationSolver */ = {
+		FFA6F2B123C24DA600C678C3 /* XorGaussianElimination */ = {
 			isa = PBXGroup;
 			children = (
 				FF56B0AE23CA3F560087F7FA /* Extension */,
@@ -1845,7 +1845,7 @@
 				FFA6F2B223C24DE600C678C3 /* XorGaussianEliminationSolver.swift */,
 				FFA6F2C123C2B1E100C678C3 /* XorGaussianEliminationSolverFactory.swift */,
 			);
-			path = XorGaussianEliminationSolver;
+			path = XorGaussianElimination;
 			sourceTree = "<group>";
 		};
 		FFA6F2B523C2608C00C678C3 /* Facade */ = {
@@ -1856,14 +1856,14 @@
 			path = Facade;
 			sourceTree = "<group>";
 		};
-		FFA6F2B923C27A5A00C678C3 /* XorGaussianEliminationSolver */ = {
+		FFA6F2B923C27A5A00C678C3 /* XorGaussianElimination */ = {
 			isa = PBXGroup;
 			children = (
 				FF56B0BB23CA49260087F7FA /* Extension */,
 				FFA6F2BA23C27A7200C678C3 /* Facade */,
 				FF78EF5823B9222700BA53A1 /* XorEquationSystemSimpleSolver */,
 			);
-			path = XorGaussianEliminationSolver;
+			path = XorGaussianElimination;
 			sourceTree = "<group>";
 		};
 		FFA6F2BA23C27A7200C678C3 /* Facade */ = {
@@ -2002,7 +2002,7 @@
 				FF9BBE77214ECA7F00AD1F78 /* Drawer */,
 				FF18358121EA358C003E2F04 /* Gate */,
 				FF43386C2212258700AB5C06 /* Genetic */,
-				FF78EF5623B9220A00BA53A1 /* LinearAlgebra */,
+				FF78EF5623B9220A00BA53A1 /* Algorithm */,
 				FF7469B2233FF046004AFB83 /* Simulator */,
 				FF1AAFED211F61CB00D3666A /* SwiftTypeExtension */,
 				FFED68FD212F289800D46D68 /* TestDouble */,
@@ -2081,12 +2081,12 @@
 			path = Fitness;
 			sourceTree = "<group>";
 		};
-		FFDDDD8D23BCEC4800772A03 /* LinearAlgebra */ = {
+		FFDDDD8D23BCEC4800772A03 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
-				FF7E557823C5437E00A2FEEC /* XorGaussianEliminationSolver */,
+				FF7E557823C5437E00A2FEEC /* XorGaussianElimination */,
 			);
-			path = LinearAlgebra;
+			path = Algorithm;
 			sourceTree = "<group>";
 		};
 		FFDDDD8F23BCEC7100772A03 /* XorEquationSystemSimpleSolver */ = {
@@ -2151,7 +2151,7 @@
 				FFED68FE212F28A100D46D68 /* Circuit */,
 				FF7EC7E0237B64B20006C3FA /* Drawer */,
 				FF43386E221225CF00AB5C06 /* Genetic */,
-				FFDDDD8D23BCEC4800772A03 /* LinearAlgebra */,
+				FFDDDD8D23BCEC4800772A03 /* Algorithm */,
 				FF7469B3233FF0DD004AFB83 /* Simulator */,
 			);
 			path = TestDouble;
