@@ -397,6 +397,10 @@
 		FF9FBCE021C57A400070D943 /* MatrixGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9FBCDE21C57A400070D943 /* MatrixGate.swift */; };
 		FF9FBCE221C57ACD0070D943 /* PhaseShiftGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9FBCE121C57ACD0070D943 /* PhaseShiftGate.swift */; };
 		FF9FBCE321C57ACD0070D943 /* PhaseShiftGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9FBCE121C57ACD0070D943 /* PhaseShiftGate.swift */; };
+		FFA4C5272401BF0A00985289 /* EuclideanSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4C5262401BF0A00985289 /* EuclideanSolver.swift */; };
+		FFA4C5282401BF0A00985289 /* EuclideanSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4C5262401BF0A00985289 /* EuclideanSolver.swift */; };
+		FFA4C52B2401C70100985289 /* EuclideanSolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4C52A2401C70100985289 /* EuclideanSolverTests.swift */; };
+		FFA4C52C2401C70100985289 /* EuclideanSolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4C52A2401C70100985289 /* EuclideanSolverTests.swift */; };
 		FFA50BAF2357BAEE00BA9BAC /* UnitarySimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA50BAE2357BAEE00BA9BAC /* UnitarySimulator.swift */; };
 		FFA50BB02357BAEE00BA9BAC /* UnitarySimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA50BAE2357BAEE00BA9BAC /* UnitarySimulator.swift */; };
 		FFA50BB32357BEDC00BA9BAC /* UnitarySimulatorFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA50BB22357BEDC00BA9BAC /* UnitarySimulatorFacade.swift */; };
@@ -821,6 +825,8 @@
 		FF9FBCDB21C57A160070D943 /* NotGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotGate.swift; sourceTree = "<group>"; };
 		FF9FBCDE21C57A400070D943 /* MatrixGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixGate.swift; sourceTree = "<group>"; };
 		FF9FBCE121C57ACD0070D943 /* PhaseShiftGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseShiftGate.swift; sourceTree = "<group>"; };
+		FFA4C5262401BF0A00985289 /* EuclideanSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclideanSolver.swift; sourceTree = "<group>"; };
+		FFA4C52A2401C70100985289 /* EuclideanSolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclideanSolverTests.swift; sourceTree = "<group>"; };
 		FFA50BAE2357BAEE00BA9BAC /* UnitarySimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitarySimulator.swift; sourceTree = "<group>"; };
 		FFA50BB22357BEDC00BA9BAC /* UnitarySimulatorFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitarySimulatorFacade.swift; sourceTree = "<group>"; };
 		FFA6F2B223C24DE600C678C3 /* XorGaussianEliminationSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XorGaussianEliminationSolver.swift; sourceTree = "<group>"; };
@@ -1153,6 +1159,7 @@
 		FF121F4123B7D9F400C09FD2 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
+				FFA4C5252401BDD600985289 /* Euclidean */,
 				FFA6F2B123C24DA600C678C3 /* XorGaussianElimination */,
 			);
 			path = Algorithm;
@@ -1602,6 +1609,7 @@
 		FF78EF5623B9220A00BA53A1 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
+				FFA4C5292401C6E100985289 /* Euclidean */,
 				FFA6F2B923C27A5A00C678C3 /* XorGaussianElimination */,
 			);
 			path = Algorithm;
@@ -1812,6 +1820,22 @@
 				FF02E88922B69ECF004CB960 /* Logger.swift */,
 			);
 			path = Logger;
+			sourceTree = "<group>";
+		};
+		FFA4C5252401BDD600985289 /* Euclidean */ = {
+			isa = PBXGroup;
+			children = (
+				FFA4C5262401BF0A00985289 /* EuclideanSolver.swift */,
+			);
+			path = Euclidean;
+			sourceTree = "<group>";
+		};
+		FFA4C5292401C6E100985289 /* Euclidean */ = {
+			isa = PBXGroup;
+			children = (
+				FFA4C52A2401C70100985289 /* EuclideanSolverTests.swift */,
+			);
+			path = Euclidean;
 			sourceTree = "<group>";
 		};
 		FFA50BAD2357BA9200BA9BAC /* Unitary */ = {
@@ -2497,6 +2521,7 @@
 				FFDDFE832359085500683CF9 /* UnitaryGate.swift in Sources */,
 				FFEB7B4621EBCC0A009B916B /* OracleDownPositionView.swift in Sources */,
 				FF5920E72221AF5B00C86F6A /* MainGeneticCircuitEvaluatorFactory.swift in Sources */,
+				FFA4C5272401BF0A00985289 /* EuclideanSolver.swift in Sources */,
 				FFBCD5E2214DB6D90047020B /* CircuitViewPosition+PositionView.swift in Sources */,
 				FF002BD021FCC9A800E40C3A /* MainCircuitFactory.swift in Sources */,
 				FF9FBCE221C57ACD0070D943 /* PhaseShiftGate.swift in Sources */,
@@ -2687,6 +2712,7 @@
 				FF78EF5A23B9227000BA53A1 /* XorEquationSystemAdapterTests.swift in Sources */,
 				FF0694DE21CBFF3000B5D469 /* StatevectorRegisterTestDouble.swift in Sources */,
 				FFEB607F23F87A7100F4FAA1 /* Matrix+IdentityTests.swift in Sources */,
+				FFA4C52B2401C70100985289 /* EuclideanSolverTests.swift in Sources */,
 				FF149DE9222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift in Sources */,
 				FF6AF8FE2214CB8F00B35ECC /* GeneticGatesRandomizerTestDouble.swift in Sources */,
 				FFB1247E2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift in Sources */,
@@ -2791,6 +2817,7 @@
 				FFDDFE872359099000683CF9 /* UnitaryGateFactory.swift in Sources */,
 				FF5921002221DB0400C86F6A /* MainGeneticPopulationReproductionFactory.swift in Sources */,
 				FF79DA062219D97700D093AA /* GeneticUseCaseEvaluatorFactory.swift in Sources */,
+				FFA4C5282401BF0A00985289 /* EuclideanSolver.swift in Sources */,
 				FFA50BB02357BAEE00BA9BAC /* UnitarySimulator.swift in Sources */,
 				FF8725BF21D9534600E1004E /* StatevectorRegisterFactory.swift in Sources */,
 				FFEB607D23F8721300F4FAA1 /* Matrix+Identity.swift in Sources */,
@@ -2965,6 +2992,7 @@
 				FF149DF3222B2C9C00408E2D /* MainGeneticFactoryTests.swift in Sources */,
 				FF78EF5B23B9227000BA53A1 /* XorEquationSystemAdapterTests.swift in Sources */,
 				FFEB608023F87A7100F4FAA1 /* Matrix+IdentityTests.swift in Sources */,
+				FFA4C52C2401C70100985289 /* EuclideanSolverTests.swift in Sources */,
 				FF149DEA222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift in Sources */,
 				FF6AF8FF2214CB9000B35ECC /* GeneticGatesRandomizerTestDouble.swift in Sources */,
 				FFB1247F2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift in Sources */,
