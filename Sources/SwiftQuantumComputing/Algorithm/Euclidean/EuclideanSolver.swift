@@ -25,13 +25,22 @@ import Foundation
 /// Euclidean algorithm is a method for computing the Greatest Common Divisor of two numbers
 public struct EuclideanSolver {
 
-    /// Finds the Greatest Common Divisor of `a` and `b`
+    /**
+     Finds the Greatest Common Divisor (GCD) of `a` and `b`.
+
+     - Parameter a: One integer.
+     - Parameter b: Other integer.
+
+     - Returns: GCD of `a` and `b`.
+
+     Check [Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm) for more details.
+     */
     public static func findGreatestCommonDivisor(_ a: Int, _ b: Int) -> Int {
         var v1 = a
         var v2 = b
         while v2 != 0 {
             let temp = v2
-            (v2, _) = v1.remainderReportingOverflow(dividingBy: v2)
+            v2 = v1.remainder(dividingBy: v2, division: .euclidean)
             v1 = temp
         }
         return v1

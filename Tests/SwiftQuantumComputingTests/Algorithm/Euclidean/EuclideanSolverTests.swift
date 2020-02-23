@@ -45,7 +45,7 @@ class EuclideanSolverTests: XCTestCase {
 
     func testBIsNegative_findGreatestCommonDivisor_returnExpectedValue() {
         // Then
-        XCTAssertEqual(EuclideanSolver.findGreatestCommonDivisor(1071, -462), -21)
+        XCTAssertEqual(EuclideanSolver.findGreatestCommonDivisor(1071, -462), 21)
     }
 
     func testSimpleValues_findGreatestCommonDivisor_returnExpectedValue() {
@@ -65,12 +65,12 @@ class EuclideanSolverTests: XCTestCase {
 
     func testAnyNegativeValues_findGreatestCommonDivisor_returnExpectedValue() {
         // Then
-        XCTAssertEqual(EuclideanSolver.findGreatestCommonDivisor(-1071, -462), -21)
+        XCTAssertEqual(EuclideanSolver.findGreatestCommonDivisor(-1071, -462), 21)
     }
 
     func testAnyNegativeValuesSwapped_findGreatestCommonDivisor_returnExpectedValue() {
         // Then
-        XCTAssertEqual(EuclideanSolver.findGreatestCommonDivisor(-462, -1071), -21)
+        XCTAssertEqual(EuclideanSolver.findGreatestCommonDivisor(-462, -1071), 21)
     }
 
     func testOtherValues_findGreatestCommonDivisor_returnExpectedValue() {
