@@ -417,6 +417,10 @@
 		FFA6F2C623C2B22A00C678C3 /* MainXorGaussianEliminationSolverFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA6F2C423C2B22A00C678C3 /* MainXorGaussianEliminationSolverFactory.swift */; };
 		FFA842392376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA842382376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift */; };
 		FFA8423A2376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA842382376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift */; };
+		FFAFC3FC2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FB2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift */; };
+		FFAFC3FD2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FB2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift */; };
+		FFAFC3FF24030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FE24030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift */; };
+		FFAFC40024030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FE24030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift */; };
 		FFB0D228212E0A650093BB3B /* Circuit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB0D227212E0A650093BB3B /* Circuit.swift */; };
 		FFB1247E2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB1247D2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift */; };
 		FFB1247F2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB1247D2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift */; };
@@ -835,6 +839,8 @@
 		FFA6F2C123C2B1E100C678C3 /* XorGaussianEliminationSolverFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XorGaussianEliminationSolverFactory.swift; sourceTree = "<group>"; };
 		FFA6F2C423C2B22A00C678C3 /* MainXorGaussianEliminationSolverFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainXorGaussianEliminationSolverFactory.swift; sourceTree = "<group>"; };
 		FFA842382376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArraySimulatorGate+QubitCount.swift"; sourceTree = "<group>"; };
+		FFAFC3FB2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+RemainderWithDivisionType.swift"; sourceTree = "<group>"; };
+		FFAFC3FE24030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+RemainderWithDivisionTypeTests.swift"; sourceTree = "<group>"; };
 		FFB0D227212E0A650093BB3B /* Circuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuit.swift; sourceTree = "<group>"; };
 		FFB1247D2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticCircuitMutationFactoryTests.swift; sourceTree = "<group>"; };
 		FFB124802225F38E00E44DC6 /* MainGeneticPopulationCrossoverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticPopulationCrossoverTests.swift; sourceTree = "<group>"; };
@@ -1192,6 +1198,7 @@
 				FF1AAFE5211F4DC500D3666A /* Int+IsPowerOfTwo.swift */,
 				FF1AAFF2211F6E1000D3666A /* Int+Log2.swift */,
 				FF1AAFF0211F66D400D3666A /* Int+Pow.swift */,
+				FFAFC3FB2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift */,
 				FF7E557923C5466700A2FEEC /* String+ActivatedBits.swift */,
 				FF43393323DCCD0800E26FA4 /* String+BitAnd.swift */,
 				FF79037021964D6F00FFC31D /* String+Bits.swift */,
@@ -1208,6 +1215,7 @@
 				FF66129223BEAB9F00C3C91D /* Bool+XorTests.swift */,
 				FFE8FAA2212205BE005686FE /* Int+DerivedTests.swift */,
 				FF1AAFE7211F4E3A00D3666A /* Int+IsPowerOfTwoTests.swift */,
+				FFAFC3FE24030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift */,
 				FF28D97823C7DD9B0070132F /* String+ActivatedBitsTests.swift */,
 				FF43393623DCCF1400E26FA4 /* String+BitAndTests.swift */,
 				FF1116B823B1916A00AFD0AF /* String+BitXorTests.swift */,
@@ -2505,6 +2513,7 @@
 				FF9BBE28214E756F00AD1F78 /* CrossedLinesPositionView.swift in Sources */,
 				FF1AAFF3211F6E1000D3666A /* Int+Log2.swift in Sources */,
 				FF36CB0E23E8D79300C286B2 /* SimulatorCircuitMatrixFactoryAdapter.swift in Sources */,
+				FFAFC3FC2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift in Sources */,
 				FFFEFD2B21333EDB0063B559 /* Matrix+ControlledNot.swift in Sources */,
 				FF5920DE22219E2400C86F6A /* GeneticPopulationReproduction.swift in Sources */,
 				FF74B1612219B16900561A1F /* MainOracleCircuitFactory.swift in Sources */,
@@ -2684,6 +2693,7 @@
 				FFFB3D4B23EE15F90013539D /* SimulatorCircuitMatrixFactoryTestDouble.swift in Sources */,
 				FFA6F2BF23C27CB900C678C3 /* XorGaussianEliminationSolverFacadeTests.swift in Sources */,
 				FF10373D236DF71C0011706D /* Circuit+StatevectorTests.swift in Sources */,
+				FFAFC3FF24030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift in Sources */,
 				FF74B1652219B79200561A1F /* MainOracleCircuitFactoryTests.swift in Sources */,
 				FFBB6F8F21CD619E00389838 /* PhaseShiftGateTests.swift in Sources */,
 				FFE1A963222349C900A2F285 /* GeneticGatesRandomizerFactoryTestDouble.swift in Sources */,
@@ -2828,6 +2838,7 @@
 				FF46EDD6216924D80044C3CA /* CircuitViewPosition.swift in Sources */,
 				FF79DA0C2219DB8900D093AA /* MainGeneticUseCaseEvaluatorFactory.swift in Sources */,
 				FFB5B56D216A534F009C59FC /* QubitPositionView.swift in Sources */,
+				FFAFC3FD2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift in Sources */,
 				FF9FBCD721C5792E0070D943 /* ControlledNotGate.swift in Sources */,
 				FF410F3F221F591200D257EE /* MainGeneticPopulationCrossover.swift in Sources */,
 				FF8B40DA23AEDAFC00A51475 /* Gate+OracleReplicator.swift in Sources */,
@@ -2964,6 +2975,7 @@
 				FFFB3D4C23EE15F90013539D /* SimulatorCircuitMatrixFactoryTestDouble.swift in Sources */,
 				FFA6F2C023C27CB900C678C3 /* XorGaussianEliminationSolverFacadeTests.swift in Sources */,
 				FF10373E236DF71C0011706D /* Circuit+StatevectorTests.swift in Sources */,
+				FFAFC40024030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift in Sources */,
 				FF74B1662219B79200561A1F /* MainOracleCircuitFactoryTests.swift in Sources */,
 				FF46EDB2216924130044C3CA /* Gate+CircuitViewPositionTests.swift in Sources */,
 				FFBB6F8A21CD5E3700389838 /* NotGateTests.swift in Sources */,
