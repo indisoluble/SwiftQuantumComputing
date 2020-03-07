@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="OracleTopPositionView" customModule="SwiftQuantumComputing" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="MatrixTopConnectedPositionView" customModule="SwiftQuantumComputing" customModuleProvider="target">
             <connections>
                 <outlet property="label" destination="Igr-FB-dsx" id="nb3-k5-oBn"/>
             </connections>
@@ -60,7 +60,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Igr-FB-dsx">
-                                                        <rect key="frame" x="-2" y="22" width="50" height="16"/>
+                                                        <rect key="frame" x="-2" y="23" width="50" height="15"/>
                                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="f(0,1)" id="vTn-2n-QEI">
                                                             <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -114,6 +114,7 @@
                 <constraint firstItem="C6F-vL-vOe" firstAttribute="top" secondItem="GsB-nz-zmj" secondAttribute="top" id="p5Q-L4-XR2"/>
                 <constraint firstAttribute="bottom" secondItem="C6F-vL-vOe" secondAttribute="bottom" id="zeK-Ps-CVk"/>
             </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
         </customView>
     </objects>
 </document>

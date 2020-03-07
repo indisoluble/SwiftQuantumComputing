@@ -131,10 +131,10 @@
 		FF28D97A23C7DD9B0070132F /* String+ActivatedBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF28D97823C7DD9B0070132F /* String+ActivatedBitsTests.swift */; };
 		FF28D97B23C7DE560070132F /* String+ActivatedBits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E557923C5466700A2FEEC /* String+ActivatedBits.swift */; };
 		FF28D97C23C7DE570070132F /* String+ActivatedBits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7E557923C5466700A2FEEC /* String+ActivatedBits.swift */; };
-		FF2B47CB21EBF1CC004D4789 /* OracleBottomPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CA21EBF1CC004D4789 /* OracleBottomPositionView.xib */; };
-		FF2B47CD21EBF29C004D4789 /* OracleDownPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CC21EBF29C004D4789 /* OracleDownPositionView.xib */; };
-		FF2B47CF21EBF37B004D4789 /* OracleUpPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CE21EBF37B004D4789 /* OracleUpPositionView.xib */; };
-		FF2B47D121EBF4E9004D4789 /* OracleTopPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */; };
+		FF2B47CB21EBF1CC004D4789 /* MatrixBottomConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CA21EBF1CC004D4789 /* MatrixBottomConnectedPositionView.xib */; };
+		FF2B47CD21EBF29C004D4789 /* MatrixDownConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CC21EBF29C004D4789 /* MatrixDownConnectedPositionView.xib */; };
+		FF2B47CF21EBF37B004D4789 /* MatrixUpConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47CE21EBF37B004D4789 /* MatrixUpConnectedPositionView.xib */; };
+		FF2B47D121EBF4E9004D4789 /* MatrixTopConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF2B47D021EBF4E9004D4789 /* MatrixTopConnectedPositionView.xib */; };
 		FF2B4C5723BB869A00A388F3 /* XorEquationSystemSimpleSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B4C5623BB869A00A388F3 /* XorEquationSystemSimpleSolver.swift */; };
 		FF2B4C5823BB869A00A388F3 /* XorEquationSystemSimpleSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B4C5623BB869A00A388F3 /* XorEquationSystemSimpleSolver.swift */; };
 		FF2B4C5D23BBB08300A388F3 /* Array+Combinations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2B4C5C23BBB08300A388F3 /* Array+Combinations.swift */; };
@@ -206,6 +206,10 @@
 		FF46EDFB216925180044C3CA /* Int+Pow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFF0211F66D400D3666A /* Int+Pow.swift */; };
 		FF4949BA223ECDD50087E821 /* GeneticUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4949B9223ECDD50087E821 /* GeneticUseCaseTests.swift */; };
 		FF4949BB223ECDD50087E821 /* GeneticUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4949B9223ECDD50087E821 /* GeneticUseCaseTests.swift */; };
+		FF4BBE7C24130DD1002B4FA6 /* ControlPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF4BBE7A24130DD1002B4FA6 /* ControlPositionView.xib */; };
+		FF4BBE8024131980002B4FA6 /* ControlPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4BBE7F24131980002B4FA6 /* ControlPositionView.swift */; };
+		FF4BBE8124131980002B4FA6 /* ControlPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4BBE7F24131980002B4FA6 /* ControlPositionView.swift */; };
+		FF4BBE8324131CA9002B4FA6 /* ControlPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF4BBE8224131CA9002B4FA6 /* ControlPositionView.xib */; };
 		FF4F8AA7222C0B1500A09D61 /* InitialPopulationProducerFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4F8AA6222C0B1500A09D61 /* InitialPopulationProducerFactoryTestDouble.swift */; };
 		FF4F8AA8222C0B1500A09D61 /* InitialPopulationProducerFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4F8AA6222C0B1500A09D61 /* InitialPopulationProducerFactoryTestDouble.swift */; };
 		FF4F8AAA222C0EEF00A09D61 /* GeneticPopulationReproductionFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4F8AA9222C0EEF00A09D61 /* GeneticPopulationReproductionFactoryTestDouble.swift */; };
@@ -417,6 +421,8 @@
 		FFA6F2C623C2B22A00C678C3 /* MainXorGaussianEliminationSolverFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA6F2C423C2B22A00C678C3 /* MainXorGaussianEliminationSolverFactory.swift */; };
 		FFA842392376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA842382376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift */; };
 		FFA8423A2376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA842382376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift */; };
+		FFAF3E552410647C00E6DD6A /* Matrix+ControlledMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF3E542410647C00E6DD6A /* Matrix+ControlledMatrix.swift */; };
+		FFAF3E562410647C00E6DD6A /* Matrix+ControlledMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF3E542410647C00E6DD6A /* Matrix+ControlledMatrix.swift */; };
 		FFAFC3FC2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FB2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift */; };
 		FFAFC3FD2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FB2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift */; };
 		FFAFC3FF24030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FE24030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift */; };
@@ -492,6 +498,12 @@
 		FFDB6EFE23F09A7700C2C708 /* StatevectorRegisterFactoryAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDB6EFC23F09A7700C2C708 /* StatevectorRegisterFactoryAdapterTests.swift */; };
 		FFDC34E221C1BCBD0052AC90 /* StatevectorSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC34E121C1BCBD0052AC90 /* StatevectorSimulator.swift */; };
 		FFDC34E321C1BCBD0052AC90 /* StatevectorSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC34E121C1BCBD0052AC90 /* StatevectorSimulator.swift */; };
+		FFDC49F92414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC49F82414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift */; };
+		FFDC49FA2414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC49F82414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift */; };
+		FFDC49FC241421EB00DF1E42 /* ControlledMatrixGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC49FB241421EB00DF1E42 /* ControlledMatrixGate.swift */; };
+		FFDC49FD241421EB00DF1E42 /* ControlledMatrixGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC49FB241421EB00DF1E42 /* ControlledMatrixGate.swift */; };
+		FFDC49FF2414312100DF1E42 /* ControlledMatrixGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC49FE2414312100DF1E42 /* ControlledMatrixGateTests.swift */; };
+		FFDC4A002414312100DF1E42 /* ControlledMatrixGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC49FE2414312100DF1E42 /* ControlledMatrixGateTests.swift */; };
 		FFDCA37C23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCA37B23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift */; };
 		FFDCA37D23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCA37B23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift */; };
 		FFDCA37F23F9D1CC00BBDD8F /* Gate+InversionAboutMeanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCA37E23F9D1CC00BBDD8F /* Gate+InversionAboutMeanTests.swift */; };
@@ -559,18 +571,18 @@
 		FFEB608323F8882E00F4FAA1 /* Matrix+Average.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB608123F8882E00F4FAA1 /* Matrix+Average.swift */; };
 		FFEB608523F89CAE00F4FAA1 /* Matrix+AverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB608423F89CAE00F4FAA1 /* Matrix+AverageTests.swift */; };
 		FFEB608623F89CAE00F4FAA1 /* Matrix+AverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB608423F89CAE00F4FAA1 /* Matrix+AverageTests.swift */; };
-		FFEB7B4321EBCBF8009B916B /* OracleUpPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4221EBCBF8009B916B /* OracleUpPositionView.swift */; };
-		FFEB7B4421EBCBF8009B916B /* OracleUpPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4221EBCBF8009B916B /* OracleUpPositionView.swift */; };
-		FFEB7B4621EBCC0A009B916B /* OracleDownPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4521EBCC0A009B916B /* OracleDownPositionView.swift */; };
-		FFEB7B4721EBCC0A009B916B /* OracleDownPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4521EBCC0A009B916B /* OracleDownPositionView.swift */; };
-		FFEB7B4921EBCC24009B916B /* OracleBottomPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4821EBCC24009B916B /* OracleBottomPositionView.swift */; };
-		FFEB7B4A21EBCC24009B916B /* OracleBottomPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4821EBCC24009B916B /* OracleBottomPositionView.swift */; };
-		FFEB7B4C21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4B21EBCC3C009B916B /* OracleTopPositionView.swift */; };
-		FFEB7B4D21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4B21EBCC3C009B916B /* OracleTopPositionView.swift */; };
-		FFEB7B5121EBDE2B009B916B /* OracleUpPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5021EBDE2B009B916B /* OracleUpPositionView.xib */; };
-		FFEB7B5321EBE03F009B916B /* OracleDownPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5221EBE03F009B916B /* OracleDownPositionView.xib */; };
-		FFEB7B5521EBE2E8009B916B /* OracleBottomPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5421EBE2E8009B916B /* OracleBottomPositionView.xib */; };
-		FFEB7B5721EBE447009B916B /* OracleTopPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5621EBE447009B916B /* OracleTopPositionView.xib */; };
+		FFEB7B4321EBCBF8009B916B /* MatrixUpConnectedPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4221EBCBF8009B916B /* MatrixUpConnectedPositionView.swift */; };
+		FFEB7B4421EBCBF8009B916B /* MatrixUpConnectedPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4221EBCBF8009B916B /* MatrixUpConnectedPositionView.swift */; };
+		FFEB7B4621EBCC0A009B916B /* MatrixDownConnectedPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4521EBCC0A009B916B /* MatrixDownConnectedPositionView.swift */; };
+		FFEB7B4721EBCC0A009B916B /* MatrixDownConnectedPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4521EBCC0A009B916B /* MatrixDownConnectedPositionView.swift */; };
+		FFEB7B4921EBCC24009B916B /* MatrixBottomConnectedPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4821EBCC24009B916B /* MatrixBottomConnectedPositionView.swift */; };
+		FFEB7B4A21EBCC24009B916B /* MatrixBottomConnectedPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4821EBCC24009B916B /* MatrixBottomConnectedPositionView.swift */; };
+		FFEB7B4C21EBCC3C009B916B /* MatrixTopConnectedPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4B21EBCC3C009B916B /* MatrixTopConnectedPositionView.swift */; };
+		FFEB7B4D21EBCC3C009B916B /* MatrixTopConnectedPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB7B4B21EBCC3C009B916B /* MatrixTopConnectedPositionView.swift */; };
+		FFEB7B5121EBDE2B009B916B /* MatrixUpConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5021EBDE2B009B916B /* MatrixUpConnectedPositionView.xib */; };
+		FFEB7B5321EBE03F009B916B /* MatrixDownConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5221EBE03F009B916B /* MatrixDownConnectedPositionView.xib */; };
+		FFEB7B5521EBE2E8009B916B /* MatrixBottomConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5421EBE2E8009B916B /* MatrixBottomConnectedPositionView.xib */; };
+		FFEB7B5721EBE447009B916B /* MatrixTopConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5621EBE447009B916B /* MatrixTopConnectedPositionView.xib */; };
 		FFED6909212F2DE600D46D68 /* CircuitFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFED6908212F2DE600D46D68 /* CircuitFacadeTests.swift */; };
 		FFF3929C23AFCCB300470C58 /* String+IsBitActivated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF3929B23AFCCB200470C58 /* String+IsBitActivated.swift */; };
 		FFF3929D23AFCCB300470C58 /* String+IsBitActivated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF3929B23AFCCB200470C58 /* String+IsBitActivated.swift */; };
@@ -678,10 +690,10 @@
 		FF2600AA2378CF79002342AD /* Circuit+UnitaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+UnitaryTests.swift"; sourceTree = "<group>"; };
 		FF265D652135DD6A00179F75 /* CircuitTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitTestDouble.swift; sourceTree = "<group>"; };
 		FF28D97823C7DD9B0070132F /* String+ActivatedBitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ActivatedBitsTests.swift"; sourceTree = "<group>"; };
-		FF2B47CA21EBF1CC004D4789 /* OracleBottomPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleBottomPositionView.xib; sourceTree = "<group>"; };
-		FF2B47CC21EBF29C004D4789 /* OracleDownPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleDownPositionView.xib; sourceTree = "<group>"; };
-		FF2B47CE21EBF37B004D4789 /* OracleUpPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleUpPositionView.xib; sourceTree = "<group>"; };
-		FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleTopPositionView.xib; sourceTree = "<group>"; };
+		FF2B47CA21EBF1CC004D4789 /* MatrixBottomConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixBottomConnectedPositionView.xib; sourceTree = "<group>"; };
+		FF2B47CC21EBF29C004D4789 /* MatrixDownConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixDownConnectedPositionView.xib; sourceTree = "<group>"; };
+		FF2B47CE21EBF37B004D4789 /* MatrixUpConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixUpConnectedPositionView.xib; sourceTree = "<group>"; };
+		FF2B47D021EBF4E9004D4789 /* MatrixTopConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixTopConnectedPositionView.xib; sourceTree = "<group>"; };
 		FF2B4C5623BB869A00A388F3 /* XorEquationSystemSimpleSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XorEquationSystemSimpleSolver.swift; sourceTree = "<group>"; };
 		FF2B4C5C23BBB08300A388F3 /* Array+Combinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Combinations.swift"; sourceTree = "<group>"; };
 		FF2BD6ED21FE0749007410EB /* MainGeneticCircuitEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticCircuitEvaluator.swift; sourceTree = "<group>"; };
@@ -709,6 +721,9 @@
 		FF43393923DCD36600E26FA4 /* BernsteinVaziraniAlgorithm.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BernsteinVaziraniAlgorithm.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF43848422B56C2200319473 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		FF4949B9223ECDD50087E821 /* GeneticUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticUseCaseTests.swift; sourceTree = "<group>"; };
+		FF4BBE7A24130DD1002B4FA6 /* ControlPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlPositionView.xib; sourceTree = "<group>"; };
+		FF4BBE7F24131980002B4FA6 /* ControlPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPositionView.swift; sourceTree = "<group>"; };
+		FF4BBE8224131CA9002B4FA6 /* ControlPositionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlPositionView.xib; sourceTree = "<group>"; };
 		FF4C1DFF220CEED70088CD3F /* Genetic.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Genetic.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF4F8AA6222C0B1500A09D61 /* InitialPopulationProducerFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialPopulationProducerFactoryTestDouble.swift; sourceTree = "<group>"; };
 		FF4F8AA9222C0EEF00A09D61 /* GeneticPopulationReproductionFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticPopulationReproductionFactoryTestDouble.swift; sourceTree = "<group>"; };
@@ -839,6 +854,7 @@
 		FFA6F2C123C2B1E100C678C3 /* XorGaussianEliminationSolverFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XorGaussianEliminationSolverFactory.swift; sourceTree = "<group>"; };
 		FFA6F2C423C2B22A00C678C3 /* MainXorGaussianEliminationSolverFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainXorGaussianEliminationSolverFactory.swift; sourceTree = "<group>"; };
 		FFA842382376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArraySimulatorGate+QubitCount.swift"; sourceTree = "<group>"; };
+		FFAF3E542410647C00E6DD6A /* Matrix+ControlledMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+ControlledMatrix.swift"; sourceTree = "<group>"; };
 		FFAFC3FB2402FAC500B97BC9 /* Int+RemainderWithDivisionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+RemainderWithDivisionType.swift"; sourceTree = "<group>"; };
 		FFAFC3FE24030B0F00B97BC9 /* Int+RemainderWithDivisionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+RemainderWithDivisionTypeTests.swift"; sourceTree = "<group>"; };
 		FFB0D227212E0A650093BB3B /* Circuit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circuit.swift; sourceTree = "<group>"; };
@@ -883,6 +899,9 @@
 		FFD05D7F236614C900872BBA /* Circuit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Circuit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FFDB6EFC23F09A7700C2C708 /* StatevectorRegisterFactoryAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorRegisterFactoryAdapterTests.swift; sourceTree = "<group>"; };
 		FFDC34E121C1BCBD0052AC90 /* StatevectorSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorSimulator.swift; sourceTree = "<group>"; };
+		FFDC49F82414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+ControlledMatrixTests.swift"; sourceTree = "<group>"; };
+		FFDC49FB241421EB00DF1E42 /* ControlledMatrixGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledMatrixGate.swift; sourceTree = "<group>"; };
+		FFDC49FE2414312100DF1E42 /* ControlledMatrixGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledMatrixGateTests.swift; sourceTree = "<group>"; };
 		FFDCA37B23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Gate+InversionAboutMean.swift"; sourceTree = "<group>"; };
 		FFDCA37E23F9D1CC00BBDD8F /* Gate+InversionAboutMeanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+InversionAboutMeanTests.swift"; sourceTree = "<group>"; };
 		FFDDDD8723BCC49400772A03 /* XorEquationSystemBruteForceSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XorEquationSystemBruteForceSolver.swift; sourceTree = "<group>"; };
@@ -920,14 +939,14 @@
 		FFEB607E23F87A7100F4FAA1 /* Matrix+IdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+IdentityTests.swift"; sourceTree = "<group>"; };
 		FFEB608123F8882E00F4FAA1 /* Matrix+Average.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Average.swift"; sourceTree = "<group>"; };
 		FFEB608423F89CAE00F4FAA1 /* Matrix+AverageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+AverageTests.swift"; sourceTree = "<group>"; };
-		FFEB7B4221EBCBF8009B916B /* OracleUpPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleUpPositionView.swift; sourceTree = "<group>"; };
-		FFEB7B4521EBCC0A009B916B /* OracleDownPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleDownPositionView.swift; sourceTree = "<group>"; };
-		FFEB7B4821EBCC24009B916B /* OracleBottomPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleBottomPositionView.swift; sourceTree = "<group>"; };
-		FFEB7B4B21EBCC3C009B916B /* OracleTopPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleTopPositionView.swift; sourceTree = "<group>"; };
-		FFEB7B5021EBDE2B009B916B /* OracleUpPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleUpPositionView.xib; sourceTree = "<group>"; };
-		FFEB7B5221EBE03F009B916B /* OracleDownPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleDownPositionView.xib; sourceTree = "<group>"; };
-		FFEB7B5421EBE2E8009B916B /* OracleBottomPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleBottomPositionView.xib; sourceTree = "<group>"; };
-		FFEB7B5621EBE447009B916B /* OracleTopPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OracleTopPositionView.xib; sourceTree = "<group>"; };
+		FFEB7B4221EBCBF8009B916B /* MatrixUpConnectedPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixUpConnectedPositionView.swift; sourceTree = "<group>"; };
+		FFEB7B4521EBCC0A009B916B /* MatrixDownConnectedPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixDownConnectedPositionView.swift; sourceTree = "<group>"; };
+		FFEB7B4821EBCC24009B916B /* MatrixBottomConnectedPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixBottomConnectedPositionView.swift; sourceTree = "<group>"; };
+		FFEB7B4B21EBCC3C009B916B /* MatrixTopConnectedPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixTopConnectedPositionView.swift; sourceTree = "<group>"; };
+		FFEB7B5021EBDE2B009B916B /* MatrixUpConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixUpConnectedPositionView.xib; sourceTree = "<group>"; };
+		FFEB7B5221EBE03F009B916B /* MatrixDownConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixDownConnectedPositionView.xib; sourceTree = "<group>"; };
+		FFEB7B5421EBE2E8009B916B /* MatrixBottomConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixBottomConnectedPositionView.xib; sourceTree = "<group>"; };
+		FFEB7B5621EBE447009B916B /* MatrixTopConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixTopConnectedPositionView.xib; sourceTree = "<group>"; };
 		FFED6908212F2DE600D46D68 /* CircuitFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFacadeTests.swift; sourceTree = "<group>"; };
 		FFF3929B23AFCCB200470C58 /* String+IsBitActivated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsBitActivated.swift"; sourceTree = "<group>"; };
 		FFF3929E23AFD84000470C58 /* String+IsBitActivatedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsBitActivatedTests.swift"; sourceTree = "<group>"; };
@@ -1182,6 +1201,7 @@
 		FF18358221EA359A003E2F04 /* Matrix */ = {
 			isa = PBXGroup;
 			children = (
+				FFDC49F82414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift */,
 				FF18358321EA36AE003E2F04 /* Matrix+OracleTests.swift */,
 			);
 			path = Matrix;
@@ -1496,20 +1516,21 @@
 				FF663D30216A1D52002298BA /* ControlledNotDownPositionView.xib */,
 				FF18358B21EA634D003E2F04 /* ControlledNotPositionView.xib */,
 				FF663D33216A1ECA002298BA /* ControlledNotUpPositionView.xib */,
+				FF4BBE7A24130DD1002B4FA6 /* ControlPositionView.xib */,
 				FF663D36216A1FBF002298BA /* ControlUpPositionView.xib */,
 				FF663D39216A204F002298BA /* CrossedLinesPositionView.xib */,
 				FF663D3C216A2494002298BA /* HadamardPositionView.xib */,
 				FF663D3F216A260F002298BA /* LineHorizontalPositionView.xib */,
+				FFEB7B5421EBE2E8009B916B /* MatrixBottomConnectedPositionView.xib */,
 				FFB5B556216A2EB6009C59FC /* MatrixBottomPositionView.xib */,
+				FFEB7B5221EBE03F009B916B /* MatrixDownConnectedPositionView.xib */,
 				FFB5B559216A2FBA009C59FC /* MatrixMiddleConnectedPositionView.xib */,
 				FFB5B55C216A30CD009C59FC /* MatrixMiddleUnconnectedPositionView.xib */,
 				FFB5B55F216A3BA9009C59FC /* MatrixPositionView.xib */,
+				FFEB7B5621EBE447009B916B /* MatrixTopConnectedPositionView.xib */,
 				FFB5B565216A4A79009C59FC /* MatrixTopPositionView.xib */,
+				FFEB7B5021EBDE2B009B916B /* MatrixUpConnectedPositionView.xib */,
 				FF663D42216A2678002298BA /* NotPositionView.xib */,
-				FFEB7B5421EBE2E8009B916B /* OracleBottomPositionView.xib */,
-				FFEB7B5221EBE03F009B916B /* OracleDownPositionView.xib */,
-				FFEB7B5621EBE447009B916B /* OracleTopPositionView.xib */,
-				FFEB7B5021EBDE2B009B916B /* OracleUpPositionView.xib */,
 				FFB5B568216A51B0009C59FC /* PhaseShiftPositionView.xib */,
 				FFB5B56B216A526A009C59FC /* QubitPositionView.xib */,
 			);
@@ -1990,6 +2011,7 @@
 		FFB8106321C6DAF0006333BB /* Matrix */ = {
 			isa = PBXGroup;
 			children = (
+				FFAF3E542410647C00E6DD6A /* Matrix+ControlledMatrix.swift */,
 				FFFEFD2A21333EDB0063B559 /* Matrix+ControlledNot.swift */,
 				FFFEFD2C21333EED0063B559 /* Matrix+Hadamard.swift */,
 				FFFEFD2E21333EFD0063B559 /* Matrix+Not.swift */,
@@ -2003,6 +2025,7 @@
 			isa = PBXGroup;
 			children = (
 				FF9FBCD221C56C270070D943 /* ConfigurableGate.swift */,
+				FFDC49FB241421EB00DF1E42 /* ControlledMatrixGate.swift */,
 				FF9FBCD521C5792E0070D943 /* ControlledNotGate.swift */,
 				FF9FBCD821C579CF0070D943 /* HadamardGate.swift */,
 				FF9FBCDE21C57A400070D943 /* MatrixGate.swift */,
@@ -2064,6 +2087,7 @@
 		FFBB6F8121CD563200389838 /* ConfigurableGate */ = {
 			isa = PBXGroup;
 			children = (
+				FFDC49FE2414312100DF1E42 /* ControlledMatrixGateTests.swift */,
 				FFBB6F8221CD566800389838 /* ControlledNotGateTests.swift */,
 				FFBB6F8521CD5ABD00389838 /* HadamardGateTests.swift */,
 				FFBB6F8B21CD5ECE00389838 /* MatrixGateTests.swift */,
@@ -2082,20 +2106,21 @@
 				FF9BBE41214E83F400AD1F78 /* ControlledNotDownPositionView.xib */,
 				FF18358921EA6201003E2F04 /* ControlledNotPositionView.xib */,
 				FF9BBE45214E864F00AD1F78 /* ControlledNotUpPositionView.xib */,
+				FF4BBE8224131CA9002B4FA6 /* ControlPositionView.xib */,
 				FF9BBE49214E942700AD1F78 /* ControlUpPositionView.xib */,
 				FF9BBE29214E759100AD1F78 /* CrossedLinesPositionView.xib */,
 				FF9BBE2D214E772300AD1F78 /* HadamardPositionView.xib */,
 				FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */,
+				FF2B47CA21EBF1CC004D4789 /* MatrixBottomConnectedPositionView.xib */,
 				FF9BBE55214E980900AD1F78 /* MatrixBottomPositionView.xib */,
+				FF2B47CC21EBF29C004D4789 /* MatrixDownConnectedPositionView.xib */,
 				FF9BBE59214E991600AD1F78 /* MatrixMiddleConnectedPositionView.xib */,
 				FF9BBE5D214E9A1E00AD1F78 /* MatrixMiddleUnconnectedPositionView.xib */,
 				FF9BBE35214E7A9F00AD1F78 /* MatrixPositionView.xib */,
+				FF2B47D021EBF4E9004D4789 /* MatrixTopConnectedPositionView.xib */,
 				FF9BBE51214E969300AD1F78 /* MatrixTopPositionView.xib */,
+				FF2B47CE21EBF37B004D4789 /* MatrixUpConnectedPositionView.xib */,
 				FF9BBE31214E795A00AD1F78 /* NotPositionView.xib */,
-				FF2B47CA21EBF1CC004D4789 /* OracleBottomPositionView.xib */,
-				FF2B47CC21EBF29C004D4789 /* OracleDownPositionView.xib */,
-				FF2B47D021EBF4E9004D4789 /* OracleTopPositionView.xib */,
-				FF2B47CE21EBF37B004D4789 /* OracleUpPositionView.xib */,
 				FF9BBE3D214E818200AD1F78 /* PhaseShiftPositionView.xib */,
 				FF9BBE39214E7C2400AD1F78 /* QubitPositionView.xib */,
 			);
@@ -2137,20 +2162,21 @@
 				FF9BBE3F214E839100AD1F78 /* ControlledNotDownPositionView.swift */,
 				FF18358621EA5E7C003E2F04 /* ControlledNotPositionView.swift */,
 				FF9BBE43214E861B00AD1F78 /* ControlledNotUpPositionView.swift */,
+				FF4BBE7F24131980002B4FA6 /* ControlPositionView.swift */,
 				FF9BBE47214E878700AD1F78 /* ControlUpPositionView.swift */,
 				FF9BBE27214E756F00AD1F78 /* CrossedLinesPositionView.swift */,
 				FF9BBE2B214E76E800AD1F78 /* HadamardPositionView.swift */,
 				FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */,
+				FFEB7B4821EBCC24009B916B /* MatrixBottomConnectedPositionView.swift */,
 				FF9BBE53214E979A00AD1F78 /* MatrixBottomPositionView.swift */,
+				FFEB7B4521EBCC0A009B916B /* MatrixDownConnectedPositionView.swift */,
 				FF9BBE57214E98C400AD1F78 /* MatrixMiddleConnectedPositionView.swift */,
 				FF9BBE5B214E99C900AD1F78 /* MatrixMiddleUnconnectedPositionView.swift */,
 				FF9BBE33214E7A4C00AD1F78 /* MatrixPositionView.swift */,
+				FFEB7B4B21EBCC3C009B916B /* MatrixTopConnectedPositionView.swift */,
 				FF9BBE4F214E960900AD1F78 /* MatrixTopPositionView.swift */,
+				FFEB7B4221EBCBF8009B916B /* MatrixUpConnectedPositionView.swift */,
 				FF9BBE2F214E78E700AD1F78 /* NotPositionView.swift */,
-				FFEB7B4821EBCC24009B916B /* OracleBottomPositionView.swift */,
-				FFEB7B4521EBCC0A009B916B /* OracleDownPositionView.swift */,
-				FFEB7B4B21EBCC3C009B916B /* OracleTopPositionView.swift */,
-				FFEB7B4221EBCBF8009B916B /* OracleUpPositionView.swift */,
 				FF9BBE3B214E816D00AD1F78 /* PhaseShiftPositionView.swift */,
 				FFB5B562216A46FB009C59FC /* PositionTextView.swift */,
 				FF9BBE25214E749200AD1F78 /* PositionView.swift */,
@@ -2391,7 +2417,7 @@
 				FF9BBE4A214E942700AD1F78 /* ControlUpPositionView.xib in Resources */,
 				FF9BBE2E214E772300AD1F78 /* HadamardPositionView.xib in Resources */,
 				FF9BBE32214E795A00AD1F78 /* NotPositionView.xib in Resources */,
-				FF2B47D121EBF4E9004D4789 /* OracleTopPositionView.xib in Resources */,
+				FF2B47D121EBF4E9004D4789 /* MatrixTopConnectedPositionView.xib in Resources */,
 				FF9BBE46214E864F00AD1F78 /* ControlledNotUpPositionView.xib in Resources */,
 				FF9BBE3E214E818200AD1F78 /* PhaseShiftPositionView.xib in Resources */,
 				FF18358A21EA6201003E2F04 /* ControlledNotPositionView.xib in Resources */,
@@ -2400,14 +2426,15 @@
 				FF9BBE42214E83F400AD1F78 /* ControlledNotDownPositionView.xib in Resources */,
 				FFBCD5E5214DBBA60047020B /* LineHorizontalPositionView.xib in Resources */,
 				FF9BBE3A214E7C2400AD1F78 /* QubitPositionView.xib in Resources */,
-				FF2B47CB21EBF1CC004D4789 /* OracleBottomPositionView.xib in Resources */,
+				FF2B47CB21EBF1CC004D4789 /* MatrixBottomConnectedPositionView.xib in Resources */,
 				FF9BBE4E214E954D00AD1F78 /* ControlDownPositionView.xib in Resources */,
+				FF4BBE8324131CA9002B4FA6 /* ControlPositionView.xib in Resources */,
 				FF9BBE5A214E991600AD1F78 /* MatrixMiddleConnectedPositionView.xib in Resources */,
 				FF9BBE2A214E759100AD1F78 /* CrossedLinesPositionView.xib in Resources */,
-				FF2B47CF21EBF37B004D4789 /* OracleUpPositionView.xib in Resources */,
+				FF2B47CF21EBF37B004D4789 /* MatrixUpConnectedPositionView.xib in Resources */,
 				FF9BBE36214E7A9F00AD1F78 /* MatrixPositionView.xib in Resources */,
 				FF9BBE52214E969300AD1F78 /* MatrixTopPositionView.xib in Resources */,
-				FF2B47CD21EBF29C004D4789 /* OracleDownPositionView.xib in Resources */,
+				FF2B47CD21EBF29C004D4789 /* MatrixDownConnectedPositionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2423,19 +2450,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF663D37216A1FBF002298BA /* ControlUpPositionView.xib in Resources */,
-				FFEB7B5521EBE2E8009B916B /* OracleBottomPositionView.xib in Resources */,
+				FFEB7B5521EBE2E8009B916B /* MatrixBottomConnectedPositionView.xib in Resources */,
 				FF663D3A216A204F002298BA /* CrossedLinesPositionView.xib in Resources */,
-				FFEB7B5721EBE447009B916B /* OracleTopPositionView.xib in Resources */,
-				FFEB7B5321EBE03F009B916B /* OracleDownPositionView.xib in Resources */,
+				FFEB7B5721EBE447009B916B /* MatrixTopConnectedPositionView.xib in Resources */,
+				FFEB7B5321EBE03F009B916B /* MatrixDownConnectedPositionView.xib in Resources */,
 				FFB5B569216A51B0009C59FC /* PhaseShiftPositionView.xib in Resources */,
 				FFB5B55A216A2FBA009C59FC /* MatrixMiddleConnectedPositionView.xib in Resources */,
 				FFB5B557216A2EB6009C59FC /* MatrixBottomPositionView.xib in Resources */,
 				FF18358C21EA634D003E2F04 /* ControlledNotPositionView.xib in Resources */,
 				FF663D2D216A0DE0002298BA /* ControlDownPositionView.xib in Resources */,
-				FFEB7B5121EBDE2B009B916B /* OracleUpPositionView.xib in Resources */,
+				FFEB7B5121EBDE2B009B916B /* MatrixUpConnectedPositionView.xib in Resources */,
 				FFB5B560216A3BA9009C59FC /* MatrixPositionView.xib in Resources */,
 				FF663D40216A260F002298BA /* LineHorizontalPositionView.xib in Resources */,
 				FF663D3D216A2494002298BA /* HadamardPositionView.xib in Resources */,
+				FF4BBE7C24130DD1002B4FA6 /* ControlPositionView.xib in Resources */,
 				FF663D43216A2678002298BA /* NotPositionView.xib in Resources */,
 				FFB5B55D216A30CD009C59FC /* MatrixMiddleUnconnectedPositionView.xib in Resources */,
 				FF663D31216A1D52002298BA /* ControlledNotDownPositionView.xib in Resources */,
@@ -2460,6 +2488,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF5920DB22218FC600C86F6A /* MainInitialPopulationProducer.swift in Sources */,
+				FFAF3E552410647C00E6DD6A /* Matrix+ControlledMatrix.swift in Sources */,
 				FF9BBE44214E861B00AD1F78 /* ControlledNotUpPositionView.swift in Sources */,
 				FF5920F32221CF5300C86F6A /* MainGeneticCircuitMutationFactory.swift in Sources */,
 				FF5920FF2221DB0400C86F6A /* MainGeneticPopulationReproductionFactory.swift in Sources */,
@@ -2472,7 +2501,7 @@
 				FFA842392376102F00C76C81 /* ArraySimulatorGate+QubitCount.swift in Sources */,
 				FF2BD6F521FE5B9D007410EB /* Array+RandomSplit.swift in Sources */,
 				FF2D447021FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */,
-				FFEB7B4321EBCBF8009B916B /* OracleUpPositionView.swift in Sources */,
+				FFEB7B4321EBCBF8009B916B /* MatrixUpConnectedPositionView.swift in Sources */,
 				FF8B40D323AED0A100A51475 /* Gate+SingleQubitGateRangeTargets.swift in Sources */,
 				FF9BBE2C214E76E800AD1F78 /* HadamardPositionView.swift in Sources */,
 				FF002BCA21FCC0E700E40C3A /* MainGeneticUseCaseEvaluator.swift in Sources */,
@@ -2495,7 +2524,7 @@
 				FF9FBCD621C5792E0070D943 /* ControlledNotGate.swift in Sources */,
 				FFC11B3B236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift in Sources */,
 				FF2D446D21FA65D2002515EF /* GeneticGate.swift in Sources */,
-				FFEB7B4921EBCC24009B916B /* OracleBottomPositionView.swift in Sources */,
+				FFEB7B4921EBCC24009B916B /* MatrixBottomConnectedPositionView.swift in Sources */,
 				FFDDFE862359099000683CF9 /* UnitaryGateFactory.swift in Sources */,
 				FFCC7293221CB0FA00D28A5D /* GeneticPopulationMutation.swift in Sources */,
 				FF18358721EA5E7C003E2F04 /* ControlledNotPositionView.swift in Sources */,
@@ -2528,9 +2557,10 @@
 				FF79DA15221A136400D093AA /* GeneticGatesRandomizerFactory.swift in Sources */,
 				FF032F3323B8E084000FCA3D /* XorEquationSystem.swift in Sources */,
 				FFDDFE832359085500683CF9 /* UnitaryGate.swift in Sources */,
-				FFEB7B4621EBCC0A009B916B /* OracleDownPositionView.swift in Sources */,
+				FFEB7B4621EBCC0A009B916B /* MatrixDownConnectedPositionView.swift in Sources */,
 				FF5920E72221AF5B00C86F6A /* MainGeneticCircuitEvaluatorFactory.swift in Sources */,
 				FFA4C5272401BF0A00985289 /* EuclideanSolver.swift in Sources */,
+				FFDC49FC241421EB00DF1E42 /* ControlledMatrixGate.swift in Sources */,
 				FFBCD5E2214DB6D90047020B /* CircuitViewPosition+PositionView.swift in Sources */,
 				FF002BD021FCC9A800E40C3A /* MainCircuitFactory.swift in Sources */,
 				FF9FBCE221C57ACD0070D943 /* PhaseShiftGate.swift in Sources */,
@@ -2559,6 +2589,7 @@
 				FF874E6C2353A3C500950D72 /* StatevectorRegisterAdapter.swift in Sources */,
 				FF2D447321FA73B5002515EF /* ConfigurableGeneticGate.swift in Sources */,
 				FFB8106121C6CC37006333BB /* Gate+SimulatorGate.swift in Sources */,
+				FF4BBE8024131980002B4FA6 /* ControlPositionView.swift in Sources */,
 				FF8725C121D9535B00E1004E /* StatevectorRegisterFactoryAdapter.swift in Sources */,
 				FFE5F56A21C30F140027519B /* Gate.swift in Sources */,
 				FF9BBE26214E749200AD1F78 /* PositionView.swift in Sources */,
@@ -2582,7 +2613,7 @@
 				FF2B4C5723BB869A00A388F3 /* XorEquationSystemSimpleSolver.swift in Sources */,
 				FFEB3EE621FFB91C00DD3586 /* GeneticCircuitMutation.swift in Sources */,
 				FF4197A323FB502F00DFEB7D /* Gate+InversionAboutMeanWithRangeInputs.swift in Sources */,
-				FFEB7B4C21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */,
+				FFEB7B4C21EBCC3C009B916B /* MatrixTopConnectedPositionView.swift in Sources */,
 				FF9BBE34214E7A4C00AD1F78 /* MatrixPositionView.swift in Sources */,
 				FF1116B623B183D300AFD0AF /* String+BitXor.swift in Sources */,
 				FFC11B38236CC47B001D3F39 /* Circuit+Statevector.swift in Sources */,
@@ -2723,7 +2754,9 @@
 				FF0694DE21CBFF3000B5D469 /* StatevectorRegisterTestDouble.swift in Sources */,
 				FFEB607F23F87A7100F4FAA1 /* Matrix+IdentityTests.swift in Sources */,
 				FFA4C52B2401C70100985289 /* EuclideanSolverTests.swift in Sources */,
+				FFDC49F92414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift in Sources */,
 				FF149DE9222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift in Sources */,
+				FFDC49FF2414312100DF1E42 /* ControlledMatrixGateTests.swift in Sources */,
 				FF6AF8FE2214CB8F00B35ECC /* GeneticGatesRandomizerTestDouble.swift in Sources */,
 				FFB1247E2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift in Sources */,
 				FF43393723DCCF1400E26FA4 /* String+BitAndTests.swift in Sources */,
@@ -2776,7 +2809,8 @@
 				FF9FBCE321C57ACD0070D943 /* PhaseShiftGate.swift in Sources */,
 				FFC5964F2203AFB500151355 /* GeneticFactory.swift in Sources */,
 				FF663D38216A2039002298BA /* ControlUpPositionView.swift in Sources */,
-				FFEB7B4A21EBCC24009B916B /* OracleBottomPositionView.swift in Sources */,
+				FFEB7B4A21EBCC24009B916B /* MatrixBottomConnectedPositionView.swift in Sources */,
+				FFAF3E562410647C00E6DD6A /* Matrix+ControlledMatrix.swift in Sources */,
 				FF02E88B22B69ECF004CB960 /* Logger.swift in Sources */,
 				FF2B4C5823BB869A00A388F3 /* XorEquationSystemSimpleSolver.swift in Sources */,
 				FF5920FD2221D84E00C86F6A /* GeneticPopulationReproductionFactory.swift in Sources */,
@@ -2801,7 +2835,7 @@
 				FF46EDD4216924D80044C3CA /* Gate+CircuitViewPosition.swift in Sources */,
 				FF1CF5F2229C8C33003948F6 /* MainDrawerFactory.swift in Sources */,
 				FFEB608323F8882E00F4FAA1 /* Matrix+Average.swift in Sources */,
-				FFEB7B4D21EBCC3C009B916B /* OracleTopPositionView.swift in Sources */,
+				FFEB7B4D21EBCC3C009B916B /* MatrixTopConnectedPositionView.swift in Sources */,
 				FF2D447121FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */,
 				FF5920DC22218FC600C86F6A /* MainInitialPopulationProducer.swift in Sources */,
 				FFDEDF1B216968F4005590B4 /* PositionView.swift in Sources */,
@@ -2873,15 +2907,16 @@
 				FF46EDFA216925180044C3CA /* Int+Log2.swift in Sources */,
 				FF2D447421FA73B5002515EF /* ConfigurableGeneticGate.swift in Sources */,
 				FFB5B561216A3BE3009C59FC /* MatrixPositionView.swift in Sources */,
-				FFEB7B4721EBCC0A009B916B /* OracleDownPositionView.swift in Sources */,
+				FFEB7B4721EBCC0A009B916B /* MatrixDownConnectedPositionView.swift in Sources */,
 				FF5920F12221CEEE00C86F6A /* GeneticCircuitMutationFactory.swift in Sources */,
 				FFCC729B221CB8E100D28A5D /* Fitness.swift in Sources */,
 				FF09866023A68D35009CEC4E /* Gate+OracleWithRangeInputs.swift in Sources */,
 				FF36CB0F23E8D79300C286B2 /* SimulatorCircuitMatrixFactoryAdapter.swift in Sources */,
+				FFDC49FD241421EB00DF1E42 /* ControlledMatrixGate.swift in Sources */,
 				FF78EF5223B909C600BA53A1 /* XorEquationSystemAdapter.swift in Sources */,
 				FF4197A423FB502F00DFEB7D /* Gate+InversionAboutMeanWithRangeInputs.swift in Sources */,
 				FFA6F2B423C24DE600C678C3 /* XorGaussianEliminationSolver.swift in Sources */,
-				FFEB7B4421EBCBF8009B916B /* OracleUpPositionView.swift in Sources */,
+				FFEB7B4421EBCBF8009B916B /* MatrixUpConnectedPositionView.swift in Sources */,
 				FF78EF5523B90A7400BA53A1 /* XorEquationSystemFactoryAdapter.swift in Sources */,
 				FFCC7297221CB1A300D28A5D /* MainGeneticPopulationMutation.swift in Sources */,
 				FF56B0B123CA40AD0087F7FA /* XorGaussianEliminationSolver+ActivatedBits.swift in Sources */,
@@ -2891,6 +2926,7 @@
 				FFFEA1862222CE7300E6B45C /* MainGeneticPopulationCrossoverFactory.swift in Sources */,
 				FF9FBCDA21C579CF0070D943 /* HadamardGate.swift in Sources */,
 				FF9FBCD421C56C270070D943 /* ConfigurableGate.swift in Sources */,
+				FF4BBE8124131980002B4FA6 /* ControlPositionView.swift in Sources */,
 				FF1F894623F99CF1008847A1 /* Matrix+TensorProduct.swift in Sources */,
 				FFA6F2B823C260A700C678C3 /* XorGaussianEliminationSolverFacade.swift in Sources */,
 				FF2BD6EF21FE0749007410EB /* MainGeneticCircuitEvaluator.swift in Sources */,
@@ -3005,7 +3041,9 @@
 				FF78EF5B23B9227000BA53A1 /* XorEquationSystemAdapterTests.swift in Sources */,
 				FFEB608023F87A7100F4FAA1 /* Matrix+IdentityTests.swift in Sources */,
 				FFA4C52C2401C70100985289 /* EuclideanSolverTests.swift in Sources */,
+				FFDC49FA2414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift in Sources */,
 				FF149DEA222B011600408E2D /* MainGeneticPopulationReproductionFactoryTests.swift in Sources */,
+				FFDC4A002414312100DF1E42 /* ControlledMatrixGateTests.swift in Sources */,
 				FF6AF8FF2214CB9000B35ECC /* GeneticGatesRandomizerTestDouble.swift in Sources */,
 				FFB1247F2225F08300E44DC6 /* MainGeneticCircuitMutationFactoryTests.swift in Sources */,
 				FF79DA102219E2EF00D093AA /* GeneticUseCaseEvaluatorTestDouble.swift in Sources */,

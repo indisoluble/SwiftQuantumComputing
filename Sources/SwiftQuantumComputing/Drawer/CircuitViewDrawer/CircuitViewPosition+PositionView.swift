@@ -54,37 +54,59 @@ extension CircuitViewPosition {
             return ControlledNotDownPositionView(frame: frame)
         case .controlledNotUp:
             return ControlledNotUpPositionView(frame: frame)
-        case .controlUp:
-            return ControlUpPositionView(frame: frame)
+        case .control:
+            return ControlPositionView(frame: frame)
         case .controlDown:
             return ControlDownPositionView(frame: frame)
+        case .controlUp:
+            return ControlUpPositionView(frame: frame)
         case .matrix:
             return MatrixPositionView(frame: frame)
-        case .matrixTop(let inputs):
-            let view = MatrixTopPositionView(frame: frame)
+        case .matrixUp:
+            let view = MatrixUpConnectedPositionView(frame: frame)
+            view.showMatrixInputs([])
+
+            return view
+        case .matrixDown:
+            let view = MatrixDownConnectedPositionView(frame: frame)
+            view.showMatrixInputs([])
+
+            return view
+        case .matrixTop(let inputs, let connected):
+            let view = (connected ?
+                MatrixTopConnectedPositionView(frame: frame) :
+                MatrixTopPositionView(frame: frame))
             view.showMatrixInputs(inputs)
 
             return view
-        case .matrixBottom:
-            return MatrixBottomPositionView(frame: frame)
+        case .matrixBottom(let connected):
+            return (connected ?
+                MatrixBottomConnectedPositionView(frame: frame) :
+                MatrixBottomPositionView(frame: frame))
         case .matrixMiddleConnected:
             return MatrixMiddleConnectedPositionView(frame: frame)
         case .matrixMiddleUnconnected:
             return MatrixMiddleUnconnectedPositionView(frame: frame)
         case .oracleUp:
-            return OracleUpPositionView(frame: frame)
+            let view = MatrixUpConnectedPositionView(frame: frame)
+            view.showOracleControls([])
+
+            return view
         case .oracleDown:
-            return OracleDownPositionView(frame: frame)
+            let view = MatrixDownConnectedPositionView(frame: frame)
+            view.showOracleControls([])
+
+            return view
         case .oracleTop(let controls, let connected):
             let view = (connected ?
-                OracleTopPositionView(frame: frame) :
+                MatrixTopConnectedPositionView(frame: frame) :
                 MatrixTopPositionView(frame: frame))
             view.showOracleControls(controls)
 
             return view
         case .oracleBottom(let connected):
             return (connected ?
-                OracleBottomPositionView(frame: frame) :
+                MatrixBottomConnectedPositionView(frame: frame) :
                 MatrixBottomPositionView(frame: frame))
         }
     }

@@ -1,5 +1,5 @@
 //
-//  OracleUpPositionView.swift
+//  MatrixBottomConnectedPositionView.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/01/2019.
@@ -22,4 +22,4 @@ import Foundation
 
 // MARK: - Main body
 
-final class OracleUpPositionView: PositionView {}
+final class MatrixBottomConnectedPositionView: PositionView {}

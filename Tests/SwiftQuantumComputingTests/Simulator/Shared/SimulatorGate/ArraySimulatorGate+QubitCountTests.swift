@@ -61,6 +61,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
         // Given
         let maxIndex = 10
         let circuit: [SimulatorGate] = [
+            Gate.controlledMatrix(matrix: matrix, inputs: [1, 3, 6], control: 2),
             Gate.controlledNot(target: 0, control: 1),
             Gate.controlledNot(target: 1, control: 0),
             Gate.matrix(matrix: matrix, inputs: [1, 3, 6]),
