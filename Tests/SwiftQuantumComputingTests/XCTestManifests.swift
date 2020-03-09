@@ -62,6 +62,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Gate_InversionAboutMeanTests.allTests),
         testCase(Gate_ModularExponentiationTests.allTests),
         testCase(Gate_InversionAboutMeanWithRangeInputsTests.allTests),
+        testCase(Gate_ModularExponentiationWithRangeExponentAndInputsTests.allTests),
         testCase(MainGeneticCircuitEvaluatorTests.allTests),
         testCase(MainGeneticUseCaseEvaluatorTests.allTests),
         testCase(ControlledMatrixGateTests.allTests),
