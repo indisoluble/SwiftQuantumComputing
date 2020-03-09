@@ -26,9 +26,9 @@ import Foundation
 public enum GateError: Error {
     /// Throwed when the number of qubits (informed or inferred) to create a circuit is 0
     case circuitQubitCountHasToBeBiggerThanZero
-    /// Throwed when a gate does not uses as many qubits as its matrix is able to handle
+    /// Throwed when a gate does not use as many qubits as its matrix is able to handle
     case gateInputCountDoesNotMatchGateMatrixQubitCount
-    /// Throwed when a gate references one or more qubits that does not exist
+    /// Throwed when a gate references one or more qubits that do not exist
     case gateInputsAreNotInBound
     /// Throwed when a gate references same qubit/s multiple times
     case gateInputsAreNotUnique

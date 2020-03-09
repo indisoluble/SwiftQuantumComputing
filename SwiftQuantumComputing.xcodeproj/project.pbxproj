@@ -504,6 +504,8 @@
 		FFDC49FD241421EB00DF1E42 /* ControlledMatrixGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC49FB241421EB00DF1E42 /* ControlledMatrixGate.swift */; };
 		FFDC49FF2414312100DF1E42 /* ControlledMatrixGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC49FE2414312100DF1E42 /* ControlledMatrixGateTests.swift */; };
 		FFDC4A002414312100DF1E42 /* ControlledMatrixGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC49FE2414312100DF1E42 /* ControlledMatrixGateTests.swift */; };
+		FFDC4A022414581900DF1E42 /* Gate+ModularExponentiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC4A012414581900DF1E42 /* Gate+ModularExponentiation.swift */; };
+		FFDC4A032414581900DF1E42 /* Gate+ModularExponentiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC4A012414581900DF1E42 /* Gate+ModularExponentiation.swift */; };
 		FFDCA37C23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCA37B23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift */; };
 		FFDCA37D23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCA37B23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift */; };
 		FFDCA37F23F9D1CC00BBDD8F /* Gate+InversionAboutMeanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDCA37E23F9D1CC00BBDD8F /* Gate+InversionAboutMeanTests.swift */; };
@@ -584,6 +586,8 @@
 		FFEB7B5521EBE2E8009B916B /* MatrixBottomConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5421EBE2E8009B916B /* MatrixBottomConnectedPositionView.xib */; };
 		FFEB7B5721EBE447009B916B /* MatrixTopConnectedPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFEB7B5621EBE447009B916B /* MatrixTopConnectedPositionView.xib */; };
 		FFED6909212F2DE600D46D68 /* CircuitFacadeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFED6908212F2DE600D46D68 /* CircuitFacadeTests.swift */; };
+		FFEFC3B42416C294006214E6 /* Gate+ModularExponentiationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEFC3B32416C294006214E6 /* Gate+ModularExponentiationTests.swift */; };
+		FFEFC3B52416C294006214E6 /* Gate+ModularExponentiationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEFC3B32416C294006214E6 /* Gate+ModularExponentiationTests.swift */; };
 		FFF3929C23AFCCB300470C58 /* String+IsBitActivated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF3929B23AFCCB200470C58 /* String+IsBitActivated.swift */; };
 		FFF3929D23AFCCB300470C58 /* String+IsBitActivated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF3929B23AFCCB200470C58 /* String+IsBitActivated.swift */; };
 		FFF3929F23AFD84000470C58 /* String+IsBitActivatedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF3929E23AFD84000470C58 /* String+IsBitActivatedTests.swift */; };
@@ -902,6 +906,7 @@
 		FFDC49F82414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+ControlledMatrixTests.swift"; sourceTree = "<group>"; };
 		FFDC49FB241421EB00DF1E42 /* ControlledMatrixGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledMatrixGate.swift; sourceTree = "<group>"; };
 		FFDC49FE2414312100DF1E42 /* ControlledMatrixGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledMatrixGateTests.swift; sourceTree = "<group>"; };
+		FFDC4A012414581900DF1E42 /* Gate+ModularExponentiation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+ModularExponentiation.swift"; sourceTree = "<group>"; };
 		FFDCA37B23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Gate+InversionAboutMean.swift"; sourceTree = "<group>"; };
 		FFDCA37E23F9D1CC00BBDD8F /* Gate+InversionAboutMeanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+InversionAboutMeanTests.swift"; sourceTree = "<group>"; };
 		FFDDDD8723BCC49400772A03 /* XorEquationSystemBruteForceSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XorEquationSystemBruteForceSolver.swift; sourceTree = "<group>"; };
@@ -948,6 +953,7 @@
 		FFEB7B5421EBE2E8009B916B /* MatrixBottomConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixBottomConnectedPositionView.xib; sourceTree = "<group>"; };
 		FFEB7B5621EBE447009B916B /* MatrixTopConnectedPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixTopConnectedPositionView.xib; sourceTree = "<group>"; };
 		FFED6908212F2DE600D46D68 /* CircuitFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFacadeTests.swift; sourceTree = "<group>"; };
+		FFEFC3B32416C294006214E6 /* Gate+ModularExponentiationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+ModularExponentiationTests.swift"; sourceTree = "<group>"; };
 		FFF3929B23AFCCB200470C58 /* String+IsBitActivated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsBitActivated.swift"; sourceTree = "<group>"; };
 		FFF3929E23AFD84000470C58 /* String+IsBitActivatedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsBitActivatedTests.swift"; sourceTree = "<group>"; };
 		FFF392A123AFF8E400470C58 /* Gate+OracleReplicatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+OracleReplicatorTests.swift"; sourceTree = "<group>"; };
@@ -1119,6 +1125,7 @@
 				FF8B40CD23AEB88100A51475 /* Range */,
 				FF8B40CB23AEB7EB00A51475 /* Replicator */,
 				FFDCA37B23F9CFFD00BBDD8F /* Gate+InversionAboutMean.swift */,
+				FFDC4A012414581900DF1E42 /* Gate+ModularExponentiation.swift */,
 				FFB8106021C6CC37006333BB /* Gate+SimulatorGate.swift */,
 			);
 			path = Extension;
@@ -1131,6 +1138,7 @@
 				FF8B40CE23AEB89300A51475 /* Range */,
 				FF8B40CC23AEB80A00A51475 /* Replicator */,
 				FFDCA37E23F9D1CC00BBDD8F /* Gate+InversionAboutMeanTests.swift */,
+				FFEFC3B32416C294006214E6 /* Gate+ModularExponentiationTests.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2518,6 +2526,7 @@
 				FFFEA1852222CE7300E6B45C /* MainGeneticPopulationCrossoverFactory.swift in Sources */,
 				FF09865F23A68D35009CEC4E /* Gate+OracleWithRangeInputs.swift in Sources */,
 				FF2BD6EE21FE0749007410EB /* MainGeneticCircuitEvaluator.swift in Sources */,
+				FFDC4A022414581900DF1E42 /* Gate+ModularExponentiation.swift in Sources */,
 				FFCC729D221CB98400D28A5D /* MainFitness.swift in Sources */,
 				FFA6F2B723C260A700C678C3 /* XorGaussianEliminationSolverFacade.swift in Sources */,
 				FFDEAF952346A4840027673C /* Circuit+Probabilities.swift in Sources */,
@@ -2659,6 +2668,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFEFC3B42416C294006214E6 /* Gate+ModularExponentiationTests.swift in Sources */,
 				FF233741222ADA5800FD5301 /* GeneticPopulationMutationTestDouble.swift in Sources */,
 				FF9301D5235CDF75008DD87E /* UnitaryGateFactoryTestDouble.swift in Sources */,
 				FFBB6F7F21CD3E1D00389838 /* StatevectorSimulatorTestDouble.swift in Sources */,
@@ -2905,6 +2915,7 @@
 				FFFEA1832222CE0200E6B45C /* GeneticPopulationCrossoverFactory.swift in Sources */,
 				FFB8106221C6CC37006333BB /* Gate+SimulatorGate.swift in Sources */,
 				FF46EDFA216925180044C3CA /* Int+Log2.swift in Sources */,
+				FFDC4A032414581900DF1E42 /* Gate+ModularExponentiation.swift in Sources */,
 				FF2D447421FA73B5002515EF /* ConfigurableGeneticGate.swift in Sources */,
 				FFB5B561216A3BE3009C59FC /* MatrixPositionView.swift in Sources */,
 				FFEB7B4721EBCC0A009B916B /* MatrixDownConnectedPositionView.swift in Sources */,
@@ -2946,6 +2957,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFEFC3B52416C294006214E6 /* Gate+ModularExponentiationTests.swift in Sources */,
 				FF233742222ADA5800FD5301 /* GeneticPopulationMutationTestDouble.swift in Sources */,
 				FF9301D6235CDF75008DD87E /* UnitaryGateFactoryTestDouble.swift in Sources */,
 				FFBB6F8021CD3E1D00389838 /* StatevectorSimulatorTestDouble.swift in Sources */,

@@ -60,6 +60,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Gate_OracleReplicatorTests.allTests),
         testCase(Gate_SingleQubitGateReplicatorTests.allTests),
         testCase(Gate_InversionAboutMeanTests.allTests),
+        testCase(Gate_ModularExponentiationTests.allTests),
         testCase(Gate_InversionAboutMeanWithRangeInputsTests.allTests),
         testCase(MainGeneticCircuitEvaluatorTests.allTests),
         testCase(MainGeneticUseCaseEvaluatorTests.allTests),
