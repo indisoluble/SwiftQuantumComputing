@@ -62,30 +62,6 @@ class ComplexTests: XCTestCase {
         XCTAssertEqual(try? Complex(matrix), expectedValue)
     }
 
-    func testAnyComplexNumber_squaredModulus_returnExpectecValue() {
-        // Given
-        let complex = Complex(real: 2, imag: 1)
-
-        // When
-        let result = complex.squaredModulus
-
-        // Then
-        XCTAssertEqual(result, 5)
-    }
-
-    func testTwoComplexNumbers_multiply_returnExpectedCompleNumber() {
-        // Given
-        let lhs = Complex(real: 3, imag: -1)
-        let rhs = Complex(real: 1, imag: 4)
-
-        // When
-        let result = (lhs * rhs)
-
-        // Then
-        let expectedResult = Complex(real: 7, imag: 11)
-        XCTAssertEqual(result, expectedResult)
-    }
-
     static var allTests = [
         ("testAnyInt_init_returnExpectedComplexNumber",
          testAnyInt_init_returnExpectedComplexNumber),
@@ -94,10 +70,6 @@ class ComplexTests: XCTestCase {
         ("testNotOneByOneMatrix_init_throwException",
          testNotOneByOneMatrix_init_throwException),
         ("testOneByOneMatrix_init_returnExpectedComplexNumber",
-         testOneByOneMatrix_init_returnExpectedComplexNumber),
-        ("testAnyComplexNumber_squaredModulus_returnExpectecValue",
-         testAnyComplexNumber_squaredModulus_returnExpectecValue),
-        ("testTwoComplexNumbers_multiply_returnExpectedCompleNumber",
-         testTwoComplexNumbers_multiply_returnExpectedCompleNumber)
+         testOneByOneMatrix_init_returnExpectedComplexNumber)
     ]
 }

@@ -53,12 +53,6 @@ public struct Matrix {
         return values[(column * rowCount) + row]
     }
 
-    // MARK: - Internal properties
-
-    var isSquare: Bool {
-        return (rowCount == columnCount)
-    }
-
     // MARK: - Private properties
 
     private let values: [Complex]
@@ -117,6 +111,19 @@ public struct Matrix {
 
     // MARK: - Internal methods
 
+    func isEqual(_ matrix: Matrix, accuracy: Double) -> Bool {
+        guard ((rowCount == matrix.rowCount) && (columnCount == matrix.columnCount)) else {
+            return false
+        }
+
+        return values.elementsEqual(matrix.values) {
+            let realInRange = (abs($0.real - $1.real) <= accuracy)
+            let imagInRange = (abs($0.imag - $1.imag) <= accuracy)
+
+            return (realInRange && imagInRange)
+        }
+    }
+
     func isUnitary(accuracy: Double) -> Bool {
         let identity = try! Matrix.makeIdentity(count: rowCount)
 
@@ -151,24 +158,6 @@ public struct Matrix {
         let values = (0..<count).map { value($0 % rowCount, $0 / rowCount)  }
 
         return Matrix(rowCount: rowCount, columnCount: columnCount, values: values)
-    }
-}
-
-// MARK: - CustomStringConvertible methods
-
-extension Matrix: CustomStringConvertible {
-    public var description: String {
-        var txt = "[\n"
-        for row in 0..<rowCount {
-            txt += "["
-            for column in 0..<columnCount {
-                txt += " \(self[row, column]) "
-            }
-            txt += "]\n"
-        }
-        txt += "]"
-
-        return txt
     }
 }
 
@@ -271,21 +260,6 @@ extension Matrix {
 // MARK: - Private body
 
 private extension Matrix {
-
-    // MARK: - Private methods
-
-    func isEqual(_ matrix: Matrix, accuracy: Double) -> Bool {
-        guard ((rowCount == matrix.rowCount) && (columnCount == matrix.columnCount)) else {
-            return false
-        }
-
-        return values.elementsEqual(matrix.values) {
-            let realInRange = (abs($0.real - $1.real) <= accuracy)
-            let imagInRange = (abs($0.imag - $1.imag) <= accuracy)
-
-            return (realInRange && imagInRange)
-        }
-    }
 
     // MARK: - Private class methods
 

@@ -25,13 +25,6 @@ import Foundation
 /// Swift representation of a complex number
 public struct Complex {
 
-    // MARK: - Public constants
-
-    /// Constant: Complex(0)
-    public static let zero = Complex(0)
-    /// Constant: Complex(1)
-    public static let one = Complex(1)
-
     // MARK: - Public properties
 
     /// Real part
@@ -39,12 +32,6 @@ public struct Complex {
 
     /// Imaginary part
     public let imag: Double
-
-    // MARK: - Internal properties
-
-    var squaredModulus: Double {
-        return (pow(real, 2) + pow(imag, 2))
-    }
 
     // MARK: - Public init methods
 
@@ -66,21 +53,10 @@ public struct Complex {
 
     // MARK: - Internal init methods
 
-    /// Errors throwed by `Complex()`
     enum InitError: Error {
-        /// Throwed if any other thing that a 1x1 matrix is used to initialize a `Complex` instance
         case use1x1Matrix
     }
 
-    /**
-     Initializes a `Complex` instance using the only element in `matrix`.
-
-     - Parameter matrix: A 1x1 complex matrix.
-
-     - Throws: `Complex.InitError`.
-
-     - Returns: A `Complex` instance equal to the only element in `matrix`.
-     */
     init(_ matrix: Matrix) throws {
         guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
             throw InitError.use1x1Matrix
@@ -92,28 +68,6 @@ public struct Complex {
     }
 }
 
-// MARK: - CustomStringConvertible methods
-
-extension Complex: CustomStringConvertible {
-    public var description: String {
-        return String(format: "(%.2f%+.2fi)", real, imag)
-    }
-}
-
 // MARK: - Equatable methods
 
 extension Complex: Equatable {}
-
-// MARK: - Overloaded operators
-
-extension Complex {
-
-    // MARK: - Internal operators
-
-    static func *(lhs: Complex, rhs: Complex) -> Complex {
-        let real = ((lhs.real * rhs.real) - (lhs.imag * rhs.imag))
-        let imag = ((lhs.real * rhs.imag) + (rhs.real * lhs.imag))
-
-        return Complex(real: real, imag: imag)
-    }
-}
