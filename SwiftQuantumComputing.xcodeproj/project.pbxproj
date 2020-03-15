@@ -1227,11 +1227,6 @@
 		FF103747236E0E530011706D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				FFB22762241E72C400AC64AD /* Complex+Conjugated.swift */,
-				FFB22759241E6BBC00AC64AD /* Complex+Constants.swift */,
-				FFB2276B241E766C00AC64AD /* Complex+CustomStringConvertible.swift */,
-				FFB2276E241E77C100AC64AD /* Complex+OverloadedOperators.swift */,
-				FFB2275C241E6F9D00AC64AD /* Complex+SquaredModulus.swift */,
 				FFEB608123F8882E00F4FAA1 /* Matrix+Average.swift */,
 				FFB22753241E60E300AC64AD /* Matrix+ConjugateTransposed.swift */,
 				FFB22768241E758600AC64AD /* Matrix+CustomStringConvertible.swift */,
@@ -1248,9 +1243,6 @@
 		FF103748236E0E940011706D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				FFB22765241E73A300AC64AD /* Complex+ConjugatedTests.swift */,
-				FFB22771241E785600AC64AD /* Complex+OverloadedOperatorsTests.swift */,
-				FFB2275F241E700500AC64AD /* Complex+SquaredModulusTests.swift */,
 				FFEB608423F89CAE00F4FAA1 /* Matrix+AverageTests.swift */,
 				FFB22756241E61CD00AC64AD /* Matrix+ConjugateTransposedTests.swift */,
 				FF103749236E0EA40011706D /* Matrix+ElementsTests.swift */,
@@ -1522,13 +1514,14 @@
 		FF64C321216902FD000C2ABD /* SwiftQuantumComputing */ = {
 			isa = PBXGroup;
 			children = (
+				FF121F4123B7D9F400C09FD2 /* Algorithm */,
 				FF3EAC7C212DEA51007AF61E /* Circuit */,
 				FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */,
 				FFB8106621C6FEC8006333BB /* Drawer */,
 				FFF697F021BF23C7004AE4C2 /* Gate */,
 				FF2D446A21FA64AB002515EF /* Genetic */,
-				FF121F4123B7D9F400C09FD2 /* Algorithm */,
 				FF9FBCF021C595050070D943 /* Logger */,
+				FFB22774241E7D8400AC64AD /* NumberType */,
 				FF7469B1233FED77004AFB83 /* Simulator */,
 				FF1AAFEC211F61AF00D3666A /* SwiftTypeExtension */,
 			);
@@ -1750,7 +1743,6 @@
 			isa = PBXGroup;
 			children = (
 				FF103747236E0E530011706D /* Extension */,
-				FFE1D706211A1AEB00A50D9C /* Complex.swift */,
 				FFE1D709211A1AEB00A50D9C /* Matrix.swift */,
 				FFE1D708211A1AEB00A50D9C /* Vector.swift */,
 			);
@@ -1761,7 +1753,6 @@
 			isa = PBXGroup;
 			children = (
 				FF103748236E0E940011706D /* Extension */,
-				FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */,
 				FFE1D710211A1B2700A50D9C /* MatrixTests.swift */,
 				FFE1D711211A1B2700A50D9C /* VectorTests.swift */,
 			);
@@ -2071,6 +2062,46 @@
 			path = Vary;
 			sourceTree = "<group>";
 		};
+		FFB22774241E7D8400AC64AD /* NumberType */ = {
+			isa = PBXGroup;
+			children = (
+				FFB22775241E7D9F00AC64AD /* Extension */,
+				FFE1D706211A1AEB00A50D9C /* Complex.swift */,
+			);
+			path = NumberType;
+			sourceTree = "<group>";
+		};
+		FFB22775241E7D9F00AC64AD /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FFB22762241E72C400AC64AD /* Complex+Conjugated.swift */,
+				FFB22759241E6BBC00AC64AD /* Complex+Constants.swift */,
+				FFB2276B241E766C00AC64AD /* Complex+CustomStringConvertible.swift */,
+				FFB2276E241E77C100AC64AD /* Complex+OverloadedOperators.swift */,
+				FFB2275C241E6F9D00AC64AD /* Complex+SquaredModulus.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FFB22776241E7DD400AC64AD /* NumberType */ = {
+			isa = PBXGroup;
+			children = (
+				FFB22777241E7DE700AC64AD /* Extension */,
+				FFE1D70F211A1B2700A50D9C /* ComplexTests.swift */,
+			);
+			path = NumberType;
+			sourceTree = "<group>";
+		};
+		FFB22777241E7DE700AC64AD /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FFB22765241E73A300AC64AD /* Complex+ConjugatedTests.swift */,
+				FFB22771241E785600AC64AD /* Complex+OverloadedOperatorsTests.swift */,
+				FFB2275F241E700500AC64AD /* Complex+SquaredModulusTests.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		FFB7F567227CD5E100DF2937 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -2136,12 +2167,13 @@
 		FFBA23AE21691690003E5727 /* SwiftQuantumComputingTests */ = {
 			isa = PBXGroup;
 			children = (
+				FF78EF5623B9220A00BA53A1 /* Algorithm */,
 				FFED6904212F2D4C00D46D68 /* Circuit */,
 				FF7C9BBD211CB7D7008D8897 /* ComplexVectorSpace */,
 				FF9BBE77214ECA7F00AD1F78 /* Drawer */,
 				FF18358121EA358C003E2F04 /* Gate */,
 				FF43386C2212258700AB5C06 /* Genetic */,
-				FF78EF5623B9220A00BA53A1 /* Algorithm */,
+				FFB22776241E7DD400AC64AD /* NumberType */,
 				FF7469B2233FF046004AFB83 /* Simulator */,
 				FF1AAFED211F61CB00D3666A /* SwiftTypeExtension */,
 				FFED68FD212F289800D46D68 /* TestDouble */,
@@ -2290,10 +2322,10 @@
 		FFED68FD212F289800D46D68 /* TestDouble */ = {
 			isa = PBXGroup;
 			children = (
+				FFDDDD8D23BCEC4800772A03 /* Algorithm */,
 				FFED68FE212F28A100D46D68 /* Circuit */,
 				FF7EC7E0237B64B20006C3FA /* Drawer */,
 				FF43386E221225CF00AB5C06 /* Genetic */,
-				FFDDDD8D23BCEC4800772A03 /* Algorithm */,
 				FF7469B3233FF0DD004AFB83 /* Simulator */,
 			);
 			path = TestDouble;
