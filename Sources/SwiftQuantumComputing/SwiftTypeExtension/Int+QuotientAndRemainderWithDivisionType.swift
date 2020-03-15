@@ -1,5 +1,5 @@
 //
-//  Int+RemainderWithDivisionType.swift
+//  Int+QuotientAndRemainderWithDivisionType.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 23/02/2020.
@@ -21,35 +21,39 @@
 import Foundation
 
 extension Int {
-    /// Type of division used in `Int.remainder(dividingBy:division:)`
+    /// Type of division used in `Int.quotientAndRemainder(dividingBy:division:)`
     public enum DivisionType {
         /// Euclidean division
         case euclidean
         /// Floored division
         case floored
-        /// Division where quotient is rounded according to the round to nearest convention defined in IEEE754.
-        /// This is Swift default convention
-        case roundedToNearest
+        /// Swift standard division
+        case swift
     }
 
     /**
-     Finds the remainder after `division` of this value by `other`.
+     Returns the quotient and remainder of this value after `division` by `other`.
 
      - Parameter other: Divisor.
      - Parameter division: A type of division.
 
-     - Returns: Remainder of this value divided by `other`.
+     - Returns: Quotient and remainder of this value divided by `other`.
 
      Check [Modulo operation](https://en.wikipedia.org/wiki/Modulo_operation) for more details.
      */
-    public func remainder(dividingBy other: Int, division: DivisionType) -> Int {
+    public func quotientAndRemainder(dividingBy other: Int,
+                                     division: DivisionType) -> (quotient: Int, remainder: Int) {
         switch division {
         case .euclidean:
-            return self - other * euclideanQuotient(dividingBy: other)
+            let quotient = euclideanQuotient(dividingBy: other)
+
+            return (quotient, self - other * quotient)
         case .floored:
-            return self - other * flooredQuotient(dividingBy: other)
-        case .roundedToNearest:
-            return self % other
+            let quotient = flooredQuotient(dividingBy: other)
+
+            return (quotient, self - other * quotient)
+        case .swift:
+            return quotientAndRemainder(dividingBy: other)
         }
     }
 }

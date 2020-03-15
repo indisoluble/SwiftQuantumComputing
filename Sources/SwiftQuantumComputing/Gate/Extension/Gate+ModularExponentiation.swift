@@ -73,7 +73,7 @@ extension Gate {
         }
 
         // As all components are positive, all `DivisionType` returns same value
-        var gateBase = base.remainder(dividingBy: modulus, division: .roundedToNearest)
+        var gateBase = base.quotientAndRemainder(dividingBy: modulus, division: .swift).remainder
 
         var gates: [Gate] = []
         for control in exponent.reversed() {
@@ -82,8 +82,8 @@ extension Gate {
                                                                 inputQubitCount: inputs.count)
             gates.append(.controlledMatrix(matrix: matrix, inputs: inputs, control: control))
 
-            gateBase = (gateBase * gateBase).remainder(dividingBy: modulus,
-                                                       division: .roundedToNearest)
+            gateBase = (gateBase * gateBase).quotientAndRemainder(dividingBy: modulus,
+                                                                  division: .swift).remainder
         }
 
         return gates
@@ -109,8 +109,9 @@ private extension Gate {
             // it is always unique
             let index = (
                 combination >= modulus ?
-                combination :
-                (combination * base).remainder(dividingBy: modulus, division: .roundedToNearest)
+                    combination :
+                    (combination * base).quotientAndRemainder(dividingBy: modulus,
+                                                              division: .swift).remainder
             )
 
             var row = Array(repeating: Complex.zero, count: combinationCount)

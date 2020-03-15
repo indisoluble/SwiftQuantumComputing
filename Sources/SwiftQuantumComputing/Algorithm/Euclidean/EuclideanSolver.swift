@@ -40,7 +40,7 @@ public struct EuclideanSolver {
         var v2 = b
         while v2 != 0 {
             let temp = v2
-            v2 = v1.remainder(dividingBy: v2, division: .euclidean)
+            v2 = v1.quotientAndRemainder(dividingBy: v2, division: .euclidean).remainder
             v1 = temp
         }
         return v1
