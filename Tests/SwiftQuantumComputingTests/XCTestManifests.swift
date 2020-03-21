@@ -100,6 +100,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(GeneticUseCaseTests.allTests),
         testCase(MainGeneticFactoryTests.allTests),
         testCase(SimulatorCircuitMatrixFactoryAdapterTests.allTests),
+        testCase(ContinuedFractionsSolverTests.allTests),
         testCase(EuclideanSolverTests.allTests),
         testCase(XorEquationSystemAdapterTests.allTests),
         testCase(XorEquationSystemBruteForceSolverTests.allTests),
