@@ -61,6 +61,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Int_QuotientAndRemainderWithDivisionTypeTests.allTests),
         testCase(String_ActivatedBitsTests.allTests),
         testCase(String_BitAndTests.allTests),
+        testCase(String_BitsTests.allTests),
         testCase(String_BitXorTests.allTests),
         testCase(String_IsBitActivatedTests.allTests),
         testCase(Matrix_ControlledMatrixTests.allTests),
