@@ -117,7 +117,7 @@ extension Circuit {
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
      with probability 0 are not included.
      */
-    public func summarizedProbabilities(qubits: ReversedCollection<Range<Int>>,
+    public func summarizedProbabilities(qubits: Range<Int>,
                                         initialBits: String? = nil) throws -> [String: Double] {
         return try summarizedProbabilities(qubits: Array(qubits), initialBits: initialBits)
     }
@@ -134,7 +134,7 @@ extension Circuit {
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
      with probability 0 are not included.
      */
-    public func summarizedProbabilities(qubits: ReversedCollection<ClosedRange<Int>>,
+    public func summarizedProbabilities(qubits: ClosedRange<Int>,
                                         initialBits: String? = nil) throws -> [String: Double] {
         return try summarizedProbabilities(qubits: Array(qubits), initialBits: initialBits)
     }

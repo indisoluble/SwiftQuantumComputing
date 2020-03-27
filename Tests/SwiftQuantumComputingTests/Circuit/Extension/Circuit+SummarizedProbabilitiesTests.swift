@@ -221,8 +221,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // Then
-        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0..<2).reversed(),
-                                                             initialBits: bits))
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0..<2), initialBits: bits))
     }
 
     func testCircuitThatReturnStatevectorAndQubitClosedRange_summarizedProbabilitiesWithQubitClosedRange_doNotThrowException() {
@@ -232,8 +231,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // Then
-        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0...1).reversed(),
-                                                             initialBits: bits))
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0...1), initialBits: bits))
     }
 
     static var allTests = [
