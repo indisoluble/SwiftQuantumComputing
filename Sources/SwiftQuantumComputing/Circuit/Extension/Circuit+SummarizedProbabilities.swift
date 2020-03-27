@@ -28,8 +28,6 @@ public enum SummarizedProbabilitiesError: Error {
     case probabilitiesThrowedError(error: ProbabilitiesError)
     /// Throwed when `qubits` references a qubit that does not exist in the circuit
     case qubitsAreNotInsideBounds
-    /// Throwed when `qubits` are not sorted from bigger to smaller
-    case qubitsAreNotSorted
     /// Throwed when `qubits` contains repeated values
     case qubitsAreNotUnique
     /// Throwed when `qubits` does not specify any qubit, i.e. it is empty
@@ -86,10 +84,6 @@ extension Circuit {
 
         guard Self.areQubitsUnique(qubits) else {
             throw SummarizedProbabilitiesError.qubitsAreNotUnique
-        }
-
-        guard Self.areQubitsSorted(qubits) else {
-            throw SummarizedProbabilitiesError.qubitsAreNotSorted
         }
 
         let probs = try errorCapturedProbabilities(withInitialBits: initialBits)
@@ -166,10 +160,6 @@ private extension Circuit {
 
     static func areQubitsUnique(_ qubits: [Int]) -> Bool {
         return (qubits.count == Set(qubits).count)
-    }
-
-    static func areQubitsSorted(_ qubits: [Int]) -> Bool {
-        return (qubits == qubits.sorted(by: >))
     }
 
     static func areQubitsInsideBounds(_ qubits: [Int], of probabilities: [Double]) -> Bool {
