@@ -76,8 +76,8 @@ extension Circuit {
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
      with probability 0 are not included.
      */
-    public func summarizedProbabilities(qubits: [Int],
-                                        initialBits: String? = nil) throws -> [String: Double] {
+    public func summarizedProbabilities(byQubits qubits: [Int],
+                                        withInitialBits initialBits: String? = nil) throws -> [String: Double] {
         guard qubits.count > 0 else {
             throw SummarizedProbabilitiesError.qubitsCanNotBeAnEmptyList
         }
@@ -117,9 +117,9 @@ extension Circuit {
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
      with probability 0 are not included.
      */
-    public func summarizedProbabilities(qubits: Range<Int>,
-                                        initialBits: String? = nil) throws -> [String: Double] {
-        return try summarizedProbabilities(qubits: Array(qubits), initialBits: initialBits)
+    public func summarizedProbabilities(byQubits qubits: Range<Int>,
+                                        withInitialBits initialBits: String? = nil) throws -> [String: Double] {
+        return try summarizedProbabilities(byQubits: Array(qubits), withInitialBits: initialBits)
     }
 
     /**
@@ -134,9 +134,9 @@ extension Circuit {
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
      with probability 0 are not included.
      */
-    public func summarizedProbabilities(qubits: ClosedRange<Int>,
-                                        initialBits: String? = nil) throws -> [String: Double] {
-        return try summarizedProbabilities(qubits: Array(qubits), initialBits: initialBits)
+    public func summarizedProbabilities(byQubits qubits: ClosedRange<Int>,
+                                        withInitialBits initialBits: String? = nil) throws -> [String: Double] {
+        return try summarizedProbabilities(byQubits: Array(qubits), withInitialBits: initialBits)
     }
 }
 

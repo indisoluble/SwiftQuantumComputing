@@ -19,7 +19,7 @@ for _ in 0..<times {
 MainDrawerFactory().makeDrawer().drawCircuit(gates)
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
-let probabilities = circuit.summarizedProbabilities(qubits: (1...element.count).reversed())
+let probabilities = circuit.summarizedProbabilities(byQubits: (1...element.count).reversed())
 
 let (foundElement, _) = probabilities.max { $0.value < $1.value }!
 

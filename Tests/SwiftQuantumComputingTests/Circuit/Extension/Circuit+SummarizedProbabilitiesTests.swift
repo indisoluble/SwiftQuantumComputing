@@ -72,13 +72,15 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     func testAnyCircuitAndZeroQubits_summarizedProbabilities_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [], initialBits: bits))
+        XCTAssertThrowsError(try circuit.summarizedProbabilities(byQubits: [],
+                                                                 withInitialBits: bits))
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testAnyCircuitAndRepeatedQubits_summarizedProbabilities_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [0, 0], initialBits: bits))
+        XCTAssertThrowsError(try circuit.summarizedProbabilities(byQubits: [0, 0],
+                                                                 withInitialBits: bits))
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
@@ -87,8 +89,8 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = try! Vector([Complex.zero, Complex.one])
 
         // Then
-        XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [100, 0],
-                                                                 initialBits: bits))
+        XCTAssertThrowsError(try circuit.summarizedProbabilities(byQubits: [100, 0],
+                                                                 withInitialBits: bits))
         XCTAssertEqual(circuit.statevectorCount, 1)
         XCTAssertEqual(circuit.lastStatevectorInitialStatevector, initialStatevector)
     }
@@ -98,8 +100,8 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = try! Vector([Complex.zero, Complex.one])
 
         // Then
-        XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [0, -1],
-                                                                 initialBits: bits))
+        XCTAssertThrowsError(try circuit.summarizedProbabilities(byQubits: [0, -1],
+                                                                 withInitialBits: bits))
         XCTAssertEqual(circuit.statevectorCount, 1)
         XCTAssertEqual(circuit.lastStatevectorInitialStatevector, initialStatevector)
     }
@@ -114,7 +116,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // When
-        let result = try? circuit.summarizedProbabilities(qubits: [0], initialBits: bits)
+        let result = try? circuit.summarizedProbabilities(byQubits: [0], withInitialBits: bits)
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -150,7 +152,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // When
-        let result = try? circuit.summarizedProbabilities(qubits: [1, 0], initialBits: bits)
+        let result = try? circuit.summarizedProbabilities(byQubits: [1, 0], withInitialBits: bits)
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -189,7 +191,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // When
-        let result = try? circuit.summarizedProbabilities(qubits: [0, 1], initialBits: bits)
+        let result = try? circuit.summarizedProbabilities(byQubits: [0, 1], withInitialBits: bits)
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -221,7 +223,8 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // Then
-        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0..<2), initialBits: bits))
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(byQubits: (0..<2),
+                                                             withInitialBits: bits))
     }
 
     func testCircuitThatReturnStatevectorAndQubitClosedRange_summarizedProbabilitiesWithQubitClosedRange_doNotThrowException() {
@@ -231,7 +234,8 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // Then
-        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0...1), initialBits: bits))
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(byQubits: (0...1),
+                                                             withInitialBits: bits))
     }
 
     static var allTests = [
