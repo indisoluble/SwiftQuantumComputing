@@ -31,6 +31,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(UnitaryGateAdapterTests.allTests),
         testCase(UnitaryGateFactoryAdapterTests.allTests),
         testCase(UnitarySimulatorFacadeTests.allTests),
+        testCase(Circuit_GroupedProbabilitiesTests.allTests),
         testCase(CircuitFacadeTests.allTests),
         testCase(Circuit_ProbabilitiesTests.allTests),
         testCase(Circuit_StatevectorTests.allTests),

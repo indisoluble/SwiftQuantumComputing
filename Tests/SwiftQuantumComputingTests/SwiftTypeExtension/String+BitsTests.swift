@@ -48,6 +48,11 @@ class String_BitsTests: XCTestCase {
         XCTAssertEqual(String(13, bits: [100, 0, 1, 200]), "0100")
     }
 
+    func testValueAndEmptyBits_init_returnExpectedValue() {
+        // Then
+        XCTAssertEqual(String(13, bits: []), "")
+    }
+
     static var allTests = [
         ("testValueAndBitCount_init_returnExpectedValue",
          testValueAndBitCount_init_returnExpectedValue),
@@ -56,6 +61,8 @@ class String_BitsTests: XCTestCase {
         ("testValueAndReversedBits_init_returnExpectedValue",
          testValueAndReversedBits_init_returnExpectedValue),
         ("testValueAndBitsOutOfRange_init_returnExpectedValue",
-         testValueAndBitsOutOfRange_init_returnExpectedValue)
+         testValueAndBitsOutOfRange_init_returnExpectedValue),
+        ("testValueAndEmptyBits_init_returnExpectedValue",
+         testValueAndEmptyBits_init_returnExpectedValue)
     ]
 }

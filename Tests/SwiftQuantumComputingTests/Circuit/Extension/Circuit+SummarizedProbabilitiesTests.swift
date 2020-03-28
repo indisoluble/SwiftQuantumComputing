@@ -32,6 +32,16 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
     let bits = "101"
     let initialStatevector = try! Vector([Complex.zero, Complex.zero, Complex.zero, Complex.zero,
                                           Complex.zero, Complex.one, Complex.zero, Complex.zero])
+    let finalStateVector = try! Vector([
+        Complex(real: 1 / sqrt(3), imag: 0),
+        Complex.zero,
+        Complex.zero,
+        Complex.zero,
+        Complex(real: 1 / sqrt(3), imag: 0),
+        Complex.zero,
+        Complex(real: 1 / sqrt(3), imag: 0),
+        Complex.zero
+    ])
 
     // MARK: - Tests
 
@@ -140,16 +150,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     func testCircuitThatReturnStatevectorAndTwoQubits_summarizedProbabilities_returnExpectedProbabilities() {
         // Given
-        circuit.statevectorResult = try! Vector([
-            Complex(real: 1 / sqrt(3), imag: 0),
-            Complex.zero,
-            Complex.zero,
-            Complex.zero,
-            Complex(real: 1 / sqrt(3), imag: 0),
-            Complex.zero,
-            Complex(real: 1 / sqrt(3), imag: 0),
-            Complex.zero
-        ])
+        circuit.statevectorResult = finalStateVector
 
         // When
         let result = try? circuit.summarizedProbabilities(byQubits: [1, 0], withInitialBits: bits)
@@ -179,16 +180,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     func testCircuitThatReturnStatevectorAndReversedTwoQubits_summarizedProbabilities_returnExpectedProbabilities() {
         // Given
-        circuit.statevectorResult = try! Vector([
-            Complex(real: 1 / sqrt(3), imag: 0),
-            Complex.zero,
-            Complex.zero,
-            Complex.zero,
-            Complex(real: 1 / sqrt(3), imag: 0),
-            Complex.zero,
-            Complex(real: 1 / sqrt(3), imag: 0),
-            Complex.zero
-        ])
+        circuit.statevectorResult = finalStateVector
 
         // When
         let result = try? circuit.summarizedProbabilities(byQubits: [0, 1], withInitialBits: bits)
