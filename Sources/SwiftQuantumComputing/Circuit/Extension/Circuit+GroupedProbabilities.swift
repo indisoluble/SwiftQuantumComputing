@@ -57,6 +57,8 @@ extension Circuit {
      - Parameter summaryQubits: List of qubits for which we want to know the probability of each combination once the
      qubits in `groupQubits` collapse to a value. if an empty list is provided, an empty summary will be returned.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter places: If provided, probabilities in each summary are rounded to the given number of decimal `places`.
+     Notice that if a probability ends up rounded to 0.0, it is removed from the summary.
 
      - Throws: `GroupedProbabilitiesError`.
 
@@ -67,7 +69,8 @@ extension Circuit {
      */
     public func groupedProbabilities(byQubits groupQubits: [Int],
                                      summarizedByQubits summaryQubits: [Int] = [],
-                                     withInitialBits initialBits: String? = nil) throws -> [String: GroupedProb] {
+                                     withInitialBits initialBits: String? = nil,
+                                     roundSummaryToDecimalPlaces places: Int? = nil) throws -> [String: GroupedProb] {
         guard groupQubits.count > 0 else {
             throw GroupedProbabilitiesError.groupQubitsCanNotBeAnEmptyList
         }
@@ -103,8 +106,16 @@ extension Circuit {
 
         return result.mapValues { groupProb in
             let normalize = 1.0 / groupProb.probability
+            let summary = groupProb.summary.compactMapValues { (prob) -> Double? in
+                var normProb = prob * normalize
+                if let places = places {
+                    normProb = normProb.rounded(toDecimalPlaces: places)
+                }
 
-            return (groupProb.probability, groupProb.summary.mapValues { $0 * normalize })
+                return (normProb > 0.0 ? normProb : nil)
+            }
+
+            return (groupProb.probability, summary)
         }
     }
 
@@ -119,6 +130,8 @@ extension Circuit {
      - Parameter summaryQubits: Range of qubits for which we want to know the probability of each combination once the
      qubits in `groupQubits` collapse to a value.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter places: If provided, probabilities in each summary are rounded to the given number of decimal `places`.
+     Notice that if a probability ends up rounded to 0.0, it is removed from the summary.
 
      - Throws: `GroupedProbabilitiesError`.
 
@@ -129,10 +142,12 @@ extension Circuit {
      */
     public func groupedProbabilities(byQubits groupQubits: [Int],
                                      summarizedByQubits summaryQubits: Range<Int>,
-                                     withInitialBits initialBits: String? = nil) throws -> [String: GroupedProb] {
+                                     withInitialBits initialBits: String? = nil,
+                                     roundSummaryToDecimalPlaces places: Int? = nil) throws -> [String: GroupedProb] {
         return try groupedProbabilities(byQubits: groupQubits,
                                         summarizedByQubits: Array(summaryQubits),
-                                        withInitialBits: initialBits)
+                                        withInitialBits: initialBits,
+                                        roundSummaryToDecimalPlaces: places)
     }
 
     /**
@@ -146,6 +161,8 @@ extension Circuit {
      - Parameter summaryQubits: Range of qubits for which we want to know the probability of each combination once the
      qubits in `groupQubits` collapse to a value.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter places: If provided, probabilities in each summary are rounded to the given number of decimal `places`.
+     Notice that if a probability ends up rounded to 0.0, it is removed from the summary.
 
      - Throws: `GroupedProbabilitiesError`.
 
@@ -156,10 +173,12 @@ extension Circuit {
      */
     public func groupedProbabilities(byQubits groupQubits: [Int],
                                      summarizedByQubits summaryQubits: ClosedRange<Int>,
-                                     withInitialBits initialBits: String? = nil) throws -> [String: GroupedProb] {
+                                     withInitialBits initialBits: String? = nil,
+                                     roundSummaryToDecimalPlaces places: Int? = nil) throws -> [String: GroupedProb] {
         return try groupedProbabilities(byQubits: groupQubits,
                                         summarizedByQubits: Array(summaryQubits),
-                                        withInitialBits: initialBits)
+                                        withInitialBits: initialBits,
+                                        roundSummaryToDecimalPlaces: places)
     }
 
     /**
@@ -173,6 +192,8 @@ extension Circuit {
      - Parameter summaryQubits: List of qubits for which we want to know the probability of each combination once the
      qubits in `groupQubits` collapse to a value. if an empty list is provided, an empty summary will be returned.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter places: If provided, probabilities in each summary are rounded to the given number of decimal `places`.
+     Notice that if a probability ends up rounded to 0.0, it is removed from the summary.
 
      - Throws: `GroupedProbabilitiesError`.
 
@@ -183,10 +204,12 @@ extension Circuit {
      */
     public func groupedProbabilities(byQubits groupQubits: Range<Int>,
                                      summarizedByQubits summaryQubits: [Int] = [],
-                                     withInitialBits initialBits: String? = nil) throws -> [String: GroupedProb] {
+                                     withInitialBits initialBits: String? = nil,
+                                     roundSummaryToDecimalPlaces places: Int? = nil) throws -> [String: GroupedProb] {
         return try groupedProbabilities(byQubits: Array(groupQubits),
                                         summarizedByQubits: summaryQubits,
-                                        withInitialBits: initialBits)
+                                        withInitialBits: initialBits,
+                                        roundSummaryToDecimalPlaces: places)
     }
 
     /**
@@ -200,6 +223,8 @@ extension Circuit {
      - Parameter summaryQubits: Range of qubits for which we want to know the probability of each combination once the
      qubits in `groupQubits` collapse to a value.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter places: If provided, probabilities in each summary are rounded to the given number of decimal `places`.
+     Notice that if a probability ends up rounded to 0.0, it is removed from the summary.
 
      - Throws: `GroupedProbabilitiesError`.
 
@@ -210,10 +235,12 @@ extension Circuit {
      */
     public func groupedProbabilities(byQubits groupQubits: Range<Int>,
                                      summarizedByQubits summaryQubits: Range<Int>,
-                                     withInitialBits initialBits: String? = nil) throws -> [String: GroupedProb] {
+                                     withInitialBits initialBits: String? = nil,
+                                     roundSummaryToDecimalPlaces places: Int? = nil) throws -> [String: GroupedProb] {
         return try groupedProbabilities(byQubits: Array(groupQubits),
                                         summarizedByQubits: Array(summaryQubits),
-                                        withInitialBits: initialBits)
+                                        withInitialBits: initialBits,
+                                        roundSummaryToDecimalPlaces: places)
     }
 
     /**
@@ -227,6 +254,8 @@ extension Circuit {
      - Parameter summaryQubits: Range of qubits for which we want to know the probability of each combination once the
      qubits in `groupQubits` collapse to a value.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter places: If provided, probabilities in each summary are rounded to the given number of decimal `places`.
+     Notice that if a probability ends up rounded to 0.0, it is removed from the summary.
 
      - Throws: `GroupedProbabilitiesError`.
 
@@ -237,10 +266,12 @@ extension Circuit {
      */
     public func groupedProbabilities(byQubits groupQubits: Range<Int>,
                                      summarizedByQubits summaryQubits: ClosedRange<Int>,
-                                     withInitialBits initialBits: String? = nil) throws -> [String: GroupedProb] {
+                                     withInitialBits initialBits: String? = nil,
+                                     roundSummaryToDecimalPlaces places: Int? = nil) throws -> [String: GroupedProb] {
         return try groupedProbabilities(byQubits: Array(groupQubits),
                                         summarizedByQubits: Array(summaryQubits),
-                                        withInitialBits: initialBits)
+                                        withInitialBits: initialBits,
+                                        roundSummaryToDecimalPlaces: places)
     }
 
     /**
@@ -254,6 +285,8 @@ extension Circuit {
      - Parameter summaryQubits: List of qubits for which we want to know the probability of each combination once the
      qubits in `groupQubits` collapse to a value. if an empty list is provided, an empty summary will be returned.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter places: If provided, probabilities in each summary are rounded to the given number of decimal `places`.
+     Notice that if a probability ends up rounded to 0.0, it is removed from the summary.
 
      - Throws: `GroupedProbabilitiesError`.
 
@@ -264,10 +297,12 @@ extension Circuit {
      */
     public func groupedProbabilities(byQubits groupQubits: ClosedRange<Int>,
                                      summarizedByQubits summaryQubits: [Int] = [],
-                                     withInitialBits initialBits: String? = nil) throws -> [String: GroupedProb] {
+                                     withInitialBits initialBits: String? = nil,
+                                     roundSummaryToDecimalPlaces places: Int? = nil) throws -> [String: GroupedProb] {
         return try groupedProbabilities(byQubits: Array(groupQubits),
                                         summarizedByQubits: summaryQubits,
-                                        withInitialBits: initialBits)
+                                        withInitialBits: initialBits,
+                                        roundSummaryToDecimalPlaces: places)
     }
 
     /**
@@ -281,6 +316,8 @@ extension Circuit {
      - Parameter summaryQubits: Range of qubits for which we want to know the probability of each combination once the
      qubits in `groupQubits` collapse to a value.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter places: If provided, probabilities in each summary are rounded to the given number of decimal `places`.
+     Notice that if a probability ends up rounded to 0.0, it is removed from the summary.
 
      - Throws: `GroupedProbabilitiesError`.
 
@@ -291,10 +328,12 @@ extension Circuit {
      */
     public func groupedProbabilities(byQubits groupQubits: ClosedRange<Int>,
                                      summarizedByQubits summaryQubits: Range<Int>,
-                                     withInitialBits initialBits: String? = nil) throws -> [String: GroupedProb] {
+                                     withInitialBits initialBits: String? = nil,
+                                     roundSummaryToDecimalPlaces places: Int? = nil) throws -> [String: GroupedProb] {
         return try groupedProbabilities(byQubits: Array(groupQubits),
                                         summarizedByQubits: Array(summaryQubits),
-                                        withInitialBits: initialBits)
+                                        withInitialBits: initialBits,
+                                        roundSummaryToDecimalPlaces: places)
     }
 
     /**
@@ -308,6 +347,8 @@ extension Circuit {
      - Parameter summaryQubits: Range of qubits for which we want to know the probability of each combination once the
      qubits in `groupQubits` collapse to a value.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter places: If provided, probabilities in each summary are rounded to the given number of decimal `places`.
+     Notice that if a probability ends up rounded to 0.0, it is removed from the summary.
 
      - Throws: `GroupedProbabilitiesError`.
 
@@ -318,10 +359,12 @@ extension Circuit {
      */
     public func groupedProbabilities(byQubits groupQubits: ClosedRange<Int>,
                                      summarizedByQubits summaryQubits: ClosedRange<Int>,
-                                     withInitialBits initialBits: String? = nil) throws -> [String: GroupedProb] {
+                                     withInitialBits initialBits: String? = nil,
+                                     roundSummaryToDecimalPlaces places: Int? = nil) throws -> [String: GroupedProb] {
         return try groupedProbabilities(byQubits: Array(groupQubits),
                                         summarizedByQubits: Array(summaryQubits),
-                                        withInitialBits: initialBits)
+                                        withInitialBits: initialBits,
+                                        roundSummaryToDecimalPlaces: places)
     }
 }
 

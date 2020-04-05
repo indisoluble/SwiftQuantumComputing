@@ -47,13 +47,15 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
 
     func assertEqualGroupedProbabilities(_ one: [String: Circuit.GroupedProb],
                                          _ other: [String: Circuit.GroupedProb]) {
+        let accuracy = (1.0 / Foundation.pow(10.0, 6))
+
         let groupOneKeys = Set(one.keys)
         let groupOtherKeys = Set(other.keys)
         if groupOneKeys == groupOtherKeys {
             for groupKey in groupOneKeys {
                 XCTAssertEqual(one[groupKey]!.probability,
                                other[groupKey]!.probability,
-                               accuracy: 0.001)
+                               accuracy: accuracy)
 
                 let summaryOneKeys = Set(one[groupKey]!.summary.keys)
                 let summaryOtherKeys = Set(other[groupKey]!.summary.keys)
@@ -61,7 +63,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
                     for summaryKey in summaryOneKeys {
                         XCTAssertEqual(one[groupKey]!.summary[summaryKey]!,
                                        other[groupKey]!.summary[summaryKey]!,
-                                       accuracy: 0.001)
+                                       accuracy: accuracy)
                     }
                 } else {
                     XCTAssert(false)
@@ -168,14 +170,59 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         }
     }
 
+    func testCircuitThatReturnStatevectorOneGrpQubitOneSumQubitReversedAndSumRoundedToOneDec_groupedProbabilities_returnExpectedProbs() {
+        // Given
+        circuit.statevectorResult = finalStateVector
+
+        // When
+        let result = try? circuit.groupedProbabilities(byQubits: [0],
+                                                       summarizedByQubits: [1],
+                                                       withInitialBits: bits,
+                                                       roundSummaryToDecimalPlaces: 1)
+
+        // Then
+        XCTAssertEqual(circuit.statevectorCount, 1)
+        XCTAssertEqual(circuit.lastStatevectorInitialStatevector, initialStatevector)
+
+        XCTAssertNotNil(result)
+        if let result = result {
+            let expectedResult: [String: Circuit.GroupedProb] = [
+                "0": (1.0, ["0": 0.7, "1": 0.3])
+            ]
+            assertEqualGroupedProbabilities(result, expectedResult)
+        }
+    }
+
+    func testCircuitThatReturnStatevectorOneGrpQubitOneSumQubitReversedAndSumRoundedToZeroDec_groupedProbabilities_returnExpectedProbs() {
+        // Given
+        circuit.statevectorResult = finalStateVector
+
+        // When
+        let result = try? circuit.groupedProbabilities(byQubits: [0],
+                                                       summarizedByQubits: [1],
+                                                       withInitialBits: bits,
+                                                       roundSummaryToDecimalPlaces: 0)
+
+        // Then
+        XCTAssertEqual(circuit.statevectorCount, 1)
+        XCTAssertEqual(circuit.lastStatevectorInitialStatevector, initialStatevector)
+
+        XCTAssertNotNil(result)
+        if let result = result {
+            let expectedResult: [String: Circuit.GroupedProb] = [
+                "0": (1.0, ["0": 1.0])
+            ]
+            assertEqualGroupedProbabilities(result, expectedResult)
+        }
+    }
+
     func testCircuitThatReturnStatevectorAndSummaryQubitRange_groupedProbabilities_doNotThrowException() {
         // Given
         circuit.statevectorResult = finalStateVector
 
         // Then
         XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: [0],
-                                                          summarizedByQubits: (1..<3),
-                                                          withInitialBits: bits))
+                                                          summarizedByQubits: (1..<3)))
     }
 
     func testCircuitThatReturnStatevectorAndSummaryQubitClosedRange_groupedProbabilities_doNotThrowException() {
@@ -184,8 +231,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
 
         // Then
         XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: [0],
-                                                          summarizedByQubits: (1...2),
-                                                          withInitialBits: bits))
+                                                          summarizedByQubits: (1...2)))
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitRange_groupedProbabilities_doNotThrowException() {
@@ -194,8 +240,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
 
         // Then
         XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (1..<3),
-                                                          summarizedByQubits: [0],
-                                                          withInitialBits: bits))
+                                                          summarizedByQubits: [0]))
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitRangeAndSummaryQubitRange_groupedProbabilities_doNotThrowException() {
@@ -204,8 +249,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
 
         // Then
         XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (0..<1),
-                                                          summarizedByQubits: (1..<3),
-                                                          withInitialBits: bits))
+                                                          summarizedByQubits: (1..<3)))
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitRangeAndSummaryQubitClosedRange_groupedProbabilities_doNotThrowException() {
@@ -214,8 +258,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
 
         // Then
         XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (0..<1),
-                                                          summarizedByQubits: (1...2),
-                                                          withInitialBits: bits))
+                                                          summarizedByQubits: (1...2)))
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitClosedRange_groupedProbabilities_doNotThrowException() {
@@ -224,8 +267,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
 
         // Then
         XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (1...2),
-                                                          summarizedByQubits: [0],
-                                                          withInitialBits: bits))
+                                                          summarizedByQubits: [0]))
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitClosedRangeAndSummaryQubitRange_groupedProbabilities_doNotThrowException() {
@@ -234,8 +276,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
 
         // Then
         XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (1...2),
-                                                          summarizedByQubits: (0..<1),
-                                                          withInitialBits: bits))
+                                                          summarizedByQubits: (0..<1)))
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitClosedRangeAndSummaryQubitClosedRange_groupedProbabilities_doNotThrowException() {
@@ -244,8 +285,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
 
         // Then
         XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (1...2),
-                                                          summarizedByQubits: (0...0),
-                                                          withInitialBits: bits))
+                                                          summarizedByQubits: (0...0)))
     }
 
     static var allTests = [
@@ -261,6 +301,10 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
          testCircuitThatReturnStatevectorAndOneGroupQubitAndOneSummaryQubitReversed_groupedProbabilities_returnExpectedProbabilities),
         ("testCircuitThatReturnStatevectorAndOneGroupQubitAndZeroSummaryQubit_groupedProbabilities_returnExpectedProbabilities",
          testCircuitThatReturnStatevectorAndOneGroupQubitAndZeroSummaryQubit_groupedProbabilities_returnExpectedProbabilities),
+        ("testCircuitThatReturnStatevectorOneGrpQubitOneSumQubitReversedAndSumRoundedToOneDec_groupedProbabilities_returnExpectedProbs",
+         testCircuitThatReturnStatevectorOneGrpQubitOneSumQubitReversedAndSumRoundedToOneDec_groupedProbabilities_returnExpectedProbs),
+        ("testCircuitThatReturnStatevectorOneGrpQubitOneSumQubitReversedAndSumRoundedToZeroDec_groupedProbabilities_returnExpectedProbs",
+         testCircuitThatReturnStatevectorOneGrpQubitOneSumQubitReversedAndSumRoundedToZeroDec_groupedProbabilities_returnExpectedProbs),
         ("testCircuitThatReturnStatevectorAndSummaryQubitRange_groupedProbabilities_doNotThrowException",
          testCircuitThatReturnStatevectorAndSummaryQubitRange_groupedProbabilities_doNotThrowException),
         ("testCircuitThatReturnStatevectorAndSummaryQubitClosedRange_groupedProbabilities_doNotThrowException",
