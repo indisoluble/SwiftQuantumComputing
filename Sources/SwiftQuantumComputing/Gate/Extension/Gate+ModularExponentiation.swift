@@ -28,18 +28,24 @@ extension Gate {
 
     /// Errors throwed by `Gate.makeModularExponentiation(base:modulus:exponent:inputs:)`
     public enum MakeModularExponentiationError: Error {
-        /// Throwed when `base` is 0 (or less)
+        /// Throwed when `base` is 0 (or less). First, this implementation only works with a positive `base`. It  also has to be
+        /// different from 0 because if `base` is 0, the modulo is always 0 which would end up producing a non-unitary matrix
         case baseHasToBeBiggerThanZero
         /// Throwed if `inputs` is an empty list
         case inputsCanNotBeAnEmptyList
-        /// Throwed when `modulus` is 0 (or less)
-        case modulusHasToBeBiggerThanZero
+        /// Throwed when `modulus` is 1 (or less). First, this implementation only works with a positive `modulus`. It also
+        /// has to be different from 0 because we can not divide by 0. And it can not be 1 because, regardless of `base`, the
+        /// modulo of 1 is always 0 which would end up producing a non-unitary matrix
+        case modulusHasToBeBiggerThanOne
+        /// Throwed if it was not possible to build a unitary matrix with the provided `modulus`, most likely because
+        /// `modulus` is a power of `base`
+        case modulusProducesANonUnitaryMatrix
     }
 
     /**
      Implements with `Gate` instances a modular exponentiation performed over `modulus` with `base` raised to `exponent`.
      While `base` & `modulus` are constant integers, `exponent` is a list of qubits and, therefore, its actual value can vary.
-     The extra `inputs` are used to pass the result from one gate to the next and they are expected to be set to |1>.
+     The extra `inputs` are used to pass the result from one gate to the next and they HAVE TO be set to |1>.
 
      - Parameter base: Base of the modular exponentiation, a positive integer bigger than zero.
      - Parameter modulus: Modulus of the modular exponentiation, a positive integer bigger than zero..
@@ -64,8 +70,10 @@ extension Gate {
             throw MakeModularExponentiationError.baseHasToBeBiggerThanZero
         }
 
-        guard modulus > 0 else {
-            throw MakeModularExponentiationError.modulusHasToBeBiggerThanZero
+        // if base is power of modulus, matrix is not unitary
+
+        guard modulus > 1 else {
+            throw MakeModularExponentiationError.modulusHasToBeBiggerThanOne
         }
 
         guard !inputs.isEmpty else {
@@ -77,9 +85,9 @@ extension Gate {
 
         var gates: [Gate] = []
         for control in exponent.reversed() {
-            let matrix = makeModularMultiplicationUnitaryMatrix(base: gateBase,
-                                                                modulus: modulus,
-                                                                inputQubitCount: inputs.count)
+            let matrix = try makeModularMultiplicationUnitaryMatrix(base: gateBase,
+                                                                    modulus: modulus,
+                                                                    inputQubitCount: inputs.count)
             gates.append(.controlledMatrix(matrix: matrix, inputs: inputs, control: control))
 
             gateBase = (gateBase * gateBase).quotientAndRemainder(dividingBy: modulus,
@@ -98,28 +106,24 @@ private extension Gate {
 
     static func makeModularMultiplicationUnitaryMatrix(base: Int,
                                                        modulus: Int,
-                                                       inputQubitCount: Int) -> Matrix {
-        var rows: [[Complex]] = []
-
-        let combinationCount = Int.pow(2, inputQubitCount)
-        for combination in 0..<combinationCount {
-            // A `combination` bigger or equal to `modulus` produces a `remainder` already
-            // generated in a previous iteration. If we used this `remainder`, the resulting
-            // matrix would not be unitary; instead, we use the `combination` given that
-            // it is always unique
-            let index = (
-                combination >= modulus ?
-                    combination :
-                    (combination * base).quotientAndRemainder(dividingBy: modulus,
-                                                              division: .swift).remainder
+                                                       inputQubitCount: Int) throws -> Matrix {
+        let combCount = Int.pow(2, inputQubitCount)
+        let activatedIndexes = (0..<combCount).map { comb in
+            // A `comb` bigger or equal to `modulus` produces a `remainder` already generated
+            // in a previous iteration. If we used this `remainder`, the resulting matrix
+            // would not be unitary; instead, we use the `comb` given that it is always unique
+            return (comb >= modulus ?
+                comb :
+                (comb * base).quotientAndRemainder(dividingBy: modulus, division: .swift).remainder
             )
-
-            var row = Array(repeating: Complex.zero, count: combinationCount)
-            row[index] = Complex.one
-
-            rows.append(row)
         }
 
-        return try! Matrix(rows)
+        if Set(activatedIndexes).count != combCount {
+            throw MakeModularExponentiationError.modulusProducesANonUnitaryMatrix
+        }
+
+        return try! Matrix.makeMatrix(rowCount: combCount, columnCount: combCount) { row, col in
+            return (activatedIndexes[col] == row ? Complex.one : Complex.zero)
+        }
     }
 }

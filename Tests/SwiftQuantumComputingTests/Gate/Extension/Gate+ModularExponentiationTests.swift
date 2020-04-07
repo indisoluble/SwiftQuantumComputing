@@ -43,10 +43,10 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                                 inputs: inputs))
     }
 
-    func testModulusEqualToZero_makeModularExponentiation_throwError() {
+    func testModulusEqualToOne_makeModularExponentiation_throwError() {
         // Then
         XCTAssertThrowsError(try Gate.makeModularExponentiation(base: base,
-                                                                modulus: 0,
+                                                                modulus: 1,
                                                                 exponent: exponent,
                                                                 inputs: inputs))
     }
@@ -59,6 +59,14 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                                 inputs: []))
     }
 
+    func testModulusPowerOfBase_makeModularExponentiation_throwError() {
+        // Then
+        XCTAssertThrowsError(try Gate.makeModularExponentiation(base: base,
+                                                                modulus: Int.pow(base, 3),
+                                                                exponent: exponent,
+                                                                inputs: inputs))
+    }
+
     func testValidParameters_makeModularExponentiation_returnExpectedList() {
         // When
         let gates = try? Gate.makeModularExponentiation(base: base,
@@ -67,23 +75,23 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                         inputs: inputs)
         // Then
         let firstMatrix = try! Matrix([
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
+            [Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero],
             [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one]
         ])
         let secondMatrix = try! Matrix([
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
+            [Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero],
             [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one]
         ])
         let expectedGates = [
@@ -93,14 +101,33 @@ class Gate_ModularExponentiationTests: XCTestCase {
         XCTAssertEqual(gates, expectedGates)
     }
 
+    func testCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs() {
+        // Given
+        let gates = try! Gate.makeModularExponentiation(base: base,
+                                                        modulus: modulus,
+                                                        exponent: exponent,
+                                                        inputs: inputs)
+        let circuit = MainCircuitFactory().makeCircuit(gates: gates)
+
+        // When
+        let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")
+
+        // Then
+        XCTAssertEqual(probs, ["011" : 1.0])
+    }
+
     static var allTests = [
         ("testBaseEqualToZero_makeModularExponentiation_throwError",
          testBaseEqualToZero_makeModularExponentiation_throwError),
-        ("testModulusEqualToZero_makeModularExponentiation_throwError",
-         testModulusEqualToZero_makeModularExponentiation_throwError),
+        ("testModulusEqualToOne_makeModularExponentiation_throwError",
+         testModulusEqualToOne_makeModularExponentiation_throwError),
         ("testEmptyInputs_makeModularExponentiation_throwError",
          testEmptyInputs_makeModularExponentiation_throwError),
+        ("testModulusPowerOfBase_makeModularExponentiation_throwError",
+         testModulusPowerOfBase_makeModularExponentiation_throwError),
         ("testValidParameters_makeModularExponentiation_returnExpectedList",
-         testValidParameters_makeModularExponentiation_returnExpectedList)
+         testValidParameters_makeModularExponentiation_returnExpectedList),
+        ("testCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs",
+         testCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs)
     ]
 }
