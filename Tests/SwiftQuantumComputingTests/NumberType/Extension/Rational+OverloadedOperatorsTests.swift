@@ -60,6 +60,7 @@ class Rational_OverloadedOperatorsTests: XCTestCase {
         XCTAssertFalse(try! Rational(numerator: -1, denominator: 2) < Rational(numerator: -10, denominator: 2))
         XCTAssertTrue(try! Rational(numerator: -10, denominator: 2) < Rational(numerator: 5, denominator: 2))
         XCTAssertFalse(try! Rational(numerator: 5, denominator: 2) < Rational(numerator: -10, denominator: 2))
+        XCTAssertFalse(try! Rational(numerator: 5, denominator: 2) < Rational(numerator: 5, denominator: 2))
     }
 
     func testFactorialWithDifferentDenominator_smallerThan_returnExpectedResult() {
@@ -70,6 +71,29 @@ class Rational_OverloadedOperatorsTests: XCTestCase {
         XCTAssertFalse(try! Rational(numerator: -1, denominator: 2) < Rational(numerator: -10, denominator: 3))
         XCTAssertTrue(try! Rational(numerator: -10, denominator: 3) < Rational(numerator: 5, denominator: 2))
         XCTAssertFalse(try! Rational(numerator: 5, denominator: 2) < Rational(numerator: -10, denominator: 3))
+        XCTAssertFalse(try! Rational(numerator: 5, denominator: 2) < Rational(numerator: 10, denominator: 4))
+    }
+
+    func testFactorialWithSameDenominator_smallerThanOrEqual_returnExpectedResult() {
+        // Then
+        XCTAssertTrue(try! Rational(numerator: 5, denominator: 2) <= Rational(numerator: 10, denominator: 2))
+        XCTAssertFalse(try! Rational(numerator: 10, denominator: 2) <= Rational(numerator: 5, denominator: 2))
+        XCTAssertTrue(try! Rational(numerator: -10, denominator: 2) <= Rational(numerator: -1, denominator: 2))
+        XCTAssertFalse(try! Rational(numerator: -1, denominator: 2) <= Rational(numerator: -10, denominator: 2))
+        XCTAssertTrue(try! Rational(numerator: -10, denominator: 2) <= Rational(numerator: 5, denominator: 2))
+        XCTAssertFalse(try! Rational(numerator: 5, denominator: 2) <= Rational(numerator: -10, denominator: 2))
+        XCTAssertTrue(try! Rational(numerator: 5, denominator: 2) <= Rational(numerator: 5, denominator: 2))
+    }
+
+    func testFactorialWithDifferentDenominator_smallerThanOrEqual_returnExpectedResult() {
+        // Then
+        XCTAssertTrue(try! Rational(numerator: 5, denominator: 2) <= Rational(numerator: 10, denominator: 3))
+        XCTAssertFalse(try! Rational(numerator: 10, denominator: 3) <= Rational(numerator: 5, denominator: 2))
+        XCTAssertTrue(try! Rational(numerator: -10, denominator: 3) <= Rational(numerator: -1, denominator: 2))
+        XCTAssertFalse(try! Rational(numerator: -1, denominator: 2) <= Rational(numerator: -10, denominator: 3))
+        XCTAssertTrue(try! Rational(numerator: -10, denominator: 3) <= Rational(numerator: 5, denominator: 2))
+        XCTAssertFalse(try! Rational(numerator: 5, denominator: 2) <= Rational(numerator: -10, denominator: 3))
+        XCTAssertTrue(try! Rational(numerator: 5, denominator: 2) <= Rational(numerator: 10, denominator: 4))
     }
 
     static var allTests = [
@@ -80,6 +104,10 @@ class Rational_OverloadedOperatorsTests: XCTestCase {
         ("testFactorialWithSameDenominator_smallerThan_returnExpectedResult",
          testFactorialWithSameDenominator_smallerThan_returnExpectedResult),
         ("testFactorialWithDifferentDenominator_smallerThan_returnExpectedResult",
-         testFactorialWithDifferentDenominator_smallerThan_returnExpectedResult)
+         testFactorialWithDifferentDenominator_smallerThan_returnExpectedResult),
+        ("testFactorialWithSameDenominator_smallerThanOrEqual_returnExpectedResult",
+         testFactorialWithSameDenominator_smallerThanOrEqual_returnExpectedResult),
+        ("testFactorialWithDifferentDenominator_smallerThanOrEqual_returnExpectedResult",
+         testFactorialWithDifferentDenominator_smallerThanOrEqual_returnExpectedResult)
     ]
 }

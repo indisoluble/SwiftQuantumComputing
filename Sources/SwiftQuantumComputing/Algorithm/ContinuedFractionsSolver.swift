@@ -26,10 +26,10 @@ import Foundation
 /// approximation to a given `Rational` number
 public struct ContinuedFractionsSolver {
 
-    /// Errors throwed by `ContinuedFractionsSolver.findApproximation(of:differenceBelow:)`
+    /// Errors throwed by `ContinuedFractionsSolver.findApproximation(of:differenceBelowOrEqual:)`
     public enum FindApproximationError: Error {
-        /// Throwed if `limit` is zero or negative. Notice that zero does not make sense because even an
-        /// approximation equal to `value` has a difference of zero and zero is not below zero
+        /// Throwed if `limit` is zero or negative. Notice that a `limit` equal to zero, the approximation is the same
+        /// provided `value`
         case limitHasToBeBiggerThanZero
         /// Throwed if `value` is zero or negative. Notice that the only possible approximation for zero is zero
         case valueHasToBeBiggerThanZero
@@ -40,14 +40,13 @@ public struct ContinuedFractionsSolver {
 
      - Parameter value: `Rational` number for which an approximation is required.
      - Parameter limit: `Rational` number that sets the maximum difference between the result and `value`.
-     The result will be strictly below the `limit` without reaching it.
 
      - Throws: `FindApproximationError`.
 
-     - Returns: A `Rational` number which distance to `value` is below `limit`,
+     - Returns: A `Rational` number which distance to `value` is below or equal to `limit`,
      */
     public static func findApproximation(of value: Rational,
-                                         differenceBelow limit: Rational) throws -> Rational {
+                                         differenceBelowOrEqual limit: Rational) throws -> Rational {
         guard Rational.zero < value else {
             throw FindApproximationError.valueHasToBeBiggerThanZero
         }
@@ -64,7 +63,7 @@ public struct ContinuedFractionsSolver {
 
         var result = Rational.zero
 
-        while !((value - result).magnitude < limit) {
+        while !((value - result).magnitude <= limit) {
             nextValue = try! Rational(numerator: nextValue.denominator, denominator: remainder)
 
             var quotient = 0

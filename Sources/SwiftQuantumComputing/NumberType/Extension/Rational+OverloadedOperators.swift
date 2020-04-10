@@ -50,4 +50,15 @@ extension Rational {
 
         return lNumerator < rNumerator
     }
+
+    static func <=(lhs: Rational, rhs: Rational) -> Bool {
+        var lNumerator = lhs.numerator
+        var rNumerator = rhs.numerator
+        if lhs.denominator != rhs.denominator {
+            lNumerator *= rhs.denominator
+            rNumerator *= lhs.denominator
+        }
+
+        return lNumerator <= rNumerator
+    }
 }

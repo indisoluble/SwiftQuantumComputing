@@ -38,13 +38,13 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // Then
         XCTAssertThrowsError(try ContinuedFractionsSolver.findApproximation(of: Rational.zero,
-                                                                            differenceBelow: limit))
+                                                                            differenceBelowOrEqual: limit))
     }
 
     func testZeroLimit_findApproximation_throwError() {
         // Then
         XCTAssertThrowsError(try ContinuedFractionsSolver.findApproximation(of: value,
-                                                                            differenceBelow: Rational.zero))
+                                                                            differenceBelowOrEqual: Rational.zero))
     }
 
     func testBigEnoughLimit_findApproximation_returnFirstConvergent() {
@@ -53,7 +53,7 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelow: limit)
+                                                                     differenceBelowOrEqual: limit)
 
         // Then
         let expectedResult = try! Rational(numerator: 1, denominator: 1)
@@ -66,7 +66,7 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelow: limit)
+                                                                     differenceBelowOrEqual: limit)
 
         // Then
         let expectedResult = try! Rational(numerator: 3, denominator: 2)
@@ -79,7 +79,20 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelow: limit)
+                                                                     differenceBelowOrEqual: limit)
+
+        // Then
+        let expectedResult = try! Rational(numerator: 4, denominator: 3)
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testEvenSmallerLimit_findApproximation_returnThirdConvergent() {
+        // Given
+        let limit = try! Rational(numerator: 1, denominator: 33)
+
+        // When
+        let result = try! ContinuedFractionsSolver.findApproximation(of: value,
+                                                                     differenceBelowOrEqual: limit)
 
         // Then
         let expectedResult = try! Rational(numerator: 4, denominator: 3)
@@ -88,11 +101,11 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
     func testSmallEnoughLimit_findApproximation_returnForthConvergent() {
         // Given
-        let limit = try! Rational(numerator: 1, denominator: 33)
+        let limit = try! Rational(numerator: 1, denominator: 330)
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelow: limit)
+                                                                     differenceBelowOrEqual: limit)
 
         // Then
         XCTAssertEqual(result, value)
@@ -105,7 +118,7 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelow: limit)
+                                                                     differenceBelowOrEqual: limit)
 
         // Then
         let expectedResult = try! Rational(numerator: 2, denominator: 1)
@@ -123,6 +136,8 @@ class ContinuedFractionsSolverTests: XCTestCase {
          testSmallEnoughLimit_findApproximation_returnSecondConvergent),
         ("testSmallEnoughLimit_findApproximation_returnThirdConvergent",
          testSmallEnoughLimit_findApproximation_returnThirdConvergent),
+        ("testEvenSmallerLimit_findApproximation_returnThirdConvergent",
+         testEvenSmallerLimit_findApproximation_returnThirdConvergent),
         ("testSmallEnoughLimit_findApproximation_returnForthConvergent",
          testSmallEnoughLimit_findApproximation_returnForthConvergent),
         ("testDivisibleValue_findApproximation_returnExpectedResult",
