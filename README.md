@@ -8,7 +8,7 @@
 
 A quantum circuit simulator written in Swift and accelerated with [Accelerate.framework](https://developer.apple.com/documentation/accelerate) in iOS/macOS and [BLAS](http://www.netlib.org/blas/) in Linux.
 
-Along side the simulator there is a genetic algorithm to automatically generate circuits and an implementation of Gaussian elimination algorithm to solve systems of XOR equations.
+Along side the simulator there is a genetic algorithm to automatically generate circuits as well as others useful algorithms for quantum computing.
 
 The code written so far is mostly based on the content of: [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965), with a few tips from [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X). It is also inspired by [IBM Qiskit](https://github.com/Qiskit/qiskit-terra).
 
@@ -20,13 +20,18 @@ The code written so far is mostly based on the content of: [Quantum Computing fo
 import SwiftQuantumComputing // for macOS
 //: 1. Compose a list of quantum gates. Insert them in the same order
 //:    you want them to appear in the quantum circuit
+let matrix = Matrix([[Complex.one, Complex.zero, Complex.zero, Complex.zero],
+                     [Complex.zero, Complex.one, Complex.zero, Complex.zero],
+                     [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+                     [Complex.zero, Complex.zero, Complex.one, Complex.zero]])
 let gates = [
-    Gate.controlledNot(target: 0, control: 2),
-    Gate.hadamard(target: 1),
-    Gate.matrix(matrix: Matrix([[Complex(0), Complex(1)], [Complex(1), Complex(0)]]), inputs: [2]),
+    Gate.hadamard(target: 3),
+    Gate.controlledMatrix(matrix: matrix, inputs: [3, 4], control: 1),
+    Gate.controlledNot(target: 0, control: 3),
+    Gate.matrix(matrix: matrix, inputs: [3, 2]),
     Gate.not(target: 1),
-    Gate.oracle(truthTable: ["00", "11"], target: 0, controls: [2, 1]),
-    Gate.phaseShift(radians: 0, target: 2)
+    Gate.oracle(truthTable: ["01", "10"], target: 3, controls: [0, 1]),
+    Gate.phaseShift(radians: 0.25, target: 0)
 ]
 //: 2. (Optional) Draw the quantum circuit to see how it looks
 let drawer = MainDrawerFactory().makeDrawer()
@@ -37,16 +42,18 @@ let circuit = MainCircuitFactory().makeCircuit(gates: gates)
 print("Statevector: \(circuit.statevector())\n")
 print("Probabilities: \(circuit.probabilities())\n")
 print("Summarized probabilities: \(circuit.summarizedProbabilities())\n")
+let groupedProbs = circuit.groupedProbabilities(byQubits: [1, 0], summarizedByQubits: [4, 3, 2])
+print("Grouped probabilities: \(groupedProbs)")
 print("Unitary: \(circuit.unitary())\n")
 ```
 
-Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground).
+Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground/Contents.swift).
 
 ### Draw a quantum circuit
 
 ![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
 
-Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground).
+Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground/Contents.swift).
 
 ### Use a genetic algorithm to automatically generate a quantum circuit
 
@@ -92,9 +99,52 @@ for useCase in cases {
 }
 ```
 
-Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground).
+Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground/Contents.swift).
 
-### Solve a system of XOR equations
+## Other examples
+
+Check following playgrounds for more examples:
+
+* [BernsteinVaziraniAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/BernsteinVaziraniAlgorithm.playground/Contents.swift) - Bernstein–Vazirani algorithm.
+* [DeutschAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground/Contents.swift) - Deutsch's algorithm.
+* [DeutschJozsaAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground/Contents.swift) - Deutsch-Jozsa algorithm.
+* [GroverAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/GroverAlgorithm.playground/Contents.swift) - Grover's algorithm.
+* [ShorAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/ShorAlgorithm.playground/Contents.swift) - Shor's Algorithm.
+* [SimonPeriodicityAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground/Contents.swift) - Simon's periodicity algorithm.
+
+## Other algorithms
+
+### Euclidean Algorithm: Find greatest common divisor of two integers
+
+```swift
+import SwiftQuantumComputing // for macOS
+//: 1. Define two integers
+let a = 252
+let b = 105
+//: 2. Use Euclidean solver to find greatest common divisor of these integers
+let gcd = EuclideanSolver.findGreatestCommonDivisor(a, b)
+print("Greatest common divisor of \(a) & \(b): \(gcd)")
+```
+
+Check full code in [EuclideanAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/EuclideanAlgorithm.playground/Contents.swift).
+
+### Continued Fractions: Find an approximation to a given rational number
+
+```swift
+import SwiftQuantumComputing // for macOS
+//: 1. Define rational value to approximate
+let value = Rational(numerator: 15, denominator: 11)
+//: 2. And a limit or maximum difference between approximation and original value
+let limit = Rational(numerator: 1, denominator: 33)
+//: 3. Use Continued Fractions solver to find a solution
+let approximation = ContinuedFractionsSolver.findApproximation(of: value,
+                                                               differenceBelowOrEqual: limit)
+print("Approximation for \(value) (limit: \(limit)): \(approximation)")
+```
+
+Check full code in [ContinuedFractions.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/ContinuedFractions.playground/Contents.swift).
+
+### Gaussian Elimination: Solve a system of XOR equations
 
 ```swift
 import SwiftQuantumComputing // for macOS
@@ -121,17 +171,7 @@ let solver = MainXorGaussianEliminationSolverFactory().makeSolver()
 print("Solutions: \(solver.findActivatedVariablesInEquations(equations))")
 ```
 
-Check full code in [XorGaussianElimination.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/XorGaussianElimination.playground).
-
-## Other examples
-
-Check following playgrounds for more examples:
-
-* [BernsteinVaziraniAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/BernsteinVaziraniAlgorithm.playground) - Bernstein–Vazirani algorithm.
-* [DeutschAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground) - Deutsch's algorithm.
-* [DeutschJozsaAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground) - Deutsch-Jozsa algorithm.
-* [GroverAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/GroverAlgorithm.playground) - Grover's algorithm.
-* [SimonPeriodicityAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground) - Simon's periodicity algorithm.
+Check full code in [XorGaussianElimination.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/XorGaussianElimination.playground/Contents.swift).
 
 ## Documentation
 
