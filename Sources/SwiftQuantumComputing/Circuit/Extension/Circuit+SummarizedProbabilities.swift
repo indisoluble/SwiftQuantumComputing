@@ -28,8 +28,6 @@ public enum SummarizedProbabilitiesError: Error {
     case probabilitiesThrowedError(error: ProbabilitiesError)
     /// Throwed when `qubits` references a qubit that does not exist in the circuit
     case qubitsAreNotInsideBounds
-    /// Throwed when `qubits` are not sorted from bigger to smaller
-    case qubitsAreNotSorted
     /// Throwed when `qubits` contains repeated values
     case qubitsAreNotUnique
     /// Throwed when `qubits` does not specify any qubit, i.e. it is empty
@@ -43,7 +41,7 @@ extension Circuit {
     // MARK: - Public methods
 
     /**
-     Initializes circuit with `initialBits` and applies `gates` to get the probabilities of each possible combinations of qubits.
+     Initializes circuit with `initialBits` and applies `gates` to get the probability of each possible combination of qubits.
 
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
 
@@ -67,7 +65,7 @@ extension Circuit {
     }
 
     /**
-     Initializes circuit with `initialBits` and applies `gates` to get the probabilities of each possible combinations of qubits
+     Initializes circuit with `initialBits` and applies `gates` to get the probability of each possible combination of qubits
      in `qubits`.
 
      - Parameter qubits: List of qubits for which we want to know the probability of each combination.
@@ -78,41 +76,28 @@ extension Circuit {
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
      with probability 0 are not included.
      */
-    public func summarizedProbabilities(qubits: [Int],
-                                        initialBits: String? = nil) throws -> [String: Double] {
-        guard qubits.count > 0 else {
+    public func summarizedProbabilities(byQubits qubits: [Int],
+                                        withInitialBits initialBits: String? = nil) throws -> [String: Double] {
+        var result: [String: GroupedProb] = [:]
+        do {
+            result = try groupedProbabilities(byQubits: qubits, withInitialBits: initialBits)
+        } catch GroupedProbabilitiesError.groupQubitsCanNotBeAnEmptyList {
             throw SummarizedProbabilitiesError.qubitsCanNotBeAnEmptyList
-        }
-
-        guard Self.areQubitsUnique(qubits) else {
+        } catch GroupedProbabilitiesError.qubitsAreNotUnique {
             throw SummarizedProbabilitiesError.qubitsAreNotUnique
-        }
-
-        guard Self.areQubitsSorted(qubits) else {
-            throw SummarizedProbabilitiesError.qubitsAreNotSorted
-        }
-
-        let probs = try errorCapturedProbabilities(withInitialBits: initialBits)
-
-        guard Self.areQubitsInsideBounds(qubits, of: probs) else {
+        } catch GroupedProbabilitiesError.qubitsAreNotInsideBounds {
             throw SummarizedProbabilitiesError.qubitsAreNotInsideBounds
+        } catch GroupedProbabilitiesError.probabilitiesThrowedError(let error) {
+            throw SummarizedProbabilitiesError.probabilitiesThrowedError(error: error)
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
-        var result: [String: Double] = [:]
-
-        for (index, value) in probs.enumerated() {
-            if value > 0 {
-                let derivedIndex = String(index, bits: qubits)
-
-                result[derivedIndex] = (result[derivedIndex] ?? 0) + value
-            }
-        }
-
-        return result
+        return result.mapValues { $0.probability }
     }
 
     /**
-     Initializes circuit with `initialBits` and applies `gates` to get the probabilities of each possible combinations of qubits
+     Initializes circuit with `initialBits` and applies `gates` to get the probability of each possible combination of qubits
      in `qubits`.
 
      - Parameter qubits: Range of qubits for which we want to know the probability of each combination.
@@ -123,13 +108,13 @@ extension Circuit {
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
      with probability 0 are not included.
      */
-    public func summarizedProbabilities(qubits: ReversedCollection<Range<Int>>,
-                                        initialBits: String? = nil) throws -> [String: Double] {
-        return try summarizedProbabilities(qubits: Array(qubits), initialBits: initialBits)
+    public func summarizedProbabilities(byQubits qubits: Range<Int>,
+                                        withInitialBits initialBits: String? = nil) throws -> [String: Double] {
+        return try summarizedProbabilities(byQubits: Array(qubits), withInitialBits: initialBits)
     }
 
     /**
-     Initializes circuit with `initialBits` and applies `gates` to get the probabilities of each possible combinations of qubits
+     Initializes circuit with `initialBits` and applies `gates` to get the probability of each possible combination of qubits
      in `qubits`.
 
      - Parameter qubits: Range of qubits for which we want to know the probability of each combination.
@@ -140,9 +125,9 @@ extension Circuit {
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
      with probability 0 are not included.
      */
-    public func summarizedProbabilities(qubits: ReversedCollection<ClosedRange<Int>>,
-                                        initialBits: String? = nil) throws -> [String: Double] {
-        return try summarizedProbabilities(qubits: Array(qubits), initialBits: initialBits)
+    public func summarizedProbabilities(byQubits qubits: ClosedRange<Int>,
+                                        withInitialBits initialBits: String? = nil) throws -> [String: Double] {
+        return try summarizedProbabilities(byQubits: Array(qubits), withInitialBits: initialBits)
     }
 }
 
@@ -160,22 +145,5 @@ private extension Circuit {
         } catch {
             fatalError("Unexpected error: \(error).")
         }
-    }
-
-    // MARK: - Private class methods
-
-    static func areQubitsUnique(_ qubits: [Int]) -> Bool {
-        return (qubits.count == Set(qubits).count)
-    }
-
-    static func areQubitsSorted(_ qubits: [Int]) -> Bool {
-        return (qubits == qubits.sorted(by: >))
-    }
-
-    static func areQubitsInsideBounds(_ qubits: [Int], of probabilities: [Double]) -> Bool {
-        let qubitCount = Int.log2(probabilities.count)
-        let validQubits = (0..<qubitCount)
-
-        return qubits.allSatisfy { validQubits.contains($0) }
     }
 }

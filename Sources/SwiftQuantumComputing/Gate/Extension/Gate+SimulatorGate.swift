@@ -29,6 +29,10 @@ extension Gate: SimulatorGate {
 
     func extract() throws -> (matrix: Matrix, inputs: [Int]) {
         switch self {
+        case .controlledMatrix(let matrix, let inputs, let control):
+            let matrix = Matrix.makeControlledMatrix(matrix: matrix)
+
+            return (matrix, [control] + inputs)
         case .controlledNot(let target, let control):
             return (Constants.matrixControlledNot, [control, target])
         case .hadamard(let target):

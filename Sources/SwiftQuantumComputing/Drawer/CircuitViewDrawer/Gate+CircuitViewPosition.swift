@@ -28,6 +28,10 @@ extension Gate {
 
     func makeLayer(qubitCount: Int) throws -> [CircuitViewPosition] {
         switch self {
+        case .controlledMatrix(_, let inputs, let control):
+            return try makeControlledNotMatrixLayer(qubitCount: qubitCount,
+                                                    inputs: inputs,
+                                                    control: control)
         case .controlledNot(let target, let control):
             return try makeControlledNotLayer(qubitCount: qubitCount,
                                               target: target,
@@ -127,13 +131,65 @@ private extension Gate {
         let first = sortedInputs.first!
         let last = sortedInputs.last!
 
-        layer[first] = .matrixBottom
+        layer[first] = .matrixBottom(connected: false)
         for index in (first + 1)..<last {
             let isInputConnected = sortedInputs.contains(index)
 
             layer[index] = (isInputConnected ? .matrixMiddleConnected : .matrixMiddleUnconnected)
         }
-        layer[last] = .matrixTop(inputs: inputs)
+        layer[last] = .matrixTop(inputs: inputs, connected: false)
+
+        return layer
+    }
+
+    func makeControlledNotMatrixLayer(qubitCount: Int,
+                                      inputs: [Int],
+                                      control: Int) throws -> [CircuitViewPosition] {
+        var layer = makeEmptyLayer(qubitCount: qubitCount)
+        guard inputs.count > 0 else {
+            throw DrawCircuitError.gateWithEmptyInputList(gate: self)
+        }
+
+        guard !inputs.contains(control) else {
+            throw DrawCircuitError.gateControlIsAlsoAnInput(gate: self)
+        }
+
+        guard ([control] + inputs).allSatisfy({ layer.indices.contains($0) }) else {
+            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
+        }
+
+        let sortedInputs = inputs.sorted()
+        let firstInput = sortedInputs.first!
+        let lastInput = sortedInputs.last!
+
+        let isControlAbove = (control > lastInput)
+        let isControlBelow = (control < firstInput)
+
+        if (inputs.count == 1) {
+            layer[firstInput] = (isControlAbove ? .matrixUp : .matrixDown)
+        } else {
+            layer[firstInput] = .matrixBottom(connected: isControlBelow)
+            for index in (firstInput + 1)..<lastInput {
+                let isInputConnected = sortedInputs.contains(index)
+
+                layer[index] = (isInputConnected ?
+                    .matrixMiddleConnected :
+                    .matrixMiddleUnconnected)
+            }
+            layer[lastInput] = .matrixTop(inputs: inputs, connected: isControlAbove)
+        }
+
+        if (isControlAbove || isControlBelow) {
+            layer[control] = (isControlAbove ? .controlDown : .controlUp)
+
+            let step = (isControlAbove ? -1 : 1)
+            let input = (isControlAbove ? lastInput : firstInput)
+            for index in stride(from: (control + step), to: input, by: step) {
+                layer[index] = .crossedLines
+            }
+        } else {
+            layer[control] = .control
+        }
 
         return layer
     }

@@ -32,6 +32,16 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
     let bits = "101"
     let initialStatevector = try! Vector([Complex.zero, Complex.zero, Complex.zero, Complex.zero,
                                           Complex.zero, Complex.one, Complex.zero, Complex.zero])
+    let finalStateVector = try! Vector([
+        Complex(real: 1 / sqrt(3), imag: 0),
+        Complex.zero,
+        Complex.zero,
+        Complex.zero,
+        Complex(real: 1 / sqrt(3), imag: 0),
+        Complex.zero,
+        Complex(real: 1 / sqrt(3), imag: 0),
+        Complex.zero
+    ])
 
     // MARK: - Tests
 
@@ -72,19 +82,15 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     func testAnyCircuitAndZeroQubits_summarizedProbabilities_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [], initialBits: bits))
+        XCTAssertThrowsError(try circuit.summarizedProbabilities(byQubits: [],
+                                                                 withInitialBits: bits))
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testAnyCircuitAndRepeatedQubits_summarizedProbabilities_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [0, 0], initialBits: bits))
-        XCTAssertEqual(circuit.statevectorCount, 0)
-    }
-
-    func testAnyCircuitAndUnsortedQubits_summarizedProbabilities_throwException() {
-        // Then
-        XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [0, 1], initialBits: bits))
+        XCTAssertThrowsError(try circuit.summarizedProbabilities(byQubits: [0, 0],
+                                                                 withInitialBits: bits))
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
@@ -93,8 +99,8 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = try! Vector([Complex.zero, Complex.one])
 
         // Then
-        XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [100, 0],
-                                                                 initialBits: bits))
+        XCTAssertThrowsError(try circuit.summarizedProbabilities(byQubits: [100, 0],
+                                                                 withInitialBits: bits))
         XCTAssertEqual(circuit.statevectorCount, 1)
         XCTAssertEqual(circuit.lastStatevectorInitialStatevector, initialStatevector)
     }
@@ -104,8 +110,8 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = try! Vector([Complex.zero, Complex.one])
 
         // Then
-        XCTAssertThrowsError(try circuit.summarizedProbabilities(qubits: [0, -1],
-                                                                 initialBits: bits))
+        XCTAssertThrowsError(try circuit.summarizedProbabilities(byQubits: [0, -1],
+                                                                 withInitialBits: bits))
         XCTAssertEqual(circuit.statevectorCount, 1)
         XCTAssertEqual(circuit.lastStatevectorInitialStatevector, initialStatevector)
     }
@@ -120,7 +126,7 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // When
-        let result = try? circuit.summarizedProbabilities(qubits: [0], initialBits: bits)
+        let result = try? circuit.summarizedProbabilities(byQubits: [0], withInitialBits: bits)
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -144,19 +150,10 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
 
     func testCircuitThatReturnStatevectorAndTwoQubits_summarizedProbabilities_returnExpectedProbabilities() {
         // Given
-        circuit.statevectorResult = try! Vector([
-            Complex(real: 1 / sqrt(3), imag: 0),
-            Complex.zero,
-            Complex.zero,
-            Complex.zero,
-            Complex(real: 1 / sqrt(3), imag: 0),
-            Complex.zero,
-            Complex(real: 1 / sqrt(3), imag: 0),
-            Complex.zero
-        ])
+        circuit.statevectorResult = finalStateVector
 
         // When
-        let result = try? circuit.summarizedProbabilities(qubits: [1, 0], initialBits: bits)
+        let result = try? circuit.summarizedProbabilities(byQubits: [1, 0], withInitialBits: bits)
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -181,6 +178,36 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         }
     }
 
+    func testCircuitThatReturnStatevectorAndReversedTwoQubits_summarizedProbabilities_returnExpectedProbabilities() {
+        // Given
+        circuit.statevectorResult = finalStateVector
+
+        // When
+        let result = try? circuit.summarizedProbabilities(byQubits: [0, 1], withInitialBits: bits)
+
+        // Then
+        XCTAssertEqual(circuit.statevectorCount, 1)
+        XCTAssertEqual(circuit.lastStatevectorInitialStatevector, initialStatevector)
+
+        XCTAssertNotNil(result)
+        if let result = result {
+            let expectedResult = [
+                "00": 2.0 / 3.0,
+                "01": 1.0 / 3.0
+            ]
+
+            let keys = Set(result.keys)
+            let expectedKeys = Set(expectedResult.keys)
+            if keys == expectedKeys {
+                for key in keys {
+                    XCTAssertEqual(result[key]!, expectedResult[key]!, accuracy: 0.001)
+                }
+            } else {
+                XCTAssert(false)
+            }
+        }
+    }
+
     func testCircuitThatReturnStatevectorAndQubitRange_summarizedProbabilitiesWithQubitRange_doNotThrowException() {
         // Given
         circuit.statevectorResult = try! Vector([
@@ -188,8 +215,8 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // Then
-        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0..<2).reversed(),
-                                                             initialBits: bits))
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(byQubits: (0..<2),
+                                                             withInitialBits: bits))
     }
 
     func testCircuitThatReturnStatevectorAndQubitClosedRange_summarizedProbabilitiesWithQubitClosedRange_doNotThrowException() {
@@ -199,8 +226,8 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
         ])
 
         // Then
-        XCTAssertNoThrow(try circuit.summarizedProbabilities(qubits: (0...1).reversed(),
-                                                             initialBits: bits))
+        XCTAssertNoThrow(try circuit.summarizedProbabilities(byQubits: (0...1),
+                                                             withInitialBits: bits))
     }
 
     static var allTests = [
@@ -210,8 +237,6 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
          testAnyCircuitAndZeroQubits_summarizedProbabilities_throwException),
         ("testAnyCircuitAndRepeatedQubits_summarizedProbabilities_throwException",
          testAnyCircuitAndRepeatedQubits_summarizedProbabilities_throwException),
-        ("testAnyCircuitAndUnsortedQubits_summarizedProbabilities_throwException",
-         testAnyCircuitAndUnsortedQubits_summarizedProbabilities_throwException),
         ("testCircuitThatReturnStatevectorAndQubitsOutOfBoundsOfVector_summarizedProbabilities_throwException",
          testCircuitThatReturnStatevectorAndQubitsOutOfBoundsOfVector_summarizedProbabilities_throwException),
         ("testCircuitThatReturnStatevectorAndNegativeQubits_summarizedProbabilities_throwException",
@@ -220,6 +245,8 @@ class Circuit_SummarizedProbabilitiesTests: XCTestCase {
          testCircuitThatReturnStatevectorAndOneQubit_summarizedProbabilities_returnExpectedProbabilities),
         ("testCircuitThatReturnStatevectorAndTwoQubits_summarizedProbabilities_returnExpectedProbabilities",
          testCircuitThatReturnStatevectorAndTwoQubits_summarizedProbabilities_returnExpectedProbabilities),
+        ("testCircuitThatReturnStatevectorAndReversedTwoQubits_summarizedProbabilities_returnExpectedProbabilities",
+         testCircuitThatReturnStatevectorAndReversedTwoQubits_summarizedProbabilities_returnExpectedProbabilities),
         ("testCircuitThatReturnStatevectorAndQubitRange_summarizedProbabilitiesWithQubitRange_doNotThrowException",
          testCircuitThatReturnStatevectorAndQubitRange_summarizedProbabilitiesWithQubitRange_doNotThrowException),
         ("testCircuitThatReturnStatevectorAndQubitClosedRange_summarizedProbabilitiesWithQubitClosedRange_doNotThrowException",

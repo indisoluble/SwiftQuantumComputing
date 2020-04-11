@@ -13,7 +13,7 @@ gates += Gate.hadamard(targets: bitCount..<2*bitCount)
 MainDrawerFactory().makeDrawer().drawCircuit(gates)
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
-let probabilities = circuit.summarizedProbabilities(qubits: (bitCount..<2*bitCount).reversed())
+let probabilities = circuit.summarizedProbabilities(byQubits: (bitCount..<2*bitCount).reversed())
 
 let allZeros = String(repeating: "0", count: bitCount)
 

@@ -22,7 +22,7 @@
         <a class="header-link" href="index.html">
           SwiftQuantumComputing Docs
         </a>
-         (97% documented)
+         (98% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -67,7 +67,16 @@
                 <a class="nav-group-task-link" href="Enums/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/GateError.html">GateError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/ProbabilitiesError.html">ProbabilitiesError</a>
@@ -93,7 +102,13 @@
                 <a class="nav-group-task-link" href="Extensions/Array.html">Array</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Int/DivisionType.html">– DivisionType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/String.html">String</a>
@@ -136,7 +151,22 @@
                 <a class="nav-group-task-link" href="Structs/Complex.html">Complex</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/ContinuedFractionsSolver.html">ContinuedFractionsSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/ContinuedFractionsSolver/FindApproximationError.html">– FindApproximationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/ControlledMatrixGate.html">ControlledMatrixGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/ControlledMatrixGate/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/ControlledNotGate.html">ControlledNotGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/EuclideanSolver.html">EuclideanSolver</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/GeneticConfiguration.html">GeneticConfiguration</a>
@@ -193,6 +223,12 @@
                 <a class="nav-group-task-link" href="Structs/PhaseShiftGate.html">PhaseShiftGate</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Rational.html">Rational</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Rational/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Vector.html">Vector</a>
               </li>
               <li class="nav-group-task">
@@ -216,7 +252,7 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             
             <h1 id='quantum-circuit-simulator-in-swift' class='heading'>Quantum circuit simulator in Swift</h1>
 
@@ -228,7 +264,7 @@
 
 <p>A quantum circuit simulator written in Swift and accelerated with <a href="https://developer.apple.com/documentation/accelerate">Accelerate.framework</a> in iOS/macOS and <a href="http://www.netlib.org/blas/">BLAS</a> in Linux.</p>
 
-<p>Along side the simulator there is a genetic algorithm to automatically generate circuits and an implementation of Gaussian elimination algorithm to solve systems of XOR equations.</p>
+<p>Along side the simulator there is a genetic algorithm to automatically generate circuits as well as others useful algorithms for quantum computing.</p>
 
 <p>The code written so far is mostly based on the content of: <a href="https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965">Quantum Computing for Computer Scientists</a>, with a few tips from <a href="https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X">Automatic Quantum Computer Programming: A Genetic Programming Approach</a>. It is also inspired by <a href="https://github.com/Qiskit/qiskit-terra">IBM Qiskit</a>.</p>
 <h2 id='usage' class='heading'>Usage</h2>
@@ -236,13 +272,18 @@
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftQuantumComputing</span> <span class="c1">// for macOS</span>
 <span class="c1">//: 1. Compose a list of quantum gates. Insert them in the same order</span>
 <span class="c1">//:    you want them to appear in the quantum circuit</span>
+<span class="k">let</span> <span class="nv">matrix</span> <span class="o">=</span> <span class="kt">Matrix</span><span class="p">([[</span><span class="kt">Complex</span><span class="o">.</span><span class="n">one</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">],</span>
+                     <span class="p">[</span><span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">one</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">],</span>
+                     <span class="p">[</span><span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">one</span><span class="p">],</span>
+                     <span class="p">[</span><span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">one</span><span class="p">,</span> <span class="kt">Complex</span><span class="o">.</span><span class="n">zero</span><span class="p">]])</span>
 <span class="k">let</span> <span class="nv">gates</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="kt">Gate</span><span class="o">.</span><span class="nf">controlledNot</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">control</span><span class="p">:</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="kt">Gate</span><span class="o">.</span><span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span>
-    <span class="kt">Gate</span><span class="o">.</span><span class="nf">matrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="kt">Matrix</span><span class="p">([[</span><span class="kt">Complex</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="kt">Complex</span><span class="p">(</span><span class="mi">1</span><span class="p">)],</span> <span class="p">[</span><span class="kt">Complex</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="kt">Complex</span><span class="p">(</span><span class="mi">0</span><span class="p">)]]),</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">controlledMatrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="n">matrix</span><span class="p">,</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="nv">control</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">controlledNot</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">control</span><span class="p">:</span> <span class="mi">3</span><span class="p">),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">matrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="n">matrix</span><span class="p">,</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span>
     <span class="kt">Gate</span><span class="o">.</span><span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span>
-    <span class="kt">Gate</span><span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"00"</span><span class="p">,</span> <span class="s">"11"</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
-    <span class="kt">Gate</span><span class="o">.</span><span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"01"</span><span class="p">,</span> <span class="s">"10"</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
 <span class="p">]</span>
 <span class="c1">//: 2. (Optional) Draw the quantum circuit to see how it looks</span>
 <span class="k">let</span> <span class="nv">drawer</span> <span class="o">=</span> <span class="kt">MainDrawerFactory</span><span class="p">()</span><span class="o">.</span><span class="nf">makeDrawer</span><span class="p">()</span>
@@ -253,15 +294,17 @@
 <span class="nf">print</span><span class="p">(</span><span class="s">"Statevector: </span><span class="se">\(</span><span class="n">circuit</span><span class="o">.</span><span class="nf">statevector</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="s">"Probabilities: </span><span class="se">\(</span><span class="n">circuit</span><span class="o">.</span><span class="nf">probabilities</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="s">"Summarized probabilities: </span><span class="se">\(</span><span class="n">circuit</span><span class="o">.</span><span class="nf">summarizedProbabilities</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">groupedProbs</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="nf">groupedProbabilities</span><span class="p">(</span><span class="nv">byQubits</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nv">summarizedByQubits</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Grouped probabilities: </span><span class="se">\(</span><span class="n">groupedProbs</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="s">"Unitary: </span><span class="se">\(</span><span class="n">circuit</span><span class="o">.</span><span class="nf">unitary</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
 </code></pre>
 
-<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground">Circuit.playground</a>.</p>
+<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground/Contents.swift">Circuit.playground</a>.</p>
 <h3 id='draw-a-quantum-circuit' class='heading'>Draw a quantum circuit</h3>
 
 <p><img src="https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg" alt="Draw a quantum circuit"></p>
 
-<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground">Drawer.playground</a>.</p>
+<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground/Contents.swift">Drawer.playground</a>.</p>
 <h3 id='use-a-genetic-algorithm-to-automatically-generate-a-quantum-circuit' class='heading'>Use a genetic algorithm to automatically generate a quantum circuit</h3>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftQuantumComputing</span> <span class="c1">// for macOS</span>
 <span class="c1">//: 1. Define a configuration for the genetic algorithm</span>
@@ -304,8 +347,45 @@
 <span class="p">}</span>
 </code></pre>
 
-<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground">Genetic.playground</a>.</p>
-<h3 id='solve-a-system-of-xor-equations' class='heading'>Solve a system of XOR equations</h3>
+<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground/Contents.swift">Genetic.playground</a>.</p>
+<h2 id='other-examples' class='heading'>Other examples</h2>
+
+<p>Check following playgrounds for more examples:</p>
+
+<ul>
+<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/BernsteinVaziraniAlgorithm.playground/Contents.swift">BernsteinVaziraniAlgorithm.playground</a> - Bernstein–Vazirani algorithm.</li>
+<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground/Contents.swift">DeutschAlgorithm.playground</a> - Deutsch&rsquo;s algorithm.</li>
+<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground/Contents.swift">DeutschJozsaAlgorithm.playground</a> - Deutsch-Jozsa algorithm.</li>
+<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/GroverAlgorithm.playground/Contents.swift">GroverAlgorithm.playground</a> - Grover&rsquo;s algorithm.</li>
+<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/ShorAlgorithm.playground/Contents.swift">ShorAlgorithm.playground</a> - Shor&rsquo;s Algorithm.</li>
+<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground/Contents.swift">SimonPeriodicityAlgorithm.playground</a> - Simon&rsquo;s periodicity algorithm.</li>
+</ul>
+<h2 id='other-algorithms' class='heading'>Other algorithms</h2>
+<h3 id='euclidean-algorithm-find-greatest-common-divisor-of-two-integers' class='heading'>Euclidean Algorithm: Find greatest common divisor of two integers</h3>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftQuantumComputing</span> <span class="c1">// for macOS</span>
+<span class="c1">//: 1. Define two integers</span>
+<span class="k">let</span> <span class="nv">a</span> <span class="o">=</span> <span class="mi">252</span>
+<span class="k">let</span> <span class="nv">b</span> <span class="o">=</span> <span class="mi">105</span>
+<span class="c1">//: 2. Use Euclidean solver to find greatest common divisor of these integers</span>
+<span class="k">let</span> <span class="nv">gcd</span> <span class="o">=</span> <span class="kt">EuclideanSolver</span><span class="o">.</span><span class="nf">findGreatestCommonDivisor</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Greatest common divisor of </span><span class="se">\(</span><span class="n">a</span><span class="se">)</span><span class="s"> &amp; </span><span class="se">\(</span><span class="n">b</span><span class="se">)</span><span class="s">: </span><span class="se">\(</span><span class="n">gcd</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+</code></pre>
+
+<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/EuclideanAlgorithm.playground/Contents.swift">EuclideanAlgorithm.playground</a>.</p>
+<h3 id='continued-fractions-find-an-approximation-to-a-given-rational-number' class='heading'>Continued Fractions: Find an approximation to a given rational number</h3>
+<pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftQuantumComputing</span> <span class="c1">// for macOS</span>
+<span class="c1">//: 1. Define rational value to approximate</span>
+<span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="kt">Rational</span><span class="p">(</span><span class="nv">numerator</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="nv">denominator</span><span class="p">:</span> <span class="mi">11</span><span class="p">)</span>
+<span class="c1">//: 2. And a limit or maximum difference between approximation and original value</span>
+<span class="k">let</span> <span class="nv">limit</span> <span class="o">=</span> <span class="kt">Rational</span><span class="p">(</span><span class="nv">numerator</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">denominator</span><span class="p">:</span> <span class="mi">33</span><span class="p">)</span>
+<span class="c1">//: 3. Use Continued Fractions solver to find a solution</span>
+<span class="k">let</span> <span class="nv">approximation</span> <span class="o">=</span> <span class="kt">ContinuedFractionsSolver</span><span class="o">.</span><span class="nf">findApproximation</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+                                                               <span class="nv">differenceBelowOrEqual</span><span class="p">:</span> <span class="n">limit</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Approximation for </span><span class="se">\(</span><span class="n">value</span><span class="se">)</span><span class="s"> (limit: </span><span class="se">\(</span><span class="n">limit</span><span class="se">)</span><span class="s">): </span><span class="se">\(</span><span class="n">approximation</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+</code></pre>
+
+<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/ContinuedFractions.playground/Contents.swift">ContinuedFractions.playground</a>.</p>
+<h3 id='gaussian-elimination-solve-a-system-of-xor-equations' class='heading'>Gaussian Elimination: Solve a system of XOR equations</h3>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftQuantumComputing</span> <span class="c1">// for macOS</span>
 <span class="c1">//: 1. Define system of XOR equations:</span>
 <span class="c1">//:    * `x6 ^      x4 ^      x2 ^ x1      = 0`</span>
@@ -330,18 +410,7 @@
 <span class="nf">print</span><span class="p">(</span><span class="s">"Solutions: </span><span class="se">\(</span><span class="n">solver</span><span class="o">.</span><span class="nf">findActivatedVariablesInEquations</span><span class="p">(</span><span class="n">equations</span><span class="p">)</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
 </code></pre>
 
-<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/XorGaussianElimination.playground">XorGaussianElimination.playground</a>.</p>
-<h2 id='other-examples' class='heading'>Other examples</h2>
-
-<p>Check following playgrounds for more examples:</p>
-
-<ul>
-<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/BernsteinVaziraniAlgorithm.playground">BernsteinVaziraniAlgorithm.playground</a> - Bernstein–Vazirani algorithm.</li>
-<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground">DeutschAlgorithm.playground</a> - Deutsch&rsquo;s algorithm.</li>
-<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground">DeutschJozsaAlgorithm.playground</a> - Deutsch-Jozsa algorithm.</li>
-<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/GroverAlgorithm.playground">GroverAlgorithm.playground</a> - Grover&rsquo;s algorithm.</li>
-<li><a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground">SimonPeriodicityAlgorithm.playground</a> - Simon&rsquo;s periodicity algorithm.</li>
-</ul>
+<p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/XorGaussianElimination.playground/Contents.swift">XorGaussianElimination.playground</a>.</p>
 <h2 id='documentation' class='heading'>Documentation</h2>
 
 <p>Documentation for the project can be found <a href="https://indisoluble.github.io/SwiftQuantumComputing">here</a>.</p>
@@ -362,8 +431,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-02-20)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

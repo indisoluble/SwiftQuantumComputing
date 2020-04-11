@@ -24,14 +24,16 @@ import Foundation
 
 /// Errors throwed by `Drawable.drawCircuit(_:qubitCount:)`
 public enum DrawCircuitError: Error {
-    /// Throwed when `qubitCount` is 0, i.e. a circuit requires at least 1 qubit
-    case qubitCountHasToBeBiggerThanZero
-    /// Throwed when one or more of the inputs/targets/controls in `gate` reference a qubit that does not exist
-    case gateWithOneOrMoreInputsOutOfRange(gate: Gate)
-    /// Throwed when `gate` informs no inputs/controls
-    case gateWithEmptyInputList(gate: Gate)
+    /// Throwed when `gate` tries to use a control qubit also as an input qubit
+    case gateControlIsAlsoAnInput(gate: Gate)
     /// Throwed when `gate` tries to use a target qubit also as a control qubit
     case gateTargetIsAlsoAControl(gate: Gate)
+    /// Throwed when `gate` informs no inputs/controls
+    case gateWithEmptyInputList(gate: Gate)
+    /// Throwed when one or more of the inputs/targets/controls in `gate` reference a qubit that does not exist
+    case gateWithOneOrMoreInputsOutOfRange(gate: Gate)
+    /// Throwed when `qubitCount` is 0, i.e. a circuit requires at least 1 qubit
+    case qubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - Protocol definition

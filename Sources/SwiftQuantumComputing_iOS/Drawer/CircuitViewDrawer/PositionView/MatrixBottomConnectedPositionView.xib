@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MatrixBottomConnectedPositionView" customModule="SwiftQuantumComputing" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mGj-Ew-O19">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjB-Jz-snh">
+                    <rect key="frame" x="0.0" y="39" width="80" height="2"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="CHU-uY-FCh"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="akx-ck-cca">
+                    <rect key="frame" x="39" y="61" width="2" height="19"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="2" id="u4w-qk-sWz"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tuC-UK-Q0G">
+                    <rect key="frame" x="16" y="0.0" width="48" height="61"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RYf-PT-oTf">
+                            <rect key="frame" x="1" y="0.0" width="46" height="60"/>
+                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="RYf-PT-oTf" secondAttribute="trailing" constant="1" id="1xX-yz-RpP"/>
+                        <constraint firstItem="RYf-PT-oTf" firstAttribute="leading" secondItem="tuC-UK-Q0G" secondAttribute="leading" constant="1" id="3kQ-nt-phb"/>
+                        <constraint firstAttribute="bottom" secondItem="RYf-PT-oTf" secondAttribute="bottom" constant="1" id="LFv-f2-c9W"/>
+                        <constraint firstAttribute="width" constant="48" id="OuG-Yu-Vvb"/>
+                        <constraint firstItem="RYf-PT-oTf" firstAttribute="top" secondItem="tuC-UK-Q0G" secondAttribute="top" id="ahy-0d-M2b"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="cjB-Jz-snh" firstAttribute="leading" secondItem="oGP-gg-2Qn" secondAttribute="leading" id="2XA-oa-lQ6"/>
+                <constraint firstItem="oGP-gg-2Qn" firstAttribute="bottom" secondItem="akx-ck-cca" secondAttribute="bottom" id="4Kf-cP-ymN"/>
+                <constraint firstItem="akx-ck-cca" firstAttribute="centerX" secondItem="oGP-gg-2Qn" secondAttribute="centerX" id="7FZ-bd-MFz"/>
+                <constraint firstItem="oGP-gg-2Qn" firstAttribute="trailing" secondItem="cjB-Jz-snh" secondAttribute="trailing" id="CSF-J9-elI"/>
+                <constraint firstItem="akx-ck-cca" firstAttribute="top" secondItem="tuC-UK-Q0G" secondAttribute="bottom" id="Leb-tA-zzM"/>
+                <constraint firstItem="cjB-Jz-snh" firstAttribute="centerY" secondItem="oGP-gg-2Qn" secondAttribute="centerY" id="fIn-Xx-BLm"/>
+                <constraint firstItem="tuC-UK-Q0G" firstAttribute="centerX" secondItem="oGP-gg-2Qn" secondAttribute="centerX" id="o07-2o-9fB"/>
+                <constraint firstItem="tuC-UK-Q0G" firstAttribute="bottom" secondItem="cjB-Jz-snh" secondAttribute="bottom" constant="20" id="osW-iV-x9S"/>
+                <constraint firstItem="tuC-UK-Q0G" firstAttribute="top" secondItem="oGP-gg-2Qn" secondAttribute="top" id="sWP-z4-pUa"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="oGP-gg-2Qn"/>
+            <point key="canvasLocation" x="56" y="48.575712143928037"/>
+        </view>
+    </objects>
+</document>

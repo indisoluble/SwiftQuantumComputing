@@ -24,6 +24,9 @@ import Foundation
 
 /// A quantum gate with fixed inputs
 public enum Gate {
+    /// Generic quantum gate controlled with `control`, built with a `matrix` (it is expected to be unitary)
+    /// and any number of `inputs` (as many inputs as `matrix` is able to handle)
+    case controlledMatrix(matrix: Matrix, inputs: [Int], control: Int)
     /// Controlled not gate with 2 inputs: `target` & `control`
     case controlledNot(target: Int, control: Int)
     /// Hadamard gate with 1 input: `target`

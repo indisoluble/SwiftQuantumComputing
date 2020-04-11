@@ -32,11 +32,14 @@ enum CircuitViewPosition {
     case controlledNot
     case controlledNotDown
     case controlledNotUp
-    case controlUp
+    case control
     case controlDown
+    case controlUp
     case matrix
-    case matrixTop(inputs: [Int])
-    case matrixBottom
+    case matrixUp
+    case matrixDown
+    case matrixTop(inputs: [Int], connected: Bool)
+    case matrixBottom(connected: Bool)
     case matrixMiddleConnected
     case matrixMiddleUnconnected
     case oracleUp

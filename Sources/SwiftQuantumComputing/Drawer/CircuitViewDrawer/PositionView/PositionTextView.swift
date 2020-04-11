@@ -35,11 +35,11 @@ class PositionTextView: PositionView {
     // MARK: - Internal methods
 
     func showMatrixInputs(_ inputs: [Int]) {
-        showText("U(\(inputs.map { String($0) }.joined(separator: ",")))")
+        showText("U" + asParameters(inputs))
     }
 
     func showOracleControls(_ controls: [Int]) {
-        showText("f(\(controls.map { String($0) }.joined(separator: ",")))")
+        showText("f" + asParameters(controls))
     }
 
     func showRadians(_ radians: Double) {
@@ -63,5 +63,9 @@ private extension PositionTextView {
         #else
         label.text = text
         #endif
+    }
+
+    func asParameters(_ inputs: [Int]) -> String {
+        return (inputs.count > 1 ? "(\(inputs.map { String($0) }.joined(separator: ",")))" : "")
     }
 }
