@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
           SwiftQuantumComputing Docs
         </a>
-         (97% documented)
+         (98% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -68,7 +68,16 @@
                 <a class="nav-group-task-link" href="Enums/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/GateError.html">GateError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/ProbabilitiesError.html">ProbabilitiesError</a>
@@ -94,7 +103,13 @@
                 <a class="nav-group-task-link" href="Extensions/Array.html">Array</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Int/DivisionType.html">– DivisionType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/String.html">String</a>
@@ -137,7 +152,22 @@
                 <a class="nav-group-task-link" href="Structs/Complex.html">Complex</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/ContinuedFractionsSolver.html">ContinuedFractionsSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/ContinuedFractionsSolver/FindApproximationError.html">– FindApproximationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/ControlledMatrixGate.html">ControlledMatrixGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/ControlledMatrixGate/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/ControlledNotGate.html">ControlledNotGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/EuclideanSolver.html">EuclideanSolver</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/GeneticConfiguration.html">GeneticConfiguration</a>
@@ -194,6 +224,12 @@
                 <a class="nav-group-task-link" href="Structs/PhaseShiftGate.html">PhaseShiftGate</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Rational.html">Rational</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Rational/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Vector.html">Vector</a>
               </li>
               <li class="nav-group-task">
@@ -217,7 +253,7 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>Structures</h1>
             <p>The following structures are available globally.</p>
 
@@ -230,11 +266,99 @@
               <div class="task-name-container">
                 <a name="/Main%20body"></a>
                 <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body">
-                  <h3 class="section-name">Main body</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Main%20body"></a>
+                  <h3 class="section-name"><p>Main body</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing24ContinuedFractionsSolverV"></a>
+                    <a name="//apple_ref/swift/Struct/ContinuedFractionsSolver" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing24ContinuedFractionsSolverV">ContinuedFractionsSolver</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><a href="https://en.wikipedia.org/wiki/Continued_fraction">Continued Fractions</a> can be used to find an
+approximation to a given <code><a href="Structs/Rational.html">Rational</a></code> number</p>
+
+                        <a href="Structs/ContinuedFractionsSolver.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ContinuedFractionsSolver</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing15EuclideanSolverV"></a>
+                    <a name="//apple_ref/swift/Struct/EuclideanSolver" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing15EuclideanSolverV">EuclideanSolver</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Euclidean algorithm is a method for computing the Greatest Common Divisor of two numbers</p>
+
+                        <a href="Structs/EuclideanSolver.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">EuclideanSolver</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing39MainXorGaussianEliminationSolverFactoryV"></a>
+                    <a name="//apple_ref/swift/Struct/MainXorGaussianEliminationSolverFactory" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing39MainXorGaussianEliminationSolverFactoryV">MainXorGaussianEliminationSolverFactory</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Conforms <code><a href="Protocols/XorGaussianEliminationSolverFactory.html">XorGaussianEliminationSolverFactory</a></code>. Use to create new <code><a href="Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a></code> instances</p>
+
+                        <a href="Structs/MainXorGaussianEliminationSolverFactory.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MainXorGaussianEliminationSolverFactory</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MainXorGaussianEliminationSolverFactory</span><span class="p">:</span> <span class="kt"><a href="Protocols/XorGaussianEliminationSolverFactory.html">XorGaussianEliminationSolverFactory</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -257,62 +381,13 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MainCircuitFactory</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MainCircuitFactory</span><span class="p">:</span> <span class="kt"><a href="Protocols/CircuitFactory.html">CircuitFactory</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body2"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body2">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7ComplexV"></a>
-                    <a name="//apple_ref/swift/Struct/Complex" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7ComplexV">Complex</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Swift representation of a complex number</p>
-
-                        <a href="Structs/Complex.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Complex</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body3"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body3">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -335,23 +410,15 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Matrix</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">Sequence</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body4"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body4">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -374,23 +441,15 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Vector</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Sequence</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body5"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body5">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -413,23 +472,42 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MainDrawerFactory</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MainDrawerFactory</span><span class="p">:</span> <span class="kt"><a href="Protocols/DrawerFactory.html">DrawerFactory</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body6"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body6">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing20ControlledMatrixGateV"></a>
+                    <a name="//apple_ref/swift/Struct/ControlledMatrixGate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing20ControlledMatrixGateV">ControlledMatrixGate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A quantum gate used on genetic programming: ControlledMatrix</p>
+
+                        <a href="Structs/ControlledMatrixGate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ControlledMatrixGate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ControlledMatrixGate</span><span class="p">:</span> <span class="kt"><a href="Protocols/ConfigurableGate.html">ConfigurableGate</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -452,23 +530,13 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ControlledNotGate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ControlledNotGate</span><span class="p">:</span> <span class="kt"><a href="Protocols/ConfigurableGate.html">ConfigurableGate</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body7"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body7">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -491,23 +559,13 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">HadamardGate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">HadamardGate</span><span class="p">:</span> <span class="kt"><a href="Protocols/ConfigurableGate.html">ConfigurableGate</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body8"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body8">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -530,23 +588,13 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MatrixGate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MatrixGate</span><span class="p">:</span> <span class="kt"><a href="Protocols/ConfigurableGate.html">ConfigurableGate</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body9"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body9">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -569,23 +617,13 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NotGate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">NotGate</span><span class="p">:</span> <span class="kt"><a href="Protocols/ConfigurableGate.html">ConfigurableGate</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body10"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body10">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -608,23 +646,13 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">OracleGate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">OracleGate</span><span class="p">:</span> <span class="kt"><a href="Protocols/ConfigurableGate.html">ConfigurableGate</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body11"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body11">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -647,23 +675,13 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PhaseShiftGate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">PhaseShiftGate</span><span class="p">:</span> <span class="kt"><a href="Protocols/ConfigurableGate.html">ConfigurableGate</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body12"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body12">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -692,17 +710,6 @@
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body13"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body13">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -733,17 +740,6 @@ when its qubits are set to a given <code>input</code> and the oracle gate is ini
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body14"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body14">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
@@ -766,29 +762,19 @@ when its qubits are set to a given <code>input</code> and the oracle gate is ini
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MainGeneticFactory</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">MainGeneticFactory</span><span class="p">:</span> <span class="kt"><a href="Protocols/GeneticFactory.html">GeneticFactory</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Main%20body15"></a>
-                <a name="//apple_ref/swift/Section/Main body" class="dashAnchor"></a>
-                <a href="#/Main%20body15">
-                  <h3 class="section-name">Main body</h3>
-                </a>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing39MainXorGaussianEliminationSolverFactoryV"></a>
-                    <a name="//apple_ref/swift/Struct/MainXorGaussianEliminationSolverFactory" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing39MainXorGaussianEliminationSolverFactoryV">MainXorGaussianEliminationSolverFactory</a>
+                    <a name="/s:21SwiftQuantumComputing7ComplexV"></a>
+                    <a name="//apple_ref/swift/Struct/Complex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7ComplexV">Complex</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -796,15 +782,47 @@ when its qubits are set to a given <code>input</code> and the oracle gate is ini
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Conforms <code><a href="Protocols/XorGaussianEliminationSolverFactory.html">XorGaussianEliminationSolverFactory</a></code>. Use to create new <code><a href="Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a></code> instances</p>
+                        <p>Swift representation of a complex number</p>
 
-                        <a href="Structs/MainXorGaussianEliminationSolverFactory.html" class="slightly-smaller">See more</a>
+                        <a href="Structs/Complex.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MainXorGaussianEliminationSolverFactory</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Complex</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Complex</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Complex</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing8RationalV"></a>
+                    <a name="//apple_ref/swift/Struct/Rational" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing8RationalV">Rational</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Swift representation of a rational number</p>
+
+                        <a href="Structs/Rational.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Rational</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Rational</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Rational</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -819,8 +837,8 @@ when its qubits are set to a given <code>input</code> and the oracle gate is ini
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-02-20)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
