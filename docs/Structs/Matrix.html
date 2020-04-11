@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           SwiftQuantumComputing Docs
         </a>
-         (97% documented)
+         (98% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -68,7 +68,16 @@
                 <a class="nav-group-task-link" href="../Enums/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/GateError.html">GateError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a>
@@ -94,7 +103,13 @@
                 <a class="nav-group-task-link" href="../Extensions/Array.html">Array</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Int/DivisionType.html">– DivisionType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
@@ -137,7 +152,22 @@
                 <a class="nav-group-task-link" href="../Structs/Complex.html">Complex</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ContinuedFractionsSolver.html">ContinuedFractionsSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ContinuedFractionsSolver/FindApproximationError.html">– FindApproximationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ControlledMatrixGate.html">ControlledMatrixGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ControlledMatrixGate/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/ControlledNotGate.html">ControlledNotGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/EuclideanSolver.html">EuclideanSolver</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
@@ -194,6 +224,12 @@
                 <a class="nav-group-task-link" href="../Structs/PhaseShiftGate.html">PhaseShiftGate</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Rational.html">Rational</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Rational/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Vector.html">Vector</a>
               </li>
               <li class="nav-group-task">
@@ -217,11 +253,14 @@
       <article class="main-content">
 
         <section class="section">
-          <div class="section-content">
+          <div class="section-content top-matter">
             <h1>Matrix</h1>
               <div class="declaration">
                 <div class="language">
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Matrix</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">Sequence</span></code></pre>
 
                 </div>
               </div>
@@ -236,9 +275,11 @@
               <div class="task-name-container">
                 <a name="/Public%20properties"></a>
                 <a name="//apple_ref/swift/Section/Public properties" class="dashAnchor"></a>
-                <a href="#/Public%20properties">
-                  <h3 class="section-name">Public properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20properties"></a>
+                  <h3 class="section-name"><p>Public properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -327,7 +368,7 @@
                     <code>
                     <a name="/s:21SwiftQuantumComputing6MatrixVyAA7ComplexVSi_Sitcip"></a>
                     <a name="//apple_ref/swift/Method/subscript(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing6MatrixVyAA7ComplexVSi_Sitcip">subscript(_:_:)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing6MatrixVyAA7ComplexVSi_Sitcip">subscript(_:<wbr>_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -355,9 +396,11 @@
               <div class="task-name-container">
                 <a name="/Public%20init%20methods"></a>
                 <a name="//apple_ref/swift/Section/Public init methods" class="dashAnchor"></a>
-                <a href="#/Public%20init%20methods">
-                  <h3 class="section-name">Public init methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20init%20methods"></a>
+                  <h3 class="section-name"><p>Public init methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -393,7 +436,7 @@
                     <code>
                     <a name="/s:21SwiftQuantumComputing6MatrixVyACSaySayAA7ComplexVGGKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing6MatrixVyACSaySayAA7ComplexVGGKcfc">init(_:)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing6MatrixVyACSaySayAA7ComplexVGGKcfc">init(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -447,11 +490,52 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
+                <a name="/CustomStringConvertible%20methods"></a>
+                <a name="//apple_ref/swift/Section/CustomStringConvertible methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/CustomStringConvertible%20methods"></a>
+                  <h3 class="section-name"><p>CustomStringConvertible methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
                 <a name="/Public%20properties2"></a>
                 <a name="//apple_ref/swift/Section/Public properties" class="dashAnchor"></a>
-                <a href="#/Public%20properties2">
-                  <h3 class="section-name">Public properties</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20properties2"></a>
+                  <h3 class="section-name"><p>Public properties</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -485,48 +569,13 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/CustomStringConvertible%20methods"></a>
-                <a name="//apple_ref/swift/Section/CustomStringConvertible methods" class="dashAnchor"></a>
-                <a href="#/CustomStringConvertible%20methods">
-                  <h3 class="section-name">CustomStringConvertible methods</h3>
-                </a>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
-                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
                 <a name="/Sequence%20methods"></a>
                 <a name="//apple_ref/swift/Section/Sequence methods" class="dashAnchor"></a>
-                <a href="#/Sequence%20methods">
-                  <h3 class="section-name">Sequence methods</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Sequence%20methods"></a>
+                  <h3 class="section-name"><p>Sequence methods</p>
+</h3>
+                </div>
               </div>
               <ul class="item-container">
                 <li class="item">
@@ -590,8 +639,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-02-20)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
