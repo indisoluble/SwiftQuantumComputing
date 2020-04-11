@@ -38,20 +38,6 @@ extension Gate {
         return oracle(truthTable: truthTable, target: target, controls: Array(controls))
     }
 
-    /// Produces an oracle gate
-    public static func oracle(truthTable: [String],
-                              target: Int,
-                              controls: ReversedCollection<Range<Int>>) -> Gate {
-        return oracle(truthTable: truthTable, target: target, controls: Array(controls))
-    }
-
-    /// Produces an oracle gate
-    public static func oracle(truthTable: [String],
-                              target: Int,
-                              controls: ReversedCollection<ClosedRange<Int>>) -> Gate {
-        return oracle(truthTable: truthTable, target: target, controls: Array(controls))
-    }
-
     /// Produces a list of oracle gates
     public static func oracle(truthTable: [ExtendedTruth],
                               targets: Range<Int>,
@@ -75,20 +61,6 @@ extension Gate {
 
     /// Produces a list of oracle gates
     public static func oracle(truthTable: [ExtendedTruth],
-                              targets: Range<Int>,
-                              controls: ReversedCollection<Range<Int>>) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: Array(controls))
-    }
-
-    /// Produces a list of oracle gates
-    public static func oracle(truthTable: [ExtendedTruth],
-                              targets: Range<Int>,
-                              controls: ReversedCollection<ClosedRange<Int>>) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: Array(controls))
-    }
-
-    /// Produces a list of oracle gates
-    public static func oracle(truthTable: [ExtendedTruth],
                               targets: ClosedRange<Int>,
                               controls: [Int]) -> [Gate] {
         return oracle(truthTable: truthTable, targets: Array(targets), controls: controls)
@@ -105,20 +77,6 @@ extension Gate {
     public static func oracle(truthTable: [ExtendedTruth],
                               targets: ClosedRange<Int>,
                               controls: ClosedRange<Int>) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: Array(controls))
-    }
-
-    /// Produces a list of oracle gates
-    public static func oracle(truthTable: [ExtendedTruth],
-                              targets: ClosedRange<Int>,
-                              controls: ReversedCollection<Range<Int>>) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: Array(controls))
-    }
-
-    /// Produces a list of oracle gates
-    public static func oracle(truthTable: [ExtendedTruth],
-                              targets: ClosedRange<Int>,
-                              controls: ReversedCollection<ClosedRange<Int>>) -> [Gate] {
         return oracle(truthTable: truthTable, targets: Array(targets), controls: Array(controls))
     }
 }

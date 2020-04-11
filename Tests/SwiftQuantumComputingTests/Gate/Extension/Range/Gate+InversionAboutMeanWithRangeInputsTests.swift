@@ -32,34 +32,16 @@ class Gate_InversionAboutMeanWithRangeInputsTests: XCTestCase {
         // Then
         XCTAssertEqual(try? Gate.makeInversionAboutMean(inputs: 0..<3),
                        try? Gate.makeInversionAboutMean(inputs: [0, 1, 2]))
-    }
-
-    func testAnyClosedRange_makeInversionAboutMean_returnExpectedGate() {
-        // Then
         XCTAssertEqual(try? Gate.makeInversionAboutMean(inputs: 0...2),
                        try? Gate.makeInversionAboutMean(inputs: [0, 1, 2]))
-    }
-
-    func testAnyReversedRange_makeInversionAboutMean_returnExpectedGate() {
-        // Then
         XCTAssertEqual(try? Gate.makeInversionAboutMean(inputs: (0..<3).reversed()),
                        try? Gate.makeInversionAboutMean(inputs: [2, 1, 0]))
-    }
-
-    func testAnyReversedClosedRange_makeInversionAboutMean_returnExpectedGate() {
-        // Then
         XCTAssertEqual(try? Gate.makeInversionAboutMean(inputs: (0...2).reversed()),
                        try? Gate.makeInversionAboutMean(inputs: [2, 1, 0]))
     }
 
     static var allTests = [
         ("testAnyRange_makeInversionAboutMean_returnExpectedGate",
-         testAnyRange_makeInversionAboutMean_returnExpectedGate),
-        ("testAnyClosedRange_makeInversionAboutMean_returnExpectedGate",
-         testAnyClosedRange_makeInversionAboutMean_returnExpectedGate),
-        ("testAnyReversedRange_makeInversionAboutMean_returnExpectedGate",
-         testAnyReversedRange_makeInversionAboutMean_returnExpectedGate),
-        ("testAnyReversedClosedRange_makeInversionAboutMean_returnExpectedGate",
-         testAnyReversedClosedRange_makeInversionAboutMean_returnExpectedGate)
+         testAnyRange_makeInversionAboutMean_returnExpectedGate)
     ]
 }

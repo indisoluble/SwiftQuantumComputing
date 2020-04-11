@@ -40,7 +40,7 @@ class MatrixTests: XCTestCase {
 
     func testRowsWithDifferentColumnCount_init_throwException() {
         // Given
-        let complex = Complex(real: 0, imag: 0)
+        let complex = Complex.zero
         let elements: [[Complex]] = [[complex], [complex, complex]]
 
         // Then
@@ -49,7 +49,7 @@ class MatrixTests: XCTestCase {
 
     func testRowsWithSameColumnCount_init_returnMatrixWithExpectedNumberOfRowsAndColumns() {
         // Given
-        let complex = Complex(real: 0, imag: 0)
+        let complex = Complex.zero
         let elements: [[Complex]] = [[complex], [complex]]
 
         // When
@@ -58,24 +58,6 @@ class MatrixTests: XCTestCase {
         // Then
         XCTAssertEqual(matrix?.rowCount, 2)
         XCTAssertEqual(matrix?.columnCount, 1)
-    }
-
-    func testNonSquareMatrix_isSquare_returnFalse() {
-        // Given
-        let complex = Complex(real: 0, imag: 0)
-        let matrix = try! Matrix([[complex], [complex]])
-
-        // Then
-        XCTAssertFalse(matrix.isSquare)
-    }
-
-    func testSquareMatrix_isSquare_returnTrue() {
-        // Given
-        let complex = Complex(real: 0, imag: 0)
-        let matrix = try! Matrix([[complex, complex], [complex, complex]])
-
-        // Then
-        XCTAssertTrue(matrix.isSquare)
     }
 
     func testAnyMatrix_first_returnExpectedValue() {
@@ -128,10 +110,57 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(sequence, expectedSequence)
     }
 
+    func testMatricesWithDifferentNumberOfRows_isEqual_returnFalse() {
+        // Given
+        let m1 = try! Matrix([[Complex.one], [Complex.one]])
+        let m2 = try! Matrix([[Complex.one], [Complex.one], [Complex.one]])
+
+        // Then
+        XCTAssertFalse(m1.isEqual(m2, accuracy: 0.001))
+    }
+
+    func testMatricesWithDifferentNumberOfColumns_isEqual_returnFalse() {
+        // Given
+        let m1 = try! Matrix([[Complex.one, Complex.one]])
+        let m2 = try! Matrix([[Complex.one, Complex.one, Complex.one]])
+
+        // Then
+        XCTAssertFalse(m1.isEqual(m2, accuracy: 0.001))
+    }
+
+    func testAnyMatrixAndAccuracyZero_isEqual_returnTrue() {
+        // Given
+        let matrix = try! Matrix([[Complex.one], [Complex.one]])
+
+        // Then
+        XCTAssertTrue(matrix.isEqual(matrix, accuracy: 0))
+    }
+
+    func testMatricesWithValusAroundAccuracy_isEqual_returnTrue() {
+        let accuracy = 0.001
+        let m1 = try! Matrix([
+            [Complex(real: 1 + accuracy, imag: 0), Complex(real: accuracy, imag: -1)]
+        ])
+        let m2 = try! Matrix([
+            [Complex(real: 1, imag: accuracy), Complex(real: 2 * accuracy, imag: -1 - accuracy)]
+        ])
+
+        // Then
+        XCTAssertTrue(m1.isEqual(m2, accuracy: accuracy))
+    }
+
+    func testMatricesWithOneValueFartherThanAccuracy_isEqual_returnFalse() {
+        let accuracy = 0.001
+        let m1 = try! Matrix([[Complex.one, Complex(real: accuracy, imag: -accuracy)]])
+        let m2 = try! Matrix([[Complex.one, Complex(real: accuracy, imag: accuracy)]])
+
+        // Then
+        XCTAssertFalse(m1.isEqual(m2, accuracy: accuracy))
+    }
+
     func testNonSquareMatrix_isUnitary_returnFalse() {
         // Given
-        let complex = Complex(real: 1, imag: 0)
-        let matrix = try! Matrix([[complex], [complex]])
+        let matrix = try! Matrix([[Complex.one], [Complex.one]])
 
         // Then
         XCTAssertFalse(matrix.isUnitary(accuracy: 0.001))
@@ -339,14 +368,20 @@ class MatrixTests: XCTestCase {
          testRowsWithDifferentColumnCount_init_throwException),
         ("testRowsWithSameColumnCount_init_returnMatrixWithExpectedNumberOfRowsAndColumns",
          testRowsWithSameColumnCount_init_returnMatrixWithExpectedNumberOfRowsAndColumns),
-        ("testNonSquareMatrix_isSquare_returnFalse",
-         testNonSquareMatrix_isSquare_returnFalse),
-        ("testSquareMatrix_isSquare_returnTrue",
-         testSquareMatrix_isSquare_returnTrue),
         ("testAnyMatrix_first_returnExpectedValue",
          testAnyMatrix_first_returnExpectedValue),
         ("testAnyMatrix_subscript_returnExpectedValue",
          testAnyMatrix_subscript_returnExpectedValue),
+        ("testMatricesWithDifferentNumberOfRows_isEqual_returnFalse",
+         testMatricesWithDifferentNumberOfRows_isEqual_returnFalse),
+        ("testMatricesWithDifferentNumberOfColumns_isEqual_returnFalse",
+         testMatricesWithDifferentNumberOfColumns_isEqual_returnFalse),
+        ("testAnyMatrixAndAccuracyZero_isEqual_returnTrue",
+         testAnyMatrixAndAccuracyZero_isEqual_returnTrue),
+        ("testMatricesWithValusAroundAccuracy_isEqual_returnTrue",
+         testMatricesWithValusAroundAccuracy_isEqual_returnTrue),
+        ("testMatricesWithOneValueFartherThanAccuracy_isEqual_returnFalse",
+         testMatricesWithOneValueFartherThanAccuracy_isEqual_returnFalse),
         ("testNonSquareMatrix_isUnitary_returnFalse",
          testNonSquareMatrix_isUnitary_returnFalse),
         ("testSquareNonUnitaryMatrix_isUnitary_returnFalse",

@@ -38,114 +38,62 @@ class Gate_OracleWithRangeInputsTests: XCTestCase {
         // Then
         XCTAssertEqual(Gate.oracle(truthTable: truthTable, target: target, controls: 0..<3),
                        Gate.oracle(truthTable: truthTable, target: target, controls: [0, 1, 2]))
-    }
-
-    func testAnyClosedRange_oracleWithControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: truthTable, target: target, controls: 0...2),
                        Gate.oracle(truthTable: truthTable, target: target, controls: [0, 1, 2]))
-    }
-
-    func testAnyRange_oracleWithReversedControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: truthTable,
                                    target: target,
                                    controls: (0..<3).reversed()),
                        Gate.oracle(truthTable: truthTable, target: target, controls: [2, 1, 0]))
-    }
-
-    func testAnyClosedRange_oracleWithReversedControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: truthTable,
                                    target: target,
                                    controls: (0...2).reversed()),
                        Gate.oracle(truthTable: truthTable, target: target, controls: [2, 1, 0]))
-    }
-
-    func testAnyRange_oracleWithTargets_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0..<3,
                                    controls: [0, 1, 2]),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [0, 1, 2])])
-    }
-
-    func testAnyRange_oracleWithTargetsAndControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable, targets: 0..<3, controls: 0..<3),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [0, 1, 2])])
-    }
-
-    func testAnyRangeAndClosedRange_oracleWithTargetsAndControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable, targets: 0..<3, controls: 0...2),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [0, 1, 2])])
-    }
-
-    func testAnyRange_oracleWithTargetsAndReversedControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0..<3,
                                    controls: (0..<3).reversed()),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [2, 1, 0])])
-    }
-
-    func testAnyRangeAndClosedRange_oracleWithTargetsAndReversedControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0..<3,
                                    controls: (0...2).reversed()),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [2, 1, 0])])
-    }
-
-    func testAnyClosedRange_oracleWithTargets_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0...2,
                                    controls: [0, 1, 2]),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [0, 1, 2])])
-    }
-
-    func testAnyClosedRangeAndRange_oracleWithTargetsAndControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable, targets: 0...2, controls: 0..<3),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [0, 1, 2])])
-    }
-
-    func testTwoClosedRanges_oracleWithTargetsAndControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable, targets: 0...2, controls: 0...2),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [0, 1, 2]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [0, 1, 2])])
-    }
-
-    func testAnyClosedRangeAndRange_oracleWithTargetsAndReversedControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0...2,
                                    controls: (0..<3).reversed()),
                        [Gate.oracle(truthTable: truthTable, target: 2, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 1, controls: [2, 1, 0]),
                         Gate.oracle(truthTable: truthTable, target: 0, controls: [2, 1, 0])])
-    }
-
-    func testTwoClosedRanges_oracleWithTargetsAndReversedControls_returnExpectedGate() {
-        // Then
         XCTAssertEqual(Gate.oracle(truthTable: extendedTruthTable,
                                    targets: 0...2,
                                    controls: (0...2).reversed()),
@@ -156,32 +104,6 @@ class Gate_OracleWithRangeInputsTests: XCTestCase {
 
     static var allTests = [
         ("testAnyRange_oracleWithControls_returnExpectedGate",
-         testAnyRange_oracleWithControls_returnExpectedGate),
-        ("testAnyClosedRange_oracleWithControls_returnExpectedGate",
-         testAnyClosedRange_oracleWithControls_returnExpectedGate),
-        ("testAnyRange_oracleWithReversedControls_returnExpectedGate",
-         testAnyRange_oracleWithReversedControls_returnExpectedGate),
-        ("testAnyClosedRange_oracleWithReversedControls_returnExpectedGate",
-         testAnyClosedRange_oracleWithReversedControls_returnExpectedGate),
-        ("testAnyRange_oracleWithTargets_returnExpectedGate",
-         testAnyRange_oracleWithTargets_returnExpectedGate),
-        ("testAnyRange_oracleWithTargetsAndControls_returnExpectedGate",
-         testAnyRange_oracleWithTargetsAndControls_returnExpectedGate),
-        ("testAnyRangeAndClosedRange_oracleWithTargetsAndControls_returnExpectedGate",
-         testAnyRangeAndClosedRange_oracleWithTargetsAndControls_returnExpectedGate),
-        ("testAnyRange_oracleWithTargetsAndReversedControls_returnExpectedGate",
-         testAnyRange_oracleWithTargetsAndReversedControls_returnExpectedGate),
-        ("testAnyRangeAndClosedRange_oracleWithTargetsAndReversedControls_returnExpectedGate",
-         testAnyRangeAndClosedRange_oracleWithTargetsAndReversedControls_returnExpectedGate),
-        ("testAnyClosedRange_oracleWithTargets_returnExpectedGate",
-         testAnyClosedRange_oracleWithTargets_returnExpectedGate),
-        ("testAnyClosedRangeAndRange_oracleWithTargetsAndControls_returnExpectedGate",
-         testAnyClosedRangeAndRange_oracleWithTargetsAndControls_returnExpectedGate),
-        ("testTwoClosedRanges_oracleWithTargetsAndControls_returnExpectedGate",
-         testTwoClosedRanges_oracleWithTargetsAndControls_returnExpectedGate),
-        ("testAnyClosedRangeAndRange_oracleWithTargetsAndReversedControls_returnExpectedGate",
-         testAnyClosedRangeAndRange_oracleWithTargetsAndReversedControls_returnExpectedGate),
-        ("testTwoClosedRanges_oracleWithTargetsAndReversedControls_returnExpectedGate",
-         testTwoClosedRanges_oracleWithTargetsAndReversedControls_returnExpectedGate)
+         testAnyRange_oracleWithControls_returnExpectedGate)
     ]
 }

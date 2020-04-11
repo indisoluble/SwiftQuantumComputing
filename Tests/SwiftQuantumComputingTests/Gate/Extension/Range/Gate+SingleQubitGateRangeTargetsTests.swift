@@ -33,16 +33,8 @@ class Gate_SingleQubitGateRangeTargetsTests: XCTestCase {
         // Then
         XCTAssertEqual(Gate.hadamard(targets: 0..<2),
                        [Gate.hadamard(target: 0), Gate.hadamard(target: 1)])
-    }
-
-    func testClosedRangeOfTargets_hadamard_returnExpectedList() {
-        // Then
         XCTAssertEqual(Gate.hadamard(targets: 0...1),
                        [Gate.hadamard(target: 0), Gate.hadamard(target: 1)])
-    }
-
-    func testVariadicTargets_hadamard_returnExpectedList() {
-        // Then
         XCTAssertEqual(Gate.hadamard(targets: 0, 1),
                        [Gate.hadamard(target: 0), Gate.hadamard(target: 1)])
     }
@@ -50,30 +42,14 @@ class Gate_SingleQubitGateRangeTargetsTests: XCTestCase {
     func testRangeOfTargets_not_returnExpectedList() {
         // Then
         XCTAssertEqual(Gate.not(targets: 0..<2), [Gate.not(target: 0), Gate.not(target: 1)])
-    }
-
-    func testClosedRangeOfTargets_not_returnExpectedList() {
-        // Then
         XCTAssertEqual(Gate.not(targets: 0...1), [Gate.not(target: 0), Gate.not(target: 1)])
-    }
-
-    func testVariadicTargets_not_returnExpectedList() {
-        // Then
         XCTAssertEqual(Gate.not(targets: 0, 1), [Gate.not(target: 0), Gate.not(target: 1)])
     }
 
     static var allTests = [
         ("testRangeOfTargets_hadamard_returnExpectedList",
          testRangeOfTargets_hadamard_returnExpectedList),
-        ("testClosedRangeOfTargets_hadamard_returnExpectedList",
-         testClosedRangeOfTargets_hadamard_returnExpectedList),
-        ("testVariadicTargets_hadamard_returnExpectedList",
-         testVariadicTargets_hadamard_returnExpectedList),
         ("testRangeOfTargets_not_returnExpectedList",
-         testRangeOfTargets_not_returnExpectedList),
-        ("testClosedRangeOfTargets_not_returnExpectedList",
-         testClosedRangeOfTargets_not_returnExpectedList),
-        ("testVariadicTargets_not_returnExpectedList",
-         testVariadicTargets_not_returnExpectedList)
+         testRangeOfTargets_not_returnExpectedList)
     ]
 }
