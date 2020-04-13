@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterFactoryAdapter.swift
+//  SCMStatevectorRegisterFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 30/12/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct StatevectorRegisterFactoryAdapter {
+struct SCMStatevectorRegisterFactory {
 
     // MARK: - Private properties
 
@@ -37,12 +37,12 @@ struct StatevectorRegisterFactoryAdapter {
 
 // MARK: - StatevectorRegisterFactory methods
 
-extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
+extension SCMStatevectorRegisterFactory: StatevectorRegisterFactory {
     func makeRegister(state: Vector) throws -> StatevectorRegister {
         var register: StatevectorRegister!
         do {
-            register = try StatevectorRegisterAdapter(vector: state, matrixFactory: matrixFactory)
-        } catch StatevectorRegisterAdapter.InitError.vectorCountHasToBeAPowerOfTwo {
+            register = try SCMStatevectorRegister(vector: state, matrixFactory: matrixFactory)
+        } catch SCMStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
             throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")

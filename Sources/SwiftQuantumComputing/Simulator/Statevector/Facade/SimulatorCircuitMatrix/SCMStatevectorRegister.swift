@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterAdapter.swift
+//  SCMStatevectorRegister.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/10/2019.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct StatevectorRegisterAdapter {
+struct SCMStatevectorRegister {
 
     // MARK: - Private properties
 
@@ -51,26 +51,26 @@ struct StatevectorRegisterAdapter {
 
 // MARK: - StatevectorRegister methods
 
-extension StatevectorRegisterAdapter: StatevectorRegister {
+extension SCMStatevectorRegister: StatevectorRegister {
     func statevector() throws -> Vector {
-        guard StatevectorRegisterAdapter.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
+        guard SCMStatevectorRegister.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
             throw StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne
         }
 
         return vector
     }
 
-    func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterAdapter {
+    func applying(_ gate: SimulatorGate) throws -> SCMStatevectorRegister {
         let matrix = try matrixFactory.makeCircuitMatrix(qubitCount: qubitCount, gate: gate)
         let nextVector = try! matrix * vector
 
-        return try! StatevectorRegisterAdapter(vector: nextVector, matrixFactory: matrixFactory)
+        return try! SCMStatevectorRegister(vector: nextVector, matrixFactory: matrixFactory)
     }
 }
 
 // MARK: - Private body
 
-private extension StatevectorRegisterAdapter {
+private extension SCMStatevectorRegister {
 
     // MARK: - Constants
 

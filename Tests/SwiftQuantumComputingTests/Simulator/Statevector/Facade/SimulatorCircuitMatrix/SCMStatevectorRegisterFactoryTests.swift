@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterFactoryAdapterTests.swift
+//  SCMStatevectorRegisterFactoryTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 09/02/2020.
@@ -24,11 +24,11 @@ import XCTest
 
 // MARK: - Main body
 
-class StatevectorRegisterFactoryAdapterTests: XCTestCase {
+class SCMStatevectorRegisterFactoryTests: XCTestCase {
 
     // MARK: - Properties
 
-    let adapter = StatevectorRegisterFactoryAdapter(matrixFactory: SimulatorCircuitMatrixFactoryTestDouble())
+    let adapter = SCMStatevectorRegisterFactory(matrixFactory: SimulatorCircuitMatrixFactoryTestDouble())
 
     // MARK: - Tests
 
