@@ -55,6 +55,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Matrix_TensorProductTests.allTests),
         testCase(VectorTests.allTests),
         testCase(Vector_ElementsTests.allTests),
+        testCase(Vector_IsAdditionOfSquareModulusEqualToOneTests.allTests),
         testCase(Array_CombinationsTests.allTests),
         testCase(Bool_XorTests.allTests),
         testCase(Double_RoundedToDecimalPlacesTests.allTests),

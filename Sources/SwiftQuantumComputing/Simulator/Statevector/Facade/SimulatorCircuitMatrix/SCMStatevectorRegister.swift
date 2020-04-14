@@ -53,7 +53,7 @@ struct SCMStatevectorRegister {
 
 extension SCMStatevectorRegister: StatevectorRegister {
     func statevector() throws -> Vector {
-        guard SCMStatevectorRegister.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
+        guard vector.isAdditionOfSquareModulusEqualToOne() else {
             throw StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne
         }
 
@@ -65,22 +65,5 @@ extension SCMStatevectorRegister: StatevectorRegister {
         let nextVector = try! matrix * vector
 
         return try! SCMStatevectorRegister(vector: nextVector, matrixFactory: matrixFactory)
-    }
-}
-
-// MARK: - Private body
-
-private extension SCMStatevectorRegister {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let accuracy = 0.001
-    }
-
-    // MARK: - Private class methods
-
-    static func isAdditionOfSquareModulusInVectorEqualToOne(_ vector: Vector) -> Bool {
-        return (abs(vector.squaredNorm - Double(1)) <= Constants.accuracy)
     }
 }
