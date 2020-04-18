@@ -1,9 +1,9 @@
 //
-//  StatevectorRegisterFactory.swift
+//  StatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 18/04/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,17 +20,8 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum MakeRegisterError: Error {
-    case stateAdditionOfSquareModulusIsNotEqualToOne
-    case stateCountHasToBeAPowerOfTwo
-}
-
 // MARK: - Protocol definition
 
-protocol StatevectorRegisterFactory {
-    typealias StatevectorRegister = StatevectorMeasurement & StatevectorTransformation
-
-    func makeRegister(state: Vector) throws -> StatevectorRegister
+protocol StatevectorTransformation {
+    func applying(_ gate: SimulatorGate) throws -> Self
 }

@@ -24,10 +24,13 @@ import Foundation
 
 struct DirectStatevectorRegister {
 
-    // MARK: - Private properties
+    // MARK: - SimpleStatevectorRegister properties
 
     let vector: Vector
-    let factory: StatevectorRegisterFactory
+
+    // MARK: - Private properties
+
+    private let factory: StatevectorRegisterFactory
 
     // MARK: - Internal init methods
 
@@ -45,17 +48,17 @@ struct DirectStatevectorRegister {
     }
 }
 
-// MARK: - StatevectorRegister methods
+// MARK: - StatevectorMeasurement methods
 
-extension DirectStatevectorRegister: StatevectorRegister {
-    func statevector() throws -> Vector {
-        guard vector.isAdditionOfSquareModulusEqualToOne() else {
-            throw StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne
-        }
+extension DirectStatevectorRegister: StatevectorMeasurement {}
 
-        return vector
-    }
+// MARK: - SimpleStatevectorMeasurement methods
 
+extension DirectStatevectorRegister: SimpleStatevectorMeasurement {}
+
+// MARK: - StatevectorTransformation methods
+
+extension DirectStatevectorRegister: StatevectorTransformation {
     func applying(_ gate: SimulatorGate) throws -> DirectStatevectorRegister {
         return self
     }

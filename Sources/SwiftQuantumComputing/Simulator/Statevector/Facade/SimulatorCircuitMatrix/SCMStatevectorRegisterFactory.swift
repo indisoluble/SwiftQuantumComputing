@@ -39,7 +39,7 @@ struct SCMStatevectorRegisterFactory {
 
 extension SCMStatevectorRegisterFactory: StatevectorRegisterFactory {
     func makeRegister(state: Vector) throws -> StatevectorRegister {
-        var register: StatevectorRegister!
+        var register: SCMStatevectorRegister!
         do {
             register = try SCMStatevectorRegister(vector: state, matrixFactory: matrixFactory)
         } catch SCMStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
@@ -50,7 +50,7 @@ extension SCMStatevectorRegisterFactory: StatevectorRegisterFactory {
 
         do {
             _ = try register.statevector()
-        } catch StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
+        } catch StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
             throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
         } catch {
             fatalError("Unexpected error: \(error).")

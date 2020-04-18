@@ -1,8 +1,8 @@
 //
-//  StatevectorRegisterFactory.swift
+//  StatevectorMeasurement.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
+//  Created by Enrique de la Torre on 09/12/2018.
 //  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,15 +22,12 @@ import Foundation
 
 // MARK: - Errors
 
-enum MakeRegisterError: Error {
-    case stateAdditionOfSquareModulusIsNotEqualToOne
-    case stateCountHasToBeAPowerOfTwo
+enum StatevectorMeasurementError: Error {
+    case statevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - Protocol definition
 
-protocol StatevectorRegisterFactory {
-    typealias StatevectorRegister = StatevectorMeasurement & StatevectorTransformation
-
-    func makeRegister(state: Vector) throws -> StatevectorRegister
+protocol StatevectorMeasurement {
+    func statevector() throws -> Vector
 }

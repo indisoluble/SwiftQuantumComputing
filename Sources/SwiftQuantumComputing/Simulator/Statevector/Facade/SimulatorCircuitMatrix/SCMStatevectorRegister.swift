@@ -24,12 +24,14 @@ import Foundation
 
 struct SCMStatevectorRegister {
 
+    // MARK: - SimpleStatevectorRegister properties
+
+    let vector: Vector
+
     // MARK: - Private properties
 
-    private let vector: Vector
-    private let matrixFactory: SimulatorCircuitMatrixFactory
-
     private let qubitCount: Int
+    private let matrixFactory: SimulatorCircuitMatrixFactory
 
     // MARK: - Internal init methods
 
@@ -49,17 +51,17 @@ struct SCMStatevectorRegister {
     }
 }
 
-// MARK: - StatevectorRegister methods
+// MARK: - StatevectorMeasurement methods
 
-extension SCMStatevectorRegister: StatevectorRegister {
-    func statevector() throws -> Vector {
-        guard vector.isAdditionOfSquareModulusEqualToOne() else {
-            throw StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne
-        }
+extension SCMStatevectorRegister: StatevectorMeasurement {}
 
-        return vector
-    }
+// MARK: - SimpleStatevectorMeasurement methods
 
+extension SCMStatevectorRegister: SimpleStatevectorMeasurement {}
+
+// MARK: - StatevectorTransformation methods
+
+extension SCMStatevectorRegister: StatevectorTransformation {
     func applying(_ gate: SimulatorGate) throws -> SCMStatevectorRegister {
         let matrix = try matrixFactory.makeCircuitMatrix(qubitCount: qubitCount, gate: gate)
         let nextVector = try! matrix * vector
