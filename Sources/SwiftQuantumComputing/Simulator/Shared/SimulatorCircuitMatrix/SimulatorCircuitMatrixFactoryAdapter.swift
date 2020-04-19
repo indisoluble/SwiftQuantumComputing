@@ -32,14 +32,6 @@ extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
         let matrix = components.matrix
         let inputs = components.inputs
 
-        guard matrix.rowCount.isPowerOfTwo else {
-            throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
-        }
-
-        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            throw GateError.gateMatrixIsNotUnitary
-        }
-
         guard qubitCount > 0 else {
             throw GateError.circuitQubitCountHasToBeBiggerThanZero
         }
@@ -47,14 +39,6 @@ extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
         let matrixQubitCount = Int.log2(matrix.rowCount)
         guard (matrixQubitCount <= qubitCount) else {
             throw GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
-        }
-
-        guard doesInputCountMatchBaseMatrixQubitCount(inputs, baseMatrix: matrix) else {
-            throw GateError.gateInputCountDoesNotMatchGateMatrixQubitCount
-        }
-
-        guard areInputsUnique(inputs) else {
-            throw GateError.gateInputsAreNotUnique
         }
 
         guard areInputsInBound(inputs, qubitCount: qubitCount) else {
@@ -69,28 +53,12 @@ extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
 
 private extension SimulatorCircuitMatrixFactoryAdapter {
 
-    // MARK: - Constants
-
-    enum Constants {
-        static let accuracy = 0.001
-    }
-
     // MARK: - Private methods
-
-    func areInputsUnique(_ inputs: [Int]) -> Bool {
-        return (inputs.count == Set(inputs).count)
-    }
 
     func areInputsInBound(_ inputs: [Int], qubitCount: Int) -> Bool {
         let validInputs = (0..<qubitCount)
 
         return inputs.allSatisfy { validInputs.contains($0) }
-    }
-
-    func doesInputCountMatchBaseMatrixQubitCount(_ inputs: [Int], baseMatrix: Matrix) -> Bool {
-        let matrixQubitCount = Int.log2(baseMatrix.rowCount)
-
-        return (inputs.count == matrixQubitCount)
     }
 
     func makeExtendedMatrix(qubitCount: Int, inputs: [Int], baseMatrix: Matrix) -> Matrix {

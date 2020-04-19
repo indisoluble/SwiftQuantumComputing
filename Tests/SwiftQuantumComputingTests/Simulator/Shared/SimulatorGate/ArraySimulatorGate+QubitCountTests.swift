@@ -28,7 +28,12 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrix = try! Matrix([[Complex.zero]])
+    let matrix = try! Matrix([
+        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.one, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+        [Complex.zero, Complex.zero, Complex.one, Complex.zero]
+    ])
     let truthTable = [""]
 
     // MARK: - Tests
@@ -109,7 +114,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
         let maxIndex = 10
         let circuit: [SimulatorGate] = [
             Gate.oracle(truthTable: truthTable, target: 2, controls: []),
-            Gate.matrix(matrix: matrix, inputs: [1, maxIndex, 6])
+            Gate.matrix(matrix: matrix, inputs: [maxIndex, 6])
         ]
 
         // Then
