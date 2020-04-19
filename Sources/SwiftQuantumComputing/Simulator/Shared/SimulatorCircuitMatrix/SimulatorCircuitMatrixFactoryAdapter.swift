@@ -28,22 +28,7 @@ struct SimulatorCircuitMatrixFactoryAdapter {}
 
 extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
     func makeCircuitMatrix(qubitCount: Int, gate: SimulatorGate) throws -> Matrix {
-        let components = try gate.extract()
-        let matrix = components.matrix
-        let inputs = components.inputs
-
-        guard qubitCount > 0 else {
-            throw GateError.circuitQubitCountHasToBeBiggerThanZero
-        }
-
-        let matrixQubitCount = Int.log2(matrix.rowCount)
-        guard (matrixQubitCount <= qubitCount) else {
-            throw GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
-        }
-
-        guard areInputsInBound(inputs, qubitCount: qubitCount) else {
-            throw GateError.gateInputsAreNotInBound
-        }
+        let (matrix, inputs) = try gate.extract(restrictedToCircuitQubitCount: qubitCount)
 
         return makeExtendedMatrix(qubitCount: qubitCount, inputs: inputs, baseMatrix: matrix)
     }
@@ -54,12 +39,6 @@ extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
 private extension SimulatorCircuitMatrixFactoryAdapter {
 
     // MARK: - Private methods
-
-    func areInputsInBound(_ inputs: [Int], qubitCount: Int) -> Bool {
-        let validInputs = (0..<qubitCount)
-
-        return inputs.allSatisfy { validInputs.contains($0) }
-    }
 
     func makeExtendedMatrix(qubitCount: Int, inputs: [Int], baseMatrix: Matrix) -> Matrix {
         let count = Int.pow(2, qubitCount)

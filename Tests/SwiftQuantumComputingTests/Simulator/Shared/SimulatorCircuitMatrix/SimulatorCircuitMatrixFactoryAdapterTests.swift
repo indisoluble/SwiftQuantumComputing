@@ -41,32 +41,6 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testUnitaryMatrixAndQubitCountEqualToZero_makeCircuitMatrix_throwException() {
-        // Given
-        let qubitCount = 0
-        let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: qubitCount, gate: gate))
-    }
-
-    func testUnitaryMatrixWithSizePowerOfTwoButBiggerThanQubitCount_makeCircuitMatrix_throwException() {
-        // Given
-        let qubitCount = 1
-        let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: qubitCount, gate: gate))
-    }
-
-    func testInputsOutOfRange_makeCircuitMatrix_throwException() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: [0, validQubitCount])
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: validQubitCount, gate: gate))
-    }
-
     func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix() {
         // Given
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
@@ -172,12 +146,6 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testUnitaryMatrixAndQubitCountEqualToZero_makeCircuitMatrix_throwException",
-         testUnitaryMatrixAndQubitCountEqualToZero_makeCircuitMatrix_throwException),
-        ("testUnitaryMatrixWithSizePowerOfTwoButBiggerThanQubitCount_makeCircuitMatrix_throwException",
-         testUnitaryMatrixWithSizePowerOfTwoButBiggerThanQubitCount_makeCircuitMatrix_throwException),
-        ("testInputsOutOfRange_makeCircuitMatrix_throwException",
-         testInputsOutOfRange_makeCircuitMatrix_throwException),
         ("testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix",
          testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix),
         ("testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix",

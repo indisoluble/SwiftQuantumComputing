@@ -29,3 +29,41 @@ protocol SimulatorGate {
 
     func extract() throws -> Components
 }
+
+// MARK: - SimulatorGate extension
+
+extension SimulatorGate {
+    func extract(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
+        let components = try extract()
+        let matrix = components.matrix
+        let inputs = components.inputs
+
+        guard qubitCount > 0 else {
+            throw GateError.circuitQubitCountHasToBeBiggerThanZero
+        }
+
+        let matrixQubitCount = Int.log2(matrix.rowCount)
+        guard (matrixQubitCount <= qubitCount) else {
+            throw GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
+        }
+
+        guard areInputsInBound(inputs, qubitCount: qubitCount) else {
+            throw GateError.gateInputsAreNotInBound
+        }
+
+        return (matrix, inputs)
+    }
+}
+
+// MARK: - Private body
+
+private extension SimulatorGate {
+
+    // MARK: - Private methods
+
+    func areInputsInBound(_ inputs: [Int], qubitCount: Int) -> Bool {
+        let validInputs = (0..<qubitCount)
+
+        return inputs.allSatisfy { validInputs.contains($0) }
+    }
+}
