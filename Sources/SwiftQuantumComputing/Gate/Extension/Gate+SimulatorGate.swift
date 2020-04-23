@@ -28,58 +28,40 @@ extension Gate: SimulatorGate {
     }
 
     func extract() throws -> (matrix: Matrix, inputs: [Int]) {
-        var resultMatrix: Matrix!
-        var resultInputs: [Int]!
-
-        switch self {
-        case .controlledMatrix(let matrix, let inputs, let control):
-            guard matrix.rowCount.isPowerOfTwo else {
-                throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
-            }
-            // Validate matrix before expanding it so there is work to do
-            guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
-                throw GateError.gateMatrixIsNotUnitary
-            }
-
-            resultMatrix = Matrix.makeControlledMatrix(matrix: matrix)
-            resultInputs = [control] + inputs
-        case .controlledNot(let target, let control):
-            resultMatrix = Constants.matrixControlledNot
-            resultInputs = [control, target]
-        case .hadamard(let target):
-            resultMatrix = Constants.matrixHadamard
-            resultInputs = [target]
-        case .matrix(let matrix, let inputs):
-            guard matrix.rowCount.isPowerOfTwo else {
-                throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
-            }
-            guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
-                throw GateError.gateMatrixIsNotUnitary
-            }
-
-            resultMatrix = matrix
-            resultInputs = inputs
-        case .not(let target):
-            resultMatrix = Constants.matrixNot
-            resultInputs = [target]
-        case .oracle(let truthTable, let target, let controls):
-            resultMatrix = try Matrix.makeOracle(truthTable: truthTable,
-                                                 controlCount: controls.count)
-            resultInputs = controls + [target]
-        case .phaseShift(let radians, let target):
-            resultMatrix = Matrix.makePhaseShift(radians: radians)
-            resultInputs = [target]
-        }
-
-        if !doesInputCountMatchBaseMatrixQubitCount(resultInputs, baseMatrix: resultMatrix) {
-            throw GateError.gateInputCountDoesNotMatchGateMatrixQubitCount
-        }
-
-        if !areInputsUnique(resultInputs) {
+        let inputs = extractRawInputs()
+        guard areInputsUnique(inputs) else {
             throw GateError.gateInputsAreNotUnique
         }
 
-        return (resultMatrix, resultInputs)
+        let matrix = try extractMatrix()
+        guard doesInputCountMatchMatrixQubitCount(inputs, matrix: matrix) else {
+            throw GateError.gateInputCountDoesNotMatchGateMatrixQubitCount
+        }
+
+        return (matrix, inputs)
+    }
+
+    func extractRawInputs() -> [Int] {
+        var resultInputs: [Int]!
+
+        switch self {
+        case .controlledMatrix(_, let inputs, let control):
+            resultInputs = [control] + inputs
+        case .controlledNot(let target, let control):
+            resultInputs = [control, target]
+        case .hadamard(let target):
+            resultInputs = [target]
+        case .matrix(_, let inputs):
+            resultInputs = inputs
+        case .not(let target):
+            resultInputs = [target]
+        case .oracle(_, let target, let controls):
+            resultInputs = controls + [target]
+        case .phaseShift(_, let target):
+            resultInputs = [target]
+        }
+
+        return resultInputs
     }
 }
 
@@ -102,9 +84,49 @@ private extension Gate {
         return (inputs.count == Set(inputs).count)
     }
 
-    func doesInputCountMatchBaseMatrixQubitCount(_ inputs: [Int], baseMatrix: Matrix) -> Bool {
-        let matrixQubitCount = Int.log2(baseMatrix.rowCount)
+    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: Matrix) -> Bool {
+        let matrixQubitCount = Int.log2(matrix.rowCount)
 
         return (inputs.count == matrixQubitCount)
+    }
+
+    func extractMatrix() throws -> Matrix {
+        var resultMatrix: Matrix!
+
+        switch self {
+        case .controlledMatrix(let matrix, _, _):
+            guard matrix.rowCount.isPowerOfTwo else {
+                throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
+            }
+            // Validate matrix before expanding it so the operation requires less time
+            guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
+                throw GateError.gateMatrixIsNotUnitary
+            }
+
+            resultMatrix = Matrix.makeControlledMatrix(matrix: matrix)
+        case .controlledNot:
+            resultMatrix = Constants.matrixControlledNot
+        case .hadamard:
+            resultMatrix = Constants.matrixHadamard
+        case .matrix(let matrix, _):
+            guard matrix.rowCount.isPowerOfTwo else {
+                throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
+            }
+            // Validate matrix before expanding it so the operation requires less time
+            guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
+                throw GateError.gateMatrixIsNotUnitary
+            }
+
+            resultMatrix = matrix
+        case .not:
+            resultMatrix = Constants.matrixNot
+        case .oracle(let truthTable, _, let controls):
+            resultMatrix = try Matrix.makeOracle(truthTable: truthTable,
+                                                 controlCount: controls.count)
+        case .phaseShift(let radians, _):
+            resultMatrix = Matrix.makePhaseShift(radians: radians)
+        }
+
+        return resultMatrix
     }
 }
