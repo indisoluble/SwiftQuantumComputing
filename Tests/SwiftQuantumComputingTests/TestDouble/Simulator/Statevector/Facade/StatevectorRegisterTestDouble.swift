@@ -28,6 +28,9 @@ final class StatevectorRegisterTestDouble {
 
     // MARK: - Internal properties
 
+    private (set) var vectorCount = 0
+    var vectorResult = try! Vector([Complex.one, Complex.zero])
+
     private (set) var statevectorCount = 0
     var statevectorResult: Vector?
     var statevectorError = StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne
@@ -36,6 +39,16 @@ final class StatevectorRegisterTestDouble {
     private (set) var lastApplyingGate: SimulatorGate?
     var applyingResult: StatevectorRegisterTestDouble?
     var applyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+}
+
+// MARK: - SimpleStatevectorMeasurement methods
+
+extension StatevectorRegisterTestDouble: SimpleStatevectorMeasurement {
+    var vector: Vector {
+        vectorCount += 1
+
+        return vectorResult
+    }
 }
 
 // MARK: - StatevectorMeasurement methods

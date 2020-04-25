@@ -24,13 +24,18 @@ import Foundation
 
 struct DirectStatevectorRegister {
 
+    // MARK: - Internal types
+
+    typealias Transformation = StatevectorTransformation & SimpleStatevectorMeasurement
+
     // MARK: - SimpleStatevectorRegister properties
 
     let vector: Vector
 
     // MARK: - Private properties
 
-    private let factory: StatevectorRegisterFactory
+    private let qubitCount: Int
+    private let transformation: Transformation
 
     // MARK: - Internal init methods
 
@@ -38,13 +43,15 @@ struct DirectStatevectorRegister {
         case vectorCountHasToBeAPowerOfTwo
     }
 
-    init(vector: Vector, factory: StatevectorRegisterFactory) throws {
+    init(vector: Vector, transformation: Transformation) throws {
         guard vector.count.isPowerOfTwo else {
             throw InitError.vectorCountHasToBeAPowerOfTwo
         }
 
+        qubitCount = Int.log2(vector.count)
+
         self.vector = vector
-        self.factory = factory
+        self.transformation = transformation
     }
 }
 
@@ -60,6 +67,43 @@ extension DirectStatevectorRegister: SimpleStatevectorMeasurement {}
 
 extension DirectStatevectorRegister: StatevectorTransformation {
     func applying(_ gate: SimulatorGate) throws -> DirectStatevectorRegister {
-        return self
+        var nextVector: Vector!
+        if gate.extractRawInputs().count == 1 {
+            nextVector = try applying(singleQubitGate: gate)
+        } else {
+            nextVector = try transformation.applying(gate).vector
+        }
+
+        return try! DirectStatevectorRegister(vector: nextVector, transformation: transformation)
+    }
+}
+
+// MARK: - Private body
+
+private extension DirectStatevectorRegister {
+
+    // MARK: - Private methods
+
+    func applying(singleQubitGate gate: SimulatorGate) throws -> Vector {
+        let (matrix, inputs) = try gate.extract(restrictedToCircuitQubitCount: qubitCount)
+
+        let mask = 1 << inputs.first!
+        let invMask = ~mask
+
+        return try! Vector.makeVector(count: vector.count) { index in
+            var value: Complex!
+
+            if index & mask == 0 {
+                let otherIndex = index | mask
+
+                value = matrix[0, 0] * vector[index] + matrix[0, 1] * vector[otherIndex]
+            } else {
+                let otherIndex = index & invMask
+
+                value = matrix[1, 0] * vector[otherIndex] + matrix[1, 1] * vector[index]
+            }
+
+            return value
+        }
     }
 }
