@@ -87,6 +87,20 @@ public struct Vector {
 
     // MARK: - Internal class methods
 
+    enum MakeVectorError: Error {
+        case passCountBiggerThanZero
+    }
+
+    static func makeVector(count: Int, value: (Int) -> Complex) throws -> Vector {
+        guard (count > 0) else {
+            throw MakeVectorError.passCountBiggerThanZero
+        }
+
+        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: 1) { r, c in value(r) }
+
+        return Vector(matrix: matrix)
+    }
+
     enum InnerProductError: Error {
         case vectorsDoNotHaveSameCount
     }
