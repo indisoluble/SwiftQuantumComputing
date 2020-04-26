@@ -107,7 +107,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                         modulus: modulus,
                                                         exponent: exponent,
                                                         inputs: inputs)
-        let circuit = MainCircuitFactory().makeCircuit(gates: gates)
+        let circuit = SCMCircuitFactory().makeCircuit(gates: gates)
 
         // When
         let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")

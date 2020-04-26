@@ -1,5 +1,5 @@
 //
-//  MainCircuitFactory.swift
+//  SCMCircuitFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 26/01/2019.
@@ -22,18 +22,18 @@ import Foundation
 
 // MARK: - Main body
 
-/// Conforms `MainCircuitFactory`. Use to create new `Circuit` instances
-public struct MainCircuitFactory {
+/// Conforms `CircuitFactory`. Use to create new `Circuit` instances
+public struct SCMCircuitFactory {
 
     // MARK: - Public init methods
 
-    /// Initialize a `MainCircuitFactory` instance
+    /// Initialize a `SCMCircuitFactory` instance
     public init() {}
 }
 
 // MARK: - CircuitFactory methods
 
-extension MainCircuitFactory: CircuitFactory {
+extension SCMCircuitFactory: CircuitFactory {
 
     /// Check `CircuitFactory.makeCircuit(gates:)`
     public func makeCircuit(gates: [Gate]) -> Circuit {
