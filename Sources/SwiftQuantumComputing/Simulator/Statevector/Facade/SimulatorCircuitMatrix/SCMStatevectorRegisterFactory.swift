@@ -59,3 +59,19 @@ extension SCMStatevectorRegisterFactory: StatevectorRegisterFactory {
         return register
     }
 }
+
+// MARK: - DirectStatevectorTransformationFactory methods
+
+extension SCMStatevectorRegisterFactory: DirectStatevectorTransformationFactory {
+    func makeTransformation(state: Vector) throws -> Transformation {
+        do {
+            return try makeRegister(state: state) as! SCMStatevectorRegister
+        } catch MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne {
+            throw MakeTransformationError.stateAdditionOfSquareModulusIsNotEqualToOne
+        } catch MakeRegisterError.stateCountHasToBeAPowerOfTwo {
+            throw MakeTransformationError.stateCountHasToBeAPowerOfTwo
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
+    }
+}

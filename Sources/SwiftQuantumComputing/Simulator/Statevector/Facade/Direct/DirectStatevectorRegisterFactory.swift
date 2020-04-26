@@ -26,12 +26,12 @@ struct DirectStatevectorRegisterFactory {
 
     // MARK: - Private properties
 
-    private let transformation: DirectStatevectorRegister.Transformation
+    private let factory: DirectStatevectorTransformationFactory
 
     // MARK: - Internal init methods
 
-    init(transformation: DirectStatevectorRegister.Transformation) {
-        self.transformation = transformation
+    init(factory: DirectStatevectorTransformationFactory) {
+        self.factory = factory
     }
 }
 
@@ -39,23 +39,17 @@ struct DirectStatevectorRegisterFactory {
 
 extension DirectStatevectorRegisterFactory: StatevectorRegisterFactory {
     func makeRegister(state: Vector) throws -> StatevectorRegister {
-        var register: DirectStatevectorRegister!
+        var transformation: DirectStatevectorTransformationFactory.Transformation!
         do {
-            register = try DirectStatevectorRegister(vector: state, transformation: transformation)
-        } catch DirectStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
+            transformation = try factory.makeTransformation(state: state)
+        } catch MakeTransformationError.stateAdditionOfSquareModulusIsNotEqualToOne {
+            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
+        } catch MakeTransformationError.stateCountHasToBeAPowerOfTwo {
             throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
-        do {
-            _ = try register.statevector()
-        } catch StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
-            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        return register
+        return try! DirectStatevectorRegister(vector: state, transformation: transformation)
     }
 }

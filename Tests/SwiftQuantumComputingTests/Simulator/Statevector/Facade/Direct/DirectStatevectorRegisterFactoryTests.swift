@@ -28,30 +28,36 @@ class DirectStatevectorRegisterFactoryTests: XCTestCase {
 
     // MARK: - Properties
 
-    let adapter = DirectStatevectorRegisterFactory(transformation: StatevectorRegisterTestDouble())
+    let vector = try! Vector([Complex.zero, Complex.zero, Complex.one, Complex.zero])
+    let factory = StatevectorRegisterFactoryTestDouble()
 
     // MARK: - Tests
 
-    func testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError() {
+    func testFactoryThatThrowsError_makeRegister_throwError() {
         // Given
-        let vector = try! Vector([Complex.zero, Complex.zero, Complex.one])
+        factory.makeTransformationResult = nil
+        factory.makeTransformationError = MakeTransformationError.stateCountHasToBeAPowerOfTwo
+
+        let adapter = DirectStatevectorRegisterFactory(factory: factory)
 
         // Then
         XCTAssertThrowsError(try adapter.makeRegister(state: vector))
     }
 
-    func testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError() {
+    func testFactoryThatDoesNotThrowErrorAndAnyVector_makeRegister_returnValue() {
         // Given
-        let vector = try! Vector([Complex.zero, Complex.zero, Complex.one, Complex.one])
+        factory.makeTransformationResult = StatevectorRegisterTestDouble()
+
+        let adapter = DirectStatevectorRegisterFactory(factory: factory)
 
         // Then
-        XCTAssertThrowsError(try adapter.makeRegister(state: vector))
+        XCTAssertNoThrow(try adapter.makeRegister(state: vector))
     }
 
     static var allTests = [
-        ("testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError",
-         testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError),
-        ("testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError",
-         testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError)
+        ("testFactoryThatThrowsError_makeRegister_throwError",
+         testFactoryThatThrowsError_makeRegister_throwError),
+        ("testFactoryThatDoesNotThrowErrorAndAnyVector_makeRegister_returnValue",
+         testFactoryThatDoesNotThrowErrorAndAnyVector_makeRegister_returnValue)
     ]
 }

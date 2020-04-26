@@ -24,10 +24,6 @@ import Foundation
 
 struct DirectStatevectorRegister {
 
-    // MARK: - Internal types
-
-    typealias Transformation = StatevectorTransformation & SimpleStatevectorMeasurement
-
     // MARK: - SimpleStatevectorRegister properties
 
     let vector: Vector
@@ -35,7 +31,7 @@ struct DirectStatevectorRegister {
     // MARK: - Private properties
 
     private let qubitCount: Int
-    private let transformation: Transformation
+    private let transformation: DirectStatevectorTransformationFactory.Transformation
 
     // MARK: - Internal init methods
 
@@ -43,7 +39,8 @@ struct DirectStatevectorRegister {
         case vectorCountHasToBeAPowerOfTwo
     }
 
-    init(vector: Vector, transformation: Transformation) throws {
+    init(vector: Vector,
+         transformation: DirectStatevectorTransformationFactory.Transformation) throws {
         guard vector.count.isPowerOfTwo else {
             throw InitError.vectorCountHasToBeAPowerOfTwo
         }

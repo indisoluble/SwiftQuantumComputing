@@ -27,6 +27,8 @@
 		FF032F3423B8E084000FCA3D /* XorEquationSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF032F3223B8E084000FCA3D /* XorEquationSystem.swift */; };
 		FF032F3623B8E4E1000FCA3D /* XorEquationSystemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF032F3523B8E4E1000FCA3D /* XorEquationSystemFactory.swift */; };
 		FF032F3723B8E4E1000FCA3D /* XorEquationSystemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF032F3523B8E4E1000FCA3D /* XorEquationSystemFactory.swift */; };
+		FF03567D2455AE8F00A53C67 /* DirectStatevectorTransformationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF03567C2455AE8F00A53C67 /* DirectStatevectorTransformationFactory.swift */; };
+		FF03567E2455AE8F00A53C67 /* DirectStatevectorTransformationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF03567C2455AE8F00A53C67 /* DirectStatevectorTransformationFactory.swift */; };
 		FF042A75221E04A300C83F3F /* GeneticCircuitScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF042A74221E04A300C83F3F /* GeneticCircuitScore.swift */; };
 		FF042A76221E04A300C83F3F /* GeneticCircuitScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF042A74221E04A300C83F3F /* GeneticCircuitScore.swift */; };
 		FF042A78221E05E000C83F3F /* MainGeneticCircuitScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF042A77221E05E000C83F3F /* MainGeneticCircuitScore.swift */; };
@@ -726,6 +728,7 @@
 		FF02E88922B69ECF004CB960 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		FF032F3223B8E084000FCA3D /* XorEquationSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XorEquationSystem.swift; sourceTree = "<group>"; };
 		FF032F3523B8E4E1000FCA3D /* XorEquationSystemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XorEquationSystemFactory.swift; sourceTree = "<group>"; };
+		FF03567C2455AE8F00A53C67 /* DirectStatevectorTransformationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectStatevectorTransformationFactory.swift; sourceTree = "<group>"; };
 		FF042A74221E04A300C83F3F /* GeneticCircuitScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticCircuitScore.swift; sourceTree = "<group>"; };
 		FF042A77221E05E000C83F3F /* MainGeneticCircuitScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticCircuitScore.swift; sourceTree = "<group>"; };
 		FF0694DD21CBFF2F00B5D469 /* StatevectorRegisterTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorRegisterTestDouble.swift; sourceTree = "<group>"; };
@@ -1904,6 +1907,7 @@
 			children = (
 				FF853B392447A70C00D69647 /* DirectStatevectorRegister.swift */,
 				FF623F6D2454C9C5001A1224 /* DirectStatevectorRegisterFactory.swift */,
+				FF03567C2455AE8F00A53C67 /* DirectStatevectorTransformationFactory.swift */,
 			);
 			path = Direct;
 			sourceTree = "<group>";
@@ -2778,6 +2782,7 @@
 				FFC28BA6242FADC600B88A3F /* Circuit+GroupedProbabilities.swift in Sources */,
 				FFB22754241E60E300AC64AD /* Matrix+ConjugateTransposed.swift in Sources */,
 				FFDC4A022414581900DF1E42 /* Gate+ModularExponentiation.swift in Sources */,
+				FF03567D2455AE8F00A53C67 /* DirectStatevectorTransformationFactory.swift in Sources */,
 				FFCC729D221CB98400D28A5D /* MainFitness.swift in Sources */,
 				FFA6F2B723C260A700C678C3 /* XorGaussianEliminationSolverFacade.swift in Sources */,
 				FFDEAF952346A4840027673C /* Circuit+Probabilities.swift in Sources */,
@@ -3219,6 +3224,7 @@
 				FFA50BB42357BEDC00BA9BAC /* UnitarySimulatorFacade.swift in Sources */,
 				FFC11B3C236CEF98001D3F39 /* Circuit+SummarizedProbabilities.swift in Sources */,
 				FF002BC121FC929600E40C3A /* GeneticGateFactory.swift in Sources */,
+				FF03567E2455AE8F00A53C67 /* DirectStatevectorTransformationFactory.swift in Sources */,
 				FF663D41216A2630002298BA /* LineHorizontalPositionView.swift in Sources */,
 				FF663D44216A2697002298BA /* NotPositionView.swift in Sources */,
 				FF2600A92378CA93002342AD /* Circuit+Unitary.swift in Sources */,
