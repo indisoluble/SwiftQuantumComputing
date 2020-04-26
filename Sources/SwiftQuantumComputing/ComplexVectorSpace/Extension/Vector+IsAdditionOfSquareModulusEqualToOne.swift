@@ -1,8 +1,8 @@
 //
-//  Complex+OverloadedOperators.swift
+//  Vector+IsAdditionOfSquareModulusEqualToOne.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/03/2020.
+//  Created by Enrique de la Torre on 14/04/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,20 +20,24 @@
 
 import Foundation
 
-// MARK: - Overloaded operators
+// MARK: - Main body
 
-extension Complex {
+extension Vector {
 
-    // MARK: - Internal operators
+    // MARK: - Internal methods
 
-    static func +(lhs: Complex, rhs: Complex) -> Complex {
-        return Complex(real: lhs.real + rhs.real, imag: lhs.imag + rhs.imag)
+    func isAdditionOfSquareModulusEqualToOne() -> Bool {
+        return (abs(squaredNorm - Double(1)) <= Constants.accuracy)
     }
+}
 
-    static func *(lhs: Complex, rhs: Complex) -> Complex {
-        let real = ((lhs.real * rhs.real) - (lhs.imag * rhs.imag))
-        let imag = ((lhs.real * rhs.imag) + (rhs.real * lhs.imag))
+// MARK: - Private body
 
-        return Complex(real: real, imag: imag)
+private extension Vector {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let accuracy = 0.001
     }
 }

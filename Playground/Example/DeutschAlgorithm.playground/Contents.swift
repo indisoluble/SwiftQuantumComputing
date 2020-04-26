@@ -1,6 +1,6 @@
 import SwiftQuantumComputing // for iOS
 
-let circuitFactory = MainCircuitFactory()
+let circuitFactory = SCMCircuitFactory()
 let drawer = MainDrawerFactory().makeDrawer()
 
 func isFunctionConstant(truthTable: [String]) -> Bool {

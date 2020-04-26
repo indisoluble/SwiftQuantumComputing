@@ -73,6 +73,23 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(sequence, elements)
     }
 
+    func testCountEqualToZero_makeVector_throwException() {
+        // Then
+        XCTAssertThrowsError(try Vector.makeVector(count: 0) { _ in Complex.zero })
+    }
+
+    func testValidCount_makeVector_returnExpectedVector() {
+        // Given
+        let count = 3
+
+        // When
+        let result = try! Vector.makeVector(count: count) { Complex($0) }
+
+        // Then
+        let expectedResult = try! Vector((0..<count).map { Complex($0) })
+        XCTAssertEqual(result, expectedResult)
+    }
+
     func testTwoVectorWithDifferentDimensions_innerProduct_throwException() {
         // Given
         let complex = Complex(real: 0, imag: 0)
@@ -136,6 +153,10 @@ class VectorTests: XCTestCase {
          testAnyVector_squaredNorm_returnExpectedValue),
         ("testAnyVector_subscript_returnExpectedValue",
          testAnyVector_subscript_returnExpectedValue),
+        ("testCountEqualToZero_makeVector_throwException",
+         testCountEqualToZero_makeVector_throwException),
+        ("testValidCount_makeVector_returnExpectedVector",
+         testValidCount_makeVector_returnExpectedVector),
         ("testTwoVectorWithDifferentDimensions_innerProduct_throwException",
          testTwoVectorWithDifferentDimensions_innerProduct_throwException),
         ("testTwoVector_innerProduct_returnExpectedValue",

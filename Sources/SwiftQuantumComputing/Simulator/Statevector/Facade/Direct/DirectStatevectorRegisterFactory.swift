@@ -1,9 +1,9 @@
 //
-//  StatevectorRegisterFactoryAdapter.swift
+//  DirectStatevectorRegisterFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 25/04/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,27 +22,27 @@ import Foundation
 
 // MARK: - Main body
 
-struct StatevectorRegisterFactoryAdapter {
+struct DirectStatevectorRegisterFactory {
 
     // MARK: - Private properties
 
-    private let matrixFactory: SimulatorCircuitMatrixFactory
+    private let factory: DirectStatevectorTransformationFactory
 
     // MARK: - Internal init methods
 
-    init(matrixFactory: SimulatorCircuitMatrixFactory) {
-        self.matrixFactory = matrixFactory
+    init(factory: DirectStatevectorTransformationFactory) {
+        self.factory = factory
     }
 }
 
 // MARK: - StatevectorRegisterFactory methods
 
-extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
+extension DirectStatevectorRegisterFactory: StatevectorRegisterFactory {
     func makeRegister(state: Vector) throws -> StatevectorRegister {
-        var register: StatevectorRegister!
+        var register: DirectStatevectorRegister!
         do {
-            register = try StatevectorRegisterAdapter(vector: state, matrixFactory: matrixFactory)
-        } catch StatevectorRegisterAdapter.InitError.vectorCountHasToBeAPowerOfTwo {
+            register = try DirectStatevectorRegister(vector: state, factory: factory)
+        } catch DirectStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
             throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")
@@ -50,7 +50,7 @@ extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
 
         do {
             _ = try register.statevector()
-        } catch StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
+        } catch StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
             throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
         } catch {
             fatalError("Unexpected error: \(error).")

@@ -41,77 +41,6 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testMatrixWithSizeNonPowerOfTwo_makeCircuitMatrix_throwException() {
-        // Given
-        let complex = Complex(real: 0, imag: 0)
-        let matrix = try! Matrix([[complex, complex, complex],
-                                  [complex, complex, complex],
-                                  [complex, complex, complex]])
-        let gate = Gate.matrix(matrix: matrix, inputs: [0])
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: validQubitCount, gate: gate))
-    }
-
-    func testNonUnitaryMatrix_makeCircuitMatrix_throwException() {
-        // Given
-        let matrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.one]])
-        let gate = Gate.matrix(matrix: matrix, inputs: [0])
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: validQubitCount, gate: gate))
-    }
-
-    func testUnitaryMatrixAndQubitCountEqualToZero_makeCircuitMatrix_throwException() {
-        // Given
-        let qubitCount = 0
-        let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: qubitCount, gate: gate))
-    }
-
-    func testUnitaryMatrixWithSizePowerOfTwoButBiggerThanQubitCount_makeCircuitMatrix_throwException() {
-        // Given
-        let qubitCount = 1
-        let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: qubitCount, gate: gate))
-    }
-
-    func testRepeatedInputs_makeCircuitMatrix_throwException() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: [1, 1])
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: validQubitCount, gate: gate))
-    }
-
-    func testInputsOutOfRange_makeCircuitMatrix_throwException() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: [0, validQubitCount])
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: validQubitCount, gate: gate))
-    }
-
-    func testMoreInputsThanGateTakes_makeCircuitMatrix_throwException() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: [2, 1, 0])
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: validQubitCount, gate: gate))
-    }
-
-    func testLessInputsThanGateTakes_makeCircuitMatrix_throwException() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: [])
-
-        // Then
-        XCTAssertThrowsError(try sut.makeCircuitMatrix(qubitCount: validQubitCount, gate: gate))
-    }
-
     func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix() {
         // Given
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
@@ -217,22 +146,6 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testMatrixWithSizeNonPowerOfTwo_makeCircuitMatrix_throwException",
-         testMatrixWithSizeNonPowerOfTwo_makeCircuitMatrix_throwException),
-        ("testNonUnitaryMatrix_makeCircuitMatrix_throwException",
-         testNonUnitaryMatrix_makeCircuitMatrix_throwException),
-        ("testUnitaryMatrixAndQubitCountEqualToZero_makeCircuitMatrix_throwException",
-         testUnitaryMatrixAndQubitCountEqualToZero_makeCircuitMatrix_throwException),
-        ("testUnitaryMatrixWithSizePowerOfTwoButBiggerThanQubitCount_makeCircuitMatrix_throwException",
-         testUnitaryMatrixWithSizePowerOfTwoButBiggerThanQubitCount_makeCircuitMatrix_throwException),
-        ("testRepeatedInputs_makeCircuitMatrix_throwException",
-         testRepeatedInputs_makeCircuitMatrix_throwException),
-        ("testInputsOutOfRange_makeCircuitMatrix_throwException",
-         testInputsOutOfRange_makeCircuitMatrix_throwException),
-        ("testMoreInputsThanGateTakes_makeCircuitMatrix_throwException",
-         testMoreInputsThanGateTakes_makeCircuitMatrix_throwException),
-        ("testLessInputsThanGateTakes_makeCircuitMatrix_throwException",
-         testLessInputsThanGateTakes_makeCircuitMatrix_throwException),
         ("testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix",
          testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix),
         ("testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix",

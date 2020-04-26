@@ -39,7 +39,7 @@ struct StatevectorSimulatorFacade {
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [SimulatorGate], to initialStatevector: Vector) throws -> Vector {
-        var register: StatevectorRegister!
+        var register: StatevectorRegisterFactory.StatevectorRegister!
         do {
             register = try registerFactory.makeRegister(state: initialStatevector)
         } catch MakeRegisterError.stateCountHasToBeAPowerOfTwo {
@@ -64,7 +64,7 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
         var vector: Vector!
         do {
             vector = try register.statevector()
-        } catch StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
+        } catch StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
             throw StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
         } catch {
             fatalError("Unexpected error: \(error).")

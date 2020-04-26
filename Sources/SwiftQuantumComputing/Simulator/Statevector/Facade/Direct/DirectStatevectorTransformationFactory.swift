@@ -1,8 +1,8 @@
 //
-//  Complex+OverloadedOperators.swift
+//  DirectStatevectorTransformationFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/03/2020.
+//  Created by Enrique de la Torre on 26/04/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,20 +20,16 @@
 
 import Foundation
 
-// MARK: - Overloaded operators
+// MARK: - Errors
 
-extension Complex {
+enum MakeTransformationError: Error {
+    case stateCountHasToBeAPowerOfTwo
+}
 
-    // MARK: - Internal operators
+// MARK: - Protocol definition
 
-    static func +(lhs: Complex, rhs: Complex) -> Complex {
-        return Complex(real: lhs.real + rhs.real, imag: lhs.imag + rhs.imag)
-    }
+protocol DirectStatevectorTransformationFactory {
+    typealias Transformation = StatevectorTransformation & SimpleStatevectorMeasurement
 
-    static func *(lhs: Complex, rhs: Complex) -> Complex {
-        let real = ((lhs.real * rhs.real) - (lhs.imag * rhs.imag))
-        let imag = ((lhs.real * rhs.imag) + (rhs.real * lhs.imag))
-
-        return Complex(real: real, imag: imag)
-    }
+    func makeTransformation(state: Vector) throws -> Transformation
 }

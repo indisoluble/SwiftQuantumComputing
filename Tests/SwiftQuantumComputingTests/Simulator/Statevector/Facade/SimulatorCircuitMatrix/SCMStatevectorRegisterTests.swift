@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterAdapterTests.swift
+//  SCMStatevectorRegisterTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/10/2019.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class StatevectorRegisterAdapterTests: XCTestCase {
+class SCMStatevectorRegisterTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -38,15 +38,15 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         let noPowerOfTwoVector = try! Vector([Complex.one, Complex.zero, Complex.zero])
 
         // Then
-        XCTAssertThrowsError(try StatevectorRegisterAdapter(vector: noPowerOfTwoVector,
-                                                            matrixFactory: matrixFactory))
+        XCTAssertThrowsError(try SCMStatevectorRegister(vector: noPowerOfTwoVector,
+                                                        matrixFactory: matrixFactory))
     }
 
     func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException() {
         // Given
         let addSquareModulusNotEqualToOneVector = try! Vector([Complex.one, Complex.one])
-        let adapter = try! StatevectorRegisterAdapter(vector: addSquareModulusNotEqualToOneVector,
-                                                      matrixFactory: matrixFactory)
+        let adapter = try! SCMStatevectorRegister(vector: addSquareModulusNotEqualToOneVector,
+                                                  matrixFactory: matrixFactory)
 
         // Then
         XCTAssertThrowsError(try adapter.statevector())
@@ -55,7 +55,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
     func testValidVector_statevector_returnValue() {
         // Given
         let vector = try! Vector([Complex.one, Complex.zero])
-        let adapter = try! StatevectorRegisterAdapter(vector: vector, matrixFactory: matrixFactory)
+        let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
 
         // When
         let result = try! adapter.statevector()
@@ -68,7 +68,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         // Given
         let vector = try! Vector([Complex.one, Complex.zero])
         let vectorQubitCount = 1
-        let adapter = try! StatevectorRegisterAdapter(vector: vector, matrixFactory: matrixFactory)
+        let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
 
         // Then
         XCTAssertThrowsError(try adapter.applying(gate))
@@ -88,7 +88,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = try! StatevectorRegisterAdapter(vector: vector, matrixFactory: matrixFactory)
+        let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
 
         let matrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
         matrixFactory.makeCircuitMatrixResult = matrix
@@ -116,7 +116,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = try! StatevectorRegisterAdapter(vector: vector, matrixFactory: matrixFactory)
+        let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
 
         let matrix = try! SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrix(qubitCount: qubitCount,
                                                                                    gate: Gate.not(target: 0))

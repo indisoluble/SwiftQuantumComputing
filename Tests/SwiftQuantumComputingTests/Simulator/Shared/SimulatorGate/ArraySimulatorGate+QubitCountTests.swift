@@ -28,7 +28,12 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrix = try! Matrix([[Complex.zero]])
+    let matrix = try! Matrix([
+        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.one, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+        [Complex.zero, Complex.zero, Complex.one, Complex.zero]
+    ])
     let truthTable = [""]
 
     // MARK: - Tests
@@ -94,14 +99,15 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
         XCTAssertEqual(circuit.qubitCount(), maxIndex + 1)
     }
 
-    func testCircuitWithOnlyOneOracleGateWithoutControls_qubitCount_returnOne() {
+    func testCircuitWithOnlyOneOracleGateWithoutControls_qubitCount_returnExpectedValue() {
         // Given
+        let maxIndex = 10
         let circuit: [SimulatorGate] = [
-            Gate.oracle(truthTable: truthTable, target: 10, controls: [])
+            Gate.oracle(truthTable: truthTable, target: maxIndex, controls: [])
         ]
 
         // Then
-        XCTAssertEqual(circuit.qubitCount(), 1)
+        XCTAssertEqual(circuit.qubitCount(), maxIndex + 1)
     }
 
     func testCircuitWithOnlyOneOracleGateWithoutControlsAndOtherGates_qubitCount_returnExpectedValue() {
@@ -127,8 +133,8 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
          testCircuitWithOnlyOneMatrixGateWithoutInputs_qubitCount_returnOne),
         ("testCircuitWithMatrixGateWithoutInputsAndOtherGates_qubitCount_returnExpectedValue",
          testCircuitWithMatrixGateWithoutInputsAndOtherGates_qubitCount_returnExpectedValue),
-        ("testCircuitWithOnlyOneOracleGateWithoutControls_qubitCount_returnOne",
-         testCircuitWithOnlyOneOracleGateWithoutControls_qubitCount_returnOne),
+        ("testCircuitWithOnlyOneOracleGateWithoutControls_qubitCount_returnExpectedValue",
+         testCircuitWithOnlyOneOracleGateWithoutControls_qubitCount_returnExpectedValue),
         ("testCircuitWithOnlyOneOracleGateWithoutControlsAndOtherGates_qubitCount_returnExpectedValue",
          testCircuitWithOnlyOneOracleGateWithoutControlsAndOtherGates_qubitCount_returnExpectedValue)
     ]
