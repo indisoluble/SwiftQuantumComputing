@@ -23,7 +23,6 @@ import Foundation
 // MARK: - Errors
 
 enum MakeTransformationError: Error {
-    case stateAdditionOfSquareModulusIsNotEqualToOne
     case stateCountHasToBeAPowerOfTwo
 }
 

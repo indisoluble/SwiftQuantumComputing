@@ -101,13 +101,28 @@ class Gate_ModularExponentiationTests: XCTestCase {
         XCTAssertEqual(gates, expectedGates)
     }
 
-    func testCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs() {
+    func testSCMCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs() {
         // Given
         let gates = try! Gate.makeModularExponentiation(base: base,
                                                         modulus: modulus,
                                                         exponent: exponent,
                                                         inputs: inputs)
         let circuit = SCMCircuitFactory().makeCircuit(gates: gates)
+
+        // When
+        let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")
+
+        // Then
+        XCTAssertEqual(probs, ["011" : 1.0])
+    }
+
+    func testDirectCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs() {
+        // Given
+        let gates = try! Gate.makeModularExponentiation(base: base,
+                                                        modulus: modulus,
+                                                        exponent: exponent,
+                                                        inputs: inputs)
+        let circuit = DirectCircuitFactory().makeCircuit(gates: gates)
 
         // When
         let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")
@@ -127,7 +142,9 @@ class Gate_ModularExponentiationTests: XCTestCase {
          testModulusPowerOfBase_makeModularExponentiation_throwError),
         ("testValidParameters_makeModularExponentiation_returnExpectedList",
          testValidParameters_makeModularExponentiation_returnExpectedList),
-        ("testCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs",
-         testCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs)
+        ("testSCMCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs",
+         testSCMCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs),
+        ("testDirectCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs",
+         testDirectCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs)
     ]
 }

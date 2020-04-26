@@ -65,10 +65,8 @@ extension SCMStatevectorRegisterFactory: StatevectorRegisterFactory {
 extension SCMStatevectorRegisterFactory: DirectStatevectorTransformationFactory {
     func makeTransformation(state: Vector) throws -> Transformation {
         do {
-            return try makeRegister(state: state) as! SCMStatevectorRegister
-        } catch MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne {
-            throw MakeTransformationError.stateAdditionOfSquareModulusIsNotEqualToOne
-        } catch MakeRegisterError.stateCountHasToBeAPowerOfTwo {
+            return try SCMStatevectorRegister(vector: state, matrixFactory: matrixFactory)
+        } catch SCMStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
             throw MakeTransformationError.stateCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")

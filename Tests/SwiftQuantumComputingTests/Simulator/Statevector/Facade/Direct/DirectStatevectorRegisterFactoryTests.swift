@@ -28,8 +28,12 @@ class DirectStatevectorRegisterFactoryTests: XCTestCase {
 
     // MARK: - Properties
 
-    let vector = try! Vector([Complex.zero, Complex.zero, Complex.one, Complex.zero])
     let factory = StatevectorRegisterFactoryTestDouble()
+    let transformation = StatevectorRegisterTestDouble()
+    let squareModulusNotEqualToOneVector = try! Vector([
+        Complex.zero, Complex.zero, Complex.one, Complex.one
+    ])
+    let validVector = try! Vector([Complex.zero, Complex.zero, Complex.one, Complex.zero])
 
     // MARK: - Tests
 
@@ -41,23 +45,35 @@ class DirectStatevectorRegisterFactoryTests: XCTestCase {
         let adapter = DirectStatevectorRegisterFactory(factory: factory)
 
         // Then
-        XCTAssertThrowsError(try adapter.makeRegister(state: vector))
+        XCTAssertThrowsError(try adapter.makeRegister(state: validVector))
     }
 
-    func testFactoryThatDoesNotThrowErrorAndAnyVector_makeRegister_returnValue() {
+    func testFactoryThatDoesNotThrowErrorAndVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError() {
         // Given
-        factory.makeTransformationResult = StatevectorRegisterTestDouble()
+        factory.makeTransformationResult = transformation
 
         let adapter = DirectStatevectorRegisterFactory(factory: factory)
 
         // Then
-        XCTAssertNoThrow(try adapter.makeRegister(state: vector))
+        XCTAssertThrowsError(try adapter.makeRegister(state: squareModulusNotEqualToOneVector))
+    }
+
+    func testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue() {
+        // Given
+        factory.makeTransformationResult = transformation
+
+        let adapter = DirectStatevectorRegisterFactory(factory: factory)
+
+        // Then
+        XCTAssertNoThrow(try adapter.makeRegister(state: validVector))
     }
 
     static var allTests = [
         ("testFactoryThatThrowsError_makeRegister_throwError",
          testFactoryThatThrowsError_makeRegister_throwError),
-        ("testFactoryThatDoesNotThrowErrorAndAnyVector_makeRegister_returnValue",
-         testFactoryThatDoesNotThrowErrorAndAnyVector_makeRegister_returnValue)
+        ("testFactoryThatDoesNotThrowErrorAndVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError",
+         testFactoryThatDoesNotThrowErrorAndVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError),
+        ("testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue",
+         testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue)
     ]
 }

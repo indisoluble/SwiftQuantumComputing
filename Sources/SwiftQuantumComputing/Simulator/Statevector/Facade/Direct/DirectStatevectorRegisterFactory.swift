@@ -39,17 +39,23 @@ struct DirectStatevectorRegisterFactory {
 
 extension DirectStatevectorRegisterFactory: StatevectorRegisterFactory {
     func makeRegister(state: Vector) throws -> StatevectorRegister {
-        var transformation: DirectStatevectorTransformationFactory.Transformation!
+        var register: DirectStatevectorRegister!
         do {
-            transformation = try factory.makeTransformation(state: state)
-        } catch MakeTransformationError.stateAdditionOfSquareModulusIsNotEqualToOne {
-            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
-        } catch MakeTransformationError.stateCountHasToBeAPowerOfTwo {
+            register = try DirectStatevectorRegister(vector: state, factory: factory)
+        } catch DirectStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
             throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
-        return try! DirectStatevectorRegister(vector: state, transformation: transformation)
+        do {
+            _ = try register.statevector()
+        } catch StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
+            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
+
+        return register
     }
 }

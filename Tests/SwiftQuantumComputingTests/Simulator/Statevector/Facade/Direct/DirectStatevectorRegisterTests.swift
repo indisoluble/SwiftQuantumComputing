@@ -28,6 +28,7 @@ class DirectStatevectorRegisterTests: XCTestCase {
 
     // MARK: - Properties
 
+    let factory = StatevectorRegisterFactoryTestDouble()
     let transformation = StatevectorRegisterTestDouble()
     let threeQubitZeroVector = try! Vector([
         Complex.one, Complex.zero, Complex.zero, Complex.zero,
@@ -46,20 +47,23 @@ class DirectStatevectorRegisterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testVectorWhichLengthIsNotPowerOfTwo_init_throwException() {
+    func testFactoryThatThrowsException_init_throwException() {
         // Given
-        let noPowerOfTwoVector = try! Vector([Complex.one, Complex.zero, Complex.zero])
+        factory.makeTransformationResult = nil
+        factory.makeTransformationError = MakeTransformationError.stateCountHasToBeAPowerOfTwo
 
         // Then
-        XCTAssertThrowsError(try DirectStatevectorRegister(vector: noPowerOfTwoVector,
-                                                           transformation: transformation))
+        XCTAssertThrowsError(try DirectStatevectorRegister(vector: oneQubitZeroVector,
+                                                           factory: factory))
+        XCTAssertEqual(factory.makeTransformationCount, 1)
     }
 
     func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException() {
         // Given
+        factory.makeTransformationResult = transformation
         let addSquareModulusNotEqualToOneVector = try! Vector([Complex.one, Complex.one])
         let adapter = try! DirectStatevectorRegister(vector: addSquareModulusNotEqualToOneVector,
-                                                     transformation: transformation)
+                                                     factory: factory)
 
         // Then
         XCTAssertThrowsError(try adapter.statevector())
@@ -67,8 +71,9 @@ class DirectStatevectorRegisterTests: XCTestCase {
 
     func testValidVector_statevector_returnValue() {
         // Given
+        factory.makeTransformationResult = transformation
         let vector = try! Vector([Complex.one, Complex.zero])
-        let adapter = try! DirectStatevectorRegister(vector: vector, transformation: transformation)
+        let adapter = try! DirectStatevectorRegister(vector: vector, factory: factory)
 
         // When
         let result = try! adapter.statevector()
@@ -79,8 +84,8 @@ class DirectStatevectorRegisterTests: XCTestCase {
 
     func testThreeQubitGate_applying_forwardToTransformation() {
         // Given
-        let adapter = try! DirectStatevectorRegister(vector: threeQubitZeroVector,
-                                                     transformation: transformation)
+        factory.makeTransformationResult = transformation
+        let adapter = try! DirectStatevectorRegister(vector: threeQubitZeroVector, factory: factory)
 
         let gate = Gate.oracle(truthTable: ["00"], target: 0, controls: [1, 2])
 
@@ -100,8 +105,8 @@ class DirectStatevectorRegisterTests: XCTestCase {
 
     func testNotGateAndOneQubitVector_applying_returnExpectedVector() {
         // Given
-        let adapter = try! DirectStatevectorRegister(vector: oneQubitZeroVector,
-                                                     transformation: transformation)
+        factory.makeTransformationResult = transformation
+        let adapter = try! DirectStatevectorRegister(vector: oneQubitZeroVector, factory: factory)
 
         // When
         let result = try? adapter.applying(Gate.not(target: 0))
@@ -112,8 +117,8 @@ class DirectStatevectorRegisterTests: XCTestCase {
 
     func testNotGateAndThreeQubitVector_applying_returnExpectedVector() {
         // Given
-        let adapter = try! DirectStatevectorRegister(vector: threeQubitZeroVector,
-                                                     transformation: transformation)
+        factory.makeTransformationResult = transformation
+        let adapter = try! DirectStatevectorRegister(vector: threeQubitZeroVector, factory: factory)
 
         // When
         let result = try? adapter.applying(Gate.not(target: 2))
@@ -124,8 +129,8 @@ class DirectStatevectorRegisterTests: XCTestCase {
 
     func testTwoNotGatesAndThreeQubitVector_applying_returnExpectedVector() {
         // Given
-        let adapter = try! DirectStatevectorRegister(vector: threeQubitZeroVector,
-                                                     transformation: transformation)
+        factory.makeTransformationResult = transformation
+        let adapter = try! DirectStatevectorRegister(vector: threeQubitZeroVector, factory: factory)
 
         // When
         let result = try? adapter.applying(Gate.not(target: 2)).applying(Gate.not(target: 0))
@@ -135,8 +140,8 @@ class DirectStatevectorRegisterTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testVectorWhichLengthIsNotPowerOfTwo_init_throwException",
-         testVectorWhichLengthIsNotPowerOfTwo_init_throwException),
+        ("testFactoryThatThrowsException_init_throwException",
+         testFactoryThatThrowsException_init_throwException),
         ("testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException",
          testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException),
         ("testValidVector_statevector_returnValue",

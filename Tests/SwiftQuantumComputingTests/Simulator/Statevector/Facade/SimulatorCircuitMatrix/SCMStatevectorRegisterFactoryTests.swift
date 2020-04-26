@@ -59,11 +59,6 @@ class SCMStatevectorRegisterFactoryTests: XCTestCase {
         XCTAssertThrowsError(try adapter.makeTransformation(state: notPowerOfTwoVector))
     }
 
-    func testVectorAdditionOfSquareModulusIsNotEqualToOne_makeTransformation_throwError() {
-        // Then
-        XCTAssertThrowsError(try adapter.makeTransformation(state: squareModulusNotEqualToOneVector))
-    }
-
     func testValidVector_makeTransformation_returnValue() {
         // Then
         XCTAssertNoThrow(try adapter.makeTransformation(state: validVector))
@@ -78,8 +73,6 @@ class SCMStatevectorRegisterFactoryTests: XCTestCase {
          testValidVector_makeRegister_returnValue),
         ("testVectorWhichCountIsNotAPowerOfTwo_makeTransformation_throwError",
          testVectorWhichCountIsNotAPowerOfTwo_makeTransformation_throwError),
-        ("testVectorAdditionOfSquareModulusIsNotEqualToOne_makeTransformation_throwError",
-         testVectorAdditionOfSquareModulusIsNotEqualToOne_makeTransformation_throwError),
         ("testValidVector_makeTransformation_returnValue",
          testValidVector_makeTransformation_returnValue)
     ]

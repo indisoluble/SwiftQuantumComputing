@@ -31,6 +31,7 @@ struct DirectStatevectorRegister {
     // MARK: - Private properties
 
     private let qubitCount: Int
+    private let factory: DirectStatevectorTransformationFactory
     private let transformation: DirectStatevectorTransformationFactory.Transformation
 
     // MARK: - Internal init methods
@@ -39,16 +40,21 @@ struct DirectStatevectorRegister {
         case vectorCountHasToBeAPowerOfTwo
     }
 
-    init(vector: Vector,
-         transformation: DirectStatevectorTransformationFactory.Transformation) throws {
-        guard vector.count.isPowerOfTwo else {
+    init(vector: Vector, factory: DirectStatevectorTransformationFactory) throws {
+        var transformation: DirectStatevectorTransformationFactory.Transformation!
+        do {
+            transformation = try factory.makeTransformation(state: vector)
+        } catch MakeTransformationError.stateCountHasToBeAPowerOfTwo {
             throw InitError.vectorCountHasToBeAPowerOfTwo
+        } catch {
+            fatalError("Unexpected error: \(error).")
         }
 
         qubitCount = Int.log2(vector.count)
+        self.transformation = transformation
 
         self.vector = vector
-        self.transformation = transformation
+        self.factory = factory
     }
 }
 
@@ -71,7 +77,7 @@ extension DirectStatevectorRegister: StatevectorTransformation {
             nextVector = try transformation.applying(gate).vector
         }
 
-        return try! DirectStatevectorRegister(vector: nextVector, transformation: transformation)
+        return try! DirectStatevectorRegister(vector: nextVector, factory: factory)
     }
 }
 
