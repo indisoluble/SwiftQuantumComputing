@@ -65,9 +65,9 @@ extension StatevectorRegisterTestDouble: StatevectorMeasurement {
     }
 }
 
-// MARK: - StatevectorTransformation methods
+// MARK: - SimulatorTransformation methods
 
-extension StatevectorRegisterTestDouble: StatevectorTransformation {
+extension StatevectorRegisterTestDouble: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterTestDouble {
         applyingCount += 1
 

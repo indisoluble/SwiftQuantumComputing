@@ -29,7 +29,7 @@ enum MakeTransformationError: Error {
 // MARK: - Protocol definition
 
 protocol DirectStatevectorTransformationFactory {
-    typealias Transformation = StatevectorTransformation & SimpleStatevectorMeasurement
+    typealias Transformation = SimulatorTransformation & SimpleStatevectorMeasurement
 
     func makeTransformation(state: Vector) throws -> Transformation
 }

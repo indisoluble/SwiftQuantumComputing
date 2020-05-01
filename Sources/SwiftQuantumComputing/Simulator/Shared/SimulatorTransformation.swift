@@ -1,5 +1,5 @@
 //
-//  StatevectorTransformation.swift
+//  SimulatorTransformation.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 18/04/2020.
@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol StatevectorTransformation {
+protocol SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> Self
 }

@@ -66,9 +66,9 @@ extension DirectStatevectorRegister: StatevectorMeasurement {}
 
 extension DirectStatevectorRegister: SimpleStatevectorMeasurement {}
 
-// MARK: - StatevectorTransformation methods
+// MARK: - SimulatorTransformation methods
 
-extension DirectStatevectorRegister: StatevectorTransformation {
+extension DirectStatevectorRegister: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> DirectStatevectorRegister {
         var nextVector: Vector!
         if gate.extractRawInputs().count == 1 {

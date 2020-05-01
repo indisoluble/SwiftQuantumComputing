@@ -30,7 +30,7 @@ enum MakeRegisterError: Error {
 // MARK: - Protocol definition
 
 protocol StatevectorRegisterFactory {
-    typealias StatevectorRegister = StatevectorMeasurement & StatevectorTransformation
+    typealias StatevectorRegister = StatevectorMeasurement & SimulatorTransformation
 
     func makeRegister(state: Vector) throws -> StatevectorRegister
 }
