@@ -121,8 +121,14 @@ private extension Gate {
         case .not:
             resultMatrix = Constants.matrixNot
         case .oracle(let truthTable, _, let controls):
-            resultMatrix = try Matrix.makeOracle(truthTable: truthTable,
-                                                 controlCount: controls.count)
+            do {
+                resultMatrix = try Matrix.makeOracle(truthTable: truthTable,
+                                                     controlCount: controls.count)
+            } catch Matrix.MakeOracleError.controlsCanNotBeAnEmptyList {
+                throw GateError.gateOracleControlsCanNotBeAnEmptyList
+            } catch {
+                fatalError("Unexpected error: \(error).")
+            }
         case .phaseShift(let radians, _):
             resultMatrix = Matrix.makePhaseShift(radians: radians)
         }
