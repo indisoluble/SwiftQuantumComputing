@@ -63,7 +63,10 @@ extension SCMStatevectorRegister: SimpleStatevectorMeasurement {}
 
 extension SCMStatevectorRegister: StatevectorTransformation {
     func applying(_ gate: SimulatorGate) throws -> SCMStatevectorRegister {
-        let matrix = try matrixFactory.makeCircuitMatrix(qubitCount: qubitCount, gate: gate)
+        let components = try gate.extract(restrictedToCircuitQubitCount: qubitCount)
+        let matrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
+                                                     baseMatrix: components.matrix,
+                                                     inputs: components.inputs)
         let nextVector = try! matrix * vector
 
         return try! SCMStatevectorRegister(vector: nextVector, matrixFactory: matrixFactory)

@@ -42,33 +42,30 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
     // MARK: - Tests
 
     func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
-
         // When
-        let matrix = try? sut.makeCircuitMatrix(qubitCount: 2, gate: gate)
+        let matrix = sut.makeCircuitMatrix(qubitCount: 2,
+                                           baseMatrix: validMatrix,
+                                           inputs: validInputs)
 
         // Then
         XCTAssertEqual(matrix, validMatrix)
     }
 
     func testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix() {
-        // Given
-        let gate = Gate.matrix(matrix: otherValidMatrix, inputs: otherValidInputs)
-
         // When
-        let matrix = try? sut.makeCircuitMatrix(qubitCount: 1, gate: gate)
+        let matrix = sut.makeCircuitMatrix(qubitCount: 1,
+                                           baseMatrix: otherValidMatrix,
+                                           inputs: otherValidInputs)
 
         // Then
         XCTAssertEqual(matrix, otherValidMatrix)
     }
 
     func testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeCircuitMatrix_returnExpectedMatrix() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs.reversed())
-
         // When
-        let matrix = try? sut.makeCircuitMatrix(qubitCount: 2, gate: gate)
+        let matrix = sut.makeCircuitMatrix(qubitCount: 2,
+                                           baseMatrix: validMatrix,
+                                           inputs: validInputs.reversed())
 
         // Then
         let expectedElements = [
@@ -81,11 +78,10 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
     }
 
     func testNonContiguousInputs_makeCircuitMatrix_returnExpectedMatrix() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: [0, 2])
-
         // When
-        let matrix = try? sut.makeCircuitMatrix(qubitCount: validQubitCount, gate: gate)
+        let matrix = sut.makeCircuitMatrix(qubitCount: validQubitCount,
+                                           baseMatrix: validMatrix,
+                                           inputs: [0, 2])
 
         // Then
         let expectedElements = [
@@ -102,11 +98,8 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
     }
 
     func testContiguousInputsButInTheMiddle_makeCircuitMatrix_returnExpectedMatrix() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: [2, 1])
-
         // When
-        let matrix = try? sut.makeCircuitMatrix(qubitCount: 4, gate: gate)
+        let matrix = sut.makeCircuitMatrix(qubitCount: 4, baseMatrix: validMatrix, inputs: [2, 1])
 
         // Then
         let expectedElements = [

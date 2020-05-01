@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorCircuitMatrixFactory {
-    func makeCircuitMatrix(qubitCount: Int, gate: SimulatorGate) throws -> Matrix
+    func makeCircuitMatrix(qubitCount: Int, baseMatrix: Matrix, inputs: [Int]) -> Matrix
 }

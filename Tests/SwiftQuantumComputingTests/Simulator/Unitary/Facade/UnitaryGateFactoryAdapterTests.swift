@@ -34,7 +34,7 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testMatrixFactoryThatThrowsError_applying_throwError() {
+    func testGateThatThrowsError_applying_throwError() {
         // Given
         let adapter = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
 
@@ -42,39 +42,38 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         XCTAssertThrowsError(try adapter.makeGate(qubitCount: qubitCount,
                                                   simulatorGate: simulatorGate))
 
-        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
-        if let appliedGate = matrixFactory.lastMakeCircuitMatrixGate as? SimulatorGateTestDouble {
-            XCTAssertTrue(appliedGate === simulatorGate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(simulatorGate.extractCount, 1)
+        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 0)
     }
 
-    func testMatrixFactoryReturnsGate_applying_returnValue() {
+    func testGateReturnsComponents_applying_returnValue() {
         // Given
         let adapter = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
 
-        matrixFactory.makeCircuitMatrixResult = Matrix.makeNot()
+        let gateInputs = [0]
+        let gateMatrix = Matrix.makeNot()
+        simulatorGate.extractInputsResult = gateInputs
+        simulatorGate.extractMatrixResult = gateMatrix
+
+        let circuitMatrix = Matrix.makeHadamard()
+        matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
         let result = try? adapter.makeGate(qubitCount: qubitCount, simulatorGate: simulatorGate)
 
         // Then
+        XCTAssertEqual(simulatorGate.extractCount, 1)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
-        if let appliedGate = matrixFactory.lastMakeCircuitMatrixGate as? SimulatorGateTestDouble {
-            XCTAssertTrue(appliedGate === simulatorGate)
-        } else {
-            XCTAssert(false)
-        }
-        XCTAssertEqual(try? result?.unitary(), Matrix.makeNot())
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
+        XCTAssertEqual(try? result?.unitary(), circuitMatrix)
     }
 
     static var allTests = [
-        ("testMatrixFactoryThatThrowsError_applying_throwError",
-         testMatrixFactoryThatThrowsError_applying_throwError),
-        ("testMatrixFactoryReturnsGate_applying_returnValue",
-         testMatrixFactoryReturnsGate_applying_returnValue)
+        ("testGateThatThrowsError_applying_throwError",
+         testGateThatThrowsError_applying_throwError),
+        ("testGateReturnsComponents_applying_returnValue",
+         testGateReturnsComponents_applying_returnValue)
     ]
 }

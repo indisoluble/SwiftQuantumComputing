@@ -64,21 +64,15 @@ class SCMStatevectorRegisterTests: XCTestCase {
         XCTAssertEqual(result, vector)
     }
 
-    func testMatrixFactoryThatThrowsError_applying_throwError() {
+    func testGateThatThrowsError_applying_throwError() {
         // Given
         let vector = try! Vector([Complex.one, Complex.zero])
-        let vectorQubitCount = 1
         let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
 
         // Then
         XCTAssertThrowsError(try adapter.applying(gate))
-        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, vectorQubitCount)
-        if let appliedGate = matrixFactory.lastMakeCircuitMatrixGate as? SimulatorGateTestDouble {
-            XCTAssertTrue(appliedGate === gate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(gate.extractCount, 1)
+        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 0)
     }
 
     func testMatrixFactoryReturnsMatrix_applying_returnValue() {
@@ -90,20 +84,23 @@ class SCMStatevectorRegisterTests: XCTestCase {
         let vector = try! Vector(elements)
         let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
 
-        let matrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
-        matrixFactory.makeCircuitMatrixResult = matrix
+        let gateInputs = [0]
+        let gateMatrix = Matrix.makeNot()
+        gate.extractInputsResult = gateInputs
+        gate.extractMatrixResult = gateMatrix
+
+        let circuitMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
+        matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
         let result = try? adapter.applying(gate)
 
         // Then
+        XCTAssertEqual(gate.extractCount, 1)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, vectorQubitCount)
-        if let appliedGate = matrixFactory.lastMakeCircuitMatrixGate as? SimulatorGateTestDouble {
-            XCTAssertTrue(appliedGate === gate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one])
         XCTAssertEqual(try? result?.statevector(), expectedVector)
@@ -118,21 +115,25 @@ class SCMStatevectorRegisterTests: XCTestCase {
         let vector = try! Vector(elements)
         let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
 
-        let matrix = try! SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrix(qubitCount: qubitCount,
-                                                                                   gate: Gate.not(target: 0))
-        matrixFactory.makeCircuitMatrixResult = matrix
+        let gateInputs = [0]
+        let gateMatrix = Matrix.makeNot()
+        gate.extractInputsResult = gateInputs
+        gate.extractMatrixResult = gateMatrix
+
+        let circuitMatrix = SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrix(qubitCount: qubitCount,
+                                                                                     baseMatrix: gateMatrix,
+                                                                                     inputs: gateInputs)
+        matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
         let result = try? adapter.applying(gate)
 
         // Then
+        XCTAssertEqual(gate.extractCount, 1)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
-        if let appliedGate = matrixFactory.lastMakeCircuitMatrixGate as? SimulatorGateTestDouble {
-            XCTAssertTrue(appliedGate === gate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
         XCTAssertEqual(try? result?.statevector(), expectedVector)
@@ -145,8 +146,8 @@ class SCMStatevectorRegisterTests: XCTestCase {
          testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException),
         ("testValidVector_statevector_returnValue",
          testValidVector_statevector_returnValue),
-        ("testMatrixFactoryThatThrowsError_applying_throwError",
-         testMatrixFactoryThatThrowsError_applying_throwError),
+        ("testGateThatThrowsError_applying_throwError",
+         testGateThatThrowsError_applying_throwError),
         ("testMatrixFactoryReturnsMatrix_applying_returnValue",
          testMatrixFactoryReturnsMatrix_applying_returnValue),
         ("testTwoQubitsRegisterInitializedToZeroAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne",
