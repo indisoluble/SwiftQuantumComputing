@@ -54,17 +54,21 @@ struct UnitaryGateAdapter {
     }
 }
 
-// MARK: - UnitaryGate methods
+// MARK: - UnitaryMatrix methods
 
-extension UnitaryGateAdapter: UnitaryGate {
+extension UnitaryGateAdapter: UnitaryMatrix {
     func unitary() throws -> Matrix {
         guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            throw UnitaryError.resultingMatrixIsNotUnitary
+            throw UnitaryMatrixError.matrixIsNotUnitary
         }
 
         return matrix
     }
+}
 
+// MARK: - SimulatorTransformation methods
+
+extension UnitaryGateAdapter: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> UnitaryGateAdapter {
         let components = try gate.extract(restrictedToCircuitQubitCount: qubitCount)
         let otherMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,

@@ -43,7 +43,7 @@ extension UnitarySimulatorFacade: UnitarySimulator {
             throw UnitaryError.circuitCanNotBeAnEmptyList
         }
 
-        var unitaryGate: UnitaryGate?
+        var unitaryGate: UnitaryGateFactory.UnitaryGate?
         for gate in circuit {
             do {
                 unitaryGate = (unitaryGate == nil ?
@@ -56,6 +56,15 @@ extension UnitarySimulatorFacade: UnitarySimulator {
             }
         }
 
-        return try unitaryGate!.unitary()
+        var matrix: Matrix!
+        do {
+            matrix = try unitaryGate!.unitary()
+        } catch UnitaryMatrixError.matrixIsNotUnitary {
+            throw UnitaryError.resultingMatrixIsNotUnitary
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
+
+        return matrix
     }
 }
