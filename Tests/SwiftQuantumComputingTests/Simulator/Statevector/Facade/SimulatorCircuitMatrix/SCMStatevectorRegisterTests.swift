@@ -71,7 +71,7 @@ class SCMStatevectorRegisterTests: XCTestCase {
 
         // Then
         XCTAssertThrowsError(try adapter.applying(gate))
-        XCTAssertEqual(gate.extractCount, 1)
+        XCTAssertEqual(gate.extractComponentsCount, 1)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 0)
     }
 
@@ -86,8 +86,8 @@ class SCMStatevectorRegisterTests: XCTestCase {
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
-        gate.extractInputsResult = gateInputs
-        gate.extractMatrixResult = gateMatrix
+        gate.extractComponentsInputsResult = gateInputs
+        gate.extractComponentsMatrixResult = gateMatrix
 
         let circuitMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
@@ -96,8 +96,8 @@ class SCMStatevectorRegisterTests: XCTestCase {
         let result = try? adapter.applying(gate)
 
         // Then
-        XCTAssertEqual(gate.extractCount, 1)
-        XCTAssertEqual(gate.lastExtractQubitCount, vectorQubitCount)
+        XCTAssertEqual(gate.extractComponentsCount, 1)
+        XCTAssertEqual(gate.lastExtractComponentsQubitCount, vectorQubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, vectorQubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
@@ -118,8 +118,8 @@ class SCMStatevectorRegisterTests: XCTestCase {
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
-        gate.extractInputsResult = gateInputs
-        gate.extractMatrixResult = gateMatrix
+        gate.extractComponentsInputsResult = gateInputs
+        gate.extractComponentsMatrixResult = gateMatrix
 
         let circuitMatrix = SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrix(qubitCount: qubitCount,
                                                                                      baseMatrix: gateMatrix,
@@ -130,8 +130,8 @@ class SCMStatevectorRegisterTests: XCTestCase {
         let result = try? adapter.applying(gate)
 
         // Then
-        XCTAssertEqual(gate.extractCount, 1)
-        XCTAssertEqual(gate.lastExtractQubitCount, qubitCount)
+        XCTAssertEqual(gate.extractComponentsCount, 1)
+        XCTAssertEqual(gate.lastExtractComponentsQubitCount, qubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)

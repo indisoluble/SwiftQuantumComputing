@@ -35,7 +35,7 @@ final class StatevectorRegisterFactoryTestDouble {
 
     private (set) var makeTransformationCount = 0
     private (set) var lastMakeTransformationState: Vector?
-    var makeTransformationResult: DirectStatevectorTransformationFactory.Transformation?
+    var makeTransformationResult: StatevectorTransformation?
     var makeTransformationError = MakeTransformationError.stateCountHasToBeAPowerOfTwo
 }
 
@@ -55,10 +55,10 @@ extension StatevectorRegisterFactoryTestDouble: StatevectorRegisterFactory {
     }
 }
 
-// MARK: - DirectStatevectorTransformationFactory methods
+// MARK: - StatevectorTransformationFactory methods
 
-extension StatevectorRegisterFactoryTestDouble: DirectStatevectorTransformationFactory {
-    func makeTransformation(state: Vector) throws -> Transformation {
+extension StatevectorRegisterFactoryTestDouble: StatevectorTransformationFactory {
+    func makeTransformation(state: Vector) throws -> StatevectorTransformation {
         makeTransformationCount += 1
 
         lastMakeTransformationState = state

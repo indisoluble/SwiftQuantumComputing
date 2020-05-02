@@ -89,17 +89,13 @@ class DirectStatevectorRegisterTests: XCTestCase {
 
         let gate = Gate.oracle(truthTable: ["00"], target: 0, controls: [1, 2])
 
-        let applyingResult = StatevectorRegisterTestDouble()
-        applyingResult.vectorResult = threeQubitFourVector
-        transformation.applyingResult = applyingResult
+        transformation.statevectorApplyingResult = threeQubitFourVector
 
         // When
         let result = try? adapter.applying(gate)
 
         // Then
-        XCTAssertEqual(transformation.applyingCount, 1)
-        XCTAssertEqual(transformation.lastApplyingGate as? Gate, gate)
-        XCTAssertEqual(applyingResult.vectorCount, 1)
+        XCTAssertEqual(transformation.statevectorApplyingCount, 1)
         XCTAssertEqual(result?.vector, threeQubitFourVector)
     }
 

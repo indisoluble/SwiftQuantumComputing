@@ -57,7 +57,7 @@ extension Gate: SimulatorGate {
         return self
     }
 
-    func extract(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
+    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
         let inputs = extractInputs()
         guard areInputsUnique(inputs) else {
             throw GateError.gateInputsAreNotUnique

@@ -31,10 +31,11 @@ final class SimulatorGateTestDouble {
     private (set) var gateCount = 0
     var gateResult = Gate.not(target: 0)
 
-    private (set) var extractCount = 0
-    private (set) var lastExtractQubitCount: Int?
-    var extractMatrixResult: Matrix?
-    var extractInputsResult: [Int]?
+    private (set) var extractComponentsCount = 0
+    private (set) var lastExtractComponentsQubitCount: Int?
+    var extractComponentsMatrixResult: Matrix?
+    var extractComponentsInputsResult: [Int]?
+    var extractComponentsError = GateError.gateOracleControlsCanNotBeAnEmptyList
 }
 
 // MARK: - SimulatorGate methods
@@ -46,15 +47,16 @@ extension SimulatorGateTestDouble: SimulatorGate {
         return gateResult
     }
 
-    func extract(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
-        extractCount += 1
+    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
+        extractComponentsCount += 1
 
-        lastExtractQubitCount = qubitCount
+        lastExtractComponentsQubitCount = qubitCount
 
-        if let matrix = extractMatrixResult, let inputs = extractInputsResult {
+        if let matrix = extractComponentsMatrixResult,
+            let inputs = extractComponentsInputsResult {
             return (matrix: matrix, inputs: inputs)
         }
 
-        throw GateError.gateOracleControlsCanNotBeAnEmptyList
+        throw extractComponentsError
     }
 }

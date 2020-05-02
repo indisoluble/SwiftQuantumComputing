@@ -31,8 +31,8 @@ struct DirectStatevectorRegister {
     // MARK: - Private properties
 
     private let qubitCount: Int
-    private let factory: DirectStatevectorTransformationFactory
-    private let transformation: DirectStatevectorTransformationFactory.Transformation
+    private let factory: StatevectorTransformationFactory
+    private let transformation: StatevectorTransformation
 
     // MARK: - Internal init methods
 
@@ -40,8 +40,8 @@ struct DirectStatevectorRegister {
         case vectorCountHasToBeAPowerOfTwo
     }
 
-    init(vector: Vector, factory: DirectStatevectorTransformationFactory) throws {
-        var transformation: DirectStatevectorTransformationFactory.Transformation!
+    init(vector: Vector, factory: StatevectorTransformationFactory) throws {
+        var transformation: StatevectorTransformation!
         do {
             transformation = try factory.makeTransformation(state: vector)
         } catch MakeTransformationError.stateCountHasToBeAPowerOfTwo {
@@ -70,16 +70,27 @@ extension DirectStatevectorRegister: SimpleStatevectorMeasurement {}
 
 extension DirectStatevectorRegister: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> DirectStatevectorRegister {
-        var nextVector: Vector!
+        let (baseMatrix, inputs) = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
 
-        let components = try? gate.extract(restrictedToCircuitQubitCount: qubitCount)
-        if (components?.inputs ?? []).count == 1 {
-            nextVector = try applying(singleQubitGate: gate)
-        } else {
-            nextVector = try transformation.applying(gate).vector
-        }
+        let nextVector = applying(gateMatrix: baseMatrix, toInputs: inputs)
 
         return try! DirectStatevectorRegister(vector: nextVector, factory: factory)
+    }
+}
+
+// MARK: - StatevectorTransformation methods
+
+extension DirectStatevectorRegister: StatevectorTransformation {
+    func applying(gateMatrix: Matrix, toInputs inputs: [Int]) -> Vector {
+        var nextVector: Vector!
+
+        if inputs.count == 1 {
+            nextVector = applying(oneQubitMatrix: gateMatrix, toInput: inputs.first!)
+        } else {
+            nextVector = transformation.applying(gateMatrix: gateMatrix, toInputs: inputs)
+        }
+
+        return nextVector
     }
 }
 
@@ -89,26 +100,24 @@ private extension DirectStatevectorRegister {
 
     // MARK: - Private methods
 
-    func applying(singleQubitGate gate: SimulatorGate) throws -> Vector {
-        let (matrix, inputs) = try gate.extract(restrictedToCircuitQubitCount: qubitCount)
+    func applying(oneQubitMatrix matrix: Matrix, toInput input: Int) -> Vector {
+            let mask = 1 << input
+            let invMask = ~mask
 
-        let mask = 1 << inputs.first!
-        let invMask = ~mask
+            return try! Vector.makeVector(count: vector.count) { index in
+                var value: Complex!
 
-        return try! Vector.makeVector(count: vector.count) { index in
-            var value: Complex!
+                if index & mask == 0 {
+                    let otherIndex = index | mask
 
-            if index & mask == 0 {
-                let otherIndex = index | mask
+                    value = matrix[0, 0] * vector[index] + matrix[0, 1] * vector[otherIndex]
+                } else {
+                    let otherIndex = index & invMask
 
-                value = matrix[0, 0] * vector[index] + matrix[0, 1] * vector[otherIndex]
-            } else {
-                let otherIndex = index & invMask
+                    value = matrix[1, 0] * vector[otherIndex] + matrix[1, 1] * vector[index]
+                }
 
-                value = matrix[1, 0] * vector[otherIndex] + matrix[1, 1] * vector[index]
-            }
-
-            return value
+                return value
         }
     }
 }

@@ -35,10 +35,15 @@ final class StatevectorRegisterTestDouble {
     var statevectorResult: Vector?
     var statevectorError = StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne
 
-    private (set) var applyingCount = 0
-    private (set) var lastApplyingGate: SimulatorGate?
-    var applyingResult: StatevectorRegisterTestDouble?
-    var applyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+    private (set) var simulatorApplyingCount = 0
+    private (set) var lastSimulatorApplyingGate: SimulatorGate?
+    var simulatorApplyingResult: StatevectorRegisterTestDouble?
+    var simulatorApplyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+
+    private (set) var statevectorApplyingCount = 0
+    private (set) var lastStatevectorApplyingMatrix: Matrix?
+    private (set) var lastStatevectorApplyingInputs: [Int]?
+    var statevectorApplyingResult = try! Vector([Complex.one, Complex.zero])
 }
 
 // MARK: - SimpleStatevectorMeasurement methods
@@ -69,14 +74,27 @@ extension StatevectorRegisterTestDouble: StatevectorMeasurement {
 
 extension StatevectorRegisterTestDouble: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterTestDouble {
-        applyingCount += 1
+        simulatorApplyingCount += 1
 
-        lastApplyingGate = gate
+        lastSimulatorApplyingGate = gate
 
-        if let applyingResult = applyingResult {
+        if let applyingResult = simulatorApplyingResult {
             return applyingResult
         }
 
-        throw applyingError
+        throw simulatorApplyingError
+    }
+}
+
+// MARK: - StatevectorTransformation methods
+
+extension StatevectorRegisterTestDouble: StatevectorTransformation {
+    func applying(gateMatrix: Matrix, toInputs inputs: [Int]) -> Vector {
+        statevectorApplyingCount += 1
+
+        lastStatevectorApplyingMatrix = gateMatrix
+        lastStatevectorApplyingInputs = inputs
+
+        return statevectorApplyingResult
     }
 }

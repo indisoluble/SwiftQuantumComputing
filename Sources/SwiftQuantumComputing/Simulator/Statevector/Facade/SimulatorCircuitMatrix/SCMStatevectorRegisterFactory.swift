@@ -60,10 +60,10 @@ extension SCMStatevectorRegisterFactory: StatevectorRegisterFactory {
     }
 }
 
-// MARK: - DirectStatevectorTransformationFactory methods
+// MARK: - StatevectorTransformationFactory methods
 
-extension SCMStatevectorRegisterFactory: DirectStatevectorTransformationFactory {
-    func makeTransformation(state: Vector) throws -> Transformation {
+extension SCMStatevectorRegisterFactory: StatevectorTransformationFactory {
+    func makeTransformation(state: Vector) throws -> StatevectorTransformation {
         do {
             return try SCMStatevectorRegister(vector: state, matrixFactory: matrixFactory)
         } catch SCMStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {

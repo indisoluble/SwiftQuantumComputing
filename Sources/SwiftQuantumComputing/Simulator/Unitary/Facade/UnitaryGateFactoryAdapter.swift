@@ -39,7 +39,7 @@ struct UnitaryGateFactoryAdapter {
 
 extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
     func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) throws -> UnitaryGate {
-        let components = try simulatorGate.extract(restrictedToCircuitQubitCount: qubitCount)
+        let components = try simulatorGate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
         let matrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
                                                      baseMatrix: components.matrix,
                                                      inputs: components.inputs)

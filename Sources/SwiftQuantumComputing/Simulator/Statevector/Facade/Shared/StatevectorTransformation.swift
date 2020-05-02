@@ -1,8 +1,8 @@
 //
-//  DirectStatevectorTransformationFactory.swift
+//  StatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 26/04/2020.
+//  Created by Enrique de la Torre on 02/05/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,8 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum MakeTransformationError: Error {
-    case stateCountHasToBeAPowerOfTwo
-}
-
 // MARK: - Protocol definition
 
-protocol DirectStatevectorTransformationFactory {
-    typealias Transformation = SimulatorTransformation & SimpleStatevectorMeasurement
-
-    func makeTransformation(state: Vector) throws -> Transformation
+protocol StatevectorTransformation {
+    func applying(gateMatrix: Matrix, toInputs inputs: [Int]) -> Vector
 }

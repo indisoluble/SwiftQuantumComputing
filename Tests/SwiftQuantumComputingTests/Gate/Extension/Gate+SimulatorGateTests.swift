@@ -48,94 +48,94 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extract_throwException() {
+    func testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException() {
         // Given
         let gate = Gate.controlledMatrix(matrix: nonPowerOfTwoSizeMatrix, inputs: [0], control: 1)
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: validQubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
     }
 
-    func testGateMatrixWithNonPowerOfTwoSizeMatrix_extract_throwException() {
+    func testGateMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException() {
         // Given
         let gate = Gate.matrix(matrix: nonPowerOfTwoSizeMatrix, inputs: [0])
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: validQubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
     }
 
-    func testGateControlledMatrixWithNonUnitaryMatrix_extract_throwException() {
+    func testGateControlledMatrixWithNonUnitaryMatrix_extractComponents_throwException() {
         // Given
         let gate = Gate.controlledMatrix(matrix: nonUnitaryMatrix, inputs: [0], control: 1)
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: validQubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
     }
 
-    func testGateMatrixWithNonUnitaryMatrix_extract_throwException() {
+    func testGateMatrixWithNonUnitaryMatrix_extractComponents_throwException() {
         // Given
         let gate = Gate.matrix(matrix: nonUnitaryMatrix, inputs: [0])
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: validQubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
     }
 
-    func testGateMatrixWithValidMatrixAndMoreInputsThanGateTakes_extract_throwException() {
+    func testGateMatrixWithValidMatrixAndMoreInputsThanGateTakes_extractComponents_throwException() {
         // Given
         let gate = Gate.matrix(matrix: validMatrix, inputs: [2, 1, 0])
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: validQubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
     }
 
-    func testGateMatrixWithValidMatrixAndLessInputsThanGateTakes_extract_throwException() {
+    func testGateMatrixWithValidMatrixAndLessInputsThanGateTakes_extractComponents_throwException() {
         // Given
         let gate = Gate.matrix(matrix: validMatrix, inputs: [0])
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: validQubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
     }
 
-    func testGateMatrixWithValidMatrixAndRepeatedInputs_extract_throwException() {
+    func testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException() {
         // Given
         let gate = Gate.matrix(matrix: validMatrix, inputs: [1, 1])
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: validQubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
     }
 
-    func testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extract_throwException() {
+    func testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extractComponents_throwException() {
         // Given
         let qubitCount = 0
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: qubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount))
     }
 
-    func testGateMatrixWithValidMatrixAndSizeBiggerThanQubitCount_extract_throwException() {
+    func testGateMatrixWithValidMatrixAndSizeBiggerThanQubitCount_extractComponents_throwException() {
         // Given
         let qubitCount = 1
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: qubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount))
     }
 
-    func testGateMatrixWithValidMatrixAndInputsOutOfRange_extract_throwException() {
+    func testGateMatrixWithValidMatrixAndInputsOutOfRange_extractComponents_throwException() {
         // Given
         let gate = Gate.matrix(matrix: validMatrix, inputs: [0, validQubitCount])
 
         // Then
-        XCTAssertThrowsError(try gate.extract(restrictedToCircuitQubitCount: validQubitCount))
+        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
     }
 
-    func testGateMatrixWithValidMatrixAndValidInputs_extract_returnExpectedValues() {
+    func testGateMatrixWithValidMatrixAndValidInputs_extractComponents_returnExpectedValues() {
         // Given
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
 
         // When
-        let result = try? gate.extract(restrictedToCircuitQubitCount: validQubitCount)
+        let result = try? gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount)
 
         // Then
         XCTAssertEqual(result?.matrix, validMatrix)
@@ -143,27 +143,27 @@ class Gate_SimulatorGateTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extract_throwException",
-         testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extract_throwException),
-        ("testGateMatrixWithNonPowerOfTwoSizeMatrix_extract_throwException",
-         testGateMatrixWithNonPowerOfTwoSizeMatrix_extract_throwException),
-        ("testGateControlledMatrixWithNonUnitaryMatrix_extract_throwException",
-         testGateControlledMatrixWithNonUnitaryMatrix_extract_throwException),
-        ("testGateMatrixWithNonUnitaryMatrix_extract_throwException",
-         testGateMatrixWithNonUnitaryMatrix_extract_throwException),
-        ("testGateMatrixWithValidMatrixAndMoreInputsThanGateTakes_extract_throwException",
-         testGateMatrixWithValidMatrixAndMoreInputsThanGateTakes_extract_throwException),
-        ("testGateMatrixWithValidMatrixAndLessInputsThanGateTakes_extract_throwException",
-         testGateMatrixWithValidMatrixAndLessInputsThanGateTakes_extract_throwException),
-        ("testGateMatrixWithValidMatrixAndRepeatedInputs_extract_throwException",
-         testGateMatrixWithValidMatrixAndRepeatedInputs_extract_throwException),
-        ("testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extract_throwException",
-         testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extract_throwException),
-        ("testGateMatrixWithValidMatrixAndSizeBiggerThanQubitCount_extract_throwException",
-         testGateMatrixWithValidMatrixAndSizeBiggerThanQubitCount_extract_throwException),
-        ("testGateMatrixWithValidMatrixAndInputsOutOfRange_extract_throwException",
-         testGateMatrixWithValidMatrixAndInputsOutOfRange_extract_throwException),
-        ("testGateMatrixWithValidMatrixAndValidInputs_extract_returnExpectedValues",
-         testGateMatrixWithValidMatrixAndValidInputs_extract_returnExpectedValues)
+        ("testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException",
+         testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException),
+        ("testGateMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException",
+         testGateMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException),
+        ("testGateControlledMatrixWithNonUnitaryMatrix_extractComponents_throwException",
+         testGateControlledMatrixWithNonUnitaryMatrix_extractComponents_throwException),
+        ("testGateMatrixWithNonUnitaryMatrix_extractComponents_throwException",
+         testGateMatrixWithNonUnitaryMatrix_extractComponents_throwException),
+        ("testGateMatrixWithValidMatrixAndMoreInputsThanGateTakes_extractComponents_throwException",
+         testGateMatrixWithValidMatrixAndMoreInputsThanGateTakes_extractComponents_throwException),
+        ("testGateMatrixWithValidMatrixAndLessInputsThanGateTakes_extractComponents_throwException",
+         testGateMatrixWithValidMatrixAndLessInputsThanGateTakes_extractComponents_throwException),
+        ("testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException",
+         testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException),
+        ("testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extractComponents_throwException",
+         testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extractComponents_throwException),
+        ("testGateMatrixWithValidMatrixAndSizeBiggerThanQubitCount_extractComponents_throwException",
+         testGateMatrixWithValidMatrixAndSizeBiggerThanQubitCount_extractComponents_throwException),
+        ("testGateMatrixWithValidMatrixAndInputsOutOfRange_extractComponents_throwException",
+         testGateMatrixWithValidMatrixAndInputsOutOfRange_extractComponents_throwException),
+        ("testGateMatrixWithValidMatrixAndValidInputs_extractComponents_returnExpectedValues",
+         testGateMatrixWithValidMatrixAndValidInputs_extractComponents_returnExpectedValues)
     ]
 }

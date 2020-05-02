@@ -26,11 +26,11 @@ struct DirectStatevectorRegisterFactory {
 
     // MARK: - Private properties
 
-    private let factory: DirectStatevectorTransformationFactory
+    private let factory: StatevectorTransformationFactory
 
     // MARK: - Internal init methods
 
-    init(factory: DirectStatevectorTransformationFactory) {
+    init(factory: StatevectorTransformationFactory) {
         self.factory = factory
     }
 }
