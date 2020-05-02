@@ -113,6 +113,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
         // Then
         XCTAssertEqual(simulatorGate.extractCount, 1)
+        XCTAssertEqual(simulatorGate.lastExtractQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
@@ -137,6 +138,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
         // Then
         XCTAssertEqual(simulatorGate.extractCount, 1)
+        XCTAssertEqual(simulatorGate.lastExtractQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)

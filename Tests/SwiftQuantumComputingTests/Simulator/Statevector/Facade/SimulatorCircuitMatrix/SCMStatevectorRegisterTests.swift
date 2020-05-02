@@ -97,6 +97,7 @@ class SCMStatevectorRegisterTests: XCTestCase {
 
         // Then
         XCTAssertEqual(gate.extractCount, 1)
+        XCTAssertEqual(gate.lastExtractQubitCount, vectorQubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, vectorQubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
@@ -130,6 +131,7 @@ class SCMStatevectorRegisterTests: XCTestCase {
 
         // Then
         XCTAssertEqual(gate.extractCount, 1)
+        XCTAssertEqual(gate.lastExtractQubitCount, qubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)

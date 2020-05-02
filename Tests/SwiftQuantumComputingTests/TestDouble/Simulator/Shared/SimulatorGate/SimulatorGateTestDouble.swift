@@ -32,6 +32,7 @@ final class SimulatorGateTestDouble {
     var gateResult = Gate.not(target: 0)
 
     private (set) var extractCount = 0
+    private (set) var lastExtractQubitCount: Int?
     var extractMatrixResult: Matrix?
     var extractInputsResult: [Int]?
 
@@ -48,8 +49,10 @@ extension SimulatorGateTestDouble: SimulatorGate {
         return gateResult
     }
 
-    func extract() throws -> (matrix: Matrix, inputs: [Int]) {
+    func extract(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
         extractCount += 1
+
+        lastExtractQubitCount = qubitCount
 
         if let matrix = extractMatrixResult, let inputs = extractInputsResult {
             return (matrix: matrix, inputs: inputs)

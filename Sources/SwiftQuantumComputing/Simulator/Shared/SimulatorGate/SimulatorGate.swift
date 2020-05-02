@@ -27,47 +27,6 @@ protocol SimulatorGate {
 
     var gate: Gate { get }
 
-    func extract() throws -> Components
+    func extract(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components
     func extractRawInputs() -> [Int]
-}
-
-// MARK: - SimulatorGate extension
-
-extension SimulatorGate {
-    func extract(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
-        let (matrix, inputs) = try extract()
-
-        guard qubitCount > 0 else {
-            throw GateError.circuitQubitCountHasToBeBiggerThanZero
-        }
-
-        guard doesMatrixFitInCircuit(matrix, qubitCount: qubitCount) else {
-            throw GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
-        }
-
-        guard areInputsInBound(inputs, qubitCount: qubitCount) else {
-            throw GateError.gateInputsAreNotInBound
-        }
-
-        return (matrix, inputs)
-    }
-}
-
-// MARK: - Private body
-
-private extension SimulatorGate {
-
-    // MARK: - Private methods
-
-    func doesMatrixFitInCircuit(_ matrix: Matrix, qubitCount: Int) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.rowCount)
-
-        return matrixQubitCount <= qubitCount
-    }
-
-    func areInputsInBound(_ inputs: [Int], qubitCount: Int) -> Bool {
-        let validInputs = (0..<qubitCount)
-
-        return inputs.allSatisfy { validInputs.contains($0) }
-    }
 }
