@@ -1,5 +1,5 @@
 //
-//  ArraySimulatorGate+QubitCountTests.swift
+//  ArrayGate+QubitCountTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 10/11/2019.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class ArraySimulatorGate_QubitCountTests: XCTestCase {
+class ArrayGate_QubitCountTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -40,7 +40,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
 
     func testEmptyCircuit_qubitCount_returnOne() {
         // Given
-        let circuit: [SimulatorGate] = []
+        let circuit: [Gate] = []
 
         // Then
         XCTAssertEqual(circuit.qubitCount(), 1)
@@ -49,7 +49,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
     func testCircuitWithSingleQubitGates_qubitCount_returnExpectedValue() {
         // Given
         let maxIndex = 10
-        let circuit: [SimulatorGate] = [
+        let circuit = [
             Gate.hadamard(target: 0),
             Gate.not(target: 2),
             Gate.phaseShift(radians: 0, target: 1),
@@ -65,7 +65,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
     func testCircuitWithMultiQubitGates_qubitCount_returnExpectedValue() {
         // Given
         let maxIndex = 10
-        let circuit: [SimulatorGate] = [
+        let circuit = [
             Gate.controlledMatrix(matrix: matrix, inputs: [1, 3, 6], control: 2),
             Gate.controlledNot(target: 0, control: 1),
             Gate.controlledNot(target: 1, control: 0),
@@ -81,7 +81,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
 
     func testCircuitWithOnlyOneMatrixGateWithoutInputs_qubitCount_returnOne() {
         // Given
-        let circuit: [SimulatorGate] = [Gate.matrix(matrix: matrix, inputs: [])]
+        let circuit = [Gate.matrix(matrix: matrix, inputs: [])]
 
         // Then
         XCTAssertEqual(circuit.qubitCount(), 1)
@@ -90,7 +90,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
     func testCircuitWithMatrixGateWithoutInputsAndOtherGates_qubitCount_returnExpectedValue() {
         // Given
         let maxIndex = 10
-        let circuit: [SimulatorGate] = [
+        let circuit = [
             Gate.matrix(matrix: matrix, inputs: []),
             Gate.oracle(truthTable: truthTable, target: 2, controls: [maxIndex, 7])
         ]
@@ -102,7 +102,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
     func testCircuitWithOnlyOneOracleGateWithoutControls_qubitCount_returnExpectedValue() {
         // Given
         let maxIndex = 10
-        let circuit: [SimulatorGate] = [
+        let circuit = [
             Gate.oracle(truthTable: truthTable, target: maxIndex, controls: [])
         ]
 
@@ -113,7 +113,7 @@ class ArraySimulatorGate_QubitCountTests: XCTestCase {
     func testCircuitWithOnlyOneOracleGateWithoutControlsAndOtherGates_qubitCount_returnExpectedValue() {
         // Given
         let maxIndex = 10
-        let circuit: [SimulatorGate] = [
+        let circuit = [
             Gate.oracle(truthTable: truthTable, target: 2, controls: []),
             Gate.matrix(matrix: matrix, inputs: [1, maxIndex, 6])
         ]

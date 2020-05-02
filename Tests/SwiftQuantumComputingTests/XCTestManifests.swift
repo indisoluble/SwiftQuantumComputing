@@ -24,7 +24,7 @@ import XCTest
 
 public func allTests() -> [XCTestCaseEntry] {
     return [
-        testCase(ArraySimulatorGate_QubitCountTests.allTests),
+        testCase(ArrayGate_QubitCountTests.allTests),
         testCase(DirectStatevectorRegisterTests.allTests),
         testCase(DirectStatevectorRegisterFactoryTests.allTests),
         testCase(SCMStatevectorRegisterTests.allTests),

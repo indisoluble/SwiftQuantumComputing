@@ -71,7 +71,9 @@ extension DirectStatevectorRegister: SimpleStatevectorMeasurement {}
 extension DirectStatevectorRegister: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> DirectStatevectorRegister {
         var nextVector: Vector!
-        if gate.extractRawInputs().count == 1 {
+
+        let components = try? gate.extract(restrictedToCircuitQubitCount: qubitCount)
+        if (components?.inputs ?? []).count == 1 {
             nextVector = try applying(singleQubitGate: gate)
         } else {
             nextVector = try transformation.applying(gate).vector

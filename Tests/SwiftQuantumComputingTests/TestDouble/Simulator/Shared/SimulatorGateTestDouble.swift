@@ -35,9 +35,6 @@ final class SimulatorGateTestDouble {
     private (set) var lastExtractQubitCount: Int?
     var extractMatrixResult: Matrix?
     var extractInputsResult: [Int]?
-
-    private (set) var extractRawInputsCount = 0
-    var extractRawInputsResult: [Int] = []
 }
 
 // MARK: - SimulatorGate methods
@@ -59,11 +56,5 @@ extension SimulatorGateTestDouble: SimulatorGate {
         }
 
         throw GateError.gateOracleControlsCanNotBeAnEmptyList
-    }
-
-    func extractRawInputs() -> [Int] {
-        extractRawInputsCount += 1
-
-        return extractRawInputsResult
     }
 }

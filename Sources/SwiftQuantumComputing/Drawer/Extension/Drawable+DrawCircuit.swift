@@ -36,7 +36,7 @@ extension Drawable {
      - Returns: A view with a representation of the `circuit` inside.
      */
     public func drawCircuit(_ circuit: [Gate]) throws -> SQCView {
-        let qubitCount = (circuit as [SimulatorGate]).qubitCount()
+        let qubitCount = circuit.qubitCount()
 
         return try drawCircuit(circuit, qubitCount: qubitCount)
     }

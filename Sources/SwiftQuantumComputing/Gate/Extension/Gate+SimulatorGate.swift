@@ -20,6 +20,36 @@
 
 import Foundation
 
+// MARK: - Main body
+
+extension Gate {
+
+    // MARK: - Internal methods
+
+    func extractInputs() -> [Int] {
+        var resultInputs: [Int]!
+
+        switch self {
+        case .controlledMatrix(_, let inputs, let control):
+            resultInputs = [control] + inputs
+        case .controlledNot(let target, let control):
+            resultInputs = [control, target]
+        case .hadamard(let target):
+            resultInputs = [target]
+        case .matrix(_, let inputs):
+            resultInputs = inputs
+        case .not(let target):
+            resultInputs = [target]
+        case .oracle(_, let target, let controls):
+            resultInputs = controls + [target]
+        case .phaseShift(_, let target):
+            resultInputs = [target]
+        }
+
+        return resultInputs
+    }
+}
+
 // MARK: - SimulatorGate methods
 
 extension Gate: SimulatorGate {
@@ -28,7 +58,7 @@ extension Gate: SimulatorGate {
     }
 
     func extract(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
-        let inputs = extractRawInputs()
+        let inputs = extractInputs()
         guard areInputsUnique(inputs) else {
             throw GateError.gateInputsAreNotUnique
         }
@@ -51,29 +81,6 @@ extension Gate: SimulatorGate {
         }
 
         return (matrix, inputs)
-    }
-
-    func extractRawInputs() -> [Int] {
-        var resultInputs: [Int]!
-
-        switch self {
-        case .controlledMatrix(_, let inputs, let control):
-            resultInputs = [control] + inputs
-        case .controlledNot(let target, let control):
-            resultInputs = [control, target]
-        case .hadamard(let target):
-            resultInputs = [target]
-        case .matrix(_, let inputs):
-            resultInputs = inputs
-        case .not(let target):
-            resultInputs = [target]
-        case .oracle(_, let target, let controls):
-            resultInputs = controls + [target]
-        case .phaseShift(_, let target):
-            resultInputs = [target]
-        }
-
-        return resultInputs
     }
 }
 
