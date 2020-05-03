@@ -38,7 +38,7 @@ struct StatevectorSimulatorFacade {
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
-    func apply(circuit: [SimulatorGate], to initialStatevector: Vector) throws -> Vector {
+    func apply(circuit: [StatevectorGate], to initialStatevector: Vector) throws -> Vector {
         var register: StatevectorRegisterFactory.StatevectorRegister!
         do {
             register = try registerFactory.makeRegister(state: initialStatevector)

@@ -38,15 +38,19 @@ final class SimulatorGateTestDouble {
     var extractComponentsError = GateError.gateOracleControlsCanNotBeAnEmptyList
 }
 
-// MARK: - SimulatorGate methods
+// MARK: - SimulatorRawGate methods
 
-extension SimulatorGateTestDouble: SimulatorGate {
+extension SimulatorGateTestDouble: SimulatorRawGate {
     var gate: Gate {
         gateCount += 1
 
         return gateResult
     }
+}
 
+// MARK: - SimulatorGate methods
+
+extension SimulatorGateTestDouble: SimulatorGate {
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
         extractComponentsCount += 1
 

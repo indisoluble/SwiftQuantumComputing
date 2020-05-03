@@ -38,7 +38,7 @@ struct UnitarySimulatorFacade {
 // MARK: - UnitarySimulator methods
 
 extension UnitarySimulatorFacade: UnitarySimulator {
-    func unitary(with circuit: [SimulatorGate], qubitCount: Int) throws -> Matrix {
+    func unitary(with circuit: [UnitaryGate], qubitCount: Int) throws -> Matrix {
         guard !circuit.isEmpty else {
             throw UnitaryError.circuitCanNotBeAnEmptyList
         }

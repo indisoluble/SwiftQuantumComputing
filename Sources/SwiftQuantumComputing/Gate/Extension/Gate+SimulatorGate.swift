@@ -50,13 +50,17 @@ extension Gate {
     }
 }
 
-// MARK: - SimulatorGate methods
+// MARK: - SimulatorRawGate methods
 
-extension Gate: SimulatorGate {
+extension Gate: SimulatorRawGate {
     var gate: Gate {
         return self
     }
+}
 
+// MARK: - SimulatorGate methods
+
+extension Gate: SimulatorGate {
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
         let inputs = extractInputs()
         guard areInputsUnique(inputs) else {
