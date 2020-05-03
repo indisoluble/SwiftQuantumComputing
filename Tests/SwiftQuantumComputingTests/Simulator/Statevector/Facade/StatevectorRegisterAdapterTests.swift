@@ -79,7 +79,8 @@ class StatevectorRegisterAdapterTests: XCTestCase {
     func testValidVector_applying_forwardToTransformation() {
         // Given
         factory.makeTransformationResult = transformation
-        let adapter = try! DirectStatevectorRegister(vector: threeQubitZeroVector, factory: factory)
+        let adapter = try! StatevectorRegisterAdapter(vector: threeQubitZeroVector,
+                                                      factory: factory)
 
         let gate = Gate.oracle(truthTable: ["00"], target: 0, controls: [1, 2])
 
@@ -90,7 +91,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
         // Then
         XCTAssertEqual(transformation.statevectorApplyingCount, 1)
-        XCTAssertEqual(result?.vector, threeQubitFourVector)
+        XCTAssertEqual(try? result?.statevector(), threeQubitFourVector)
     }
 
     static var allTests = [

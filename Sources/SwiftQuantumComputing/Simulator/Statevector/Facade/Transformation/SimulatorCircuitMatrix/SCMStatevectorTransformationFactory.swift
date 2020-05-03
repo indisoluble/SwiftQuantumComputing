@@ -1,5 +1,5 @@
 //
-//  SCMStatevectorRegisterFactory.swift
+//  SCMStatevectorTransformationFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 30/12/2018.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct SCMStatevectorRegisterFactory {
+struct SCMStatevectorTransformationFactory {
 
     // MARK: - Private properties
 
@@ -35,38 +35,13 @@ struct SCMStatevectorRegisterFactory {
     }
 }
 
-// MARK: - StatevectorRegisterFactory methods
-
-extension SCMStatevectorRegisterFactory: StatevectorRegisterFactory {
-    func makeRegister(state: Vector) throws -> StatevectorRegister {
-        var register: SCMStatevectorRegister!
-        do {
-            register = try SCMStatevectorRegister(vector: state, matrixFactory: matrixFactory)
-        } catch SCMStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
-            throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        do {
-            _ = try register.statevector()
-        } catch StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
-            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        return register
-    }
-}
-
 // MARK: - StatevectorTransformationFactory methods
 
-extension SCMStatevectorRegisterFactory: StatevectorTransformationFactory {
+extension SCMStatevectorTransformationFactory: StatevectorTransformationFactory {
     func makeTransformation(state: Vector) throws -> StatevectorTransformation {
         do {
-            return try SCMStatevectorRegister(vector: state, matrixFactory: matrixFactory)
-        } catch SCMStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
+            return try SCMStatevectorTransformation(vector: state, matrixFactory: matrixFactory)
+        } catch SCMStatevectorTransformation.InitError.vectorCountHasToBeAPowerOfTwo {
             throw MakeTransformationError.stateCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")

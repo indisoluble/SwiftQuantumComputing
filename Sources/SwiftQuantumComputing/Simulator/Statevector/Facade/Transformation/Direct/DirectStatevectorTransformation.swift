@@ -1,5 +1,5 @@
 //
-//  DirectStatevectorRegister.swift
+//  DirectStatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/04/2020.
@@ -22,16 +22,11 @@ import Foundation
 
 // MARK: - Main body
 
-struct DirectStatevectorRegister {
-
-    // MARK: - SimpleStatevectorRegister properties
-
-    let vector: Vector
+struct DirectStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let qubitCount: Int
-    private let factory: StatevectorTransformationFactory
+    private let vector: Vector
     private let transformation: StatevectorTransformation
 
     // MARK: - Internal init methods
@@ -50,37 +45,14 @@ struct DirectStatevectorRegister {
             fatalError("Unexpected error: \(error).")
         }
 
-        qubitCount = Int.log2(vector.count)
-        self.transformation = transformation
-
         self.vector = vector
-        self.factory = factory
-    }
-}
-
-// MARK: - StatevectorMeasurement methods
-
-extension DirectStatevectorRegister: StatevectorMeasurement {}
-
-// MARK: - SimpleStatevectorMeasurement methods
-
-extension DirectStatevectorRegister: SimpleStatevectorMeasurement {}
-
-// MARK: - SimulatorTransformation methods
-
-extension DirectStatevectorRegister: SimulatorTransformation {
-    func applying(_ gate: SimulatorGate) throws -> DirectStatevectorRegister {
-        let (baseMatrix, inputs) = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
-
-        let nextVector = applying(gateMatrix: baseMatrix, toInputs: inputs)
-
-        return try! DirectStatevectorRegister(vector: nextVector, factory: factory)
+        self.transformation = transformation
     }
 }
 
 // MARK: - StatevectorTransformation methods
 
-extension DirectStatevectorRegister: StatevectorTransformation {
+extension DirectStatevectorTransformation: StatevectorTransformation {
     func applying(gateMatrix: Matrix, toInputs inputs: [Int]) -> Vector {
         var nextVector: Vector!
 
@@ -96,28 +68,28 @@ extension DirectStatevectorRegister: StatevectorTransformation {
 
 // MARK: - Private body
 
-private extension DirectStatevectorRegister {
+private extension DirectStatevectorTransformation {
 
     // MARK: - Private methods
 
     func applying(oneQubitMatrix matrix: Matrix, toInput input: Int) -> Vector {
-            let mask = 1 << input
-            let invMask = ~mask
+        let mask = 1 << input
+        let invMask = ~mask
 
-            return try! Vector.makeVector(count: vector.count) { index in
-                var value: Complex!
+        return try! Vector.makeVector(count: vector.count) { index in
+            var value: Complex!
 
-                if index & mask == 0 {
-                    let otherIndex = index | mask
+            if index & mask == 0 {
+                let otherIndex = index | mask
 
-                    value = matrix[0, 0] * vector[index] + matrix[0, 1] * vector[otherIndex]
-                } else {
-                    let otherIndex = index & invMask
+                value = matrix[0, 0] * vector[index] + matrix[0, 1] * vector[otherIndex]
+            } else {
+                let otherIndex = index & invMask
 
-                    value = matrix[1, 0] * vector[otherIndex] + matrix[1, 1] * vector[index]
-                }
+                value = matrix[1, 0] * vector[otherIndex] + matrix[1, 1] * vector[index]
+            }
 
-                return value
+            return value
         }
     }
 }

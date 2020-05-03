@@ -1,5 +1,5 @@
 //
-//  SCMStatevectorRegister.swift
+//  SCMStatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/10/2019.
@@ -22,15 +22,12 @@ import Foundation
 
 // MARK: - Main body
 
-struct SCMStatevectorRegister {
-
-    // MARK: - SimpleStatevectorRegister properties
-
-    let vector: Vector
+struct SCMStatevectorTransformation {
 
     // MARK: - Private properties
 
     private let qubitCount: Int
+    private let vector: Vector
     private let matrixFactory: SimulatorCircuitMatrixFactory
 
     // MARK: - Internal init methods
@@ -45,35 +42,14 @@ struct SCMStatevectorRegister {
         }
 
         qubitCount = Int.log2(vector.count)
-
         self.vector = vector
         self.matrixFactory = matrixFactory
     }
 }
 
-// MARK: - StatevectorMeasurement methods
-
-extension SCMStatevectorRegister: StatevectorMeasurement {}
-
-// MARK: - SimpleStatevectorMeasurement methods
-
-extension SCMStatevectorRegister: SimpleStatevectorMeasurement {}
-
-// MARK: - SimulatorTransformation methods
-
-extension SCMStatevectorRegister: SimulatorTransformation {
-    func applying(_ gate: SimulatorGate) throws -> SCMStatevectorRegister {
-        let (baseMatrix, inputs) = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
-
-        let nextVector = applying(gateMatrix: baseMatrix, toInputs: inputs)
-
-        return try! SCMStatevectorRegister(vector: nextVector, matrixFactory: matrixFactory)
-    }
-}
-
 // MARK: - StatevectorTransformation methods
 
-extension SCMStatevectorRegister: StatevectorTransformation {
+extension SCMStatevectorTransformation: StatevectorTransformation {
     func applying(gateMatrix: Matrix, toInputs inputs: [Int]) -> Vector {
         let matrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
                                                      baseMatrix: gateMatrix,

@@ -1,5 +1,5 @@
 //
-//  DirectStatevectorRegisterFactory.swift
+//  DirectStatevectorTransformationFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 25/04/2020.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct DirectStatevectorRegisterFactory {
+struct DirectStatevectorTransformationFactory {
 
     // MARK: - Private properties
 
@@ -35,27 +35,16 @@ struct DirectStatevectorRegisterFactory {
     }
 }
 
-// MARK: - StatevectorRegisterFactory methods
+// MARK: - StatevectorTransformationFactory methods
 
-extension DirectStatevectorRegisterFactory: StatevectorRegisterFactory {
-    func makeRegister(state: Vector) throws -> StatevectorRegister {
-        var register: DirectStatevectorRegister!
+extension DirectStatevectorTransformationFactory: StatevectorTransformationFactory {
+    func makeTransformation(state: Vector) throws -> StatevectorTransformation {
         do {
-            register = try DirectStatevectorRegister(vector: state, factory: factory)
-        } catch DirectStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
-            throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
+            return try DirectStatevectorTransformation(vector: state, factory: factory)
+        } catch DirectStatevectorTransformation.InitError.vectorCountHasToBeAPowerOfTwo {
+            throw MakeTransformationError.stateCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")
         }
-
-        do {
-            _ = try register.statevector()
-        } catch StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
-            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        return register
     }
 }

@@ -25,10 +25,10 @@ import XCTest
 public func allTests() -> [XCTestCaseEntry] {
     return [
         testCase(ArrayGate_QubitCountTests.allTests),
-        testCase(DirectStatevectorRegisterTests.allTests),
-        testCase(DirectStatevectorRegisterFactoryTests.allTests),
-        testCase(SCMStatevectorRegisterTests.allTests),
-        testCase(SCMStatevectorRegisterFactoryTests.allTests),
+        testCase(DirectStatevectorTransformationTests.allTests),
+        testCase(DirectStatevectorTransformationFactoryTests.allTests),
+        testCase(SCMStatevectorTransformationTests.allTests),
+        testCase(SCMStatevectorTransformationFactoryTests.allTests),
         testCase(StatevectorRegisterAdapterTests.allTests),
         testCase(StatevectorRegisterFactoryAdapterTests.allTests),
         testCase(StatevectorSimulatorFacadeTests.allTests),

@@ -1,5 +1,5 @@
 //
-//  SCMStatevectorRegisterTests.swift
+//  SCMStatevectorTransformationTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/10/2019.
@@ -24,12 +24,11 @@ import XCTest
 
 // MARK: - Main body
 
-class SCMStatevectorRegisterTests: XCTestCase {
+class SCMStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Properties
 
     let matrixFactory = SimulatorCircuitMatrixFactoryTestDouble()
-    let gate = SimulatorGateTestDouble()
 
     // MARK: - Tests
 
@@ -38,41 +37,8 @@ class SCMStatevectorRegisterTests: XCTestCase {
         let noPowerOfTwoVector = try! Vector([Complex.one, Complex.zero, Complex.zero])
 
         // Then
-        XCTAssertThrowsError(try SCMStatevectorRegister(vector: noPowerOfTwoVector,
-                                                        matrixFactory: matrixFactory))
-    }
-
-    func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException() {
-        // Given
-        let addSquareModulusNotEqualToOneVector = try! Vector([Complex.one, Complex.one])
-        let adapter = try! SCMStatevectorRegister(vector: addSquareModulusNotEqualToOneVector,
-                                                  matrixFactory: matrixFactory)
-
-        // Then
-        XCTAssertThrowsError(try adapter.statevector())
-    }
-
-    func testValidVector_statevector_returnValue() {
-        // Given
-        let vector = try! Vector([Complex.one, Complex.zero])
-        let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
-
-        // When
-        let result = try! adapter.statevector()
-
-        // Then
-        XCTAssertEqual(result, vector)
-    }
-
-    func testGateThatThrowsError_applying_throwError() {
-        // Given
-        let vector = try! Vector([Complex.one, Complex.zero])
-        let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
-
-        // Then
-        XCTAssertThrowsError(try adapter.applying(gate))
-        XCTAssertEqual(gate.extractComponentsCount, 1)
-        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 0)
+        XCTAssertThrowsError(try SCMStatevectorTransformation(vector: noPowerOfTwoVector,
+                                                              matrixFactory: matrixFactory))
     }
 
     func testMatrixFactoryReturnsMatrix_applying_returnValue() {
@@ -82,44 +48,38 @@ class SCMStatevectorRegisterTests: XCTestCase {
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
+        let adapter = try! SCMStatevectorTransformation(vector: vector, matrixFactory: matrixFactory)
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
-        gate.extractComponentsInputsResult = gateInputs
-        gate.extractComponentsMatrixResult = gateMatrix
 
         let circuitMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = try? adapter.applying(gate)
+        let result = adapter.applying(gateMatrix: gateMatrix, toInputs: gateInputs)
 
         // Then
-        XCTAssertEqual(gate.extractComponentsCount, 1)
-        XCTAssertEqual(gate.lastExtractComponentsQubitCount, vectorQubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, vectorQubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one])
-        XCTAssertEqual(try? result?.statevector(), expectedVector)
+        XCTAssertEqual(result, expectedVector)
     }
 
-    func testTwoQubitsRegisterInitializedToZeroAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne() {
+    func testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne() {
         // Given
         let qubitCount = 2
         var elements = Array(repeating: Complex.zero, count: Int.pow(2, qubitCount))
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = try! SCMStatevectorRegister(vector: vector, matrixFactory: matrixFactory)
+        let adapter = try! SCMStatevectorTransformation(vector: vector, matrixFactory: matrixFactory)
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
-        gate.extractComponentsInputsResult = gateInputs
-        gate.extractComponentsMatrixResult = gateMatrix
 
         let circuitMatrix = SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrix(qubitCount: qubitCount,
                                                                                      baseMatrix: gateMatrix,
@@ -127,32 +87,24 @@ class SCMStatevectorRegisterTests: XCTestCase {
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = try? adapter.applying(gate)
+        let result = adapter.applying(gateMatrix: gateMatrix, toInputs: gateInputs)
 
         // Then
-        XCTAssertEqual(gate.extractComponentsCount, 1)
-        XCTAssertEqual(gate.lastExtractComponentsQubitCount, qubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
-        XCTAssertEqual(try? result?.statevector(), expectedVector)
+        XCTAssertEqual(result, expectedVector)
     }
 
     static var allTests = [
         ("testVectorWhichLengthIsNotPowerOfTwo_init_throwException",
          testVectorWhichLengthIsNotPowerOfTwo_init_throwException),
-        ("testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException",
-         testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException),
-        ("testValidVector_statevector_returnValue",
-         testValidVector_statevector_returnValue),
-        ("testGateThatThrowsError_applying_throwError",
-         testGateThatThrowsError_applying_throwError),
         ("testMatrixFactoryReturnsMatrix_applying_returnValue",
          testMatrixFactoryReturnsMatrix_applying_returnValue),
-        ("testTwoQubitsRegisterInitializedToZeroAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne",
-         testTwoQubitsRegisterInitializedToZeroAndNotGate_applyNotGateToLeastSignificantQubit_oneHasProbabilityOne)
+        ("testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne",
+         testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne)
     ]
 }

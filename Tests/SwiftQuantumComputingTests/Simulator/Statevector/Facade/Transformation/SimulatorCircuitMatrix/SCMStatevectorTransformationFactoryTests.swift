@@ -1,5 +1,5 @@
 //
-//  SCMStatevectorRegisterFactoryTests.swift
+//  SCMStatevectorTransformationFactoryTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 09/02/2020.
@@ -24,35 +24,17 @@ import XCTest
 
 // MARK: - Main body
 
-class SCMStatevectorRegisterFactoryTests: XCTestCase {
+class SCMStatevectorTransformationFactoryTests: XCTestCase {
 
     // MARK: - Properties
 
-    let adapter = SCMStatevectorRegisterFactory(matrixFactory: SimulatorCircuitMatrixFactoryTestDouble())
+    let adapter = SCMStatevectorTransformationFactory(matrixFactory: SimulatorCircuitMatrixFactoryTestDouble())
     let notPowerOfTwoVector = try! Vector([
         Complex.zero, Complex.zero, Complex.one
-    ])
-    let squareModulusNotEqualToOneVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.one, Complex.one
     ])
     let validVector = try! Vector([Complex.zero, Complex.zero, Complex.one, Complex.zero])
 
     // MARK: - Tests
-
-    func testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError() {
-        // Then
-        XCTAssertThrowsError(try adapter.makeRegister(state: notPowerOfTwoVector))
-    }
-
-    func testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError() {
-        // Then
-        XCTAssertThrowsError(try adapter.makeRegister(state: squareModulusNotEqualToOneVector))
-    }
-
-    func testValidVector_makeRegister_returnValue() {
-        // Then
-        XCTAssertNoThrow(try adapter.makeRegister(state: validVector))
-    }
 
     func testVectorWhichCountIsNotAPowerOfTwo_makeTransformation_throwError() {
         // Then
@@ -65,12 +47,6 @@ class SCMStatevectorRegisterFactoryTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError",
-         testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError),
-        ("testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError",
-         testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError),
-        ("testValidVector_makeRegister_returnValue",
-         testValidVector_makeRegister_returnValue),
         ("testVectorWhichCountIsNotAPowerOfTwo_makeTransformation_throwError",
          testVectorWhichCountIsNotAPowerOfTwo_makeTransformation_throwError),
         ("testValidVector_makeTransformation_returnValue",
