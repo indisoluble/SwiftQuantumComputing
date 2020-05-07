@@ -26,12 +26,12 @@ struct StatevectorRegisterFactoryAdapter {
 
     // MARK: - Private properties
 
-    private let factory: StatevectorTransformationFactory
+    private let transformation: StatevectorTransformation
 
     // MARK: - Internal init methods
 
-    init(factory: StatevectorTransformationFactory) {
-        self.factory = factory
+    init(transformation: StatevectorTransformation) {
+        self.transformation = transformation
     }
 }
 
@@ -41,7 +41,7 @@ extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
     func makeRegister(state: Vector) throws -> StatevectorRegister {
         var register: StatevectorRegisterAdapter!
         do {
-            register = try StatevectorRegisterAdapter(vector: state, factory: factory)
+            register = try StatevectorRegisterAdapter(vector: state, transformation: transformation)
         } catch StatevectorRegisterAdapter.InitError.vectorCountHasToBeAPowerOfTwo {
             throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
         } catch {

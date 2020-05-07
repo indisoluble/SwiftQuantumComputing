@@ -28,8 +28,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Properties
 
-    let factory = StatevectorRegisterFactoryTestDouble()
-    let transformation = StatevectorRegisterTestDouble()
+    let transformation = StatevectorTransformationTestDouble()
     let threeQubitZeroVector = try! Vector([
         Complex.one, Complex.zero, Complex.zero, Complex.zero,
         Complex.zero, Complex.zero, Complex.zero, Complex.zero
@@ -47,46 +46,36 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testFactoryThatThrowsException_init_throwException() {
-        // Given
-        factory.makeTransformationResult = nil
-        factory.makeTransformationError = MakeTransformationError.stateCountHasToBeAPowerOfTwo
-
-        // Then
-        XCTAssertThrowsError(try DirectStatevectorTransformation(vector: oneQubitZeroVector,
-                                                                 factory: factory))
-        XCTAssertEqual(factory.makeTransformationCount, 1)
-    }
-
     func testThreeQubitMatrix_applying_forwardToTransformation() {
         // Given
-        factory.makeTransformationResult = transformation
-        let adapter = try! DirectStatevectorTransformation(vector: threeQubitZeroVector,
-                                                           factory: factory)
+        let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         let gateInputs = [2, 1, 0]
         let gateMatrix = try! Matrix.makeOracle(truthTable: ["00"], controlCount: 2)
 
-        transformation.statevectorApplyingResult = threeQubitFourVector
+        transformation.applyResult = threeQubitFourVector
 
         // When
-        let result = adapter.applying(gateMatrix: gateMatrix, toInputs: gateInputs)
+        let result = adapter.apply(gateMatrix: gateMatrix,
+                                   toStatevector: threeQubitZeroVector,
+                                   atInputs: gateInputs)
 
         // Then
-        XCTAssertEqual(transformation.statevectorApplyingCount, 1)
-        XCTAssertEqual(transformation.lastStatevectorApplyingMatrix, gateMatrix)
-        XCTAssertEqual(transformation.lastStatevectorApplyingInputs, gateInputs)
+        XCTAssertEqual(transformation.applyCount, 1)
+        XCTAssertEqual(transformation.lastApplyMatrix, gateMatrix)
+        XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
+        XCTAssertEqual(transformation.lastApplyInputs, gateInputs)
         XCTAssertEqual(result, threeQubitFourVector)
     }
 
     func testNotMatrixAndOneQubitVector_applying_returnExpectedVector() {
         // Given
-        factory.makeTransformationResult = transformation
-        let adapter = try! DirectStatevectorTransformation(vector: oneQubitZeroVector,
-                                                           factory: factory)
+        let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.applying(gateMatrix: Matrix.makeNot(), toInputs: [0])
+        let result = adapter.apply(gateMatrix: Matrix.makeNot(),
+                                   toStatevector: oneQubitZeroVector,
+                                   atInputs: [0])
 
         // Then
         XCTAssertEqual(result, oneQubitOneVector)
@@ -94,12 +83,12 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     func testNotMatrixAndThreeQubitVector_applying_returnExpectedVector() {
         // Given
-        factory.makeTransformationResult = transformation
-        let adapter = try! DirectStatevectorTransformation(vector: threeQubitZeroVector,
-                                                           factory: factory)
+        let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.applying(gateMatrix: Matrix.makeNot(), toInputs: [2])
+        let result = adapter.apply(gateMatrix: Matrix.makeNot(),
+                                   toStatevector: threeQubitZeroVector,
+                                   atInputs: [2])
 
         // Then
         XCTAssertEqual(result, threeQubitFourVector)
@@ -107,23 +96,22 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     func testTwoNotMatricesAndThreeQubitVector_applying_returnExpectedVector() {
         // Given
-        factory.makeTransformationResult = transformation
-        var adapter = try! DirectStatevectorTransformation(vector: threeQubitZeroVector,
-                                                           factory: factory)
+        var adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        var result = adapter.applying(gateMatrix: Matrix.makeNot(), toInputs: [2])
-        adapter = try! DirectStatevectorTransformation(vector: result,
-                                                       factory: factory)
-        result = adapter.applying(gateMatrix: Matrix.makeNot(), toInputs: [0])
+        var result = adapter.apply(gateMatrix: Matrix.makeNot(),
+                                   toStatevector: threeQubitZeroVector,
+                                   atInputs: [2])
+        adapter = DirectStatevectorTransformation(transformation: transformation)
+        result = adapter.apply(gateMatrix: Matrix.makeNot(),
+                               toStatevector: result,
+                               atInputs: [0])
 
         // Then
         XCTAssertEqual(result, threeQubitFiveVector)
     }
 
     static var allTests = [
-        ("testFactoryThatThrowsException_init_throwException",
-         testFactoryThatThrowsException_init_throwException),
         ("testThreeQubitMatrix_applying_forwardToTransformation",
          testThreeQubitMatrix_applying_forwardToTransformation),
         ("testNotMatrixAndOneQubitVector_applying_returnExpectedVector",

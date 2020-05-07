@@ -26,12 +26,12 @@ import XCTest
 
 class StatevectorRegisterFactoryAdapterTests: XCTestCase {
 
-    // MARK: - Tests
-
     // MARK: - Properties
 
-    let factory = StatevectorRegisterFactoryTestDouble()
-    let transformation = StatevectorRegisterTestDouble()
+    let transformation = StatevectorTransformationTestDouble()
+    let notPowerOfTwoVector = try! Vector([
+        Complex.zero, Complex.zero, Complex.one
+    ])
     let squareModulusNotEqualToOneVector = try! Vector([
         Complex.zero, Complex.zero, Complex.one, Complex.one
     ])
@@ -39,22 +39,17 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testFactoryThatThrowsError_makeRegister_throwError() {
+    func testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError() {
         // Given
-        factory.makeTransformationResult = nil
-        factory.makeTransformationError = MakeTransformationError.stateCountHasToBeAPowerOfTwo
-
-        let adapter = StatevectorRegisterFactoryAdapter(factory: factory)
+        let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
 
         // Then
-        XCTAssertThrowsError(try adapter.makeRegister(state: validVector))
+        XCTAssertThrowsError(try adapter.makeRegister(state: notPowerOfTwoVector))
     }
 
-    func testFactoryThatDoesNotThrowErrorAndVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError() {
+    func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError() {
         // Given
-        factory.makeTransformationResult = transformation
-
-        let adapter = StatevectorRegisterFactoryAdapter(factory: factory)
+        let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
 
         // Then
         XCTAssertThrowsError(try adapter.makeRegister(state: squareModulusNotEqualToOneVector))
@@ -62,19 +57,17 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
 
     func testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue() {
         // Given
-        factory.makeTransformationResult = transformation
-
-        let adapter = StatevectorRegisterFactoryAdapter(factory: factory)
+        let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
 
         // Then
         XCTAssertNoThrow(try adapter.makeRegister(state: validVector))
     }
 
     static var allTests = [
-        ("testFactoryThatThrowsError_makeRegister_throwError",
-         testFactoryThatThrowsError_makeRegister_throwError),
-        ("testFactoryThatDoesNotThrowErrorAndVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError",
-         testFactoryThatDoesNotThrowErrorAndVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError),
+        ("testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError",
+         testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError),
+        ("testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError",
+         testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError),
         ("testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue",
          testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue)
     ]

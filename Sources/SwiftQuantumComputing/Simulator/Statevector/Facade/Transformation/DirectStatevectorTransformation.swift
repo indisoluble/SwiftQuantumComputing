@@ -26,26 +26,11 @@ struct DirectStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let vector: Vector
     private let transformation: StatevectorTransformation
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
-        case vectorCountHasToBeAPowerOfTwo
-    }
-
-    init(vector: Vector, factory: StatevectorTransformationFactory) throws {
-        var transformation: StatevectorTransformation!
-        do {
-            transformation = try factory.makeTransformation(state: vector)
-        } catch MakeTransformationError.stateCountHasToBeAPowerOfTwo {
-            throw InitError.vectorCountHasToBeAPowerOfTwo
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        self.vector = vector
+    init(transformation: StatevectorTransformation) {
         self.transformation = transformation
     }
 }
@@ -53,13 +38,17 @@ struct DirectStatevectorTransformation {
 // MARK: - StatevectorTransformation methods
 
 extension DirectStatevectorTransformation: StatevectorTransformation {
-    func applying(gateMatrix: Matrix, toInputs inputs: [Int]) -> Vector {
+    func apply(gateMatrix: Matrix, toStatevector vector: Vector, atInputs inputs: [Int]) -> Vector {
         var nextVector: Vector!
 
         if inputs.count == 1 {
-            nextVector = applying(oneQubitMatrix: gateMatrix, toInput: inputs.first!)
+            nextVector = apply(oneQubitMatrix: gateMatrix,
+                               toStatevector: vector,
+                               atInput: inputs.first!)
         } else {
-            nextVector = transformation.applying(gateMatrix: gateMatrix, toInputs: inputs)
+            nextVector = transformation.apply(gateMatrix: gateMatrix,
+                                              toStatevector: vector,
+                                              atInputs: inputs)
         }
 
         return nextVector
@@ -72,7 +61,9 @@ private extension DirectStatevectorTransformation {
 
     // MARK: - Private methods
 
-    func applying(oneQubitMatrix matrix: Matrix, toInput input: Int) -> Vector {
+    func apply(oneQubitMatrix matrix: Matrix,
+               toStatevector vector: Vector,
+               atInput input: Int) -> Vector {
         let mask = 1 << input
         let invMask = ~mask
 

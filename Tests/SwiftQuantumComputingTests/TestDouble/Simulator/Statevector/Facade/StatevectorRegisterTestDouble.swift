@@ -36,11 +36,6 @@ final class StatevectorRegisterTestDouble {
     private (set) var lastSimulatorApplyingGate: SimulatorGate?
     var simulatorApplyingResult: StatevectorRegisterTestDouble?
     var simulatorApplyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
-
-    private (set) var statevectorApplyingCount = 0
-    private (set) var lastStatevectorApplyingMatrix: Matrix?
-    private (set) var lastStatevectorApplyingInputs: [Int]?
-    var statevectorApplyingResult = try! Vector([Complex.one, Complex.zero])
 }
 
 // MARK: - StatevectorMeasurement methods
@@ -70,18 +65,5 @@ extension StatevectorRegisterTestDouble: SimulatorTransformation {
         }
 
         throw simulatorApplyingError
-    }
-}
-
-// MARK: - StatevectorTransformation methods
-
-extension StatevectorRegisterTestDouble: StatevectorTransformation {
-    func applying(gateMatrix: Matrix, toInputs inputs: [Int]) -> Vector {
-        statevectorApplyingCount += 1
-
-        lastStatevectorApplyingMatrix = gateMatrix
-        lastStatevectorApplyingInputs = inputs
-
-        return statevectorApplyingResult
     }
 }

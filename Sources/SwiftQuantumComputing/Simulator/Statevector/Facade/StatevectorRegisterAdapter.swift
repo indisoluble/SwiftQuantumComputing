@@ -28,7 +28,6 @@ struct StatevectorRegisterAdapter {
 
     private let qubitCount: Int
     private let vector: Vector
-    private let factory: StatevectorTransformationFactory
     private let transformation: StatevectorTransformation
 
     // MARK: - Internal init methods
@@ -37,19 +36,13 @@ struct StatevectorRegisterAdapter {
         case vectorCountHasToBeAPowerOfTwo
     }
 
-    init(vector: Vector, factory: StatevectorTransformationFactory) throws {
-        var transformation: StatevectorTransformation!
-        do {
-            transformation = try factory.makeTransformation(state: vector)
-        } catch MakeTransformationError.stateCountHasToBeAPowerOfTwo {
+    init(vector: Vector, transformation: StatevectorTransformation) throws {
+        guard vector.count.isPowerOfTwo else {
             throw InitError.vectorCountHasToBeAPowerOfTwo
-        } catch {
-            fatalError("Unexpected error: \(error).")
         }
 
         qubitCount = Int.log2(vector.count)
         self.vector = vector
-        self.factory = factory
         self.transformation = transformation
     }
 }
@@ -71,8 +64,10 @@ extension StatevectorRegisterAdapter: StatevectorMeasurement {
 extension StatevectorRegisterAdapter: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterAdapter {
         let (matrix, inputs) = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
-        let nextVector = transformation.applying(gateMatrix: matrix, toInputs: inputs)
+        let nextVector = transformation.apply(gateMatrix: matrix,
+                                              toStatevector: vector,
+                                              atInputs: inputs)
 
-        return try! StatevectorRegisterAdapter(vector: nextVector, factory: factory)
+        return try! StatevectorRegisterAdapter(vector: nextVector, transformation: transformation)
     }
 }

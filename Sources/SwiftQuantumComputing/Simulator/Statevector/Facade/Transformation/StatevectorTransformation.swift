@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol StatevectorTransformation {
-    func applying(gateMatrix: Matrix, toInputs inputs: [Int]) -> Vector
+    func apply(gateMatrix: Matrix, toStatevector vector: Vector, atInputs inputs: [Int]) -> Vector
 }

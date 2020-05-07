@@ -32,15 +32,6 @@ class SCMStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testVectorWhichLengthIsNotPowerOfTwo_init_throwException() {
-        // Given
-        let noPowerOfTwoVector = try! Vector([Complex.one, Complex.zero, Complex.zero])
-
-        // Then
-        XCTAssertThrowsError(try SCMStatevectorTransformation(vector: noPowerOfTwoVector,
-                                                              matrixFactory: matrixFactory))
-    }
-
     func testMatrixFactoryReturnsMatrix_applying_returnValue() {
         // Given
         let vectorQubitCount = 1
@@ -48,7 +39,7 @@ class SCMStatevectorTransformationTests: XCTestCase {
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = try! SCMStatevectorTransformation(vector: vector, matrixFactory: matrixFactory)
+        let adapter = SCMStatevectorTransformation(matrixFactory: matrixFactory)
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
@@ -57,7 +48,9 @@ class SCMStatevectorTransformationTests: XCTestCase {
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = adapter.applying(gateMatrix: gateMatrix, toInputs: gateInputs)
+        let result = adapter.apply(gateMatrix: gateMatrix,
+                                   toStatevector: vector,
+                                   atInputs: gateInputs)
 
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
@@ -76,7 +69,7 @@ class SCMStatevectorTransformationTests: XCTestCase {
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = try! SCMStatevectorTransformation(vector: vector, matrixFactory: matrixFactory)
+        let adapter = SCMStatevectorTransformation(matrixFactory: matrixFactory)
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
@@ -87,7 +80,9 @@ class SCMStatevectorTransformationTests: XCTestCase {
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = adapter.applying(gateMatrix: gateMatrix, toInputs: gateInputs)
+        let result = adapter.apply(gateMatrix: gateMatrix,
+                                   toStatevector: vector,
+                                   atInputs: gateInputs)
 
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
@@ -100,8 +95,6 @@ class SCMStatevectorTransformationTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testVectorWhichLengthIsNotPowerOfTwo_init_throwException",
-         testVectorWhichLengthIsNotPowerOfTwo_init_throwException),
         ("testMatrixFactoryReturnsMatrix_applying_returnValue",
          testMatrixFactoryReturnsMatrix_applying_returnValue),
         ("testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne",

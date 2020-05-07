@@ -1,9 +1,9 @@
 //
-//  SCMStatevectorTransformationFactory.swift
+//  SCMStatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 13/10/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct SCMStatevectorTransformationFactory {
+struct SCMStatevectorTransformation {
 
     // MARK: - Private properties
 
@@ -35,16 +35,13 @@ struct SCMStatevectorTransformationFactory {
     }
 }
 
-// MARK: - StatevectorTransformationFactory methods
+// MARK: - StatevectorTransformation methods
 
-extension SCMStatevectorTransformationFactory: StatevectorTransformationFactory {
-    func makeTransformation(state: Vector) throws -> StatevectorTransformation {
-        do {
-            return try SCMStatevectorTransformation(vector: state, matrixFactory: matrixFactory)
-        } catch SCMStatevectorTransformation.InitError.vectorCountHasToBeAPowerOfTwo {
-            throw MakeTransformationError.stateCountHasToBeAPowerOfTwo
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+extension SCMStatevectorTransformation: StatevectorTransformation {
+    func apply(gateMatrix: Matrix, toStatevector vector: Vector, atInputs inputs: [Int]) -> Vector {
+        let matrix = matrixFactory.makeCircuitMatrix(qubitCount: Int.log2(vector.count),
+                                                     baseMatrix: gateMatrix,
+                                                     inputs: inputs)
+        return try! matrix * vector
     }
 }

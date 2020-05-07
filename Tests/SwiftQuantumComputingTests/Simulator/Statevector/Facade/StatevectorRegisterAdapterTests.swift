@@ -28,8 +28,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let factory = StatevectorRegisterFactoryTestDouble()
-    let transformation = StatevectorRegisterTestDouble()
+    let transformation = StatevectorTransformationTestDouble()
     let oneQubitZeroVector = try! Vector([Complex.one, Complex.zero])
     let threeQubitZeroVector = try! Vector([
         Complex.one, Complex.zero, Complex.zero, Complex.zero,
@@ -42,23 +41,22 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testFactoryThatThrowsException_init_throwException() {
+    func testVectorWhichCountIsNotAPowerOfTwo_init_throwException() {
         // Given
-        factory.makeTransformationResult = nil
-        factory.makeTransformationError = MakeTransformationError.stateCountHasToBeAPowerOfTwo
+        let notPowerOfTwoVector = try! Vector([
+            Complex.zero, Complex.zero, Complex.one
+        ])
 
         // Then
-        XCTAssertThrowsError(try StatevectorRegisterAdapter(vector: oneQubitZeroVector,
-                                                            factory: factory))
-        XCTAssertEqual(factory.makeTransformationCount, 1)
+        XCTAssertThrowsError(try StatevectorRegisterAdapter(vector: notPowerOfTwoVector,
+                                                            transformation: transformation))
     }
 
     func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException() {
         // Given
-        factory.makeTransformationResult = transformation
         let addSquareModulusNotEqualToOneVector = try! Vector([Complex.one, Complex.one])
         let adapter = try! StatevectorRegisterAdapter(vector: addSquareModulusNotEqualToOneVector,
-                                                      factory: factory)
+                                                      transformation: transformation)
 
         // Then
         XCTAssertThrowsError(try adapter.statevector())
@@ -66,8 +64,8 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     func testValidVector_statevector_returnValue() {
         // Given
-        factory.makeTransformationResult = transformation
-        let adapter = try! StatevectorRegisterAdapter(vector: oneQubitZeroVector, factory: factory)
+        let adapter = try! StatevectorRegisterAdapter(vector: oneQubitZeroVector,
+                                                      transformation: transformation)
 
         // When
         let result = try! adapter.statevector()
@@ -78,25 +76,28 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     func testValidVector_applying_forwardToTransformation() {
         // Given
-        factory.makeTransformationResult = transformation
         let adapter = try! StatevectorRegisterAdapter(vector: threeQubitZeroVector,
-                                                      factory: factory)
+                                                      transformation: transformation)
 
-        let gate = Gate.oracle(truthTable: ["00"], target: 0, controls: [1, 2])
+        let controls = [1, 2]
+        let target = 0
+        let gate = Gate.oracle(truthTable: ["00"], target: target, controls: controls)
 
-        transformation.statevectorApplyingResult = threeQubitFourVector
+        transformation.applyResult = threeQubitFourVector
 
         // When
         let result = try? adapter.applying(gate)
 
         // Then
-        XCTAssertEqual(transformation.statevectorApplyingCount, 1)
+        XCTAssertEqual(transformation.applyCount, 1)
+        XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
+        XCTAssertEqual(transformation.lastApplyInputs, controls + [target])
         XCTAssertEqual(try? result?.statevector(), threeQubitFourVector)
     }
 
     static var allTests = [
-        ("testFactoryThatThrowsException_init_throwException",
-         testFactoryThatThrowsException_init_throwException),
+        ("testVectorWhichCountIsNotAPowerOfTwo_init_throwException",
+         testVectorWhichCountIsNotAPowerOfTwo_init_throwException),
         ("testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException",
          testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException),
         ("testValidVector_statevector_returnValue",

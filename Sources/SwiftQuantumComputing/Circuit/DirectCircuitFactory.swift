@@ -42,9 +42,9 @@ extension DirectCircuitFactory: CircuitFactory {
         let unitaryGateFactory = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
         let unitarySimulator = UnitarySimulatorFacade(gateFactory: unitaryGateFactory)
 
-        let scmTransformationFactory = SCMStatevectorTransformationFactory(matrixFactory: matrixFactory)
-        let directTransformationFactory = DirectStatevectorTransformationFactory(factory: scmTransformationFactory)
-        let registerFactory = StatevectorRegisterFactoryAdapter(factory: directTransformationFactory)
+        let scmTransformation = SCMStatevectorTransformation(matrixFactory: matrixFactory)
+        let directTransformation = DirectStatevectorTransformation(transformation: scmTransformation)
+        let registerFactory = StatevectorRegisterFactoryAdapter(transformation: directTransformation)
         let statevectorSimulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         return CircuitFacade(gates: gates,
