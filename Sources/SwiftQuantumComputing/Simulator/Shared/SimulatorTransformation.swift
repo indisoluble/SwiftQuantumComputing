@@ -1,9 +1,9 @@
 //
-//  UnitaryGateFactory.swift
+//  SimulatorTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/10/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 18/04/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,8 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol UnitaryGateFactory {
-    typealias UnitaryGate = UnitaryMatrix & SimulatorTransformation
-
-    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) throws -> UnitaryGate
+protocol SimulatorTransformation {
+    func applying(_ gate: SimulatorGate) throws -> Self
 }

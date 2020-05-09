@@ -1,8 +1,8 @@
 //
-//  DirectStatevectorRegisterFactory.swift
+//  StatevectorRegisterFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 25/04/2020.
+//  Created by Enrique de la Torre on 03/05/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,27 +22,27 @@ import Foundation
 
 // MARK: - Main body
 
-struct DirectStatevectorRegisterFactory {
+struct StatevectorRegisterFactoryAdapter {
 
     // MARK: - Private properties
 
-    private let factory: DirectStatevectorTransformationFactory
+    private let transformation: StatevectorTransformation
 
     // MARK: - Internal init methods
 
-    init(factory: DirectStatevectorTransformationFactory) {
-        self.factory = factory
+    init(transformation: StatevectorTransformation) {
+        self.transformation = transformation
     }
 }
 
 // MARK: - StatevectorRegisterFactory methods
 
-extension DirectStatevectorRegisterFactory: StatevectorRegisterFactory {
+extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
     func makeRegister(state: Vector) throws -> StatevectorRegister {
-        var register: DirectStatevectorRegister!
+        var register: StatevectorRegisterAdapter!
         do {
-            register = try DirectStatevectorRegister(vector: state, factory: factory)
-        } catch DirectStatevectorRegister.InitError.vectorCountHasToBeAPowerOfTwo {
+            register = try StatevectorRegisterAdapter(vector: state, transformation: transformation)
+        } catch StatevectorRegisterAdapter.InitError.vectorCountHasToBeAPowerOfTwo {
             throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
         } catch {
             fatalError("Unexpected error: \(error).")

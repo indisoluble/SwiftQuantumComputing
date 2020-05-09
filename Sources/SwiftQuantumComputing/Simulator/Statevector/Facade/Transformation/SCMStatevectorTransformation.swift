@@ -1,8 +1,8 @@
 //
-//  UnitaryGateFactoryAdapter.swift
+//  SCMStatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/10/2019.
+//  Created by Enrique de la Torre on 13/10/2019.
 //  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct UnitaryGateFactoryAdapter {
+struct SCMStatevectorTransformation {
 
     // MARK: - Private properties
 
@@ -35,15 +35,13 @@ struct UnitaryGateFactoryAdapter {
     }
 }
 
-// MARK: - UnitaryGateFactory methods
+// MARK: - StatevectorTransformation methods
 
-extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
-    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) throws -> UnitaryGate {
-        let components = try simulatorGate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
-        let matrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
-                                                     baseMatrix: components.matrix,
-                                                     inputs: components.inputs)
-
-        return try! UnitaryGateAdapter(matrix: matrix, matrixFactory: matrixFactory)
+extension SCMStatevectorTransformation: StatevectorTransformation {
+    func apply(gateMatrix: Matrix, toStatevector vector: Vector, atInputs inputs: [Int]) -> Vector {
+        let matrix = matrixFactory.makeCircuitMatrix(qubitCount: Int.log2(vector.count),
+                                                     baseMatrix: gateMatrix,
+                                                     inputs: inputs)
+        return try! matrix * vector
     }
 }

@@ -28,27 +28,14 @@ final class StatevectorRegisterTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var vectorCount = 0
-    var vectorResult = try! Vector([Complex.one, Complex.zero])
-
     private (set) var statevectorCount = 0
     var statevectorResult: Vector?
     var statevectorError = StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne
 
-    private (set) var applyingCount = 0
-    private (set) var lastApplyingGate: SimulatorGate?
-    var applyingResult: StatevectorRegisterTestDouble?
-    var applyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
-}
-
-// MARK: - SimpleStatevectorMeasurement methods
-
-extension StatevectorRegisterTestDouble: SimpleStatevectorMeasurement {
-    var vector: Vector {
-        vectorCount += 1
-
-        return vectorResult
-    }
+    private (set) var simulatorApplyingCount = 0
+    private (set) var lastSimulatorApplyingGate: SimulatorGate?
+    var simulatorApplyingResult: StatevectorRegisterTestDouble?
+    var simulatorApplyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
 }
 
 // MARK: - StatevectorMeasurement methods
@@ -65,18 +52,18 @@ extension StatevectorRegisterTestDouble: StatevectorMeasurement {
     }
 }
 
-// MARK: - StatevectorTransformation methods
+// MARK: - SimulatorTransformation methods
 
-extension StatevectorRegisterTestDouble: StatevectorTransformation {
+extension StatevectorRegisterTestDouble: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterTestDouble {
-        applyingCount += 1
+        simulatorApplyingCount += 1
 
-        lastApplyingGate = gate
+        lastSimulatorApplyingGate = gate
 
-        if let applyingResult = applyingResult {
+        if let applyingResult = simulatorApplyingResult {
             return applyingResult
         }
 
-        throw applyingError
+        throw simulatorApplyingError
     }
 }

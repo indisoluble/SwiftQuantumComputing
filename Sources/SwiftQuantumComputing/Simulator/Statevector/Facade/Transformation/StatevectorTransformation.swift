@@ -1,8 +1,8 @@
 //
-//  SimpleStatevectorMeasurement.swift
+//  StatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 18/04/2020.
+//  Created by Enrique de la Torre on 02/05/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,18 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimpleStatevectorMeasurement {
-    var vector: Vector { get }
-}
-
-// MARK: - StatevectorMeasurement extension
-
-extension StatevectorMeasurement where Self: SimpleStatevectorMeasurement {
-    func statevector() throws -> Vector {
-        guard vector.isAdditionOfSquareModulusEqualToOne() else {
-            throw StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne
-        }
-
-        return vector
-    }
+protocol StatevectorTransformation {
+    func apply(gateMatrix: Matrix, toStatevector vector: Vector, atInputs inputs: [Int]) -> Vector
 }

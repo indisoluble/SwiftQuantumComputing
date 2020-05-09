@@ -30,24 +30,21 @@ final class SimulatorCircuitMatrixFactoryTestDouble {
 
     private (set) var makeCircuitMatrixCount = 0
     private (set) var lastMakeCircuitMatrixQubitCount: Int?
-    private (set) var lastMakeCircuitMatrixGate: SimulatorGate?
-    var makeCircuitMatrixResult: Matrix?
-    var makeCircuitMatrixError = GateError.gateMatrixCanNotBeExtendedIntoACircuitUnitary
+    private (set) var lastMakeCircuitMatrixBaseMatrix: Matrix?
+    private (set) var lastMakeCircuitMatrixInputs: [Int]?
+    var makeCircuitMatrixResult = Matrix.makeNot()
 }
 
 // MARK: - imulatorCircuitMatrixFactory methods
 
 extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixFactory {
-    func makeCircuitMatrix(qubitCount: Int, gate: SimulatorGate) throws -> Matrix {
+    func makeCircuitMatrix(qubitCount: Int, baseMatrix: Matrix, inputs: [Int]) -> Matrix {
         makeCircuitMatrixCount += 1
 
         lastMakeCircuitMatrixQubitCount = qubitCount
-        lastMakeCircuitMatrixGate = gate
+        lastMakeCircuitMatrixBaseMatrix = baseMatrix
+        lastMakeCircuitMatrixInputs = inputs
 
-        if let makeCircuitMatrixResult = makeCircuitMatrixResult {
-            return makeCircuitMatrixResult
-        }
-
-        throw makeCircuitMatrixError
+        return makeCircuitMatrixResult
     }
 }

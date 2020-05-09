@@ -51,7 +51,7 @@ extension Circuit {
         guard let value = Int(initialBits ?? "0", radix: 2) else {
             throw StatevectorError.initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
         }
-        let qubitCount = (initialBits?.count ?? (gates as [SimulatorGate]).qubitCount())
+        let qubitCount = (initialBits?.count ?? gates.qubitCount())
 
         let initialStatevector = Self.makeState(value: value, qubitCount: qubitCount)
 

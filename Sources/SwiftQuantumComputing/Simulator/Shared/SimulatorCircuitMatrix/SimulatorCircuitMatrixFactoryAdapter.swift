@@ -27,20 +27,7 @@ struct SimulatorCircuitMatrixFactoryAdapter {}
 // MARK: - SimulatorCircuitMatrixFactory methods
 
 extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
-    func makeCircuitMatrix(qubitCount: Int, gate: SimulatorGate) throws -> Matrix {
-        let (matrix, inputs) = try gate.extract(restrictedToCircuitQubitCount: qubitCount)
-
-        return makeExtendedMatrix(qubitCount: qubitCount, inputs: inputs, baseMatrix: matrix)
-    }
-}
-
-// MARK: - Private body
-
-private extension SimulatorCircuitMatrixFactoryAdapter {
-
-    // MARK: - Private methods
-
-    func makeExtendedMatrix(qubitCount: Int, inputs: [Int], baseMatrix: Matrix) -> Matrix {
+    func makeCircuitMatrix(qubitCount: Int, baseMatrix: Matrix, inputs: [Int]) -> Matrix {
         let count = Int.pow(2, qubitCount)
 
         let remainingInputs = (0..<qubitCount).reversed().filter { !inputs.contains($0) }

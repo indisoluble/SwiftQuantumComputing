@@ -34,7 +34,7 @@ extension Circuit {
      - Returns: Unitary matrix that represents entire list of `gates`.
      */
     public func unitary() throws -> Matrix {
-        let qubitCount = (gates as [SimulatorGate]).qubitCount()
+        let qubitCount = gates.qubitCount()
 
         return try unitary(withQubitCount: qubitCount)
     }

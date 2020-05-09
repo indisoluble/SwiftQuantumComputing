@@ -1,9 +1,9 @@
 //
-//  ArraySimulatorGate+QubitCount.swift
+//  UnitaryMatrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 08/11/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 01/05/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,16 +20,14 @@
 
 import Foundation
 
-extension Array where Element == SimulatorGate {
-    func qubitCount() -> Int {
-        let maxInput = reduce(0) { currentMax, gate in
-            guard let otherMax = gate.extractRawInputs().max() else {
-                return currentMax
-            }
+// MARK: - Errors
 
-            return otherMax > currentMax ? otherMax : currentMax
-        }
+enum UnitaryMatrixError: Error {
+    case matrixIsNotUnitary
+}
 
-        return maxInput + 1
-    }
+// MARK: - Protocol definition
+
+protocol UnitaryMatrix {
+    func unitary() throws -> Matrix
 }

@@ -63,7 +63,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(register.applyingCount, 0)
+        XCTAssertEqual(register.simulatorApplyingCount, 0)
         XCTAssertEqual(register.statevectorCount, 1)
         XCTAssertEqual(result, statevector)
     }
@@ -78,8 +78,8 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertThrowsError(try simulator.apply(circuit: [firstGate], to: initialStatevector))
 
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(register.applyingCount, 1)
-        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+        XCTAssertEqual(register.simulatorApplyingCount, 1)
+        if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
             XCTAssertTrue(lastApplyingGate === firstGate)
         } else {
             XCTAssert(false)
@@ -92,7 +92,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
-        register.applyingResult = firstRegister
+        register.simulatorApplyingResult = firstRegister
         firstRegister.statevectorResult = statevector
 
         // When
@@ -100,13 +100,13 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(register.applyingCount, 1)
-        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+        XCTAssertEqual(register.simulatorApplyingCount, 1)
+        if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
             XCTAssertTrue(lastApplyingGate === firstGate)
         } else {
             XCTAssert(false)
         }
-        XCTAssertEqual(firstRegister.applyingCount, 0)
+        XCTAssertEqual(firstRegister.simulatorApplyingCount, 0)
         XCTAssertEqual(firstRegister.statevectorCount, 1)
         XCTAssertEqual(result, statevector)
     }
@@ -116,19 +116,19 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
-        register.applyingResult = firstRegister
+        register.simulatorApplyingResult = firstRegister
 
         // Then
         XCTAssertThrowsError(try simulator.apply(circuit: [firstGate], to: initialStatevector))
 
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(register.applyingCount, 1)
-        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+        XCTAssertEqual(register.simulatorApplyingCount, 1)
+        if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
             XCTAssertTrue(lastApplyingGate === firstGate)
         } else {
             XCTAssert(false)
         }
-        XCTAssertEqual(firstRegister.applyingCount, 0)
+        XCTAssertEqual(firstRegister.simulatorApplyingCount, 0)
         XCTAssertEqual(firstRegister.statevectorCount, 1)
     }
 
@@ -137,28 +137,28 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
-        register.applyingResult = firstRegister
-        firstRegister.applyingResult = secondRegister
+        register.simulatorApplyingResult = firstRegister
+        firstRegister.simulatorApplyingResult = secondRegister
 
         // Then
         XCTAssertThrowsError(try simulator.apply(circuit: [firstGate, secondGate, thirdGate],
                                                  to: initialStatevector))
 
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(register.applyingCount, 1)
-        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+        XCTAssertEqual(register.simulatorApplyingCount, 1)
+        if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
             XCTAssertTrue(lastApplyingGate === firstGate)
         } else {
             XCTAssert(false)
         }
-        XCTAssertEqual(firstRegister.applyingCount, 1)
-        if let lastApplyingGate = firstRegister.lastApplyingGate as? SimulatorGateTestDouble {
+        XCTAssertEqual(firstRegister.simulatorApplyingCount, 1)
+        if let lastApplyingGate = firstRegister.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
             XCTAssertTrue(lastApplyingGate === secondGate)
         } else {
             XCTAssert(false)
         }
-        XCTAssertEqual(secondRegister.applyingCount, 1)
-        if let lastApplyingGate = secondRegister.lastApplyingGate as? SimulatorGateTestDouble {
+        XCTAssertEqual(secondRegister.simulatorApplyingCount, 1)
+        if let lastApplyingGate = secondRegister.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
             XCTAssertTrue(lastApplyingGate === thirdGate)
         } else {
             XCTAssert(false)
@@ -173,9 +173,9 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         registerFactory.makeRegisterResult = register
-        register.applyingResult = firstRegister
-        firstRegister.applyingResult = secondRegister
-        secondRegister.applyingResult = thirdRegister
+        register.simulatorApplyingResult = firstRegister
+        firstRegister.simulatorApplyingResult = secondRegister
+        secondRegister.simulatorApplyingResult = thirdRegister
         thirdRegister.statevectorResult = statevector
 
         // When
@@ -184,20 +184,20 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
-        XCTAssertEqual(register.applyingCount, 1)
-        if let lastApplyingGate = register.lastApplyingGate as? SimulatorGateTestDouble {
+        XCTAssertEqual(register.simulatorApplyingCount, 1)
+        if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
             XCTAssertTrue(lastApplyingGate === firstGate)
         } else {
             XCTAssert(false)
         }
-        XCTAssertEqual(firstRegister.applyingCount, 1)
-        if let lastApplyingGate = firstRegister.lastApplyingGate as? SimulatorGateTestDouble {
+        XCTAssertEqual(firstRegister.simulatorApplyingCount, 1)
+        if let lastApplyingGate = firstRegister.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
             XCTAssertTrue(lastApplyingGate === secondGate)
         } else {
             XCTAssert(false)
         }
-        XCTAssertEqual(secondRegister.applyingCount, 1)
-        if let lastApplyingGate = secondRegister.lastApplyingGate as? SimulatorGateTestDouble {
+        XCTAssertEqual(secondRegister.simulatorApplyingCount, 1)
+        if let lastApplyingGate = secondRegister.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
             XCTAssertTrue(lastApplyingGate === thirdGate)
         } else {
             XCTAssert(false)

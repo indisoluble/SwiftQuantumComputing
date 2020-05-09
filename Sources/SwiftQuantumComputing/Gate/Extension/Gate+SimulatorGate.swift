@@ -20,28 +20,13 @@
 
 import Foundation
 
-// MARK: - SimulatorGate methods
+// MARK: - Main body
 
-extension Gate: SimulatorGate {
-    var gate: Gate {
-        return self
-    }
+extension Gate {
 
-    func extract() throws -> (matrix: Matrix, inputs: [Int]) {
-        let inputs = extractRawInputs()
-        guard areInputsUnique(inputs) else {
-            throw GateError.gateInputsAreNotUnique
-        }
+    // MARK: - Internal methods
 
-        let matrix = try extractMatrix()
-        guard doesInputCountMatchMatrixQubitCount(inputs, matrix: matrix) else {
-            throw GateError.gateInputCountDoesNotMatchGateMatrixQubitCount
-        }
-
-        return (matrix, inputs)
-    }
-
-    func extractRawInputs() -> [Int] {
+    func extractInputs() -> [Int] {
         var resultInputs: [Int]!
 
         switch self {
@@ -62,6 +47,44 @@ extension Gate: SimulatorGate {
         }
 
         return resultInputs
+    }
+}
+
+// MARK: - SimulatorRawGate methods
+
+extension Gate: SimulatorRawGate {
+    var gate: Gate {
+        return self
+    }
+}
+
+// MARK: - SimulatorGate methods
+
+extension Gate: SimulatorGate {
+    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
+        let inputs = extractInputs()
+        guard areInputsUnique(inputs) else {
+            throw GateError.gateInputsAreNotUnique
+        }
+
+        let matrix = try extractMatrix()
+        guard doesInputCountMatchMatrixQubitCount(inputs, matrix: matrix) else {
+            throw GateError.gateInputCountDoesNotMatchGateMatrixQubitCount
+        }
+
+        guard qubitCount > 0 else {
+            throw GateError.circuitQubitCountHasToBeBiggerThanZero
+        }
+
+        guard doesMatrixFitInCircuit(matrix, qubitCount: qubitCount) else {
+            throw GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
+        }
+
+        guard areInputsInBound(inputs, qubitCount: qubitCount) else {
+            throw GateError.gateInputsAreNotInBound
+        }
+
+        return (matrix, inputs)
     }
 }
 
@@ -88,6 +111,18 @@ private extension Gate {
         let matrixQubitCount = Int.log2(matrix.rowCount)
 
         return (inputs.count == matrixQubitCount)
+    }
+
+    func doesMatrixFitInCircuit(_ matrix: Matrix, qubitCount: Int) -> Bool {
+        let matrixQubitCount = Int.log2(matrix.rowCount)
+
+        return matrixQubitCount <= qubitCount
+    }
+
+    func areInputsInBound(_ inputs: [Int], qubitCount: Int) -> Bool {
+        let validInputs = (0..<qubitCount)
+
+        return inputs.allSatisfy { validInputs.contains($0) }
     }
 
     func extractMatrix() throws -> Matrix {
@@ -121,8 +156,14 @@ private extension Gate {
         case .not:
             resultMatrix = Constants.matrixNot
         case .oracle(let truthTable, _, let controls):
-            resultMatrix = try Matrix.makeOracle(truthTable: truthTable,
-                                                 controlCount: controls.count)
+            do {
+                resultMatrix = try Matrix.makeOracle(truthTable: truthTable,
+                                                     controlCount: controls.count)
+            } catch Matrix.MakeOracleError.controlsCanNotBeAnEmptyList {
+                throw GateError.gateOracleControlsCanNotBeAnEmptyList
+            } catch {
+                fatalError("Unexpected error: \(error).")
+            }
         case .phaseShift(let radians, _):
             resultMatrix = Matrix.makePhaseShift(radians: radians)
         }

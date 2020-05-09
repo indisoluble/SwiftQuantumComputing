@@ -1,8 +1,8 @@
 //
-//  StatevectorTransformation.swift
+//  SimulatorRawGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 18/04/2020.
+//  Created by Enrique de la Torre on 03/05/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol StatevectorTransformation {
-    func applying(_ gate: SimulatorGate) throws -> Self
+protocol SimulatorRawGate {
+    var gate: Gate { get }
 }
