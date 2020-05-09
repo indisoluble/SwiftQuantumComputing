@@ -45,6 +45,11 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
             nextVector = apply(oneQubitMatrix: gateMatrix,
                                toStatevector: vector,
                                atInput: inputs.first!)
+        } else if inputs.count == 2 && isTwoQubitControlledMatrix(gateMatrix) {
+            nextVector = apply(twoQubitMatrix: gateMatrix,
+                               toStatevector: vector,
+                               atTarget: inputs.last!,
+                               withControl: inputs.first!)
         } else {
             nextVector = transformation.apply(gateMatrix: gateMatrix,
                                               toStatevector: vector,
@@ -61,16 +66,54 @@ private extension DirectStatevectorTransformation {
 
     // MARK: - Private methods
 
+    func isTwoQubitControlledMatrix(_ matrix: Matrix) -> Bool {
+        let elements = matrix.elements
+        let expectedElements = [
+            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.one, Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero],
+            [Complex.zero, Complex.zero]
+        ]
+
+        return zip(elements, expectedElements).reduce(true) { acc, tuple in
+            let (row, expectedRow) = tuple
+
+            return acc && Array(row[0..<expectedRow.count]) == expectedRow
+        }
+    }
+
     func apply(oneQubitMatrix matrix: Matrix,
                toStatevector vector: Vector,
                atInput input: Int) -> Vector {
+        return apply(matrix: matrix, toStatevector: vector, atInput: input)
+    }
+
+    func apply(twoQubitMatrix matrix: Matrix,
+               toStatevector vector: Vector,
+               atTarget target: Int,
+               withControl control: Int) -> Vector {
+        let submatrix = try! Matrix.makeMatrix(rowCount: 2, columnCount: 2) { matrix[2+$0, 2+$1] }
+        let filter = 1 << control
+
+        return apply(matrix: submatrix,
+                     toStatevector: vector,
+                     atInput: target,
+                     selectingStatesWith:filter)
+    }
+
+    func apply(matrix: Matrix,
+               toStatevector vector: Vector,
+               atInput input: Int,
+               selectingStatesWith filter: Int? = nil) -> Vector {
         let mask = 1 << input
         let invMask = ~mask
 
         return try! Vector.makeVector(count: vector.count) { index in
             var value: Complex!
 
-            if index & mask == 0 {
+            if let filter = filter, index & filter == 0 {
+                value = vector[index]
+            } else if index & mask == 0 {
                 let otherIndex = index | mask
 
                 value = matrix[0, 0] * vector[index] + matrix[0, 1] * vector[otherIndex]
