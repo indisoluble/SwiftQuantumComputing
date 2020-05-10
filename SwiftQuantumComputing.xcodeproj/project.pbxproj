@@ -1333,7 +1333,6 @@
 				FF103741236E0AAF0011706D /* Matrix+Elements.swift */,
 				FFEB607B23F8721300F4FAA1 /* Matrix+Identity.swift */,
 				FFB2274D241E5E0500AC64AD /* Matrix+IsSquare.swift */,
-				FF7C6E12241987950016D9CC /* Matrix+QuantumFourierTransform.swift */,
 				FF1F894423F99CF1008847A1 /* Matrix+TensorProduct.swift */,
 				FF103744236E0D870011706D /* Vector+Elements.swift */,
 				FFB09CBE24465B1F00C098C3 /* Vector+IsAdditionOfSquareModulusEqualToOne.swift */,
@@ -1349,7 +1348,6 @@
 				FF103749236E0EA40011706D /* Matrix+ElementsTests.swift */,
 				FFEB607E23F87A7100F4FAA1 /* Matrix+IdentityTests.swift */,
 				FFB22750241E5F2500AC64AD /* Matrix+IsSquareTests.swift */,
-				FF7C6E152419961F0016D9CC /* Matrix+QuantumFourierTransformTests.swift */,
 				FF1F894723F9A072008847A1 /* Matrix+TensorProductTests.swift */,
 				FF10374C236E0EEA0011706D /* Vector+ElementsTests.swift */,
 				FFB09CC124465E1C00C098C3 /* Vector+IsAdditionOfSquareModulusEqualToOneTests.swift */,
@@ -1380,6 +1378,7 @@
 			children = (
 				FFDC49F82414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift */,
 				FF18358321EA36AE003E2F04 /* Matrix+OracleTests.swift */,
+				FF7C6E152419961F0016D9CC /* Matrix+QuantumFourierTransformTests.swift */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -2236,6 +2235,7 @@
 				FFFEFD2E21333EFD0063B559 /* Matrix+Not.swift */,
 				FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */,
 				FFFEFD3021333F140063B559 /* Matrix+PhaseShift.swift */,
+				FF7C6E12241987950016D9CC /* Matrix+QuantumFourierTransform.swift */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
