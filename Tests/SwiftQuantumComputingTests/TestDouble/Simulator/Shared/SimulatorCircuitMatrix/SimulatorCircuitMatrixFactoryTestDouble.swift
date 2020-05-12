@@ -32,13 +32,15 @@ final class SimulatorCircuitMatrixFactoryTestDouble {
     private (set) var lastMakeCircuitMatrixQubitCount: Int?
     private (set) var lastMakeCircuitMatrixBaseMatrix: Matrix?
     private (set) var lastMakeCircuitMatrixInputs: [Int]?
-    var makeCircuitMatrixResult = Matrix.makeNot()
+    var makeCircuitMatrixResult: SimulatorCircuitMatrix = SimulatorCircuitMatrixTestDouble()
 }
 
-// MARK: - imulatorCircuitMatrixFactory methods
+// MARK: - SimulatorCircuitMatrixFactory methods
 
 extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixFactory {
-    func makeCircuitMatrix(qubitCount: Int, baseMatrix: Matrix, inputs: [Int]) -> Matrix {
+    func makeCircuitMatrix(qubitCount: Int,
+                           baseMatrix: Matrix,
+                           inputs: [Int]) -> SimulatorCircuitMatrix {
         makeCircuitMatrixCount += 1
 
         lastMakeCircuitMatrixQubitCount = qubitCount

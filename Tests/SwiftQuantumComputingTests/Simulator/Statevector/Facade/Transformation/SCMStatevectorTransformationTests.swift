@@ -44,7 +44,10 @@ class SCMStatevectorTransformationTests: XCTestCase {
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
 
-        let circuitMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
+        let circuitMatrix = SimulatorCircuitMatrixTestDouble()
+        circuitMatrix.rawMatrixResult = try! Matrix([
+            [Complex.zero, Complex.one], [Complex.one, Complex.zero]
+        ])
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
@@ -57,6 +60,7 @@ class SCMStatevectorTransformationTests: XCTestCase {
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, vectorQubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
+        XCTAssertEqual(circuitMatrix.rawMatrixCount, 1)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one])
         XCTAssertEqual(result, expectedVector)

@@ -32,8 +32,8 @@ class UnitaryGateAdapterTests: XCTestCase {
     let simulatorGate = SimulatorGateTestDouble()
     let gateInputs = [0]
     let gateMatrix = Matrix.makeHadamard()
-    let circuitMatrix = Matrix.makeHadamard()
-    let otherCircuitMatrix = Matrix.makeNot()
+    let simulatorMatrix = Matrix.makeHadamard()
+    let otherSimulatorMatrix = Matrix.makeNot()
     let matrixQubitCount = 1
 
     // MARK: - Tests
@@ -60,7 +60,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testValidMatrix_init_returnValue() {
         // When
-        let result = try? UnitaryGateAdapter(matrix: circuitMatrix, matrixFactory: matrixFactory)
+        let result = try? UnitaryGateAdapter(matrix: simulatorMatrix, matrixFactory: matrixFactory)
 
         // Then
         XCTAssertNotNil(result)
@@ -79,18 +79,18 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testValidMatrix_unitary_returnValue() {
         // Given
-        let adapter = try! UnitaryGateAdapter(matrix: circuitMatrix, matrixFactory: matrixFactory)
+        let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix, matrixFactory: matrixFactory)
 
         // When
         let result = try? adapter.unitary()
 
         // Then
-        XCTAssertEqual(result, circuitMatrix)
+        XCTAssertEqual(result, simulatorMatrix)
     }
 
     func testGateThatThrowsError_applying_throwError() {
         // Given
-        let adapter = try! UnitaryGateAdapter(matrix: circuitMatrix, matrixFactory: matrixFactory)
+        let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix, matrixFactory: matrixFactory)
 
         // Then
         XCTAssertThrowsError(try adapter.applying(simulatorGate))
@@ -106,6 +106,9 @@ class UnitaryGateAdapterTests: XCTestCase {
         simulatorGate.extractComponentsInputsResult = gateInputs
         simulatorGate.extractComponentsMatrixResult = gateMatrix
 
+        let circuitMatrix = SimulatorCircuitMatrixTestDouble()
+        circuitMatrix.rawMatrixResult = simulatorMatrix
+
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
@@ -118,6 +121,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
+        XCTAssertEqual(circuitMatrix.rawMatrixCount, 1)
 
         let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex.one, Complex.one],
                                                                     [Complex(-1), Complex.one]])))
@@ -126,10 +130,13 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testMatrixFactoryReturnsOtherMatrix_applying_returnValue() {
         // Given
-        let adapter = try! UnitaryGateAdapter(matrix: circuitMatrix, matrixFactory: matrixFactory)
+        let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix, matrixFactory: matrixFactory)
 
         simulatorGate.extractComponentsInputsResult = gateInputs
         simulatorGate.extractComponentsMatrixResult = gateMatrix
+
+        let otherCircuitMatrix = SimulatorCircuitMatrixTestDouble()
+        otherCircuitMatrix.rawMatrixResult = otherSimulatorMatrix
 
         matrixFactory.makeCircuitMatrixResult = otherCircuitMatrix
 
@@ -143,6 +150,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
+        XCTAssertEqual(otherCircuitMatrix.rawMatrixCount, 1)
 
         let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex.one, Complex(-1)],
                                                                     [Complex.one, Complex.one]])))

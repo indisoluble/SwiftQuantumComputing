@@ -1,5 +1,5 @@
 //
-//  SimulatorCircuitMatrixFactoryAdapterTests.swift
+//  SimulatorCircuitMatrixAdapterTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 04/02/2020.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
+class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -37,35 +37,33 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
     let otherValidMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
     let otherValidInputs = [0]
 
-    let sut = SimulatorCircuitMatrixFactoryAdapter()
-
     // MARK: - Tests
 
-    func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix() {
+    func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix() {
         // When
-        let matrix = sut.makeCircuitMatrix(qubitCount: 2,
-                                           baseMatrix: validMatrix,
-                                           inputs: validInputs)
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: 2,
+                                                baseMatrix: validMatrix,
+                                                inputs: validInputs)
 
         // Then
-        XCTAssertEqual(matrix, validMatrix)
+        XCTAssertEqual(sut.rawMatrix, validMatrix)
     }
 
-    func testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix() {
+    func testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix() {
         // When
-        let matrix = sut.makeCircuitMatrix(qubitCount: 1,
-                                           baseMatrix: otherValidMatrix,
-                                           inputs: otherValidInputs)
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: 1,
+                                                baseMatrix: otherValidMatrix,
+                                                inputs: otherValidInputs)
 
         // Then
-        XCTAssertEqual(matrix, otherValidMatrix)
+        XCTAssertEqual(sut.rawMatrix, otherValidMatrix)
     }
 
-    func testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeCircuitMatrix_returnExpectedMatrix() {
+    func testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix() {
         // When
-        let matrix = sut.makeCircuitMatrix(qubitCount: 2,
-                                           baseMatrix: validMatrix,
-                                           inputs: validInputs.reversed())
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: 2,
+                                                baseMatrix: validMatrix,
+                                                inputs: validInputs.reversed())
 
         // Then
         let expectedElements = [
@@ -74,14 +72,14 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
             [Complex.zero, Complex.zero, Complex.one, Complex.zero],
             [Complex.zero, Complex.one, Complex.zero, Complex.zero]
         ]
-        XCTAssertEqual(matrix, try? Matrix(expectedElements))
+        XCTAssertEqual(sut.rawMatrix, try? Matrix(expectedElements))
     }
 
-    func testNonContiguousInputs_makeCircuitMatrix_returnExpectedMatrix() {
+    func testNonContiguousInputs_rawMatrix_returnExpectedMatrix() {
         // When
-        let matrix = sut.makeCircuitMatrix(qubitCount: validQubitCount,
-                                           baseMatrix: validMatrix,
-                                           inputs: [0, 2])
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: validQubitCount,
+                                                baseMatrix: validMatrix,
+                                                inputs: [0, 2])
 
         // Then
         let expectedElements = [
@@ -94,12 +92,14 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
             [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
             [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero]
         ]
-        XCTAssertEqual(matrix, try? Matrix(expectedElements))
+        XCTAssertEqual(sut.rawMatrix, try? Matrix(expectedElements))
     }
 
-    func testContiguousInputsButInTheMiddle_makeCircuitMatrix_returnExpectedMatrix() {
+    func testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix() {
         // When
-        let matrix = sut.makeCircuitMatrix(qubitCount: 4, baseMatrix: validMatrix, inputs: [2, 1])
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: 4,
+                                                baseMatrix: validMatrix,
+                                                inputs: [2, 1])
 
         // Then
         let expectedElements = [
@@ -135,19 +135,19 @@ class SimulatorCircuitMatrixFactoryAdapterTests: XCTestCase {
              Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
             [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
              Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero]]
-        XCTAssertEqual(matrix, try? Matrix(expectedElements))
+        XCTAssertEqual(sut.rawMatrix, try? Matrix(expectedElements))
     }
 
     static var allTests = [
-        ("testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix",
-         testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix),
-        ("testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix",
-         testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_makeCircuitMatrix_returnExpectedMatrix),
-        ("testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeCircuitMatrix_returnExpectedMatrix",
-         testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_makeCircuitMatrix_returnExpectedMatrix),
-        ("testNonContiguousInputs_makeCircuitMatrix_returnExpectedMatrix",
-         testNonContiguousInputs_makeCircuitMatrix_returnExpectedMatrix),
-        ("testContiguousInputsButInTheMiddle_makeCircuitMatrix_returnExpectedMatrix",
-         testContiguousInputsButInTheMiddle_makeCircuitMatrix_returnExpectedMatrix)
+        ("testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix",
+         testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix),
+        ("testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix",
+         testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix),
+        ("testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix",
+         testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix),
+        ("testNonContiguousInputs_rawMatrix_returnExpectedMatrix",
+         testNonContiguousInputs_rawMatrix_returnExpectedMatrix),
+        ("testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix",
+         testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix)
     ]
 }

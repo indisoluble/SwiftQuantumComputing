@@ -1,8 +1,8 @@
 //
-//  SimulatorCircuitMatrixFactoryAdapter.swift
+//  SimulatorCircuitMatrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 03/02/2020.
+//  Created by Enrique de la Torre on 12/05/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,18 +20,8 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-struct SimulatorCircuitMatrixFactoryAdapter {}
-
-// MARK: - SimulatorCircuitMatrixFactory methods
-
-extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
-    func makeCircuitMatrix(qubitCount: Int,
-                           baseMatrix: Matrix,
-                           inputs: [Int]) -> SimulatorCircuitMatrix {
-        return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
-                                             baseMatrix: baseMatrix,
-                                             inputs: inputs)
-    }
+protocol SimulatorCircuitMatrix {
+    var rawMatrix: Matrix { get }
 }

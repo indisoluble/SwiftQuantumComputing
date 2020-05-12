@@ -39,9 +39,9 @@ struct SCMStatevectorTransformation {
 
 extension SCMStatevectorTransformation: StatevectorTransformation {
     func apply(gateMatrix: Matrix, toStatevector vector: Vector, atInputs inputs: [Int]) -> Vector {
-        let matrix = matrixFactory.makeCircuitMatrix(qubitCount: Int.log2(vector.count),
-                                                     baseMatrix: gateMatrix,
-                                                     inputs: inputs)
-        return try! matrix * vector
+        let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: Int.log2(vector.count),
+                                                            baseMatrix: gateMatrix,
+                                                            inputs: inputs)
+        return try! circuitMatrix.rawMatrix * vector
     }
 }
