@@ -52,16 +52,16 @@ struct SimulatorCircuitMatrixAdapter {
 
 extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrix {
     var rawMatrix: Matrix {
-        return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { r, c -> Complex in
-            let baseRow = derives[r]!.base
-            let baseColumn = derives[c]!.base
+        return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { self[$0, $1] }
+    }
 
-            let remainingRow = derives[r]!.remaining
-            let remainingColumn = derives[c]!.remaining
+    subscript(row: Int, column: Int) -> Complex {
+        let baseRow = derives[row]!.base
+        let baseColumn = derives[column]!.base
 
-            return (remainingRow == remainingColumn ?
-                baseMatrix[baseRow, baseColumn] :
-                Complex.zero)
-        }
+        let remainingRow = derives[row]!.remaining
+        let remainingColumn = derives[column]!.remaining
+
+        return (remainingRow == remainingColumn ? baseMatrix[baseRow, baseColumn] : Complex.zero)
     }
 }

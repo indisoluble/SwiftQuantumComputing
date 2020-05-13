@@ -27,21 +27,80 @@ import XCTest
 class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     // MARK: - Properties
-
-    let validQubitCount = 3
-    let validMatrix = try! Matrix([[Complex.one, Complex.zero, Complex.zero, Complex.zero],
-                                   [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-                                   [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-                                   [Complex.zero, Complex.zero, Complex.one, Complex.zero]])
+    let twoQubitCount = 2
     let validInputs = [1, 0]
-    let otherValidMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
+    let validMatrix = try! Matrix([
+        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.one, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+        [Complex.zero, Complex.zero, Complex.one, Complex.zero]
+    ])
+    let validMatrixWithReversedValidInputs = try! Matrix([
+        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.one],
+        [Complex.zero, Complex.zero, Complex.one, Complex.zero],
+        [Complex.zero, Complex.one, Complex.zero, Complex.zero]
+    ])
+
+    let oneQubitCount = 1
     let otherValidInputs = [0]
+    let otherValidMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
+
+    let threeQubitCount = 3
+    let nonContiguousInputs = [0, 2]
+    let expectedThreeQubitMatrix = try! Matrix([
+        [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero]
+    ])
+
+    let fourQubitCount = 4
+    let contiguousInputsButInTheMiddle = [2, 1]
+    let expectedFourQubitMatrix = try! Matrix([
+        [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
+        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
+         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero]
+    ])
 
     // MARK: - Tests
 
     func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: 2,
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: twoQubitCount,
                                                 baseMatrix: validMatrix,
                                                 inputs: validInputs)
 
@@ -51,7 +110,7 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     func testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: 1,
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: oneQubitCount,
                                                 baseMatrix: otherValidMatrix,
                                                 inputs: otherValidInputs)
 
@@ -61,81 +120,60 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     func testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: 2,
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: twoQubitCount,
                                                 baseMatrix: validMatrix,
                                                 inputs: validInputs.reversed())
 
         // Then
-        let expectedElements = [
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-            [Complex.zero, Complex.zero, Complex.one, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero]
-        ]
-        XCTAssertEqual(sut.rawMatrix, try? Matrix(expectedElements))
+        XCTAssertEqual(sut.rawMatrix, validMatrixWithReversedValidInputs)
     }
 
     func testNonContiguousInputs_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: validQubitCount,
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: threeQubitCount,
                                                 baseMatrix: validMatrix,
-                                                inputs: [0, 2])
+                                                inputs: nonContiguousInputs)
 
         // Then
-        let expectedElements = [
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero]
-        ]
-        XCTAssertEqual(sut.rawMatrix, try? Matrix(expectedElements))
+        XCTAssertEqual(sut.rawMatrix, expectedThreeQubitMatrix)
+    }
+
+    func testNonContiguousInputs_subscriptRowColumn_returnExpectedValues() {
+        // When
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: threeQubitCount,
+                                                baseMatrix: validMatrix,
+                                                inputs: nonContiguousInputs)
+
+        // Then
+        for row in 0..<expectedThreeQubitMatrix.rowCount {
+            for column in 0..<expectedThreeQubitMatrix.columnCount {
+                XCTAssertEqual(sut[row, column], expectedThreeQubitMatrix[row, column])
+            }
+        }
     }
 
     func testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: 4,
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: fourQubitCount,
                                                 baseMatrix: validMatrix,
-                                                inputs: [2, 1])
+                                                inputs: contiguousInputsButInTheMiddle)
 
         // Then
-        let expectedElements = [
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero]]
-        XCTAssertEqual(sut.rawMatrix, try? Matrix(expectedElements))
+        XCTAssertEqual(sut.rawMatrix, expectedFourQubitMatrix)
+    }
+
+    func testContiguousInputsButInTheMiddle_subscriptRowColumn_returnExpectedMatrix() {
+        // When
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: fourQubitCount,
+                                                baseMatrix: validMatrix,
+                                                inputs: contiguousInputsButInTheMiddle)
+
+        // Then
+        for row in 0..<expectedThreeQubitMatrix.rowCount {
+            for column in 0..<expectedThreeQubitMatrix.columnCount {
+                XCTAssertEqual(sut[row, column], expectedFourQubitMatrix[row, column])
+            }
+        }
     }
 
     static var allTests = [
@@ -147,7 +185,11 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
          testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix),
         ("testNonContiguousInputs_rawMatrix_returnExpectedMatrix",
          testNonContiguousInputs_rawMatrix_returnExpectedMatrix),
+        ("testNonContiguousInputs_subscriptRowColumn_returnExpectedValues",
+         testNonContiguousInputs_subscriptRowColumn_returnExpectedValues),
         ("testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix",
-         testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix)
+         testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix),
+        ("testContiguousInputsButInTheMiddle_subscriptRowColumn_returnExpectedMatrix",
+         testContiguousInputsButInTheMiddle_subscriptRowColumn_returnExpectedMatrix)
     ]
 }

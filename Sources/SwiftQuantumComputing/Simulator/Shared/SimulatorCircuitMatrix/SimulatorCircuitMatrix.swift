@@ -24,4 +24,5 @@ import Foundation
 
 protocol SimulatorCircuitMatrix {
     var rawMatrix: Matrix { get }
+    subscript(row: Int, column: Int) -> Complex { get }
 }

@@ -30,6 +30,11 @@ final class SimulatorCircuitMatrixTestDouble {
 
     private (set) var rawMatrixCount = 0
     var rawMatrixResult = Matrix.makeNot()
+
+    private (set) var subscriptRowColumnCount = 0
+    private (set) var lastSubscriptRowColumnRow: Int?
+    private (set) var lastSubscriptRowColumnColumn: Int?
+    var subscriptRowColumnResult = Complex.zero
 }
 
 // MARK: - SimulatorCircuitMatrix methods
@@ -39,5 +44,14 @@ extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrix {
         rawMatrixCount += 1
 
         return rawMatrixResult
+    }
+
+    subscript(row: Int, column: Int) -> Complex {
+        subscriptRowColumnCount += 1
+
+        lastSubscriptRowColumnRow = row
+        lastSubscriptRowColumnColumn = column
+
+        return subscriptRowColumnResult
     }
 }
