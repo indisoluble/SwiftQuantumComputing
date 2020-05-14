@@ -55,6 +55,10 @@ extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrix {
         return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { self[$0, $1] }
     }
 
+    subscript(row: Int) -> Vector {
+        return try! Vector.makeVector(count: count) { self[row, $0] }
+    }
+
     subscript(row: Int, column: Int) -> Complex {
         let baseRow = derives[row]!.base
         let baseColumn = derives[column]!.base

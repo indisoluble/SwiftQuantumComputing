@@ -138,6 +138,22 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
         XCTAssertEqual(sut.rawMatrix, expectedThreeQubitMatrix)
     }
 
+    func testNonContiguousInputs_subscriptRow_returnExpectedValues() {
+        // When
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: threeQubitCount,
+                                                baseMatrix: validMatrix,
+                                                inputs: nonContiguousInputs)
+
+        // Then
+        for row in 0..<expectedThreeQubitMatrix.rowCount {
+            let vector = sut[row]
+
+            for column in 0..<expectedThreeQubitMatrix.columnCount {
+                XCTAssertEqual(vector[column], expectedThreeQubitMatrix[row, column])
+            }
+        }
+    }
+
     func testNonContiguousInputs_subscriptRowColumn_returnExpectedValues() {
         // When
         let sut = SimulatorCircuitMatrixAdapter(qubitCount: threeQubitCount,
@@ -162,6 +178,24 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
         XCTAssertEqual(sut.rawMatrix, expectedFourQubitMatrix)
     }
 
+
+    func testContiguousInputsButInTheMiddle_subscriptRow_returnExpectedMatrix() {
+        // When
+        let sut = SimulatorCircuitMatrixAdapter(qubitCount: fourQubitCount,
+                                                baseMatrix: validMatrix,
+                                                inputs: contiguousInputsButInTheMiddle)
+
+        // Then
+        for row in 0..<expectedFourQubitMatrix.rowCount {
+            let vector = sut[row]
+
+            for column in 0..<expectedFourQubitMatrix.columnCount {
+                XCTAssertEqual(vector[column], expectedFourQubitMatrix[row, column])
+            }
+        }
+    }
+
+
     func testContiguousInputsButInTheMiddle_subscriptRowColumn_returnExpectedMatrix() {
         // When
         let sut = SimulatorCircuitMatrixAdapter(qubitCount: fourQubitCount,
@@ -169,8 +203,8 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
                                                 inputs: contiguousInputsButInTheMiddle)
 
         // Then
-        for row in 0..<expectedThreeQubitMatrix.rowCount {
-            for column in 0..<expectedThreeQubitMatrix.columnCount {
+        for row in 0..<expectedFourQubitMatrix.rowCount {
+            for column in 0..<expectedFourQubitMatrix.columnCount {
                 XCTAssertEqual(sut[row, column], expectedFourQubitMatrix[row, column])
             }
         }
@@ -185,10 +219,14 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
          testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix),
         ("testNonContiguousInputs_rawMatrix_returnExpectedMatrix",
          testNonContiguousInputs_rawMatrix_returnExpectedMatrix),
+        ("testNonContiguousInputs_subscriptRow_returnExpectedValues",
+         testNonContiguousInputs_subscriptRow_returnExpectedValues),
         ("testNonContiguousInputs_subscriptRowColumn_returnExpectedValues",
          testNonContiguousInputs_subscriptRowColumn_returnExpectedValues),
         ("testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix",
          testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix),
+        ("testContiguousInputsButInTheMiddle_subscriptRow_returnExpectedMatrix",
+         testContiguousInputsButInTheMiddle_subscriptRow_returnExpectedMatrix),
         ("testContiguousInputsButInTheMiddle_subscriptRowColumn_returnExpectedMatrix",
          testContiguousInputsButInTheMiddle_subscriptRowColumn_returnExpectedMatrix)
     ]
