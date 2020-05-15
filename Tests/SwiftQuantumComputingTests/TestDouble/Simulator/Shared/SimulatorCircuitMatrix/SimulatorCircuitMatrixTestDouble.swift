@@ -49,7 +49,11 @@ extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrix {
 
         return rawMatrixResult
     }
+}
 
+// MARK: - SimulatorCircuitMatrixRow methods
+
+extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrixRow {
     subscript(row: Int) -> Vector {
         subscriptRowCount += 1
 
@@ -57,7 +61,11 @@ extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrix {
 
         return subscriptRowResult
     }
+}
 
+// MARK: - SimulatorCircuitMatrixElement methods
+
+extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrixElement {
     subscript(row: Int, column: Int) -> Complex {
         subscriptRowColumnCount += 1
 

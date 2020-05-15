@@ -35,3 +35,27 @@ extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
                                              inputs: inputs)
     }
 }
+
+// MARK: - SimulatorCircuitMatrixRowFactory methods
+
+extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixRowFactory {
+    func makeCircuitMatrixRow(qubitCount: Int,
+                              baseMatrix: Matrix,
+                              inputs: [Int]) -> SimulatorCircuitMatrixRow {
+        return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
+                                             baseMatrix: baseMatrix,
+                                             inputs: inputs)
+    }
+}
+
+// MARK: - SimulatorCircuitMatrixElementFactory methods
+
+extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixElementFactory {
+    func makeCircuitMatrixElement(qubitCount: Int,
+                                  baseMatrix: Matrix,
+                                  inputs: [Int]) -> SimulatorCircuitMatrixElement {
+        return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
+                                             baseMatrix: baseMatrix,
+                                             inputs: inputs)
+    }
+}

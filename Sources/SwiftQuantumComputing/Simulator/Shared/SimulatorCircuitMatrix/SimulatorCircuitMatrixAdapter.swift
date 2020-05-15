@@ -54,11 +54,19 @@ extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrix {
     var rawMatrix: Matrix {
         return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { self[$0, $1] }
     }
+}
 
+// MARK: - SimulatorCircuitMatrixRow methods
+
+extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {
     subscript(row: Int) -> Vector {
         return try! Vector.makeVector(count: count) { self[row, $0] }
     }
+}
 
+// MARK: - SimulatorCircuitMatrixElement methods
+
+extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixElement {
     subscript(row: Int, column: Int) -> Complex {
         let baseRow = derives[row]!.base
         let baseColumn = derives[column]!.base
