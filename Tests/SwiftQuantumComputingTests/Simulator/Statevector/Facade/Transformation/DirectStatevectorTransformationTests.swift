@@ -304,7 +304,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     func testDirectAndSCMTransformation_apply_returnSameVector() {
         // Given
-        let scmAdapter = SCMStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
+        let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
         let directAdapter = DirectStatevectorTransformation(transformation: scmAdapter)
 
         let matrix = Matrix.makeHadamard()

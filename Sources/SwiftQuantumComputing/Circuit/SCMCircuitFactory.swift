@@ -42,7 +42,7 @@ extension SCMCircuitFactory: CircuitFactory {
         let unitaryGateFactory = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
         let unitarySimulator = UnitarySimulatorFacade(gateFactory: unitaryGateFactory)
 
-        let transformation = SCMStatevectorTransformation(matrixFactory: matrixFactory)
+        let transformation = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
         let registerFactory = StatevectorRegisterFactoryAdapter(transformation: transformation)
         let statevectorSimulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 

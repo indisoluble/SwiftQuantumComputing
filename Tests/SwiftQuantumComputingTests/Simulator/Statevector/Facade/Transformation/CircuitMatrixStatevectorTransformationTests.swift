@@ -1,5 +1,5 @@
 //
-//  SCMStatevectorTransformationTests.swift
+//  CircuitMatrixStatevectorTransformationTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/10/2019.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class SCMStatevectorTransformationTests: XCTestCase {
+class CircuitMatrixStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -39,7 +39,7 @@ class SCMStatevectorTransformationTests: XCTestCase {
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = SCMStatevectorTransformation(matrixFactory: matrixFactory)
+        let adapter = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
@@ -73,7 +73,7 @@ class SCMStatevectorTransformationTests: XCTestCase {
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = SCMStatevectorTransformation(matrixFactory: matrixFactory)
+        let adapter = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
