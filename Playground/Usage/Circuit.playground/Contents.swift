@@ -18,7 +18,7 @@ let gates = [
 let drawer = MainDrawerFactory().makeDrawer()
 drawer.drawCircuit(gates)
 //: 3. Build the quantum circuit with the list of gates
-let circuit = SCMCircuitFactory().makeCircuit(gates: gates)
+let circuit = FullMatrixCircuitFactory().makeCircuit(gates: gates)
 //: 4. Use the quantum circuit
 print("Statevector: \(circuit.statevector())\n")
 print("Probabilities: \(circuit.probabilities())\n")

@@ -1,7 +1,7 @@
 import SwiftQuantumComputing // for macOS
 
 let drawer = MainDrawerFactory().makeDrawer()
-let factory = SCMCircuitFactory()
+let factory = FullMatrixCircuitFactory()
 
 // Primes: https://en.wikipedia.org/wiki/List_of_prime_numbers
 let primes: Set<Int> = [3, 5]

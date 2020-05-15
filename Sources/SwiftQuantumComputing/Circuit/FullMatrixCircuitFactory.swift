@@ -1,9 +1,9 @@
 //
-//  DirectCircuitFactory.swift
+//  FullMatrixCircuitFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 26/04/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 26/01/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,17 +23,17 @@ import Foundation
 // MARK: - Main body
 
 /// Conforms `CircuitFactory`. Use to create new `Circuit` instances
-public struct DirectCircuitFactory {
+public struct FullMatrixCircuitFactory {
 
     // MARK: - Public init methods
 
-    /// Initialize a `DirectCircuitFactory` instance
+    /// Initialize a `FullMatrixCircuitFactory` instance
     public init() {}
 }
 
 // MARK: - CircuitFactory methods
 
-extension DirectCircuitFactory: CircuitFactory {
+extension FullMatrixCircuitFactory: CircuitFactory {
 
     /// Check `CircuitFactory.makeCircuit(gates:)`
     public func makeCircuit(gates: [Gate]) -> Circuit {
@@ -42,8 +42,8 @@ extension DirectCircuitFactory: CircuitFactory {
         let unitaryGateFactory = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
         let unitarySimulator = UnitarySimulatorFacade(gateFactory: unitaryGateFactory)
 
-        let scmTransformation = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
-        let directTransformation = DirectStatevectorTransformation(transformation: scmTransformation)
+        let matrixTransformation = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
+        let directTransformation = DirectStatevectorTransformation(transformation: matrixTransformation)
         let registerFactory = StatevectorRegisterFactoryAdapter(transformation: directTransformation)
         let statevectorSimulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
