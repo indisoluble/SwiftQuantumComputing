@@ -28,6 +28,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(DirectStatevectorTransformationTests.allTests),
         testCase(CircuitMatrixStatevectorTransformationTests.allTests),
         testCase(CircuitMatrixRowStatevectorTransformationTests.allTests),
+        testCase(CircuitMatrixElementStatevectorTransformationTests.allTests),
         testCase(StatevectorRegisterAdapterTests.allTests),
         testCase(StatevectorRegisterFactoryAdapterTests.allTests),
         testCase(StatevectorSimulatorFacadeTests.allTests),

@@ -39,6 +39,12 @@ final class SimulatorCircuitMatrixFactoryTestDouble {
     private (set) var lastMakeCircuitMatrixRowBaseMatrix: Matrix?
     private (set) var lastMakeCircuitMatrixRowInputs: [Int]?
     var makeCircuitMatrixRowResult: SimulatorCircuitMatrixRow = SimulatorCircuitMatrixTestDouble()
+
+    private (set) var makeCircuitMatrixElementCount = 0
+    private (set) var lastMakeCircuitMatrixElementQubitCount: Int?
+    private (set) var lastMakeCircuitMatrixElementBaseMatrix: Matrix?
+    private (set) var lastMakeCircuitMatrixElementInputs: [Int]?
+    var makeCircuitMatrixElementResult: SimulatorCircuitMatrixElement = SimulatorCircuitMatrixTestDouble()
 }
 
 // MARK: - SimulatorCircuitMatrixFactory methods
@@ -70,5 +76,19 @@ extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixRowFact
         lastMakeCircuitMatrixRowInputs = inputs
 
         return makeCircuitMatrixRowResult
+    }
+}
+
+extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixElementFactory {
+    func makeCircuitMatrixElement(qubitCount: Int,
+                                  baseMatrix: Matrix,
+                                  inputs: [Int]) -> SimulatorCircuitMatrixElement {
+        makeCircuitMatrixElementCount += 1
+
+        lastMakeCircuitMatrixElementQubitCount = qubitCount
+        lastMakeCircuitMatrixElementBaseMatrix = baseMatrix
+        lastMakeCircuitMatrixElementInputs = inputs
+
+        return makeCircuitMatrixElementResult
     }
 }
