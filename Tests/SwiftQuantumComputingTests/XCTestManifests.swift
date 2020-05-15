@@ -27,6 +27,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(ArrayGate_QubitCountTests.allTests),
         testCase(DirectStatevectorTransformationTests.allTests),
         testCase(CircuitMatrixStatevectorTransformationTests.allTests),
+        testCase(CircuitMatrixRowStatevectorTransformationTests.allTests),
         testCase(StatevectorRegisterAdapterTests.allTests),
         testCase(StatevectorRegisterFactoryAdapterTests.allTests),
         testCase(StatevectorSimulatorFacadeTests.allTests),
