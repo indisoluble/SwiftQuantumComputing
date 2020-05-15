@@ -185,6 +185,7 @@ extension Matrix {
     enum Transformation {
         case none(_ matrix: Matrix)
         case adjointed(_ matrix: Matrix)
+        case transposed(_ matrix: Matrix)
     }
 
     // MARK: - Internal operators
@@ -246,6 +247,10 @@ extension Matrix {
         case .adjointed(let matrix):
             lhs = matrix
             lhsTrans = CblasConjTrans
+            areDimensionsValid = (matrix.rowCount == rhs.rowCount)
+        case .transposed(let matrix):
+            lhs = matrix
+            lhsTrans = CblasTrans
             areDimensionsValid = (matrix.rowCount == rhs.rowCount)
         }
 
