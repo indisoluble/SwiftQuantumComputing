@@ -22,6 +22,10 @@ import Foundation
 
 // MARK: - Protocol definition
 
+protocol SimulatorRawGate {
+    var gate: Gate { get }
+}
+
 protocol SimulatorGate {
     typealias Components = (matrix: Matrix, inputs: [Int])
 

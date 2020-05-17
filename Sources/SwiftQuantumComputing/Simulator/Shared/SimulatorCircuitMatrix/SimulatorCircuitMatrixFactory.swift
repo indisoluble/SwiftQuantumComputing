@@ -27,3 +27,15 @@ protocol SimulatorCircuitMatrixFactory {
                            baseMatrix: Matrix,
                            inputs: [Int]) -> SimulatorCircuitMatrix
 }
+
+protocol SimulatorCircuitMatrixRowFactory {
+    func makeCircuitMatrixRow(qubitCount: Int,
+                              baseMatrix: Matrix,
+                              inputs: [Int]) -> SimulatorCircuitMatrixRow
+}
+
+protocol SimulatorCircuitMatrixElementFactory {
+    func makeCircuitMatrixElement(qubitCount: Int,
+                                  baseMatrix: Matrix,
+                                  inputs: [Int]) -> SimulatorCircuitMatrixElement
+}

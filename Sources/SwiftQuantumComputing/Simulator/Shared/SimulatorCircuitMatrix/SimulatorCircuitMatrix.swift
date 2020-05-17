@@ -25,3 +25,11 @@ import Foundation
 protocol SimulatorCircuitMatrix {
     var rawMatrix: Matrix { get }
 }
+
+protocol SimulatorCircuitMatrixRow {
+    subscript(row: Int) -> Vector { get }
+}
+
+protocol SimulatorCircuitMatrixElement {
+    subscript(row: Int, column: Int) -> Complex { get }
+}
