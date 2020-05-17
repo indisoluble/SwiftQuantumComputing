@@ -27,27 +27,35 @@ struct SimulatorCircuitMatrixFactoryAdapter {}
 // MARK: - SimulatorCircuitMatrixFactory methods
 
 extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
-    func makeCircuitMatrix(qubitCount: Int, baseMatrix: Matrix, inputs: [Int]) -> Matrix {
-        let count = Int.pow(2, qubitCount)
+    func makeCircuitMatrix(qubitCount: Int,
+                           baseMatrix: Matrix,
+                           inputs: [Int]) -> SimulatorCircuitMatrix {
+        return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
+                                             baseMatrix: baseMatrix,
+                                             inputs: inputs)
+    }
+}
 
-        let remainingInputs = (0..<qubitCount).reversed().filter { !inputs.contains($0) }
+// MARK: - SimulatorCircuitMatrixRowFactory methods
 
-        var derives: [Int: (base: Int, remaining: Int)] = [:]
-        for value in 0..<count {
-            derives[value] = (value.derived(takingBitsAt: inputs),
-                              value.derived(takingBitsAt: remainingInputs))
-        }
+extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixRowFactory {
+    func makeCircuitMatrixRow(qubitCount: Int,
+                              baseMatrix: Matrix,
+                              inputs: [Int]) -> SimulatorCircuitMatrixRow {
+        return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
+                                             baseMatrix: baseMatrix,
+                                             inputs: inputs)
+    }
+}
 
-        return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { r, c -> Complex in
-            let baseRow = derives[r]!.base
-            let baseColumn = derives[c]!.base
+// MARK: - SimulatorCircuitMatrixElementFactory methods
 
-            let remainingRow = derives[r]!.remaining
-            let remainingColumn = derives[c]!.remaining
-
-            return (remainingRow == remainingColumn ?
-                baseMatrix[baseRow, baseColumn] :
-                Complex.zero)
-        }
+extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixElementFactory {
+    func makeCircuitMatrixElement(qubitCount: Int,
+                                  baseMatrix: Matrix,
+                                  inputs: [Int]) -> SimulatorCircuitMatrixElement {
+        return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
+                                             baseMatrix: baseMatrix,
+                                             inputs: inputs)
     }
 }

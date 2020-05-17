@@ -28,6 +28,10 @@ struct StatevectorSimulatorFacade {
 
     private let registerFactory: StatevectorRegisterFactory
 
+    // MARK: - Private class properties
+
+    private static let logger = Logger()
+
     // MARK: - Internal init methods
 
     init(registerFactory: StatevectorRegisterFactory) {
@@ -39,6 +43,7 @@ struct StatevectorSimulatorFacade {
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [StatevectorGate], to initialStatevector: Vector) throws -> Vector {
+        StatevectorSimulatorFacade.logger.debug("Producing initial register...")
         var register: StatevectorRegisterFactory.StatevectorRegister!
         do {
             register = try registerFactory.makeRegister(state: initialStatevector)
@@ -50,7 +55,9 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
             fatalError("Unexpected error: \(error).")
         }
 
-        for gate in circuit {
+        for (index, gate) in circuit.enumerated() {
+            StatevectorSimulatorFacade.logger.debug("Applying gate: \(index + 1) of \(circuit.count)...")
+
             do {
                 register = try register.applying(gate)
             } catch let error as GateError {
@@ -61,6 +68,7 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
             }
         }
 
+        StatevectorSimulatorFacade.logger.debug("Getting measurement...")
         var vector: Vector!
         do {
             vector = try register.statevector()

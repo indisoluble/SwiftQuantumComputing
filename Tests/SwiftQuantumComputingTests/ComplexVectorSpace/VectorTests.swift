@@ -35,8 +35,7 @@ class VectorTests: XCTestCase {
 
     func testAnyVector_count_returnExpectedValue() {
         // Given
-        let complex = Complex(real: 0, imag: 0)
-        let elements = [complex, complex, complex]
+        let elements = [Complex.zero, Complex.zero, Complex.zero]
         let vector = try! Vector(elements)
 
         // Then
@@ -54,8 +53,7 @@ class VectorTests: XCTestCase {
     func testAnyVector_subscript_returnExpectedValue() {
         // Given
         let expectedValue = Complex(real: 10, imag: 10)
-        let complex = Complex(real: 0, imag: 0)
-        let vector = try! Vector([complex, expectedValue, complex])
+        let vector = try! Vector([Complex.zero, expectedValue, Complex.zero])
 
         // Then
         XCTAssertEqual(vector[1], expectedValue)
@@ -92,9 +90,8 @@ class VectorTests: XCTestCase {
 
     func testTwoVectorWithDifferentDimensions_innerProduct_throwException() {
         // Given
-        let complex = Complex(real: 0, imag: 0)
-        let lhs = try! Vector([complex, complex])
-        let rhs = try! Vector([complex, complex, complex])
+        let lhs = try! Vector([Complex.zero, Complex.zero])
+        let rhs = try! Vector([Complex.zero, Complex.zero, Complex.zero])
 
         // Then
         XCTAssertThrowsError(try Vector.innerProduct(lhs, rhs))
@@ -113,11 +110,36 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
+    func testTwoVectorWithDifferentDimensions_multiply_throwException() {
+        // Given
+        let lhs = try! Vector([Complex.zero, Complex.zero])
+        let rhs = try! Vector([Complex.zero, Complex.zero, Complex.zero])
+
+        // Then
+        XCTAssertThrowsError(try lhs * rhs)
+    }
+
+    func testTwoVector_multiply_returnExpectedValue() {
+        // Given
+        let lhs = try! Vector(
+            [Complex(real: 3, imag: 2), Complex(real: 0, imag: 0), Complex(real: 5, imag: -6)]
+        )
+        let rhs = try! Vector(
+            [Complex(real: 5, imag: 0), Complex(real: 0, imag: 0), Complex(real: 7, imag: -4)]
+        )
+
+        // When
+        let result = try? lhs * rhs
+
+        // Then
+        let expectedResult = Complex(real: 26, imag: -52)
+        XCTAssertEqual(result, expectedResult)
+    }
+
     func testMatrixWithColumnCountDifferentThanRowCountInVector_multiply_throwException() {
         // Given
-        let complex = Complex(real: 0, imag: 0)
-        let lhs = try! Matrix([[complex, complex]])
-        let rhs = try! Vector([complex, complex, complex])
+        let lhs = try! Matrix([[Complex.zero, Complex.zero]])
+        let rhs = try! Vector([Complex.zero, Complex.zero, Complex.zero])
 
         // Then
         XCTAssertThrowsError(try lhs * rhs)
@@ -161,6 +183,10 @@ class VectorTests: XCTestCase {
          testTwoVectorWithDifferentDimensions_innerProduct_throwException),
         ("testTwoVector_innerProduct_returnExpectedValue",
          testTwoVector_innerProduct_returnExpectedValue),
+        ("testTwoVectorWithDifferentDimensions_multiply_throwException",
+         testTwoVectorWithDifferentDimensions_multiply_throwException),
+        ("testTwoVector_multiply_returnExpectedValue",
+         testTwoVector_multiply_returnExpectedValue),
         ("testMatrixWithColumnCountDifferentThanRowCountInVector_multiply_throwException",
          testMatrixWithColumnCountDifferentThanRowCountInVector_multiply_throwException),
         ("testMatrixWithColumnCountEqualToRowCountInVector_multiply_returnExpectedMatrix",

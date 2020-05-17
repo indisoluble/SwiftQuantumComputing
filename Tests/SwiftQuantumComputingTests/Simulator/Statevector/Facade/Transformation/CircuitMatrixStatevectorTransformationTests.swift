@@ -1,5 +1,5 @@
 //
-//  SCMStatevectorTransformationTests.swift
+//  CircuitMatrixStatevectorTransformationTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/10/2019.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class SCMStatevectorTransformationTests: XCTestCase {
+class CircuitMatrixStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -39,12 +39,15 @@ class SCMStatevectorTransformationTests: XCTestCase {
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = SCMStatevectorTransformation(matrixFactory: matrixFactory)
+        let adapter = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
 
-        let circuitMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
+        let circuitMatrix = SimulatorCircuitMatrixTestDouble()
+        circuitMatrix.rawMatrixResult = try! Matrix([
+            [Complex.zero, Complex.one], [Complex.one, Complex.zero]
+        ])
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
@@ -57,6 +60,7 @@ class SCMStatevectorTransformationTests: XCTestCase {
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, vectorQubitCount)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
+        XCTAssertEqual(circuitMatrix.rawMatrixCount, 1)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one])
         XCTAssertEqual(result, expectedVector)
@@ -69,7 +73,7 @@ class SCMStatevectorTransformationTests: XCTestCase {
         elements[0] = Complex.one
 
         let vector = try! Vector(elements)
-        let adapter = SCMStatevectorTransformation(matrixFactory: matrixFactory)
+        let adapter = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()

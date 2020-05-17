@@ -38,7 +38,7 @@ public struct MainGeneticFactory {
     // MARK: - Public init methods
 
     /// Initialize a `MainGeneticFactory` instance
-    public init(circuitFactory: CircuitFactory = SCMCircuitFactory()) {
+    public init(circuitFactory: CircuitFactory = MainCircuitFactory()) {
         let generatorFactory = MainGeneticGatesRandomizerFactory()
         let oracleFactory = MainOracleCircuitFactory()
         let useCaseEvaluatorFactory = MainGeneticUseCaseEvaluatorFactory(factory: circuitFactory,

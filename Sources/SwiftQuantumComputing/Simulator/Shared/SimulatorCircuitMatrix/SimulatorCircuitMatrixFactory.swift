@@ -23,5 +23,19 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorCircuitMatrixFactory {
-    func makeCircuitMatrix(qubitCount: Int, baseMatrix: Matrix, inputs: [Int]) -> Matrix
+    func makeCircuitMatrix(qubitCount: Int,
+                           baseMatrix: Matrix,
+                           inputs: [Int]) -> SimulatorCircuitMatrix
+}
+
+protocol SimulatorCircuitMatrixRowFactory {
+    func makeCircuitMatrixRow(qubitCount: Int,
+                              baseMatrix: Matrix,
+                              inputs: [Int]) -> SimulatorCircuitMatrixRow
+}
+
+protocol SimulatorCircuitMatrixElementFactory {
+    func makeCircuitMatrixElement(qubitCount: Int,
+                                  baseMatrix: Matrix,
+                                  inputs: [Int]) -> SimulatorCircuitMatrixElement
 }

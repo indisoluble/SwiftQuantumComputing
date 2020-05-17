@@ -1,6 +1,6 @@
-import SwiftQuantumComputing // for macOS
+import Foundation
+import SwiftQuantumComputing
 
-let drawer = MainDrawerFactory().makeDrawer()
 let factory = MainCircuitFactory()
 
 // Primes: https://en.wikipedia.org/wiki/List_of_prime_numbers
@@ -24,26 +24,28 @@ while factors.isEmpty {
     }
 
     print("Build quantum circuit for base \(base) & modulus \(input)")
+    var start = DispatchTime.now()
 
     let n = Int(Foundation.log2(Double(input)).rounded(.up))
     let qubitCount = 3 * n
 
     var gates = [Gate.not(target: 0)]
     gates += Gate.hadamard(targets: n..<qubitCount)
-    gates += Gate.makeModularExponentiation(base: base,
-                                            modulus: input,
-                                            exponent: (n..<qubitCount).reversed(),
-                                            inputs: (0..<n).reversed())
-    gates += [Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(), inverse: true)]
-    drawer.drawCircuit(gates)
+    gates += try! Gate.makeModularExponentiation(base: base,
+                                                 modulus: input,
+                                                 exponent: (n..<qubitCount).reversed(),
+                                                 inputs: (0..<n).reversed())
+    gates += [try! Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(), inverse: true)]
 
     let circuit = factory.makeCircuit(gates: gates)
+    var diff = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
+    print("Circuit built in \(diff) seconds (\(diff / 60.0) minutes)")
 
     print("Run quantum circuit with \(qubitCount) qubits & \(circuit.gates.count) gates")
-    let start = CFAbsoluteTimeGetCurrent()
-    let probs = circuit.groupedProbabilities(byQubits: (0..<n).reversed(),
-                                             summarizedByQubits: (n..<qubitCount).reversed())
-    let diff = CFAbsoluteTimeGetCurrent() - start
+    start = DispatchTime.now()
+    let probs = try! circuit.groupedProbabilities(byQubits: (0..<n).reversed(),
+                                                  summarizedByQubits: (n..<qubitCount).reversed())
+    diff = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
     print("Execution completed in \(diff) seconds (\(diff / 60.0) minutes)")
 
     let (bottomMeasure, topMeasures) = probs.randomElement()!
@@ -54,9 +56,9 @@ while factors.isEmpty {
     print("Use top measurement \(topMeasure) to find a candidate period")
     let y = Int(topMeasure, radix: 2)!
     let Q = Int(Foundation.pow(Double(2), Double(2 * n)))
-    let value = Rational(numerator: y, denominator: Q)
-    let limit = Rational(numerator: 1, denominator: 2 * Q)
-    let aprox = ContinuedFractionsSolver.findApproximation(of: value, differenceBelowOrEqual: limit)
+    let value = try! Rational(numerator: y, denominator: Q)
+    let limit = try! Rational(numerator: 1, denominator: 2 * Q)
+    let aprox = try! ContinuedFractionsSolver.findApproximation(of: value, differenceBelowOrEqual: limit)
 
     let period = aprox.denominator
     print("Validating candidate period: \(period)")

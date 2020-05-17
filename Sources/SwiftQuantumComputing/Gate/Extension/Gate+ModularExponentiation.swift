@@ -70,8 +70,6 @@ extension Gate {
             throw MakeModularExponentiationError.baseHasToBeBiggerThanZero
         }
 
-        // if base is power of modulus, matrix is not unitary
-
         guard modulus > 1 else {
             throw MakeModularExponentiationError.modulusHasToBeBiggerThanOne
         }
@@ -81,7 +79,7 @@ extension Gate {
         }
 
         // As all components are positive, all `DivisionType` returns same value
-        var gateBase = base.quotientAndRemainder(dividingBy: modulus, division: .swift).remainder
+        var gateBase = base % modulus
 
         var gates: [Gate] = []
         for control in exponent.reversed() {
@@ -90,8 +88,7 @@ extension Gate {
                                                                     inputQubitCount: inputs.count)
             gates.append(.controlledMatrix(matrix: matrix, inputs: inputs, control: control))
 
-            gateBase = (gateBase * gateBase).quotientAndRemainder(dividingBy: modulus,
-                                                                  division: .swift).remainder
+            gateBase = (gateBase * gateBase) % modulus
         }
 
         return gates
@@ -112,10 +109,7 @@ private extension Gate {
             // A `comb` bigger or equal to `modulus` produces a `remainder` already generated
             // in a previous iteration. If we used this `remainder`, the resulting matrix
             // would not be unitary; instead, we use the `comb` given that it is always unique
-            return (comb >= modulus ?
-                comb :
-                (comb * base).quotientAndRemainder(dividingBy: modulus, division: .swift).remainder
-            )
+            return (comb >= modulus ? comb : (comb * base) % modulus)
         }
 
         if Set(activatedIndexes).count != combCount {

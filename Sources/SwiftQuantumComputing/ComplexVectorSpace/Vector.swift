@@ -147,18 +147,35 @@ extension Vector {
 
     // MARK: - Internal types
 
-    enum ProductError: Error {
+    enum VectorByVectorError: Error {
+        case vectorCountsDoNotMatch
+    }
+
+    enum MatrixByVectorError: Error {
         case matrixColumnCountDoesNotMatchVectorCount
     }
 
     // MARK: - Internal operators
+
+    static func *(lhs: Vector, rhs: Vector) throws -> Complex {
+        var matrix: Matrix!
+        do {
+            matrix = try Matrix.Transformation.transposed(lhs.matrix) * rhs.matrix
+        } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
+            throw VectorByVectorError.vectorCountsDoNotMatch
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
+
+        return matrix.first
+    }
 
     static func *(lhs: Matrix, rhs: Vector) throws -> Vector {
         var matrix: Matrix!
         do {
             matrix = try lhs * rhs.matrix
         } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
-            throw ProductError.matrixColumnCountDoesNotMatchVectorCount
+            throw MatrixByVectorError.matrixColumnCountDoesNotMatchVectorCount
         } catch {
             fatalError("Unexpected error: \(error).")
         }

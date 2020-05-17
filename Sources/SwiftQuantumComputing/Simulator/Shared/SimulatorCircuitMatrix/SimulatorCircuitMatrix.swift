@@ -1,8 +1,8 @@
 //
-//  SimulatorRawGate.swift
+//  SimulatorCircuitMatrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 03/05/2020.
+//  Created by Enrique de la Torre on 12/05/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,14 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimulatorRawGate {
-    var gate: Gate { get }
+protocol SimulatorCircuitMatrix {
+    var rawMatrix: Matrix { get }
+}
+
+protocol SimulatorCircuitMatrixRow {
+    subscript(row: Int) -> Vector { get }
+}
+
+protocol SimulatorCircuitMatrixElement {
+    subscript(row: Int, column: Int) -> Complex { get }
 }
