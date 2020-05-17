@@ -107,7 +107,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                         modulus: modulus,
                                                         exponent: exponent,
                                                         inputs: inputs)
-        let circuit = FullMatrixCircuitFactory().makeCircuit(gates: gates)
+        let circuit = MainCircuitFactory(statevectorConfiguration: .fullMatrix).makeCircuit(gates: gates)
 
         // When
         let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")
@@ -116,13 +116,13 @@ class Gate_ModularExponentiationTests: XCTestCase {
         XCTAssertEqual(probs, ["011" : 1.0])
     }
 
-    func testVectorCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs() {
+    func testRowByRowCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs() {
         // Given
         let gates = try! Gate.makeModularExponentiation(base: base,
                                                         modulus: modulus,
                                                         exponent: exponent,
                                                         inputs: inputs)
-        let circuit = VectorCircuitFactory().makeCircuit(gates: gates)
+        let circuit = MainCircuitFactory(statevectorConfiguration: .rowByRow).makeCircuit(gates: gates)
 
         // When
         let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")
@@ -131,13 +131,13 @@ class Gate_ModularExponentiationTests: XCTestCase {
         XCTAssertEqual(probs, ["011" : 1.0])
     }
 
-    func testLowMemoryCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs() {
+    func testElementByElementCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs() {
         // Given
         let gates = try! Gate.makeModularExponentiation(base: base,
                                                         modulus: modulus,
                                                         exponent: exponent,
                                                         inputs: inputs)
-        let circuit = LowMemoryCircuitFactory().makeCircuit(gates: gates)
+        let circuit = MainCircuitFactory(statevectorConfiguration: .elementByElement).makeCircuit(gates: gates)
 
         // When
         let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")
@@ -159,9 +159,9 @@ class Gate_ModularExponentiationTests: XCTestCase {
          testValidParameters_makeModularExponentiation_returnExpectedList),
         ("testFullMatrixCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs",
          testFullMatrixCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs),
-        ("testVectorCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs",
-         testVectorCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs),
-        ("testLowMemoryCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs",
-         testLowMemoryCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs)
+        ("testRowByRowCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs",
+         testRowByRowCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs),
+        ("testElementByElementCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs",
+         testElementByElementCircuitWithModularExponentiation_summarizedProbabilities_returnExpectedProbs)
     ]
 }
