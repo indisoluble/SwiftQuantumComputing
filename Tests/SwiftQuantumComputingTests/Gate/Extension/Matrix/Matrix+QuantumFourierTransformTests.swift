@@ -30,12 +30,19 @@ class Matrix_QuantumFourierTransformTests: XCTestCase {
 
     func testCountEqualToZero_makeQuantumFourierTransform_throwError() {
         // Then
-        XCTAssertThrowsError(try Matrix.makeQuantumFourierTransform(count: 0))
+        var error: Matrix.MakeQuantumFourierTransformError?
+        if case .failure(let e) = Matrix.makeQuantumFourierTransform(count: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .passCountBiggerThanZero)
     }
 
     func testCountEqualToFour_makeQuantumFourierTransform_returnExpectedMatrix() {
         // When
-        let result = try! Matrix.makeQuantumFourierTransform(count: 4)
+        var result: Matrix!
+        if case .success(let matrix) = Matrix.makeQuantumFourierTransform(count: 4) {
+            result = matrix
+        }
 
         // Then
         let val = 1.0 / 2.0

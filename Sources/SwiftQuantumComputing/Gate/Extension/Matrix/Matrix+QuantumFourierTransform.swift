@@ -30,15 +30,14 @@ extension Matrix {
         case passCountBiggerThanZero
     }
 
-    static func makeQuantumFourierTransform(count: Int) throws -> Matrix {
+    static func makeQuantumFourierTransform(count: Int) -> Result<Matrix, MakeQuantumFourierTransformError> {
         guard count > 0 else {
-            throw MakeQuantumFourierTransformError.passCountBiggerThanZero
+            return .failure(.passCountBiggerThanZero)
         }
 
         let n = Double(count)
         let normalization = Complex(1 / sqrt(n))
-
-        return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { row, column in
+        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count) { row, column in
             let power = row * column
 
             var value = Complex.one
@@ -49,5 +48,7 @@ extension Matrix {
 
             return normalization * value
         }
+
+        return .success(matrix)
     }
 }

@@ -42,7 +42,7 @@ extension Gate {
         }
 
         let matrixCount = Int.pow(2, count)
-        let matrix = try! Matrix.makeQuantumFourierTransform(count: matrixCount)
+        let matrix = try! Matrix.makeQuantumFourierTransform(count: matrixCount).get()
 
         return .matrix(matrix: inverse ? matrix.conjugateTransposed() : matrix, inputs: inputs)
     }
