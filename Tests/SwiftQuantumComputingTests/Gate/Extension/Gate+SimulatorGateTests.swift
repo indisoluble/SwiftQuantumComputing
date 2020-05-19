@@ -53,7 +53,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: nonPowerOfTwoSizeMatrix, inputs: [0], control: 1)
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateMatrixRowCountHasToBeAPowerOfTwo)
     }
 
     func testGateMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException() {
@@ -61,7 +65,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: nonPowerOfTwoSizeMatrix, inputs: [0])
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateMatrixRowCountHasToBeAPowerOfTwo)
     }
 
     func testGateControlledMatrixWithNonUnitaryMatrix_extractComponents_throwException() {
@@ -69,7 +77,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: nonUnitaryMatrix, inputs: [0], control: 1)
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
     }
 
     func testGateMatrixWithNonUnitaryMatrix_extractComponents_throwException() {
@@ -77,7 +89,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: nonUnitaryMatrix, inputs: [0])
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
     }
 
     func testGateMatrixWithValidMatrixAndMoreInputsThanGateTakes_extractComponents_throwException() {
@@ -85,7 +101,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: validMatrix, inputs: [2, 1, 0])
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateInputCountDoesNotMatchGateMatrixQubitCount)
     }
 
     func testGateMatrixWithValidMatrixAndLessInputsThanGateTakes_extractComponents_throwException() {
@@ -93,7 +113,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: validMatrix, inputs: [0])
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateInputCountDoesNotMatchGateMatrixQubitCount)
     }
 
     func testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException() {
@@ -101,7 +125,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: validMatrix, inputs: [1, 1])
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateInputsAreNotUnique)
     }
 
     func testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extractComponents_throwException() {
@@ -110,7 +138,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .circuitQubitCountHasToBeBiggerThanZero)
     }
 
     func testGateMatrixWithValidMatrixAndSizeBiggerThanQubitCount_extractComponents_throwException() {
@@ -119,7 +151,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateMatrixHandlesMoreQubitsThatCircuitActuallyHas)
     }
 
     func testGateMatrixWithValidMatrixAndInputsOutOfRange_extractComponents_throwException() {
@@ -127,7 +163,11 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: validMatrix, inputs: [0, validQubitCount])
 
         // Then
-        XCTAssertThrowsError(try gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount))
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateInputsAreNotInBound)
     }
 
     func testGateMatrixWithValidMatrixAndValidInputs_extractComponents_returnExpectedValues() {
@@ -135,11 +175,16 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
 
         // When
-        let result = try? gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount)
+        var matrix: Matrix?
+        var inputs: [Int]?
+        if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
 
         // Then
-        XCTAssertEqual(result?.matrix, validMatrix)
-        XCTAssertEqual(result?.inputs, validInputs)
+        XCTAssertEqual(matrix, validMatrix)
+        XCTAssertEqual(inputs, validInputs)
     }
 
     static var allTests = [

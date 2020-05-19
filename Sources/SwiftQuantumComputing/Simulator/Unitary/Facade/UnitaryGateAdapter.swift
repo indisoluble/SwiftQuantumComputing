@@ -70,7 +70,7 @@ extension UnitaryGateAdapter: UnitaryMatrix {
 
 extension UnitaryGateAdapter: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> UnitaryGateAdapter {
-        let components = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
+        let components = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount).get()
         let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
                                                             baseMatrix: components.matrix,
                                                             inputs: components.inputs)

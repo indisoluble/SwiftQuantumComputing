@@ -51,16 +51,16 @@ extension SimulatorGateTestDouble: SimulatorRawGate {
 // MARK: - SimulatorGate methods
 
 extension SimulatorGateTestDouble: SimulatorGate {
-    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
+    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
         extractComponentsCount += 1
 
         lastExtractComponentsQubitCount = qubitCount
 
         if let matrix = extractComponentsMatrixResult,
             let inputs = extractComponentsInputsResult {
-            return (matrix: matrix, inputs: inputs)
+            return .success((matrix: matrix, inputs: inputs))
         }
 
-        throw extractComponentsError
+        return .failure(extractComponentsError)
     }
 }

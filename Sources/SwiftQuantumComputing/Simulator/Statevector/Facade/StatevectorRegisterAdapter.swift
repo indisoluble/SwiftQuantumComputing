@@ -63,7 +63,7 @@ extension StatevectorRegisterAdapter: StatevectorMeasurement {
 
 extension StatevectorRegisterAdapter: SimulatorTransformation {
     func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterAdapter {
-        let (matrix, inputs) = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
+        let (matrix, inputs) = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount).get()
         let nextVector = transformation.apply(gateMatrix: matrix,
                                               toStatevector: vector,
                                               atInputs: inputs)
