@@ -35,15 +35,16 @@ extension Gate {
     /// Buils a `Gate.matrix(matrix:inputs:)` gate that performs a Quantum Fourier Transform over `inputs`
     /// if `inverse` is `false` or an inverse Quantum Fourier Transform otherwise
     public static func makeQuantumFourierTransform(inputs: [Int],
-                                                   inverse: Bool = false) throws -> Gate {
+                                                   inverse: Bool = false) -> Result<Gate, MakeQuantumFourierTransformError> {
         let count = inputs.count
         guard count > 0 else {
-            throw MakeQuantumFourierTransformError.inputsCanNotBeAnEmptyList
+            return .failure(.inputsCanNotBeAnEmptyList)
         }
 
         let matrixCount = Int.pow(2, count)
         let matrix = try! Matrix.makeQuantumFourierTransform(count: matrixCount).get()
+        let gate = Gate.matrix(matrix: inverse ? matrix.conjugateTransposed() : matrix, inputs: inputs)
 
-        return .matrix(matrix: inverse ? matrix.conjugateTransposed() : matrix, inputs: inputs)
+        return .success(gate)
     }
 }
