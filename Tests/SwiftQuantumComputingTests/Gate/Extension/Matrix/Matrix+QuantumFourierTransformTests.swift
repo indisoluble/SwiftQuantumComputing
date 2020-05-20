@@ -39,10 +39,7 @@ class Matrix_QuantumFourierTransformTests: XCTestCase {
 
     func testCountEqualToFour_makeQuantumFourierTransform_returnExpectedMatrix() {
         // When
-        var result: Matrix!
-        if case .success(let matrix) = Matrix.makeQuantumFourierTransform(count: 4) {
-            result = matrix
-        }
+        let result = try! Matrix.makeQuantumFourierTransform(count: 4).get()
 
         // Then
         let val = 1.0 / 2.0

@@ -30,9 +30,10 @@ extension Matrix {
         case controlsCanNotBeAnEmptyList
     }
 
-    static func makeOracle(truthTable: [String], controlCount: Int) throws -> Matrix {
+    static func makeOracle(truthTable: [String],
+                           controlCount: Int) -> Result<Matrix, MakeOracleError> {
         guard controlCount > 0 else {
-            throw MakeOracleError.controlsCanNotBeAnEmptyList
+            return .failure(.controlsCanNotBeAnEmptyList)
         }
 
         let truthTableAsInts = Matrix.truthTableAsInts(truthTable)
@@ -52,7 +53,7 @@ extension Matrix {
             rows.append(row)
         }
 
-        return try! Matrix(rows)
+        return .success(try! Matrix(rows)) 
     }
 }
 

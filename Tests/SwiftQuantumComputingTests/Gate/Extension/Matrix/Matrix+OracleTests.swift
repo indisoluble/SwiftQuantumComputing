@@ -30,12 +30,20 @@ class Matrix_OracleTests: XCTestCase {
 
     func testNegativeControlCountAndEmptyTruthTable_makeOracle_throwException() {
         // Then
-        XCTAssertThrowsError(try Matrix.makeOracle(truthTable: [], controlCount: -1))
+        var error: Matrix.MakeOracleError?
+        if case .failure(let e) = Matrix.makeOracle(truthTable: [], controlCount: -1) {
+            error = e
+        }
+        XCTAssertEqual(error, .controlsCanNotBeAnEmptyList)
     }
 
     func testControlCountEqualToZeroAndEmptyTruthTable_makeOracle_throwException() {
         // Then
-        XCTAssertThrowsError(try Matrix.makeOracle(truthTable: [], controlCount: 0))
+        var error: Matrix.MakeOracleError?
+        if case .failure(let e) = Matrix.makeOracle(truthTable: [], controlCount: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .controlsCanNotBeAnEmptyList)
     }
 
     func testControlCountBiggerThanZeroAndEmptyTruthTable_makeOracle_returnExpectedIdentity() {
@@ -43,7 +51,7 @@ class Matrix_OracleTests: XCTestCase {
         let controlCount = 5
 
         // Then
-        XCTAssertEqual(try? Matrix.makeOracle(truthTable: [], controlCount: controlCount),
+        XCTAssertEqual(try? Matrix.makeOracle(truthTable: [], controlCount: controlCount).get(),
                        try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
     }
 
@@ -52,7 +60,7 @@ class Matrix_OracleTests: XCTestCase {
         let controlCount = 5
 
         // Then
-        XCTAssertEqual(try? Matrix.makeOracle(truthTable: [""], controlCount: controlCount),
+        XCTAssertEqual(try? Matrix.makeOracle(truthTable: [""], controlCount: controlCount).get(),
                        try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
     }
 
@@ -62,7 +70,8 @@ class Matrix_OracleTests: XCTestCase {
         let controlCount = 5
 
         // Then
-        XCTAssertEqual(try? Matrix.makeOracle(truthTable: truthTable, controlCount: controlCount),
+        XCTAssertEqual(try? Matrix.makeOracle(truthTable: truthTable,
+                                              controlCount: controlCount).get(),
                        try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
     }
 
@@ -72,7 +81,8 @@ class Matrix_OracleTests: XCTestCase {
         let truthTable = [String(repeating: "1", count: controlCount + 1)]
 
         // Then
-        XCTAssertEqual(try? Matrix.makeOracle(truthTable: truthTable, controlCount: controlCount),
+        XCTAssertEqual(try? Matrix.makeOracle(truthTable: truthTable,
+                                              controlCount: controlCount).get(),
                        try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
     }
 
@@ -82,7 +92,8 @@ class Matrix_OracleTests: XCTestCase {
         let controlCount = 1
 
         // When
-        let matrix = try? Matrix.makeOracle(truthTable: truthTable, controlCount: controlCount)
+        let matrix = try? Matrix.makeOracle(truthTable: truthTable,
+                                            controlCount: controlCount).get()
 
         // Then
         let rows = [
@@ -101,7 +112,8 @@ class Matrix_OracleTests: XCTestCase {
         let controlCount = 1
 
         // When
-        let matrix = try? Matrix.makeOracle(truthTable: truthTable, controlCount: controlCount)
+        let matrix = try? Matrix.makeOracle(truthTable: truthTable,
+                                            controlCount: controlCount).get()
 
         // Then
         let rows = [
@@ -120,7 +132,8 @@ class Matrix_OracleTests: XCTestCase {
         let controlCount = 2
 
         // When
-        let matrix = try? Matrix.makeOracle(truthTable: truthTable, controlCount: controlCount)
+        let matrix = try? Matrix.makeOracle(truthTable: truthTable,
+                                            controlCount: controlCount).get()
 
         // Then
         let rows = [
