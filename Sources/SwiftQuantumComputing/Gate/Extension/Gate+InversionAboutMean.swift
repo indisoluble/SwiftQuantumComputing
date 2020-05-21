@@ -34,10 +34,10 @@ extension Gate {
 
     /// Buils a `Gate.matrix(matrix:inputs:)` gate that produces an inversion about the mean on
     /// the given `inputs`
-    public static func makeInversionAboutMean(inputs: [Int]) throws -> Gate {
+    public static func makeInversionAboutMean(inputs: [Int]) -> Result<Gate, MakeInversionAboutMeanError> {
         let count = inputs.count
         guard count > 0 else {
-            throw MakeInversionAboutMeanError.inputsCanNotBeAnEmptyList
+            return .failure(.inputsCanNotBeAnEmptyList)
         }
 
         let matrixCount = Int.pow(2, count)
@@ -45,6 +45,6 @@ extension Gate {
         let average = try! Matrix.makeAverage(count: matrixCount)
         let matrix = try! (Complex(-1) * identity) + (Complex(2) * average)
 
-        return .matrix(matrix: matrix, inputs: inputs)
+        return .success(.matrix(matrix: matrix, inputs: inputs)) 
     }
 }

@@ -29,7 +29,12 @@ class Gate_InversionAboutMeanTests: XCTestCase {
     // MARK: - Tests
 
     func testEmptyInputs_makeInversionAboutMean_throwError() {
-        XCTAssertThrowsError(try Gate.makeInversionAboutMean(inputs: []))
+        // Then
+        var error: Gate.MakeInversionAboutMeanError?
+        if case .failure(let e) = Gate.makeInversionAboutMean(inputs: []) {
+            error = e
+        }
+        XCTAssertEqual(error, .inputsCanNotBeAnEmptyList)
     }
 
     func testNonEmptyInputs_makeInversionAboutMean_returnExpectedGate() {
@@ -37,7 +42,7 @@ class Gate_InversionAboutMeanTests: XCTestCase {
         let inputs = [1, 0]
 
         // When
-        let result = try? Gate.makeInversionAboutMean(inputs: inputs)
+        let result = try? Gate.makeInversionAboutMean(inputs: inputs).get()
 
         // Then
         let mainValue = Complex(-1.0 + 2.0 / 4.0)
