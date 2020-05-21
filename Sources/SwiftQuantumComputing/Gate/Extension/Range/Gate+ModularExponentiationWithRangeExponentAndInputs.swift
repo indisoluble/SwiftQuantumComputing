@@ -30,87 +30,87 @@ extension Gate {
     public static func makeModularExponentiation(base: Int,
                                                  modulus: Int,
                                                  exponent: Range<Int>,
-                                                 inputs: [Int]) throws -> [Gate] {
-        return try makeModularExponentiation(base: base,
-                                             modulus: modulus,
-                                             exponent: Array(exponent),
-                                             inputs: inputs)
+                                                 inputs: [Int]) -> Result<[Gate], MakeModularExponentiationError> {
+        return makeModularExponentiation(base: base,
+                                         modulus: modulus,
+                                         exponent: Array(exponent),
+                                         inputs: inputs)
     }
 
     /// Implements with `Gate` instances a modular exponentiation performed over `modulus` with `base` raised to `exponent`
     public static func makeModularExponentiation(base: Int,
                                                  modulus: Int,
                                                  exponent: ClosedRange<Int>,
-                                                 inputs: [Int]) throws -> [Gate] {
-        return try makeModularExponentiation(base: base,
-                                             modulus: modulus,
-                                             exponent: Array(exponent),
-                                             inputs: inputs)
+                                                 inputs: [Int]) -> Result<[Gate], MakeModularExponentiationError> {
+        return makeModularExponentiation(base: base,
+                                         modulus: modulus,
+                                         exponent: Array(exponent),
+                                         inputs: inputs)
     }
 
     /// Implements with `Gate` instances a modular exponentiation performed over `modulus` with `base` raised to `exponent`
     public static func makeModularExponentiation(base: Int,
                                                  modulus: Int,
                                                  exponent: [Int],
-                                                 inputs: Range<Int>) throws -> [Gate] {
-        return try makeModularExponentiation(base: base,
-                                             modulus: modulus,
-                                             exponent: exponent,
-                                             inputs: Array(inputs))
+                                                 inputs: Range<Int>) -> Result<[Gate], MakeModularExponentiationError> {
+        return makeModularExponentiation(base: base,
+                                         modulus: modulus,
+                                         exponent: exponent,
+                                         inputs: Array(inputs))
     }
 
     /// Implements with `Gate` instances a modular exponentiation performed over `modulus` with `base` raised to `exponent`
     public static func makeModularExponentiation(base: Int,
                                                  modulus: Int,
                                                  exponent: [Int],
-                                                 inputs: ClosedRange<Int>) throws -> [Gate] {
-        return try makeModularExponentiation(base: base,
-                                             modulus: modulus,
-                                             exponent: exponent,
-                                             inputs: Array(inputs))
+                                                 inputs: ClosedRange<Int>) -> Result<[Gate], MakeModularExponentiationError> {
+        return makeModularExponentiation(base: base,
+                                         modulus: modulus,
+                                         exponent: exponent,
+                                         inputs: Array(inputs))
     }
 
     /// Implements with `Gate` instances a modular exponentiation performed over `modulus` with `base` raised to `exponent`
     public static func makeModularExponentiation(base: Int,
                                                  modulus: Int,
                                                  exponent: Range<Int>,
-                                                 inputs: Range<Int>) throws -> [Gate] {
-        return try makeModularExponentiation(base: base,
-                                             modulus: modulus,
-                                             exponent: Array(exponent),
-                                             inputs: Array(inputs))
+                                                 inputs: Range<Int>) -> Result<[Gate], MakeModularExponentiationError> {
+        return makeModularExponentiation(base: base,
+                                         modulus: modulus,
+                                         exponent: Array(exponent),
+                                         inputs: Array(inputs))
     }
 
     /// Implements with `Gate` instances a modular exponentiation performed over `modulus` with `base` raised to `exponent`
     public static func makeModularExponentiation(base: Int,
                                                  modulus: Int,
                                                  exponent: Range<Int>,
-                                                 inputs: ClosedRange<Int>) throws -> [Gate] {
-        return try makeModularExponentiation(base: base,
-                                             modulus: modulus,
-                                             exponent: Array(exponent),
-                                             inputs: Array(inputs))
+                                                 inputs: ClosedRange<Int>) -> Result<[Gate], MakeModularExponentiationError> {
+        return makeModularExponentiation(base: base,
+                                         modulus: modulus,
+                                         exponent: Array(exponent),
+                                         inputs: Array(inputs))
     }
 
     /// Implements with `Gate` instances a modular exponentiation performed over `modulus` with `base` raised to `exponent`
     public static func makeModularExponentiation(base: Int,
                                                  modulus: Int,
                                                  exponent: ClosedRange<Int>,
-                                                 inputs: Range<Int>) throws -> [Gate] {
-        return try makeModularExponentiation(base: base,
-                                             modulus: modulus,
-                                             exponent: Array(exponent),
-                                             inputs: Array(inputs))
+                                                 inputs: Range<Int>) -> Result<[Gate], MakeModularExponentiationError> {
+        return makeModularExponentiation(base: base,
+                                         modulus: modulus,
+                                         exponent: Array(exponent),
+                                         inputs: Array(inputs))
     }
 
     /// Implements with `Gate` instances a modular exponentiation performed over `modulus` with `base` raised to `exponent`
     public static func makeModularExponentiation(base: Int,
                                                  modulus: Int,
                                                  exponent: ClosedRange<Int>,
-                                                 inputs: ClosedRange<Int>) throws -> [Gate] {
-        return try makeModularExponentiation(base: base,
-                                             modulus: modulus,
-                                             exponent: Array(exponent),
-                                             inputs: Array(inputs))
+                                                 inputs: ClosedRange<Int>) -> Result<[Gate], MakeModularExponentiationError> {
+        return makeModularExponentiation(base: base,
+                                         modulus: modulus,
+                                         exponent: Array(exponent),
+                                         inputs: Array(inputs))
     }
 }

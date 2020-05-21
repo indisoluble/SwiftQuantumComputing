@@ -37,34 +37,50 @@ class Gate_ModularExponentiationTests: XCTestCase {
 
     func testBaseEqualToZero_makeModularExponentiation_throwError() {
         // Then
-        XCTAssertThrowsError(try Gate.makeModularExponentiation(base: 0,
-                                                                modulus: modulus,
-                                                                exponent: exponent,
-                                                                inputs: inputs))
+        var error: Gate.MakeModularExponentiationError?
+        if case .failure(let e) = Gate.makeModularExponentiation(base: 0,
+                                                                 modulus: modulus,
+                                                                 exponent: exponent,
+                                                                 inputs: inputs) {
+            error = e
+        }
+        XCTAssertEqual(error, .baseHasToBeBiggerThanZero)
     }
 
     func testModulusEqualToOne_makeModularExponentiation_throwError() {
         // Then
-        XCTAssertThrowsError(try Gate.makeModularExponentiation(base: base,
-                                                                modulus: 1,
-                                                                exponent: exponent,
-                                                                inputs: inputs))
+        var error: Gate.MakeModularExponentiationError?
+        if case .failure(let e) = Gate.makeModularExponentiation(base: base,
+                                                                 modulus: 1,
+                                                                 exponent: exponent,
+                                                                 inputs: inputs) {
+            error = e
+        }
+        XCTAssertEqual(error, .modulusHasToBeBiggerThanOne)
     }
 
     func testEmptyInputs_makeModularExponentiation_throwError() {
         // Then
-        XCTAssertThrowsError(try Gate.makeModularExponentiation(base: base,
-                                                                modulus: modulus,
-                                                                exponent: exponent,
-                                                                inputs: []))
+        var error: Gate.MakeModularExponentiationError?
+        if case .failure(let e) = Gate.makeModularExponentiation(base: base,
+                                                                 modulus: modulus,
+                                                                 exponent: exponent,
+                                                                 inputs: []) {
+            error = e
+        }
+        XCTAssertEqual(error, .inputsCanNotBeAnEmptyList)
     }
 
     func testModulusPowerOfBase_makeModularExponentiation_throwError() {
         // Then
-        XCTAssertThrowsError(try Gate.makeModularExponentiation(base: base,
-                                                                modulus: Int.pow(base, 3),
-                                                                exponent: exponent,
-                                                                inputs: inputs))
+        var error: Gate.MakeModularExponentiationError?
+        if case .failure(let e) = Gate.makeModularExponentiation(base: base,
+                                                                 modulus: Int.pow(base, 3),
+                                                                 exponent: exponent,
+                                                                 inputs: inputs) {
+            error = e
+        }
+        XCTAssertEqual(error, .modulusProducesANonUnitaryMatrix)
     }
 
     func testValidParameters_makeModularExponentiation_returnExpectedList() {
@@ -72,7 +88,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let gates = try? Gate.makeModularExponentiation(base: base,
                                                         modulus: modulus,
                                                         exponent: exponent,
-                                                        inputs: inputs)
+                                                        inputs: inputs).get()
         // Then
         let firstMatrix = try! Matrix([
             [Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
@@ -106,7 +122,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let gates = try! Gate.makeModularExponentiation(base: base,
                                                         modulus: modulus,
                                                         exponent: exponent,
-                                                        inputs: inputs)
+                                                        inputs: inputs).get()
         let circuit = MainCircuitFactory(statevectorConfiguration: .fullMatrix).makeCircuit(gates: gates)
 
         // When
@@ -121,7 +137,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let gates = try! Gate.makeModularExponentiation(base: base,
                                                         modulus: modulus,
                                                         exponent: exponent,
-                                                        inputs: inputs)
+                                                        inputs: inputs).get()
         let circuit = MainCircuitFactory(statevectorConfiguration: .rowByRow).makeCircuit(gates: gates)
 
         // When
@@ -136,7 +152,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let gates = try! Gate.makeModularExponentiation(base: base,
                                                         modulus: modulus,
                                                         exponent: exponent,
-                                                        inputs: inputs)
+                                                        inputs: inputs).get()
         let circuit = MainCircuitFactory(statevectorConfiguration: .elementByElement).makeCircuit(gates: gates)
 
         // When
