@@ -42,7 +42,7 @@ extension Gate {
 
         let matrixCount = Int.pow(2, count)
         let identity = try! Matrix.makeIdentity(count: matrixCount)
-        let average = try! Matrix.makeAverage(count: matrixCount)
+        let average = try! Matrix.makeAverage(count: matrixCount).get()
         let matrix = try! (Complex(-1) * identity) + (Complex(2) * average)
 
         return .success(.matrix(matrix: matrix, inputs: inputs)) 

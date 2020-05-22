@@ -30,13 +30,14 @@ extension Matrix {
         case passCountBiggerThanZero
     }
 
-    static func makeAverage(count: Int) throws -> Matrix {
+    static func makeAverage(count: Int) -> Result<Matrix, MakeAverageError> {
         guard (count > 0) else {
-            throw MakeIdentityError.passCountBiggerThanZero
+            return .failure(.passCountBiggerThanZero)
         }
 
         let value = Complex(Double(1) / Double(count))
+        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count) { _,_ in value }
 
-        return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { _,_ in value }
+        return .success(matrix)
     }
 }

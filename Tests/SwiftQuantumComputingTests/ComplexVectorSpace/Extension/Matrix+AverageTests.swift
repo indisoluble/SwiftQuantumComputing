@@ -30,7 +30,11 @@ class Matrix_AverageTests: XCTestCase {
 
     func testCountEqualToZero_makeAverage_throwException() {
         // Then
-        XCTAssertThrowsError(try Matrix.makeAverage(count: 0))
+        var error: Matrix.MakeAverageError?
+        if case .failure(let e) = Matrix.makeAverage(count: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .passCountBiggerThanZero)
     }
 
     func testCountBiggerThanZero_mamakeAveragekeMatrix_returnExpectedMatrix() {
@@ -38,7 +42,7 @@ class Matrix_AverageTests: XCTestCase {
         let count = 3
 
         // When
-        let matrix = try? Matrix.makeAverage(count: count)
+        let matrix = try? Matrix.makeAverage(count: count).get()
 
         // Then
         let value = Complex(Double(1) / Double(count))
