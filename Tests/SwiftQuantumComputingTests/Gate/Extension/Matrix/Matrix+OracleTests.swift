@@ -52,7 +52,7 @@ class Matrix_OracleTests: XCTestCase {
 
         // Then
         XCTAssertEqual(try? Matrix.makeOracle(truthTable: [], controlCount: controlCount).get(),
-                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)).get())
     }
 
     func testControlCountBiggerThanZeroAndTruthTableWithEmptyValue_makeOracle_returnExpectedIdentity() {
@@ -61,7 +61,7 @@ class Matrix_OracleTests: XCTestCase {
 
         // Then
         XCTAssertEqual(try? Matrix.makeOracle(truthTable: [""], controlCount: controlCount).get(),
-                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)).get())
     }
 
     func testControlCountBiggerThanZeroAndNonSensicalTruthTable_makeOracle_returnExpectedIdentity() {
@@ -72,7 +72,7 @@ class Matrix_OracleTests: XCTestCase {
         // Then
         XCTAssertEqual(try? Matrix.makeOracle(truthTable: truthTable,
                                               controlCount: controlCount).get(),
-                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)).get())
     }
 
     func testControlCountBiggerThanZeroAndTruthTableOutOfRange_makeOracle_returnExpectedIdentity() {
@@ -83,7 +83,7 @@ class Matrix_OracleTests: XCTestCase {
         // Then
         XCTAssertEqual(try? Matrix.makeOracle(truthTable: truthTable,
                                               controlCount: controlCount).get(),
-                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)))
+                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)).get())
     }
 
     func testControlCountBiggerThanZeroAndTruthTableWithMoreBitsThanControlsButInRange_makeOracle_returnExpectedMatrix() {

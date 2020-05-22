@@ -30,13 +30,15 @@ extension Matrix {
         case passCountBiggerThanZero
     }
 
-    static func makeIdentity(count: Int) throws -> Matrix {
+    static func makeIdentity(count: Int) -> Result<Matrix, MakeIdentityError> {
         guard (count > 0) else {
-            throw MakeIdentityError.passCountBiggerThanZero
+            return .failure(.passCountBiggerThanZero)
         }
 
-        return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { (row, column) in
+        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count) { (row, column) in
             return row == column ? Complex.one : Complex.zero
         }
+
+        return .success(matrix)
     }
 }

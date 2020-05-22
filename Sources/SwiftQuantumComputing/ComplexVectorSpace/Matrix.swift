@@ -125,7 +125,7 @@ public struct Matrix {
     }
 
     func isUnitary(accuracy: Double) -> Bool {
-        let identity = try! Matrix.makeIdentity(count: rowCount)
+        let identity = try! Matrix.makeIdentity(count: rowCount).get()
 
         var matrix = Matrix.multiply(lhs: self, rhs: self, rhsTrans: CblasConjTrans)
         guard matrix.isEqual(identity, accuracy: accuracy) else {
