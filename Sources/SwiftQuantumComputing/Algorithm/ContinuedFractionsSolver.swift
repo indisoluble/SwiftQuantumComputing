@@ -41,18 +41,17 @@ public struct ContinuedFractionsSolver {
      - Parameter value: `Rational` number for which an approximation is required.
      - Parameter limit: `Rational` number that sets the maximum difference between the result and `value`.
 
-     - Throws: `FindApproximationError`.
-
-     - Returns: A `Rational` number which distance to `value` is below or equal to `limit`,
+     - Returns: A `Rational` number which distance to `value` is below or equal to `limit`.
+     Or `FindApproximationError` error.
      */
     public static func findApproximation(of value: Rational,
-                                         differenceBelowOrEqual limit: Rational) throws -> Rational {
+                                         differenceBelowOrEqual limit: Rational) -> Result<Rational, FindApproximationError> {
         guard Rational.zero < value else {
-            throw FindApproximationError.valueHasToBeBiggerThanZero
+            return .failure(.valueHasToBeBiggerThanZero)
         }
 
         guard Rational.zero < limit else {
-            throw FindApproximationError.limitHasToBeBiggerThanZero
+            return .failure(.limitHasToBeBiggerThanZero)
         }
 
         var numerators = (0, 1)
@@ -78,6 +77,6 @@ public struct ContinuedFractionsSolver {
             denominators.1 = result.denominator
         }
 
-        return result
+        return .success(result)
     }
 }
