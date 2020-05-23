@@ -47,9 +47,7 @@ public protocol Drawable {
      - Parameter circuit: Circuit to be printed in a view..
      - Parameter qubitCount: Number of qubits in the `circuit`.
 
-     - Throws: `DrawCircuitError`.
-
-     - Returns: A view with a representation of the `circuit` inside.
+     - Returns: A view with a representation of the `circuit` inside. Or `DrawCircuitError` error.
      */
-    func drawCircuit(_ circuit: [Gate], qubitCount: Int) throws -> SQCView
+    func drawCircuit(_ circuit: [Gate], qubitCount: Int) -> Result<SQCView, DrawCircuitError>
 }

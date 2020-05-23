@@ -27,26 +27,30 @@ struct CircuitViewDrawer {}
 // MARK: - Drawable methods
 
 extension CircuitViewDrawer: Drawable {
-    func drawCircuit(_ circuit: [Gate], qubitCount: Int) throws -> SQCView {
+    func drawCircuit(_ circuit: [Gate], qubitCount: Int) -> Result<SQCView, DrawCircuitError> {
         guard qubitCount > 0 else {
-            throw DrawCircuitError.qubitCountHasToBeBiggerThanZero
+            return .failure(.qubitCountHasToBeBiggerThanZero)
         }
 
         let container = makeContainerView(layerCount: (1 + circuit.count), qubitCount: qubitCount)
 
         var column = 0
 
-        var layer = (0..<qubitCount).map { CircuitViewPosition.qubit(index: $0) }
+        let layer = (0..<qubitCount).map { CircuitViewPosition.qubit(index: $0) }
         addLayer(layer, to: container, at: column)
 
         for gate in circuit {
             column += 1
 
-            layer = try gate.makeLayer(qubitCount: qubitCount).get()
-            addLayer(layer, to: container, at: column)
+            switch gate.makeLayer(qubitCount: qubitCount) {
+            case .success(let layer):
+                addLayer(layer, to: container, at: column)
+            case .failure(let error):
+                return .failure(error)
+            }
         }
 
-        return container
+        return .success(container)
     }
 }
 
