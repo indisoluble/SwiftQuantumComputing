@@ -48,14 +48,11 @@ extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
             fatalError("Unexpected error: \(error).")
         }
 
-        do {
-            _ = try register.statevector()
-        } catch StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
+        switch register.statevector() {
+        case .success:
+            return register
+        case .failure(.statevectorAdditionOfSquareModulusIsNotEqualToOne):
             throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
         }
-
-        return register
     }
 }

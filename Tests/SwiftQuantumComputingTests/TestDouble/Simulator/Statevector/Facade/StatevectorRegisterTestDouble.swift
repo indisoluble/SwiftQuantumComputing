@@ -41,14 +41,14 @@ final class StatevectorRegisterTestDouble {
 // MARK: - StatevectorMeasurement methods
 
 extension StatevectorRegisterTestDouble: StatevectorMeasurement {
-    func statevector() throws -> Vector {
+    func statevector() -> Result<Vector, StatevectorMeasurementError> {
         statevectorCount += 1
 
         if let statevectorResult = statevectorResult {
-            return statevectorResult
+            return .success(statevectorResult)
         }
 
-        throw statevectorError
+        return .failure(statevectorError)
     }
 }
 

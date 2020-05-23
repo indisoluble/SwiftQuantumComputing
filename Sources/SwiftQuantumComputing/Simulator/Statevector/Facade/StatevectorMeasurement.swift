@@ -29,5 +29,5 @@ enum StatevectorMeasurementError: Error {
 // MARK: - Protocol definition
 
 protocol StatevectorMeasurement {
-    func statevector() throws -> Vector
+    func statevector() -> Result<Vector, StatevectorMeasurementError>
 }

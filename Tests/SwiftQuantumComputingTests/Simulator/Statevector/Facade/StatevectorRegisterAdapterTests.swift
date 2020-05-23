@@ -59,7 +59,11 @@ class StatevectorRegisterAdapterTests: XCTestCase {
                                                       transformation: transformation)
 
         // Then
-        XCTAssertThrowsError(try adapter.statevector())
+        var error: StatevectorMeasurementError?
+        if case .failure(let e) = adapter.statevector() {
+            error = e
+        }
+        XCTAssertEqual(error, .statevectorAdditionOfSquareModulusIsNotEqualToOne)
     }
 
     func testValidVector_statevector_returnValue() {
@@ -68,7 +72,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
                                                       transformation: transformation)
 
         // When
-        let result = try! adapter.statevector()
+        let result = try? adapter.statevector().get()
 
         // Then
         XCTAssertEqual(result, oneQubitZeroVector)
@@ -92,7 +96,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         XCTAssertEqual(transformation.applyCount, 1)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
         XCTAssertEqual(transformation.lastApplyInputs, controls + [target])
-        XCTAssertEqual(try? result?.statevector(), threeQubitFourVector)
+        XCTAssertEqual(try? result?.statevector().get(), threeQubitFourVector)
     }
 
     static var allTests = [

@@ -69,15 +69,11 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
         }
 
         StatevectorSimulatorFacade.logger.debug("Getting measurement...")
-        var vector: Vector!
-        do {
-            vector = try register.statevector()
-        } catch StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
+        switch register.statevector() {
+        case .success(let vector):
+            return vector
+        case .failure(.statevectorAdditionOfSquareModulusIsNotEqualToOne):
             throw StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
         }
-
-        return vector
     }
 }

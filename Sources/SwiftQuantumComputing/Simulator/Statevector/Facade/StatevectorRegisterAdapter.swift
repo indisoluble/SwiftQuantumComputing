@@ -50,12 +50,12 @@ struct StatevectorRegisterAdapter {
 // MARK: - StatevectorMeasurement methods
 
 extension StatevectorRegisterAdapter: StatevectorMeasurement {
-    func statevector() throws -> Vector {
+    func statevector() -> Result<Vector, StatevectorMeasurementError> {
         guard vector.isAdditionOfSquareModulusEqualToOne() else {
-            throw StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne
+            return .failure(.statevectorAdditionOfSquareModulusIsNotEqualToOne)
         }
 
-        return vector
+        return .success(vector)
     }
 }
 
