@@ -39,9 +39,12 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         let adapter = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
 
         // Then
-        XCTAssertThrowsError(try adapter.makeGate(qubitCount: qubitCount,
-                                                  simulatorGate: simulatorGate))
-
+        var error: GateError?
+        if case .failure(let e) = adapter.makeGate(qubitCount: qubitCount,
+                                                   simulatorGate: simulatorGate) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateOracleControlsCanNotBeAnEmptyList)
         XCTAssertEqual(simulatorGate.extractComponentsCount, 1)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 0)
     }
@@ -62,7 +65,8 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = try? adapter.makeGate(qubitCount: qubitCount, simulatorGate: simulatorGate)
+        let result = try? adapter.makeGate(qubitCount: qubitCount,
+                                           simulatorGate: simulatorGate).get()
 
         // Then
         XCTAssertEqual(simulatorGate.extractComponentsCount, 1)

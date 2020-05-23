@@ -47,7 +47,7 @@ extension UnitarySimulatorFacade: UnitarySimulator {
         for gate in circuit {
             do {
                 unitaryGate = (unitaryGate == nil ?
-                    try gateFactory.makeGate(qubitCount: qubitCount, simulatorGate: gate) :
+                    try gateFactory.makeGate(qubitCount: qubitCount, simulatorGate: gate).get() :
                     try unitaryGate!.applying(gate))
             } catch let error as GateError {
                 throw UnitaryError.gateThrowedError(gate: gate.gate, error: error)
