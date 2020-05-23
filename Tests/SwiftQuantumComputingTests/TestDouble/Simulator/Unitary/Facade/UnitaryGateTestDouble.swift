@@ -38,9 +38,9 @@ final class UnitaryGateTestDouble {
     var applyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
 }
 
-// MARK: - UnitaryMatrix methods
+// MARK: - UnitaryGate methods
 
-extension UnitaryGateTestDouble: UnitaryMatrix {
+extension UnitaryGateTestDouble: UnitaryGate {
     func unitary() -> Result<Matrix, UnitaryMatrixError> {
         unitaryCount += 1
 
@@ -50,20 +50,16 @@ extension UnitaryGateTestDouble: UnitaryMatrix {
 
         return .failure(unitaryError)
     }
-}
 
-// MARK: - SimulatorTransformation methods
-
-extension UnitaryGateTestDouble: SimulatorTransformation {
-    func applying(_ gate: SimulatorGate) throws -> UnitaryGateTestDouble {
+    func applying(_ gate: SimulatorGate) -> Result<UnitaryGate, GateError> {
         applyingCount += 1
 
         lastApplyingGate = gate
 
         if let applyingResult = applyingResult {
-            return applyingResult
+            return .success(applyingResult)
         }
 
-        throw applyingError
+        return .failure(applyingError)
     }
 }

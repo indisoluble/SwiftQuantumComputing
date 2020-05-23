@@ -1,5 +1,5 @@
 //
-//  UnitaryMatrix.swift
+//  UnitaryGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 01/05/2020.
@@ -28,6 +28,7 @@ enum UnitaryMatrixError: Error {
 
 // MARK: - Protocol definition
 
-protocol UnitaryMatrix {
+protocol UnitaryGate {
     func unitary() -> Result<Matrix, UnitaryMatrixError>
+    func applying(_ gate: SimulatorGate) -> Result<UnitaryGate, GateError>
 }
