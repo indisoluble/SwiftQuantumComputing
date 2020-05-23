@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 /// Errors throwed by `Drawable.drawCircuit(_:qubitCount:)`
-public enum DrawCircuitError: Error {
+public enum DrawCircuitError: Error, Equatable {
     /// Throwed when `gate` tries to use a control qubit also as an input qubit
     case gateControlIsAlsoAnInput(gate: Gate)
     /// Throwed when `gate` tries to use a target qubit also as a control qubit

@@ -42,7 +42,7 @@ extension CircuitViewDrawer: Drawable {
         for gate in circuit {
             column += 1
 
-            layer = try gate.makeLayer(qubitCount: qubitCount)
+            layer = try gate.makeLayer(qubitCount: qubitCount).get()
             addLayer(layer, to: container, at: column)
         }
 

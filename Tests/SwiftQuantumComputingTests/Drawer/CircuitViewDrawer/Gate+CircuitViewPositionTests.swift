@@ -39,7 +39,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledNot(target: qubitCount, control: 3)
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
     }
 
     func testControlledNotGateWithControlOutOfRange_makeLayer_throwError() {
@@ -48,7 +52,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledNot(target: 1, control: qubitCount)
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
     }
 
     func testControlledNotGate_makeLayer_returnExpectedPositions() {
@@ -57,7 +65,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledNot(target: 1, control: 3)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -76,7 +84,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledNot(target: 3, control: 1)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -95,7 +103,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.hadamard(target: qubitCount)
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
     }
 
     func testHadamardGate_makeLayer_returnExpectedPositions() {
@@ -104,7 +116,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.hadamard(target: 1)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -121,7 +133,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.not(target: qubitCount)
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
     }
 
     func testNotGate_makeLayer_returnExpectedPositions() {
@@ -130,7 +146,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.not(target: 1)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -147,7 +163,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.matrix(matrix: matrix, inputs: [])
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithEmptyInputList(gate: gate))
     }
 
     func testSingleQubitMatrixGateWithInputOutOfRange_makeLayer_throwError() {
@@ -156,7 +176,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.matrix(matrix: matrix, inputs: [qubitCount])
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
     }
 
     func testSingleQubitMatrixGate_makeLayer_returnExpectedPositions() {
@@ -165,7 +189,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.matrix(matrix: matrix, inputs: [1])
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -183,7 +207,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.matrix(matrix: matrix, inputs: inputs)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -205,7 +229,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.phaseShift(radians: radians, target: qubitCount)
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
     }
 
     func testPhaseShiftGate_makeLayer_returnExpectedPositions() {
@@ -215,7 +243,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.phaseShift(radians: radians, target: 1)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -232,7 +260,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.oracle(truthTable: [], target: 0, controls: [])
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithEmptyInputList(gate: gate))
     }
 
     func testOracleGateWithTargetEqualToOneOfTheControls_makeLayer_throwException() {
@@ -241,7 +273,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.oracle(truthTable: [], target: 0, controls: [0, 2])
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateTargetIsAlsoAControl(gate: gate))
     }
 
     func testOracleGateWithTargetOutOfRange_makeLayer_throwException() {
@@ -250,7 +286,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.oracle(truthTable: [], target: qubitCount, controls: [0, 2])
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
     }
 
     func testOracleGateWithOneControlOnTopOfTarget_makeLayer_returnExpectedPositions() {
@@ -259,7 +299,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.oracle(truthTable: [], target: 1, controls: [3])
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -278,7 +318,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.oracle(truthTable: [], target: 3, controls: [1])
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -298,7 +338,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.oracle(truthTable: [], target: 5, controls: controls)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -322,7 +362,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.oracle(truthTable: [], target: 7, controls: controls)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -346,7 +386,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.oracle(truthTable: [], target: 1, controls: controls)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -369,7 +409,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: matrix, inputs: [], control: 0)
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithEmptyInputList(gate: gate))
     }
 
     func testControlledMatrixGateWithControlEqualToOneOfTheInputs_makeLayer_throwException() {
@@ -378,7 +422,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: matrix, inputs: [0, 2], control: 0)
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateControlIsAlsoAnInput(gate: gate))
     }
 
     func testControlledMatrixGateWithControlOutOfRange_makeLayer_throwException() {
@@ -387,7 +435,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: matrix, inputs: [0, 2], control: qubitCount)
 
         // Then
-        XCTAssertThrowsError(try gate.makeLayer(qubitCount: qubitCount))
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
     }
 
     func testControlledMatrixGateWithOneInputOnTopOfControl_makeLayer_returnExpectedPositions() {
@@ -396,7 +448,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: matrix, inputs: [3], control: 1)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -415,7 +467,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: matrix, inputs: [1], control: 3)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -435,7 +487,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 5)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -459,7 +511,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 7)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
@@ -483,7 +535,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 1)
 
         // When
-        let positions = try? gate.makeLayer(qubitCount: qubitCount)
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
         let expectedPositions = [
