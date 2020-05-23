@@ -96,7 +96,9 @@ public struct Vector {
             throw MakeVectorError.passCountBiggerThanZero
         }
 
-        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: 1) { r, c in value(r) }
+        let matrix = try! Matrix.makeMatrix(rowCount: count,
+                                            columnCount: 1,
+                                            value: { r, c in value(r) }).get()
 
         return Vector(matrix: matrix)
     }
@@ -108,7 +110,7 @@ public struct Vector {
     static func innerProduct(_ lhs: Vector, _ rhs: Vector) throws -> Complex {
         var matrix: Matrix!
         do {
-            matrix = try Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix
+            matrix = try (Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix).get()
         } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
             throw InnerProductError.vectorsDoNotHaveSameCount
         } catch {
@@ -160,7 +162,7 @@ extension Vector {
     static func *(lhs: Vector, rhs: Vector) throws -> Complex {
         var matrix: Matrix!
         do {
-            matrix = try Matrix.Transformation.transposed(lhs.matrix) * rhs.matrix
+            matrix = try (Matrix.Transformation.transposed(lhs.matrix) * rhs.matrix).get()
         } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
             throw VectorByVectorError.vectorCountsDoNotMatch
         } catch {
@@ -173,7 +175,7 @@ extension Vector {
     static func *(lhs: Matrix, rhs: Vector) throws -> Vector {
         var matrix: Matrix!
         do {
-            matrix = try lhs * rhs.matrix
+            matrix = try (lhs * rhs.matrix).get()
         } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
             throw MatrixByVectorError.matrixColumnCountDoesNotMatchVectorCount
         } catch {

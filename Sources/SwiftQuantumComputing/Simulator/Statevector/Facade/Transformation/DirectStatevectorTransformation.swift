@@ -92,7 +92,9 @@ private extension DirectStatevectorTransformation {
                toStatevector vector: Vector,
                atTarget target: Int,
                withControl control: Int) -> Vector {
-        let submatrix = try! Matrix.makeMatrix(rowCount: 2, columnCount: 2) { matrix[2+$0, 2+$1] }
+        let submatrix = try! Matrix.makeMatrix(rowCount: 2,
+                                               columnCount: 2,
+                                               value: { matrix[2+$0, 2+$1] }).get()
         let filter = 1 << control
 
         return apply(matrix: submatrix,

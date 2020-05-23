@@ -118,9 +118,9 @@ private extension Gate {
             return .failure(.modulusProducesANonUnitaryMatrix)
         }
 
-        let matrix = try! Matrix.makeMatrix(rowCount: combCount, columnCount: combCount) { row, col in
+        let matrix = try! Matrix.makeMatrix(rowCount: combCount, columnCount: combCount, value: { row, col in
             return (activatedIndexes[col] == row ? Complex.one : Complex.zero)
-        }
+        }).get()
 
         return .success(matrix)
     }

@@ -74,7 +74,7 @@ extension UnitaryGateAdapter: SimulatorTransformation {
         let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
                                                             baseMatrix: components.matrix,
                                                             inputs: components.inputs)
-        let nextMatrix = try! circuitMatrix.rawMatrix * matrix
+        let nextMatrix = try! (circuitMatrix.rawMatrix * matrix).get()
 
         return try! UnitaryGateAdapter(matrix: nextMatrix, matrixFactory: matrixFactory)
     }

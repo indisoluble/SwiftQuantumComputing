@@ -37,7 +37,7 @@ extension Matrix {
 
         let n = Double(count)
         let normalization = Complex(1 / sqrt(n))
-        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count) { row, column in
+        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count, value: { row, column in
             let power = row * column
 
             var value = Complex.one
@@ -47,7 +47,7 @@ extension Matrix {
             }
 
             return normalization * value
-        }
+        }).get()
 
         return .success(matrix)
     }

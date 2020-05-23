@@ -52,7 +52,9 @@ struct SimulatorCircuitMatrixAdapter {
 
 extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrix {
     var rawMatrix: Matrix {
-        return try! Matrix.makeMatrix(rowCount: count, columnCount: count) { self[$0, $1] }
+        return try! Matrix.makeMatrix(rowCount: count,
+                                      columnCount: count,
+                                      value: { self[$0, $1] }).get()
     }
 }
 

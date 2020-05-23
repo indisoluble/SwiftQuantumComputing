@@ -35,9 +35,9 @@ extension Matrix {
             return .failure(.passCountBiggerThanZero)
         }
 
-        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count) { (row, column) in
-            return row == column ? Complex.one : Complex.zero
-        }
+        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count, value: { row, col in
+            return row == col ? Complex.one : Complex.zero
+        }).get()
 
         return .success(matrix)
     }

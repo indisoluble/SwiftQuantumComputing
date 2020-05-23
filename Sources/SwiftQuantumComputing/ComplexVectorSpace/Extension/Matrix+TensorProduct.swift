@@ -30,14 +30,14 @@ extension Matrix {
         let rowCount = (lhs.rowCount * rhs.rowCount)
         let columnCount = (lhs.columnCount * rhs.columnCount)
 
-        return try! Matrix.makeMatrix(rowCount: rowCount, columnCount: columnCount) { (row, column) -> Complex in
-            let lhsColumn = (column / rhs.columnCount)
+        return try! Matrix.makeMatrix(rowCount: rowCount, columnCount: columnCount, value: { row, col -> Complex in
+            let lhsColumn = (col / rhs.columnCount)
             let lhsRow = (row / rhs.rowCount)
 
-            let rhsColumn = (column % rhs.columnCount)
+            let rhsColumn = (col % rhs.columnCount)
             let rhsRow = (row % rhs.rowCount)
 
             return lhs[lhsRow,lhsColumn] * rhs[rhsRow,rhsColumn]
-        }
+        }).get()
     }
 }

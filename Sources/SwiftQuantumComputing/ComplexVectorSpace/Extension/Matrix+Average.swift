@@ -36,7 +36,9 @@ extension Matrix {
         }
 
         let value = Complex(Double(1) / Double(count))
-        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count) { _,_ in value }
+        let matrix = try! Matrix.makeMatrix(rowCount: count,
+                                            columnCount: count,
+                                            value: { _,_ in value }).get()
 
         return .success(matrix)
     }

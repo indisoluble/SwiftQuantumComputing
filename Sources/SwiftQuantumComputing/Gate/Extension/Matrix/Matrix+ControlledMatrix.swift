@@ -31,7 +31,7 @@ extension Matrix {
         let rowCount = 2 * quadRowCount
         let quadColCount = matrix.columnCount
         let colCount = 2 * quadColCount
-        return try! Matrix.makeMatrix(rowCount: rowCount, columnCount: colCount) { (row, col) in
+        return try! Matrix.makeMatrix(rowCount: rowCount, columnCount: colCount, value: { row, col in
             let quad = Quadrant(row: row,
                                 column: col,
                                 quadrantRowCount: quadRowCount,
@@ -46,7 +46,7 @@ extension Matrix {
             case .fourth(let quadRow, let quadCol):
                 return matrix[quadRow, quadCol]
             }
-        }
+        }).get()
     }
 }
 
