@@ -42,6 +42,7 @@ extension CircuitMatrixRowStatevectorTransformation: StatevectorTransformation {
         let circuitRow = matrixFactory.makeCircuitMatrixRow(qubitCount: Int.log2(vector.count),
                                                             baseMatrix: gateMatrix,
                                                             inputs: inputs)
-        return try! Vector.makeVector(count: vector.count) { try! circuitRow[$0] * vector }
+        return try! Vector.makeVector(count: vector.count,
+                                      value: { try! (circuitRow[$0] * vector).get() }).get()
     }
 }

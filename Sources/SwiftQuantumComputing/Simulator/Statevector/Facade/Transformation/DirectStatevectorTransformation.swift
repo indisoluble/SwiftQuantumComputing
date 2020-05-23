@@ -110,7 +110,7 @@ private extension DirectStatevectorTransformation {
         let mask = 1 << input
         let invMask = ~mask
 
-        return try! Vector.makeVector(count: vector.count) { index in
+        return try! Vector.makeVector(count: vector.count, value: { index in
             var value: Complex!
 
             if let filter = filter, index & filter == 0 {
@@ -126,6 +126,6 @@ private extension DirectStatevectorTransformation {
             }
 
             return value
-        }
+        }).get()
     }
 }

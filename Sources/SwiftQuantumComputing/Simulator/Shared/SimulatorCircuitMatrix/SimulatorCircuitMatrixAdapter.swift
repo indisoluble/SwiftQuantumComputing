@@ -62,7 +62,7 @@ extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrix {
 
 extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {
     subscript(row: Int) -> Vector {
-        return try! Vector.makeVector(count: count) { self[row, $0] }
+        return try! Vector.makeVector(count: count, value: { self[row, $0] }).get()
     }
 }
 
