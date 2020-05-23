@@ -56,15 +56,11 @@ extension UnitarySimulatorFacade: UnitarySimulator {
             }
         }
 
-        var matrix: Matrix!
-        do {
-            matrix = try unitaryGate!.unitary()
-        } catch UnitaryMatrixError.matrixIsNotUnitary {
+        switch unitaryGate!.unitary() {
+        case .success(let matrix):
+            return matrix
+        case .failure(.matrixIsNotUnitary):
             throw UnitaryError.resultingMatrixIsNotUnitary
-        } catch {
-            fatalError("Unexpected error: \(error).")
         }
-
-        return matrix
     }
 }

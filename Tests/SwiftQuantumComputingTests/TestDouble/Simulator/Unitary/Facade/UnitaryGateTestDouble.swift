@@ -41,14 +41,14 @@ final class UnitaryGateTestDouble {
 // MARK: - UnitaryMatrix methods
 
 extension UnitaryGateTestDouble: UnitaryMatrix {
-    func unitary() throws -> Matrix {
+    func unitary() -> Result<Matrix, UnitaryMatrixError> {
         unitaryCount += 1
 
         if let unitaryResult = unitaryResult {
-            return unitaryResult
+            return .success(unitaryResult)
         }
 
-        throw unitaryError
+        return .failure(unitaryError)
     }
 }
 

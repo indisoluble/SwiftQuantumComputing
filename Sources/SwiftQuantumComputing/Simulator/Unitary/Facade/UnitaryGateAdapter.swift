@@ -57,12 +57,12 @@ struct UnitaryGateAdapter {
 // MARK: - UnitaryMatrix methods
 
 extension UnitaryGateAdapter: UnitaryMatrix {
-    func unitary() throws -> Matrix {
+    func unitary() -> Result<Matrix, UnitaryMatrixError> {
         guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            throw UnitaryMatrixError.matrixIsNotUnitary
+            return .failure(.matrixIsNotUnitary)
         }
 
-        return matrix
+        return .success(matrix)
     }
 }
 

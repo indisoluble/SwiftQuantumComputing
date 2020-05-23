@@ -74,7 +74,11 @@ class UnitaryGateAdapterTests: XCTestCase {
                                               matrixFactory: matrixFactory)
 
         // Then
-        XCTAssertThrowsError(try adapter.unitary())
+        var error: UnitaryMatrixError?
+        if case .failure(let e) = adapter.unitary() {
+            error = e
+        }
+        XCTAssertEqual(error, .matrixIsNotUnitary)
     }
 
     func testValidMatrix_unitary_returnValue() {
@@ -82,7 +86,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix, matrixFactory: matrixFactory)
 
         // When
-        let result = try? adapter.unitary()
+        let result = try? adapter.unitary().get()
 
         // Then
         XCTAssertEqual(result, simulatorMatrix)
@@ -125,7 +129,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
         let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex.one, Complex.one],
                                                                     [Complex(-1), Complex.one]])))
-        XCTAssertEqual(try? result?.unitary(), expectedUnitary)
+        XCTAssertEqual(try? result?.unitary().get(), expectedUnitary)
     }
 
     func testMatrixFactoryReturnsOtherMatrix_applying_returnValue() {
@@ -154,7 +158,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
         let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex.one, Complex(-1)],
                                                                     [Complex.one, Complex.one]])))
-        XCTAssertEqual(try? result?.unitary(), expectedUnitary)
+        XCTAssertEqual(try? result?.unitary().get(), expectedUnitary)
     }
 
     static var allTests = [

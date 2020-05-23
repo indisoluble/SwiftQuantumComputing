@@ -29,5 +29,5 @@ enum UnitaryMatrixError: Error {
 // MARK: - Protocol definition
 
 protocol UnitaryMatrix {
-    func unitary() throws -> Matrix
+    func unitary() -> Result<Matrix, UnitaryMatrixError>
 }
