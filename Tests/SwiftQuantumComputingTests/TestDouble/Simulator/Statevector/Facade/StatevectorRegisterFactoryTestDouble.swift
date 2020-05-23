@@ -37,15 +37,15 @@ final class StatevectorRegisterFactoryTestDouble {
 // MARK: - StatevectorRegisterFactory methods
 
 extension StatevectorRegisterFactoryTestDouble: StatevectorRegisterFactory {
-    func makeRegister(state: Vector) throws -> StatevectorRegister {
+    func makeRegister(state: Vector) -> Result<StatevectorRegister, MakeRegisterError> {
         makeRegisterCount += 1
 
         lastMakeRegisterState = state
 
         if let makeRegisterResult = makeRegisterResult {
-            return makeRegisterResult
+            return .success(makeRegisterResult)
         }
 
-        throw makeRegisterError
+        return .failure(makeRegisterError)
     }
 }

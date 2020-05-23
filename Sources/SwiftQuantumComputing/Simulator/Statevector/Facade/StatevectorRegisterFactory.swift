@@ -32,5 +32,5 @@ enum MakeRegisterError: Error {
 protocol StatevectorRegisterFactory {
     typealias StatevectorRegister = StatevectorMeasurement & SimulatorTransformation
 
-    func makeRegister(state: Vector) throws -> StatevectorRegister
+    func makeRegister(state: Vector) -> Result<StatevectorRegister, MakeRegisterError>
 }

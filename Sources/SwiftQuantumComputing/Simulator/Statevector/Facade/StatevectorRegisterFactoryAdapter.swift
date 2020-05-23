@@ -38,21 +38,21 @@ struct StatevectorRegisterFactoryAdapter {
 // MARK: - StatevectorRegisterFactory methods
 
 extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
-    func makeRegister(state: Vector) throws -> StatevectorRegister {
+    func makeRegister(state: Vector) -> Result<StatevectorRegister, MakeRegisterError> {
         var register: StatevectorRegisterAdapter!
         do {
             register = try StatevectorRegisterAdapter(vector: state, transformation: transformation)
         } catch StatevectorRegisterAdapter.InitError.vectorCountHasToBeAPowerOfTwo {
-            throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
+            return .failure(.stateCountHasToBeAPowerOfTwo)
         } catch {
             fatalError("Unexpected error: \(error).")
         }
 
         switch register.statevector() {
         case .success:
-            return register
+            return .success(register)
         case .failure(.statevectorAdditionOfSquareModulusIsNotEqualToOne):
-            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
+            return .failure(.stateAdditionOfSquareModulusIsNotEqualToOne)
         }
     }
 }

@@ -45,14 +45,13 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [StatevectorGate], to initialStatevector: Vector) throws -> Vector {
         StatevectorSimulatorFacade.logger.debug("Producing initial register...")
         var register: StatevectorRegisterFactory.StatevectorRegister!
-        do {
-            register = try registerFactory.makeRegister(state: initialStatevector)
-        } catch MakeRegisterError.stateCountHasToBeAPowerOfTwo {
+        switch registerFactory.makeRegister(state: initialStatevector) {
+        case .success(let reg):
+            register = reg
+        case .failure(.stateCountHasToBeAPowerOfTwo):
             throw StatevectorWithInitialStatevectorError.initialStatevectorCountHasToBeAPowerOfTwo
-        } catch MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne {
+        case .failure(.stateAdditionOfSquareModulusIsNotEqualToOne):
             throw StatevectorWithInitialStatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
         }
 
         for (index, gate) in circuit.enumerated() {
