@@ -90,7 +90,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         transformation.applyResult = threeQubitFourVector
 
         // When
-        let result = try? adapter.applying(gate)
+        let result = try? adapter.applying(gate).get()
 
         // Then
         XCTAssertEqual(transformation.applyCount, 1)

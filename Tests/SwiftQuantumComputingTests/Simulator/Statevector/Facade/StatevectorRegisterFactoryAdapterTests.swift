@@ -68,7 +68,7 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
         let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
 
         // Then
-        var register: StatevectorRegisterFactory.StatevectorRegister?
+        var register: StatevectorRegister?
         if case .success(let reg) = adapter.makeRegister(state: validVector) {
             register = reg
         }

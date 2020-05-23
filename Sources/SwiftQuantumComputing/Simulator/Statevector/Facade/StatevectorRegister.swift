@@ -1,9 +1,9 @@
 //
-//  StatevectorMeasurement.swift
+//  StatevectorRegister.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 23/05/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ enum StatevectorMeasurementError: Error {
 
 // MARK: - Protocol definition
 
-protocol StatevectorMeasurement {
+protocol StatevectorRegister {
     func statevector() -> Result<Vector, StatevectorMeasurementError>
+    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError>
 }
