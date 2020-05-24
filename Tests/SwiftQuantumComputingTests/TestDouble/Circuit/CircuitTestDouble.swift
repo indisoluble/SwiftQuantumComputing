@@ -39,8 +39,7 @@ final class CircuitTestDouble {
     private (set) var statevectorCount = 0
     private (set) var lastStatevectorInitialStatevector: Vector?
     var statevectorResult: Vector?
-    var statevectorError = StatevectorWithInitialStatevectorError.gateThrowedError(gate: .not(target: 0),
-                                                                                   error: .resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary)
+    var statevectorError = StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - Circuit methods
@@ -52,27 +51,27 @@ extension CircuitTestDouble: Circuit {
         return gatesResult
     }
 
-    func unitary(withQubitCount qubitCount: Int) throws -> Matrix {
+    func unitary(withQubitCount qubitCount: Int) -> Result<Matrix, UnitaryError> {
         unitaryCount += 1
 
         lastUnitaryQubitCount = qubitCount
 
         if let unitaryResult = unitaryResult {
-            return unitaryResult
+            return .success(unitaryResult)
         }
 
-        throw unitaryError
+        return .failure(unitaryError)
     }
 
-    func statevector(withInitialStatevector initialStatevector: Vector) throws -> Vector {
+    func statevector(withInitialStatevector initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError> {
         statevectorCount += 1
 
         lastStatevectorInitialStatevector = initialStatevector
 
         if let statevectorResult = statevectorResult {
-            return statevectorResult
+            return .success(statevectorResult)
         }
 
-        throw statevectorError
+        return .failure(statevectorError)
     }
 }

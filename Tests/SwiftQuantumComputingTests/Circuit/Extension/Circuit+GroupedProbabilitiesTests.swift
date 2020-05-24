@@ -78,17 +78,25 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
 
     func testAnyCircuitAndZeroGroupQubits_groupedProbabilities_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.groupedProbabilities(byQubits: [],
-                                                              summarizedByQubits: [0],
-                                                              withInitialBits: bits))
+        var error: GroupedProbabilitiesError?
+        if case .failure(let e) = circuit.groupedProbabilities(byQubits: [],
+                                                               summarizedByQubits: [0],
+                                                               withInitialBits: bits) {
+            error = e
+        }
+        XCTAssertEqual(error, .groupQubitsCanNotBeAnEmptyList)
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testAnyCircuitAndRepeatedQubits_groupedProbabilities_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.groupedProbabilities(byQubits: [0],
-                                                              summarizedByQubits: [0],
-                                                              withInitialBits: bits))
+        var error: GroupedProbabilitiesError?
+        if case .failure(let e) = circuit.groupedProbabilities(byQubits: [0],
+                                                               summarizedByQubits: [0],
+                                                               withInitialBits: bits) {
+            error = e
+        }
+        XCTAssertEqual(error, .qubitsAreNotUnique)
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
@@ -97,9 +105,13 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = try! Vector([Complex.zero, Complex.one])
 
         // Then
-        XCTAssertThrowsError(try circuit.groupedProbabilities(byQubits: [100],
-                                                              summarizedByQubits: [0],
-                                                              withInitialBits: bits))
+        var error: GroupedProbabilitiesError?
+        if case .failure(let e) = circuit.groupedProbabilities(byQubits: [100],
+                                                               summarizedByQubits: [0],
+                                                               withInitialBits: bits) {
+            error = e
+        }
+        XCTAssertEqual(error, .qubitsAreNotInsideBounds)
         XCTAssertEqual(circuit.statevectorCount, 1)
         XCTAssertEqual(circuit.lastStatevectorInitialStatevector, initialStatevector)
     }
@@ -111,7 +123,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         // When
         let result = try? circuit.groupedProbabilities(byQubits: [1],
                                                        summarizedByQubits: [0],
-                                                       withInitialBits: bits)
+                                                       withInitialBits: bits).get()
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -134,7 +146,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         // When
         let result = try? circuit.groupedProbabilities(byQubits: [0],
                                                        summarizedByQubits: [1],
-                                                       withInitialBits: bits)
+                                                       withInitialBits: bits).get()
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -154,7 +166,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = finalStateVector
 
         // When
-        let result = try? circuit.groupedProbabilities(byQubits: [1], withInitialBits: bits)
+        let result = try? circuit.groupedProbabilities(byQubits: [1], withInitialBits: bits).get()
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -178,7 +190,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         let result = try? circuit.groupedProbabilities(byQubits: [0],
                                                        summarizedByQubits: [1],
                                                        withInitialBits: bits,
-                                                       roundSummaryToDecimalPlaces: 1)
+                                                       roundSummaryToDecimalPlaces: 1).get()
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -201,7 +213,7 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         let result = try? circuit.groupedProbabilities(byQubits: [0],
                                                        summarizedByQubits: [1],
                                                        withInitialBits: bits,
-                                                       roundSummaryToDecimalPlaces: 0)
+                                                       roundSummaryToDecimalPlaces: 0).get()
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)
@@ -221,8 +233,12 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = finalStateVector
 
         // Then
-        XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: [0],
-                                                          summarizedByQubits: (1..<3)))
+        var result: [String: Circuit.GroupedProb]?
+        if case .success(let probs) = circuit.groupedProbabilities(byQubits: [0],
+                                                                   summarizedByQubits: (1..<3)) {
+            result = probs
+        }
+        XCTAssertNotNil(result)
     }
 
     func testCircuitThatReturnStatevectorAndSummaryQubitClosedRange_groupedProbabilities_doNotThrowException() {
@@ -230,8 +246,12 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = finalStateVector
 
         // Then
-        XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: [0],
-                                                          summarizedByQubits: (1...2)))
+        var result: [String: Circuit.GroupedProb]?
+        if case .success(let probs) = circuit.groupedProbabilities(byQubits: [0],
+                                                                   summarizedByQubits: (1...2)) {
+            result = probs
+        }
+        XCTAssertNotNil(result)
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitRange_groupedProbabilities_doNotThrowException() {
@@ -239,8 +259,12 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = finalStateVector
 
         // Then
-        XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (1..<3),
-                                                          summarizedByQubits: [0]))
+        var result: [String: Circuit.GroupedProb]?
+        if case .success(let probs) = circuit.groupedProbabilities(byQubits: (1..<3),
+                                                                   summarizedByQubits: [0]) {
+            result = probs
+        }
+        XCTAssertNotNil(result)
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitRangeAndSummaryQubitRange_groupedProbabilities_doNotThrowException() {
@@ -248,8 +272,12 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = finalStateVector
 
         // Then
-        XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (0..<1),
-                                                          summarizedByQubits: (1..<3)))
+        var result: [String: Circuit.GroupedProb]?
+        if case .success(let probs) = circuit.groupedProbabilities(byQubits: (0..<1),
+                                                                   summarizedByQubits: (1..<3)) {
+            result = probs
+        }
+        XCTAssertNotNil(result)
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitRangeAndSummaryQubitClosedRange_groupedProbabilities_doNotThrowException() {
@@ -257,8 +285,12 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = finalStateVector
 
         // Then
-        XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (0..<1),
-                                                          summarizedByQubits: (1...2)))
+        var result: [String: Circuit.GroupedProb]?
+        if case .success(let probs) = circuit.groupedProbabilities(byQubits: (0..<1),
+                                                                   summarizedByQubits: (1...2)) {
+            result = probs
+        }
+        XCTAssertNotNil(result)
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitClosedRange_groupedProbabilities_doNotThrowException() {
@@ -266,8 +298,12 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = finalStateVector
 
         // Then
-        XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (1...2),
-                                                          summarizedByQubits: [0]))
+        var result: [String: Circuit.GroupedProb]?
+        if case .success(let probs) = circuit.groupedProbabilities(byQubits: (1...2),
+                                                                   summarizedByQubits: [0]) {
+            result = probs
+        }
+        XCTAssertNotNil(result)
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitClosedRangeAndSummaryQubitRange_groupedProbabilities_doNotThrowException() {
@@ -275,8 +311,12 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = finalStateVector
 
         // Then
-        XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (1...2),
-                                                          summarizedByQubits: (0..<1)))
+        var result: [String: Circuit.GroupedProb]?
+        if case .success(let probs) = circuit.groupedProbabilities(byQubits: (1...2),
+                                                                   summarizedByQubits: (0..<1)) {
+            result = probs
+        }
+        XCTAssertNotNil(result)
     }
 
     func testCircuitThatReturnStatevectorAndGroupQubitClosedRangeAndSummaryQubitClosedRange_groupedProbabilities_doNotThrowException() {
@@ -284,8 +324,12 @@ class Circuit_GroupedProbabilitiesTests: XCTestCase {
         circuit.statevectorResult = finalStateVector
 
         // Then
-        XCTAssertNoThrow(try circuit.groupedProbabilities(byQubits: (1...2),
-                                                          summarizedByQubits: (0...0)))
+        var result: [String: Circuit.GroupedProb]?
+        if case .success(let probs) = circuit.groupedProbabilities(byQubits: (1...2),
+                                                                   summarizedByQubits: (0...0)) {
+            result = probs
+        }
+        XCTAssertNotNil(result)
     }
 
     static var allTests = [

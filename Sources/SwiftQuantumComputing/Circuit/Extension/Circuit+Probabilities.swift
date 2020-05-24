@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 /// Errors throwed by `Circuit.probabilities(withInitialBits:)`
-public enum ProbabilitiesError: Error {
+public enum ProbabilitiesError: Error, Equatable {
     /// Throwed if `Circuit.statevector(withInitialBits:)` throws `StatevectorError`
     case statevectorThrowedError(error: StatevectorError)
 }
@@ -39,21 +39,15 @@ extension Circuit {
 
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
 
-     - Throws: `ProbabilitiesError`.
-
      - Returns: A list in which each position represents a qubit combination and the value in a position the probability of
-     such combination.
+     such combination. Or `ProbabilitiesError` error.
      */
-    public func probabilities(withInitialBits initialBits: String? = nil) throws -> [Double] {
-        var state: Vector!
-        do {
-            state = try statevector(withInitialBits: initialBits)
-        } catch let error as StatevectorError {
-            throw ProbabilitiesError.statevectorThrowedError(error: error)
-        } catch {
-            fatalError("Unexpected error: \(error).")
+    public func probabilities(withInitialBits initialBits: String? = nil) -> Result<[Double], ProbabilitiesError> {
+        switch statevector(withInitialBits: initialBits) {
+        case .success(let state):
+            return .success(state.map { $0.squaredModulus })
+        case .failure(let error):
+            return .failure(.statevectorThrowedError(error: error))
         }
-
-        return state.map { $0.squaredModulus }
     }
 }

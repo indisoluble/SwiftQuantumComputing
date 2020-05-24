@@ -37,7 +37,11 @@ class Circuit_ProbabilitiesTests: XCTestCase {
 
     func testCircuitThatThrowException_probabilities_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.probabilities(withInitialBits: bits))
+        var error: ProbabilitiesError?
+        if case .failure(let e) = circuit.probabilities(withInitialBits: bits) {
+            error = e
+        }
+        XCTAssertEqual(error, .statevectorThrowedError(error: .resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne))
         XCTAssertEqual(circuit.statevectorCount, 1)
         XCTAssertEqual(circuit.lastStatevectorInitialStatevector, initialStatevector)
     }
@@ -52,7 +56,7 @@ class Circuit_ProbabilitiesTests: XCTestCase {
         ])
 
         // When
-        let result = try? circuit.probabilities(withInitialBits: bits)
+        let result = try? circuit.probabilities(withInitialBits: bits).get()
 
         // Then
         XCTAssertEqual(circuit.statevectorCount, 1)

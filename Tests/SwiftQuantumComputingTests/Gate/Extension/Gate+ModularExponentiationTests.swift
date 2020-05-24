@@ -126,7 +126,8 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let circuit = MainCircuitFactory(statevectorConfiguration: .fullMatrix).makeCircuit(gates: gates)
 
         // When
-        let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")
+        let probs = try! circuit.summarizedProbabilities(byQubits: inputs,
+                                                         withInitialBits: "11001").get()
 
         // Then
         XCTAssertEqual(probs, ["011" : 1.0])
@@ -141,7 +142,8 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let circuit = MainCircuitFactory(statevectorConfiguration: .rowByRow).makeCircuit(gates: gates)
 
         // When
-        let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")
+        let probs = try! circuit.summarizedProbabilities(byQubits: inputs,
+                                                         withInitialBits: "11001").get()
 
         // Then
         XCTAssertEqual(probs, ["011" : 1.0])
@@ -156,7 +158,8 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let circuit = MainCircuitFactory(statevectorConfiguration: .elementByElement).makeCircuit(gates: gates)
 
         // When
-        let probs = try! circuit.summarizedProbabilities(byQubits: inputs, withInitialBits: "11001")
+        let probs = try! circuit.summarizedProbabilities(byQubits: inputs,
+                                                         withInitialBits: "11001").get()
 
         // Then
         XCTAssertEqual(probs, ["011" : 1.0])

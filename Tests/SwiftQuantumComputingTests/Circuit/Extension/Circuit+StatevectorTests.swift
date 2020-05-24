@@ -34,28 +34,44 @@ class Circuit_StatevectorTests: XCTestCase {
 
     func testEmptyBitsString_statevectorWithInitialBits_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.statevector(withInitialBits: ""))
+        var error: StatevectorError?
+        if case .failure(let e) = circuit.statevector(withInitialBits: "") {
+            error = e
+        }
+        XCTAssertEqual(error, .initialBitsAreNotAStringComposedOnlyOfZerosAndOnes)
         XCTAssertEqual(circuit.gatesCount, 0)
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testBitsStringWithLeadingSpaces_statevectorWithInitialBits_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.statevector(withInitialBits: "  1001"))
+        var error: StatevectorError?
+        if case .failure(let e) = circuit.statevector(withInitialBits: "  1001") {
+            error = e
+        }
+        XCTAssertEqual(error, .initialBitsAreNotAStringComposedOnlyOfZerosAndOnes)
         XCTAssertEqual(circuit.gatesCount, 0)
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testBitsStringWithTrailingSpaces_statevectorWithInitialBits_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.statevector(withInitialBits: "1001  "))
+        var error: StatevectorError?
+        if case .failure(let e) = circuit.statevector(withInitialBits: "1001  ") {
+            error = e
+        }
+        XCTAssertEqual(error, .initialBitsAreNotAStringComposedOnlyOfZerosAndOnes)
         XCTAssertEqual(circuit.gatesCount, 0)
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
 
     func testBitsStringWithWrongCharacter_statevectorWithInitialBits_throwException() {
         // Then
-        XCTAssertThrowsError(try circuit.statevector(withInitialBits: "10#1"))
+        var error: StatevectorError?
+        if case .failure(let e) = circuit.statevector(withInitialBits: "10#1") {
+            error = e
+        }
+        XCTAssertEqual(error, .initialBitsAreNotAStringComposedOnlyOfZerosAndOnes)
         XCTAssertEqual(circuit.gatesCount, 0)
         XCTAssertEqual(circuit.statevectorCount, 0)
     }
@@ -65,7 +81,7 @@ class Circuit_StatevectorTests: XCTestCase {
         let bits = "011"
 
         // When
-        _ = try? circuit.statevector(withInitialBits: bits)
+        _ = circuit.statevector(withInitialBits: bits)
 
         // Then
         let initialElements = [Complex.zero, Complex.zero, Complex.zero, Complex.one,
@@ -84,7 +100,7 @@ class Circuit_StatevectorTests: XCTestCase {
         circuit.gatesResult = gates
 
         // When
-        _ = try? circuit.statevector()
+        _ = circuit.statevector()
 
         // Then
         let initialElements = [Complex.one, Complex.zero, Complex.zero, Complex.zero,
