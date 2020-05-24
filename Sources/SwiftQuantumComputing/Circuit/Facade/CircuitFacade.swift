@@ -60,6 +60,6 @@ extension CircuitFacade: Circuit {
     }
 
     func statevector(withInitialStatevector initialStatevector: Vector) throws -> Vector {
-        return try statevectorSimulator.apply(circuit: gates, to: initialStatevector)
+        return try statevectorSimulator.apply(circuit: gates, to: initialStatevector).get()
     }
 }

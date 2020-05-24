@@ -42,16 +42,17 @@ struct StatevectorSimulatorFacade {
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
-    func apply(circuit: [StatevectorGate], to initialStatevector: Vector) throws -> Vector {
+    func apply(circuit: [SimulatorGate & SimulatorRawGate],
+               to initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError> {
         StatevectorSimulatorFacade.logger.debug("Producing initial register...")
         var register: StatevectorRegister!
         switch registerFactory.makeRegister(state: initialStatevector) {
         case .success(let reg):
             register = reg
         case .failure(.stateCountHasToBeAPowerOfTwo):
-            throw StatevectorWithInitialStatevectorError.initialStatevectorCountHasToBeAPowerOfTwo
+            return .failure(.initialStatevectorCountHasToBeAPowerOfTwo)
         case .failure(.stateAdditionOfSquareModulusIsNotEqualToOne):
-            throw StatevectorWithInitialStatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
+            return .failure(.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne)
         }
 
         for (index, gate) in circuit.enumerated() {
@@ -61,17 +62,16 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
             case .success(let nextRegister):
                 register = nextRegister
             case .failure(let error):
-                throw StatevectorWithInitialStatevectorError.gateThrowedError(gate: gate.gate,
-                                                                              error: error)
+                return .failure(.gateThrowedError(gate: gate.gate, error: error))
             }
         }
 
         StatevectorSimulatorFacade.logger.debug("Getting measurement...")
         switch register.statevector() {
         case .success(let vector):
-            return vector
+            return .success(vector)
         case .failure(.statevectorAdditionOfSquareModulusIsNotEqualToOne):
-            throw StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
+            return .failure(.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
         }
     }
 }

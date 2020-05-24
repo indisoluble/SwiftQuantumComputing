@@ -23,7 +23,6 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol StatevectorSimulator {
-    typealias StatevectorGate = SimulatorGate & SimulatorRawGate
-
-    func apply(circuit: [StatevectorGate], to initialStatevector: Vector) throws -> Vector
+    func apply(circuit: [SimulatorGate & SimulatorRawGate],
+               to initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError>
 }

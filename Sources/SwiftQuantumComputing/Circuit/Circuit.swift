@@ -48,7 +48,7 @@ public enum GateError: Error {
 }
 
 /// Errors throwed by `Circuit.statevector(withInitialStatevector:)`
-public enum StatevectorWithInitialStatevectorError: Error {
+public enum StatevectorWithInitialStatevectorError: Error, Equatable {
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
     /// Throwed when `initialStatevector` is not valid or the resulting state vector lost too much precision
