@@ -39,16 +39,16 @@ final class UnitarySimulatorTestDouble {
 
 extension UnitarySimulatorTestDouble: UnitarySimulator {
     func unitary(with circuit: [SimulatorGate & SimulatorRawGate],
-                 qubitCount: Int) throws -> Matrix {
+                 qubitCount: Int) -> Result<Matrix, UnitaryError> {
         unitaryCount += 1
 
         lastUnitaryCircuit = circuit
         lastUnitaryQubitCount = qubitCount
 
         if let unitaryResult = unitaryResult {
-            return unitaryResult
+            return .success(unitaryResult)
         }
 
-        throw unitaryError
+        return .failure(unitaryError)
     }
 }

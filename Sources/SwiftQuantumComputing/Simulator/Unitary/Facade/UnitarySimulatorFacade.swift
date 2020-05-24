@@ -39,9 +39,9 @@ struct UnitarySimulatorFacade {
 
 extension UnitarySimulatorFacade: UnitarySimulator {
     func unitary(with circuit: [SimulatorGate & SimulatorRawGate],
-                 qubitCount: Int) throws -> Matrix {
+                 qubitCount: Int) -> Result<Matrix, UnitaryError> {
         guard !circuit.isEmpty else {
-            throw UnitaryError.circuitCanNotBeAnEmptyList
+            return .failure(.circuitCanNotBeAnEmptyList)
         }
 
         var unitaryGate: UnitaryGate?
@@ -53,15 +53,15 @@ extension UnitarySimulatorFacade: UnitarySimulator {
             case .success(let nextGate):
                 unitaryGate = nextGate
             case .failure(let error):
-                throw UnitaryError.gateThrowedError(gate: gate.gate, error: error)
+                return .failure(.gateThrowedError(gate: gate.gate, error: error))
             }
         }
 
         switch unitaryGate!.unitary() {
         case .success(let matrix):
-            return matrix
+            return .success(matrix)
         case .failure(.matrixIsNotUnitary):
-            throw UnitaryError.resultingMatrixIsNotUnitary
+            return .failure(.resultingMatrixIsNotUnitary)
         }
     }
 }

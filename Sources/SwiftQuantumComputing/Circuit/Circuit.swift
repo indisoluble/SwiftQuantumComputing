@@ -62,7 +62,7 @@ public enum StatevectorWithInitialStatevectorError: Error, Equatable {
 }
 
 /// Errors throwed by `Circuit.unitary(withQubitCount:)`
-public enum UnitaryError: Error {
+public enum UnitaryError: Error, Equatable {
     /// Throwed when the circuit has no gate from which to produce an unitary matrix
     case circuitCanNotBeAnEmptyList
     /// Throwed if `gate` throws `error`
