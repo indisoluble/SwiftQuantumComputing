@@ -39,7 +39,7 @@ struct SimpleGeneticGateFactory {
 
 extension SimpleGeneticGateFactory: GeneticGateFactory {
     func makeGate(inputs: [Int]) throws -> GeneticGate {
-        let fixedGate = try gate.makeFixed(inputs: inputs)
+        let fixedGate = try gate.makeFixed(inputs: inputs).get()
 
         return SimpleGeneticGate(gate: fixedGate)
     }

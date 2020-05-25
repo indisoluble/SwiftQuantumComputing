@@ -36,15 +36,15 @@ final class ConfigurableGateTestDouble {
 // MARK: - ConfigurableGate methods
 
 extension ConfigurableGateTestDouble: ConfigurableGate {
-    func makeFixed(inputs: [Int]) throws -> Gate {
+    func makeFixed(inputs: [Int]) -> Result<Gate, EvolveCircuitError> {
         makeFixedCount += 1
 
         lastMakeFixedInputs = inputs
 
         if let makeFixedResult = makeFixedResult {
-            return makeFixedResult
+            return .success(makeFixedResult)
         }
 
-        throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
+        return .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)) 
     }
 }

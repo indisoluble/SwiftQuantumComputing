@@ -46,7 +46,12 @@ class MatrixGateTests: XCTestCase {
         let factory = try! MatrixGate(matrix: matrix)
 
         // Then
-        XCTAssertThrowsError(try factory.makeFixed(inputs: [0]))
+        switch factory.makeFixed(inputs: [0]) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssert(true)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testFactoryWithTwoQubitsMatrixAndFourInputs_makeFixed_returnExpectedGate() {
@@ -54,16 +59,9 @@ class MatrixGateTests: XCTestCase {
         let factory = try! MatrixGate(matrix: matrix)
         let inputs = [0, 1, 2, 3]
 
-        // When
-        guard let result = try? factory.makeFixed(inputs: inputs) else {
-            XCTAssert(false)
-
-            return
-        }
-
         // Then
-        switch result {
-        case let .matrix(matrixMatrix, matrixInputs):
+        switch factory.makeFixed(inputs: inputs) {
+        case .success(.matrix(let matrixMatrix, let matrixInputs)):
             XCTAssertEqual(matrixMatrix, matrix)
             XCTAssertEqual(matrixInputs, Array(inputs[0..<2]))
         default:

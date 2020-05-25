@@ -63,11 +63,11 @@ public struct MatrixGate {
 extension MatrixGate: ConfigurableGate {
 
     /// Check `ConfigurableGate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> Gate {
+    public func makeFixed(inputs: [Int]) -> Result<Gate, EvolveCircuitError> {
         guard inputs.count >= qubitCount else {
-            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
+            return .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self))
         }
 
-        return .matrix(matrix: matrix, inputs: Array(inputs[0..<qubitCount]))
+        return .success(.matrix(matrix: matrix, inputs: Array(inputs[0..<qubitCount])))
     }
 }

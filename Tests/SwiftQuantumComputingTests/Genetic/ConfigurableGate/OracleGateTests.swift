@@ -41,7 +41,12 @@ class OracleGateTests: XCTestCase {
         let inputs = Array(0..<truthTableQubitCount)
 
         // Then
-        XCTAssertThrowsError(try factory.makeFixed(inputs: inputs))
+        switch factory.makeFixed(inputs: inputs) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssert(true)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testAnyFactoryAndOneInputMoreThanTruthTableQubits_makeFixed_returnExpectedGate() {
@@ -53,16 +58,9 @@ class OracleGateTests: XCTestCase {
 
         let inputs = Array((0..<(expectedTruthTableQubitCount + 1)).reversed())
 
-        // When
-        guard let result = try? factory.makeFixed(inputs: inputs) else {
-            XCTAssert(false)
-
-            return
-        }
-
         // Then
-        switch result {
-        case .oracle(let truthTable, let target, let controls):
+        switch factory.makeFixed(inputs: inputs) {
+        case .success(.oracle(let truthTable, let target, let controls)):
             XCTAssertEqual(truthTable, expectedTruthTable)
             XCTAssertEqual(target, inputs[expectedTruthTableQubitCount])
             XCTAssertEqual(controls, Array(inputs[0..<expectedTruthTableQubitCount]))
