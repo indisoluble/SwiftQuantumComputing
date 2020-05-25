@@ -33,7 +33,7 @@ extension MainOracleCircuitFactory: OracleCircuitFactory {
         var oracleIndex: Int? = nil
 
         for (index, gg) in geneticCircuit.enumerated() {
-            let fixed = try gg.makeFixed(useCase: useCase)
+            let fixed = try gg.makeFixed(useCase: useCase).get()
 
             var doAppendGate = true
             if fixed.didUseTruthTable {

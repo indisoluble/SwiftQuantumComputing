@@ -38,7 +38,7 @@ struct SimpleGeneticGate {
 // MARK: - GeneticGate methods
 
 extension SimpleGeneticGate: GeneticGate {
-    func makeFixed(useCase: GeneticUseCase) throws -> Fixed {
-        return (gate: gate, didUseTruthTable: false)
+    func makeFixed(useCase: GeneticUseCase) -> Result<Fixed, EvolveCircuitError> {
+        return .success((gate: gate, didUseTruthTable: false))
     }
 }
