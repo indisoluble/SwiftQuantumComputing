@@ -72,7 +72,7 @@ extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
                 continue
             }
 
-            let gate = try factory.makeGate(inputs: shuffledQubits())
+            let gate = try factory.makeGate(inputs: shuffledQubits()).get()
 
             result.append(gate)
         }
