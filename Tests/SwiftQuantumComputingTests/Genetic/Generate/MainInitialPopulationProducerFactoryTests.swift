@@ -47,22 +47,6 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
                                                        gates: []))
     }
 
-    func testEvaluatorFactoryThatThrowException_makeProducer_throwException() {
-        // Given
-        generatorFactory.makeRandomizerResult = GeneticGatesRandomizerTestDouble()
-
-        let producer = MainInitialPopulationProducerFactory(generatorFactory: generatorFactory,
-                                                            evaluatorFactory: evaluatorFactory,
-                                                            score: score)
-
-        // Then
-        XCTAssertThrowsError(try producer.makeProducer(qubitCount: 0,
-                                                       threshold: 0,
-                                                       useCases: [],
-                                                       gates: []))
-        XCTAssertEqual(generatorFactory.makeRandomizerCount, 1)
-    }
-
     func testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer() {
         // Given
         generatorFactory.makeRandomizerResult = GeneticGatesRandomizerTestDouble()
@@ -82,8 +66,6 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
     static var allTests = [
         ("testGeneratorFactoryThatThrowException_makeProducer_throwException",
          testGeneratorFactoryThatThrowException_makeProducer_throwException),
-        ("testEvaluatorFactoryThatThrowException_makeProducer_throwException",
-         testEvaluatorFactoryThatThrowException_makeProducer_throwException),
         ("testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer",
          testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer)
     ]

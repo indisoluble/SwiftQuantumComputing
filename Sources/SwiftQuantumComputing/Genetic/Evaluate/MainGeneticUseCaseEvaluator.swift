@@ -34,11 +34,7 @@ struct MainGeneticUseCaseEvaluator {
 
     init(useCase: GeneticUseCase,
          factory: CircuitFactory,
-         oracleFactory: OracleCircuitFactory) throws {
-        guard useCase.circuit.qubitCount > 0 else {
-            throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
-        }
-
+         oracleFactory: OracleCircuitFactory) {
         self.useCase = useCase
         self.factory = factory
         self.oracleFactory = oracleFactory

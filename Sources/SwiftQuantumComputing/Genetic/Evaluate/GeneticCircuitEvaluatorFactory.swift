@@ -23,6 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol GeneticCircuitEvaluatorFactory {
-    func makeEvaluator(threshold: Double,
-                       useCases: [GeneticUseCase]) throws -> GeneticCircuitEvaluator
+    func makeEvaluator(threshold: Double, useCases: [GeneticUseCase]) -> GeneticCircuitEvaluator
 }

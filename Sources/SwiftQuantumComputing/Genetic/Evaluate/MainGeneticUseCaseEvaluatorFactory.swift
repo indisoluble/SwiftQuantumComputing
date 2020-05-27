@@ -40,9 +40,9 @@ struct MainGeneticUseCaseEvaluatorFactory {
 // MARK: - GeneticUseCaseEvaluatorFactory methods
 
 extension MainGeneticUseCaseEvaluatorFactory: GeneticUseCaseEvaluatorFactory {
-    func makeEvaluator(useCase: GeneticUseCase) throws -> GeneticUseCaseEvaluator {
-        return try MainGeneticUseCaseEvaluator(useCase: useCase,
-                                               factory: factory,
-                                               oracleFactory: oracleFactory)
+    func makeEvaluator(useCase: GeneticUseCase) -> GeneticUseCaseEvaluator {
+        return MainGeneticUseCaseEvaluator(useCase: useCase,
+                                           factory: factory,
+                                           oracleFactory: oracleFactory)
     }
 }

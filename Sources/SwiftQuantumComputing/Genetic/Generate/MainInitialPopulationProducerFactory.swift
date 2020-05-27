@@ -50,7 +50,7 @@ extension MainInitialPopulationProducerFactory: InitialPopulationProducerFactory
                       gates: [ConfigurableGate]) throws -> InitialPopulationProducer {
         let generator = try generatorFactory.makeRandomizer(qubitCount: qubitCount, gates: gates)
 
-        let evaluator = try evaluatorFactory.makeEvaluator(threshold: threshold, useCases: useCases)
+        let evaluator = evaluatorFactory.makeEvaluator(threshold: threshold, useCases: useCases)
 
         return MainInitialPopulationProducer(generator: generator,
                                              evaluator: evaluator,

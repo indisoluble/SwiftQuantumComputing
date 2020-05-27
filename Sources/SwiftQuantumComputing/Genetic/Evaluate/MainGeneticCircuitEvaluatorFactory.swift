@@ -38,9 +38,8 @@ struct MainGeneticCircuitEvaluatorFactory {
 // MARK: - GeneticCircuitEvaluatorFactory methods
 
 extension MainGeneticCircuitEvaluatorFactory: GeneticCircuitEvaluatorFactory {
-    func makeEvaluator(threshold: Double,
-                       useCases: [GeneticUseCase]) throws -> GeneticCircuitEvaluator {
-        let evaluators = try useCases.map { try factory.makeEvaluator(useCase: $0) }
+    func makeEvaluator(threshold: Double, useCases: [GeneticUseCase]) -> GeneticCircuitEvaluator {
+        let evaluators = useCases.map { factory.makeEvaluator(useCase: $0) }
 
         return MainGeneticCircuitEvaluator(threshold: threshold, evaluators: evaluators)
     }
