@@ -37,15 +37,15 @@ final class GeneticUseCaseEvaluatorTestDouble {
 // MARK: - GeneticUseCaseEvaluator methods
 
 extension GeneticUseCaseEvaluatorTestDouble: GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Double {
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Result<Double, EvolveCircuitError> {
         evaluateCircuitCount += 1
 
         lastEvaluateCircuitGeneticCircuit = geneticCircuit
 
         if let evaluateCircuitResult = evaluateCircuitResult {
-            return evaluateCircuitResult
+            return .success(evaluateCircuitResult)
         }
 
-        throw evaluateCircuitError
+        return .failure(evaluateCircuitError)
     }
 }

@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Double
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Result<Double, EvolveCircuitError>
 }

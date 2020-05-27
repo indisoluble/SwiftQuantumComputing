@@ -50,7 +50,7 @@ extension MainGeneticCircuitEvaluator: GeneticCircuitEvaluator {
             var probability: Double?
             var useCaseError: Error?
             do {
-                probability = try evaluators[index].evaluateCircuit(geneticCircuit)
+                probability = try evaluators[index].evaluateCircuit(geneticCircuit).get()
             } catch {
                 useCaseError = error
             }
