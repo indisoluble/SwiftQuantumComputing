@@ -147,7 +147,7 @@ extension MainGeneticFactory: GeneticFactory {
         }
 
         let circuit = try! oracleFactory.makeOracleCircuit(geneticCircuit: candidate.circuit,
-                                                           useCase: firstCase)
+                                                           useCase: firstCase).get()
 
         return (candidate.eval, circuit.circuit, circuit.oracleAt)
     }

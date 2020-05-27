@@ -50,7 +50,7 @@ struct MainGeneticUseCaseEvaluator {
 extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
     func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Double {
         let oracleCircuit = try oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
-                                                                useCase: useCase)
+                                                                useCase: useCase).get()
 
         let gates = oracleCircuit.circuit
         let circuit = factory.makeCircuit(gates: gates)

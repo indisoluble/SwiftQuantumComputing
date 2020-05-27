@@ -28,24 +28,27 @@ struct MainOracleCircuitFactory {}
 
 extension MainOracleCircuitFactory: OracleCircuitFactory {
     func makeOracleCircuit(geneticCircuit: [GeneticGate],
-                           useCase: GeneticUseCase) throws -> OracleCircuit {
+                           useCase: GeneticUseCase) -> Result<OracleCircuit, EvolveCircuitError> {
         var gates: [Gate] = []
         var oracleIndex: Int? = nil
 
         for (index, gg) in geneticCircuit.enumerated() {
-            let fixed = try gg.makeFixed(useCase: useCase).get()
+            switch gg.makeFixed(useCase: useCase) {
+            case .success((let gate, let didUseTruthTable)):
+                var doAppendGate = true
+                if didUseTruthTable {
+                    doAppendGate = (oracleIndex == nil)
+                    oracleIndex = (doAppendGate ? index : oracleIndex)
+                }
 
-            var doAppendGate = true
-            if fixed.didUseTruthTable {
-                doAppendGate = (oracleIndex == nil)
-                oracleIndex = (doAppendGate ? index : oracleIndex)
-            }
-
-            if doAppendGate {
-                gates.append(fixed.gate)
+                if doAppendGate {
+                    gates.append(gate)
+                }
+            case .failure(let error):
+                return .failure(error)
             }
         }
 
-        return (gates, oracleIndex)
+        return .success((gates, oracleIndex))
     }
 }
