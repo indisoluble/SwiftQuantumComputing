@@ -74,7 +74,7 @@ extension MainGeneticCircuitMutation: GeneticCircuitMutation {
             return nil
         }
 
-        let m = try randomizer.make(depth: random(0...remainingDepth))
+        let m = try randomizer.make(depth: random(0...remainingDepth)).get()
 
         return (c1 + m + c3)
     }

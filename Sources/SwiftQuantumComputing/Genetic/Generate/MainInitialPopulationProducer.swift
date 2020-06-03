@@ -65,7 +65,7 @@ extension MainInitialPopulationProducer: InitialPopulationProducer {
             var circuitScore: Double?
             var circuitError: Error?
             do {
-                circuit = try generator.make(depth: random(depth))
+                circuit = try generator.make(depth: random(depth)).get()
 
                 let evaluation = try evaluator.evaluateCircuit(circuit!)
                 circuitScore = score.calculate(evaluation)

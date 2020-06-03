@@ -38,7 +38,12 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
         let randomizer = try? MainGeneticGatesRandomizer(qubitCount: 1, factories: [])
 
         // Then
-        XCTAssertThrowsError(try randomizer?.make(depth: -1))
+        switch randomizer?.make(depth: -1) {
+        case .failure(.configurationDepthHasToBeAPositiveNumber):
+            XCTAssert(true)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList() {
@@ -61,7 +66,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
                                                     shuffledQubits: shuffledQubits)
 
         // When
-        let result = try? randomizer.make(depth: 0)
+        let result = try? randomizer.make(depth: 0).get()
 
         // Then
         XCTAssertEqual(randomFactoryCount, 0)
@@ -90,7 +95,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
 
         // When
         let depth = 10
-        let result = try? randomizer.make(depth: depth)
+        let result = try? randomizer.make(depth: depth).get()
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
@@ -135,7 +140,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
                                                     shuffledQubits: shuffledQubits)
 
         // When
-        let result = try? randomizer.make(depth: depth)
+        let result = try? randomizer.make(depth: depth).get()
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
@@ -191,9 +196,13 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
                                                     shuffledQubits: shuffledQubits)
 
         // Then
-        XCTAssertThrowsError(try randomizer.make(depth: depth))
-        XCTAssertEqual(randomFactoryCount, 2)
-        XCTAssertEqual(shuffledQubitsCount, 2)
+        switch randomizer.make(depth: depth) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssertEqual(randomFactoryCount, 2)
+            XCTAssertEqual(shuffledQubitsCount, 2)
+        default:
+            XCTAssert(false)
+        }
     }
 
     static var allTests = [
