@@ -134,7 +134,7 @@ private extension MainGeneticPopulationCrossover {
     // MARK: - Private methods
 
     func evaluateCircuit(_ circuit: [GeneticGate]) throws -> Double {
-        let evaluation = try evaluator.evaluateCircuit(circuit)
+        let evaluation = try evaluator.evaluateCircuit(circuit).get()
 
         return score.calculate(evaluation)
     }

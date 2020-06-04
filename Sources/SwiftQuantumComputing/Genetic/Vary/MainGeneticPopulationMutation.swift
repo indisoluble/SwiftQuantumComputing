@@ -71,7 +71,7 @@ extension MainGeneticPopulationMutation: GeneticPopulationMutation {
             return nil
         }
 
-        let evaluation = try evaluator.evaluateCircuit(mutated)
+        let evaluation = try evaluator.evaluateCircuit(mutated).get()
 
         return (score.calculate(evaluation), mutated)
     }

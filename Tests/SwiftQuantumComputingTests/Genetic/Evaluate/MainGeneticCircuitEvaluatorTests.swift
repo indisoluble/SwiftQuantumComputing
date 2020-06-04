@@ -47,10 +47,14 @@ class MainGeneticCircuitEvaluatorTests: XCTestCase {
                                                                  thirdUseCaseEvaluator])
 
         // Then
-        XCTAssertThrowsError(try evaluator.evaluateCircuit(geneticCircuit))
-        XCTAssertEqual(firstUseCaseEvaluator.evaluateCircuitCount, 1)
-        XCTAssertEqual(secondUseCaseEvaluator.evaluateCircuitCount, 1)
-        XCTAssertEqual(thirdUseCaseEvaluator.evaluateCircuitCount, 1)
+        switch evaluator.evaluateCircuit(geneticCircuit) {
+        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
+            XCTAssertEqual(firstUseCaseEvaluator.evaluateCircuitCount, 1)
+            XCTAssertEqual(secondUseCaseEvaluator.evaluateCircuitCount, 1)
+            XCTAssertEqual(thirdUseCaseEvaluator.evaluateCircuitCount, 1)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testBothCasesReturnErrorProbability_evaluateCircuit_returnExpectedValue() {
@@ -68,7 +72,7 @@ class MainGeneticCircuitEvaluatorTests: XCTestCase {
                                                                  thirdUseCaseEvaluator])
 
         // When
-        let eval = try? evaluator.evaluateCircuit(geneticCircuit)
+        let eval = try? evaluator.evaluateCircuit(geneticCircuit).get()
 
         // Then
         XCTAssertEqual(firstUseCaseEvaluator.evaluateCircuitCount, 1)
