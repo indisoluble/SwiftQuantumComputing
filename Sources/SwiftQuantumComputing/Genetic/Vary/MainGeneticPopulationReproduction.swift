@@ -59,7 +59,7 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
         var offspring: [Fitness.EvalCircuit] = []
 
         if (random(0...1) < mutationProbability) {
-            if let result = try mutation.applied(to: population) {
+            if let result = try mutation.applied(to: population).get() {
                 MainGeneticPopulationReproduction.logger.info("reproduction: mutation produced")
 
                 offspring.append(result)
