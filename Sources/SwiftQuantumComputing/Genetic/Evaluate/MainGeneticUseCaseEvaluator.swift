@@ -34,11 +34,7 @@ struct MainGeneticUseCaseEvaluator {
 
     init(useCase: GeneticUseCase,
          factory: CircuitFactory,
-         oracleFactory: OracleCircuitFactory) throws {
-        guard useCase.circuit.qubitCount > 0 else {
-            throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
-        }
-
+         oracleFactory: OracleCircuitFactory) {
         self.useCase = useCase
         self.factory = factory
         self.oracleFactory = oracleFactory
@@ -48,27 +44,30 @@ struct MainGeneticUseCaseEvaluator {
 // MARK: - GeneticUseCaseEvaluator methods
 
 extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Double {
-        let oracleCircuit = try oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
-                                                                useCase: useCase)
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Result<Double, EvolveCircuitError> {
+        var gates: [Gate]!
+        switch oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit, useCase: useCase) {
+        case .success((let circuit, _)):
+            gates = circuit
+        case .failure(let error):
+            return .failure(error)
+        }
 
-        let gates = oracleCircuit.circuit
         let circuit = factory.makeCircuit(gates: gates)
-
         let input = useCase.circuit.input
+
         var probabilities: [Double]!
-        do {
-            probabilities = try circuit.probabilities(withInitialBits: input)
-        } catch let error as ProbabilitiesError {
-            throw EvolveCircuitError.useCaseMeasurementThrowedError(useCase: useCase, error: error)
-        } catch {
-            fatalError("Unexpected error: \(error).")
+        switch circuit.probabilities(withInitialBits: input) {
+        case .success(let probs):
+            probabilities = probs
+        case .failure(let error):
+            return .failure(.useCaseMeasurementThrowedError(useCase: useCase, error: error))
         }
 
         guard let index = Int(useCase.circuit.output, radix: 2) else {
-            throw EvolveCircuitError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: useCase)
+            return .failure(.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: useCase))
         }
 
-        return abs(1 - probabilities[index])
+        return .success(abs(1 - probabilities[index]))
     }
 }

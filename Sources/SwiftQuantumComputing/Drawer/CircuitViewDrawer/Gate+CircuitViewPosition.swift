@@ -26,26 +26,24 @@ extension Gate {
 
     // MARK: - Internal methods
 
-    func makeLayer(qubitCount: Int) throws -> [CircuitViewPosition] {
+    func makeLayer(qubitCount: Int) -> Result<[CircuitViewPosition], DrawCircuitError> {
         switch self {
         case .controlledMatrix(_, let inputs, let control):
-            return try makeControlledNotMatrixLayer(qubitCount: qubitCount,
-                                                    inputs: inputs,
-                                                    control: control)
+            return makeControlledNotMatrixLayer(qubitCount: qubitCount,
+                                                inputs: inputs,
+                                                control: control)
         case .controlledNot(let target, let control):
-            return try makeControlledNotLayer(qubitCount: qubitCount,
-                                              target: target,
-                                              control: control)
+            return makeControlledNotLayer(qubitCount: qubitCount, target: target, control: control)
         case .hadamard(let target):
-            return try makeHadamardLayer(qubitCount: qubitCount, target: target)
+            return makeHadamardLayer(qubitCount: qubitCount, target: target)
         case .matrix(_, let inputs):
-            return try makeMatrixLayer(qubitCount: qubitCount, inputs: inputs)
+            return makeMatrixLayer(qubitCount: qubitCount, inputs: inputs)
         case .not(let target):
-            return try makeNotLayer(qubitCount: qubitCount, target: target)
+            return makeNotLayer(qubitCount: qubitCount, target: target)
         case .oracle(_, let target, let controls):
-            return try makeOracleLayer(qubitCount: qubitCount, target: target, controls: controls)
+            return makeOracleLayer(qubitCount: qubitCount, target: target, controls: controls)
         case .phaseShift(let radians, let target):
-            return try makePhaseShiftLayer(qubitCount: qubitCount, radians: radians, target: target)
+            return makePhaseShiftLayer(qubitCount: qubitCount, radians: radians, target: target)
         }
     }
 }
@@ -56,47 +54,49 @@ private extension Gate {
 
     // MARK: - Private methods
 
-    func makeHadamardLayer(qubitCount: Int, target: Int) throws -> [CircuitViewPosition] {
+    func makeHadamardLayer(qubitCount: Int,
+                           target: Int) -> Result<[CircuitViewPosition], DrawCircuitError> {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target) else {
-            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
+            return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
         layer[target] = .hadamard
 
-        return layer
+        return .success(layer)
     }
 
-    func makeNotLayer(qubitCount: Int, target: Int) throws -> [CircuitViewPosition] {
+    func makeNotLayer(qubitCount: Int,
+                      target: Int) -> Result<[CircuitViewPosition], DrawCircuitError> {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target) else {
-            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
+            return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
         layer[target] = .not
 
-        return layer
+        return .success(layer)
     }
 
     func makePhaseShiftLayer(qubitCount: Int,
                              radians: Double,
-                             target: Int) throws -> [CircuitViewPosition] {
+                             target: Int) -> Result<[CircuitViewPosition], DrawCircuitError> {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target) else {
-            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
+            return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
         layer[target] = .phaseShift(radians: radians)
 
-        return layer
+        return .success(layer)
     }
 
     func makeControlledNotLayer(qubitCount: Int,
                                 target: Int,
-                                control: Int) throws -> [CircuitViewPosition] {
+                                control: Int) -> Result<[CircuitViewPosition], DrawCircuitError> {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard layer.indices.contains(target), layer.indices.contains(control) else {
-            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
+            return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
         let isTargetOnTop = (target > control)
@@ -108,23 +108,24 @@ private extension Gate {
             layer[index] = .crossedLines
         }
 
-        return layer
+        return .success(layer)
     }
 
-    func makeMatrixLayer(qubitCount: Int, inputs: [Int]) throws -> [CircuitViewPosition] {
+    func makeMatrixLayer(qubitCount: Int,
+                         inputs: [Int]) -> Result<[CircuitViewPosition], DrawCircuitError> {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard inputs.count > 0 else {
-            throw DrawCircuitError.gateWithEmptyInputList(gate: self)
+            return .failure(.gateWithEmptyInputList(gate: self))
         }
 
         guard inputs.allSatisfy({ layer.indices.contains($0) }) else {
-            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
+            return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
         if (inputs.count == 1) {
             layer[inputs[0]] = .matrix
 
-            return layer
+            return .success(layer)
         }
 
         let sortedInputs = inputs.sorted()
@@ -139,23 +140,23 @@ private extension Gate {
         }
         layer[last] = .matrixTop(inputs: inputs, connected: false)
 
-        return layer
+        return .success(layer)
     }
 
     func makeControlledNotMatrixLayer(qubitCount: Int,
                                       inputs: [Int],
-                                      control: Int) throws -> [CircuitViewPosition] {
+                                      control: Int) -> Result<[CircuitViewPosition], DrawCircuitError> {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard inputs.count > 0 else {
-            throw DrawCircuitError.gateWithEmptyInputList(gate: self)
+            return .failure(.gateWithEmptyInputList(gate: self))
         }
 
         guard !inputs.contains(control) else {
-            throw DrawCircuitError.gateControlIsAlsoAnInput(gate: self)
+            return .failure(.gateControlIsAlsoAnInput(gate: self))
         }
 
         guard ([control] + inputs).allSatisfy({ layer.indices.contains($0) }) else {
-            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
+            return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
         let sortedInputs = inputs.sorted()
@@ -191,23 +192,23 @@ private extension Gate {
             layer[control] = .control
         }
 
-        return layer
+        return .success(layer)
     }
 
     func makeOracleLayer(qubitCount: Int,
                          target: Int,
-                         controls: [Int]) throws -> [CircuitViewPosition] {
+                         controls: [Int]) -> Result<[CircuitViewPosition], DrawCircuitError> {
         var layer = makeEmptyLayer(qubitCount: qubitCount)
         guard controls.count > 0 else {
-            throw DrawCircuitError.gateWithEmptyInputList(gate: self)
+            return .failure(.gateWithEmptyInputList(gate: self))
         }
 
         guard !controls.contains(target) else {
-            throw DrawCircuitError.gateTargetIsAlsoAControl(gate: self)
+            return .failure(.gateTargetIsAlsoAControl(gate: self))
         }
 
         guard (controls + [target]).allSatisfy({ layer.indices.contains($0) }) else {
-            throw DrawCircuitError.gateWithOneOrMoreInputsOutOfRange(gate: self)
+            return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
         let sortedControls = controls.sorted()
@@ -243,7 +244,7 @@ private extension Gate {
             layer[target] = .controlledNot
         }
 
-        return layer
+        return .success(layer)
     }
 
     func makeEmptyLayer(qubitCount: Int) -> [CircuitViewPosition] {

@@ -42,10 +42,10 @@ extension CircuitMatrixElementStatevectorTransformation: StatevectorTransformati
         let circuitElement = matrixFactory.makeCircuitMatrixElement(qubitCount: Int.log2(vector.count),
                                                                     baseMatrix: gateMatrix,
                                                                     inputs: inputs)
-        return try! Vector.makeVector(count: vector.count) { idx in
+        return try! Vector.makeVector(count: vector.count, value: { idx in
             return vector.enumerated().reduce(Complex.zero) { acc, val in
                 return acc + val.element * circuitElement[idx, val.offset]
             }
-        }
+        }).get()
     }
 }

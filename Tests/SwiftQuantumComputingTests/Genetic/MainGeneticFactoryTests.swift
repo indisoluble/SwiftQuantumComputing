@@ -59,13 +59,17 @@ class MainGeneticFactoryTests: XCTestCase {
                                          oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try factory.evolveCircuit(configuration: configuration,
-                                                       useCases: [useCase],
-                                                       gates: gates))
-        XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
-        XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
-        XCTAssertEqual(fitness.fittestCount, 0)
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        switch factory.evolveCircuit(configuration: configuration,
+                                     useCases: [useCase],
+                                     gates: gates) {
+        case .failure(.configurationPopulationSizeIsEmpty):
+            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
+            XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
+            XCTAssertEqual(fitness.fittestCount, 0)
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testEmptyDepth_evolveCircuit_throwException() {
@@ -84,13 +88,17 @@ class MainGeneticFactoryTests: XCTestCase {
                                          oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try factory.evolveCircuit(configuration: configuration,
-                                                       useCases: [useCase],
-                                                       gates: gates))
-        XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
-        XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
-        XCTAssertEqual(fitness.fittestCount, 0)
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        switch factory.evolveCircuit(configuration: configuration,
+                                     useCases: [useCase],
+                                     gates: gates) {
+        case .failure(.configurationDepthIsEmpty):
+            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
+            XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
+            XCTAssertEqual(fitness.fittestCount, 0)
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testEmptyUseCases_evolveCircuit_throwException() {
@@ -109,13 +117,15 @@ class MainGeneticFactoryTests: XCTestCase {
                                          oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try factory.evolveCircuit(configuration: configuration,
-                                                       useCases: [],
-                                                       gates: gates))
-        XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
-        XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
-        XCTAssertEqual(fitness.fittestCount, 0)
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        switch factory.evolveCircuit(configuration: configuration, useCases: [], gates: gates) {
+        case .failure(.useCaseListIsEmpty):
+            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
+            XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
+            XCTAssertEqual(fitness.fittestCount, 0)
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testUseCasesWithDifferentCircuitQubitCount_evolveCircuit_throwException() {
@@ -138,13 +148,17 @@ class MainGeneticFactoryTests: XCTestCase {
                                          oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try factory.evolveCircuit(configuration: configuration,
-                                                       useCases: [useCase, extraUseCase],
-                                                       gates: gates))
-        XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
-        XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
-        XCTAssertEqual(fitness.fittestCount, 0)
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        switch factory.evolveCircuit(configuration: configuration,
+                                     useCases: [useCase, extraUseCase],
+                                     gates: gates) {
+        case .failure(.useCasesDoNotSpecifySameCircuitQubitCount):
+            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
+            XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
+            XCTAssertEqual(fitness.fittestCount, 0)
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testInitialPopulationFactoryThrowException_evolveCircuit_throwException() {
@@ -163,13 +177,17 @@ class MainGeneticFactoryTests: XCTestCase {
                                          oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try factory.evolveCircuit(configuration: configuration,
-                                                       useCases: [useCase],
-                                                       gates: gates))
-        XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
-        XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
-        XCTAssertEqual(fitness.fittestCount, 0)
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        switch factory.evolveCircuit(configuration: configuration,
+                                     useCases: [useCase],
+                                     gates: gates) {
+        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
+            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
+            XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
+            XCTAssertEqual(fitness.fittestCount, 0)
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testReproductionFactoryThrowException_evolveCircuit_throwException() {
@@ -190,14 +208,18 @@ class MainGeneticFactoryTests: XCTestCase {
                                          oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try factory.evolveCircuit(configuration: configuration,
-                                                       useCases: [useCase],
-                                                       gates: gates))
-        XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
-        XCTAssertEqual(reproductionFactory.makeReproductionCount, 1)
-        XCTAssertEqual(initialPopulation.executeCount, 0)
-        XCTAssertEqual(fitness.fittestCount, 0)
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        switch factory.evolveCircuit(configuration: configuration,
+                                     useCases: [useCase],
+                                     gates: gates) {
+        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
+            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
+            XCTAssertEqual(reproductionFactory.makeReproductionCount, 1)
+            XCTAssertEqual(initialPopulation.executeCount, 0)
+            XCTAssertEqual(fitness.fittestCount, 0)
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testInitialPopulationThrowException_evolveCircuit_throwException() {
@@ -219,15 +241,19 @@ class MainGeneticFactoryTests: XCTestCase {
                                          oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try factory.evolveCircuit(configuration: configuration,
-                                                       useCases: [useCase],
-                                                       gates: gates))
-        XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
-        XCTAssertEqual(reproductionFactory.makeReproductionCount, 1)
-        XCTAssertEqual(initialPopulation.executeCount, 1)
-        XCTAssertEqual(fitness.fittestCount, 0)
-        XCTAssertEqual(reproduction.appliedCount, 0)
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        switch factory.evolveCircuit(configuration: configuration,
+                                     useCases: [useCase],
+                                     gates: gates) {
+        case .failure(.configurationPopulationSizeHasToBeBiggerThanZero):
+            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
+            XCTAssertEqual(reproductionFactory.makeReproductionCount, 1)
+            XCTAssertEqual(initialPopulation.executeCount, 1)
+            XCTAssertEqual(fitness.fittestCount, 0)
+            XCTAssertEqual(reproduction.appliedCount, 0)
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testGenerationCountEqualToZero_evolveCircuit_reproductionIsNotApplied() {
@@ -254,7 +280,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // When
         let result = try? factory.evolveCircuit(configuration: configuration,
                                                 useCases: [useCase],
-                                                gates: gates)
+                                                gates: gates).get()
 
         // Then
         XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
@@ -291,7 +317,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // When
         let result = try? factory.evolveCircuit(configuration: configuration,
                                                 useCases: [useCase],
-                                                gates: gates)
+                                                gates: gates).get()
 
         // Then
         XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
@@ -327,7 +353,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // When
         let result = try? factory.evolveCircuit(configuration: configuration,
                                                 useCases: [useCase],
-                                                gates: gates)
+                                                gates: gates).get()
 
         // Then
         XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
@@ -363,7 +389,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // When
         let result = try? factory.evolveCircuit(configuration: configuration,
                                                 useCases: [useCase],
-                                                gates: gates)
+                                                gates: gates).get()
 
         // Then
         XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)

@@ -58,24 +58,22 @@ extension Gate {
      are equal to [2, 1, 0], qubit[2] and qubit[1] have to be 0 and qubit[0] has to be 1. On the other hand, if `inputs` were
      [0, 1, 2], qubit[0] and qubit[1] should be 0 and qubit[2] should be 1.
 
-     - Throws: `MakeModularExponentiationError`.
-
-     - Returns: List of `Gate` instances that code a modular exponentiation.
+     - Returns: List of `Gate` instances that code a modular exponentiation. Or `MakeModularExponentiationError` error.
      */
     public static func makeModularExponentiation(base: Int,
                                                  modulus: Int,
                                                  exponent: [Int],
-                                                 inputs: [Int]) throws -> [Gate] {
+                                                 inputs: [Int]) -> Result<[Gate], MakeModularExponentiationError> {
         guard base > 0 else {
-            throw MakeModularExponentiationError.baseHasToBeBiggerThanZero
+            return .failure(.baseHasToBeBiggerThanZero)
         }
 
         guard modulus > 1 else {
-            throw MakeModularExponentiationError.modulusHasToBeBiggerThanOne
+            return .failure(.modulusHasToBeBiggerThanOne)
         }
 
         guard !inputs.isEmpty else {
-            throw MakeModularExponentiationError.inputsCanNotBeAnEmptyList
+            return .failure(.inputsCanNotBeAnEmptyList)
         }
 
         // As all components are positive, all `DivisionType` returns same value
@@ -83,15 +81,19 @@ extension Gate {
 
         var gates: [Gate] = []
         for control in exponent.reversed() {
-            let matrix = try makeModularMultiplicationUnitaryMatrix(base: gateBase,
-                                                                    modulus: modulus,
-                                                                    inputQubitCount: inputs.count)
-            gates.append(.controlledMatrix(matrix: matrix, inputs: inputs, control: control))
+            switch makeModularMultiplicationUnitaryMatrix(base: gateBase,
+                                                          modulus: modulus,
+                                                          inputQubitCount: inputs.count) {
+            case .success(let matrix):
+                gates.append(.controlledMatrix(matrix: matrix, inputs: inputs, control: control))
+            case .failure(let error):
+                return .failure(error)
+            }
 
             gateBase = (gateBase * gateBase) % modulus
         }
 
-        return gates
+        return .success(gates)
     }
 }
 
@@ -103,7 +105,7 @@ private extension Gate {
 
     static func makeModularMultiplicationUnitaryMatrix(base: Int,
                                                        modulus: Int,
-                                                       inputQubitCount: Int) throws -> Matrix {
+                                                       inputQubitCount: Int) -> Result<Matrix, MakeModularExponentiationError> {
         let combCount = Int.pow(2, inputQubitCount)
         let activatedIndexes = (0..<combCount).map { comb in
             // A `comb` bigger or equal to `modulus` produces a `remainder` already generated
@@ -113,11 +115,13 @@ private extension Gate {
         }
 
         if Set(activatedIndexes).count != combCount {
-            throw MakeModularExponentiationError.modulusProducesANonUnitaryMatrix
+            return .failure(.modulusProducesANonUnitaryMatrix)
         }
 
-        return try! Matrix.makeMatrix(rowCount: combCount, columnCount: combCount) { row, col in
+        let matrix = try! Matrix.makeMatrix(rowCount: combCount, columnCount: combCount, value: { row, col in
             return (activatedIndexes[col] == row ? Complex.one : Complex.zero)
-        }
+        }).get()
+
+        return .success(matrix)
     }
 }

@@ -53,10 +53,14 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
                                                              random: random)
 
         // Then
-        XCTAssertThrowsError(try reproduction.applied(to: evalCircuits))
-        XCTAssertEqual(randomCount, 1)
-        XCTAssertEqual(mutation.appliedCount, 1)
-        XCTAssertEqual(crossover.appliedCount, 0)
+        switch reproduction.applied(to: evalCircuits) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssertEqual(randomCount, 1)
+            XCTAssertEqual(mutation.appliedCount, 1)
+            XCTAssertEqual(crossover.appliedCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnNil_applied_returnEmptyList() {
@@ -74,19 +78,16 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
                                                              crossover: crossover,
                                                              random: random)
 
-        // When
-        var result: [Fitness.EvalCircuit]?
-        do {
-            result = try reproduction.applied(to: evalCircuits)
-        } catch {
+        // Then
+        switch reproduction.applied(to: evalCircuits) {
+        case .success(let result):
+            XCTAssertEqual(randomCount, 1)
+            XCTAssertEqual(mutation.appliedCount, 1)
+            XCTAssertEqual(crossover.appliedCount, 0)
+            XCTAssertEqual(result.count, 0)
+        default:
             XCTAssert(false)
         }
-
-        // Then
-        XCTAssertEqual(randomCount, 1)
-        XCTAssertEqual(mutation.appliedCount, 1)
-        XCTAssertEqual(crossover.appliedCount, 0)
-        XCTAssertEqual(result?.count, 0)
     }
 
     func testRandomReturnProbabilityBelowMutationProbabilityAndMutationReturnValue_applied_returnExpectedValue() {
@@ -108,7 +109,7 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
                                                              random: random)
 
         // When
-        let result = try? reproduction.applied(to: evalCircuits)
+        let result = try? reproduction.applied(to: evalCircuits).get()
 
         // Then
         XCTAssertEqual(randomCount, 1)
@@ -151,10 +152,14 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
                                                              random: random)
 
         // Then
-        XCTAssertThrowsError(try reproduction.applied(to: evalCircuits))
-        XCTAssertEqual(randomCount, 1)
-        XCTAssertEqual(mutation.appliedCount, 0)
-        XCTAssertEqual(crossover.appliedCount, 1)
+        switch reproduction.applied(to: evalCircuits) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssertEqual(randomCount, 1)
+            XCTAssertEqual(mutation.appliedCount, 0)
+            XCTAssertEqual(crossover.appliedCount, 1)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testRandomReturnProbabilityEqualToMutationProbabilityAndCrossoverReturnValue_applied_returnExpectedValue() {
@@ -177,7 +182,7 @@ class MainGeneticPopulationReproductionTests: XCTestCase {
                                                              random: random)
 
         // When
-        let result = try? reproduction.applied(to: evalCircuits)
+        let result = try? reproduction.applied(to: evalCircuits).get()
 
         // Then
         XCTAssertEqual(randomCount, 1)

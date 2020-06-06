@@ -47,7 +47,11 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
         // Then
-        XCTAssertThrowsError(try simulator.apply(circuit: [firstGate], to: initialStatevector))
+        var error: StatevectorWithInitialStatevectorError?
+        if case .failure(let e) = simulator.apply(circuit: [firstGate], to: initialStatevector) {
+            error = e
+        }
+        XCTAssertEqual(error, .initialStatevectorCountHasToBeAPowerOfTwo)
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
     }
 
@@ -59,7 +63,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         register.statevectorResult = statevector
 
         // When
-        let result = try? simulator.apply(circuit: [], to: initialStatevector)
+        let result = try? simulator.apply(circuit: [], to: initialStatevector).get()
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -75,8 +79,13 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         registerFactory.makeRegisterResult = register
 
         // Then
-        XCTAssertThrowsError(try simulator.apply(circuit: [firstGate], to: initialStatevector))
-
+        var error: StatevectorWithInitialStatevectorError?
+        if case .failure(let e) = simulator.apply(circuit: [firstGate], to: initialStatevector) {
+            error = e
+        }
+        XCTAssertEqual(error,
+                       .gateThrowedError(gate: firstGate.gate,
+                                         error: .resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary))
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
@@ -96,7 +105,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         firstRegister.statevectorResult = statevector
 
         // When
-        let result = try? simulator.apply(circuit: [firstGate], to: initialStatevector)
+        let result = try? simulator.apply(circuit: [firstGate], to: initialStatevector).get()
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
@@ -119,8 +128,11 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         register.simulatorApplyingResult = firstRegister
 
         // Then
-        XCTAssertThrowsError(try simulator.apply(circuit: [firstGate], to: initialStatevector))
-
+        var error: StatevectorWithInitialStatevectorError?
+        if case .failure(let e) = simulator.apply(circuit: [firstGate], to: initialStatevector) {
+            error = e
+        }
+        XCTAssertEqual(error, .resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
@@ -136,14 +148,23 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         // Given
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory)
 
+        firstGate.gateResult = .hadamard(target: 0)
+        secondGate.gateResult = .phaseShift(radians: 0, target: 0)
+        thirdGate.gateResult = .not(target: 0)
+
         registerFactory.makeRegisterResult = register
         register.simulatorApplyingResult = firstRegister
         firstRegister.simulatorApplyingResult = secondRegister
 
         // Then
-        XCTAssertThrowsError(try simulator.apply(circuit: [firstGate, secondGate, thirdGate],
-                                                 to: initialStatevector))
-
+        var error: StatevectorWithInitialStatevectorError?
+        if case .failure(let e) = simulator.apply(circuit: [firstGate, secondGate, thirdGate],
+                                                  to: initialStatevector) {
+            error = e
+        }
+        XCTAssertEqual(error,
+                       .gateThrowedError(gate: thirdGate.gate,
+                                         error: .resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary))
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
@@ -180,7 +201,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
         // When
         let result = try? simulator.apply(circuit: [firstGate, secondGate, thirdGate],
-                                          to: initialStatevector)
+                                          to: initialStatevector).get()
 
         // Then
         XCTAssertEqual(registerFactory.makeRegisterCount, 1)

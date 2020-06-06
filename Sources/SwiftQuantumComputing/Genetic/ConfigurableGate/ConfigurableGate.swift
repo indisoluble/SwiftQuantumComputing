@@ -30,9 +30,7 @@ public protocol ConfigurableGate {
 
      - Parameter inputs: A list of qubits/indexes in any order.
 
-     - Throws: `EvolveCircuitError`.
-
-     - Returns: A `Gate` instance.
+     - Returns: A `Gate` instance. Or `EvolveCircuitError` error.
      */
-    func makeFixed(inputs: [Int]) throws -> Gate
+    func makeFixed(inputs: [Int]) -> Result<Gate, EvolveCircuitError>
 }

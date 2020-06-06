@@ -77,11 +77,9 @@ public protocol GeneticFactory {
      - Parameter gates: List of allowed gates, i.e. the evolved circuit will only include gates specified in this list and, if
      necessary, an oracle gate.
 
-     - Throws: `EvolveCircuitError`.
-
-     - Returns: An `EvolvedCircuit` instance.
+     - Returns: An `EvolvedCircuit` instance. Or `EvolveCircuitError` error.
      */
     func evolveCircuit(configuration config: GeneticConfiguration,
                        useCases: [GeneticUseCase],
-                       gates: [ConfigurableGate]) throws -> EvolvedCircuit
+                       gates: [ConfigurableGate]) -> Result<EvolvedCircuit, EvolveCircuitError>
 }

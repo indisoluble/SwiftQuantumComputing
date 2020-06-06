@@ -1,9 +1,9 @@
 //
-//  StatevectorMeasurement.swift
+//  UnitaryGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 01/05/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,12 +22,13 @@ import Foundation
 
 // MARK: - Errors
 
-enum StatevectorMeasurementError: Error {
-    case statevectorAdditionOfSquareModulusIsNotEqualToOne
+enum UnitaryMatrixError: Error {
+    case matrixIsNotUnitary
 }
 
 // MARK: - Protocol definition
 
-protocol StatevectorMeasurement {
-    func statevector() throws -> Vector
+protocol UnitaryGate {
+    func unitary() -> Result<Matrix, UnitaryMatrixError>
+    func applying(_ gate: SimulatorGate) -> Result<UnitaryGate, GateError>
 }

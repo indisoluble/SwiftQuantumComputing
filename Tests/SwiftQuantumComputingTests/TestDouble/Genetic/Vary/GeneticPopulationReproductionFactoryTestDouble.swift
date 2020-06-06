@@ -49,7 +49,7 @@ extension GeneticPopulationReproductionFactoryTestDouble: GeneticPopulationRepro
                           threshold: Double,
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
-                          gates: [ConfigurableGate]) throws -> GeneticPopulationReproduction {
+                          gates: [ConfigurableGate]) -> Result<GeneticPopulationReproduction, EvolveCircuitError> {
         makeReproductionCount += 1
 
         lastMakeReproductionQubitCount = qubitCount
@@ -61,9 +61,9 @@ extension GeneticPopulationReproductionFactoryTestDouble: GeneticPopulationRepro
         lastMakeReproductionGates = gates
 
         if let makeReproductionResult = makeReproductionResult {
-            return makeReproductionResult
+            return .success(makeReproductionResult)
         }
 
-        throw makeReproductionError
+        return .failure(makeReproductionError)
     }
 }

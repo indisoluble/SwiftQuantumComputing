@@ -23,7 +23,6 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol UnitarySimulator {
-    typealias UnitaryGate = SimulatorGate & SimulatorRawGate
-
-    func unitary(with circuit: [UnitaryGate], qubitCount: Int) throws -> Matrix
+    func unitary(with circuit: [SimulatorGate & SimulatorRawGate],
+                 qubitCount: Int) -> Result<Matrix, UnitaryError>
 }

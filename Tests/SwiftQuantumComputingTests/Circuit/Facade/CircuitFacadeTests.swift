@@ -46,7 +46,7 @@ class CircuitFacadeTests: XCTestCase {
         statevectorSimulator.applyResult = expectedResult
 
         // When
-        let result = try? facade.statevector(withInitialStatevector: initialStatevector)
+        let result = try? facade.statevector(withInitialStatevector: initialStatevector).get()
 
         // Then
         let lastApplyInitialStatevector = statevectorSimulator.lastApplyInitialStatevector
@@ -68,7 +68,7 @@ class CircuitFacadeTests: XCTestCase {
         unitarySimulator.unitaryResult = expectedResult
 
         // When
-        let result = try? facade.unitary(withQubitCount: qubitCount)
+        let result = try? facade.unitary(withQubitCount: qubitCount).get()
 
         // Then
         let lastUnitaryQubitCount = unitarySimulator.lastUnitaryQubitCount

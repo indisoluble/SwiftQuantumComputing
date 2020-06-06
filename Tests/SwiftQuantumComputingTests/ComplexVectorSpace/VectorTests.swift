@@ -73,7 +73,11 @@ class VectorTests: XCTestCase {
 
     func testCountEqualToZero_makeVector_throwException() {
         // Then
-        XCTAssertThrowsError(try Vector.makeVector(count: 0) { _ in Complex.zero })
+        var error: Vector.MakeVectorError?
+        if case .failure(let e) = Vector.makeVector(count: 0, value: { _ in Complex.zero }) {
+            error = e
+        }
+        XCTAssertEqual(error, .passCountBiggerThanZero)
     }
 
     func testValidCount_makeVector_returnExpectedVector() {
@@ -81,7 +85,7 @@ class VectorTests: XCTestCase {
         let count = 3
 
         // When
-        let result = try! Vector.makeVector(count: count) { Complex($0) }
+        let result = try! Vector.makeVector(count: count, value: { Complex($0) }).get()
 
         // Then
         let expectedResult = try! Vector((0..<count).map { Complex($0) })
@@ -94,7 +98,11 @@ class VectorTests: XCTestCase {
         let rhs = try! Vector([Complex.zero, Complex.zero, Complex.zero])
 
         // Then
-        XCTAssertThrowsError(try Vector.innerProduct(lhs, rhs))
+        var error: Vector.InnerProductError?
+        if case .failure(let e) = Vector.innerProduct(lhs, rhs) {
+            error = e
+        }
+        XCTAssertEqual(error, .vectorsDoNotHaveSameCount)
     }
 
     func testTwoVector_innerProduct_returnExpectedValue() {
@@ -103,7 +111,7 @@ class VectorTests: XCTestCase {
         let rhs = try! Vector([Complex(real: 3, imag: -2), Complex(real: 1, imag: 1)])
 
         // When
-        let result = try? Vector.innerProduct(lhs, rhs)
+        let result = try? Vector.innerProduct(lhs, rhs).get()
 
         // Then
         let expectedResult = Complex(real: 2, imag: -2)
@@ -116,7 +124,11 @@ class VectorTests: XCTestCase {
         let rhs = try! Vector([Complex.zero, Complex.zero, Complex.zero])
 
         // Then
-        XCTAssertThrowsError(try lhs * rhs)
+        var error: Vector.VectorByVectorError?
+        if case .failure(let e) = lhs * rhs {
+            error = e
+        }
+        XCTAssertEqual(error, .vectorCountsDoNotMatch)
     }
 
     func testTwoVector_multiply_returnExpectedValue() {
@@ -129,7 +141,7 @@ class VectorTests: XCTestCase {
         )
 
         // When
-        let result = try? lhs * rhs
+        let result = try? (lhs * rhs).get()
 
         // Then
         let expectedResult = Complex(real: 26, imag: -52)
@@ -142,7 +154,11 @@ class VectorTests: XCTestCase {
         let rhs = try! Vector([Complex.zero, Complex.zero, Complex.zero])
 
         // Then
-        XCTAssertThrowsError(try lhs * rhs)
+        var error: Vector.MatrixByVectorError?
+        if case .failure(let e) = lhs * rhs {
+            error = e
+        }
+        XCTAssertEqual(error, .matrixColumnCountDoesNotMatchVectorCount)
     }
 
     func testMatrixWithColumnCountEqualToRowCountInVector_multiply_returnExpectedMatrix() {
@@ -159,7 +175,7 @@ class VectorTests: XCTestCase {
         let rhs = try! Vector(rhsElements)
 
         // When
-        let result = try? lhs * rhs
+        let result = try? (lhs * rhs).get()
 
         // Then
         let expectedResult = try! Vector([Complex(real: 26, imag: -52), Complex(real: 9, imag: 7)])

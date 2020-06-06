@@ -34,7 +34,7 @@ class Drawable_DrawCircuitTests: XCTestCase {
         let circuit: [Gate] = []
 
         // When
-        _ = try? drawer.drawCircuit(circuit)
+        _ = drawer.drawCircuit(circuit)
 
         // Then
         XCTAssertEqual(drawer.drawCircuitCount, 1)

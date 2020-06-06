@@ -26,5 +26,5 @@ protocol OracleCircuitFactory {
     typealias OracleCircuit = (circuit: [Gate], oracleAt: Int?)
 
     func makeOracleCircuit(geneticCircuit: [GeneticGate],
-                           useCase: GeneticUseCase) throws -> OracleCircuit
+                           useCase: GeneticUseCase) -> Result<OracleCircuit, EvolveCircuitError>
 }

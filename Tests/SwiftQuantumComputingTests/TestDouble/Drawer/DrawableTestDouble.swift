@@ -38,16 +38,16 @@ final class DrawableTestDouble {
 // MARK: - Drawable methods
 
 extension DrawableTestDouble: Drawable {
-    func drawCircuit(_ circuit: [Gate], qubitCount: Int) throws -> SQCView {
+    func drawCircuit(_ circuit: [Gate], qubitCount: Int) -> Result<SQCView, DrawCircuitError> {
         drawCircuitCount += 1
 
         lastDrawCircuitCircuit = circuit
         lastDrawCircuitQubitCount = qubitCount
 
         if let drawCircuitResult = drawCircuitResult {
-            return drawCircuitResult
+            return .success(drawCircuitResult)
         }
 
-        throw drawCircuitError
+        return .failure(drawCircuitError) 
     }
 }

@@ -1,8 +1,8 @@
 //
-//  UnitaryMatrix.swift
+//  StatevectorRegister.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 01/05/2020.
+//  Created by Enrique de la Torre on 23/05/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,12 +22,13 @@ import Foundation
 
 // MARK: - Errors
 
-enum UnitaryMatrixError: Error {
-    case matrixIsNotUnitary
+enum StatevectorMeasurementError: Error {
+    case statevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - Protocol definition
 
-protocol UnitaryMatrix {
-    func unitary() throws -> Matrix
+protocol StatevectorRegister {
+    func statevector() -> Result<Vector, StatevectorMeasurementError>
+    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError>
 }

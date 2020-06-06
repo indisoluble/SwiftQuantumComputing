@@ -61,30 +61,37 @@ extension Gate: SimulatorRawGate {
 // MARK: - SimulatorGate methods
 
 extension Gate: SimulatorGate {
-    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) throws -> Components {
+    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
         let inputs = extractInputs()
         guard areInputsUnique(inputs) else {
-            throw GateError.gateInputsAreNotUnique
+            return .failure(.gateInputsAreNotUnique)
         }
 
-        let matrix = try extractMatrix()
+        var matrix: Matrix!
+        switch extractMatrix() {
+        case .success(let extractedMatrix):
+            matrix = extractedMatrix
+        case .failure(let error):
+            return .failure(error)
+        }
+
         guard doesInputCountMatchMatrixQubitCount(inputs, matrix: matrix) else {
-            throw GateError.gateInputCountDoesNotMatchGateMatrixQubitCount
+            return .failure(.gateInputCountDoesNotMatchGateMatrixQubitCount)
         }
 
         guard qubitCount > 0 else {
-            throw GateError.circuitQubitCountHasToBeBiggerThanZero
+            return .failure(.circuitQubitCountHasToBeBiggerThanZero)
         }
 
         guard doesMatrixFitInCircuit(matrix, qubitCount: qubitCount) else {
-            throw GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
+            return .failure(.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas)
         }
 
         guard areInputsInBound(inputs, qubitCount: qubitCount) else {
-            throw GateError.gateInputsAreNotInBound
+            return .failure(.gateInputsAreNotInBound)
         }
 
-        return (matrix, inputs)
+        return .success((matrix, inputs))
     }
 }
 
@@ -125,17 +132,17 @@ private extension Gate {
         return inputs.allSatisfy { validInputs.contains($0) }
     }
 
-    func extractMatrix() throws -> Matrix {
+    func extractMatrix() -> Result<Matrix, GateError> {
         var resultMatrix: Matrix!
 
         switch self {
         case .controlledMatrix(let matrix, _, _):
             guard matrix.rowCount.isPowerOfTwo else {
-                throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
+                return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
             }
             // Validate matrix before expanding it so the operation requires less time
             guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
-                throw GateError.gateMatrixIsNotUnitary
+                return .failure(.gateMatrixIsNotUnitary)
             }
 
             resultMatrix = Matrix.makeControlledMatrix(matrix: matrix)
@@ -145,29 +152,27 @@ private extension Gate {
             resultMatrix = Constants.matrixHadamard
         case .matrix(let matrix, _):
             guard matrix.rowCount.isPowerOfTwo else {
-                throw GateError.gateMatrixRowCountHasToBeAPowerOfTwo
+                return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
             }
             // Validate matrix before expanding it so the operation requires less time
             guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
-                throw GateError.gateMatrixIsNotUnitary
+                return .failure(.gateMatrixIsNotUnitary)
             }
 
             resultMatrix = matrix
         case .not:
             resultMatrix = Constants.matrixNot
         case .oracle(let truthTable, _, let controls):
-            do {
-                resultMatrix = try Matrix.makeOracle(truthTable: truthTable,
-                                                     controlCount: controls.count)
-            } catch Matrix.MakeOracleError.controlsCanNotBeAnEmptyList {
-                throw GateError.gateOracleControlsCanNotBeAnEmptyList
-            } catch {
-                fatalError("Unexpected error: \(error).")
+            switch Matrix.makeOracle(truthTable: truthTable, controlCount: controls.count) {
+            case .success(let matrix):
+                resultMatrix = matrix
+            case .failure(.controlsCanNotBeAnEmptyList):
+                return .failure(.gateOracleControlsCanNotBeAnEmptyList)
             }
         case .phaseShift(let radians, _):
             resultMatrix = Matrix.makePhaseShift(radians: radians)
         }
 
-        return resultMatrix
+        return .success(resultMatrix)
     }
 }

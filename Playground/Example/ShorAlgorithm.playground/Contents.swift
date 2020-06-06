@@ -33,8 +33,9 @@ while factors.isEmpty {
     gates += Gate.makeModularExponentiation(base: base,
                                             modulus: input,
                                             exponent: (n..<qubitCount).reversed(),
-                                            inputs: (0..<n).reversed())
-    gates += [Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(), inverse: true)]
+                                            inputs: (0..<n).reversed()).get()
+    gates += [Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(),
+                                               inverse: true).get()]
     drawer.drawCircuit(gates)
 
     let circuit = factory.makeCircuit(gates: gates)
@@ -42,7 +43,7 @@ while factors.isEmpty {
     print("Run quantum circuit with \(qubitCount) qubits & \(circuit.gates.count) gates")
     let start = CFAbsoluteTimeGetCurrent()
     let probs = circuit.groupedProbabilities(byQubits: (0..<n).reversed(),
-                                             summarizedByQubits: (n..<qubitCount).reversed())
+                                             summarizedByQubits: (n..<qubitCount).reversed()).get()
     let diff = CFAbsoluteTimeGetCurrent() - start
     print("Execution completed in \(diff) seconds (\(diff / 60.0) minutes)")
 
@@ -56,7 +57,8 @@ while factors.isEmpty {
     let Q = Int(Foundation.pow(Double(2), Double(2 * n)))
     let value = Rational(numerator: y, denominator: Q)
     let limit = Rational(numerator: 1, denominator: 2 * Q)
-    let aprox = ContinuedFractionsSolver.findApproximation(of: value, differenceBelowOrEqual: limit)
+    let aprox = ContinuedFractionsSolver.findApproximation(of: value,
+                                                           differenceBelowOrEqual: limit).get()
 
     let period = aprox.denominator
     print("Validating candidate period: \(period)")

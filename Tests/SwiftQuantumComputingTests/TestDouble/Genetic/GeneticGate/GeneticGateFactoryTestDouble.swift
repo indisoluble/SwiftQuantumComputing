@@ -36,15 +36,15 @@ final class GeneticGateFactoryTestDouble {
 // MARK: - GeneticGateFactory methods
 
 extension GeneticGateFactoryTestDouble: GeneticGateFactory {
-    func makeGate(inputs: [Int]) throws -> GeneticGate {
+    func makeGate(inputs: [Int]) -> Result<GeneticGate, EvolveCircuitError> {
         makeGateCount += 1
 
         lastMakeGateInputs = inputs
 
         if let makeGateResult = makeGateResult {
-            return makeGateResult
+            return .success(makeGateResult)
         }
 
-        throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: NotGate())
+        return .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: NotGate()))
     }
 }

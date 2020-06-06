@@ -42,9 +42,12 @@ class MainGeneticPopulationCrossoverFactoryTests: XCTestCase {
                                                             score: score)
 
         // Then
-        XCTAssertThrowsError(try factory.makeCrossover(tournamentSize: 0,
-                                                       maxDepth: 0,
-                                                       evaluator: evaluator))
+        switch factory.makeCrossover(tournamentSize: 0, maxDepth: 0, evaluator: evaluator) {
+        case .failure(.configurationTournamentSizeHasToBeBiggerThanZero):
+            XCTAssert(true)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testTournamentSizeBiggerThanZero_makeCrossover_throwException() {
@@ -54,9 +57,13 @@ class MainGeneticPopulationCrossoverFactoryTests: XCTestCase {
                                                             score: score)
 
         // Then
-        XCTAssertNoThrow(try factory.makeCrossover(tournamentSize: 1,
-                                                   maxDepth: 0,
-                                                   evaluator: evaluator))
+        var crossover: GeneticPopulationCrossover?
+        if case .success(let result) = factory.makeCrossover(tournamentSize: 1,
+                                                             maxDepth: 0,
+                                                             evaluator: evaluator) {
+            crossover = result
+        }
+        XCTAssertNotNil(crossover)
     }
 
     static var allTests = [

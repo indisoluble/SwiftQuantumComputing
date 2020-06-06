@@ -50,20 +50,27 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                           threshold: Double,
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
-                          gates: [ConfigurableGate]) throws -> GeneticPopulationReproduction {
-        let evaluator = try evaluatorFactory.makeEvaluator(threshold: threshold, useCases: useCases)
+                          gates: [ConfigurableGate]) -> Result<GeneticPopulationReproduction, EvolveCircuitError> {
+        let evaluator = evaluatorFactory.makeEvaluator(threshold: threshold, useCases: useCases)
 
-        let mutation = try mutationFactory.makeMutation(qubitCount: qubitCount,
-                                                        tournamentSize: tournamentSize,
-                                                        maxDepth: maxDepth,
-                                                        evaluator: evaluator,
-                                                        gates: gates)
-        let crossover = try crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
-                                                           maxDepth: maxDepth,
-                                                           evaluator: evaluator)
-
-        return MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
-                                                 mutation: mutation,
-                                                 crossover: crossover)
+        switch mutationFactory.makeMutation(qubitCount: qubitCount,
+                                            tournamentSize: tournamentSize,
+                                            maxDepth: maxDepth,
+                                            evaluator: evaluator,
+                                            gates: gates) {
+        case .success(let mutation):
+            switch crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
+                                                  maxDepth: maxDepth,
+                                                  evaluator: evaluator) {
+            case .success(let crossover):
+                return .success(MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
+                                                                  mutation: mutation,
+                                                                  crossover: crossover))
+            case .failure(let error):
+                return .failure(error)
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }

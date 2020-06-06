@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 /// Errors throwed by `Circuit.statevector(withInitialBits:)`
-public enum StatevectorError: Error {
+public enum StatevectorError: Error, Equatable {
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
     /// Throwed when `initialBits` is not composed only of 0's & 1's
@@ -43,26 +43,27 @@ extension Circuit {
 
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
 
-     - Throws: `StatevectorError`.
-
-     - Returns: A statevector, result of applying `gates` to `initialBits`.
+     - Returns: A statevector, result of applying `gates` to `initialBits`. Or `StatevectorError` error.
      */
-    public func statevector(withInitialBits initialBits: String? = nil) throws -> Vector {
+    public func statevector(withInitialBits initialBits: String? = nil) -> Result<Vector, StatevectorError> {
         guard let value = Int(initialBits ?? "0", radix: 2) else {
-            throw StatevectorError.initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
+            return .failure(.initialBitsAreNotAStringComposedOnlyOfZerosAndOnes)
         }
         let qubitCount = (initialBits?.count ?? gates.qubitCount())
 
         let initialStatevector = Self.makeState(value: value, qubitCount: qubitCount)
 
-        do {
-            return try statevector(withInitialStatevector: initialStatevector)
-        } catch StatevectorWithInitialStatevectorError.gateThrowedError(let gate, let gateError) {
-            throw StatevectorError.gateThrowedError(gate: gate, error: gateError)
-        } catch StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne {
-            throw StatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
+        switch statevector(withInitialStatevector: initialStatevector) {
+        case .success(let vector):
+            return .success(vector)
+        case .failure(.gateThrowedError(let gate, let gateError)):
+            return .failure(.gateThrowedError(gate: gate, error: gateError))
+        case .failure(.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne):
+            return .failure(.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
+        case .failure(.initialStatevectorCountHasToBeAPowerOfTwo):
+            fatalError("Unexpected error: \(StatevectorWithInitialStatevectorError.initialStatevectorCountHasToBeAPowerOfTwo).")
+        case .failure(.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne):
+            fatalError("Unexpected error: \(StatevectorWithInitialStatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne).")
         }
     }
 }

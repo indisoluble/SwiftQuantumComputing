@@ -47,7 +47,7 @@ final class GeneticCircuitEvaluatorTestDouble {
 // MARK: - GeneticCircuitEvaluator methods
 
 extension GeneticCircuitEvaluatorTestDouble: GeneticCircuitEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> GeneticCircuitEvaluator.Evaluation {
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Result<Evaluation, EvolveCircuitError> {
         queue.sync {
             evaluateCircuitCount += 1
 
@@ -55,9 +55,9 @@ extension GeneticCircuitEvaluatorTestDouble: GeneticCircuitEvaluator {
         }
 
         if let evaluateCircuitResult = evaluateCircuitResult {
-            return evaluateCircuitResult
+            return .success(evaluateCircuitResult)
         }
 
-        throw evaluateCircuitError
+        return .failure(evaluateCircuitError)
     }
 }

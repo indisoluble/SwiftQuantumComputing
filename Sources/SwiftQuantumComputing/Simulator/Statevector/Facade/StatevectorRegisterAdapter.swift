@@ -47,27 +47,28 @@ struct StatevectorRegisterAdapter {
     }
 }
 
-// MARK: - StatevectorMeasurement methods
+// MARK: - StatevectorRegister methods
 
-extension StatevectorRegisterAdapter: StatevectorMeasurement {
-    func statevector() throws -> Vector {
+extension StatevectorRegisterAdapter: StatevectorRegister {
+    func statevector() -> Result<Vector, StatevectorMeasurementError> {
         guard vector.isAdditionOfSquareModulusEqualToOne() else {
-            throw StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne
+            return .failure(.statevectorAdditionOfSquareModulusIsNotEqualToOne)
         }
 
-        return vector
+        return .success(vector)
     }
-}
 
-// MARK: - SimulatorTransformation methods
-
-extension StatevectorRegisterAdapter: SimulatorTransformation {
-    func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterAdapter {
-        let (matrix, inputs) = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
-        let nextVector = transformation.apply(gateMatrix: matrix,
-                                              toStatevector: vector,
-                                              atInputs: inputs)
-
-        return try! StatevectorRegisterAdapter(vector: nextVector, transformation: transformation)
+    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
+        switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        case .success((let matrix, let inputs)):
+            let nextVector = transformation.apply(gateMatrix: matrix,
+                                                  toStatevector: vector,
+                                                  atInputs: inputs)
+            let adapter = try! StatevectorRegisterAdapter(vector: nextVector,
+                                                          transformation: transformation)
+            return .success(adapter)
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }

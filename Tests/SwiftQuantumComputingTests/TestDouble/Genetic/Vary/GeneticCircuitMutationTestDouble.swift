@@ -37,15 +37,15 @@ final class GeneticCircuitMutationTestDouble {
 // MARK: - GeneticCircuitMutation methods
 
 extension GeneticCircuitMutationTestDouble: GeneticCircuitMutation {
-    func execute(_ circuit: [GeneticGate]) throws -> [GeneticGate]? {
+    func execute(_ circuit: [GeneticGate]) -> Result<[GeneticGate]?, EvolveCircuitError> {
         executeCount += 1
 
         lastExecuteCircuit = circuit
 
         if let executeError = executeError {
-            throw executeError
+            return .failure(executeError)
         }
 
-        return executeResult
+        return .success(executeResult)
     }
 }

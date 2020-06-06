@@ -198,21 +198,27 @@ class MatrixTests: XCTestCase {
 
     func testZeroRowCount_makeMatrix_throwException() {
         // Then
-        XCTAssertThrowsError(try Matrix.makeMatrix(rowCount: 0,
-                                                   columnCount: 1,
-                                                   value: { _,_ in Complex.zero }))
+        var error: Matrix.MakeMatrixError?
+        if case .failure(let e) = Matrix.makeMatrix(rowCount: 0, columnCount: 1, value: { _,_ in Complex.zero }) {
+            error = e
+        }
+        XCTAssertEqual(error, .passRowCountBiggerThanZero)
     }
 
     func testZeroColumnCount_makeMatrix_throwException() {
         // Then
-        XCTAssertThrowsError(try Matrix.makeMatrix(rowCount: 1,
-                                                   columnCount: 0,
-                                                   value: { _,_ in Complex.zero }))
+        var error: Matrix.MakeMatrixError?
+        if case .failure(let e) = Matrix.makeMatrix(rowCount: 1, columnCount: 0, value: { _,_ in Complex.zero }) {
+            error = e
+        }
+        XCTAssertEqual(error, .passColumnCountBiggerThanZero)
     }
 
     func testOneRowOneColumn_makeMatrix_returnExpectedMatrix() {
         // When
-        let matrix = try? Matrix.makeMatrix(rowCount: 1, columnCount: 1) { _,_ in Complex.one }
+        let matrix = try? Matrix.makeMatrix(rowCount: 1,
+                                            columnCount: 1,
+                                            value: { _,_ in Complex.one }).get()
 
         // Then
         let expectedMatrix = try? Matrix([[Complex.one]])
@@ -222,9 +228,9 @@ class MatrixTests: XCTestCase {
 
     func testAnyRowsAndColumns_makeMatrix_returnExpectedMatrix() {
         // When
-        let matrix = try? Matrix.makeMatrix(rowCount: 2, columnCount: 3) { (r, c) -> Complex in
+        let matrix = try? Matrix.makeMatrix(rowCount: 2, columnCount: 3, value: { r, c -> Complex in
             return Complex(real: Double(r), imag: Double(c))
-        }
+            }).get()
 
         // Then
         let expectedMatrix = try? Matrix([
@@ -242,7 +248,11 @@ class MatrixTests: XCTestCase {
                                [Complex.zero, Complex.zero]])
 
         // Then
-        XCTAssertThrowsError(try lhs + rhs)
+        var error: Matrix.AddError?
+        if case .failure(let e) = lhs + rhs {
+            error = e
+        }
+        XCTAssertEqual(error, .matricesDoNotHaveSameRowCount)
     }
 
     func testMatricesWithDifferentColumnCount_add_throwException() {
@@ -253,7 +263,11 @@ class MatrixTests: XCTestCase {
                                [Complex.zero, Complex.zero]])
 
         // Then
-        XCTAssertThrowsError(try lhs + rhs)
+        var error: Matrix.AddError?
+        if case .failure(let e) = lhs + rhs {
+            error = e
+        }
+        XCTAssertEqual(error, .matricesDoNotHaveSameColumnCount)
     }
 
     func testMatricesWithSameSize_add_returnExpectedMatrix() {
@@ -266,7 +280,7 @@ class MatrixTests: XCTestCase {
                                [Complex.one, Complex.one, Complex.one]])
 
         // When
-        let result = (try? lhs + rhs)
+        let result = try? (lhs + rhs).get()
 
         // Then
         let expectedResult = try! Matrix([[Complex.one, Complex.one, Complex.one],
@@ -303,7 +317,11 @@ class MatrixTests: XCTestCase {
         let rhs = try! Matrix([[complex], [complex], [complex]])
 
         // Then
-        XCTAssertThrowsError(try lhs * rhs)
+        var error: Matrix.ProductError?
+        if case .failure(let e) = lhs * rhs {
+            error = e
+        }
+        XCTAssertEqual(error, .matricesDoNotHaveValidDimensions)
     }
 
     func testMatrixWithColumnCountEqualToRowCountInSecondMatrix_multiply_returnExpectedMatrix() {
@@ -319,7 +337,7 @@ class MatrixTests: XCTestCase {
                                [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])
 
         // When
-        let result = (try? lhs * rhs)
+        let result = try? (lhs * rhs).get()
 
         // Then
         let expectedResult = try? Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
@@ -334,7 +352,11 @@ class MatrixTests: XCTestCase {
         let rhs = try! Matrix([[complex], [complex], [complex]])
 
         // Then
-        XCTAssertThrowsError(try Matrix.Transformation.adjointed(lhs) * rhs)
+        var error: Matrix.ProductError?
+        if case .failure(let e) = Matrix.Transformation.adjointed(lhs) * rhs {
+            error = e
+        }
+        XCTAssertEqual(error, .matricesDoNotHaveValidDimensions)
     }
 
     func testMatrixWithRowCountEqualToRowCountInSecondMatrix_adjointedMultiply_returnExpectedMatrix() {
@@ -351,7 +373,7 @@ class MatrixTests: XCTestCase {
                                [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])
 
         // When
-        let result = (try? Matrix.Transformation.adjointed(lhs) * rhs)
+        let result = try? (Matrix.Transformation.adjointed(lhs) * rhs).get()
 
         // Then
         let expectedResult = try? Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
@@ -366,7 +388,11 @@ class MatrixTests: XCTestCase {
         let rhs = try! Matrix([[complex], [complex], [complex]])
 
         // Then
-        XCTAssertThrowsError(try Matrix.Transformation.transposed(lhs) * rhs)
+        var error: Matrix.ProductError?
+        if case .failure(let e) = Matrix.Transformation.transposed(lhs) * rhs {
+            error = e
+        }
+        XCTAssertEqual(error, .matricesDoNotHaveValidDimensions)
     }
 
     func testMatrixWithRowCountEqualToRowCountInSecondMatrix_transposedMultiply_returnExpectedMatrix() {
@@ -383,7 +409,7 @@ class MatrixTests: XCTestCase {
                                [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])
 
         // When
-        let result = (try? Matrix.Transformation.transposed(lhs) * rhs)
+        let result = try? (Matrix.Transformation.transposed(lhs) * rhs).get()
 
         // Then
         let expectedResult = try? Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],

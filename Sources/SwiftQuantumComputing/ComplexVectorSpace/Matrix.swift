@@ -125,7 +125,7 @@ public struct Matrix {
     }
 
     func isUnitary(accuracy: Double) -> Bool {
-        let identity = try! Matrix.makeIdentity(count: rowCount)
+        let identity = try! Matrix.makeIdentity(count: rowCount).get()
 
         var matrix = Matrix.multiply(lhs: self, rhs: self, rhsTrans: CblasConjTrans)
         guard matrix.isEqual(identity, accuracy: accuracy) else {
@@ -145,19 +145,20 @@ public struct Matrix {
 
     static func makeMatrix(rowCount: Int,
                            columnCount: Int,
-                           value: (Int, Int) -> Complex) throws -> Matrix {
+                           value: (Int, Int) -> Complex) -> Result<Matrix, MakeMatrixError> {
         guard (rowCount > 0) else {
-            throw MakeMatrixError.passRowCountBiggerThanZero
+            return .failure(.passRowCountBiggerThanZero)
         }
 
         guard (columnCount > 0) else {
-            throw MakeMatrixError.passColumnCountBiggerThanZero
+            return .failure(.passColumnCountBiggerThanZero)
         }
 
         let count = (rowCount * columnCount)
         let values = (0..<count).map { value($0 % rowCount, $0 / rowCount)  }
+        let matrix = Matrix(rowCount: rowCount, columnCount: columnCount, values: values)
 
-        return Matrix(rowCount: rowCount, columnCount: columnCount, values: values)
+        return .success(matrix)
     }
 }
 
@@ -195,13 +196,13 @@ extension Matrix {
         case matricesDoNotHaveSameColumnCount
     }
 
-    static func +(lhs: Matrix, rhs: Matrix) throws -> Matrix {
+    static func +(lhs: Matrix, rhs: Matrix) -> Result<Matrix, AddError> {
         guard lhs.rowCount == rhs.rowCount else {
-            throw AddError.matricesDoNotHaveSameRowCount
+            return .failure(.matricesDoNotHaveSameRowCount)
         }
 
         guard lhs.columnCount == rhs.columnCount else {
-            throw AddError.matricesDoNotHaveSameColumnCount
+            return .failure(.matricesDoNotHaveSameColumnCount)
         }
 
         let N = Int32(lhs.values.count)
@@ -212,7 +213,9 @@ extension Matrix {
 
         cblas_zaxpy(N, &alpha, X, inc, &Y, inc)
 
-        return Matrix(rowCount: lhs.rowCount, columnCount: lhs.columnCount, values: Y)
+        let matrix = Matrix(rowCount: lhs.rowCount, columnCount: lhs.columnCount, values: Y)
+
+        return .success(matrix)
     }
 
     static func *(complex: Complex, matrix: Matrix) -> Matrix {
@@ -226,15 +229,15 @@ extension Matrix {
         return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, values: X)
     }
 
-    static func *(lhs: Matrix, rhs: Matrix) throws -> Matrix {
-        return (try Transformation.none(lhs) * rhs)
+    static func *(lhs: Matrix, rhs: Matrix) -> Result<Matrix, ProductError> {
+        return Transformation.none(lhs) * rhs
     }
 
     enum ProductError: Error {
         case matricesDoNotHaveValidDimensions
     }
 
-    static func *(lhsTransformation: Transformation, rhs: Matrix) throws -> Matrix {
+    static func *(lhsTransformation: Transformation, rhs: Matrix) -> Result<Matrix, ProductError> {
         var lhs: Matrix!
         var lhsTrans = CblasNoTrans
         var areDimensionsValid = false
@@ -255,10 +258,12 @@ extension Matrix {
         }
 
         guard areDimensionsValid else {
-            throw ProductError.matricesDoNotHaveValidDimensions
+            return .failure(.matricesDoNotHaveValidDimensions)
         }
 
-        return Matrix.multiply(lhs: lhs, lhsTrans: lhsTrans, rhs: rhs)
+        let matrix = Matrix.multiply(lhs: lhs, lhsTrans: lhsTrans, rhs: rhs)
+
+        return .success(matrix)
     }
 }
 

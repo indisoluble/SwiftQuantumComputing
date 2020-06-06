@@ -34,23 +34,21 @@ class ControlledNotGateTests: XCTestCase {
 
     func testAnyFactoryAndOnlyOneInput_makeFixed_throwException() {
         // Then
-        XCTAssertThrowsError(try factory.makeFixed(inputs: [0]))
+        switch factory.makeFixed(inputs: [0]) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssert(true)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testAnyFactoryAndThreeInputs_makeFixed_returnExpectedGate() {
         // Given
         let inputs = [0, 1, 2]
 
-        // When
-        guard let result = try? factory.makeFixed(inputs: inputs) else {
-            XCTAssert(false)
-
-            return
-        }
-
         // Then
-        switch result {
-        case let .controlledNot(target, control):
+        switch factory.makeFixed(inputs: inputs) {
+        case .success(.controlledNot(let target, let control)):
             XCTAssertEqual(inputs[0], target)
             XCTAssertEqual(inputs[1], control)
         default:

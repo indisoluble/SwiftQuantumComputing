@@ -29,7 +29,12 @@ class Gate_QuantumFourierTransformTests: XCTestCase {
     // MARK: - Tests
 
     func testEmptyInputs_makeQuantumFourierTransform_throwError() {
-        XCTAssertThrowsError(try Gate.makeQuantumFourierTransform(inputs: []))
+        // Then
+        var error: Gate.MakeQuantumFourierTransformError?
+        if case .failure(let e) = Gate.makeQuantumFourierTransform(inputs: []) {
+            error = e
+        }
+        XCTAssertEqual(error, .inputsCanNotBeAnEmptyList)
     }
 
     func testTwoInputs_makeQuantumFourierTransform_returnExpectedGate() {
@@ -37,7 +42,7 @@ class Gate_QuantumFourierTransformTests: XCTestCase {
         let inputs = [0, 1]
 
         // When
-        let gate = try? Gate.makeQuantumFourierTransform(inputs: inputs)
+        let gate = try? Gate.makeQuantumFourierTransform(inputs: inputs).get()
 
         // Then
         let val = 1.0 / 2.0
@@ -61,7 +66,7 @@ class Gate_QuantumFourierTransformTests: XCTestCase {
         let inputs = [0, 1]
 
         // When
-        let gate = try? Gate.makeQuantumFourierTransform(inputs: inputs, inverse: true)
+        let gate = try? Gate.makeQuantumFourierTransform(inputs: inputs, inverse: true).get()
 
         // Then
         let val = 1.0 / 2.0

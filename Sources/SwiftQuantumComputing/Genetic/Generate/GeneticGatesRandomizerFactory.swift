@@ -23,5 +23,6 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol GeneticGatesRandomizerFactory {
-    func makeRandomizer(qubitCount: Int, gates: [ConfigurableGate]) throws -> GeneticGatesRandomizer
+    func makeRandomizer(qubitCount: Int,
+                        gates: [ConfigurableGate]) -> Result<GeneticGatesRandomizer, EvolveCircuitError>
 }

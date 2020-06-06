@@ -54,29 +54,30 @@ struct UnitaryGateAdapter {
     }
 }
 
-// MARK: - UnitaryMatrix methods
+// MARK: - UnitaryGate methods
 
-extension UnitaryGateAdapter: UnitaryMatrix {
-    func unitary() throws -> Matrix {
+extension UnitaryGateAdapter: UnitaryGate {
+    func unitary() -> Result<Matrix, UnitaryMatrixError> {
         guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            throw UnitaryMatrixError.matrixIsNotUnitary
+            return .failure(.matrixIsNotUnitary)
         }
 
-        return matrix
+        return .success(matrix)
     }
-}
 
-// MARK: - SimulatorTransformation methods
+    func applying(_ gate: SimulatorGate) -> Result<UnitaryGate, GateError> {
+        switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        case .success((let baseMatrix, let inputs)):
+            let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
+                                                                baseMatrix: baseMatrix,
+                                                                inputs: inputs)
+            let nextMatrix = try! (circuitMatrix.rawMatrix * matrix).get()
+            let adapter = try! UnitaryGateAdapter(matrix: nextMatrix, matrixFactory: matrixFactory)
 
-extension UnitaryGateAdapter: SimulatorTransformation {
-    func applying(_ gate: SimulatorGate) throws -> UnitaryGateAdapter {
-        let components = try gate.extractComponents(restrictedToCircuitQubitCount: qubitCount)
-        let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
-                                                            baseMatrix: components.matrix,
-                                                            inputs: components.inputs)
-        let nextMatrix = try! circuitMatrix.rawMatrix * matrix
-
-        return try! UnitaryGateAdapter(matrix: nextMatrix, matrixFactory: matrixFactory)
+            return .success(adapter)
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }
 

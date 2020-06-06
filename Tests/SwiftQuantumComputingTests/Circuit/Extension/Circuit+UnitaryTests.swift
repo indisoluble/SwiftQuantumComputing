@@ -40,7 +40,7 @@ class Circuit_UnitaryTests: XCTestCase {
         circuit.gatesResult = gates
 
         // When
-        _ = try? circuit.unitary()
+        _ = circuit.unitary()
 
         // Then
         XCTAssertEqual(circuit.gatesCount, 1)

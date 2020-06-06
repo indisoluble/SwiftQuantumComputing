@@ -92,6 +92,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(NotGateTests.allTests),
         testCase(OracleGateTests.allTests),
         testCase(PhaseShiftGateTests.allTests),
+        testCase(MainGeneticGatesRandomizerFactoryTests.allTests),
         testCase(MainGeneticGatesRandomizerTests.allTests),
         testCase(MainInitialPopulationProducerTests.allTests),
         testCase(MainInitialPopulationProducerFactoryTests.allTests),

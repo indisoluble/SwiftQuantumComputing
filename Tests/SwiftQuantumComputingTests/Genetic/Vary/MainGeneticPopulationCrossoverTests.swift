@@ -73,7 +73,7 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
                                                                       randomElements: randomElements)
 
         // Given
-        let result = try? populationCrossover.applied(to: evalCircuits)
+        let result = try? populationCrossover.applied(to: evalCircuits).get()
 
         // Then
         XCTAssertNotNil(result)
@@ -108,7 +108,7 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
                                                                       randomElements: randomElements)
 
         // When
-        let result = try? populationCrossover.applied(to: evalCircuits)
+        let result = try? populationCrossover.applied(to: evalCircuits).get()
 
         // Then
         XCTAssertEqual(randomElementsCount, 2)
@@ -144,7 +144,7 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
                                                                       randomElements: randomElements)
 
         // When
-        let result = try? populationCrossover.applied(to: evalCircuits)
+        let result = try? populationCrossover.applied(to: evalCircuits).get()
 
         // Then
         XCTAssertEqual(randomElementsCount, 2)
@@ -199,7 +199,7 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
                                                                       randomElements: randomElements)
 
         // When
-        let result = try? populationCrossover.applied(to: evalCircuits)
+        let result = try? populationCrossover.applied(to: evalCircuits).get()
 
         // Then
         XCTAssertEqual(randomElementsCount, 2)
@@ -252,12 +252,16 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
                                                                       randomElements: randomElements)
 
         // Then
-        XCTAssertThrowsError(try populationCrossover.applied(to: evalCircuits))
-        XCTAssertEqual(randomElementsCount, 2)
-        XCTAssertEqual(fitness.fittestCount, 2)
-        XCTAssertEqual(crossover.executeCount, 1)
-        XCTAssertEqual(evaluator.evaluateCircuitCount, 2)
-        XCTAssertEqual(score.calculateCount, 0)
+        switch populationCrossover.applied(to: evalCircuits) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssertEqual(randomElementsCount, 2)
+            XCTAssertEqual(fitness.fittestCount, 2)
+            XCTAssertEqual(crossover.executeCount, 1)
+            XCTAssertEqual(evaluator.evaluateCircuitCount, 2)
+            XCTAssertEqual(score.calculateCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testDependenciesReturnValidValues_applied_returnExpectedResult() {
@@ -285,7 +289,7 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
                                                                       randomElements: randomElements)
 
         // When
-        let result = try? populationCrossover.applied(to: evalCircuits)
+        let result = try? populationCrossover.applied(to: evalCircuits).get()
 
         // Then
         XCTAssertEqual(randomElementsCount, 2)

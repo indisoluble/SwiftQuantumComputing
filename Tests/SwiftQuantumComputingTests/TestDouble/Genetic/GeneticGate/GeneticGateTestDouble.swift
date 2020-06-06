@@ -37,15 +37,15 @@ final class GeneticGateTestDouble {
 // MARK: - GeneticGate methods
 
 extension GeneticGateTestDouble: GeneticGate {
-    func makeFixed(useCase: GeneticUseCase) throws -> GeneticGate.Fixed {
+    func makeFixed(useCase: GeneticUseCase) -> Result<Fixed, EvolveCircuitError> {
         makeFixedCount += 1
 
         lastMakeFixedUseCase = useCase
 
         if let makeFixedResult = makeFixedResult {
-            return makeFixedResult
+            return .success(makeFixedResult)
         }
 
-        throw makeFixedError
+        return .failure(makeFixedError)
     }
 }

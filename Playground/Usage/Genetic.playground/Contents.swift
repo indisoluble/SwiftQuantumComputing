@@ -21,7 +21,7 @@ let gates: [ConfigurableGate] = [HadamardGate(), NotGate()]
 //:    the problem modeled with the use cases
 let evolvedCircuit = MainGeneticFactory().evolveCircuit(configuration: config,
                                                         useCases: cases,
-                                                        gates: gates)
+                                                        gates: gates).get()
 print("Solution found. Fitness score: \(evolvedCircuit.eval)")
 
 for useCase in cases {

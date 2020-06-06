@@ -31,13 +31,11 @@ extension Drawable {
 
      - Parameter circuit: Circuit to be printed in a view..
 
-     - Throws: `DrawCircuitError`.
-
-     - Returns: A view with a representation of the `circuit` inside.
+     - Returns: A view with a representation of the `circuit` inside. Or `DrawCircuitError` error.
      */
-    public func drawCircuit(_ circuit: [Gate]) throws -> SQCView {
+    public func drawCircuit(_ circuit: [Gate]) -> Result<SQCView, DrawCircuitError> {
         let qubitCount = circuit.qubitCount()
 
-        return try drawCircuit(circuit, qubitCount: qubitCount)
+        return drawCircuit(circuit, qubitCount: qubitCount)
     }
 }

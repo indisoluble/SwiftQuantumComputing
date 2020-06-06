@@ -41,26 +41,12 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
                                                             score: score)
 
         // Then
-        XCTAssertThrowsError(try producer.makeProducer(qubitCount: 0,
-                                                       threshold: 0,
-                                                       useCases: [],
-                                                       gates: []))
-    }
-
-    func testEvaluatorFactoryThatThrowException_makeProducer_throwException() {
-        // Given
-        generatorFactory.makeRandomizerResult = GeneticGatesRandomizerTestDouble()
-
-        let producer = MainInitialPopulationProducerFactory(generatorFactory: generatorFactory,
-                                                            evaluatorFactory: evaluatorFactory,
-                                                            score: score)
-
-        // Then
-        XCTAssertThrowsError(try producer.makeProducer(qubitCount: 0,
-                                                       threshold: 0,
-                                                       useCases: [],
-                                                       gates: []))
-        XCTAssertEqual(generatorFactory.makeRandomizerCount, 1)
+        switch producer.makeProducer(qubitCount: 0, threshold: 0, useCases: [], gates: []) {
+        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
+            XCTAssert(true)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer() {
@@ -73,17 +59,19 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
                                                             score: score)
 
         // Then
-        XCTAssertNoThrow(try producer.makeProducer(qubitCount: 0,
-                                                   threshold: 0,
-                                                   useCases: [],
-                                                   gates: []))
+        var population: InitialPopulationProducer?
+        if case .success(let result) = producer.makeProducer(qubitCount: 0,
+                                                             threshold: 0,
+                                                             useCases: [],
+                                                             gates: []) {
+            population = result
+        }
+        XCTAssertNotNil(population)
     }
 
     static var allTests = [
         ("testGeneratorFactoryThatThrowException_makeProducer_throwException",
          testGeneratorFactoryThatThrowException_makeProducer_throwException),
-        ("testEvaluatorFactoryThatThrowException_makeProducer_throwException",
-         testEvaluatorFactoryThatThrowException_makeProducer_throwException),
         ("testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer",
          testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer)
     ]

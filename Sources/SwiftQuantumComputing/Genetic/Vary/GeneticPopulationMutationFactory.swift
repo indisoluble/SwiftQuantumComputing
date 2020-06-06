@@ -27,5 +27,5 @@ protocol GeneticPopulationMutationFactory {
                       tournamentSize: Int,
                       maxDepth: Int,
                       evaluator: GeneticCircuitEvaluator,
-                      gates: [ConfigurableGate]) throws -> GeneticPopulationMutation
+                      gates: [ConfigurableGate]) -> Result<GeneticPopulationMutation, EvolveCircuitError>
 }

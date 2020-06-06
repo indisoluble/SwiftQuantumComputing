@@ -36,11 +36,11 @@ final class GeneticPopulationReproductionTestDouble {
 // MARK: - GeneticPopulationReproduction methods
 
 extension GeneticPopulationReproductionTestDouble: GeneticPopulationReproduction {
-    func applied(to population: [Fitness.EvalCircuit]) -> [Fitness.EvalCircuit] {
+    func applied(to population: [Fitness.EvalCircuit]) -> Result<[Fitness.EvalCircuit], EvolveCircuitError> {
         appliedCount += 1
 
         lastAppliedPopulation = population
 
-        return appliedResult
+        return .success(appliedResult)
     }
 }

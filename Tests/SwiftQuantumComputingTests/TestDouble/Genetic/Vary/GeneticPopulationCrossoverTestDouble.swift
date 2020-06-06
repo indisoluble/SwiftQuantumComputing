@@ -37,15 +37,15 @@ final class GeneticPopulationCrossoverTestDouble {
 // MARK: - GeneticPopulationCrossover methods
 
 extension GeneticPopulationCrossoverTestDouble: GeneticPopulationCrossover {
-    func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit] {
+    func applied(to population: [Fitness.EvalCircuit]) -> Result<[Fitness.EvalCircuit], EvolveCircuitError> {
         appliedCount += 1
 
         lastAppliedPopulation = population
 
         if let appliedResult = appliedResult {
-            return appliedResult
+            return .success(appliedResult)
         }
 
-        throw appliedError
+        return .failure(appliedError)
     }
 }

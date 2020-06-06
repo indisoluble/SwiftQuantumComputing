@@ -60,9 +60,9 @@ struct MainGeneticGatesRandomizer {
 // MARK: - GeneticGatesRandomizer methods
 
 extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
-    func make(depth: Int) throws -> [GeneticGate] {
+    func make(depth: Int) -> Result<[GeneticGate], EvolveCircuitError> {
         guard depth >= 0 else {
-            throw EvolveCircuitError.configurationDepthHasToBeAPositiveNumber
+            return .failure(.configurationDepthHasToBeAPositiveNumber)
         }
 
         var result: [GeneticGate] = []
@@ -72,11 +72,14 @@ extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
                 continue
             }
 
-            let gate = try factory.makeGate(inputs: shuffledQubits())
-
-            result.append(gate)
+            switch factory.makeGate(inputs: shuffledQubits()) {
+            case .success(let gate):
+                result.append(gate)
+            case .failure(let error):
+                return .failure(error)
+            }
         }
 
-        return result
+        return .success(result)
     }
 }

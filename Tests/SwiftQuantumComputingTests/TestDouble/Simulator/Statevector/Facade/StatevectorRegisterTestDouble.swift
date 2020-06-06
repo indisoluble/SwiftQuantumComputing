@@ -38,32 +38,26 @@ final class StatevectorRegisterTestDouble {
     var simulatorApplyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
 }
 
-// MARK: - StatevectorMeasurement methods
-
-extension StatevectorRegisterTestDouble: StatevectorMeasurement {
-    func statevector() throws -> Vector {
+extension StatevectorRegisterTestDouble: StatevectorRegister {
+    func statevector() -> Result<Vector, StatevectorMeasurementError> {
         statevectorCount += 1
 
         if let statevectorResult = statevectorResult {
-            return statevectorResult
+            return .success(statevectorResult)
         }
 
-        throw statevectorError
+        return .failure(statevectorError)
     }
-}
 
-// MARK: - SimulatorTransformation methods
-
-extension StatevectorRegisterTestDouble: SimulatorTransformation {
-    func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterTestDouble {
+    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
         simulatorApplyingCount += 1
 
         lastSimulatorApplyingGate = gate
 
         if let applyingResult = simulatorApplyingResult {
-            return applyingResult
+            return .success(applyingResult)
         }
 
-        throw simulatorApplyingError
+        return .failure(simulatorApplyingError)
     }
 }

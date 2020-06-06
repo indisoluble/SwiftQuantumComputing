@@ -42,6 +42,6 @@ extension CircuitMatrixStatevectorTransformation: StatevectorTransformation {
         let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: Int.log2(vector.count),
                                                             baseMatrix: gateMatrix,
                                                             inputs: inputs)
-        return try! circuitMatrix.rawMatrix * vector
+        return try! (circuitMatrix.rawMatrix * vector).get()
     }
 }

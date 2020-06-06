@@ -41,15 +41,19 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
 
     func testOracleFactoryThatThrowException_evaluateCircuit_throwException() {
         // Given
-        let evaluator = try! MainGeneticUseCaseEvaluator(useCase: useCase,
-                                                         factory: factory,
-                                                         oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(useCase: useCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try evaluator.evaluateCircuit(geneticCircuit))
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
-        XCTAssertEqual(factory.makeCircuitCount, 0)
-        XCTAssertEqual(circuit.statevectorCount, 0)
+        switch evaluator.evaluateCircuit(geneticCircuit) {
+        case .failure(.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle):
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
+            XCTAssertEqual(factory.makeCircuitCount, 0)
+            XCTAssertEqual(circuit.statevectorCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testCircuitThatThrowException_evaluateCircuit_throwException() {
@@ -58,16 +62,20 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         factory.makeCircuitResult = circuit
         circuit.gatesResult = [Gate.not(target: 0)]
 
-        let evaluator = try! MainGeneticUseCaseEvaluator(useCase: useCase,
-                                                         factory: factory,
-                                                         oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(useCase: useCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try evaluator.evaluateCircuit(geneticCircuit))
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
-        XCTAssertEqual(factory.makeCircuitCount, 1)
-        XCTAssertEqual(circuit.statevectorCount, 1)
-        XCTAssertEqual(circuit.lastStatevectorInitialStatevector, statevectorInput)
+        switch evaluator.evaluateCircuit(geneticCircuit) {
+        case .failure(.useCaseMeasurementThrowedError):
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
+            XCTAssertEqual(factory.makeCircuitCount, 1)
+            XCTAssertEqual(circuit.statevectorCount, 1)
+            XCTAssertEqual(circuit.lastStatevectorInitialStatevector, statevectorInput)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testUseCaseWithNonSensicalOutput_evaluateCircuit_throwException() {
@@ -84,16 +92,20 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         nonSensicalInputElements[0] = Complex.one
         let nonSensicalStatevectorInput = try! Vector(nonSensicalInputElements)
 
-        let evaluator = try! MainGeneticUseCaseEvaluator(useCase: nonSensicalUseCase,
-                                                         factory: factory,
-                                                         oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(useCase: nonSensicalUseCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // Then
-        XCTAssertThrowsError(try evaluator.evaluateCircuit(geneticCircuit))
-        XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
-        XCTAssertEqual(factory.makeCircuitCount, 1)
-        XCTAssertEqual(circuit.statevectorCount, 1)
-        XCTAssertEqual(circuit.lastStatevectorInitialStatevector, nonSensicalStatevectorInput)
+        switch evaluator.evaluateCircuit(geneticCircuit) {
+        case .failure(.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes):
+            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
+            XCTAssertEqual(factory.makeCircuitCount, 1)
+            XCTAssertEqual(circuit.statevectorCount, 1)
+            XCTAssertEqual(circuit.lastStatevectorInitialStatevector, nonSensicalStatevectorInput)
+            default:
+                XCTAssert(false)
+        }
     }
 
     func testEvaluatorWithAllParamsValid_evaluateCircuit_returnExpectedErrorProbability() {
@@ -102,12 +114,12 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         factory.makeCircuitResult = circuit
         circuit.statevectorResult = statevectorOutput
 
-        let evaluator = try! MainGeneticUseCaseEvaluator(useCase: useCase,
-                                                         factory: factory,
-                                                         oracleFactory: oracleFactory)
+        let evaluator = MainGeneticUseCaseEvaluator(useCase: useCase,
+                                                    factory: factory,
+                                                    oracleFactory: oracleFactory)
 
         // When
-        let prob = try? evaluator.evaluateCircuit(geneticCircuit)
+        let prob = try? evaluator.evaluateCircuit(geneticCircuit).get()
 
         // Then
         XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)

@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 /// Errors throwed by `Circuit.summarizedProbabilities(withInitialBits:)`.
-public enum SummarizedProbabilitiesError: Error {
+public enum SummarizedProbabilitiesError: Error, Equatable {
     /// Throwed if `Circuit.probabilities(withInitialBits:)` throws `ProbabilitiesError`
     case probabilitiesThrowedError(error: ProbabilitiesError)
     /// Throwed when `qubits` references a qubit that does not exist in the circuit
@@ -45,23 +45,26 @@ extension Circuit {
 
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
 
-     - Throws: `SummarizedProbabilitiesError.probabilitiesThrowedError(error:)`.
-
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
-     with probability 0 are not included.
+     with probability 0 are not included. Or `SummarizedProbabilitiesError.probabilitiesThrowedError(error:)`
+     error.
      */
-    public func summarizedProbabilities(withInitialBits initialBits: String? = nil) throws -> [String: Double] {
-        let probs = try errorCapturedProbabilities(withInitialBits: initialBits)
-        let bitCount = Int.log2(probs.count)
+    public func summarizedProbabilities(withInitialBits initialBits: String? = nil) -> Result<[String: Double], SummarizedProbabilitiesError> {
+        switch probabilities(withInitialBits: initialBits) {
+        case .success(let probs):
+            let bitCount = Int.log2(probs.count)
 
-        var result: [String: Double] = [:]
-        for (index, value) in probs.enumerated() {
-            if value > 0 {
-                result[String(index, bitCount: bitCount)] = value
+            var result: [String: Double] = [:]
+            for (index, value) in probs.enumerated() {
+                if value > 0 {
+                    result[String(index, bitCount: bitCount)] = value
+                }
             }
-        }
 
-        return result
+            return .success(result)
+        case .failure(let error):
+            return .failure(.probabilitiesThrowedError(error: error))
+        }
     }
 
     /**
@@ -71,29 +74,23 @@ extension Circuit {
      - Parameter qubits: List of qubits for which we want to know the probability of each combination.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
 
-     - Throws: `SummarizedProbabilitiesError`.
-
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
-     with probability 0 are not included.
+     with probability 0 are not included. Or `SummarizedProbabilitiesError` error.
      */
     public func summarizedProbabilities(byQubits qubits: [Int],
-                                        withInitialBits initialBits: String? = nil) throws -> [String: Double] {
-        var result: [String: GroupedProb] = [:]
-        do {
-            result = try groupedProbabilities(byQubits: qubits, withInitialBits: initialBits)
-        } catch GroupedProbabilitiesError.groupQubitsCanNotBeAnEmptyList {
-            throw SummarizedProbabilitiesError.qubitsCanNotBeAnEmptyList
-        } catch GroupedProbabilitiesError.qubitsAreNotUnique {
-            throw SummarizedProbabilitiesError.qubitsAreNotUnique
-        } catch GroupedProbabilitiesError.qubitsAreNotInsideBounds {
-            throw SummarizedProbabilitiesError.qubitsAreNotInsideBounds
-        } catch GroupedProbabilitiesError.probabilitiesThrowedError(let error) {
-            throw SummarizedProbabilitiesError.probabilitiesThrowedError(error: error)
-        } catch {
-            fatalError("Unexpected error: \(error).")
+                                        withInitialBits initialBits: String? = nil) -> Result<[String: Double], SummarizedProbabilitiesError> {
+        switch groupedProbabilities(byQubits: qubits, withInitialBits: initialBits) {
+        case .success(let result):
+            return .success(result.mapValues { $0.probability })
+        case .failure(.groupQubitsCanNotBeAnEmptyList):
+            return .failure(.qubitsCanNotBeAnEmptyList)
+        case .failure(.qubitsAreNotInsideBounds):
+            return .failure(.qubitsAreNotInsideBounds)
+        case .failure(.qubitsAreNotUnique):
+            return .failure(.qubitsAreNotUnique)
+        case .failure(.probabilitiesThrowedError(let error)):
+            return .failure(.probabilitiesThrowedError(error: error))
         }
-
-        return result.mapValues { $0.probability }
     }
 
     /**
@@ -103,14 +100,12 @@ extension Circuit {
      - Parameter qubits: Range of qubits for which we want to know the probability of each combination.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
 
-     - Throws: `SummarizedProbabilitiesError`.
-
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
-     with probability 0 are not included.
+     with probability 0 are not included. Or `SummarizedProbabilitiesError` error.
      */
     public func summarizedProbabilities(byQubits qubits: Range<Int>,
-                                        withInitialBits initialBits: String? = nil) throws -> [String: Double] {
-        return try summarizedProbabilities(byQubits: Array(qubits), withInitialBits: initialBits)
+                                        withInitialBits initialBits: String? = nil) -> Result<[String: Double], SummarizedProbabilitiesError> {
+        return summarizedProbabilities(byQubits: Array(qubits), withInitialBits: initialBits)
     }
 
     /**
@@ -120,30 +115,11 @@ extension Circuit {
      - Parameter qubits: Range of qubits for which we want to know the probability of each combination.
      - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
 
-     - Throws: `SummarizedProbabilitiesError`.
-
      - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
-     with probability 0 are not included.
+     with probability 0 are not included. Or `SummarizedProbabilitiesError` error.
      */
     public func summarizedProbabilities(byQubits qubits: ClosedRange<Int>,
-                                        withInitialBits initialBits: String? = nil) throws -> [String: Double] {
-        return try summarizedProbabilities(byQubits: Array(qubits), withInitialBits: initialBits)
-    }
-}
-
-// MARK: - Private body
-
-private extension Circuit {
-
-    // MARK: - Private methods
-
-    func errorCapturedProbabilities(withInitialBits initialBits: String?) throws -> [Double] {
-        do {
-            return try probabilities(withInitialBits: initialBits)
-        } catch let error as ProbabilitiesError {
-            throw SummarizedProbabilitiesError.probabilitiesThrowedError(error: error)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+                                        withInitialBits initialBits: String? = nil) -> Result<[String: Double], SummarizedProbabilitiesError> {
+        return summarizedProbabilities(byQubits: Array(qubits), withInitialBits: initialBits)
     }
 }

@@ -68,38 +68,40 @@ struct MainGeneticPopulationCrossover {
 // MARK: - GeneticPopulationCrossover methods
 
 extension MainGeneticPopulationCrossover: GeneticPopulationCrossover {
-    func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit] {
+    func applied(to population: [Fitness.EvalCircuit]) -> Result<[Fitness.EvalCircuit], EvolveCircuitError> {
         let firstSample = randomElements(population, tournamentSize)
         guard let firstWinner = fitness.fittest(in: firstSample) else {
-            return []
+            return .success([])
         }
 
         let secondSample = randomElements(population, tournamentSize)
         guard let secondWinner = fitness.fittest(in: secondSample) else {
-            return []
+            return .success([])
         }
 
         let (firstCross, secondCross) = crossover.execute(firstWinner.circuit, secondWinner.circuit)
 
         var firstEval: Double?
-        var firstError: Error?
+        var firstError: EvolveCircuitError?
         var secondEval: Double?
-        var secondError: Error?
+        var secondError: EvolveCircuitError?
         DispatchQueue.concurrentPerform(iterations: 2) { index in
             if (index == 0) {
                 if (firstCross.count <= maxDepth) {
-                    do {
-                        firstEval = try evaluateCircuit(firstCross)
-                    } catch {
+                    switch evaluateCircuit(firstCross) {
+                    case .success(let result):
+                        firstEval = result
+                    case .failure(let error):
                         firstError = error
                     }
                 } else {
                     MainGeneticPopulationCrossover.logger.info("croossover: first exceeded max. depth")
                 }
             } else if (secondCross.count <= maxDepth) {
-                do {
-                    secondEval = try evaluateCircuit(secondCross)
-                } catch {
+                switch evaluateCircuit(secondCross) {
+                case .success(let result):
+                    secondEval = result
+                case .failure(let error):
                     secondError = error
                 }
             } else {
@@ -108,11 +110,11 @@ extension MainGeneticPopulationCrossover: GeneticPopulationCrossover {
         }
 
         if let firstError = firstError {
-            throw firstError
+            return .failure(firstError)
         }
 
         if let secondError = secondError {
-            throw secondError
+            return .failure(secondError)
         }
 
         var crosses: [Fitness.EvalCircuit] = []
@@ -123,7 +125,7 @@ extension MainGeneticPopulationCrossover: GeneticPopulationCrossover {
             crosses.append((secondEval, secondCross))
         }
 
-        return crosses
+        return .success(crosses)
     }
 }
 
@@ -133,9 +135,12 @@ private extension MainGeneticPopulationCrossover {
 
     // MARK: - Private methods
 
-    func evaluateCircuit(_ circuit: [GeneticGate]) throws -> Double {
-        let evaluation = try evaluator.evaluateCircuit(circuit)
-
-        return score.calculate(evaluation)
+    func evaluateCircuit(_ circuit: [GeneticGate]) -> Result<Double, EvolveCircuitError> {
+        switch evaluator.evaluateCircuit(circuit) {
+        case .success(let evaluation):
+            return .success(score.calculate(evaluation))
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }

@@ -38,16 +38,16 @@ final class UnitaryGateFactoryTestDouble {
 // MARK: - UnitaryGateFactory methods
 
 extension UnitaryGateFactoryTestDouble: UnitaryGateFactory {
-    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) throws -> UnitaryGate {
+    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) -> Result<UnitaryGate, GateError> {
         makeGateCount += 1
 
         lastMakeGateQubitCount = qubitCount
         lastMakeGateSimulatorGate = simulatorGate
 
         if let applyingResult = applyingResult {
-            return applyingResult
+            return .success(applyingResult)
         }
 
-        throw applyingError
+        return .failure(applyingError)
     }
 }
