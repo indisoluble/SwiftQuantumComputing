@@ -111,7 +111,7 @@ extension MainGeneticFactory: GeneticFactory {
         let initialPopulation = try initialPopulationFactory.makeProducer(qubitCount: qubitCount,
                                                                           threshold: config.threshold,
                                                                           useCases: useCases,
-                                                                          gates: gates)
+                                                                          gates: gates).get()
 
         let reproduction = try reproductionFactory.makeReproduction(qubitCount: qubitCount,
                                                                     tournamentSize: config.tournamentSize,

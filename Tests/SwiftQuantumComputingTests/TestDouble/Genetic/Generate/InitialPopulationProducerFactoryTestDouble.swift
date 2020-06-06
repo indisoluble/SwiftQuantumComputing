@@ -43,7 +43,7 @@ extension InitialPopulationProducerFactoryTestDouble: InitialPopulationProducerF
     func makeProducer(qubitCount: Int,
                       threshold: Double,
                       useCases: [GeneticUseCase],
-                      gates: [ConfigurableGate]) throws -> InitialPopulationProducer {
+                      gates: [ConfigurableGate]) -> Result<InitialPopulationProducer, EvolveCircuitError> {
         makeProducerCount += 1
 
         lastMakeProducerQubitCount = qubitCount
@@ -52,9 +52,9 @@ extension InitialPopulationProducerFactoryTestDouble: InitialPopulationProducerF
         lastMakeProducerGates = gates
 
         if let makeProducerResult = makeProducerResult {
-            return makeProducerResult
+            return .success(makeProducerResult)
         }
 
-        throw makeProducerError
+        return .failure(makeProducerError)
     }
 }
