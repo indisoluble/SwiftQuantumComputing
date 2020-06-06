@@ -65,7 +65,7 @@ extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
                 offspring.append(result)
             }
         } else {
-            let result = try crossover.applied(to: population)
+            let result = try crossover.applied(to: population).get()
             if !result.isEmpty {
                 MainGeneticPopulationReproduction.logger.info("reproduction: crossover produced")
 
