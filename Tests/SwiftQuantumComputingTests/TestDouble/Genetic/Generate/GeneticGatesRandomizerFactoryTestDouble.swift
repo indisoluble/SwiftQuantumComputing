@@ -38,16 +38,16 @@ final class GeneticGatesRandomizerFactoryTestDouble {
 
 extension GeneticGatesRandomizerFactoryTestDouble: GeneticGatesRandomizerFactory {
     func makeRandomizer(qubitCount: Int,
-                        gates: [ConfigurableGate]) throws -> GeneticGatesRandomizer {
+                        gates: [ConfigurableGate]) -> Result<GeneticGatesRandomizer, EvolveCircuitError> {
         makeRandomizerCount += 1
 
         lastMakeRandomizerQubitCount = qubitCount
         lastMakeRandomizerGates = gates
 
         if let makeRandomizerResult = makeRandomizerResult {
-            return makeRandomizerResult
+            return .success(makeRandomizerResult)
         }
 
-        throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+        return .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero)
     }
 }

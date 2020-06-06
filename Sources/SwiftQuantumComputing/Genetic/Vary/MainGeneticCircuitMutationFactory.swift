@@ -41,7 +41,7 @@ extension MainGeneticCircuitMutationFactory: GeneticCircuitMutationFactory {
     func makeMutation(qubitCount: Int,
                       maxDepth: Int,
                       gates: [ConfigurableGate]) throws -> GeneticCircuitMutation {
-        let randomizer = try factory.makeRandomizer(qubitCount: qubitCount, gates: gates)
+        let randomizer = try factory.makeRandomizer(qubitCount: qubitCount, gates: gates).get()
 
         return MainGeneticCircuitMutation(maxDepth: maxDepth, randomizer: randomizer)
     }
