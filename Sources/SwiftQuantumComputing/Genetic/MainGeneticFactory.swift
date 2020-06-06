@@ -133,7 +133,7 @@ extension MainGeneticFactory: GeneticFactory {
         while (candidate.eval > errProb) && (currGen < genCount) && (population.count < maxSize) {
             MainGeneticFactory.logger.info("Init. generation \(currGen)...")
 
-            let offspring = try reproduction.applied(to: population)
+            let offspring = try reproduction.applied(to: population).get()
             if (offspring.isEmpty) {
                 MainGeneticFactory.logger.debug("evolveCircuit: empty offspr.")
             } else {

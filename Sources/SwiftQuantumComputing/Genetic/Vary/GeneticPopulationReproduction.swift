@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol GeneticPopulationReproduction {
-    func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit]
+    func applied(to population: [Fitness.EvalCircuit]) -> Result<[Fitness.EvalCircuit], EvolveCircuitError>
 }
