@@ -60,7 +60,7 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                                                         gates: gates).get()
         let crossover = try crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
                                                            maxDepth: maxDepth,
-                                                           evaluator: evaluator)
+                                                           evaluator: evaluator).get()
 
         return MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
                                                  mutation: mutation,

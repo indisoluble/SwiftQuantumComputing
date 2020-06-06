@@ -46,12 +46,18 @@ struct MainGeneticPopulationCrossoverFactory {
 extension MainGeneticPopulationCrossoverFactory: GeneticPopulationCrossoverFactory {
     func makeCrossover(tournamentSize: Int,
                        maxDepth: Int,
-                       evaluator: GeneticCircuitEvaluator) throws -> GeneticPopulationCrossover {
-        return try MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
-                                                  maxDepth: maxDepth,
-                                                  fitness: fitness,
-                                                  crossover: crossover,
-                                                  evaluator: evaluator,
-                                                  score: score)
+                       evaluator: GeneticCircuitEvaluator) -> Result<GeneticPopulationCrossover, EvolveCircuitError> {
+        do {
+            return .success(try MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
+                                                               maxDepth: maxDepth,
+                                                               fitness: fitness,
+                                                               crossover: crossover,
+                                                               evaluator: evaluator,
+                                                               score: score))
+        } catch let error as EvolveCircuitError {
+            return .failure(error)
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
     }
 }
