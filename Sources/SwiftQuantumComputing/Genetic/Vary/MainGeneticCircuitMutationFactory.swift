@@ -40,9 +40,12 @@ struct MainGeneticCircuitMutationFactory {
 extension MainGeneticCircuitMutationFactory: GeneticCircuitMutationFactory {
     func makeMutation(qubitCount: Int,
                       maxDepth: Int,
-                      gates: [ConfigurableGate]) throws -> GeneticCircuitMutation {
-        let randomizer = try factory.makeRandomizer(qubitCount: qubitCount, gates: gates).get()
-
-        return MainGeneticCircuitMutation(maxDepth: maxDepth, randomizer: randomizer)
+                      gates: [ConfigurableGate]) -> Result<GeneticCircuitMutation, EvolveCircuitError> {
+        switch factory.makeRandomizer(qubitCount: qubitCount, gates: gates) {
+        case .success(let randomizer):
+            return .success(MainGeneticCircuitMutation(maxDepth: maxDepth, randomizer: randomizer))
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }

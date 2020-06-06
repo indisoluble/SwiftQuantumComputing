@@ -49,7 +49,7 @@ extension MainGeneticPopulationMutationFactory: GeneticPopulationMutationFactory
                       gates: [ConfigurableGate]) throws -> GeneticPopulationMutation {
         let mutation = try factory.makeMutation(qubitCount: qubitCount,
                                                 maxDepth: maxDepth,
-                                                gates: gates)
+                                                gates: gates).get()
 
         return try MainGeneticPopulationMutation(tournamentSize:tournamentSize,
                                                  fitness: fitness,
