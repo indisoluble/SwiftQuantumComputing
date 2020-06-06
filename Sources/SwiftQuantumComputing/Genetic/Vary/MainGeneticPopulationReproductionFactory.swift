@@ -57,7 +57,7 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                                                         tournamentSize: tournamentSize,
                                                         maxDepth: maxDepth,
                                                         evaluator: evaluator,
-                                                        gates: gates)
+                                                        gates: gates).get()
         let crossover = try crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
                                                            maxDepth: maxDepth,
                                                            evaluator: evaluator)
