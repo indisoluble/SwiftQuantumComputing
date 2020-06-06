@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol InitialPopulationProducer {
-    func execute(size: Int, depth: Range<Int>) throws -> [Fitness.EvalCircuit]
+    func execute(size: Int, depth: Range<Int>) -> Result<[Fitness.EvalCircuit], EvolveCircuitError>
 }

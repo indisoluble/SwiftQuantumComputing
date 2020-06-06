@@ -122,7 +122,7 @@ extension MainGeneticFactory: GeneticFactory {
                                                                     gates: gates).get()
 
         MainGeneticFactory.logger.info("Producing initial population...")
-        var population = try initialPopulation.execute(size: initSize, depth: config.depth)
+        var population = try initialPopulation.execute(size: initSize, depth: config.depth).get()
         MainGeneticFactory.logger.info("Initial population completed")
 
         var candidate = fitness.fittest(in: population)!
