@@ -119,7 +119,7 @@ extension MainGeneticFactory: GeneticFactory {
                                                                     threshold: config.threshold,
                                                                     maxDepth: maxDepth,
                                                                     useCases: useCases,
-                                                                    gates: gates)
+                                                                    gates: gates).get()
 
         MainGeneticFactory.logger.info("Producing initial population...")
         var population = try initialPopulation.execute(size: initSize, depth: config.depth)
