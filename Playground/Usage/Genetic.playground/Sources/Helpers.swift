@@ -34,11 +34,11 @@ public func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircu
 public func drawCircuit(with evolvedGates: [Gate], useCase: GeneticUseCase) -> SQCView {
     let drawer = MainDrawerFactory().makeDrawer()
 
-    return try! drawer.drawCircuit(evolvedGates, qubitCount: useCase.circuit.qubitCount)
+    return try! drawer.drawCircuit(evolvedGates, qubitCount: useCase.circuit.qubitCount).get()
 }
 
 public func probabilities(in evolvedGates: [Gate], useCase: GeneticUseCase) -> [String: Double] {
     let circuit = MainCircuitFactory().makeCircuit(gates: evolvedGates)
 
-    return try! circuit.summarizedProbabilities(withInitialBits: useCase.circuit.input)
+    return try! circuit.summarizedProbabilities(withInitialBits: useCase.circuit.input).get()
 }

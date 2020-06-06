@@ -12,7 +12,7 @@ gates += Gate.hadamard(targets: 1...secret.count)
 MainDrawerFactory().makeDrawer().drawCircuit(gates)
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
-let probabilities = circuit.summarizedProbabilities(byQubits: (1...secret.count).reversed())
+let probabilities = circuit.summarizedProbabilities(byQubits: (1...secret.count).reversed()).get()
 
 let foundSecret = probabilities.keys.first!
 

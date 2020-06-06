@@ -9,10 +9,10 @@ func isFunctionConstant(truthTable: [String], qubitCount: Int) -> Bool {
     gates += [Gate.oracle(truthTable: truthTable, target: 0, controls: (1...qubitCount).reversed())]
     gates += Gate.hadamard(targets: 1...qubitCount)
 
-    try! drawer.drawCircuit(gates)
+    try! drawer.drawCircuit(gates).get()
 
     let circuit = circuitFactory.makeCircuit(gates: gates)
-    let probabilities = try! circuit.summarizedProbabilities(byQubits: (1...qubitCount).reversed())
+    let probabilities = try! circuit.summarizedProbabilities(byQubits: (1...qubitCount).reversed()).get()
 
     let zeros = String(repeating: "0", count: qubitCount)
     let zerosProbabilities = probabilities[zeros] ?? 0.0
