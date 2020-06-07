@@ -53,9 +53,7 @@ struct MainInitialPopulationProducer {
 extension MainInitialPopulationProducer: InitialPopulationProducer {
     func execute(size: Int,
                  depth: Range<Int>) -> Result<[Fitness.EvalCircuit], EvolveCircuitError> {
-        guard size > 0 else {
-            return .failure(.configurationPopulationSizeHasToBeBiggerThanZero)
-        }
+        assert(size > 0, "size has to be bigger than zero")
 
         var population: [Fitness.EvalCircuit] = []
         var populationError: EvolveCircuitError?

@@ -43,40 +43,11 @@ class MainGeneticFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testEmptyPopulationSize_evolveCircuit_throwException() {
-        // Given
-        let configuration = try! GeneticConfiguration(depth: (0..<10),
-                                                      generationCount: 10,
-                                                      populationSize: (0..<0),
-                                                      tournamentSize: 0,
-                                                      mutationProbability: 0.0,
-                                                      threshold: 0.0,
-                                                      errorProbability: 0.0)
-
-        let factory = MainGeneticFactory(initialPopulationFactory: initialPopulationFactory,
-                                         fitness: fitness,
-                                         reproductionFactory: reproductionFactory,
-                                         oracleFactory: oracleFactory)
-
-        // Then
-        switch factory.evolveCircuit(configuration: configuration,
-                                     useCases: [useCase],
-                                     gates: gates) {
-        case .failure(.configurationPopulationSizeIsEmpty):
-            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 0)
-            XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
-            XCTAssertEqual(fitness.fittestCount, 0)
-            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
-        default:
-            XCTAssert(false)
-        }
-    }
-
     func testEmptyUseCases_evolveCircuit_throwException() {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
-                                                      populationSize: (0..<100),
+                                                      populationSize: (1..<100),
                                                       tournamentSize: 0,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
@@ -103,7 +74,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
-                                                      populationSize: (0..<100),
+                                                      populationSize: (1..<100),
                                                       tournamentSize: 0,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
@@ -136,7 +107,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
-                                                      populationSize: (0..<100),
+                                                      populationSize: (1..<100),
                                                       tournamentSize: 0,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
@@ -165,7 +136,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
-                                                      populationSize: (0..<100),
+                                                      populationSize: (1..<100),
                                                       tournamentSize: 0,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
@@ -197,7 +168,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
-                                                      populationSize: (0..<100),
+                                                      populationSize: (1..<100),
                                                       tournamentSize: 0,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
@@ -215,7 +186,7 @@ class MainGeneticFactoryTests: XCTestCase {
         switch factory.evolveCircuit(configuration: configuration,
                                      useCases: [useCase],
                                      gates: gates) {
-        case .failure(.configurationPopulationSizeHasToBeBiggerThanZero):
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
             XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
             XCTAssertEqual(reproductionFactory.makeReproductionCount, 1)
             XCTAssertEqual(initialPopulation.executeCount, 1)
@@ -231,7 +202,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 0,
-                                                      populationSize: (0..<100),
+                                                      populationSize: (1..<100),
                                                       tournamentSize: 0,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
@@ -267,7 +238,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
-                                                      populationSize: (0..<100),
+                                                      populationSize: (1..<100),
                                                       tournamentSize: 0,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
@@ -304,7 +275,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 0,
-                                                      populationSize: (0..<1),
+                                                      populationSize: (1..<2),
                                                       tournamentSize: 0,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
@@ -340,7 +311,7 @@ class MainGeneticFactoryTests: XCTestCase {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
-                                                      populationSize: (0..<100),
+                                                      populationSize: (1..<100),
                                                       tournamentSize: 0,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
@@ -373,8 +344,6 @@ class MainGeneticFactoryTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testEmptyPopulationSize_evolveCircuit_throwException",
-         testEmptyPopulationSize_evolveCircuit_throwException),
         ("testEmptyUseCases_evolveCircuit_throwException",
          testEmptyUseCases_evolveCircuit_throwException),
         ("testUseCasesWithDifferentCircuitQubitCount_evolveCircuit_throwException",

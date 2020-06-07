@@ -90,11 +90,8 @@ extension MainGeneticFactory: GeneticFactory {
     public func evolveCircuit(configuration config: GeneticConfiguration,
                               useCases: [GeneticUseCase],
                               gates: [ConfigurableGate]) -> Result<EvolvedCircuit, EvolveCircuitError> {
-        guard let initSize = config.populationSize.first else {
-            return .failure(.configurationPopulationSizeIsEmpty)
-        }
+        let initSize = config.populationSize.first!
         let maxSize = config.populationSize.last!
-
         let maxDepth = config.depth.last!
 
         guard let firstCase = useCases.first else {

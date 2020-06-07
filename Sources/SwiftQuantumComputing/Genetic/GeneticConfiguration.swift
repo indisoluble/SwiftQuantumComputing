@@ -33,6 +33,11 @@ public struct GeneticConfiguration {
         case depthHasToBeAPositiveNumber
         /// Throwed when `GeneticConfiguration.depth` is an empty `Range`
         case depthIsEmpty
+        /// Throwed when `GeneticConfiguration.populationSize` starts on 0 which is not valid because that would be the
+        /// size of the initial population and an empty initial population can not produce new circuits
+        case populationSizeHasToBeBiggerThanZero
+        /// Throwed when `GeneticConfiguration.populationSize` is an empty `Range`
+        case populationSizeIsEmpty
     }
 
     // MARK: - Public properties
@@ -74,6 +79,14 @@ public struct GeneticConfiguration {
 
         guard firstDepth >= 0 else {
             throw InitError.depthHasToBeAPositiveNumber
+        }
+
+        guard let initSize = populationSize.first else {
+            throw InitError.populationSizeIsEmpty
+        }
+
+        guard initSize > 0 else {
+            throw InitError.populationSizeHasToBeBiggerThanZero
         }
 
         self.depth = depth

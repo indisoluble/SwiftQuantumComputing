@@ -48,7 +48,36 @@ class GeneticConfigurationTests: XCTestCase {
                                                       errorProbability: 0.0))
     }
 
+    func testEmptyPopulationSize_init_throwException() {
+        // Then
+        XCTAssertThrowsError(try GeneticConfiguration(depth: (0..<10),
+                                                      generationCount: 10,
+                                                      populationSize: (0..<0),
+                                                      tournamentSize: 0,
+                                                      mutationProbability: 0.0,
+                                                      threshold: 0.0,
+                                                      errorProbability: 0.0))
+    }
+
+    func testSizeEqualToZero_init_throwException() {
+        // Then
+        XCTAssertThrowsError(try GeneticConfiguration(depth: (0..<10),
+                                                      generationCount: 10,
+                                                      populationSize: (0..<100),
+                                                      tournamentSize: 0,
+                                                      mutationProbability: 0.0,
+                                                      threshold: 0.0,
+                                                      errorProbability: 0.0))
+    }
+
     static var allTests = [
-        ("testEmptyDepth_init_throwException", testEmptyDepth_init_throwException)
+        ("testEmptyDepth_init_throwException",
+         testEmptyDepth_init_throwException),
+        ("testAnyRandomizerAndNegativeDepth_init_throwException",
+         testAnyRandomizerAndNegativeDepth_init_throwException),
+        ("testEmptyPopulationSize_init_throwException",
+         testEmptyPopulationSize_init_throwException),
+        ("testSizeEqualToZero_init_throwException",
+         testSizeEqualToZero_init_throwException)
     ]
 }
