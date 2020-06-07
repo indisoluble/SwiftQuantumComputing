@@ -33,7 +33,9 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
     let oracleCircuit: OracleCircuitFactory.OracleCircuit = ([], 0)
     let geneticCircuit: [GeneticGate] = []
     let circuit = CircuitTestDouble()
-    let useCase = try! GeneticUseCase(truthTable: [], circuitInput: "01", circuitOutput: "11")
+    let useCase = try! GeneticUseCase(emptyTruthTableQubitCount: 1,
+                                      circuitInput: "01",
+                                      circuitOutput: "11")
     let statevectorInput = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
     let statevectorOutput = try! Vector([Complex.zero, Complex.zero, Complex.zero, Complex.one])
 
@@ -47,7 +49,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
 
         // Then
         switch evaluator.evaluateCircuit(geneticCircuit) {
-        case .failure(.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle):
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
             XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
             XCTAssertEqual(factory.makeCircuitCount, 0)
             XCTAssertEqual(circuit.statevectorCount, 0)
@@ -85,7 +87,7 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         circuit.statevectorResult = statevectorOutput
 
         let nonSensicalCircuitOutput = "qwerty"
-        let nonSensicalUseCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0,
+        let nonSensicalUseCase = try! GeneticUseCase(emptyTruthTableQubitCount: 1,
                                                      circuitOutput: nonSensicalCircuitOutput)
         var nonSensicalInputElements = Array(repeating: Complex.zero,
                                              count: Int.pow(2, nonSensicalCircuitOutput.count))

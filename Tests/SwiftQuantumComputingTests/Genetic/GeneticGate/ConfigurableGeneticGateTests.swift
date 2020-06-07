@@ -28,20 +28,6 @@ class ConfigurableGeneticGateTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyGateAndIncorrectTruthTable_makeFixed_throwException() {
-        // Given
-        let gate = ConfigurableGeneticGate(inputs: [0, 1])
-        let useCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "0")
-
-        // Then
-        switch gate.makeFixed(useCase: useCase) {
-        case .failure(.useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle):
-            XCTAssert(true)
-        default:
-            XCTAssert(false)
-        }
-    }
-
     func testAnyGateAndCorrectTruthTable_makeFixed_returnValue() {
         // Given
         let gate = ConfigurableGeneticGate(inputs: [0, 1])
@@ -57,8 +43,6 @@ class ConfigurableGeneticGateTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testAnyGateAndIncorrectTruthTable_makeFixed_throwException",
-         testAnyGateAndIncorrectTruthTable_makeFixed_throwException),
         ("testAnyGateAndCorrectTruthTable_makeFixed_returnValue",
          testAnyGateAndCorrectTruthTable_makeFixed_returnValue)
     ]

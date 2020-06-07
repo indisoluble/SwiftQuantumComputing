@@ -34,8 +34,6 @@ public enum EvolveCircuitError: Error {
     case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: ProbabilitiesError)
     /// Throwed when `GeneticUseCase.Circuit.qubitCount` is not the same in all `useCases`
     case useCasesDoNotSpecifySameCircuitQubitCount
-    /// Throwed if `useCase.TruthTable.qubitCount` is 0
-    case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: GeneticUseCase)
 }
 
 // MARK: - Protocol definition

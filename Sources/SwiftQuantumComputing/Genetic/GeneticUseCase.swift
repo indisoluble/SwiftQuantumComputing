@@ -31,10 +31,13 @@ public struct GeneticUseCase {
 
     /// Errors throwed by `GeneticUseCase.Circuit.init(input:output:)`
     public enum InitError: Error {
-        /// Throwed when `input` and `output` do not have the same size
+        /// Throwed when `GeneticUseCase.Circuit.input` and
+        /// `GeneticUseCase.Circuit.output` do not have the same size
         case circuitInputAndOutputHaveToHaveSameSize
-        /// Throwed if the `input` provided is empty
+        /// Throwed if the `GeneticUseCase.Circuit.input` provided is empty
         case circuitQubitCountHasToBeBiggerThanZero
+        /// Throwed if `GeneticUseCase.TruthTable.qubitCount` is 0
+        case truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
     }
 
     // MARK: - Public types
@@ -50,6 +53,17 @@ public struct GeneticUseCase {
         public let truth: [String]
         /// Total number of qubits for all qubits combinations in `truth`
         public let qubitCount: Int
+
+        // MARK: - Internal init methods
+
+        init(truth: [String], qubitCount: Int) throws {
+            guard qubitCount > 0 else {
+                throw InitError.truthTableQubitCountHasToBeBiggerThanZeroToMakeOracle
+            }
+
+            self.truth = truth
+            self.qubitCount = qubitCount
+        }
     }
 
     /// A `GeneticUseCase` provides enough data to configure a circuit as well as the oracle gate inside the circuit.
@@ -106,7 +120,7 @@ public struct GeneticUseCase {
      */
     public init(truthTable: [String], circuitInput: String? = nil, circuitOutput: String) throws {
         let ttQubitCount = truthTable.reduce(0) { $0 > $1.count ? $0 :  $1.count }
-        let tt = TruthTable(truth: truthTable, qubitCount: ttQubitCount)
+        let tt = try TruthTable(truth: truthTable, qubitCount: ttQubitCount)
 
         try self.init(truthTable: tt, circuitInput: circuitInput, circuitOutput: circuitOutput)
     }
@@ -128,7 +142,7 @@ public struct GeneticUseCase {
     public init(emptyTruthTableQubitCount: Int,
                 circuitInput: String? = nil,
                 circuitOutput: String) throws {
-        let tt = TruthTable(truth: [], qubitCount: emptyTruthTableQubitCount)
+        let tt = try TruthTable(truth: [], qubitCount: emptyTruthTableQubitCount)
 
         try self.init(truthTable: tt, circuitInput: circuitInput, circuitOutput: circuitOutput)
     }
