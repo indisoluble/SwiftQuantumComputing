@@ -32,7 +32,7 @@ final class GeneticCircuitMutationFactoryTestDouble {
     private (set) var lastMakeMutationQubitCount: Int?
     private (set) var lastMakeMutationMaxDepth: Int?
     private (set) var lastMakeMutationGates: [ConfigurableGate]?
-    var makeMutationResult: GeneticCircuitMutation?
+    var makeMutationResult = GeneticCircuitMutationTestDouble()
 }
 
 // MARK: - GeneticCircuitMutationFactory methods
@@ -40,17 +40,13 @@ final class GeneticCircuitMutationFactoryTestDouble {
 extension GeneticCircuitMutationFactoryTestDouble: GeneticCircuitMutationFactory {
     func makeMutation(qubitCount: Int,
                       maxDepth: Int,
-                      gates: [ConfigurableGate]) -> Result<GeneticCircuitMutation, EvolveCircuitError> {
+                      gates: [ConfigurableGate]) -> GeneticCircuitMutation {
         makeMutationCount += 1
 
         lastMakeMutationQubitCount = qubitCount
         lastMakeMutationMaxDepth = maxDepth
         lastMakeMutationGates = gates
 
-        if let makeMutationResult = makeMutationResult {
-            return .success(makeMutationResult)
-        }
-
-        return .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero)
+        return makeMutationResult
     }
 }

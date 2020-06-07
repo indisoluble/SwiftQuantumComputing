@@ -48,7 +48,7 @@ class MainGeneticCircuitEvaluatorTests: XCTestCase {
 
         // Then
         switch evaluator.evaluateCircuit(geneticCircuit) {
-        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
+        case .failure(.useCasesDoNotSpecifySameCircuitQubitCount):
             XCTAssertEqual(firstUseCaseEvaluator.evaluateCircuitCount, 1)
             XCTAssertEqual(secondUseCaseEvaluator.evaluateCircuitCount, 1)
             XCTAssertEqual(thirdUseCaseEvaluator.evaluateCircuitCount, 1)

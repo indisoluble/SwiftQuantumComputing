@@ -34,21 +34,6 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testGeneratorFactoryThatThrowException_makeProducer_throwException() {
-        // Given
-        let producer = MainInitialPopulationProducerFactory(generatorFactory: generatorFactory,
-                                                            evaluatorFactory: evaluatorFactory,
-                                                            score: score)
-
-        // Then
-        switch producer.makeProducer(qubitCount: 0, threshold: 0, useCases: [], gates: []) {
-        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
-            XCTAssert(true)
-        default:
-            XCTAssert(false)
-        }
-    }
-
     func testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer() {
         // Given
         generatorFactory.makeRandomizerResult = GeneticGatesRandomizerTestDouble()
@@ -59,19 +44,10 @@ class MainInitialPopulationProducerFactoryTests: XCTestCase {
                                                             score: score)
 
         // Then
-        var population: InitialPopulationProducer?
-        if case .success(let result) = producer.makeProducer(qubitCount: 0,
-                                                             threshold: 0,
-                                                             useCases: [],
-                                                             gates: []) {
-            population = result
-        }
-        XCTAssertNotNil(population)
+        XCTAssertNotNil(producer.makeProducer(qubitCount: 0, threshold: 0, useCases: [], gates: []))
     }
 
     static var allTests = [
-        ("testGeneratorFactoryThatThrowException_makeProducer_throwException",
-         testGeneratorFactoryThatThrowException_makeProducer_throwException),
         ("testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer",
          testGeneratorAndEvaluatorFactoryThatReturnGenerator_makeProducer_returnProducer)
     ]

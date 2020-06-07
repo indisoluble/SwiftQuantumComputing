@@ -103,30 +103,18 @@ extension MainGeneticFactory: GeneticFactory {
             return .failure(.useCasesDoNotSpecifySameCircuitQubitCount)
         }
 
-        var initialPopulation: InitialPopulationProducer!
-        switch initialPopulationFactory.makeProducer(qubitCount: qubitCount,
-                                                     threshold: config.threshold,
-                                                     useCases: useCases,
-                                                     gates: gates) {
-        case .success(let result):
-            initialPopulation = result
-        case .failure(let error):
-            return .failure(error)
-        }
+        let initialPopulation = initialPopulationFactory.makeProducer(qubitCount: qubitCount,
+                                                                      threshold: config.threshold,
+                                                                      useCases: useCases,
+                                                                      gates: gates)
 
-        var reproduction: GeneticPopulationReproduction!
-        switch reproductionFactory.makeReproduction(qubitCount: qubitCount,
-                                                    tournamentSize: config.tournamentSize,
-                                                    mutationProbability: config.mutationProbability,
-                                                    threshold: config.threshold,
-                                                    maxDepth: maxDepth,
-                                                    useCases: useCases,
-                                                    gates: gates) {
-        case .success(let result):
-            reproduction = result
-        case .failure(let error):
-            return .failure(error)
-        }
+        let reproduction = reproductionFactory.makeReproduction(qubitCount: qubitCount,
+                                                                tournamentSize: config.tournamentSize,
+                                                                mutationProbability: config.mutationProbability,
+                                                                threshold: config.threshold,
+                                                                maxDepth: maxDepth,
+                                                                useCases: useCases,
+                                                                gates: gates)
 
         MainGeneticFactory.logger.info("Producing initial population...")
         var population: [Fitness.EvalCircuit]!

@@ -40,10 +40,8 @@ struct MainGeneticGatesRandomizer {
 
     // MARK: - Internal init methods
 
-    init(qubitCount: Int, factories: [GeneticGateFactory]) throws {
-        guard qubitCount > 0 else {
-            throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
-        }
+    init(qubitCount: Int, factories: [GeneticGateFactory]) {
+        assert(qubitCount > 0, "qubitCount has to be bigger than zero")
 
         let qubits = Array(0..<qubitCount)
 

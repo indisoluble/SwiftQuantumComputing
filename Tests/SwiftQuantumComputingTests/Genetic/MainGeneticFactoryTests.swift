@@ -103,67 +103,6 @@ class MainGeneticFactoryTests: XCTestCase {
         }
     }
 
-    func testInitialPopulationFactoryThrowException_evolveCircuit_throwException() {
-        // Given
-        let configuration = try! GeneticConfiguration(depth: (0..<10),
-                                                      generationCount: 10,
-                                                      populationSize: (1..<100),
-                                                      tournamentSize: 10,
-                                                      mutationProbability: 0.0,
-                                                      threshold: 0.0,
-                                                      errorProbability: 0.0)
-
-        let factory = MainGeneticFactory(initialPopulationFactory: initialPopulationFactory,
-                                         fitness: fitness,
-                                         reproductionFactory: reproductionFactory,
-                                         oracleFactory: oracleFactory)
-
-        // Then
-        switch factory.evolveCircuit(configuration: configuration,
-                                     useCases: [useCase],
-                                     gates: gates) {
-        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
-            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
-            XCTAssertEqual(reproductionFactory.makeReproductionCount, 0)
-            XCTAssertEqual(fitness.fittestCount, 0)
-            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
-        default:
-            XCTAssert(false)
-        }
-    }
-
-    func testReproductionFactoryThrowException_evolveCircuit_throwException() {
-        // Given
-        let configuration = try! GeneticConfiguration(depth: (0..<10),
-                                                      generationCount: 10,
-                                                      populationSize: (1..<100),
-                                                      tournamentSize: 10,
-                                                      mutationProbability: 0.0,
-                                                      threshold: 0.0,
-                                                      errorProbability: 0.0)
-
-        initialPopulationFactory.makeProducerResult = initialPopulation
-
-        let factory = MainGeneticFactory(initialPopulationFactory: initialPopulationFactory,
-                                         fitness: fitness,
-                                         reproductionFactory: reproductionFactory,
-                                         oracleFactory: oracleFactory)
-
-        // Then
-        switch factory.evolveCircuit(configuration: configuration,
-                                     useCases: [useCase],
-                                     gates: gates) {
-        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
-            XCTAssertEqual(initialPopulationFactory.makeProducerCount, 1)
-            XCTAssertEqual(reproductionFactory.makeReproductionCount, 1)
-            XCTAssertEqual(initialPopulation.executeCount, 0)
-            XCTAssertEqual(fitness.fittestCount, 0)
-            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 0)
-        default:
-            XCTAssert(false)
-        }
-    }
-
     func testInitialPopulationThrowException_evolveCircuit_throwException() {
         // Given
         let configuration = try! GeneticConfiguration(depth: (0..<10),
@@ -348,10 +287,6 @@ class MainGeneticFactoryTests: XCTestCase {
          testEmptyUseCases_evolveCircuit_throwException),
         ("testUseCasesWithDifferentCircuitQubitCount_evolveCircuit_throwException",
          testUseCasesWithDifferentCircuitQubitCount_evolveCircuit_throwException),
-        ("testInitialPopulationFactoryThrowException_evolveCircuit_throwException",
-         testInitialPopulationFactoryThrowException_evolveCircuit_throwException),
-        ("testReproductionFactoryThrowException_evolveCircuit_throwException",
-         testReproductionFactoryThrowException_evolveCircuit_throwException),
         ("testInitialPopulationThrowException_evolveCircuit_throwException",
          testInitialPopulationThrowException_evolveCircuit_throwException),
         ("testGenerationCountEqualToZero_evolveCircuit_reproductionIsNotApplied",

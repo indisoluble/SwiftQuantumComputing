@@ -28,11 +28,6 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testQubitCountEqualToZero_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try MainGeneticGatesRandomizer(qubitCount: 0, factories: []))
-    }
-
     func testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList() {
         // Given
         var randomFactoryCount = 0
@@ -193,8 +188,6 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testQubitCountEqualToZero_init_throwException",
-         testQubitCountEqualToZero_init_throwException),
         ("testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList",
          testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList),
         ("testRandomizerWithZeroFactoriesAndPositiveDepth_make_returnEmptyList",
