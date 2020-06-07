@@ -89,7 +89,7 @@ class MainInitialPopulationProducerTests: XCTestCase {
 
         // Then
         switch initialPopulation.execute(size: size, depth: depth) {
-        case .failure(.configurationDepthHasToBeAPositiveNumber):
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
             XCTAssertEqual(randomCount, size)
             XCTAssertEqual(generator.makeCount, size)
             XCTAssertEqual(evaluator.evaluateCircuitCount, 0)

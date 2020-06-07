@@ -25,6 +25,16 @@ import Foundation
 /// Configuration of a genetic algorithm to evolve a quantum circuit
 public struct GeneticConfiguration {
 
+    // MARK: - Public errors
+
+    /// Errors throwed by `GeneticConfiguration.init(depth:generationCount:populationSize:tournamentSize:mutationProbability:threshold:errorProbability:)`
+    public enum InitError: Error {
+        /// Throwed when `GeneticConfiguration.depth` starts with a negative number
+        case depthHasToBeAPositiveNumber
+        /// Throwed when `GeneticConfiguration.depth` is an empty `Range`
+        case depthIsEmpty
+    }
+
     // MARK: - Public properties
 
     /// Number of gates in an evolved circuits will be between the boundaries specified by `depth`
@@ -57,7 +67,15 @@ public struct GeneticConfiguration {
                 tournamentSize: Int,
                 mutationProbability: Double,
                 threshold: Double,
-                errorProbability: Double) {
+                errorProbability: Double) throws {
+        guard let firstDepth = depth.first else {
+            throw InitError.depthIsEmpty
+        }
+
+        guard firstDepth >= 0 else {
+            throw InitError.depthHasToBeAPositiveNumber
+        }
+
         self.depth = depth
         self.generationCount = generationCount
         self.populationSize = populationSize

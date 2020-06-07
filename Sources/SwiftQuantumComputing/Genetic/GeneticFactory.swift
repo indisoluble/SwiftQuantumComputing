@@ -24,10 +24,6 @@ import Foundation
 
 /// Errors throwed by `GeneticFactory.evolveCircuit(configuration:useCases:gates:)`
 public enum EvolveCircuitError: Error {
-    /// Throwed when `GeneticConfiguration.depth` starts with a negative number
-    case configurationDepthHasToBeAPositiveNumber
-    /// Throwed when `GeneticConfiguration.depth` is an empty `Range`
-    case configurationDepthIsEmpty
     /// Throwed when `GeneticConfiguration.populationSize` starts on 0 which is not valid because that would be the
     /// size of the initial population and an empty initial population can not produce new circuits
     case configurationPopulationSizeHasToBeBiggerThanZero

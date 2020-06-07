@@ -95,9 +95,7 @@ extension MainGeneticFactory: GeneticFactory {
         }
         let maxSize = config.populationSize.last!
 
-        guard let maxDepth = config.depth.last else {
-            return .failure(.configurationDepthIsEmpty)
-        }
+        let maxDepth = config.depth.last!
 
         guard let firstCase = useCases.first else {
             return .failure(.useCaseListIsEmpty)
