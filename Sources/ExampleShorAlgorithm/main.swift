@@ -34,8 +34,11 @@ while factors.isEmpty {
     gates += try! Gate.makeModularExponentiation(base: base,
                                                  modulus: input,
                                                  exponent: (n..<qubitCount).reversed(),
-                                                 inputs: (0..<n).reversed())
-    gates += [try! Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(), inverse: true)]
+                                                 inputs: (0..<n).reversed()).get()
+    gates += [
+        try! Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(),
+                                              inverse: true).get()
+    ]
 
     let circuit = factory.makeCircuit(gates: gates)
     var diff = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
@@ -44,7 +47,7 @@ while factors.isEmpty {
     print("Run quantum circuit with \(qubitCount) qubits & \(circuit.gates.count) gates")
     start = DispatchTime.now()
     let probs = try! circuit.groupedProbabilities(byQubits: (0..<n).reversed(),
-                                                  summarizedByQubits: (n..<qubitCount).reversed())
+                                                  summarizedByQubits: (n..<qubitCount).reversed()).get()
     diff = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
     print("Execution completed in \(diff) seconds (\(diff / 60.0) minutes)")
 
@@ -58,7 +61,8 @@ while factors.isEmpty {
     let Q = Int(Foundation.pow(Double(2), Double(2 * n)))
     let value = try! Rational(numerator: y, denominator: Q)
     let limit = try! Rational(numerator: 1, denominator: 2 * Q)
-    let aprox = try! ContinuedFractionsSolver.findApproximation(of: value, differenceBelowOrEqual: limit)
+    let aprox = try! ContinuedFractionsSolver.findApproximation(of: value,
+                                                                differenceBelowOrEqual: limit).get()
 
     let period = aprox.denominator
     print("Validating candidate period: \(period)")
