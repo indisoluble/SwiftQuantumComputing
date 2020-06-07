@@ -26,8 +26,6 @@ import Foundation
 public enum EvolveCircuitError: Error {
     /// Throwed if `gate` requires more qubits than `GeneticUseCase.Circuit.qubitCount` specifies
     case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: ConfigurableGate)
-    /// Throwed if `useCase.Circuit.output` is not composed exclusively of 0's and 1's
-    case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: GeneticUseCase)
     /// Throwed if `useCases` is an empty list
     case useCaseListIsEmpty
     /// Throwed when a circuit evolved to solve `useCase `throwed `error` while measuring the probabilities of all possible outputs

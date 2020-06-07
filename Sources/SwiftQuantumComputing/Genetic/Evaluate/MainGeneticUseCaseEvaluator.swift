@@ -29,6 +29,7 @@ struct MainGeneticUseCaseEvaluator {
     private let useCase: GeneticUseCase
     private let factory: CircuitFactory
     private let oracleFactory: OracleCircuitFactory
+    private let probabilityIndex: Int
 
     // MARK: - Internal init methods
 
@@ -38,6 +39,7 @@ struct MainGeneticUseCaseEvaluator {
         self.useCase = useCase
         self.factory = factory
         self.oracleFactory = oracleFactory
+        self.probabilityIndex = Int(useCase.circuit.output, radix: 2)!
     }
 }
 
@@ -64,10 +66,6 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
             return .failure(.useCaseMeasurementThrowedError(useCase: useCase, error: error))
         }
 
-        guard let index = Int(useCase.circuit.output, radix: 2) else {
-            return .failure(.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: useCase))
-        }
-
-        return .success(abs(1 - probabilities[index]))
+        return .success(abs(1 - probabilities[probabilityIndex]))
     }
 }

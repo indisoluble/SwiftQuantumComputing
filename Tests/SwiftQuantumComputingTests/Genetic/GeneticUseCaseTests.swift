@@ -128,6 +128,19 @@ class GeneticUseCaseTests: XCTestCase {
                                                 circuitOutput: output))
     }
 
+    func testNonSensicalCircuitOutput_init_throwException() {
+        // Given
+        let truthTableQubitCount = 10
+
+        let input = "000000"
+        let output = "qwerty"
+
+        // Then
+        XCTAssertThrowsError(try GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
+                                                circuitInput: input,
+                                                circuitOutput: output))
+    }
+
     static var allTests = [
         ("testEmptyTruthTable_init_throwException",
          testEmptyTruthTable_init_throwException),
@@ -142,6 +155,8 @@ class GeneticUseCaseTests: XCTestCase {
         ("testEmptyCircuitInputAndOutput_init_throwException",
          testEmptyCircuitInputAndOutput_init_throwException),
         ("testCircuitInputDifferentSizeThanOutput_init_throwException",
-         testCircuitInputDifferentSizeThanOutput_init_throwException)
+         testCircuitInputDifferentSizeThanOutput_init_throwException),
+        ("testNonSensicalCircuitOutput_init_throwException",
+         testNonSensicalCircuitOutput_init_throwException)
     ]
 }

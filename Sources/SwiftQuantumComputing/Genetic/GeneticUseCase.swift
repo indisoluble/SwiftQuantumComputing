@@ -34,6 +34,8 @@ public struct GeneticUseCase {
         /// Throwed when `GeneticUseCase.Circuit.input` and
         /// `GeneticUseCase.Circuit.output` do not have the same size
         case circuitInputAndOutputHaveToHaveSameSize
+        /// Throwed if `GeneticUseCase.Circuit.output` is not composed exclusively of 0's and 1's
+        case circuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
         /// Throwed if the `GeneticUseCase.Circuit.input` provided is empty
         case circuitQubitCountHasToBeBiggerThanZero
         /// Throwed if `GeneticUseCase.TruthTable.qubitCount` is 0
@@ -88,6 +90,10 @@ public struct GeneticUseCase {
 
             guard input.count > 0 else {
                 throw InitError.circuitQubitCountHasToBeBiggerThanZero
+            }
+
+            guard Int(output, radix: 2) != nil else {
+                throw InitError.circuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes
             }
 
             self.input = input

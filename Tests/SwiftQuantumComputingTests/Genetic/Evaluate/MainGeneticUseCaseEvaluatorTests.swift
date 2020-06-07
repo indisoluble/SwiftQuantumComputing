@@ -80,36 +80,6 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
         }
     }
 
-    func testUseCaseWithNonSensicalOutput_evaluateCircuit_throwException() {
-        // Given
-        oracleFactory.makeOracleCircuitResult = oracleCircuit
-        factory.makeCircuitResult = circuit
-        circuit.statevectorResult = statevectorOutput
-
-        let nonSensicalCircuitOutput = "qwerty"
-        let nonSensicalUseCase = try! GeneticUseCase(emptyTruthTableQubitCount: 1,
-                                                     circuitOutput: nonSensicalCircuitOutput)
-        var nonSensicalInputElements = Array(repeating: Complex.zero,
-                                             count: Int.pow(2, nonSensicalCircuitOutput.count))
-        nonSensicalInputElements[0] = Complex.one
-        let nonSensicalStatevectorInput = try! Vector(nonSensicalInputElements)
-
-        let evaluator = MainGeneticUseCaseEvaluator(useCase: nonSensicalUseCase,
-                                                    factory: factory,
-                                                    oracleFactory: oracleFactory)
-
-        // Then
-        switch evaluator.evaluateCircuit(geneticCircuit) {
-        case .failure(.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes):
-            XCTAssertEqual(oracleFactory.makeOracleCircuitCount, 1)
-            XCTAssertEqual(factory.makeCircuitCount, 1)
-            XCTAssertEqual(circuit.statevectorCount, 1)
-            XCTAssertEqual(circuit.lastStatevectorInitialStatevector, nonSensicalStatevectorInput)
-            default:
-                XCTAssert(false)
-        }
-    }
-
     func testEvaluatorWithAllParamsValid_evaluateCircuit_returnExpectedErrorProbability() {
         // Given
         oracleFactory.makeOracleCircuitResult = oracleCircuit
@@ -136,8 +106,6 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
          testOracleFactoryThatThrowException_evaluateCircuit_throwException),
         ("testCircuitThatThrowException_evaluateCircuit_throwException",
          testCircuitThatThrowException_evaluateCircuit_throwException),
-        ("testUseCaseWithNonSensicalOutput_evaluateCircuit_throwException",
-         testUseCaseWithNonSensicalOutput_evaluateCircuit_throwException),
         ("testEvaluatorWithAllParamsValid_evaluateCircuit_returnExpectedErrorProbability",
          testEvaluatorWithAllParamsValid_evaluateCircuit_returnExpectedErrorProbability)
     ]
