@@ -68,32 +68,6 @@ class MainGeneticPopulationReproductionFactoryTests: XCTestCase {
         }
     }
 
-    func testCrossoverFactoryThrowException_makeReproduction_throwException() {
-        // Given
-        evaluatorFactory.makeEvaluatorResult = GeneticCircuitEvaluatorTestDouble()
-        mutationFactory.makeMutationResult = mutation
-
-        let factory = MainGeneticPopulationReproductionFactory(evaluatorFactory: evaluatorFactory,
-                                                               crossoverFactory: crossoverFactory,
-                                                               mutationFactory: mutationFactory)
-
-        // Then
-        switch factory.makeReproduction(qubitCount: qubitCount,
-                                        tournamentSize: tournamentSize,
-                                        mutationProbability: mutationProbability,
-                                        threshold: threshold,
-                                        maxDepth: maxDepth,
-                                        useCases: useCases,
-                                        gates: gates) {
-        case .failure(.configurationTournamentSizeHasToBeBiggerThanZero):
-            XCTAssertEqual(evaluatorFactory.makeEvaluatorCount, 1)
-            XCTAssertEqual(mutationFactory.makeMutationCount, 1)
-            XCTAssertEqual(crossoverFactory.makeCrossoverCount, 1)
-        default:
-            XCTAssert(false)
-        }
-    }
-
     func testAllFActoriesReturnValues_makeReproduction_returnValue() {
         // Given
         evaluatorFactory.makeEvaluatorResult = GeneticCircuitEvaluatorTestDouble()
@@ -123,8 +97,6 @@ class MainGeneticPopulationReproductionFactoryTests: XCTestCase {
     static var allTests = [
         ("testMutationFactoryThrowException_makeReproduction_throwException",
          testMutationFactoryThrowException_makeReproduction_throwException),
-        ("testCrossoverFactoryThrowException_makeReproduction_throwException",
-         testCrossoverFactoryThrowException_makeReproduction_throwException),
         ("testAllFActoriesReturnValues_makeReproduction_returnValue",
          testAllFActoriesReturnValues_makeReproduction_returnValue)
     ]

@@ -35,41 +35,18 @@ class MainGeneticPopulationCrossoverFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testTournamentSizeEqualToZero_makeCrossover_throwException() {
+    func testTournamentSizeBiggerThanZero_makeCrossover_returnValue() {
         // Given
         let factory = MainGeneticPopulationCrossoverFactory(fitness: fitness,
                                                             crossover: crossover,
                                                             score: score)
 
         // Then
-        switch factory.makeCrossover(tournamentSize: 0, maxDepth: 0, evaluator: evaluator) {
-        case .failure(.configurationTournamentSizeHasToBeBiggerThanZero):
-            XCTAssert(true)
-        default:
-            XCTAssert(false)
-        }
-    }
-
-    func testTournamentSizeBiggerThanZero_makeCrossover_throwException() {
-        // Given
-        let factory = MainGeneticPopulationCrossoverFactory(fitness: fitness,
-                                                            crossover: crossover,
-                                                            score: score)
-
-        // Then
-        var crossover: GeneticPopulationCrossover?
-        if case .success(let result) = factory.makeCrossover(tournamentSize: 1,
-                                                             maxDepth: 0,
-                                                             evaluator: evaluator) {
-            crossover = result
-        }
-        XCTAssertNotNil(crossover)
+        XCTAssertNotNil(factory.makeCrossover(tournamentSize: 1, maxDepth: 0, evaluator: evaluator))
     }
 
     static var allTests = [
-        ("testTournamentSizeEqualToZero_makeCrossover_throwException",
-         testTournamentSizeEqualToZero_makeCrossover_throwException),
-        ("testTournamentSizeBiggerThanZero_makeCrossover_throwException",
-         testTournamentSizeBiggerThanZero_makeCrossover_throwException)
+        ("testTournamentSizeBiggerThanZero_makeCrossover_returnValue",
+         testTournamentSizeBiggerThanZero_makeCrossover_returnValue)
     ]
 }

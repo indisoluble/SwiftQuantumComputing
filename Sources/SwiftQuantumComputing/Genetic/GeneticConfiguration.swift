@@ -38,6 +38,9 @@ public struct GeneticConfiguration {
         case populationSizeHasToBeBiggerThanZero
         /// Throwed when `GeneticConfiguration.populationSize` is an empty `Range`
         case populationSizeIsEmpty
+        /// Throwed when `GeneticConfiguration.tournamentSize` is 0 which is not valid because a reproduction operation
+        /// requires at least 1 circuit in the tournament
+        case tournamentSizeHasToBeBiggerThanZero
     }
 
     // MARK: - Public properties
@@ -87,6 +90,10 @@ public struct GeneticConfiguration {
 
         guard initSize > 0 else {
             throw InitError.populationSizeHasToBeBiggerThanZero
+        }
+
+        guard tournamentSize > 0 else {
+            throw InitError.tournamentSizeHasToBeBiggerThanZero
         }
 
         self.depth = depth

@@ -49,17 +49,11 @@ extension MainGeneticPopulationMutationFactory: GeneticPopulationMutationFactory
                       gates: [ConfigurableGate]) -> Result<GeneticPopulationMutation, EvolveCircuitError> {
         switch factory.makeMutation(qubitCount: qubitCount, maxDepth: maxDepth, gates: gates) {
         case .success(let mutation):
-            do {
-                return .success(try MainGeneticPopulationMutation(tournamentSize:tournamentSize,
-                                                                  fitness: fitness,
-                                                                  mutation: mutation,
-                                                                  evaluator: evaluator,
-                                                                  score: score))
-            } catch let error as EvolveCircuitError {
-                return .failure(error)
-            } catch {
-                fatalError("Unexpected error: \(error).")
-            }
+            return .success(MainGeneticPopulationMutation(tournamentSize:tournamentSize,
+                                                          fitness: fitness,
+                                                          mutation: mutation,
+                                                          evaluator: evaluator,
+                                                          score: score))
         case .failure(let error):
             return .failure(error)
         }

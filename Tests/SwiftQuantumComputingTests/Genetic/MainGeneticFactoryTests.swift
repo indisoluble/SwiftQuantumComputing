@@ -48,7 +48,7 @@ class MainGeneticFactoryTests: XCTestCase {
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
                                                       populationSize: (1..<100),
-                                                      tournamentSize: 0,
+                                                      tournamentSize: 10,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
                                                       errorProbability: 0.0)
@@ -75,7 +75,7 @@ class MainGeneticFactoryTests: XCTestCase {
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
                                                       populationSize: (1..<100),
-                                                      tournamentSize: 0,
+                                                      tournamentSize: 10,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
                                                       errorProbability: 0.0)
@@ -108,7 +108,7 @@ class MainGeneticFactoryTests: XCTestCase {
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
                                                       populationSize: (1..<100),
-                                                      tournamentSize: 0,
+                                                      tournamentSize: 10,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
                                                       errorProbability: 0.0)
@@ -137,7 +137,7 @@ class MainGeneticFactoryTests: XCTestCase {
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
                                                       populationSize: (1..<100),
-                                                      tournamentSize: 0,
+                                                      tournamentSize: 10,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
                                                       errorProbability: 0.0)
@@ -169,7 +169,7 @@ class MainGeneticFactoryTests: XCTestCase {
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
                                                       populationSize: (1..<100),
-                                                      tournamentSize: 0,
+                                                      tournamentSize: 10,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
                                                       errorProbability: 0.0)
@@ -203,7 +203,7 @@ class MainGeneticFactoryTests: XCTestCase {
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 0,
                                                       populationSize: (1..<100),
-                                                      tournamentSize: 0,
+                                                      tournamentSize: 10,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
                                                       errorProbability: 0.0)
@@ -239,7 +239,7 @@ class MainGeneticFactoryTests: XCTestCase {
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
                                                       populationSize: (1..<100),
-                                                      tournamentSize: 0,
+                                                      tournamentSize: 10,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
                                                       errorProbability: 0.0)
@@ -276,7 +276,7 @@ class MainGeneticFactoryTests: XCTestCase {
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 0,
                                                       populationSize: (1..<2),
-                                                      tournamentSize: 0,
+                                                      tournamentSize: 10,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
                                                       errorProbability: 0.0)
@@ -312,7 +312,7 @@ class MainGeneticFactoryTests: XCTestCase {
         let configuration = try! GeneticConfiguration(depth: (0..<10),
                                                       generationCount: 10,
                                                       populationSize: (1..<100),
-                                                      tournamentSize: 0,
+                                                      tournamentSize: 10,
                                                       mutationProbability: 0.0,
                                                       threshold: 0.0,
                                                       errorProbability: 0.0)

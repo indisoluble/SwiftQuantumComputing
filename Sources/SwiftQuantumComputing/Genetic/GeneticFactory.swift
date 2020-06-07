@@ -24,9 +24,6 @@ import Foundation
 
 /// Errors throwed by `GeneticFactory.evolveCircuit(configuration:useCases:gates:)`
 public enum EvolveCircuitError: Error {
-    /// Throwed when `GeneticConfiguration.tournamentSize` is 0 which is not valid because a reproduction operation
-    /// requires at least 1 circuit in the tournament
-    case configurationTournamentSizeHasToBeBiggerThanZero
     /// Throwed if `gate` requires more qubits than `GeneticUseCase.Circuit.qubitCount` specifies
     case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: ConfigurableGate)
     /// Throwed if `useCase.Circuit.output` is not composed exclusively of 0's and 1's

@@ -59,16 +59,13 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                                             evaluator: evaluator,
                                             gates: gates) {
         case .success(let mutation):
-            switch crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
-                                                  maxDepth: maxDepth,
-                                                  evaluator: evaluator) {
-            case .success(let crossover):
-                return .success(MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
-                                                                  mutation: mutation,
-                                                                  crossover: crossover))
-            case .failure(let error):
-                return .failure(error)
-            }
+            let crossover = crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
+                                                           maxDepth: maxDepth,
+                                                           evaluator: evaluator)
+
+            return .success(MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
+                                                              mutation: mutation,
+                                                              crossover: crossover))
         case .failure(let error):
             return .failure(error)
         }
