@@ -39,22 +39,6 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testTournamentSizeEqualToZero_init_throwException() {
-        // Given
-        let randomElements: MainGeneticPopulationCrossover.RandomElements = { _, _ in
-            return [(0, [])]
-        }
-
-        // Then
-        XCTAssertThrowsError(try MainGeneticPopulationCrossover(tournamentSize: 0,
-                                                                maxDepth: maxDepth,
-                                                                fitness: fitness,
-                                                                crossover: crossover,
-                                                                evaluator: evaluator,
-                                                                score: score,
-                                                                randomElements: randomElements))
-    }
-
     func testFitnessReturnNil_applied_returnEmptyList() {
         // Given
         var randomElementsCount = 0
@@ -64,13 +48,13 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
             return [(0, [])]
         }
 
-        let populationCrossover = try! MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
-                                                                      maxDepth: maxDepth,
-                                                                      fitness: fitness,
-                                                                      crossover: crossover,
-                                                                      evaluator: evaluator,
-                                                                      score: score,
-                                                                      randomElements: randomElements)
+        let populationCrossover = MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
+                                                                 maxDepth: maxDepth,
+                                                                 fitness: fitness,
+                                                                 crossover: crossover,
+                                                                 evaluator: evaluator,
+                                                                 score: score,
+                                                                 randomElements: randomElements)
 
         // Given
         let result = try? populationCrossover.applied(to: evalCircuits).get()
@@ -99,13 +83,13 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
             return [(0, [])]
         }
 
-        let populationCrossover = try! MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
-                                                                      maxDepth: maxDepth,
-                                                                      fitness: fitness,
-                                                                      crossover: crossover,
-                                                                      evaluator: evaluator,
-                                                                      score: score,
-                                                                      randomElements: randomElements)
+        let populationCrossover = MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
+                                                                 maxDepth: maxDepth,
+                                                                 fitness: fitness,
+                                                                 crossover: crossover,
+                                                                 evaluator: evaluator,
+                                                                 score: score,
+                                                                 randomElements: randomElements)
 
         // When
         let result = try? populationCrossover.applied(to: evalCircuits).get()
@@ -135,13 +119,13 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
             return [(0, [])]
         }
 
-        let populationCrossover = try! MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
-                                                                      maxDepth: maxDepth,
-                                                                      fitness: fitness,
-                                                                      crossover: crossover,
-                                                                      evaluator: evaluator,
-                                                                      score: score,
-                                                                      randomElements: randomElements)
+        let populationCrossover = MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
+                                                                 maxDepth: maxDepth,
+                                                                 fitness: fitness,
+                                                                 crossover: crossover,
+                                                                 evaluator: evaluator,
+                                                                 score: score,
+                                                                 randomElements: randomElements)
 
         // When
         let result = try? populationCrossover.applied(to: evalCircuits).get()
@@ -190,13 +174,13 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
             return [(0, [])]
         }
 
-        let populationCrossover = try! MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
-                                                                      maxDepth: maxDepth,
-                                                                      fitness: fitness,
-                                                                      crossover: crossover,
-                                                                      evaluator: evaluator,
-                                                                      score: score,
-                                                                      randomElements: randomElements)
+        let populationCrossover = MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
+                                                                 maxDepth: maxDepth,
+                                                                 fitness: fitness,
+                                                                 crossover: crossover,
+                                                                 evaluator: evaluator,
+                                                                 score: score,
+                                                                 randomElements: randomElements)
 
         // When
         let result = try? populationCrossover.applied(to: evalCircuits).get()
@@ -243,13 +227,13 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
             return [(0, [])]
         }
 
-        let populationCrossover = try! MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
-                                                                      maxDepth: maxDepth,
-                                                                      fitness: fitness,
-                                                                      crossover: crossover,
-                                                                      evaluator: evaluator,
-                                                                      score: score,
-                                                                      randomElements: randomElements)
+        let populationCrossover = MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
+                                                                 maxDepth: maxDepth,
+                                                                 fitness: fitness,
+                                                                 crossover: crossover,
+                                                                 evaluator: evaluator,
+                                                                 score: score,
+                                                                 randomElements: randomElements)
 
         // Then
         switch populationCrossover.applied(to: evalCircuits) {
@@ -280,13 +264,13 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
             return [(0, [])]
         }
 
-        let populationCrossover = try! MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
-                                                                      maxDepth: maxDepth,
-                                                                      fitness: fitness,
-                                                                      crossover: crossover,
-                                                                      evaluator: evaluator,
-                                                                      score: score,
-                                                                      randomElements: randomElements)
+        let populationCrossover = MainGeneticPopulationCrossover(tournamentSize: tournamentSize,
+                                                                 maxDepth: maxDepth,
+                                                                 fitness: fitness,
+                                                                 crossover: crossover,
+                                                                 evaluator: evaluator,
+                                                                 score: score,
+                                                                 randomElements: randomElements)
 
         // When
         let result = try? populationCrossover.applied(to: evalCircuits).get()
@@ -320,8 +304,6 @@ class MainGeneticPopulationCrossoverTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testTournamentSizeEqualToZero_init_throwException",
-         testTournamentSizeEqualToZero_init_throwException),
         ("testFitnessReturnNil_applied_returnEmptyList",
          testFitnessReturnNil_applied_returnEmptyList),
         ("testCrossoverThatReturnCrossesBiggerThanAllowed_applied_returnEmptyList",

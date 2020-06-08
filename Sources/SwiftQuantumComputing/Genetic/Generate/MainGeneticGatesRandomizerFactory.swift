@@ -27,17 +27,10 @@ struct MainGeneticGatesRandomizerFactory {}
 // MARK: - GeneticGatesRandomizerFactory methods
 
 extension MainGeneticGatesRandomizerFactory: GeneticGatesRandomizerFactory {
-    func makeRandomizer(qubitCount: Int,
-                        gates: [ConfigurableGate]) -> Result<GeneticGatesRandomizer, EvolveCircuitError> {
+    func makeRandomizer(qubitCount: Int, gates: [ConfigurableGate]) -> GeneticGatesRandomizer {
         var factories: [GeneticGateFactory] = gates.map { SimpleGeneticGateFactory(gate: $0) }
         factories.append(ConfigurableGeneticGateFactory())
 
-        do {
-            return .success(try MainGeneticGatesRandomizer(qubitCount: qubitCount, factories: factories))
-        } catch let error as EvolveCircuitError {
-            return .failure(error)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+        return MainGeneticGatesRandomizer(qubitCount: qubitCount, factories: factories)
     }
 }

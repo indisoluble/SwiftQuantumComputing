@@ -33,19 +33,6 @@ class MainGeneticCircuitMutationFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testRandomizerFactoryThatThrowException_makeMuration_throwException() {
-        // Given
-        let factory = MainGeneticCircuitMutationFactory(factory: randomizeractory)
-
-        // Then
-        switch factory.makeMutation(qubitCount: 0, maxDepth: 0, gates: []) {
-        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
-            XCTAssert(true)
-        default:
-            XCTAssert(false)
-        }
-    }
-
     func testRandomizerFactoryThatReturnRamdomizer_makeMuration_returnMutation() {
         // Given
         randomizeractory.makeRandomizerResult = randomizer
@@ -53,16 +40,10 @@ class MainGeneticCircuitMutationFactoryTests: XCTestCase {
         let factory = MainGeneticCircuitMutationFactory(factory: randomizeractory)
 
         // Then
-        var mutation: GeneticCircuitMutation?
-        if case .success(let result) = factory.makeMutation(qubitCount: 0, maxDepth: 0, gates: []) {
-            mutation = result
-        }
-        XCTAssertNotNil(mutation)
+        XCTAssertNotNil(factory.makeMutation(qubitCount: 0, maxDepth: 0, gates: []))
     }
 
     static var allTests = [
-        ("testRandomizerFactoryThatThrowException_makeMuration_throwException",
-         testRandomizerFactoryThatThrowException_makeMuration_throwException),
         ("testRandomizerFactoryThatReturnRamdomizer_makeMuration_returnMutation",
          testRandomizerFactoryThatReturnRamdomizer_makeMuration_returnMutation)
     ]

@@ -37,37 +37,6 @@ class MainInitialPopulationProducerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testSizeEqualToZero_execute_throwException() {
-        // Given
-        let size = 0
-        let depth = (0..<3)
-
-        var randomCount = 0
-        let random: MainInitialPopulationProducer.Random = { [queue] _ in
-            queue.sync {
-                randomCount += 1
-            }
-
-            return 0
-        }
-
-        let initialPopulation = MainInitialPopulationProducer(generator: generator,
-                                                              evaluator: evaluator,
-                                                              score: score,
-                                                              random: random)
-
-        // Then
-        switch initialPopulation.execute(size: size, depth: depth) {
-        case .failure(.configurationPopulationSizeHasToBeBiggerThanZero):
-            XCTAssertEqual(randomCount, 0)
-            XCTAssertEqual(generator.makeCount, 0)
-            XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
-            XCTAssertEqual(score.calculateCount, 0)
-        default:
-            XCTAssert(false)
-        }
-    }
-
     func testGeneratorThrowException_execute_throwException() {
         // Given
         let size = 3
@@ -89,7 +58,7 @@ class MainInitialPopulationProducerTests: XCTestCase {
 
         // Then
         switch initialPopulation.execute(size: size, depth: depth) {
-        case .failure(.configurationDepthHasToBeAPositiveNumber):
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
             XCTAssertEqual(randomCount, size)
             XCTAssertEqual(generator.makeCount, size)
             XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
@@ -166,8 +135,6 @@ class MainInitialPopulationProducerTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testSizeEqualToZero_execute_throwException",
-         testSizeEqualToZero_execute_throwException),
         ("testGeneratorThrowException_execute_throwException",
          testGeneratorThrowException_execute_throwException),
         ("testEvaluatorThrowException_execute_throwException",

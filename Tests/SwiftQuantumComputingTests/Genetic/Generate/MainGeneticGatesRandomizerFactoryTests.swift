@@ -33,28 +33,12 @@ class MainGeneticGatesRandomizerFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testQubitCountEqualToZero_makeRandomizer_throwException() {
-        // Then
-        switch factory.makeRandomizer(qubitCount: 0, gates: gates) {
-        case .failure(.useCaseCircuitQubitCountHasToBeBiggerThanZero):
-            XCTAssert(true)
-        default:
-            XCTAssert(false)
-        }
-    }
-
     func testQubitCountBiggerThanZero_makeRandomizer_returnValue() {
         // Then
-        var randomizer: GeneticGatesRandomizer?
-        if case .success(let result) = factory.makeRandomizer(qubitCount: 1, gates: gates) {
-            randomizer = result
-        }
-        XCTAssertNotNil(randomizer)
+        XCTAssertNotNil(factory.makeRandomizer(qubitCount: 1, gates: gates))
     }
 
     static var allTests = [
-        ("testQubitCountEqualToZero_makeRandomizer_throwException",
-         testQubitCountEqualToZero_makeRandomizer_throwException),
         ("testQubitCountBiggerThanZero_makeRandomizer_returnValue",
          testQubitCountBiggerThanZero_makeRandomizer_returnValue)
     ]

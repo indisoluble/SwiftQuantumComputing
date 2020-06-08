@@ -25,5 +25,5 @@ import Foundation
 protocol GeneticPopulationCrossoverFactory {
     func makeCrossover(tournamentSize: Int,
                        maxDepth: Int,
-                       evaluator: GeneticCircuitEvaluator) -> Result<GeneticPopulationCrossover, EvolveCircuitError>
+                       evaluator: GeneticCircuitEvaluator) -> GeneticPopulationCrossover
 }

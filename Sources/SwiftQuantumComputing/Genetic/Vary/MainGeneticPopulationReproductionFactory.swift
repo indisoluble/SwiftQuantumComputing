@@ -50,27 +50,20 @@ extension MainGeneticPopulationReproductionFactory: GeneticPopulationReproductio
                           threshold: Double,
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
-                          gates: [ConfigurableGate]) -> Result<GeneticPopulationReproduction, EvolveCircuitError> {
+                          gates: [ConfigurableGate]) -> GeneticPopulationReproduction {
         let evaluator = evaluatorFactory.makeEvaluator(threshold: threshold, useCases: useCases)
 
-        switch mutationFactory.makeMutation(qubitCount: qubitCount,
-                                            tournamentSize: tournamentSize,
-                                            maxDepth: maxDepth,
-                                            evaluator: evaluator,
-                                            gates: gates) {
-        case .success(let mutation):
-            switch crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
-                                                  maxDepth: maxDepth,
-                                                  evaluator: evaluator) {
-            case .success(let crossover):
-                return .success(MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
-                                                                  mutation: mutation,
-                                                                  crossover: crossover))
-            case .failure(let error):
-                return .failure(error)
-            }
-        case .failure(let error):
-            return .failure(error)
-        }
+        let mutation = mutationFactory.makeMutation(qubitCount: qubitCount,
+                                                    tournamentSize: tournamentSize,
+                                                    maxDepth: maxDepth,
+                                                    evaluator: evaluator,
+                                                    gates: gates)
+        let crossover = crossoverFactory.makeCrossover(tournamentSize: tournamentSize,
+                                                       maxDepth: maxDepth,
+                                                       evaluator: evaluator)
+
+        return MainGeneticPopulationReproduction(mutationProbability: mutationProbability,
+                                                 mutation: mutation,
+                                                 crossover: crossover)
     }
 }

@@ -40,10 +40,8 @@ struct MainGeneticGatesRandomizer {
 
     // MARK: - Internal init methods
 
-    init(qubitCount: Int, factories: [GeneticGateFactory]) throws {
-        guard qubitCount > 0 else {
-            throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
-        }
+    init(qubitCount: Int, factories: [GeneticGateFactory]) {
+        assert(qubitCount > 0, "qubitCount has to be bigger than zero")
 
         let qubits = Array(0..<qubitCount)
 
@@ -61,9 +59,7 @@ struct MainGeneticGatesRandomizer {
 
 extension MainGeneticGatesRandomizer: GeneticGatesRandomizer {
     func make(depth: Int) -> Result<[GeneticGate], EvolveCircuitError> {
-        guard depth >= 0 else {
-            return .failure(.configurationDepthHasToBeAPositiveNumber)
-        }
+        assert(depth >= 0, "depth has to be a positive number")
 
         var result: [GeneticGate] = []
 

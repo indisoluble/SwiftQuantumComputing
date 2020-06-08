@@ -31,7 +31,7 @@ final class GeneticUseCaseEvaluatorTestDouble {
     private (set) var evaluateCircuitCount = 0
     private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
     var evaluateCircuitResult: Double?
-    var evaluateCircuitError = EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+    var evaluateCircuitError = EvolveCircuitError.useCasesDoNotSpecifySameCircuitQubitCount
 }
 
 // MARK: - GeneticUseCaseEvaluator methods

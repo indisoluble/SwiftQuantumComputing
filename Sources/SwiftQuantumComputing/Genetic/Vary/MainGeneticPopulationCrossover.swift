@@ -50,10 +50,8 @@ struct MainGeneticPopulationCrossover {
          crossover: GeneticCircuitCrossover,
          evaluator: GeneticCircuitEvaluator,
          score: GeneticCircuitScore,
-         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) throws {
-        guard tournamentSize > 0 else {
-            throw EvolveCircuitError.configurationTournamentSizeHasToBeBiggerThanZero
-        }
+         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) {
+        assert(tournamentSize > 0, "tournamentSize has to be bigger than zero")
 
         self.tournamentSize = tournamentSize
         self.maxDepth = maxDepth

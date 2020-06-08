@@ -31,7 +31,7 @@ final class GeneticGatesRandomizerTestDouble {
     private (set) var makeCount = 0
     private (set) var lastMakeDepth: Int?
     var makeResult: [GeneticGate]?
-    var makeError = EvolveCircuitError.configurationDepthHasToBeAPositiveNumber
+    var makeError = EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: ConfigurableGateTestDouble())
 
     // MARK: - Private properties
 
