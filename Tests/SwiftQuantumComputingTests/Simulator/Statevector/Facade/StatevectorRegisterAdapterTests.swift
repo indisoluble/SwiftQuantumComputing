@@ -52,6 +52,18 @@ class StatevectorRegisterAdapterTests: XCTestCase {
                                                             transformation: transformation))
     }
 
+    func testAnyVector_measure_returnValue() {
+        // Given
+        let adapter = try! StatevectorRegisterAdapter(vector: oneQubitZeroVector,
+                                                      transformation: transformation)
+
+        // When
+        let result = adapter.measure()
+
+        // Then
+        XCTAssertEqual(result, oneQubitZeroVector)
+    }
+
     func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException() {
         // Given
         let addSquareModulusNotEqualToOneVector = try! Vector([Complex.one, Complex.one])
@@ -102,6 +114,8 @@ class StatevectorRegisterAdapterTests: XCTestCase {
     static var allTests = [
         ("testVectorWhichCountIsNotAPowerOfTwo_init_throwException",
          testVectorWhichCountIsNotAPowerOfTwo_init_throwException),
+        ("testAnyVector_measure_returnValue",
+         testAnyVector_measure_returnValue),
         ("testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException",
          testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException),
         ("testValidVector_statevector_returnValue",

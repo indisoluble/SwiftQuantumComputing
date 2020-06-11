@@ -28,6 +28,9 @@ final class StatevectorRegisterTestDouble {
 
     // MARK: - Internal properties
 
+    private (set) var measureCount = 0
+    var measureResult = try! Vector([Complex.zero, Complex.one])
+
     private (set) var statevectorCount = 0
     var statevectorResult: Vector?
     var statevectorError = StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne
@@ -39,6 +42,12 @@ final class StatevectorRegisterTestDouble {
 }
 
 extension StatevectorRegisterTestDouble: StatevectorRegister {
+    func measure() -> Vector {
+        measureCount += 1
+
+        return measureResult
+    }
+
     func statevector() -> Result<Vector, StatevectorMeasurementError> {
         statevectorCount += 1
 

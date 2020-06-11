@@ -29,6 +29,7 @@ enum StatevectorMeasurementError: Error {
 // MARK: - Protocol definition
 
 protocol StatevectorRegister {
+    func measure() -> Vector
     func statevector() -> Result<Vector, StatevectorMeasurementError>
     func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError>
 }
