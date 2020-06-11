@@ -31,4 +31,5 @@ enum MakeRegisterError: Error {
 
 protocol StatevectorRegisterFactory {
     func makeRegister(state: Vector) -> Result<StatevectorRegister, MakeRegisterError>
+    func makeRegister(state: CircuitStatevector) -> StatevectorRegister
 }

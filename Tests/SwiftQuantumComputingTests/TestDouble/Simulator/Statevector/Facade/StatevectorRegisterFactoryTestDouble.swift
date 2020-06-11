@@ -32,6 +32,10 @@ final class StatevectorRegisterFactoryTestDouble {
     private (set) var lastMakeRegisterState: Vector?
     var makeRegisterResult: StatevectorRegister?
     var makeRegisterError = MakeRegisterError.stateCountHasToBeAPowerOfTwo
+
+    private (set) var makeRegisterStateCount = 0
+    private (set) var lastMakeRegisterStateState: CircuitStatevector?
+    var makeRegisterStateResult = StatevectorRegisterTestDouble()
 }
 
 // MARK: - StatevectorRegisterFactory methods
@@ -47,5 +51,13 @@ extension StatevectorRegisterFactoryTestDouble: StatevectorRegisterFactory {
         }
 
         return .failure(makeRegisterError)
+    }
+
+    func makeRegister(state: CircuitStatevector) -> StatevectorRegister {
+        makeRegisterStateCount += 1
+
+        lastMakeRegisterStateState = state
+
+        return makeRegisterStateResult
     }
 }

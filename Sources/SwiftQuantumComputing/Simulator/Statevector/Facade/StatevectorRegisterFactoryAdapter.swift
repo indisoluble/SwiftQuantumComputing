@@ -55,4 +55,9 @@ extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
             return .failure(.stateAdditionOfSquareModulusIsNotEqualToOne)
         }
     }
+
+    func makeRegister(state: CircuitStatevector) -> StatevectorRegister {
+        return try! StatevectorRegisterAdapter(vector: state.statevector,
+                                               transformation: transformation)
+    }
 }

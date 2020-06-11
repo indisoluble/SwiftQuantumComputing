@@ -76,12 +76,30 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
         XCTAssertNotNil(register)
     }
 
+    func testAnyCircuitStateVector_makeRegister_returnValue() {
+        // Given
+        let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
+
+        let vector = try! Vector([
+            Complex.zero, Complex.zero, Complex.zero, Complex.one
+        ])
+        let statevector = try! CircuitStatevectorAdapter(statevector: vector)
+
+        // When
+        let register = adapter.makeRegister(state: statevector)
+
+        // Then
+        XCTAssertEqual(try! register.statevector().get(), vector)
+    }
+
     static var allTests = [
         ("testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError",
          testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError),
         ("testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError",
          testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError),
         ("testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue",
-         testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue)
+         testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue),
+        ("testAnyCircuitStateVector_makeRegister_returnValue",
+         testAnyCircuitStateVector_makeRegister_returnValue)
     ]
 }
