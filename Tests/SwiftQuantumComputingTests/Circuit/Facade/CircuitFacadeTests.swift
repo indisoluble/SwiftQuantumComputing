@@ -29,6 +29,7 @@ class CircuitFacadeTests: XCTestCase {
     // MARK: - Properties
 
     let initialStatevector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
+    let initialCircuitStatevector = CircuitStatevectorTestDouble()
     let qubitCount = 2
     let gates = [Gate.hadamard(target: 0), Gate.not(target: 0)]
     let unitarySimulator = UnitarySimulatorTestDouble()
@@ -50,12 +51,34 @@ class CircuitFacadeTests: XCTestCase {
 
         // Then
         let lastApplyInitialStatevector = statevectorSimulator.lastApplyInitialStatevector
-        let lastStatevectorGates = statevectorSimulator.lastApplyCircuit as? [Gate]
+        let lastStatevectorGates = statevectorSimulator.lastApplyCircuit
 
         XCTAssertEqual(statevectorSimulator.applyCount, 1)
         XCTAssertEqual(lastApplyInitialStatevector, initialStatevector)
-        XCTAssertEqual(lastStatevectorGates, gates)
+        XCTAssertEqual(lastStatevectorGates as? [Gate], gates)
         XCTAssertEqual(result, expectedResult)
+    }
+
+    func testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator() {
+        // Given
+        let facade = CircuitFacade(gates: gates,
+                                   unitarySimulator: unitarySimulator,
+                                   statevectorSimulator: statevectorSimulator)
+
+        let expectedResult = CircuitStatevectorTestDouble()
+        statevectorSimulator.applyStateResult = expectedResult
+
+        // When
+        let result = try? facade.statevector(withInitialStatevector: initialCircuitStatevector).get()
+
+        // Then
+        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialStatevector
+        let lastStatevectorGates = statevectorSimulator.lastApplyStateCircuit
+
+        XCTAssertEqual(statevectorSimulator.applyStateCount, 1)
+        XCTAssertTrue(lastApplyInitialStatevector as AnyObject? === initialCircuitStatevector)
+        XCTAssertEqual(lastStatevectorGates as? [Gate], gates)
+        XCTAssertTrue(result as AnyObject? === expectedResult)
     }
 
     func testAnyCircuit_unitary_forwardCallToUnitarySimulator() {
@@ -72,17 +95,19 @@ class CircuitFacadeTests: XCTestCase {
 
         // Then
         let lastUnitaryQubitCount = unitarySimulator.lastUnitaryQubitCount
-        let lastUnitaryGates = unitarySimulator.lastUnitaryCircuit as? [Gate]
+        let lastUnitaryGates = unitarySimulator.lastUnitaryCircuit
 
         XCTAssertEqual(unitarySimulator.unitaryCount, 1)
         XCTAssertEqual(lastUnitaryQubitCount, qubitCount)
-        XCTAssertEqual(lastUnitaryGates, gates)
+        XCTAssertEqual(lastUnitaryGates as? [Gate], gates)
         XCTAssertEqual(result, expectedResult)
     }
 
     static var allTests = [
         ("testAnyCircuit_statevector_forwardCallToStatevectorSimulator",
          testAnyCircuit_statevector_forwardCallToStatevectorSimulator),
+        ("testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator",
+         testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator),
         ("testAnyCircuit_unitary_forwardCallToUnitarySimulator",
          testAnyCircuit_unitary_forwardCallToUnitarySimulator)
     ]

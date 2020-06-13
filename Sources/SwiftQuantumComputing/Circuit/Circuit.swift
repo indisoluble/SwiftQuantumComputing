@@ -96,4 +96,14 @@ public protocol Circuit {
      `StatevectorWithInitialStatevectorError` error.
      */
     func statevector(withInitialStatevector initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError>
+
+    /**
+     Applies `gates` to `initialStatevector` to produce a new statevector.
+
+     - Parameter initialStatevector: Used to initialized circuit to given state.
+
+     - Returns: Another `CircuitStatevector` instance, result of applying `gates` to `initialStatevector`. Or
+     `StatevectorWithInitialStatevectorError` error.
+     */
+    func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorWithInitialStatevectorError>
 }

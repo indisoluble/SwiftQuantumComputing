@@ -22,6 +22,8 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol CircuitStatevector {
+/// A quantum circuit state
+public protocol CircuitStatevector {
+    /// State of a quantum circuit expressed as a `Vector` of `Complex` numbers
     var statevector: Vector { get }
 }
