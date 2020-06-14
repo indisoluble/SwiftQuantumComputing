@@ -44,6 +44,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Circuit_SummarizedProbabilitiesTests.allTests),
         testCase(Circuit_UnitaryTests.allTests),
         testCase(CircuitStatevectorFactory_BitsTests.allTests),
+        testCase(CircuitStatevector_ProbabilitiesTests.allTests),
         testCase(ComplexTests.allTests),
         testCase(Complex_ConjugatedTests.allTests),
         testCase(Complex_OverloadedOperatorsTests.allTests),
