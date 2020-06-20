@@ -124,10 +124,11 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                         exponent: exponent,
                                                         inputs: inputs).get()
         let circuit = MainCircuitFactory(statevectorConfiguration: .fullMatrix).makeCircuit(gates: gates)
+        let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: "11001").get()
 
         // When
-        let probs = try! circuit.summarizedProbabilities(byQubits: inputs,
-                                                         withInitialBits: "11001").get()
+        let statevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+        let probs = try! statevector.summarizedProbabilities(byQubits: inputs).get()
 
         // Then
         XCTAssertEqual(probs, ["011" : 1.0])
@@ -140,10 +141,11 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                         exponent: exponent,
                                                         inputs: inputs).get()
         let circuit = MainCircuitFactory(statevectorConfiguration: .rowByRow).makeCircuit(gates: gates)
+        let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: "11001").get()
 
         // When
-        let probs = try! circuit.summarizedProbabilities(byQubits: inputs,
-                                                         withInitialBits: "11001").get()
+        let statevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+        let probs = try! statevector.summarizedProbabilities(byQubits: inputs).get()
 
         // Then
         XCTAssertEqual(probs, ["011" : 1.0])
@@ -156,10 +158,11 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                         exponent: exponent,
                                                         inputs: inputs).get()
         let circuit = MainCircuitFactory(statevectorConfiguration: .elementByElement).makeCircuit(gates: gates)
+        let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: "11001").get()
 
         // When
-        let probs = try! circuit.summarizedProbabilities(byQubits: inputs,
-                                                         withInitialBits: "11001").get()
+        let statevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+        let probs = try! statevector.summarizedProbabilities(byQubits: inputs).get()
 
         // Then
         XCTAssertEqual(probs, ["011" : 1.0])

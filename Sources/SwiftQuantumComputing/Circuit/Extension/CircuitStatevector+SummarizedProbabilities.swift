@@ -20,13 +20,33 @@
 
 import Foundation
 
+// MARK: - Errors
+
+/// Errors throwed by `CircuitStatevector.summarizedProbabilities(byQubits:)`.
+public enum SummarizedProbabilitiesError: Error, Equatable {
+    /// Throwed if `Circuit.probabilities(withInitialBits:)` throws `ProbabilitiesError`
+    case probabilitiesThrowedError(error: ProbabilitiesError)
+    /// Throwed when `qubits` references a qubit that does not exist in the circuit
+    case qubitsAreNotInsideBounds
+    /// Throwed when `qubits` contains repeated values
+    case qubitsAreNotUnique
+    /// Throwed when `qubits` does not specify any qubit, i.e. it is empty
+    case qubitsCanNotBeAnEmptyList
+}
+
 // MARK: - Main body
 
 extension CircuitStatevector {
 
-    // MARK: - Internal methods
+    // MARK: - Public methods
 
-    func summarizedProbabilities() -> [String: Double] {
+    /**
+     Returns the probability of each possible combination of qubits bigger than 0.
+
+     - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
+     with probability 0 are not included.
+     */
+    public func summarizedProbabilities() -> [String: Double] {
         let probs = probabilities()
         let bitCount = Int.log2(probs.count)
 
@@ -40,7 +60,15 @@ extension CircuitStatevector {
         return result
     }
 
-    func summarizedProbabilities(byQubits qubits: [Int]) -> Result<[String: Double], SummarizedProbabilitiesError> {
+    /**
+     Returns the probability of each possible combination of qubits in `qubits` bigger than 0.
+
+     - Parameter qubits: List of qubits for which we want to know the probability of each combination.
+
+     - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
+     with probability 0 are not included. Or `SummarizedProbabilitiesError` error.
+     */
+    public func summarizedProbabilities(byQubits qubits: [Int]) -> Result<[String: Double], SummarizedProbabilitiesError> {
         switch groupedProbabilities(byQubits: qubits) {
         case .success(let result):
             return .success(result.mapValues { $0.probability })
@@ -55,11 +83,27 @@ extension CircuitStatevector {
         }
     }
 
-    func summarizedProbabilities(byQubits qubits: Range<Int>) -> Result<[String: Double], SummarizedProbabilitiesError> {
+    /**
+     Returns the probability of each possible combination of qubits in `qubits` bigger than 0.
+
+     - Parameter qubits: Range of qubits for which we want to know the probability of each combination.
+
+     - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
+     with probability 0 are not included. Or `SummarizedProbabilitiesError` error.
+     */
+    public func summarizedProbabilities(byQubits qubits: Range<Int>) -> Result<[String: Double], SummarizedProbabilitiesError> {
         return summarizedProbabilities(byQubits: Array(qubits))
     }
 
-    func summarizedProbabilities(byQubits qubits: ClosedRange<Int>) -> Result<[String: Double], SummarizedProbabilitiesError> {
+    /**
+     Returns the probability of each possible combination of qubits in `qubits` bigger than 0.
+
+     - Parameter qubits: Range of qubits for which we want to know the probability of each combination.
+
+     - Returns: A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
+     with probability 0 are not included. Or `SummarizedProbabilitiesError` error.
+     */
+    public func summarizedProbabilities(byQubits qubits: ClosedRange<Int>) -> Result<[String: Double], SummarizedProbabilitiesError> {
         return summarizedProbabilities(byQubits: Array(qubits))
     }
 }
