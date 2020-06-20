@@ -29,7 +29,7 @@ public enum EvolveCircuitError: Error {
     /// Throwed if `useCases` is an empty list
     case useCaseListIsEmpty
     /// Throwed when a circuit evolved to solve `useCase `throwed `error` while measuring the probabilities of all possible outputs
-    case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: ProbabilitiesError)
+    case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: StatevectorWithInitialStatevectorError)
     /// Throwed when `GeneticUseCase.Circuit.qubitCount` is not the same in all `useCases`
     case useCasesDoNotSpecifySameCircuitQubitCount
 }

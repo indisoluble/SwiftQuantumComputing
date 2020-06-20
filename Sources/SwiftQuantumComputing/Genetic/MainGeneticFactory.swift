@@ -40,8 +40,10 @@ public struct MainGeneticFactory {
     /// Initialize a `MainGeneticFactory` instance
     public init(circuitFactory: CircuitFactory = MainCircuitFactory()) {
         let generatorFactory = MainGeneticGatesRandomizerFactory()
+        let statevectorFactory = MainCircuitStatevectorFactory()
         let oracleFactory = MainOracleCircuitFactory()
-        let useCaseEvaluatorFactory = MainGeneticUseCaseEvaluatorFactory(factory: circuitFactory,
+        let useCaseEvaluatorFactory = MainGeneticUseCaseEvaluatorFactory(circuitFactory: circuitFactory,
+                                                                         statevectorFactory: statevectorFactory,
                                                                          oracleFactory:oracleFactory)
         let evaluatorFactory = MainGeneticCircuitEvaluatorFactory(factory: useCaseEvaluatorFactory)
         let score = MainGeneticCircuitScore()

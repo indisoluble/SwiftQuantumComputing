@@ -24,9 +24,15 @@ import Foundation
 
 extension CircuitStatevector {
 
-    // MARK: - Internal methods
+    // MARK: - Public methods
 
-    func probabilities() -> [Double] {
+    /**
+     Returns the probabilities of each possible combinations of qubits.
+
+     - Returns: A list in which each position represents a qubit combination and the value in a position the probability of
+     such combination.
+     */
+    public func probabilities() -> [Double] {
         return statevector.map { $0.squaredModulus }
     }
 }
