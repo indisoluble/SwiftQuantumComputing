@@ -122,7 +122,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: Circuit.GroupedProb] = [
+            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
                 "0": (2.0 / 3.0, ["0": 1.0]),
                 "1": (1.0 / 3.0, ["0": 1.0])
             ]
@@ -143,7 +143,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: Circuit.GroupedProb] = [
+            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
                 "0": (1.0, ["0": 2.0 / 3.0, "1": 1.0 / 3.0])
             ]
             assertEqualGroupedProbabilities(result, expectedResult)
@@ -162,7 +162,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: Circuit.GroupedProb] = [
+            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
                 "0": (2.0 / 3.0, [:]),
                 "1": (1.0 / 3.0, [:])
             ]
@@ -184,7 +184,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: Circuit.GroupedProb] = [
+            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
                 "0": (1.0, ["0": 0.7, "1": 0.3])
             ]
             assertEqualGroupedProbabilities(result, expectedResult)
@@ -205,7 +205,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: Circuit.GroupedProb] = [
+            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
                 "0": (1.0, ["0": 1.0])
             ]
             assertEqualGroupedProbabilities(result, expectedResult)

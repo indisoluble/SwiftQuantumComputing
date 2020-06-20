@@ -24,8 +24,6 @@ import Foundation
 
 /// Errors throwed by `CircuitStatevector.summarizedProbabilities(byQubits:)`.
 public enum SummarizedProbabilitiesError: Error, Equatable {
-    /// Throwed if `Circuit.probabilities(withInitialBits:)` throws `ProbabilitiesError`
-    case probabilitiesThrowedError(error: ProbabilitiesError)
     /// Throwed when `qubits` references a qubit that does not exist in the circuit
     case qubitsAreNotInsideBounds
     /// Throwed when `qubits` contains repeated values
@@ -78,8 +76,6 @@ extension CircuitStatevector {
             return .failure(.qubitsAreNotInsideBounds)
         case .failure(.qubitsAreNotUnique):
             return .failure(.qubitsAreNotUnique)
-        case .failure(.probabilitiesThrowedError(let error)):
-            return .failure(.probabilitiesThrowedError(error: error))
         }
     }
 
