@@ -37,24 +37,8 @@ extension CircuitStatevectorFactory {
             return .failure(.bitsAreNotAStringComposedOnlyOfZerosAndOnes)
         }
 
-        let state = Self.makeState(value: value, qubitCount: bits.count)
+        let state = try! Vector.makeState(value: value, qubitCount: bits.count).get()
 
         return .success(try! makeStatevector(vector: state).get())
-    }
-}
-
-// MARK: - Private body
-
-private extension CircuitStatevectorFactory {
-
-    // MARK: - Private class methods
-
-    static func makeState(value: Int, qubitCount: Int) -> Vector {
-        let count = Int.pow(2, qubitCount)
-
-        var elements = Array(repeating: Complex.zero, count: count)
-        elements[value] = Complex.one
-
-        return try! Vector(elements)
     }
 }
