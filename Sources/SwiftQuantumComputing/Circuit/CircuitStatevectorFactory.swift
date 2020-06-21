@@ -22,13 +22,26 @@ import Foundation
 
 // MARK: - Errors
 
-enum MakeStatevectorError: Error {
+/// Errors throwed by `CircuitStatevectorFactory.makeStatevector(vector:)`
+public enum MakeStatevectorError: Error {
+    /// Throwed when `vector` is not valid
     case vectorAdditionOfSquareModulusIsNotEqualToOne
+    /// Throwed when the length of `vector` is not a power of 2. An `vector` represents all possible qubit combinations,
+    /// this is (qubitCount)^2
     case vectorCountHasToBeAPowerOfTwo
 }
 
 // MARK: - Protocol definition
 
-protocol CircuitStatevectorFactory {
+/// Factory to build `CircuitStatevector` instances
+public protocol CircuitStatevectorFactory {
+
+    /**
+     Builds `CircuitStatevector` instances.
+
+     - Parameter vector: State of a quantum circuit expressed as a `Vector`.
+
+     - Returns: A `CircuitStatevector` instance. Or `MakeStatevectorError` error.
+     */
     func makeStatevector(vector: Vector) -> Result<CircuitStatevector, MakeStatevectorError>
 }
