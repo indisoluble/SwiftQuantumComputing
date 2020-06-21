@@ -54,14 +54,6 @@ extension StatevectorRegisterAdapter: StatevectorRegister {
         return vector
     }
 
-    func statevector() -> Result<Vector, StatevectorMeasurementError> {
-        guard vector.isAdditionOfSquareModulusEqualToOne() else {
-            return .failure(.statevectorAdditionOfSquareModulusIsNotEqualToOne)
-        }
-
-        return .success(vector)
-    }
-
     func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
         switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
         case .success((let matrix, let inputs)):

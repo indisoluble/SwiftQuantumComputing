@@ -36,11 +36,6 @@ final class CircuitTestDouble {
     var unitaryResult: Matrix?
     var unitaryError = UnitaryError.circuitCanNotBeAnEmptyList
 
-    private (set) var statevectorCount = 0
-    private (set) var lastStatevectorInitialStatevector: Vector?
-    var statevectorResult: Vector?
-    var statevectorError = StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
-
     private (set) var circuitStatevectorCount = 0
     private (set) var lastCircuitStatevectorInitialStatevector: CircuitStatevector?
     var circuitStatevectorResult: CircuitStatevector?
@@ -66,18 +61,6 @@ extension CircuitTestDouble: Circuit {
         }
 
         return .failure(unitaryError)
-    }
-
-    func statevector(withInitialStatevector initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError> {
-        statevectorCount += 1
-
-        lastStatevectorInitialStatevector = initialStatevector
-
-        if let statevectorResult = statevectorResult {
-            return .success(statevectorResult)
-        }
-
-        return .failure(statevectorError)
     }
 
     func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorWithInitialStatevectorError> {

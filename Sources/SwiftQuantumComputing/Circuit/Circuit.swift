@@ -51,12 +51,6 @@ public enum GateError: Error {
 public enum StatevectorWithInitialStatevectorError: Error, Equatable {
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
-    /// Throwed when `initialStatevector` is not valid or the resulting state vector lost too much precision
-    /// after applying `gates`
-    case initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
-    /// Throwed when the length of `initialStatevector` is not a power of 2. An `initialStatevector` represents
-    /// all possible qubit combinations, tnis is (qubitCount)^2
-    case initialStatevectorCountHasToBeAPowerOfTwo
     /// Throwed when the resulting state vector lost too much precision after applying `gates`
     case resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
@@ -86,16 +80,6 @@ public protocol Circuit {
      - Returns: Unitary matrix that represents entire list of `gates`. Or `UnitaryError` error.
      */
     func unitary(withQubitCount qubitCount: Int) -> Result<Matrix, UnitaryError>
-
-    /**
-     Applies `gates` to `initialStatevector` to produce a new statevector.
-
-     - Parameter initialStatevector: Used to initialized circuit to given state.
-
-     - Returns: Another statevector, result of applying `gates` to `initialStatevector`. Or
-     `StatevectorWithInitialStatevectorError` error.
-     */
-    func statevector(withInitialStatevector initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError>
 
     /**
      Applies `gates` to `initialStatevector` to produce a new statevector.

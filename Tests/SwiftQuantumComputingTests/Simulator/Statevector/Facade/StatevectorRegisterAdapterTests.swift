@@ -64,32 +64,6 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         XCTAssertEqual(result, oneQubitZeroVector)
     }
 
-    func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException() {
-        // Given
-        let addSquareModulusNotEqualToOneVector = try! Vector([Complex.one, Complex.one])
-        let adapter = try! StatevectorRegisterAdapter(vector: addSquareModulusNotEqualToOneVector,
-                                                      transformation: transformation)
-
-        // Then
-        var error: StatevectorMeasurementError?
-        if case .failure(let e) = adapter.statevector() {
-            error = e
-        }
-        XCTAssertEqual(error, .statevectorAdditionOfSquareModulusIsNotEqualToOne)
-    }
-
-    func testValidVector_statevector_returnValue() {
-        // Given
-        let adapter = try! StatevectorRegisterAdapter(vector: oneQubitZeroVector,
-                                                      transformation: transformation)
-
-        // When
-        let result = try? adapter.statevector().get()
-
-        // Then
-        XCTAssertEqual(result, oneQubitZeroVector)
-    }
-
     func testValidVector_applying_forwardToTransformation() {
         // Given
         let adapter = try! StatevectorRegisterAdapter(vector: threeQubitZeroVector,
@@ -108,7 +82,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         XCTAssertEqual(transformation.applyCount, 1)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
         XCTAssertEqual(transformation.lastApplyInputs, controls + [target])
-        XCTAssertEqual(try? result?.statevector().get(), threeQubitFourVector)
+        XCTAssertEqual(result?.measure(), threeQubitFourVector)
     }
 
     static var allTests = [
@@ -116,10 +90,6 @@ class StatevectorRegisterAdapterTests: XCTestCase {
          testVectorWhichCountIsNotAPowerOfTwo_init_throwException),
         ("testAnyVector_measure_returnValue",
          testAnyVector_measure_returnValue),
-        ("testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException",
-         testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException),
-        ("testValidVector_statevector_returnValue",
-         testValidVector_statevector_returnValue),
         ("testValidVector_applying_forwardToTransformation",
          testValidVector_applying_forwardToTransformation)
     ]

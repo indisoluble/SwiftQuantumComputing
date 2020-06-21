@@ -28,7 +28,6 @@ class CircuitFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
-    let initialStatevector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
     let initialCircuitStatevector = CircuitStatevectorTestDouble()
     let qubitCount = 2
     let gates = [Gate.hadamard(target: 0), Gate.not(target: 0)]
@@ -36,28 +35,6 @@ class CircuitFacadeTests: XCTestCase {
     let statevectorSimulator = StatevectorSimulatorTestDouble()
 
     // MARK: - Tests
-
-    func testAnyCircuit_statevector_forwardCallToStatevectorSimulator() {
-        // Given
-        let facade = CircuitFacade(gates: gates,
-                                   unitarySimulator: unitarySimulator,
-                                   statevectorSimulator: statevectorSimulator)
-
-        let expectedResult = try! Vector([Complex.zero, Complex.one])
-        statevectorSimulator.applyResult = expectedResult
-
-        // When
-        let result = try? facade.statevector(withInitialStatevector: initialStatevector).get()
-
-        // Then
-        let lastApplyInitialStatevector = statevectorSimulator.lastApplyInitialStatevector
-        let lastStatevectorGates = statevectorSimulator.lastApplyCircuit
-
-        XCTAssertEqual(statevectorSimulator.applyCount, 1)
-        XCTAssertEqual(lastApplyInitialStatevector, initialStatevector)
-        XCTAssertEqual(lastStatevectorGates as? [Gate], gates)
-        XCTAssertEqual(result, expectedResult)
-    }
 
     func testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator() {
         // Given
@@ -104,8 +81,6 @@ class CircuitFacadeTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testAnyCircuit_statevector_forwardCallToStatevectorSimulator",
-         testAnyCircuit_statevector_forwardCallToStatevectorSimulator),
         ("testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator",
          testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator),
         ("testAnyCircuit_unitary_forwardCallToUnitarySimulator",

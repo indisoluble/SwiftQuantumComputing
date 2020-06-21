@@ -46,39 +46,6 @@ struct StatevectorSimulatorFacade {
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [SimulatorGate & SimulatorRawGate],
-               to initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError> {
-        StatevectorSimulatorFacade.logger.debug("Producing initial register...")
-        var register: StatevectorRegister!
-        switch registerFactory.makeRegister(state: initialStatevector) {
-        case .success(let reg):
-            register = reg
-        case .failure(.stateCountHasToBeAPowerOfTwo):
-            return .failure(.initialStatevectorCountHasToBeAPowerOfTwo)
-        case .failure(.stateAdditionOfSquareModulusIsNotEqualToOne):
-            return .failure(.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne)
-        }
-
-        for (index, gate) in circuit.enumerated() {
-            StatevectorSimulatorFacade.logger.debug("Applying gate: \(index + 1) of \(circuit.count)...")
-
-            switch register.applying(gate) {
-            case .success(let nextRegister):
-                register = nextRegister
-            case .failure(let error):
-                return .failure(.gateThrowedError(gate: gate.gate, error: error))
-            }
-        }
-
-        StatevectorSimulatorFacade.logger.debug("Getting measurement...")
-        switch register.statevector() {
-        case .success(let vector):
-            return .success(vector)
-        case .failure(.statevectorAdditionOfSquareModulusIsNotEqualToOne):
-            return .failure(.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
-        }
-    }
-
-    func apply(circuit: [SimulatorGate & SimulatorRawGate],
                to initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorWithInitialStatevectorError> {
         StatevectorSimulatorFacade.logger.debug("Producing initial register...")
         var register = registerFactory.makeRegister(state: initialStatevector)

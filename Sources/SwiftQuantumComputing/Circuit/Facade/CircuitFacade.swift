@@ -59,10 +59,6 @@ extension CircuitFacade: Circuit {
         return unitarySimulator.unitary(with: gates, qubitCount: qubitCount)
     }
 
-    func statevector(withInitialStatevector initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError> {
-        return statevectorSimulator.apply(circuit: gates, to: initialStatevector)
-    }
-
     func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorWithInitialStatevectorError> {
         return statevectorSimulator.apply(circuit: gates, to: initialStatevector)
     }

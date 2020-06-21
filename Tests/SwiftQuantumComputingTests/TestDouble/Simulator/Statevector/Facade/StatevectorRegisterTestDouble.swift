@@ -31,10 +31,6 @@ final class StatevectorRegisterTestDouble {
     private (set) var measureCount = 0
     var measureResult = try! Vector([Complex.zero, Complex.one])
 
-    private (set) var statevectorCount = 0
-    var statevectorResult: Vector?
-    var statevectorError = StatevectorMeasurementError.statevectorAdditionOfSquareModulusIsNotEqualToOne
-
     private (set) var simulatorApplyingCount = 0
     private (set) var lastSimulatorApplyingGate: SimulatorGate?
     var simulatorApplyingResult: StatevectorRegisterTestDouble?
@@ -46,16 +42,6 @@ extension StatevectorRegisterTestDouble: StatevectorRegister {
         measureCount += 1
 
         return measureResult
-    }
-
-    func statevector() -> Result<Vector, StatevectorMeasurementError> {
-        statevectorCount += 1
-
-        if let statevectorResult = statevectorResult {
-            return .success(statevectorResult)
-        }
-
-        return .failure(statevectorError)
     }
 
     func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
