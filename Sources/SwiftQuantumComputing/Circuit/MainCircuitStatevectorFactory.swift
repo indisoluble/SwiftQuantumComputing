@@ -22,12 +22,19 @@ import Foundation
 
 // MARK: - Main body
 
-struct MainCircuitStatevectorFactory {}
+/// Conforms `CircuitStatevectorFactory`. Use to create new `CircuitStatevector` instances
+public struct MainCircuitStatevectorFactory {
+
+    /// Initialize a `MainCircuitStatevectorFactory` instance
+    public init() {}
+}
 
 // MARK: - CircuitStatevectorFactory methods
 
 extension MainCircuitStatevectorFactory: CircuitStatevectorFactory {
-    func makeStatevector(vector: Vector) -> Result<CircuitStatevector, MakeStatevectorError> {
+
+    /// Check `CircuitStatevectorFactory.makeStatevector(vector:)`
+    public func makeStatevector(vector: Vector) -> Result<CircuitStatevector, MakeStatevectorError> {
         do {
             return .success(try CircuitStatevectorAdapter(statevector: vector))
         } catch CircuitStatevectorAdapter.InitError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
