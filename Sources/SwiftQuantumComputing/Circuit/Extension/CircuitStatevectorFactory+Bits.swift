@@ -22,7 +22,9 @@ import Foundation
 
 // MARK: - Errors
 
-enum MakeStatevectorBitsError: Error {
+/// Errors throwed by `CircuitStatevectorFactory.makeStatevector(bits:)`.
+public enum MakeStatevectorBitsError: Error {
+    /// Throwed if `bits` is not composed exclusively of 0's and 1's
     case bitsAreNotAStringComposedOnlyOfZerosAndOnes
 }
 
@@ -30,9 +32,16 @@ enum MakeStatevectorBitsError: Error {
 
 extension CircuitStatevectorFactory {
 
-    // MARK: - Internal methods
+    // MARK: - Public methods
 
-    func makeStatevector(bits: String) -> Result<CircuitStatevector, MakeStatevectorBitsError> {
+    /**
+     Builds `CircuitStatevector` instances.
+
+     - Parameter bits: String composed only of 0's & 1's.
+
+     - Returns: A `CircuitStatevector` instance. Or `MakeStatevectorBitsError` error.
+     */
+    public func makeStatevector(bits: String) -> Result<CircuitStatevector, MakeStatevectorBitsError> {
         guard let value = Int(bits, radix: 2) else {
             return .failure(.bitsAreNotAStringComposedOnlyOfZerosAndOnes)
         }
