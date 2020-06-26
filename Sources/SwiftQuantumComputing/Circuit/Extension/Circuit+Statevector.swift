@@ -32,9 +32,9 @@ extension Circuit {
      - Parameter factory: Used to produce the initial statevector set to 0.
 
      - Returns: Another `CircuitStatevector` instance, result of applying `gates` to 0. Or
-     `StatevectorWithInitialStatevectorError` error.
+     `StatevectorError` error.
      */
-    public func statevector(withFactory factory: CircuitStatevectorFactory = MainCircuitStatevectorFactory()) -> Result<CircuitStatevector, StatevectorWithInitialStatevectorError> {
+    public func statevector(withFactory factory: CircuitStatevectorFactory = MainCircuitStatevectorFactory()) -> Result<CircuitStatevector, StatevectorError> {
         let initialState = try! Vector.makeState(value: 0, qubitCount: gates.qubitCount()).get()
         let initialStatevector = try! factory.makeStatevector(vector: initialState).get()
 

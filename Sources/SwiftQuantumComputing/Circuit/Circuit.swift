@@ -48,7 +48,7 @@ public enum GateError: Error {
 }
 
 /// Errors throwed by `Circuit.statevector(withInitialStatevector:)`
-public enum StatevectorWithInitialStatevectorError: Error, Equatable {
+public enum StatevectorError: Error, Equatable {
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
     /// Throwed when the resulting state vector lost too much precision after applying `gates`
@@ -87,7 +87,7 @@ public protocol Circuit {
      - Parameter initialStatevector: Used to initialized circuit to given state.
 
      - Returns: Another `CircuitStatevector` instance, result of applying `gates` to `initialStatevector`. Or
-     `StatevectorWithInitialStatevectorError` error.
+     `StatevectorError` error.
      */
-    func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorWithInitialStatevectorError>
+    func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError>
 }

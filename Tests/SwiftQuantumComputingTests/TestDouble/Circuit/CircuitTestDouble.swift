@@ -39,7 +39,7 @@ final class CircuitTestDouble {
     private (set) var circuitStatevectorCount = 0
     private (set) var lastCircuitStatevectorInitialStatevector: CircuitStatevector?
     var circuitStatevectorResult: CircuitStatevector?
-    var circuitStatevectorError = StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
+    var circuitStatevectorError = StatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - Circuit methods
@@ -63,7 +63,7 @@ extension CircuitTestDouble: Circuit {
         return .failure(unitaryError)
     }
 
-    func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorWithInitialStatevectorError> {
+    func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
         circuitStatevectorCount += 1
 
         lastCircuitStatevectorInitialStatevector = initialStatevector

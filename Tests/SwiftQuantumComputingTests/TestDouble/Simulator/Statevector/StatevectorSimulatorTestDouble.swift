@@ -32,14 +32,14 @@ final class StatevectorSimulatorTestDouble {
     private (set) var lastApplyStateCircuit: [SimulatorGate & SimulatorRawGate]?
     private (set) var lastApplyStateInitialStatevector: CircuitStatevector?
     var applyStateResult: CircuitStatevector?
-    var applyStateError = StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
+    var applyStateError = StatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorTestDouble: StatevectorSimulator {
     func apply(circuit: [SimulatorGate & SimulatorRawGate],
-               to initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorWithInitialStatevectorError> {
+               to initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
         applyStateCount += 1
 
         lastApplyStateInitialStatevector = initialStatevector
@@ -52,3 +52,4 @@ extension StatevectorSimulatorTestDouble: StatevectorSimulator {
         return .failure(applyStateError)
     }
 }
+

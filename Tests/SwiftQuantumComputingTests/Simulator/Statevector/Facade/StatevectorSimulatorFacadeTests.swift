@@ -73,7 +73,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         registerFactory.makeRegisterStateResult = register
 
         // Then
-        var error: StatevectorWithInitialStatevectorError?
+        var error: StatevectorError?
         if case .failure(let e) = simulator.apply(circuit: [firstGate],
                                                   to: initialCircuitStatevector) {
             error = e
@@ -133,7 +133,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         statevectorFactory.makeStatevectorError = .vectorAdditionOfSquareModulusIsNotEqualToOne
 
         // Then
-        var error: StatevectorWithInitialStatevectorError?
+        var error: StatevectorError?
         if case .failure(let e) = simulator.apply(circuit: [firstGate],
                                                   to: initialCircuitStatevector) {
             error = e
@@ -166,7 +166,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         firstRegister.simulatorApplyingResult = secondRegister
 
         // Then
-        var error: StatevectorWithInitialStatevectorError?
+        var error: StatevectorError?
         if case .failure(let e) = simulator.apply(circuit: [firstGate, secondGate, thirdGate],
                                                   to: initialCircuitStatevector) {
             error = e

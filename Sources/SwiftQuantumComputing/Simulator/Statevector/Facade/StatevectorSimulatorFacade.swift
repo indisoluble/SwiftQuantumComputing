@@ -46,7 +46,7 @@ struct StatevectorSimulatorFacade {
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [SimulatorGate & SimulatorRawGate],
-               to initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorWithInitialStatevectorError> {
+               to initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
         StatevectorSimulatorFacade.logger.debug("Producing initial register...")
         var register = registerFactory.makeRegister(state: initialStatevector)
 
