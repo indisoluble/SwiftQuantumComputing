@@ -27,17 +27,20 @@ struct MainGeneticUseCaseEvaluator {
     // MARK: - Private properties
 
     private let useCase: GeneticUseCase
-    private let factory: CircuitFactory
+    private let circuitFactory: CircuitFactory
+    private let statevectorFactory: CircuitStatevectorFactory
     private let oracleFactory: OracleCircuitFactory
     private let probabilityIndex: Int
 
     // MARK: - Internal init methods
 
     init(useCase: GeneticUseCase,
-         factory: CircuitFactory,
+         circuitFactory: CircuitFactory,
+         statevectorFactory: CircuitStatevectorFactory,
          oracleFactory: OracleCircuitFactory) {
         self.useCase = useCase
-        self.factory = factory
+        self.circuitFactory = circuitFactory
+        self.statevectorFactory = statevectorFactory
         self.oracleFactory = oracleFactory
         self.probabilityIndex = Int(useCase.circuit.output, radix: 2)!
     }
@@ -55,17 +58,17 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
             return .failure(error)
         }
 
-        let circuit = factory.makeCircuit(gates: gates)
-        let input = useCase.circuit.input
+        let circuit = circuitFactory.makeCircuit(gates: gates)
+        let initialStatevector = try! statevectorFactory.makeStatevector(bits: useCase.circuit.input).get()
 
-        var probabilities: [Double]!
-        switch circuit.probabilities(withInitialBits: input) {
-        case .success(let probs):
-            probabilities = probs
+        var statevector: CircuitStatevector!
+        switch circuit.statevector(withInitialStatevector: initialStatevector) {
+        case .success(let state):
+            statevector = state
         case .failure(let error):
             return .failure(.useCaseMeasurementThrowedError(useCase: useCase, error: error))
         }
 
-        return .success(abs(1 - probabilities[probabilityIndex]))
+        return .success(abs(1 - statevector.probabilities()[probabilityIndex]))
     }
 }

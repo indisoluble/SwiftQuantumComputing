@@ -32,8 +32,6 @@ public enum GateError: Error {
     case gateInputsAreNotInBound
     /// Throwed when a gate references same qubit/s multiple times
     case gateInputsAreNotUnique
-    /// Throwed when the matrix provided by a gate can not be extended to produce an unitary that applies to entire circuit
-    case gateMatrixCanNotBeExtendedIntoACircuitUnitary
     /// Throwed when a gate requires more qubits that the circuit actually has
     case gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
     /// Throwed when the matrix provided by a gate is not unitary
@@ -43,20 +41,12 @@ public enum GateError: Error {
     case gateMatrixRowCountHasToBeAPowerOfTwo
     /// Throwed when a `Gate.oracle(truthTable:target:controls:)` without `controls` is used in a circuit
     case gateOracleControlsCanNotBeAnEmptyList
-    /// Throwed when the resulting matrix after applying a gate is no longer unitary
-    case resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
 }
 
 /// Errors throwed by `Circuit.statevector(withInitialStatevector:)`
-public enum StatevectorWithInitialStatevectorError: Error, Equatable {
+public enum StatevectorError: Error, Equatable {
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
-    /// Throwed when `initialStatevector` is not valid or the resulting state vector lost too much precision
-    /// after applying `gates`
-    case initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
-    /// Throwed when the length of `initialStatevector` is not a power of 2. An `initialStatevector` represents
-    /// all possible qubit combinations, tnis is (qubitCount)^2
-    case initialStatevectorCountHasToBeAPowerOfTwo
     /// Throwed when the resulting state vector lost too much precision after applying `gates`
     case resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
@@ -92,8 +82,8 @@ public protocol Circuit {
 
      - Parameter initialStatevector: Used to initialized circuit to given state.
 
-     - Returns: Another statevector, result of applying `gates` to `initialStatevector`. Or
-     `StatevectorWithInitialStatevectorError` error.
+     - Returns: Another `CircuitStatevector` instance, result of applying `gates` to `initialStatevector`. Or
+     `StatevectorError` error.
      */
-    func statevector(withInitialStatevector initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError>
+    func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError>
 }

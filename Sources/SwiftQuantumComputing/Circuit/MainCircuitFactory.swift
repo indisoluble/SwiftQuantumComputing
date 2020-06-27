@@ -93,7 +93,10 @@ private extension MainCircuitFactory {
         let directTransformation = DirectStatevectorTransformation(transformation: baseTransformation)
         let registerFactory = StatevectorRegisterFactoryAdapter(transformation: directTransformation)
 
-        return StatevectorSimulatorFacade(registerFactory: registerFactory)
+        let statevectorFactory = MainCircuitStatevectorFactory()
+
+        return StatevectorSimulatorFacade(registerFactory: registerFactory,
+                                          statevectorFactory: statevectorFactory)
     }
 
     func makeBaseStatevectorTransformation() -> StatevectorTransformation {

@@ -39,6 +39,8 @@ public func drawCircuit(with evolvedGates: [Gate], useCase: GeneticUseCase) -> S
 
 public func probabilities(in evolvedGates: [Gate], useCase: GeneticUseCase) -> [String: Double] {
     let circuit = MainCircuitFactory().makeCircuit(gates: evolvedGates)
+    let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: useCase.circuit.input).get()
+    let finalStatevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
 
-    return try! circuit.summarizedProbabilities(withInitialBits: useCase.circuit.input).get()
+    return finalStatevector.summarizedProbabilities()
 }

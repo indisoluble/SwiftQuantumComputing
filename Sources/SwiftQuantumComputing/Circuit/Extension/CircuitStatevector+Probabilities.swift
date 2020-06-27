@@ -1,9 +1,9 @@
 //
-//  StatevectorRegisterFactory.swift
+//  CircuitStatevector+Probabilities.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 14/06/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,8 +20,19 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol StatevectorRegisterFactory {
-    func makeRegister(state: CircuitStatevector) -> StatevectorRegister
+extension CircuitStatevector {
+
+    // MARK: - Public methods
+
+    /**
+     Returns the probabilities of each possible combinations of qubits.
+
+     - Returns: A list in which each position represents a qubit combination and the value in a position the probability of
+     such combination.
+     */
+    public func probabilities() -> [Double] {
+        return statevector.map { $0.squaredModulus }
+    }
 }

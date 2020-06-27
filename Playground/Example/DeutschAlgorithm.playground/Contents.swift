@@ -16,7 +16,8 @@ func isFunctionConstant(truthTable: [String]) -> Bool {
     try! drawer.drawCircuit(gates).get()
 
     let circuit = circuitFactory.makeCircuit(gates: gates)
-    let probabilities = try! circuit.summarizedProbabilities(byQubits: [1]).get()
+    let statevector = try! circuit.statevector().get()
+    let probabilities = try! statevector.summarizedProbabilities(byQubits: [1]).get()
 
     return (abs(1 - (probabilities["0"] ?? 0.0)) < 0.001)
 }
@@ -25,4 +26,3 @@ print("Function: f(0) = 0, f(1) = 0. Is it constant? \(isFunctionConstant(truthT
 print("Function: f(0) = 1, f(1) = 1. Is it constant? \(isFunctionConstant(truthTable: ["0", "1"]))")
 print("Function: f(0) = 1, f(1) = 0. Is it constant? \(isFunctionConstant(truthTable: ["0"]))")
 print("Function: f(0) = 0, f(1) = 1. Is it constant? \(isFunctionConstant(truthTable: ["1"]))")
-

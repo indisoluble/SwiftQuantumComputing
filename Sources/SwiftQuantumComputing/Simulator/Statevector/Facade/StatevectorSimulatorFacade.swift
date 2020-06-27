@@ -27,6 +27,7 @@ struct StatevectorSimulatorFacade {
     // MARK: - Private properties
 
     private let registerFactory: StatevectorRegisterFactory
+    private let statevectorFactory: CircuitStatevectorFactory
 
     // MARK: - Private class properties
 
@@ -34,8 +35,10 @@ struct StatevectorSimulatorFacade {
 
     // MARK: - Internal init methods
 
-    init(registerFactory: StatevectorRegisterFactory) {
+    init(registerFactory: StatevectorRegisterFactory,
+         statevectorFactory: CircuitStatevectorFactory) {
         self.registerFactory = registerFactory
+        self.statevectorFactory = statevectorFactory
     }
 }
 
@@ -43,17 +46,9 @@ struct StatevectorSimulatorFacade {
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [SimulatorGate & SimulatorRawGate],
-               to initialStatevector: Vector) -> Result<Vector, StatevectorWithInitialStatevectorError> {
+               to initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
         StatevectorSimulatorFacade.logger.debug("Producing initial register...")
-        var register: StatevectorRegister!
-        switch registerFactory.makeRegister(state: initialStatevector) {
-        case .success(let reg):
-            register = reg
-        case .failure(.stateCountHasToBeAPowerOfTwo):
-            return .failure(.initialStatevectorCountHasToBeAPowerOfTwo)
-        case .failure(.stateAdditionOfSquareModulusIsNotEqualToOne):
-            return .failure(.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne)
-        }
+        var register = registerFactory.makeRegister(state: initialStatevector)
 
         for (index, gate) in circuit.enumerated() {
             StatevectorSimulatorFacade.logger.debug("Applying gate: \(index + 1) of \(circuit.count)...")
@@ -67,11 +62,13 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
         }
 
         StatevectorSimulatorFacade.logger.debug("Getting measurement...")
-        switch register.statevector() {
-        case .success(let vector):
-            return .success(vector)
-        case .failure(.statevectorAdditionOfSquareModulusIsNotEqualToOne):
+        switch statevectorFactory.makeStatevector(vector: register.measure()) {
+        case .success(let finalStateVector):
+            return .success(finalStateVector)
+        case .failure(.vectorAdditionOfSquareModulusIsNotEqualToOne):
             return .failure(.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
+        case .failure(.vectorCountHasToBeAPowerOfTwo):
+            fatalError("Unexpected error: \(MakeStatevectorError.vectorCountHasToBeAPowerOfTwo).")
         }
     }
 }

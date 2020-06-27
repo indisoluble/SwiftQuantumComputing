@@ -35,7 +35,7 @@ final class UnitaryGateTestDouble {
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: SimulatorGate?
     var applyingResult: UnitaryGateTestDouble?
-    var applyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+    var applyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - UnitaryGate methods

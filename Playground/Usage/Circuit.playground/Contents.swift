@@ -20,10 +20,11 @@ drawer.drawCircuit(gates).get()
 //: 3. Build the quantum circuit with the list of gates
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
 //: 4. Use the quantum circuit
-print("Statevector: \(circuit.statevector().get())\n")
-print("Probabilities: \(circuit.probabilities().get())\n")
-print("Summarized probabilities: \(circuit.summarizedProbabilities().get())\n")
-let groupedProbs = circuit.groupedProbabilities(byQubits: [1, 0],
-                                                summarizedByQubits: [4, 3, 2]).get()
+let statevector = circuit.statevector().get()
+print("Statevector: \(statevector)\n")
+print("Probabilities: \(statevector.probabilities())\n")
+print("Summarized probabilities: \(statevector.summarizedProbabilities())\n")
+let groupedProbs = statevector.groupedProbabilities(byQubits: [1, 0],
+                                                    summarizedByQubits: [4, 3, 2]).get()
 print("Grouped probabilities: \(groupedProbs)")
 print("Unitary: \(circuit.unitary().get())\n")

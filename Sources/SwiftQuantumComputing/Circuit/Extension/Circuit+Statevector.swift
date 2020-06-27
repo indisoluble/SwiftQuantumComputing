@@ -2,8 +2,8 @@
 //  Circuit+Statevector.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 01/11/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 22/06/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,18 +20,6 @@
 
 import Foundation
 
-// MARK: - Errors
-
-/// Errors throwed by `Circuit.statevector(withInitialBits:)`
-public enum StatevectorError: Error, Equatable {
-    /// Throwed if `gate` throws `error`
-    case gateThrowedError(gate: Gate, error: GateError)
-    /// Throwed when `initialBits` is not composed only of 0's & 1's
-    case initialBitsAreNotAStringComposedOnlyOfZerosAndOnes
-    /// Throwed when the resulting state vector lost too much precision after applying `gates`
-    case resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
-}
-
 // MARK: - Main body
 
 extension Circuit {
@@ -39,47 +27,17 @@ extension Circuit {
     // MARK: - Public methods
 
     /**
-     Initializes circuit with `initialBits` and applies `gates` to get the probabilities of each possible combinations of qubits.
+     Applies `gates` to an initial statevector set to 0 to produce a new statevector.
 
-     - Parameter initialBits: String composed only of 0's & 1's. If not provided, a sequence of 0's will be used instead.
+     - Parameter factory: Used to produce the initial statevector set to 0.
 
-     - Returns: A statevector, result of applying `gates` to `initialBits`. Or `StatevectorError` error.
+     - Returns: Another `CircuitStatevector` instance, result of applying `gates` to 0. Or
+     `StatevectorError` error.
      */
-    public func statevector(withInitialBits initialBits: String? = nil) -> Result<Vector, StatevectorError> {
-        guard let value = Int(initialBits ?? "0", radix: 2) else {
-            return .failure(.initialBitsAreNotAStringComposedOnlyOfZerosAndOnes)
-        }
-        let qubitCount = (initialBits?.count ?? gates.qubitCount())
+    public func statevector(withFactory factory: CircuitStatevectorFactory = MainCircuitStatevectorFactory()) -> Result<CircuitStatevector, StatevectorError> {
+        let initialState = try! Vector.makeState(value: 0, qubitCount: gates.qubitCount()).get()
+        let initialStatevector = try! factory.makeStatevector(vector: initialState).get()
 
-        let initialStatevector = Self.makeState(value: value, qubitCount: qubitCount)
-
-        switch statevector(withInitialStatevector: initialStatevector) {
-        case .success(let vector):
-            return .success(vector)
-        case .failure(.gateThrowedError(let gate, let gateError)):
-            return .failure(.gateThrowedError(gate: gate, error: gateError))
-        case .failure(.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne):
-            return .failure(.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
-        case .failure(.initialStatevectorCountHasToBeAPowerOfTwo):
-            fatalError("Unexpected error: \(StatevectorWithInitialStatevectorError.initialStatevectorCountHasToBeAPowerOfTwo).")
-        case .failure(.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne):
-            fatalError("Unexpected error: \(StatevectorWithInitialStatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne).")
-        }
-    }
-}
-
-// MARK: - Private body
-
-private extension Circuit {
-
-    // MARK: - Private class methods
-
-    static func makeState(value: Int, qubitCount: Int) -> Vector {
-        let count = Int.pow(2, qubitCount)
-
-        var elements = Array(repeating: Complex.zero, count: count)
-        elements[value] = Complex.one
-
-        return try! Vector(elements)
+        return statevector(withInitialStatevector: initialStatevector)
     }
 }

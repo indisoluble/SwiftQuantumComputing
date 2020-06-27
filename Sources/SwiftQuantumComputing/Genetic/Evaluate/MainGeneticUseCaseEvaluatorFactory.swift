@@ -26,13 +26,17 @@ struct MainGeneticUseCaseEvaluatorFactory {
 
     // MARK: - Private properties
 
-    private let factory: CircuitFactory
+    private let circuitFactory: CircuitFactory
+    private let statevectorFactory: CircuitStatevectorFactory
     private let oracleFactory: OracleCircuitFactory
 
     // MARK: - Internal init methods
 
-    init(factory: CircuitFactory, oracleFactory: OracleCircuitFactory) {
-        self.factory = factory
+    init(circuitFactory: CircuitFactory,
+         statevectorFactory: CircuitStatevectorFactory,
+         oracleFactory: OracleCircuitFactory) {
+        self.circuitFactory = circuitFactory
+        self.statevectorFactory = statevectorFactory
         self.oracleFactory = oracleFactory
     }
 }
@@ -42,7 +46,8 @@ struct MainGeneticUseCaseEvaluatorFactory {
 extension MainGeneticUseCaseEvaluatorFactory: GeneticUseCaseEvaluatorFactory {
     func makeEvaluator(useCase: GeneticUseCase) -> GeneticUseCaseEvaluator {
         return MainGeneticUseCaseEvaluator(useCase: useCase,
-                                           factory: factory,
+                                           circuitFactory: circuitFactory,
+                                           statevectorFactory: statevectorFactory,
                                            oracleFactory: oracleFactory)
     }
 }

@@ -1,9 +1,9 @@
 //
-//  StatevectorRegisterFactory.swift
+//  CircuitStatevectorTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 12/06/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,8 +20,24 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+@testable import SwiftQuantumComputing
 
-protocol StatevectorRegisterFactory {
-    func makeRegister(state: CircuitStatevector) -> StatevectorRegister
+// MARK: - Main body
+
+final class CircuitStatevectorTestDouble {
+
+    // MARK: - Internal properties
+
+    private (set) var statevectorCount = 0
+    var statevectorResult = try! Vector([Complex.zero, Complex.one])
+}
+
+// MARK: - CircuitStatevector methods
+
+extension CircuitStatevectorTestDouble: CircuitStatevector {
+    var statevector: Vector {
+        statevectorCount += 1
+
+        return statevectorResult
+    }
 }

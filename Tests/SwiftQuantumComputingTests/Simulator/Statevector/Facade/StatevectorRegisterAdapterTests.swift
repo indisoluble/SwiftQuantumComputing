@@ -52,27 +52,13 @@ class StatevectorRegisterAdapterTests: XCTestCase {
                                                             transformation: transformation))
     }
 
-    func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException() {
-        // Given
-        let addSquareModulusNotEqualToOneVector = try! Vector([Complex.one, Complex.one])
-        let adapter = try! StatevectorRegisterAdapter(vector: addSquareModulusNotEqualToOneVector,
-                                                      transformation: transformation)
-
-        // Then
-        var error: StatevectorMeasurementError?
-        if case .failure(let e) = adapter.statevector() {
-            error = e
-        }
-        XCTAssertEqual(error, .statevectorAdditionOfSquareModulusIsNotEqualToOne)
-    }
-
-    func testValidVector_statevector_returnValue() {
+    func testAnyVector_measure_returnValue() {
         // Given
         let adapter = try! StatevectorRegisterAdapter(vector: oneQubitZeroVector,
                                                       transformation: transformation)
 
         // When
-        let result = try? adapter.statevector().get()
+        let result = adapter.measure()
 
         // Then
         XCTAssertEqual(result, oneQubitZeroVector)
@@ -96,16 +82,14 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         XCTAssertEqual(transformation.applyCount, 1)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
         XCTAssertEqual(transformation.lastApplyInputs, controls + [target])
-        XCTAssertEqual(try? result?.statevector().get(), threeQubitFourVector)
+        XCTAssertEqual(result?.measure(), threeQubitFourVector)
     }
 
     static var allTests = [
         ("testVectorWhichCountIsNotAPowerOfTwo_init_throwException",
          testVectorWhichCountIsNotAPowerOfTwo_init_throwException),
-        ("testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException",
-         testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_statevector_throwException),
-        ("testValidVector_statevector_returnValue",
-         testValidVector_statevector_returnValue),
+        ("testAnyVector_measure_returnValue",
+         testAnyVector_measure_returnValue),
         ("testValidVector_applying_forwardToTransformation",
          testValidVector_applying_forwardToTransformation)
     ]

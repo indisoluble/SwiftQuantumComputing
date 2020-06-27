@@ -42,8 +42,9 @@ while factors.isEmpty {
 
     print("Run quantum circuit with \(qubitCount) qubits & \(circuit.gates.count) gates")
     let start = CFAbsoluteTimeGetCurrent()
-    let probs = circuit.groupedProbabilities(byQubits: (0..<n).reversed(),
-                                             summarizedByQubits: (n..<qubitCount).reversed()).get()
+    let state = circuit.statevector().get()
+    let probs = state.groupedProbabilities(byQubits: (0..<n).reversed(),
+                                           summarizedByQubits: (n..<qubitCount).reversed()).get()
     let diff = CFAbsoluteTimeGetCurrent() - start
     print("Execution completed in \(diff) seconds (\(diff / 60.0) minutes)")
 

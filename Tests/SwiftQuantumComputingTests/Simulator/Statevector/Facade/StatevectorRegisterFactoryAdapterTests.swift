@@ -29,59 +29,27 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
     // MARK: - Properties
 
     let transformation = StatevectorTransformationTestDouble()
-    let notPowerOfTwoVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.one
-    ])
-    let squareModulusNotEqualToOneVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.one, Complex.one
-    ])
-    let validVector = try! Vector([Complex.zero, Complex.zero, Complex.one, Complex.zero])
 
     // MARK: - Tests
 
-    func testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError() {
+    func testAnyCircuitStateVector_makeRegister_returnValue() {
         // Given
         let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
 
-        // Then
-        var error: MakeRegisterError?
-        if case .failure(let e) = adapter.makeRegister(state: notPowerOfTwoVector) {
-            error = e
-        }
-        XCTAssertEqual(error, .stateCountHasToBeAPowerOfTwo)
-    }
+        let vector = try! Vector([
+            Complex.zero, Complex.zero, Complex.zero, Complex.one
+        ])
+        let statevector = try! CircuitStatevectorAdapter(statevector: vector)
 
-    func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError() {
-        // Given
-        let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
+        // When
+        let register = adapter.makeRegister(state: statevector)
 
         // Then
-        var error: MakeRegisterError?
-        if case .failure(let e) = adapter.makeRegister(state: squareModulusNotEqualToOneVector) {
-            error = e
-        }
-        XCTAssertEqual(error, .stateAdditionOfSquareModulusIsNotEqualToOne)
-    }
-
-    func testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue() {
-        // Given
-        let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
-
-        // Then
-        var register: StatevectorRegister?
-        if case .success(let reg) = adapter.makeRegister(state: validVector) {
-            register = reg
-        }
-
-        XCTAssertNotNil(register)
+        XCTAssertEqual(register.measure(), vector)
     }
 
     static var allTests = [
-        ("testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError",
-         testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError),
-        ("testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError",
-         testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError),
-        ("testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue",
-         testFactoryThatDoesNotThrowErrorAndValidVector_makeRegister_returnValue)
+        ("testAnyCircuitStateVector_makeRegister_returnValue",
+         testAnyCircuitStateVector_makeRegister_returnValue)
     ]
 }
