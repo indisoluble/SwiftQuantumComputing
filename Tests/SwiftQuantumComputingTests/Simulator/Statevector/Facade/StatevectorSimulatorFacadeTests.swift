@@ -80,7 +80,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         }
         XCTAssertEqual(error,
                        .gateThrowedError(gate: firstGate.gate,
-                                         error: .resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary))
+                                         error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {
@@ -173,7 +173,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         }
         XCTAssertEqual(error,
                        .gateThrowedError(gate: thirdGate.gate,
-                                         error: .resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary))
+                                         error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         if let lastApplyingGate = register.lastSimulatorApplyingGate as? SimulatorGateTestDouble {

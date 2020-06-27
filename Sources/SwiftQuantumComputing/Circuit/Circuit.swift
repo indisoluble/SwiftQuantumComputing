@@ -32,8 +32,6 @@ public enum GateError: Error {
     case gateInputsAreNotInBound
     /// Throwed when a gate references same qubit/s multiple times
     case gateInputsAreNotUnique
-    /// Throwed when the matrix provided by a gate can not be extended to produce an unitary that applies to entire circuit
-    case gateMatrixCanNotBeExtendedIntoACircuitUnitary
     /// Throwed when a gate requires more qubits that the circuit actually has
     case gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
     /// Throwed when the matrix provided by a gate is not unitary
@@ -43,8 +41,6 @@ public enum GateError: Error {
     case gateMatrixRowCountHasToBeAPowerOfTwo
     /// Throwed when a `Gate.oracle(truthTable:target:controls:)` without `controls` is used in a circuit
     case gateOracleControlsCanNotBeAnEmptyList
-    /// Throwed when the resulting matrix after applying a gate is no longer unitary
-    case resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
 }
 
 /// Errors throwed by `Circuit.statevector(withInitialStatevector:)`

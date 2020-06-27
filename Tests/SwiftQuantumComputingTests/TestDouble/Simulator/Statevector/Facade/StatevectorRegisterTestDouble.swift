@@ -34,7 +34,7 @@ final class StatevectorRegisterTestDouble {
     private (set) var simulatorApplyingCount = 0
     private (set) var lastSimulatorApplyingGate: SimulatorGate?
     var simulatorApplyingResult: StatevectorRegisterTestDouble?
-    var simulatorApplyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+    var simulatorApplyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
 }
 
 extension StatevectorRegisterTestDouble: StatevectorRegister {

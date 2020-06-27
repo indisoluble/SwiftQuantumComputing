@@ -145,7 +145,7 @@ class UnitarySimulatorFacadeTests: XCTestCase {
         }
         XCTAssertEqual(error,
                        .gateThrowedError(gate: secondSimulatorGate.gate,
-                                         error: .resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary))
+                                         error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(gateFactory.makeGateCount, 1)
         XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
         if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? SimulatorGateTestDouble {
