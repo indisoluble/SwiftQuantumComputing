@@ -80,13 +80,13 @@
                 <a class="nav-group-task-link" href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/StatevectorError.html">StatevectorError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
@@ -124,6 +124,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConfigurableGate.html">ConfigurableGate</a>
@@ -173,6 +179,9 @@
                 <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/GeneticUseCase.html">GeneticUseCase</a>
               </li>
               <li class="nav-group-task">
@@ -189,6 +198,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainDrawerFactory.html">MainDrawerFactory</a>
@@ -283,9 +298,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing18MainGeneticFactoryVACycfc"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18MainGeneticFactoryVACycfc">init()</a>
+                    <a name="/s:21SwiftQuantumComputing18MainGeneticFactoryV07circuitF0AcA07CircuitF0_p_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(circuitFactory:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing18MainGeneticFactoryV07circuitF0AcA07CircuitF0_p_tcfc">init(circuitFactory:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -300,7 +315,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">circuitFactory</span><span class="p">:</span> <span class="kt"><a href="../Protocols/CircuitFactory.html">CircuitFactory</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a></span><span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -323,9 +338,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing18MainGeneticFactoryV13evolveCircuit13configuration8useCases5gatesSd4eval_SayAA4GateOGAGSiSg8oracleAttAA0E13ConfigurationV_SayAA0E7UseCaseVGSayAA012ConfigurableN0_pGtKF"></a>
+                    <a name="/s:21SwiftQuantumComputing18MainGeneticFactoryV13evolveCircuit13configuration8useCases5gatess6ResultOySd4eval_SayAA4GateOGAGSiSg8oracleAttAA06EvolveH5ErrorOGAA0E13ConfigurationV_SayAA0E7UseCaseVGSayAA012ConfigurableO0_pGtF"></a>
                     <a name="//apple_ref/swift/Method/evolveCircuit(configuration:useCases:gates:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18MainGeneticFactoryV13evolveCircuit13configuration8useCases5gatesSd4eval_SayAA4GateOGAGSiSg8oracleAttAA0E13ConfigurationV_SayAA0E7UseCaseVGSayAA012ConfigurableN0_pGtKF">evolveCircuit(configuration:<wbr>useCases:<wbr>gates:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing18MainGeneticFactoryV13evolveCircuit13configuration8useCases5gatess6ResultOySd4eval_SayAA4GateOGAGSiSg8oracleAttAA06EvolveH5ErrorOGAA0E13ConfigurationV_SayAA0E7UseCaseVGSayAA012ConfigurableO0_pGtF">evolveCircuit(configuration:<wbr>useCases:<wbr>gates:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -333,7 +348,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Check <code><a href="../Protocols/GeneticFactory.html#/s:21SwiftQuantumComputing14GeneticFactoryP13evolveCircuit13configuration8useCases5gatesSd4eval_SayAA4GateOGAGSiSg8oracleAttAA0D13ConfigurationV_SayAA0D7UseCaseVGSayAA012ConfigurableM0_pGtKF">GeneticFactory.evolveCircuit(configuration:useCases:gates:)</a></code></p>
+                        <p>Check <code><a href="../Protocols/GeneticFactory.html#/s:21SwiftQuantumComputing14GeneticFactoryP13evolveCircuit13configuration8useCases5gatess6ResultOySd4eval_SayAA4GateOGAGSiSg8oracleAttAA06EvolveG5ErrorOGAA0D13ConfigurationV_SayAA0D7UseCaseVGSayAA012ConfigurableN0_pGtF">GeneticFactory.evolveCircuit(configuration:useCases:gates:)</a></code></p>
 
                       </div>
                       <div class="declaration">
@@ -342,7 +357,7 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">evolveCircuit</span><span class="p">(</span><span class="n">configuration</span> <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a></span><span class="p">,</span>
                           <span class="nv">useCases</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/GeneticUseCase.html">GeneticUseCase</a></span><span class="p">],</span>
-                          <span class="nv">gates</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">EvolvedCircuit</span></code></pre>
+                          <span class="nv">gates</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">EvolvedCircuit</span><span class="p">,</span> <span class="kt"><a href="../Enums/EvolveCircuitError.html">EvolveCircuitError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -357,7 +372,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

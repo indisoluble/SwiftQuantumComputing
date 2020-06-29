@@ -79,13 +79,13 @@
                 <a class="nav-group-task-link" href="Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+                <a class="nav-group-task-link" href="Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/MakeStatevectorError.html">MakeStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/StatevectorError.html">StatevectorError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
@@ -123,6 +123,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/ConfigurableGate.html">ConfigurableGate</a>
@@ -172,6 +178,9 @@
                 <a class="nav-group-task-link" href="Structs/GeneticConfiguration.html">GeneticConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/GeneticUseCase.html">GeneticUseCase</a>
               </li>
               <li class="nav-group-task">
@@ -188,6 +197,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/MainDrawerFactory.html">MainDrawerFactory</a>
@@ -262,11 +277,9 @@
 <img src="https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg" alt="platforms">
 <a href="https://indisoluble.github.io/SwiftQuantumComputing"><img src="https://indisoluble.github.io/SwiftQuantumComputing/badge.svg" alt="Documentation"></a></p>
 
-<p>A quantum circuit simulator written in Swift and accelerated with <a href="https://developer.apple.com/documentation/accelerate">Accelerate.framework</a> in iOS/macOS and <a href="http://www.netlib.org/blas/">BLAS</a> in Linux.</p>
+<p>The code written so far is mostly based on the content of: <a href="https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965">Quantum Computing for Computer Scientists</a>, with a few tips from <a href="https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X">Automatic Quantum Computer Programming: A Genetic Programming Approach</a>. It is also inspired by <a href="https://github.com/Qiskit/qiskit-terra">IBM Qiskit</a>.</p>
 
 <p>Along side the simulator there is a genetic algorithm to automatically generate circuits as well as others useful algorithms for quantum computing.</p>
-
-<p>The code written so far is mostly based on the content of: <a href="https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965">Quantum Computing for Computer Scientists</a>, with a few tips from <a href="https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X">Automatic Quantum Computer Programming: A Genetic Programming Approach</a>. It is also inspired by <a href="https://github.com/Qiskit/qiskit-terra">IBM Qiskit</a>.</p>
 <h2 id='usage' class='heading'>Usage</h2>
 <h3 id='build-amp-use-a-quantum-circuit' class='heading'>Build &amp; use a quantum circuit</h3>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftQuantumComputing</span> <span class="c1">// for macOS</span>
@@ -287,16 +300,18 @@
 <span class="p">]</span>
 <span class="c1">//: 2. (Optional) Draw the quantum circuit to see how it looks</span>
 <span class="k">let</span> <span class="nv">drawer</span> <span class="o">=</span> <span class="kt">MainDrawerFactory</span><span class="p">()</span><span class="o">.</span><span class="nf">makeDrawer</span><span class="p">()</span>
-<span class="n">drawer</span><span class="o">.</span><span class="nf">drawCircuit</span><span class="p">(</span><span class="n">gates</span><span class="p">)</span>
+<span class="n">drawer</span><span class="o">.</span><span class="nf">drawCircuit</span><span class="p">(</span><span class="n">gates</span><span class="p">)</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
 <span class="c1">//: 3. Build the quantum circuit with the list of gates</span>
 <span class="k">let</span> <span class="nv">circuit</span> <span class="o">=</span> <span class="kt">MainCircuitFactory</span><span class="p">()</span><span class="o">.</span><span class="nf">makeCircuit</span><span class="p">(</span><span class="nv">gates</span><span class="p">:</span> <span class="n">gates</span><span class="p">)</span>
 <span class="c1">//: 4. Use the quantum circuit</span>
-<span class="nf">print</span><span class="p">(</span><span class="s">"Statevector: </span><span class="se">\(</span><span class="n">circuit</span><span class="o">.</span><span class="nf">statevector</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="s">"Probabilities: </span><span class="se">\(</span><span class="n">circuit</span><span class="o">.</span><span class="nf">probabilities</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="s">"Summarized probabilities: </span><span class="se">\(</span><span class="n">circuit</span><span class="o">.</span><span class="nf">summarizedProbabilities</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
-<span class="k">let</span> <span class="nv">groupedProbs</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="nf">groupedProbabilities</span><span class="p">(</span><span class="nv">byQubits</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nv">summarizedByQubits</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="k">let</span> <span class="nv">statevector</span> <span class="o">=</span> <span class="n">circuit</span><span class="o">.</span><span class="nf">statevector</span><span class="p">()</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Statevector: </span><span class="se">\(</span><span class="n">statevector</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Probabilities: </span><span class="se">\(</span><span class="n">statevector</span><span class="o">.</span><span class="nf">probabilities</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Summarized probabilities: </span><span class="se">\(</span><span class="n">statevector</span><span class="o">.</span><span class="nf">summarizedProbabilities</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">groupedProbs</span> <span class="o">=</span> <span class="n">statevector</span><span class="o">.</span><span class="nf">groupedProbabilities</span><span class="p">(</span><span class="nv">byQubits</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                                    <span class="nv">summarizedByQubits</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
 <span class="nf">print</span><span class="p">(</span><span class="s">"Grouped probabilities: </span><span class="se">\(</span><span class="n">groupedProbs</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="s">"Unitary: </span><span class="se">\(</span><span class="n">circuit</span><span class="o">.</span><span class="nf">unitary</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Unitary: </span><span class="se">\(</span><span class="n">circuit</span><span class="o">.</span><span class="nf">unitary</span><span class="p">()</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span><span class="se">)\n</span><span class="s">"</span><span class="p">)</span>
 </code></pre>
 
 <p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground/Contents.swift">Circuit.playground</a>.</p>
@@ -329,7 +344,7 @@
 <span class="c1">//:    the problem modeled with the use cases</span>
 <span class="k">let</span> <span class="nv">evolvedCircuit</span> <span class="o">=</span> <span class="kt">MainGeneticFactory</span><span class="p">()</span><span class="o">.</span><span class="nf">evolveCircuit</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
                                                         <span class="nv">useCases</span><span class="p">:</span> <span class="n">cases</span><span class="p">,</span>
-                                                        <span class="nv">gates</span><span class="p">:</span> <span class="n">gates</span><span class="p">)</span>
+                                                        <span class="nv">gates</span><span class="p">:</span> <span class="n">gates</span><span class="p">)</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
 <span class="nf">print</span><span class="p">(</span><span class="s">"Solution found. Fitness score: </span><span class="se">\(</span><span class="n">evolvedCircuit</span><span class="o">.</span><span class="n">eval</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">useCase</span> <span class="k">in</span> <span class="n">cases</span> <span class="p">{</span>
@@ -380,7 +395,7 @@
 <span class="k">let</span> <span class="nv">limit</span> <span class="o">=</span> <span class="kt">Rational</span><span class="p">(</span><span class="nv">numerator</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">denominator</span><span class="p">:</span> <span class="mi">33</span><span class="p">)</span>
 <span class="c1">//: 3. Use Continued Fractions solver to find a solution</span>
 <span class="k">let</span> <span class="nv">approximation</span> <span class="o">=</span> <span class="kt">ContinuedFractionsSolver</span><span class="o">.</span><span class="nf">findApproximation</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
-                                                               <span class="nv">differenceBelowOrEqual</span><span class="p">:</span> <span class="n">limit</span><span class="p">)</span>
+                                                               <span class="nv">differenceBelowOrEqual</span><span class="p">:</span> <span class="n">limit</span><span class="p">)</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
 <span class="nf">print</span><span class="p">(</span><span class="s">"Approximation for </span><span class="se">\(</span><span class="n">value</span><span class="se">)</span><span class="s"> (limit: </span><span class="se">\(</span><span class="n">limit</span><span class="se">)</span><span class="s">): </span><span class="se">\(</span><span class="n">approximation</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
 </code></pre>
 
@@ -416,7 +431,7 @@
 <p>Documentation for the project can be found <a href="https://indisoluble.github.io/SwiftQuantumComputing">here</a>.</p>
 <h2 id='linux' class='heading'>Linux</h2>
 
-<p>As mentioned above, this package depends on <a href="http://www.netlib.org/blas/">BLAS</a> if running on Linux, more exactly, <a href="https://www.ubuntu.com">Ubuntu</a>.</p>
+<p>This package depends on <a href="http://www.netlib.org/blas/">BLAS</a> if running on Linux, more exactly, <a href="https://www.ubuntu.com">Ubuntu</a>.</p>
 
 <p>This dependency is reflected in <code>Package.swift</code> with <a href="https://github.com/indisoluble/CBLAS-Linux">CBLAS-Linux</a>, which in turn expects to find the following file: <code>/usr/include/x86_64-linux-gnu/cblas-netlib.h</code>. So, after installing <a href="http://www.netlib.org/blas/">BLAS</a> (in case it is not already there):</p>
 <pre class="highlight plaintext"><code>sudo apt-get install libblas-dev
@@ -431,7 +446,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

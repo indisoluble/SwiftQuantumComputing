@@ -80,13 +80,13 @@
                 <a class="nav-group-task-link" href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/StatevectorError.html">StatevectorError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
@@ -124,6 +124,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConfigurableGate.html">ConfigurableGate</a>
@@ -173,6 +179,9 @@
                 <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/GeneticUseCase.html">GeneticUseCase</a>
               </li>
               <li class="nav-group-task">
@@ -189,6 +198,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainDrawerFactory.html">MainDrawerFactory</a>
@@ -261,7 +276,7 @@
 
                 </div>
               </div>
-            <p>Errors throwed by <code><a href="../Protocols/GeneticFactory.html#/s:21SwiftQuantumComputing14GeneticFactoryP13evolveCircuit13configuration8useCases5gatesSd4eval_SayAA4GateOGAGSiSg8oracleAttAA0D13ConfigurationV_SayAA0D7UseCaseVGSayAA012ConfigurableM0_pGtKF">GeneticFactory.evolveCircuit(configuration:useCases:gates:)</a></code></p>
+            <p>Errors throwed by <code><a href="../Protocols/GeneticFactory.html#/s:21SwiftQuantumComputing14GeneticFactoryP13evolveCircuit13configuration8useCases5gatess6ResultOySd4eval_SayAA4GateOGAGSiSg8oracleAttAA06EvolveG5ErrorOGAA0D13ConfigurationV_SayAA0D7UseCaseVGSayAA012ConfigurableN0_pGtF">GeneticFactory.evolveCircuit(configuration:useCases:gates:)</a></code></p>
 
           </div>
         </section>
@@ -270,143 +285,6 @@
           <div class="section-content">
             <div class="task-group">
               <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO40configurationDepthHasToBeAPositiveNumberyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/configurationDepthHasToBeAPositiveNumber" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO40configurationDepthHasToBeAPositiveNumberyA2CmF">configurationDepthHasToBeAPositiveNumber</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when <code><a href="../Structs/GeneticConfiguration.html#/s:21SwiftQuantumComputing20GeneticConfigurationV5depthSnySiGvp">GeneticConfiguration.depth</a></code> starts with a negative number</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">configurationDepthHasToBeAPositiveNumber</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO25configurationDepthIsEmptyyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/configurationDepthIsEmpty" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO25configurationDepthIsEmptyyA2CmF">configurationDepthIsEmpty</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when <code><a href="../Structs/GeneticConfiguration.html#/s:21SwiftQuantumComputing20GeneticConfigurationV5depthSnySiGvp">GeneticConfiguration.depth</a></code> is an empty <code>Range</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">configurationDepthIsEmpty</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO48configurationPopulationSizeHasToBeBiggerThanZeroyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/configurationPopulationSizeHasToBeBiggerThanZero" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO48configurationPopulationSizeHasToBeBiggerThanZeroyA2CmF">configurationPopulationSizeHasToBeBiggerThanZero</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when <code><a href="../Structs/GeneticConfiguration.html#/s:21SwiftQuantumComputing20GeneticConfigurationV14populationSizeSnySiGvp">GeneticConfiguration.populationSize</a></code> starts on 0 which is not valid because that would be the
-size of the initial population and an empty initial population can not produce new circuits</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">configurationPopulationSizeHasToBeBiggerThanZero</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO34configurationPopulationSizeIsEmptyyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/configurationPopulationSizeIsEmpty" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO34configurationPopulationSizeIsEmptyyA2CmF">configurationPopulationSizeIsEmpty</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when <code><a href="../Structs/GeneticConfiguration.html#/s:21SwiftQuantumComputing20GeneticConfigurationV14populationSizeSnySiGvp">GeneticConfiguration.populationSize</a></code> is an empty <code>Range</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">configurationPopulationSizeIsEmpty</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO48configurationTournamentSizeHasToBeBiggerThanZeroyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/configurationTournamentSizeHasToBeBiggerThanZero" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO48configurationTournamentSizeHasToBeBiggerThanZeroyA2CmF">configurationTournamentSizeHasToBeBiggerThanZero</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when <code><a href="../Structs/GeneticConfiguration.html#/s:21SwiftQuantumComputing20GeneticConfigurationV14tournamentSizeSivp">GeneticConfiguration.tournamentSize</a></code> is 0 which is not valid because a reproduction operation
-requires at least 1 circuit in the tournament</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">configurationTournamentSizeHasToBeBiggerThanZero</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -428,60 +306,6 @@ requires at least 1 circuit in the tournament</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateInputCountIsBiggerThanUseCaseCircuitQubitCount</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO07useCaseE54OutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnesyAcA010GeneticUseH0V_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO07useCaseE54OutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnesyAcA010GeneticUseH0V_tcACmF">useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed if <code>useCase.Circuit.output</code> is not composed exclusively of 0&rsquo;s and 1&rsquo;s</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes</span><span class="p">(</span><span class="nv">useCase</span><span class="p">:</span> <span class="kt"><a href="../Structs/GeneticUseCase.html">GeneticUseCase</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO07useCaseE31QubitCountHasToBeBiggerThanZeroyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/useCaseCircuitQubitCountHasToBeBiggerThanZero" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO07useCaseE31QubitCountHasToBeBiggerThanZeroyA2CmF">useCaseCircuitQubitCountHasToBeBiggerThanZero</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed if any <code><a href="../Structs/GeneticUseCase/Circuit.html#/s:21SwiftQuantumComputing14GeneticUseCaseV7CircuitV10qubitCountSivp">GeneticUseCase.Circuit.qubitCount</a></code> is 0 or a negative number</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">useCaseCircuitQubitCountHasToBeBiggerThanZero</span></code></pre>
 
                         </div>
                       </div>
@@ -518,9 +342,9 @@ requires at least 1 circuit in the tournament</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO025useCaseMeasurementThrowedF0yAcA010GeneticUseH0V_AA013ProbabilitiesF0OtcACmF"></a>
+                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO025useCaseMeasurementThrowedF0yAcA010GeneticUseH0V_AA011StatevectorF0OtcACmF"></a>
                     <a name="//apple_ref/swift/Element/useCaseMeasurementThrowedError(useCase:error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO025useCaseMeasurementThrowedF0yAcA010GeneticUseH0V_AA013ProbabilitiesF0OtcACmF">useCaseMeasurementThrowedError(useCase:<wbr>error:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO025useCaseMeasurementThrowedF0yAcA010GeneticUseH0V_AA011StatevectorF0OtcACmF">useCaseMeasurementThrowedError(useCase:<wbr>error:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -535,7 +359,7 @@ requires at least 1 circuit in the tournament</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">useCaseMeasurementThrowedError</span><span class="p">(</span><span class="nv">useCase</span><span class="p">:</span> <span class="kt"><a href="../Structs/GeneticUseCase.html">GeneticUseCase</a></span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">useCaseMeasurementThrowedError</span><span class="p">(</span><span class="nv">useCase</span><span class="p">:</span> <span class="kt"><a href="../Structs/GeneticUseCase.html">GeneticUseCase</a></span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Enums/StatevectorError.html">StatevectorError</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -569,33 +393,6 @@ requires at least 1 circuit in the tournament</p>
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing18EvolveCircuitErrorO048useCaseTruthTableQubitCountHasToBeBiggerThanZeroN10MakeOracleyAcA010GeneticUseH0V_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing18EvolveCircuitErrorO048useCaseTruthTableQubitCountHasToBeBiggerThanZeroN10MakeOracleyAcA010GeneticUseH0V_tcACmF">useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed if <code>useCase.TruthTable.qubitCount</code> is 0</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle</span><span class="p">(</span><span class="nv">useCase</span><span class="p">:</span> <span class="kt"><a href="../Structs/GeneticUseCase.html">GeneticUseCase</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
           </div>
@@ -604,7 +401,7 @@ requires at least 1 circuit in the tournament</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
