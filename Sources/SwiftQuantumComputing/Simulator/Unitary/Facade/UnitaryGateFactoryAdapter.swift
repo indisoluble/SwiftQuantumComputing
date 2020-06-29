@@ -38,10 +38,17 @@ struct UnitaryGateFactoryAdapter {
 // MARK: - UnitaryGateFactory methods
 
 extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
-    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) throws -> UnitaryGate {
-        let matrix = try matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
-                                                         gate: simulatorGate)
-
-        return try! UnitaryGateAdapter(matrix: matrix, matrixFactory: matrixFactory)
+    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) -> Result<UnitaryGate, GateError> {
+        switch simulatorGate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        case .success((let matrix, let inputs)):
+            let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
+                                                                baseMatrix: matrix,
+                                                                inputs: inputs)
+            let adapter = try! UnitaryGateAdapter(matrix: circuitMatrix.rawMatrix,
+                                                  matrixFactory: matrixFactory)
+            return .success(adapter)
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }

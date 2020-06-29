@@ -55,24 +55,27 @@ struct MainGeneticPopulationReproduction {
 // MARK: - GeneticPopulationReproduction  methods
 
 extension MainGeneticPopulationReproduction: GeneticPopulationReproduction {
-    func applied(to population: [Fitness.EvalCircuit]) throws -> [Fitness.EvalCircuit] {
-        var offspring: [Fitness.EvalCircuit] = []
-
+    func applied(to population: [Fitness.EvalCircuit]) -> Result<[Fitness.EvalCircuit], EvolveCircuitError> {
         if (random(0...1) < mutationProbability) {
-            if let result = try mutation.applied(to: population) {
+            switch mutation.applied(to: population) {
+            case .success(let result):
                 MainGeneticPopulationReproduction.logger.info("reproduction: mutation produced")
 
-                offspring.append(result)
-            }
-        } else {
-            let result = try crossover.applied(to: population)
-            if !result.isEmpty {
-                MainGeneticPopulationReproduction.logger.info("reproduction: crossover produced")
-
-                offspring.append(contentsOf: result)
+                return .success(result != nil ? [result!] : [])
+            case .failure(let error):
+                return .failure(error)
             }
         }
 
-        return offspring
+        switch crossover.applied(to: population) {
+        case .success(let result):
+            if !result.isEmpty {
+                MainGeneticPopulationReproduction.logger.info("reproduction: crossover produced")
+            }
+
+            return .success(result)
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }

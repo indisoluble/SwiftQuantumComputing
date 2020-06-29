@@ -29,5 +29,5 @@ protocol GeneticPopulationReproductionFactory {
                           threshold: Double,
                           maxDepth: Int,
                           useCases: [GeneticUseCase],
-                          gates: [ConfigurableGate]) throws -> GeneticPopulationReproduction
+                          gates: [ConfigurableGate]) -> GeneticPopulationReproduction
 }

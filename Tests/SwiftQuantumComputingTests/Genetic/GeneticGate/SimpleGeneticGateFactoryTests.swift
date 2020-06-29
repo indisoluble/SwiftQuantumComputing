@@ -36,9 +36,13 @@ class SimpleGeneticGateFactoryTests: XCTestCase {
         let inputs = [0, 1]
 
         // Then
-        XCTAssertThrowsError(try factory.makeGate(inputs: inputs))
-        XCTAssertEqual(gate.makeFixedCount, 1)
-        XCTAssertEqual(gate.lastMakeFixedInputs, inputs)
+        switch factory.makeGate(inputs: inputs) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssertEqual(gate.makeFixedCount, 1)
+            XCTAssertEqual(gate.lastMakeFixedInputs, inputs)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testFactoryWithGateThatReturnValue_makeGate_returnNotNil() {
@@ -49,7 +53,7 @@ class SimpleGeneticGateFactoryTests: XCTestCase {
 
         // When
         let inputs = [0, 1]
-        let result = try? factory.makeGate(inputs: inputs)
+        let result = try? factory.makeGate(inputs: inputs).get()
 
         // Then
         XCTAssertNotNil(result)

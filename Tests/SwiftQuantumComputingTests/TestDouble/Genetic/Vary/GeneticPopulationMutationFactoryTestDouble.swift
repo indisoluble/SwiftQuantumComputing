@@ -34,7 +34,7 @@ final class GeneticPopulationMutationFactoryTestDouble {
     private (set) var lastMakeMutationMaxDepth: Int?
     private (set) var lastMakeMutationEvaluator: GeneticCircuitEvaluator?
     private (set) var lastMakeMutationGates: [ConfigurableGate]?
-    var makeMutationResult: GeneticPopulationMutation?
+    var makeMutationResult = GeneticPopulationMutationTestDouble()
 }
 
 // MARK: - GeneticPopulationMutationFactory methods
@@ -44,7 +44,7 @@ extension GeneticPopulationMutationFactoryTestDouble: GeneticPopulationMutationF
                       tournamentSize: Int,
                       maxDepth: Int,
                       evaluator: GeneticCircuitEvaluator,
-                      gates: [ConfigurableGate]) throws -> GeneticPopulationMutation {
+                      gates: [ConfigurableGate]) -> GeneticPopulationMutation {
         makeMutationCount += 1
 
         lastMakeMutationQubitCount = qubitCount
@@ -53,10 +53,6 @@ extension GeneticPopulationMutationFactoryTestDouble: GeneticPopulationMutationF
         lastMakeMutationEvaluator = evaluator
         lastMakeMutationGates = gates
 
-        if let makeMutationResult = makeMutationResult {
-            return makeMutationResult
-        }
-
-        throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+        return makeMutationResult
     }
 }

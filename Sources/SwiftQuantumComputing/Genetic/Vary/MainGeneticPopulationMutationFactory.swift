@@ -46,15 +46,15 @@ extension MainGeneticPopulationMutationFactory: GeneticPopulationMutationFactory
                       tournamentSize: Int,
                       maxDepth: Int,
                       evaluator: GeneticCircuitEvaluator,
-                      gates: [ConfigurableGate]) throws -> GeneticPopulationMutation {
-        let mutation = try factory.makeMutation(qubitCount: qubitCount,
-                                                maxDepth: maxDepth,
-                                                gates: gates)
+                      gates: [ConfigurableGate]) -> GeneticPopulationMutation {
+        let mutation = factory.makeMutation(qubitCount: qubitCount,
+                                            maxDepth: maxDepth,
+                                            gates: gates)
 
-        return try MainGeneticPopulationMutation(tournamentSize:tournamentSize,
-                                                 fitness: fitness,
-                                                 mutation: mutation,
-                                                 evaluator: evaluator,
-                                                 score: score)
+        return MainGeneticPopulationMutation(tournamentSize:tournamentSize,
+                                             fitness: fitness,
+                                             mutation: mutation,
+                                             evaluator: evaluator,
+                                             score: score)
     }
 }

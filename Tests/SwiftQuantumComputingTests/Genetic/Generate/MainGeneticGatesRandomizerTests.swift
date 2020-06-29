@@ -28,19 +28,6 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testQubitCountEqualToZero_init_throwException() {
-        // Then
-        XCTAssertThrowsError(try MainGeneticGatesRandomizer(qubitCount: 0, factories: []))
-    }
-
-    func testAnyRandomizerAndNegativeDepth_make_throwException() {
-        // Given
-        let randomizer = try? MainGeneticGatesRandomizer(qubitCount: 1, factories: [])
-
-        // Then
-        XCTAssertThrowsError(try randomizer?.make(depth: -1))
-    }
-
     func testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList() {
         // Given
         var randomFactoryCount = 0
@@ -61,7 +48,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
                                                     shuffledQubits: shuffledQubits)
 
         // When
-        let result = try? randomizer.make(depth: 0)
+        let result = try? randomizer.make(depth: 0).get()
 
         // Then
         XCTAssertEqual(randomFactoryCount, 0)
@@ -90,7 +77,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
 
         // When
         let depth = 10
-        let result = try? randomizer.make(depth: depth)
+        let result = try? randomizer.make(depth: depth).get()
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
@@ -135,7 +122,7 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
                                                     shuffledQubits: shuffledQubits)
 
         // When
-        let result = try? randomizer.make(depth: depth)
+        let result = try? randomizer.make(depth: depth).get()
 
         // Then
         XCTAssertEqual(randomFactoryCount, depth)
@@ -191,16 +178,16 @@ class MainGeneticGatesRandomizerTests: XCTestCase {
                                                     shuffledQubits: shuffledQubits)
 
         // Then
-        XCTAssertThrowsError(try randomizer.make(depth: depth))
-        XCTAssertEqual(randomFactoryCount, 2)
-        XCTAssertEqual(shuffledQubitsCount, 2)
+        switch randomizer.make(depth: depth) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssertEqual(randomFactoryCount, 2)
+            XCTAssertEqual(shuffledQubitsCount, 2)
+        default:
+            XCTAssert(false)
+        }
     }
 
     static var allTests = [
-        ("testQubitCountEqualToZero_init_throwException",
-         testQubitCountEqualToZero_init_throwException),
-        ("testAnyRandomizerAndNegativeDepth_make_throwException",
-         testAnyRandomizerAndNegativeDepth_make_throwException),
         ("testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList",
          testAnyRandomizerAndDepthEqualToZero_make_returnEmptyList),
         ("testRandomizerWithZeroFactoriesAndPositiveDepth_make_returnEmptyList",

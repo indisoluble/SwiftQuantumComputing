@@ -64,13 +64,14 @@ public struct OracleGate {
 extension OracleGate: ConfigurableGate {
 
     /// Check `ConfigurableGate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> Gate {
+    public func makeFixed(inputs: [Int]) -> Result<Gate, EvolveCircuitError> {
         guard inputs.count >= (truthTableQubitCount + 1) else {
-            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
+            return .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self))
         }
 
-        return .oracle(truthTable: truthTable,
-                       target: inputs[truthTableQubitCount],
-                       controls: Array(inputs[0..<truthTableQubitCount]))
+        let gate = Gate.oracle(truthTable: truthTable,
+                               target: inputs[truthTableQubitCount],
+                               controls: Array(inputs[0..<truthTableQubitCount]))
+        return .success(gate)
     }
 }

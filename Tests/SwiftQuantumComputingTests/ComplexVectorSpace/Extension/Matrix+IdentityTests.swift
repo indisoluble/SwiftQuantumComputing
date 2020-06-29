@@ -30,12 +30,16 @@ class Matrix_IdentityTests: XCTestCase {
 
     func testCountEqualToZero_makeIdentity_throwException() {
         // Then
-        XCTAssertThrowsError(try Matrix.makeIdentity(count: 0))
+        var error: Matrix.MakeIdentityError?
+        if case .failure(let e) = Matrix.makeIdentity(count: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .passCountBiggerThanZero)
     }
 
     func testCountBiggerThanZero_makeIdentity_returnExpectedMatrix() {
         // When
-        let matrix = try? Matrix.makeIdentity(count: 3)
+        let matrix = try? Matrix.makeIdentity(count: 3).get()
 
         // Then
         let expectedMatrix = try? Matrix([[Complex.one, Complex.zero, Complex.zero],

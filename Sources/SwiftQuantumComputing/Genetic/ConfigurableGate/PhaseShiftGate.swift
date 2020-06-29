@@ -48,11 +48,11 @@ public struct PhaseShiftGate {
 extension PhaseShiftGate: ConfigurableGate {
 
     /// Check `ConfigurableGate.makeFixed(inputs:)`
-    public func makeFixed(inputs: [Int]) throws -> Gate {
+    public func makeFixed(inputs: [Int]) -> Result<Gate, EvolveCircuitError> {
         guard let target = inputs.first else {
-            throw EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self)
+            return .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self))
         }
 
-        return .phaseShift(radians: radians, target: target)
+        return .success(.phaseShift(radians: radians, target: target))
     }
 }

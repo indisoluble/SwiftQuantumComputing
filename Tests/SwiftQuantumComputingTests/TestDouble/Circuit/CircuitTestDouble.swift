@@ -36,11 +36,10 @@ final class CircuitTestDouble {
     var unitaryResult: Matrix?
     var unitaryError = UnitaryError.circuitCanNotBeAnEmptyList
 
-    private (set) var statevectorCount = 0
-    private (set) var lastStatevectorInitialStatevector: Vector?
-    var statevectorResult: Vector?
-    var statevectorError = StatevectorWithInitialStatevectorError.gateThrowedError(gate: .not(target: 0),
-                                                                                   error: .resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary)
+    private (set) var circuitStatevectorCount = 0
+    private (set) var lastCircuitStatevectorInitialStatevector: CircuitStatevector?
+    var circuitStatevectorResult: CircuitStatevector?
+    var circuitStatevectorError = StatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - Circuit methods
@@ -52,27 +51,27 @@ extension CircuitTestDouble: Circuit {
         return gatesResult
     }
 
-    func unitary(withQubitCount qubitCount: Int) throws -> Matrix {
+    func unitary(withQubitCount qubitCount: Int) -> Result<Matrix, UnitaryError> {
         unitaryCount += 1
 
         lastUnitaryQubitCount = qubitCount
 
         if let unitaryResult = unitaryResult {
-            return unitaryResult
+            return .success(unitaryResult)
         }
 
-        throw unitaryError
+        return .failure(unitaryError)
     }
 
-    func statevector(withInitialStatevector initialStatevector: Vector) throws -> Vector {
-        statevectorCount += 1
+    func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
+        circuitStatevectorCount += 1
 
-        lastStatevectorInitialStatevector = initialStatevector
+        lastCircuitStatevectorInitialStatevector = initialStatevector
 
-        if let statevectorResult = statevectorResult {
-            return statevectorResult
+        if let statevectorResult = circuitStatevectorResult {
+            return .success(statevectorResult)
         }
 
-        throw statevectorError
+        return .failure(circuitStatevectorError)
     }
 }

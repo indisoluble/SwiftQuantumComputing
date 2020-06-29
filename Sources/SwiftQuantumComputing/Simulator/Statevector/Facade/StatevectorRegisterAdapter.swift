@@ -2,8 +2,8 @@
 //  StatevectorRegisterAdapter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/10/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 03/05/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,61 +26,45 @@ struct StatevectorRegisterAdapter {
 
     // MARK: - Private properties
 
-    private let vector: Vector
-    private let matrixFactory: SimulatorCircuitMatrixFactory
-
     private let qubitCount: Int
+    private let vector: Vector
+    private let transformation: StatevectorTransformation
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
         case vectorCountHasToBeAPowerOfTwo
     }
-    
-    init(vector: Vector, matrixFactory: SimulatorCircuitMatrixFactory) throws {
+
+    init(vector: Vector, transformation: StatevectorTransformation) throws {
         guard vector.count.isPowerOfTwo else {
             throw InitError.vectorCountHasToBeAPowerOfTwo
         }
 
         qubitCount = Int.log2(vector.count)
-
         self.vector = vector
-        self.matrixFactory = matrixFactory
+        self.transformation = transformation
     }
 }
 
 // MARK: - StatevectorRegister methods
 
 extension StatevectorRegisterAdapter: StatevectorRegister {
-    func statevector() throws -> Vector {
-        guard StatevectorRegisterAdapter.isAdditionOfSquareModulusInVectorEqualToOne(vector) else {
-            throw StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne
-        }
-
+    func measure() -> Vector {
         return vector
     }
 
-    func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterAdapter {
-        let matrix = try matrixFactory.makeCircuitMatrix(qubitCount: qubitCount, gate: gate)
-        let nextVector = try! matrix * vector
-
-        return try! StatevectorRegisterAdapter(vector: nextVector, matrixFactory: matrixFactory)
-    }
-}
-
-// MARK: - Private body
-
-private extension StatevectorRegisterAdapter {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let accuracy = 0.001
-    }
-
-    // MARK: - Private class methods
-
-    static func isAdditionOfSquareModulusInVectorEqualToOne(_ vector: Vector) -> Bool {
-        return (abs(vector.squaredNorm - Double(1)) <= Constants.accuracy)
+    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
+        switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        case .success((let matrix, let inputs)):
+            let nextVector = transformation.apply(gateMatrix: matrix,
+                                                  toStatevector: vector,
+                                                  atInputs: inputs)
+            let adapter = try! StatevectorRegisterAdapter(vector: nextVector,
+                                                          transformation: transformation)
+            return .success(adapter)
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }

@@ -25,6 +25,24 @@ import Foundation
 /// Configuration of a genetic algorithm to evolve a quantum circuit
 public struct GeneticConfiguration {
 
+    // MARK: - Public errors
+
+    /// Errors throwed by `GeneticConfiguration.init(depth:generationCount:populationSize:tournamentSize:mutationProbability:threshold:errorProbability:)`
+    public enum InitError: Error {
+        /// Throwed when `GeneticConfiguration.depth` starts with a negative number
+        case depthHasToBeAPositiveNumber
+        /// Throwed when `GeneticConfiguration.depth` is an empty `Range`
+        case depthIsEmpty
+        /// Throwed when `GeneticConfiguration.populationSize` starts on 0 which is not valid because that would be the
+        /// size of the initial population and an empty initial population can not produce new circuits
+        case populationSizeHasToBeBiggerThanZero
+        /// Throwed when `GeneticConfiguration.populationSize` is an empty `Range`
+        case populationSizeIsEmpty
+        /// Throwed when `GeneticConfiguration.tournamentSize` is 0 which is not valid because a reproduction operation
+        /// requires at least 1 circuit in the tournament
+        case tournamentSizeHasToBeBiggerThanZero
+    }
+
     // MARK: - Public properties
 
     /// Number of gates in an evolved circuits will be between the boundaries specified by `depth`
@@ -57,7 +75,27 @@ public struct GeneticConfiguration {
                 tournamentSize: Int,
                 mutationProbability: Double,
                 threshold: Double,
-                errorProbability: Double) {
+                errorProbability: Double) throws {
+        guard let firstDepth = depth.first else {
+            throw InitError.depthIsEmpty
+        }
+
+        guard firstDepth >= 0 else {
+            throw InitError.depthHasToBeAPositiveNumber
+        }
+
+        guard let initSize = populationSize.first else {
+            throw InitError.populationSizeIsEmpty
+        }
+
+        guard initSize > 0 else {
+            throw InitError.populationSizeHasToBeBiggerThanZero
+        }
+
+        guard tournamentSize > 0 else {
+            throw InitError.tournamentSizeHasToBeBiggerThanZero
+        }
+
         self.depth = depth
         self.generationCount = generationCount
         self.populationSize = populationSize

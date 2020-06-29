@@ -57,19 +57,27 @@ struct UnitaryGateAdapter {
 // MARK: - UnitaryGate methods
 
 extension UnitaryGateAdapter: UnitaryGate {
-    func unitary() throws -> Matrix {
+    func unitary() -> Result<Matrix, UnitaryMatrixError> {
         guard matrix.isUnitary(accuracy: Constants.accuracy) else {
-            throw UnitaryError.resultingMatrixIsNotUnitary
+            return .failure(.matrixIsNotUnitary)
         }
 
-        return matrix
+        return .success(matrix)
     }
 
-    func applying(_ gate: SimulatorGate) throws -> UnitaryGateAdapter {
-        let otherMatrix = try matrixFactory.makeCircuitMatrix(qubitCount: qubitCount, gate: gate)
-        let nextMatrix = try! otherMatrix * matrix
+    func applying(_ gate: SimulatorGate) -> Result<UnitaryGate, GateError> {
+        switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        case .success((let baseMatrix, let inputs)):
+            let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
+                                                                baseMatrix: baseMatrix,
+                                                                inputs: inputs)
+            let nextMatrix = try! (circuitMatrix.rawMatrix * matrix).get()
+            let adapter = try! UnitaryGateAdapter(matrix: nextMatrix, matrixFactory: matrixFactory)
 
-        return try! UnitaryGateAdapter(matrix: nextMatrix, matrixFactory: matrixFactory)
+            return .success(adapter)
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }
 

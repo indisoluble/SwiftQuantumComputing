@@ -80,13 +80,13 @@
                 <a class="nav-group-task-link" href="Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+                <a class="nav-group-task-link" href="Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/MakeStatevectorError.html">MakeStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/StatevectorError.html">StatevectorError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
@@ -124,6 +124,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/ConfigurableGate.html">ConfigurableGate</a>
@@ -173,6 +179,9 @@
                 <a class="nav-group-task-link" href="Structs/GeneticConfiguration.html">GeneticConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/GeneticUseCase.html">GeneticUseCase</a>
               </li>
               <li class="nav-group-task">
@@ -189,6 +198,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/MainDrawerFactory.html">MainDrawerFactory</a>
@@ -389,6 +404,62 @@ x2 ^ x1 ^ x0 = 0.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:21SwiftQuantumComputing18CircuitStatevectorP"></a>
+                    <a name="//apple_ref/swift/Protocol/CircuitStatevector" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing18CircuitStatevectorP">CircuitStatevector</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A quantum circuit state</p>
+
+                        <a href="Protocols/CircuitStatevector.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">CircuitStatevector</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing25CircuitStatevectorFactoryP"></a>
+                    <a name="//apple_ref/swift/Protocol/CircuitStatevectorFactory" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing25CircuitStatevectorFactoryP">CircuitStatevectorFactory</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Factory to build <code><a href="Protocols/CircuitStatevector.html">CircuitStatevector</a></code> instances</p>
+
+                        <a href="Protocols/CircuitStatevectorFactory.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">CircuitStatevectorFactory</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:21SwiftQuantumComputing8DrawableP"></a>
                     <a name="//apple_ref/swift/Protocol/Drawable" class="dashAnchor"></a>
                     <a class="token" href="#/s:21SwiftQuantumComputing8DrawableP">Drawable</a>
@@ -507,7 +578,7 @@ and solves a list of <code><a href="Structs/GeneticUseCase.html">GeneticUseCase<
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

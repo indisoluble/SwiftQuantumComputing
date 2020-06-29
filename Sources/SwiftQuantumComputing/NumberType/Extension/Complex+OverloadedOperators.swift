@@ -26,6 +26,10 @@ extension Complex {
 
     // MARK: - Internal operators
 
+    static func +(lhs: Complex, rhs: Complex) -> Complex {
+        return Complex(real: lhs.real + rhs.real, imag: lhs.imag + rhs.imag)
+    }
+
     static func *(lhs: Complex, rhs: Complex) -> Complex {
         let real = ((lhs.real * rhs.real) - (lhs.imag * rhs.imag))
         let imag = ((lhs.real * rhs.imag) + (rhs.real * lhs.imag))

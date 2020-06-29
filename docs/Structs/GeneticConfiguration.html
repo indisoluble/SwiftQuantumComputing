@@ -80,13 +80,13 @@
                 <a class="nav-group-task-link" href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/StatevectorError.html">StatevectorError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
@@ -124,6 +124,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConfigurableGate.html">ConfigurableGate</a>
@@ -173,6 +179,9 @@
                 <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/GeneticUseCase.html">GeneticUseCase</a>
               </li>
               <li class="nav-group-task">
@@ -189,6 +198,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainDrawerFactory.html">MainDrawerFactory</a>
@@ -268,6 +283,47 @@
 
         <section class="section">
           <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20errors"></a>
+                <a name="//apple_ref/swift/Section/Public errors" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20errors"></a>
+                  <h3 class="section-name"><p>Public errors</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing20GeneticConfigurationV9InitErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/InitError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing20GeneticConfigurationV9InitErrorO">InitError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Errors throwed by <code><a href="../Structs/GeneticConfiguration.html#/s:21SwiftQuantumComputing20GeneticConfigurationV5depth15generationCount14populationSize010tournamentJ019mutationProbability9threshold05errorM0ACSnySiG_SiAKSiS3dtKcfc">GeneticConfiguration.init(depth:generationCount:populationSize:tournamentSize:mutationProbability:threshold:errorProbability:)</a></code></p>
+
+                        <a href="../Structs/GeneticConfiguration/InitError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">InitError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
             <div class="task-group">
               <div class="task-name-container">
                 <a name="/Public%20properties"></a>
@@ -490,9 +546,9 @@ the circuit is considered in the right track to solve the use case</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing20GeneticConfigurationV5depth15generationCount14populationSize010tournamentJ019mutationProbability9threshold05errorM0ACSnySiG_SiAKSiS3dtcfc"></a>
+                    <a name="/s:21SwiftQuantumComputing20GeneticConfigurationV5depth15generationCount14populationSize010tournamentJ019mutationProbability9threshold05errorM0ACSnySiG_SiAKSiS3dtKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(depth:generationCount:populationSize:tournamentSize:mutationProbability:threshold:errorProbability:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing20GeneticConfigurationV5depth15generationCount14populationSize010tournamentJ019mutationProbability9threshold05errorM0ACSnySiG_SiAKSiS3dtcfc">init(depth:<wbr>generationCount:<wbr>populationSize:<wbr>tournamentSize:<wbr>mutationProbability:<wbr>threshold:<wbr>errorProbability:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing20GeneticConfigurationV5depth15generationCount14populationSize010tournamentJ019mutationProbability9threshold05errorM0ACSnySiG_SiAKSiS3dtKcfc">init(depth:<wbr>generationCount:<wbr>populationSize:<wbr>tournamentSize:<wbr>mutationProbability:<wbr>threshold:<wbr>errorProbability:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -513,7 +569,7 @@ the circuit is considered in the right track to solve the use case</p>
             <span class="nv">tournamentSize</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
             <span class="nv">mutationProbability</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
             <span class="nv">threshold</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span>
-            <span class="nv">errorProbability</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span></code></pre>
+            <span class="nv">errorProbability</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -528,7 +584,7 @@ the circuit is considered in the right track to solve the use case</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

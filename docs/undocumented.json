@@ -30,7 +30,7 @@
     },
     {
       "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/MainGeneticFactory.swift",
-      "line": 88,
+      "line": 89,
       "symbol": "MainGeneticFactory",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"

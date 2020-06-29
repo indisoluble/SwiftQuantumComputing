@@ -29,13 +29,11 @@ extension Circuit {
     /**
      Produces unitary matrix that represents entire list of `gates`.
 
-     - Throws: `UnitaryError`.
-
-     - Returns: Unitary matrix that represents entire list of `gates`.
+     - Returns: Unitary matrix that represents entire list of `gates`. Or `UnitaryError` error.
      */
-    public func unitary() throws -> Matrix {
-        let qubitCount = (gates as [SimulatorGate]).qubitCount()
+    public func unitary() -> Result<Matrix, UnitaryError> {
+        let qubitCount = gates.qubitCount()
 
-        return try unitary(withQubitCount: qubitCount)
+        return unitary(withQubitCount: qubitCount)
     }
 }

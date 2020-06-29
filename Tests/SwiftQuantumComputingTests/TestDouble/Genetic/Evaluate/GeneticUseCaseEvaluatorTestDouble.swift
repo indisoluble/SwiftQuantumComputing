@@ -31,21 +31,21 @@ final class GeneticUseCaseEvaluatorTestDouble {
     private (set) var evaluateCircuitCount = 0
     private (set) var lastEvaluateCircuitGeneticCircuit: [GeneticGate]?
     var evaluateCircuitResult: Double?
-    var evaluateCircuitError = EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+    var evaluateCircuitError = EvolveCircuitError.useCasesDoNotSpecifySameCircuitQubitCount
 }
 
 // MARK: - GeneticUseCaseEvaluator methods
 
 extension GeneticUseCaseEvaluatorTestDouble: GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Double {
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Result<Double, EvolveCircuitError> {
         evaluateCircuitCount += 1
 
         lastEvaluateCircuitGeneticCircuit = geneticCircuit
 
         if let evaluateCircuitResult = evaluateCircuitResult {
-            return evaluateCircuitResult
+            return .success(evaluateCircuitResult)
         }
 
-        throw evaluateCircuitError
+        return .failure(evaluateCircuitError)
     }
 }

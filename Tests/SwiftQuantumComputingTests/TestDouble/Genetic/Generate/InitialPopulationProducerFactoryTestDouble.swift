@@ -33,8 +33,7 @@ final class InitialPopulationProducerFactoryTestDouble {
     private (set) var lastMakeProducerThreshold: Double?
     private (set) var lastMakeProducerUseCases: [GeneticUseCase]?
     private (set) var lastMakeProducerGates: [ConfigurableGate]?
-    var makeProducerResult: InitialPopulationProducer?
-    var makeProducerError = EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+    var makeProducerResult = InitialPopulationProducerTestDouble()
 }
 
 // MARK: - InitialPopulationProducerFactory methods
@@ -43,7 +42,7 @@ extension InitialPopulationProducerFactoryTestDouble: InitialPopulationProducerF
     func makeProducer(qubitCount: Int,
                       threshold: Double,
                       useCases: [GeneticUseCase],
-                      gates: [ConfigurableGate]) throws -> InitialPopulationProducer {
+                      gates: [ConfigurableGate]) -> InitialPopulationProducer {
         makeProducerCount += 1
 
         lastMakeProducerQubitCount = qubitCount
@@ -51,10 +50,6 @@ extension InitialPopulationProducerFactoryTestDouble: InitialPopulationProducerF
         lastMakeProducerUseCases = useCases
         lastMakeProducerGates = gates
 
-        if let makeProducerResult = makeProducerResult {
-            return makeProducerResult
-        }
-
-        throw makeProducerError
+        return makeProducerResult
     }
 }

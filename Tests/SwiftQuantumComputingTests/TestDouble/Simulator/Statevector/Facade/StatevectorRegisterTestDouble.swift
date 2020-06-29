@@ -28,38 +28,31 @@ final class StatevectorRegisterTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var statevectorCount = 0
-    var statevectorResult: Vector?
-    var statevectorError = StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne
+    private (set) var measureCount = 0
+    var measureResult = try! Vector([Complex.zero, Complex.one])
 
-    private (set) var applyingCount = 0
-    private (set) var lastApplyingGate: SimulatorGate?
-    var applyingResult: StatevectorRegisterTestDouble?
-    var applyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+    private (set) var simulatorApplyingCount = 0
+    private (set) var lastSimulatorApplyingGate: SimulatorGate?
+    var simulatorApplyingResult: StatevectorRegisterTestDouble?
+    var simulatorApplyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
 }
 
-// MARK: - StatevectorRegister methods
-
 extension StatevectorRegisterTestDouble: StatevectorRegister {
-    func statevector() throws -> Vector {
-        statevectorCount += 1
+    func measure() -> Vector {
+        measureCount += 1
 
-        if let statevectorResult = statevectorResult {
-            return statevectorResult
-        }
-
-        throw statevectorError
+        return measureResult
     }
 
-    func applying(_ gate: SimulatorGate) throws -> StatevectorRegisterTestDouble {
-        applyingCount += 1
+    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
+        simulatorApplyingCount += 1
 
-        lastApplyingGate = gate
+        lastSimulatorApplyingGate = gate
 
-        if let applyingResult = applyingResult {
-            return applyingResult
+        if let applyingResult = simulatorApplyingResult {
+            return .success(applyingResult)
         }
 
-        throw applyingError
+        return .failure(simulatorApplyingError)
     }
 }

@@ -44,10 +44,8 @@ struct MainGeneticPopulationMutation {
          mutation: GeneticCircuitMutation,
          evaluator: GeneticCircuitEvaluator,
          score: GeneticCircuitScore,
-         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) throws {
-        guard tournamentSize > 0 else {
-            throw EvolveCircuitError.configurationTournamentSizeHasToBeBiggerThanZero
-        }
+         randomElements: @escaping RandomElements = { $0.randomElements(count: $1) } ) {
+        assert(tournamentSize > 0, "tournamentSize has to be bigger than zero")
 
         self.tournamentSize = tournamentSize
         self.fitness = fitness
@@ -61,18 +59,26 @@ struct MainGeneticPopulationMutation {
 // MARK: - GeneticPopulationMutation methods
 
 extension MainGeneticPopulationMutation: GeneticPopulationMutation {
-    func applied(to population: [Fitness.EvalCircuit]) throws -> Fitness.EvalCircuit? {
+    func applied(to population: [Fitness.EvalCircuit]) -> Result<Fitness.EvalCircuit?, EvolveCircuitError> {
         let sample = randomElements(population, tournamentSize)
         guard let winner = fitness.fittest(in: sample) else {
-            return nil
+            return .success(nil)
         }
 
-        guard let mutated = try mutation.execute(winner.circuit) else {
-            return nil
+        switch mutation.execute(winner.circuit) {
+        case .success(let mutated):
+            guard let mutated = mutated else {
+                return .success(nil)
+            }
+
+            switch evaluator.evaluateCircuit(mutated) {
+            case .success(let evaluation):
+                return .success((score.calculate(evaluation), mutated))
+            case .failure(let error):
+                return .failure(error)
+            }
+        case .failure(let error):
+            return .failure(error)
         }
-
-        let evaluation = try evaluator.evaluateCircuit(mutated)
-
-        return (score.calculate(evaluation), mutated)
     }
 }

@@ -27,48 +27,48 @@ struct MainGeneticUseCaseEvaluator {
     // MARK: - Private properties
 
     private let useCase: GeneticUseCase
-    private let factory: CircuitFactory
+    private let circuitFactory: CircuitFactory
+    private let statevectorFactory: CircuitStatevectorFactory
     private let oracleFactory: OracleCircuitFactory
+    private let probabilityIndex: Int
 
     // MARK: - Internal init methods
 
     init(useCase: GeneticUseCase,
-         factory: CircuitFactory,
-         oracleFactory: OracleCircuitFactory) throws {
-        guard useCase.circuit.qubitCount > 0 else {
-            throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
-        }
-
+         circuitFactory: CircuitFactory,
+         statevectorFactory: CircuitStatevectorFactory,
+         oracleFactory: OracleCircuitFactory) {
         self.useCase = useCase
-        self.factory = factory
+        self.circuitFactory = circuitFactory
+        self.statevectorFactory = statevectorFactory
         self.oracleFactory = oracleFactory
+        self.probabilityIndex = Int(useCase.circuit.output, radix: 2)!
     }
 }
 
 // MARK: - GeneticUseCaseEvaluator methods
 
 extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Double {
-        let oracleCircuit = try oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit,
-                                                                useCase: useCase)
-
-        let gates = oracleCircuit.circuit
-        let circuit = factory.makeCircuit(gates: gates)
-
-        let input = useCase.circuit.input
-        var probabilities: [Double]!
-        do {
-            probabilities = try circuit.probabilities(withInitialBits: input)
-        } catch let error as ProbabilitiesError {
-            throw EvolveCircuitError.useCaseMeasurementThrowedError(useCase: useCase, error: error)
-        } catch {
-            fatalError("Unexpected error: \(error).")
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Result<Double, EvolveCircuitError> {
+        var gates: [Gate]!
+        switch oracleFactory.makeOracleCircuit(geneticCircuit: geneticCircuit, useCase: useCase) {
+        case .success((let circuit, _)):
+            gates = circuit
+        case .failure(let error):
+            return .failure(error)
         }
 
-        guard let index = Int(useCase.circuit.output, radix: 2) else {
-            throw EvolveCircuitError.useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: useCase)
+        let circuit = circuitFactory.makeCircuit(gates: gates)
+        let initialStatevector = try! statevectorFactory.makeStatevector(bits: useCase.circuit.input).get()
+
+        var statevector: CircuitStatevector!
+        switch circuit.statevector(withInitialStatevector: initialStatevector) {
+        case .success(let state):
+            statevector = state
+        case .failure(let error):
+            return .failure(.useCaseMeasurementThrowedError(useCase: useCase, error: error))
         }
 
-        return abs(1 - probabilities[index])
+        return .success(abs(1 - statevector.probabilities()[probabilityIndex]))
     }
 }

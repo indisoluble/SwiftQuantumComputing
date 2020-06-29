@@ -2,8 +2,8 @@
 //  StatevectorRegisterFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 03/05/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,36 +26,20 @@ struct StatevectorRegisterFactoryAdapter {
 
     // MARK: - Private properties
 
-    private let matrixFactory: SimulatorCircuitMatrixFactory
+    private let transformation: StatevectorTransformation
 
     // MARK: - Internal init methods
 
-    init(matrixFactory: SimulatorCircuitMatrixFactory) {
-        self.matrixFactory = matrixFactory
+    init(transformation: StatevectorTransformation) {
+        self.transformation = transformation
     }
 }
 
 // MARK: - StatevectorRegisterFactory methods
 
 extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
-    func makeRegister(state: Vector) throws -> StatevectorRegister {
-        var register: StatevectorRegister!
-        do {
-            register = try StatevectorRegisterAdapter(vector: state, matrixFactory: matrixFactory)
-        } catch StatevectorRegisterAdapter.InitError.vectorCountHasToBeAPowerOfTwo {
-            throw MakeRegisterError.stateCountHasToBeAPowerOfTwo
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        do {
-            _ = try register.statevector()
-        } catch StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
-            throw MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        return register
+    func makeRegister(state: CircuitStatevector) -> StatevectorRegister {
+        return try! StatevectorRegisterAdapter(vector: state.statevector,
+                                               transformation: transformation)
     }
 }

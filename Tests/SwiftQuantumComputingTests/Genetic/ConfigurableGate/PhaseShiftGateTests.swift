@@ -33,7 +33,12 @@ class PhaseShiftGateTests: XCTestCase {
         let factory = PhaseShiftGate(radians: 0.0)
 
         // Then
-        XCTAssertThrowsError(try factory.makeFixed(inputs: []))
+        switch factory.makeFixed(inputs: []) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssert(true)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testAnyFactoryAndTwoInputs_makeFixed_returnExpectedGate() {
@@ -43,16 +48,9 @@ class PhaseShiftGateTests: XCTestCase {
 
         let inputs = [0, 1]
 
-        // When
-        guard let result = try? factory.makeFixed(inputs: inputs) else {
-            XCTAssert(false)
-
-            return
-        }
-
         // Then
-        switch result {
-        case let .phaseShift(gateRadians, target):
+        switch factory.makeFixed(inputs: inputs) {
+        case .success(.phaseShift(let gateRadians, let target)):
             XCTAssertEqual(radians, gateRadians)
             XCTAssertEqual(inputs[0], target)
         default:

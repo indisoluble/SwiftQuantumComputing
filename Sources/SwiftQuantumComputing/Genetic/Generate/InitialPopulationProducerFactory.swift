@@ -26,5 +26,5 @@ protocol InitialPopulationProducerFactory {
     func makeProducer(qubitCount: Int,
                       threshold: Double,
                       useCases: [GeneticUseCase],
-                      gates: [ConfigurableGate]) throws -> InitialPopulationProducer
+                      gates: [ConfigurableGate]) -> InitialPopulationProducer
 }

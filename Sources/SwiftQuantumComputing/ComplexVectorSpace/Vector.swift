@@ -40,7 +40,7 @@ public struct Vector {
     // MARK: - Internal properties
 
     var squaredNorm: Double {
-        return try! Vector.innerProduct(self, self).real
+        return try! Vector.innerProduct(self, self).get().real
     }
 
     // MARK: - Private properties
@@ -87,21 +87,33 @@ public struct Vector {
 
     // MARK: - Internal class methods
 
+    enum MakeVectorError: Error {
+        case passCountBiggerThanZero
+    }
+
+    static func makeVector(count: Int, value: (Int) -> Complex) -> Result<Vector, MakeVectorError> {
+        guard (count > 0) else {
+            return .failure(.passCountBiggerThanZero)
+        }
+
+        let matrix = try! Matrix.makeMatrix(rowCount: count,
+                                            columnCount: 1,
+                                            value: { r, c in value(r) }).get()
+
+        return .success(Vector(matrix: matrix))
+    }
+
     enum InnerProductError: Error {
         case vectorsDoNotHaveSameCount
     }
 
-    static func innerProduct(_ lhs: Vector, _ rhs: Vector) throws -> Complex {
-        var matrix: Matrix!
-        do {
-            matrix = try Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix
-        } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
-            throw InnerProductError.vectorsDoNotHaveSameCount
-        } catch {
-            fatalError("Unexpected error: \(error).")
+    static func innerProduct(_ lhs: Vector, _ rhs: Vector) -> Result<Complex, InnerProductError> {
+        switch Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix {
+        case .success(let matrix):
+            return .success(try! Complex(matrix))
+        case .failure(.matricesDoNotHaveValidDimensions):
+            return .failure(.vectorsDoNotHaveSameCount)
         }
-
-        return try! Complex(matrix)
     }
 }
 
@@ -133,22 +145,31 @@ extension Vector {
 
     // MARK: - Internal types
 
-    enum ProductError: Error {
+    enum VectorByVectorError: Error {
+        case vectorCountsDoNotMatch
+    }
+
+    enum MatrixByVectorError: Error {
         case matrixColumnCountDoesNotMatchVectorCount
     }
 
     // MARK: - Internal operators
 
-    static func *(lhs: Matrix, rhs: Vector) throws -> Vector {
-        var matrix: Matrix!
-        do {
-            matrix = try lhs * rhs.matrix
-        } catch Matrix.ProductError.matricesDoNotHaveValidDimensions {
-            throw ProductError.matrixColumnCountDoesNotMatchVectorCount
-        } catch {
-            fatalError("Unexpected error: \(error).")
+    static func *(lhs: Vector, rhs: Vector) -> Result<Complex, VectorByVectorError> {
+        switch Matrix.Transformation.transposed(lhs.matrix) * rhs.matrix {
+        case .success(let matrix):
+            return .success(matrix.first)
+        case .failure(.matricesDoNotHaveValidDimensions):
+            return .failure(.vectorCountsDoNotMatch)
         }
+    }
 
-        return Vector(matrix: matrix)
+    static func *(lhs: Matrix, rhs: Vector) -> Result<Vector, MatrixByVectorError> {
+        switch lhs * rhs.matrix {
+        case .success(let matrix):
+            return .success(Vector(matrix: matrix))
+        case .failure(.matricesDoNotHaveValidDimensions):
+            return .failure(.matrixColumnCountDoesNotMatchVectorCount)
+        }
     }
 }

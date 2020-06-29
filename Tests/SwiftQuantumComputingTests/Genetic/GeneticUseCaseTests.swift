@@ -33,36 +33,22 @@ class GeneticUseCaseTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testEmptyTruthTable_init_returnExpectedUseCase() {
+    func testEmptyTruthTable_init_throwException() {
         // Given
         let truthTable: [String] = []
 
-        // When
-        let useCase = try? GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
-
         // Then
-        if let useCase = useCase {
-            XCTAssertEqual(useCase.truthTable.truth, truthTable)
-            XCTAssertEqual(useCase.truthTable.qubitCount, 0)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertThrowsError(try GeneticUseCase(truthTable: truthTable,
+                                                circuitOutput: circuitOutput))
     }
 
-    func testTruthTableWithEmptyValue_init_returnExpectedUseCase() {
+    func testTruthTableWithEmptyValue_init_throwException() {
         // Given
         let truthTable: [String] = [""]
 
-        // When
-        let useCase = try? GeneticUseCase(truthTable: truthTable, circuitOutput: circuitOutput)
-
         // Then
-        if let useCase = useCase {
-            XCTAssertEqual(useCase.truthTable.truth, truthTable)
-            XCTAssertEqual(useCase.truthTable.qubitCount, 0)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertThrowsError(try GeneticUseCase(truthTable: truthTable,
+                                                circuitOutput: circuitOutput))
     }
 
     func testTruthTableWithMultipleSizedValues_init_returnExpectedUseCase() {
@@ -142,11 +128,24 @@ class GeneticUseCaseTests: XCTestCase {
                                                 circuitOutput: output))
     }
 
+    func testNonSensicalCircuitOutput_init_throwException() {
+        // Given
+        let truthTableQubitCount = 10
+
+        let input = "000000"
+        let output = "qwerty"
+
+        // Then
+        XCTAssertThrowsError(try GeneticUseCase(emptyTruthTableQubitCount: truthTableQubitCount,
+                                                circuitInput: input,
+                                                circuitOutput: output))
+    }
+
     static var allTests = [
-        ("testEmptyTruthTable_init_returnExpectedUseCase",
-         testEmptyTruthTable_init_returnExpectedUseCase),
-        ("testTruthTableWithEmptyValue_init_returnExpectedUseCase",
-         testTruthTableWithEmptyValue_init_returnExpectedUseCase),
+        ("testEmptyTruthTable_init_throwException",
+         testEmptyTruthTable_init_throwException),
+        ("testTruthTableWithEmptyValue_init_throwException",
+         testTruthTableWithEmptyValue_init_throwException),
         ("testTruthTableWithMultipleSizedValues_init_returnExpectedUseCase",
          testTruthTableWithMultipleSizedValues_init_returnExpectedUseCase),
         ("testAnyTruthTableQubitCount_init_returnExpectedUseCase",
@@ -156,6 +155,8 @@ class GeneticUseCaseTests: XCTestCase {
         ("testEmptyCircuitInputAndOutput_init_throwException",
          testEmptyCircuitInputAndOutput_init_throwException),
         ("testCircuitInputDifferentSizeThanOutput_init_throwException",
-         testCircuitInputDifferentSizeThanOutput_init_throwException)
+         testCircuitInputDifferentSizeThanOutput_init_throwException),
+        ("testNonSensicalCircuitOutput_init_throwException",
+         testNonSensicalCircuitOutput_init_throwException)
     ]
 }

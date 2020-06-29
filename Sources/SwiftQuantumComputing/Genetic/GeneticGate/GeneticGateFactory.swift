@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol GeneticGateFactory {
-    func makeGate(inputs: [Int]) throws -> GeneticGate
+    func makeGate(inputs: [Int]) -> Result<GeneticGate, EvolveCircuitError>
 }

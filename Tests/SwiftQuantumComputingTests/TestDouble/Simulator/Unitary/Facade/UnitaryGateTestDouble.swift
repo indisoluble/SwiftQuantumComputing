@@ -30,36 +30,36 @@ final class UnitaryGateTestDouble {
 
     private (set) var unitaryCount = 0
     var unitaryResult: Matrix?
-    var unitaryError = UnitaryError.resultingMatrixIsNotUnitary
+    var unitaryError = UnitaryMatrixError.matrixIsNotUnitary
 
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: SimulatorGate?
     var applyingResult: UnitaryGateTestDouble?
-    var applyingError = GateError.resultingMatrixIsNotUnitaryAfterApplyingGateToUnitary
+    var applyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - UnitaryGate methods
 
 extension UnitaryGateTestDouble: UnitaryGate {
-    func unitary() throws -> Matrix {
+    func unitary() -> Result<Matrix, UnitaryMatrixError> {
         unitaryCount += 1
 
         if let unitaryResult = unitaryResult {
-            return unitaryResult
+            return .success(unitaryResult)
         }
 
-        throw unitaryError
+        return .failure(unitaryError)
     }
 
-    func applying(_ gate: SimulatorGate) throws -> UnitaryGateTestDouble {
+    func applying(_ gate: SimulatorGate) -> Result<UnitaryGate, GateError> {
         applyingCount += 1
 
         lastApplyingGate = gate
 
         if let applyingResult = applyingResult {
-            return applyingResult
+            return .success(applyingResult)
         }
 
-        throw applyingError
+        return .failure(applyingError)
     }
 }

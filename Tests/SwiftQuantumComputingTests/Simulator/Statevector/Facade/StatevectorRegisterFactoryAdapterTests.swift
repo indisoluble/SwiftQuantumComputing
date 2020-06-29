@@ -2,7 +2,7 @@
 //  StatevectorRegisterFactoryAdapterTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/02/2020.
+//  Created by Enrique de la Torre on 03/05/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,30 +28,28 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let adapter = StatevectorRegisterFactoryAdapter(matrixFactory: SimulatorCircuitMatrixFactoryTestDouble())
+    let transformation = StatevectorTransformationTestDouble()
 
     // MARK: - Tests
 
-    func testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError() {
+    func testAnyCircuitStateVector_makeRegister_returnValue() {
         // Given
-        let vector = try! Vector([Complex.zero, Complex.zero, Complex.one])
+        let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
+
+        let vector = try! Vector([
+            Complex.zero, Complex.zero, Complex.zero, Complex.one
+        ])
+        let statevector = try! CircuitStatevectorAdapter(statevector: vector)
+
+        // When
+        let register = adapter.makeRegister(state: statevector)
 
         // Then
-        XCTAssertThrowsError(try adapter.makeRegister(state: vector))
-    }
-
-    func testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError() {
-        // Given
-        let vector = try! Vector([Complex.zero, Complex.zero, Complex.one, Complex.one])
-
-        // Then
-        XCTAssertThrowsError(try adapter.makeRegister(state: vector))
+        XCTAssertEqual(register.measure(), vector)
     }
 
     static var allTests = [
-        ("testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError",
-         testVectorWhichCountIsNotAPowerOfTwo_makeRegister_throwError),
-        ("testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError",
-         testVectorAdditionOfSquareModulusIsNotEqualToOne_makeRegister_throwError)
+        ("testAnyCircuitStateVector_makeRegister_returnValue",
+         testAnyCircuitStateVector_makeRegister_returnValue)
     ]
 }

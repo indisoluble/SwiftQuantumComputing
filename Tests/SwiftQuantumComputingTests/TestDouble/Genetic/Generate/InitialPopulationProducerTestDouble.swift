@@ -32,22 +32,23 @@ final class InitialPopulationProducerTestDouble {
     private (set) var lastExecuteSize: Int?
     private (set) var lastExecuteDepth: Range<Int>?
     var executeResult: [Fitness.EvalCircuit]?
-    var executeError = EvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
+    var executeError = EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: ConfigurableGateTestDouble())
 }
 
 // MARK: - InitialPopulationProducer methods
 
 extension InitialPopulationProducerTestDouble: InitialPopulationProducer {
-    func execute(size: Int, depth: Range<Int>) throws -> [Fitness.EvalCircuit] {
+    func execute(size: Int,
+                 depth: Range<Int>) -> Result<[Fitness.EvalCircuit], EvolveCircuitError> {
         executeCount += 1
 
         lastExecuteSize = size
         lastExecuteDepth = depth
 
         if let executeResult = executeResult {
-            return executeResult
+            return .success(executeResult)
         }
 
-        throw executeError
+        return .failure(executeError)
     }
 }

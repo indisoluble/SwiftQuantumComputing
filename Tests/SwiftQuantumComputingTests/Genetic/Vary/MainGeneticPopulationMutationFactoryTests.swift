@@ -40,20 +40,6 @@ class MainGeneticPopulationMutationFactoryTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testFactoryThrowException_makeMutation_throwException() {
-        // Given
-        let populationFactory = MainGeneticPopulationMutationFactory(fitness: fitness,
-                                                                     factory: factory,
-                                                                     score: score)
-
-        // Then
-        XCTAssertThrowsError(try populationFactory.makeMutation(qubitCount: qubitCount,
-                                                                tournamentSize: tournamentSize,
-                                                                maxDepth: maxDepth,
-                                                                evaluator: evaluator,
-                                                                gates: gates))
-    }
-
     func testFactoryReturnMutation_makeMutation_returnValue() {
         // Given
         factory.makeMutationResult = mutation
@@ -63,35 +49,15 @@ class MainGeneticPopulationMutationFactoryTests: XCTestCase {
                                                                      score: score)
 
         // Then
-        XCTAssertNoThrow(try populationFactory.makeMutation(qubitCount: qubitCount,
-                                                            tournamentSize: tournamentSize,
-                                                            maxDepth: maxDepth,
-                                                            evaluator: evaluator,
-                                                            gates: gates))
-    }
-
-    func testTournamentSizeEqualToZero_makeMutation_throwException() {
-        // Given
-        factory.makeMutationResult = mutation
-
-        let populationFactory = MainGeneticPopulationMutationFactory(fitness: fitness,
-                                                                     factory: factory,
-                                                                     score: score)
-
-        // Then
-        XCTAssertThrowsError(try populationFactory.makeMutation(qubitCount: qubitCount,
-                                                                tournamentSize: 0,
-                                                                maxDepth: maxDepth,
-                                                                evaluator: evaluator,
-                                                                gates: gates))
+        XCTAssertNotNil(populationFactory.makeMutation(qubitCount: qubitCount,
+                                                       tournamentSize: tournamentSize,
+                                                       maxDepth: maxDepth,
+                                                       evaluator: evaluator,
+                                                       gates: gates))
     }
 
     static var allTests = [
-        ("testFactoryThrowException_makeMutation_throwException",
-         testFactoryThrowException_makeMutation_throwException),
         ("testFactoryReturnMutation_makeMutation_returnValue",
-         testFactoryReturnMutation_makeMutation_returnValue),
-        ("testTournamentSizeEqualToZero_makeMutation_throwException",
-         testTournamentSizeEqualToZero_makeMutation_throwException)
+         testFactoryReturnMutation_makeMutation_returnValue)
     ]
 }

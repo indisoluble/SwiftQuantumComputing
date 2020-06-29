@@ -51,41 +51,38 @@ struct MainInitialPopulationProducer {
 // MARK: - InitialPopulationProducer methods
 
 extension MainInitialPopulationProducer: InitialPopulationProducer {
-    func execute(size: Int, depth: Range<Int>) throws -> [Fitness.EvalCircuit] {
-        guard size > 0 else {
-            throw EvolveCircuitError.configurationPopulationSizeHasToBeBiggerThanZero
-        }
+    func execute(size: Int,
+                 depth: Range<Int>) -> Result<[Fitness.EvalCircuit], EvolveCircuitError> {
+        assert(size > 0, "size has to be bigger than zero")
 
         var population: [Fitness.EvalCircuit] = []
-        var populationError: Error?
+        var populationError: EvolveCircuitError?
 
         let queue = DispatchQueue(label: String(reflecting: type(of: self)))
         DispatchQueue.concurrentPerform(iterations: size) { _ in
-            var circuit: [GeneticGate]?
-            var circuitScore: Double?
-            var circuitError: Error?
-            do {
-                circuit = try generator.make(depth: random(depth))
-
-                let evaluation = try evaluator.evaluateCircuit(circuit!)
-                circuitScore = score.calculate(evaluation)
-            } catch {
-                circuitError = error
-            }
-
-            queue.sync {
-                if let circuit = circuit, let circuitScore = circuitScore {
-                    population.append((circuitScore, circuit))
-                } else {
-                    populationError = circuitError
+            switch generator.make(depth: random(depth)) {
+            case .success(let circuit):
+                switch evaluator.evaluateCircuit(circuit) {
+                case .success(let evaluation):
+                    queue.sync {
+                        population.append((score.calculate(evaluation), circuit))
+                    }
+                case .failure(let error):
+                    queue.sync {
+                        populationError = error
+                    }
+                }
+            case .failure(let error):
+                queue.sync {
+                    populationError = error
                 }
             }
         }
 
         if let populationError = populationError {
-            throw populationError
+            return .failure(populationError)
         }
 
-        return population
+        return .success(population)
     }
 }

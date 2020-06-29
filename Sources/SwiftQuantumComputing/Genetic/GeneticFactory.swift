@@ -24,32 +24,14 @@ import Foundation
 
 /// Errors throwed by `GeneticFactory.evolveCircuit(configuration:useCases:gates:)`
 public enum EvolveCircuitError: Error {
-    /// Throwed when `GeneticConfiguration.depth` starts with a negative number
-    case configurationDepthHasToBeAPositiveNumber
-    /// Throwed when `GeneticConfiguration.depth` is an empty `Range`
-    case configurationDepthIsEmpty
-    /// Throwed when `GeneticConfiguration.populationSize` starts on 0 which is not valid because that would be the
-    /// size of the initial population and an empty initial population can not produce new circuits
-    case configurationPopulationSizeHasToBeBiggerThanZero
-    /// Throwed when `GeneticConfiguration.populationSize` is an empty `Range`
-    case configurationPopulationSizeIsEmpty
-    /// Throwed when `GeneticConfiguration.tournamentSize` is 0 which is not valid because a reproduction operation
-    /// requires at least 1 circuit in the tournament
-    case configurationTournamentSizeHasToBeBiggerThanZero
     /// Throwed if `gate` requires more qubits than `GeneticUseCase.Circuit.qubitCount` specifies
     case gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: ConfigurableGate)
-    /// Throwed if `useCase.Circuit.output` is not composed exclusively of 0's and 1's
-    case useCaseCircuitOutputHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes(useCase: GeneticUseCase)
-    /// Throwed if any `GeneticUseCase.Circuit.qubitCount` is 0 or a negative number
-    case useCaseCircuitQubitCountHasToBeBiggerThanZero
     /// Throwed if `useCases` is an empty list
     case useCaseListIsEmpty
     /// Throwed when a circuit evolved to solve `useCase `throwed `error` while measuring the probabilities of all possible outputs
-    case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: ProbabilitiesError)
+    case useCaseMeasurementThrowedError(useCase: GeneticUseCase, error: StatevectorError)
     /// Throwed when `GeneticUseCase.Circuit.qubitCount` is not the same in all `useCases`
     case useCasesDoNotSpecifySameCircuitQubitCount
-    /// Throwed if `useCase.TruthTable.qubitCount` is 0
-    case useCaseTruthTableQubitCountHasToBeBiggerThanZeroToMakeOracle(useCase: GeneticUseCase)
 }
 
 // MARK: - Protocol definition
@@ -77,11 +59,9 @@ public protocol GeneticFactory {
      - Parameter gates: List of allowed gates, i.e. the evolved circuit will only include gates specified in this list and, if
      necessary, an oracle gate.
 
-     - Throws: `EvolveCircuitError`.
-
-     - Returns: An `EvolvedCircuit` instance.
+     - Returns: An `EvolvedCircuit` instance. Or `EvolveCircuitError` error.
      */
     func evolveCircuit(configuration config: GeneticConfiguration,
                        useCases: [GeneticUseCase],
-                       gates: [ConfigurableGate]) throws -> EvolvedCircuit
+                       gates: [ConfigurableGate]) -> Result<EvolvedCircuit, EvolveCircuitError>
 }

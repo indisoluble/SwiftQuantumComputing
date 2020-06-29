@@ -2,8 +2,8 @@
 //  StatevectorRegister.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 23/05/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,15 +20,9 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum StatevectorRegisterError: Error {
-    case statevectorAdditionOfSquareModulusIsNotEqualToOne
-}
-
 // MARK: - Protocol definition
 
 protocol StatevectorRegister {
-    func statevector() throws -> Vector
-    func applying(_ gate: SimulatorGate) throws -> Self
+    func measure() -> Vector
+    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError>
 }

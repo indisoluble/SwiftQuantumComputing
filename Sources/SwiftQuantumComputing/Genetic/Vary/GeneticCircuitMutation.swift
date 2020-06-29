@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol GeneticCircuitMutation {
-    func execute(_ circuit: [GeneticGate]) throws -> [GeneticGate]?
+    func execute(_ circuit: [GeneticGate]) -> Result<[GeneticGate]?, EvolveCircuitError>
 }

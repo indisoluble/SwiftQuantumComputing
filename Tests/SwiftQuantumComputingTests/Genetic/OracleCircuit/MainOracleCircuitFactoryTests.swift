@@ -29,7 +29,7 @@ class MainOracleCircuitFactoryTests: XCTestCase {
     // MARK: - Properties
 
     let factory = MainOracleCircuitFactory()
-    let useCase = try! GeneticUseCase(emptyTruthTableQubitCount: 0, circuitOutput: "0")
+    let useCase = try! GeneticUseCase(emptyTruthTableQubitCount: 1, circuitOutput: "0")
 
     // MARK: - Tests
 
@@ -37,15 +37,13 @@ class MainOracleCircuitFactoryTests: XCTestCase {
         // Given
         let geneticCircuit: [GeneticGate] = []
 
-        // When
-        let fixedGates = try? factory.makeOracleCircuit(geneticCircuit: geneticCircuit,
-                                                        useCase: useCase)
-
         // Then
-        XCTAssertNotNil(fixedGates)
-        if let fixedGates = fixedGates {
+        switch factory.makeOracleCircuit(geneticCircuit: geneticCircuit, useCase: useCase) {
+        case .success(let fixedGates):
             XCTAssertEqual(fixedGates.circuit, [])
             XCTAssertNil(fixedGates.oracleAt)
+        default:
+            XCTAssert(false)
         }
     }
 
@@ -55,9 +53,12 @@ class MainOracleCircuitFactoryTests: XCTestCase {
         let geneticCircuit = [geneticGate]
 
         // Then
-        XCTAssertThrowsError(try factory.makeOracleCircuit(geneticCircuit: geneticCircuit,
-                                                           useCase: useCase))
-        XCTAssertEqual(geneticGate.makeFixedCount, 1)
+        switch factory.makeOracleCircuit(geneticCircuit: geneticCircuit, useCase: useCase) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssertEqual(geneticGate.makeFixedCount, 1)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testGeneticCircuitWithTwoOracles_makeOracleCircuit_returnOnlyOneOracle() {
@@ -72,17 +73,15 @@ class MainOracleCircuitFactoryTests: XCTestCase {
 
         let geneticCircuit = [firstOracleGate, secondOracleGate]
 
-        // When
-        let fixedGates = try? factory.makeOracleCircuit(geneticCircuit: geneticCircuit,
-                                                        useCase: useCase)
-
         // Then
-        XCTAssertEqual(firstOracleGate.makeFixedCount, 1)
-        XCTAssertEqual(secondOracleGate.makeFixedCount, 1)
-        XCTAssertNotNil(fixedGates)
-        if let fixedGates = fixedGates {
+        switch factory.makeOracleCircuit(geneticCircuit: geneticCircuit, useCase: useCase) {
+        case .success(let fixedGates):
+            XCTAssertEqual(firstOracleGate.makeFixedCount, 1)
+            XCTAssertEqual(secondOracleGate.makeFixedCount, 1)
             XCTAssertEqual(fixedGates.circuit, [oracle])
             XCTAssertEqual(fixedGates.oracleAt, 0)
+        default:
+            XCTAssert(false)
         }
     }
 

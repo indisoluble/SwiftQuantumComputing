@@ -31,7 +31,7 @@ final class GeneticGatesRandomizerTestDouble {
     private (set) var makeCount = 0
     private (set) var lastMakeDepth: Int?
     var makeResult: [GeneticGate]?
-    var makeError = EvolveCircuitError.configurationDepthHasToBeAPositiveNumber
+    var makeError = EvolveCircuitError.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: ConfigurableGateTestDouble())
 
     // MARK: - Private properties
 
@@ -47,7 +47,7 @@ final class GeneticGatesRandomizerTestDouble {
 // MARK: - GeneticGatesRandomizer methods
 
 extension GeneticGatesRandomizerTestDouble: GeneticGatesRandomizer {
-    func make(depth: Int) throws -> [GeneticGate] {
+    func make(depth: Int) -> Result<[GeneticGate], EvolveCircuitError> {
         queue.sync {
             makeCount += 1
 
@@ -55,9 +55,9 @@ extension GeneticGatesRandomizerTestDouble: GeneticGatesRandomizer {
         }
 
         if let makeResult = makeResult {
-            return makeResult
+            return .success(makeResult)
         }
 
-        throw makeError
+        return .failure(makeError)
     }
 }

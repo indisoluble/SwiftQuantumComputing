@@ -80,13 +80,13 @@
                 <a class="nav-group-task-link" href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/StatevectorError.html">StatevectorError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
@@ -124,6 +124,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConfigurableGate.html">ConfigurableGate</a>
@@ -173,6 +179,9 @@
                 <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/GeneticUseCase.html">GeneticUseCase</a>
               </li>
               <li class="nav-group-task">
@@ -189,6 +198,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainDrawerFactory.html">MainDrawerFactory</a>
@@ -489,7 +504,7 @@ gate applied to <code>target</code></p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputsACSaySiG_tKFZ">Gate.makeInversionAboutMean(inputs:)</a></code></p>
+                        <p>Errors throwed by <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSaySiG_tFZ">Gate.makeInversionAboutMean(inputs:)</a></code></p>
 
                         <a href="../Enums/Gate/MakeInversionAboutMeanError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -507,9 +522,9 @@ gate applied to <code>target</code></p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputsACSaySiG_tKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSaySiG_tFZ"></a>
                     <a name="//apple_ref/swift/Method/makeInversionAboutMean(inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputsACSaySiG_tKFZ">makeInversionAboutMean(inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSaySiG_tFZ">makeInversionAboutMean(inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -525,7 +540,7 @@ the given <code>inputs</code></p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeInversionAboutMean</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeInversionAboutMean</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Gate</span><span class="p">,</span> <span class="kt"><a href="../Enums/Gate/MakeInversionAboutMeanError.html">MakeInversionAboutMeanError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -545,7 +560,7 @@ the given <code>inputs</code></p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSaySiGAJtKFZ">Gate.makeModularExponentiation(base:modulus:exponent:inputs:)</a></code></p>
+                        <p>Errors throwed by <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGAOtFZ">Gate.makeModularExponentiation(base:modulus:exponent:inputs:)</a></code></p>
 
                         <a href="../Enums/Gate/MakeModularExponentiationError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -563,9 +578,9 @@ the given <code>inputs</code></p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSaySiGAJtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGAOtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSaySiGAJtKFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGAOtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -576,11 +591,6 @@ the given <code>inputs</code></p>
                         <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code>.
 While <code>base</code> &amp; <code>modulus</code> are constant integers, <code>exponent</code> is a list of qubits and, therefore, its actual value can vary.
 The extra <code>inputs</code> are used to pass the result from one gate to the next and they HAVE TO be set to |1&gt;.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></code>.</p>
-
-</div>
 
                       </div>
                       <div class="declaration">
@@ -590,7 +600,7 @@ The extra <code>inputs</code> are used to pass the result from one gate to the n
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">exponent</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-                                             <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -657,7 +667,7 @@ are equal to [2, 1, 0], qubit[2] and qubit[1] have to be 0 and qubit[0] has to b
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>List of <code>Gate</code> instances that code a modular exponentiation.</p>
+                        <p>List of <code>Gate</code> instances that code a modular exponentiation. Or <code><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></code> error.</p>
                       </div>
                     </section>
                   </div>
@@ -675,7 +685,7 @@ are equal to [2, 1, 0], qubit[2] and qubit[1] have to be 0 and qubit[0] has to b
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO04makeB16FourierTransform6inputs7inverseACSaySiG_SbtKFZ">Gate.makeQuantumFourierTransform(inputs:inverse:)</a></code></p>
+                        <p>Errors throwed by <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO04makeB16FourierTransform6inputs7inverses6ResultOyA2C04MakebfG5ErrorOGSaySiG_SbtFZ">Gate.makeQuantumFourierTransform(inputs:inverse:)</a></code></p>
 
                         <a href="../Enums/Gate/MakeQuantumFourierTransformError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -693,9 +703,9 @@ are equal to [2, 1, 0], qubit[2] and qubit[1] have to be 0 and qubit[0] has to b
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO04makeB16FourierTransform6inputs7inverseACSaySiG_SbtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO04makeB16FourierTransform6inputs7inverses6ResultOyA2C04MakebfG5ErrorOGSaySiG_SbtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeQuantumFourierTransform(inputs:inverse:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO04makeB16FourierTransform6inputs7inverseACSaySiG_SbtKFZ">makeQuantumFourierTransform(inputs:<wbr>inverse:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO04makeB16FourierTransform6inputs7inverses6ResultOyA2C04MakebfG5ErrorOGSaySiG_SbtFZ">makeQuantumFourierTransform(inputs:<wbr>inverse:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -712,7 +722,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeQuantumFourierTransform</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-                                               <span class="nv">inverse</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+                                               <span class="nv">inverse</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Gate</span><span class="p">,</span> <span class="kt"><a href="../Enums/Gate/MakeQuantumFourierTransformError.html">MakeQuantumFourierTransformError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -722,9 +732,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputsACSnySiG_tKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSnySiG_tFZ"></a>
                     <a name="//apple_ref/swift/Method/makeInversionAboutMean(inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputsACSnySiG_tKFZ">makeInversionAboutMean(inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSnySiG_tFZ">makeInversionAboutMean(inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -739,7 +749,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeInversionAboutMean</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeInversionAboutMean</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Gate</span><span class="p">,</span> <span class="kt"><a href="../Enums/Gate/MakeInversionAboutMeanError.html">MakeInversionAboutMeanError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -749,9 +759,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputsACSNySiG_tKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSNySiG_tFZ"></a>
                     <a name="//apple_ref/swift/Method/makeInversionAboutMean(inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputsACSNySiG_tKFZ">makeInversionAboutMean(inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSNySiG_tFZ">makeInversionAboutMean(inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -766,7 +776,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeInversionAboutMean</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeInversionAboutMean</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Gate</span><span class="p">,</span> <span class="kt"><a href="../Enums/Gate/MakeInversionAboutMeanError.html">MakeInversionAboutMeanError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -776,9 +786,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSnySiGSaySiGtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGSaySiGtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSnySiGSaySiGtKFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGSaySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -796,7 +806,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">exponent</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                             <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -806,9 +816,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSNySiGSaySiGtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGSaySiGtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSNySiGSaySiGtKFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGSaySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -826,7 +836,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">exponent</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                             <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -836,9 +846,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSaySiGSnySiGtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGSnySiGtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSaySiGSnySiGtKFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGSnySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -856,7 +866,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">exponent</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -866,9 +876,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSaySiGSNySiGtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGSNySiGtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSaySiGSNySiGtKFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGSNySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -886,7 +896,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">exponent</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -896,9 +906,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSnySiGAJtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGAOtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSnySiGAJtKFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGAOtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -916,7 +926,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">exponent</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -926,9 +936,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSnySiGSNySiGtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGSNySiGtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSnySiGSNySiGtKFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGSNySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -946,7 +956,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">exponent</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -956,9 +966,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSNySiGSnySiGtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGSnySiGtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSNySiGSnySiGtKFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGSnySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -976,7 +986,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">exponent</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -986,9 +996,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSNySiGAJtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGAOtFZ"></a>
                     <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputsSayACGSi_SiSNySiGAJtKFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGAOtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1006,7 +1016,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
                                              <span class="nv">exponent</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1597,7 +1607,7 @@ in <code>targets</code> if at least one <code>activation</code> in <code>truthTa
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

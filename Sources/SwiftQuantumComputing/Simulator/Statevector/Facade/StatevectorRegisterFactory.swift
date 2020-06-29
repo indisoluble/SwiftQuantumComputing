@@ -20,15 +20,8 @@
 
 import Foundation
 
-// MARK: - Errors
-
-enum MakeRegisterError: Error {
-    case stateAdditionOfSquareModulusIsNotEqualToOne
-    case stateCountHasToBeAPowerOfTwo
-}
-
 // MARK: - Protocol definition
 
 protocol StatevectorRegisterFactory {
-    func makeRegister(state: Vector) throws -> StatevectorRegister
+    func makeRegister(state: CircuitStatevector) -> StatevectorRegister
 }

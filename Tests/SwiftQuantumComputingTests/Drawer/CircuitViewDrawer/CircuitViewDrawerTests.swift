@@ -33,6 +33,10 @@ class CircuitViewDrawerTests: XCTestCase {
         let drawer = CircuitViewDrawer()
 
         // Then
-        XCTAssertThrowsError(try drawer.drawCircuit([], qubitCount: 0))
+        var error: DrawCircuitError?
+        if case .failure(let e) = drawer.drawCircuit([], qubitCount: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .qubitCountHasToBeBiggerThanZero)
     }
 }

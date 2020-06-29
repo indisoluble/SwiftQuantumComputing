@@ -27,12 +27,12 @@ extension Gate {
     // MARK: - Public class methods
 
     /// Buils a `Gate.matrix(matrix:inputs:)` gate that produces an inversion about the mean on
-    public static func makeInversionAboutMean(inputs: Range<Int>) throws -> Gate {
-        return try makeInversionAboutMean(inputs: Array(inputs))
+    public static func makeInversionAboutMean(inputs: Range<Int>) -> Result<Gate, MakeInversionAboutMeanError> {
+        return makeInversionAboutMean(inputs: Array(inputs))
     }
 
     /// Buils a `Gate.matrix(matrix:inputs:)` gate that produces an inversion about the mean on
-    public static func makeInversionAboutMean(inputs: ClosedRange<Int>) throws -> Gate {
-        return try makeInversionAboutMean(inputs: Array(inputs))
+    public static func makeInversionAboutMean(inputs: ClosedRange<Int>) -> Result<Gate, MakeInversionAboutMeanError> {
+        return makeInversionAboutMean(inputs: Array(inputs))
     }
 }

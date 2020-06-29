@@ -27,49 +27,48 @@ struct StatevectorSimulatorFacade {
     // MARK: - Private properties
 
     private let registerFactory: StatevectorRegisterFactory
+    private let statevectorFactory: CircuitStatevectorFactory
+
+    // MARK: - Private class properties
+
+    private static let logger = Logger()
 
     // MARK: - Internal init methods
 
-    init(registerFactory: StatevectorRegisterFactory) {
+    init(registerFactory: StatevectorRegisterFactory,
+         statevectorFactory: CircuitStatevectorFactory) {
         self.registerFactory = registerFactory
+        self.statevectorFactory = statevectorFactory
     }
 }
 
 // MARK: - StatevectorSimulator methods
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
-    func apply(circuit: [SimulatorGate], to initialStatevector: Vector) throws -> Vector {
-        var register: StatevectorRegister!
-        do {
-            register = try registerFactory.makeRegister(state: initialStatevector)
-        } catch MakeRegisterError.stateCountHasToBeAPowerOfTwo {
-            throw StatevectorWithInitialStatevectorError.initialStatevectorCountHasToBeAPowerOfTwo
-        } catch MakeRegisterError.stateAdditionOfSquareModulusIsNotEqualToOne {
-            throw StatevectorWithInitialStatevectorError.initialStatevectorAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
+    func apply(circuit: [SimulatorGate & SimulatorRawGate],
+               to initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
+        StatevectorSimulatorFacade.logger.debug("Producing initial register...")
+        var register = registerFactory.makeRegister(state: initialStatevector)
 
-        for gate in circuit {
-            do {
-                register = try register.applying(gate)
-            } catch let error as GateError {
-                throw StatevectorWithInitialStatevectorError.gateThrowedError(gate: gate.gate,
-                                                                              error: error)
-            } catch {
-                fatalError("Unexpected error: \(error).")
+        for (index, gate) in circuit.enumerated() {
+            StatevectorSimulatorFacade.logger.debug("Applying gate: \(index + 1) of \(circuit.count)...")
+
+            switch register.applying(gate) {
+            case .success(let nextRegister):
+                register = nextRegister
+            case .failure(let error):
+                return .failure(.gateThrowedError(gate: gate.gate, error: error))
             }
         }
 
-        var vector: Vector!
-        do {
-            vector = try register.statevector()
-        } catch StatevectorRegisterError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
-            throw StatevectorWithInitialStatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
-        } catch {
-            fatalError("Unexpected error: \(error).")
+        StatevectorSimulatorFacade.logger.debug("Getting measurement...")
+        switch statevectorFactory.makeStatevector(vector: register.measure()) {
+        case .success(let finalStateVector):
+            return .success(finalStateVector)
+        case .failure(.vectorAdditionOfSquareModulusIsNotEqualToOne):
+            return .failure(.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
+        case .failure(.vectorCountHasToBeAPowerOfTwo):
+            fatalError("Unexpected error: \(MakeStatevectorError.vectorCountHasToBeAPowerOfTwo).")
         }
-
-        return vector
     }
 }

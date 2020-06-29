@@ -29,7 +29,7 @@ final class UnitarySimulatorTestDouble {
     // MARK: - Internal properties
 
     private (set) var unitaryCount = 0
-    private (set) var lastUnitaryCircuit: [SimulatorGate]?
+    private (set) var lastUnitaryCircuit: [SimulatorGate & SimulatorRawGate]?
     private (set) var lastUnitaryQubitCount: Int?
     var unitaryResult: Matrix?
     var unitaryError = UnitaryError.circuitCanNotBeAnEmptyList
@@ -38,16 +38,17 @@ final class UnitarySimulatorTestDouble {
 // MARK: - UnitarySimulator methods
 
 extension UnitarySimulatorTestDouble: UnitarySimulator {
-    func unitary(with circuit: [SimulatorGate], qubitCount: Int) throws -> Matrix {
+    func unitary(with circuit: [SimulatorGate & SimulatorRawGate],
+                 qubitCount: Int) -> Result<Matrix, UnitaryError> {
         unitaryCount += 1
 
         lastUnitaryCircuit = circuit
         lastUnitaryQubitCount = qubitCount
 
         if let unitaryResult = unitaryResult {
-            return unitaryResult
+            return .success(unitaryResult)
         }
 
-        throw unitaryError
+        return .failure(unitaryError)
     }
 }

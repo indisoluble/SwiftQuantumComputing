@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol GeneticGatesRandomizer {
-    func make(depth: Int) throws -> [GeneticGate]
+    func make(depth: Int) -> Result<[GeneticGate], EvolveCircuitError>
 }

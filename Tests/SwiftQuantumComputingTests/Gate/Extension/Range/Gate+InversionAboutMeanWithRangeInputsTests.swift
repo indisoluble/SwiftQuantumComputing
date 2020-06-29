@@ -30,14 +30,14 @@ class Gate_InversionAboutMeanWithRangeInputsTests: XCTestCase {
 
     func testAnyRange_makeInversionAboutMean_returnExpectedGate() {
         // Then
-        XCTAssertEqual(try? Gate.makeInversionAboutMean(inputs: 0..<3),
-                       try? Gate.makeInversionAboutMean(inputs: [0, 1, 2]))
-        XCTAssertEqual(try? Gate.makeInversionAboutMean(inputs: 0...2),
-                       try? Gate.makeInversionAboutMean(inputs: [0, 1, 2]))
-        XCTAssertEqual(try? Gate.makeInversionAboutMean(inputs: (0..<3).reversed()),
-                       try? Gate.makeInversionAboutMean(inputs: [2, 1, 0]))
-        XCTAssertEqual(try? Gate.makeInversionAboutMean(inputs: (0...2).reversed()),
-                       try? Gate.makeInversionAboutMean(inputs: [2, 1, 0]))
+        XCTAssertEqual(Gate.makeInversionAboutMean(inputs: 0..<3),
+                       Gate.makeInversionAboutMean(inputs: [0, 1, 2]))
+        XCTAssertEqual(Gate.makeInversionAboutMean(inputs: 0...2),
+                       Gate.makeInversionAboutMean(inputs: [0, 1, 2]))
+        XCTAssertEqual(Gate.makeInversionAboutMean(inputs: (0..<3).reversed()),
+                       Gate.makeInversionAboutMean(inputs: [2, 1, 0]))
+        XCTAssertEqual(Gate.makeInversionAboutMean(inputs: (0...2).reversed()),
+                       Gate.makeInversionAboutMean(inputs: [2, 1, 0]))
     }
 
     static var allTests = [

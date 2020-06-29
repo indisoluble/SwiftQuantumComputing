@@ -24,6 +24,12 @@ let package = Package(
             targets: [
                 "SwiftQuantumComputing"
             ]
+        ),
+        .executable(
+            name: "ShorAlgorithm",
+            targets: [
+                "ExampleShorAlgorithm"
+            ]
         )
     ],
     dependencies: dependencies,
@@ -32,6 +38,12 @@ let package = Package(
             name: "SwiftQuantumComputing",
             exclude: [
                 "Drawer"
+            ]
+        ),
+        .target(
+            name: "ExampleShorAlgorithm",
+            dependencies: [
+                "SwiftQuantumComputing"
             ]
         ),
         .testTarget(

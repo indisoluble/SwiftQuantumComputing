@@ -27,11 +27,10 @@ struct MainGeneticGatesRandomizerFactory {}
 // MARK: - GeneticGatesRandomizerFactory methods
 
 extension MainGeneticGatesRandomizerFactory: GeneticGatesRandomizerFactory {
-    func makeRandomizer(qubitCount: Int,
-                        gates: [ConfigurableGate]) throws -> GeneticGatesRandomizer {
+    func makeRandomizer(qubitCount: Int, gates: [ConfigurableGate]) -> GeneticGatesRandomizer {
         var factories: [GeneticGateFactory] = gates.map { SimpleGeneticGateFactory(gate: $0) }
         factories.append(ConfigurableGeneticGateFactory())
 
-        return try MainGeneticGatesRandomizer(qubitCount: qubitCount, factories: factories)
+        return MainGeneticGatesRandomizer(qubitCount: qubitCount, factories: factories)
     }
 }

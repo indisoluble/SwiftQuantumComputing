@@ -31,23 +31,18 @@ final class GeneticGatesRandomizerFactoryTestDouble {
     private (set) var makeRandomizerCount = 0
     private (set) var lastMakeRandomizerQubitCount: Int?
     private (set) var lastMakeRandomizerGates: [ConfigurableGate]?
-    var makeRandomizerResult: GeneticGatesRandomizer?
+    var makeRandomizerResult = GeneticGatesRandomizerTestDouble()
 }
 
 // MARK: - GeneticGatesRandomizerFactory methods
 
 extension GeneticGatesRandomizerFactoryTestDouble: GeneticGatesRandomizerFactory {
-    func makeRandomizer(qubitCount: Int,
-                        gates: [ConfigurableGate]) throws -> GeneticGatesRandomizer {
+    func makeRandomizer(qubitCount: Int, gates: [ConfigurableGate]) -> GeneticGatesRandomizer {
         makeRandomizerCount += 1
 
         lastMakeRandomizerQubitCount = qubitCount
         lastMakeRandomizerGates = gates
 
-        if let makeRandomizerResult = makeRandomizerResult {
-            return makeRandomizerResult
-        }
-
-        throw EvolveCircuitError.useCaseCircuitQubitCountHasToBeBiggerThanZero
+        return makeRandomizerResult
     }
 }

@@ -25,5 +25,5 @@ import Foundation
 protocol GeneticCircuitEvaluator {
     typealias Evaluation = (misses: Int, maxProbability: Double)
 
-    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) throws -> Evaluation
+    func evaluateCircuit(_ geneticCircuit: [GeneticGate]) -> Result<Evaluation, EvolveCircuitError>
 }

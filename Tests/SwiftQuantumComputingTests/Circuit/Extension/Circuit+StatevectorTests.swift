@@ -2,8 +2,8 @@
 //  Circuit+StatevectorTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 02/11/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 22/06/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,49 +32,21 @@ class Circuit_StatevectorTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testEmptyBitsString_statevectorWithInitialBits_throwException() {
-        // Then
-        XCTAssertThrowsError(try circuit.statevector(withInitialBits: ""))
-        XCTAssertEqual(circuit.gatesCount, 0)
-        XCTAssertEqual(circuit.statevectorCount, 0)
-    }
-
-    func testBitsStringWithLeadingSpaces_statevectorWithInitialBits_throwException() {
-        // Then
-        XCTAssertThrowsError(try circuit.statevector(withInitialBits: "  1001"))
-        XCTAssertEqual(circuit.gatesCount, 0)
-        XCTAssertEqual(circuit.statevectorCount, 0)
-    }
-
-    func testBitsStringWithTrailingSpaces_statevectorWithInitialBits_throwException() {
-        // Then
-        XCTAssertThrowsError(try circuit.statevector(withInitialBits: "1001  "))
-        XCTAssertEqual(circuit.gatesCount, 0)
-        XCTAssertEqual(circuit.statevectorCount, 0)
-    }
-
-    func testBitsStringWithWrongCharacter_statevectorWithInitialBits_throwException() {
-        // Then
-        XCTAssertThrowsError(try circuit.statevector(withInitialBits: "10#1"))
-        XCTAssertEqual(circuit.gatesCount, 0)
-        XCTAssertEqual(circuit.statevectorCount, 0)
-    }
-
-    func testValidBitString_statevectorWithInitialBits_produceExpectedVector() {
+    func testEmptyCircuit_statevector_produceExpectedVector() {
         // Given
-        let bits = "011"
+        circuit.gatesResult = []
 
         // When
-        _ = try? circuit.statevector(withInitialBits: bits)
+        _ = circuit.statevector()
 
         // Then
-        let initialElements = [Complex.zero, Complex.zero, Complex.zero, Complex.one,
-                               Complex.zero, Complex.zero, Complex.zero, Complex.zero]
+        let initialElements = [Complex.one, Complex.zero]
         let expectedInitialStatevector = try! Vector(initialElements)
 
-        XCTAssertEqual(circuit.gatesCount, 0)
-        XCTAssertEqual(circuit.statevectorCount, 1)
-        XCTAssertEqual(circuit.lastStatevectorInitialStatevector, expectedInitialStatevector)
+        XCTAssertEqual(circuit.gatesCount, 1)
+        XCTAssertEqual(circuit.circuitStatevectorCount, 1)
+        XCTAssertEqual(circuit.lastCircuitStatevectorInitialStatevector?.statevector,
+                       expectedInitialStatevector)
     }
 
     func testCircuitWithKnownQubitCount_statevector_produceExpectedVector() {
@@ -84,7 +56,7 @@ class Circuit_StatevectorTests: XCTestCase {
         circuit.gatesResult = gates
 
         // When
-        _ = try? circuit.statevector()
+        _ = circuit.statevector()
 
         // Then
         let initialElements = [Complex.one, Complex.zero, Complex.zero, Complex.zero,
@@ -92,21 +64,14 @@ class Circuit_StatevectorTests: XCTestCase {
         let expectedInitialStatevector = try! Vector(initialElements)
 
         XCTAssertEqual(circuit.gatesCount, 1)
-        XCTAssertEqual(circuit.statevectorCount, 1)
-        XCTAssertEqual(circuit.lastStatevectorInitialStatevector, expectedInitialStatevector)
+        XCTAssertEqual(circuit.circuitStatevectorCount, 1)
+        XCTAssertEqual(circuit.lastCircuitStatevectorInitialStatevector?.statevector,
+                       expectedInitialStatevector)
     }
 
     static var allTests = [
-        ("testEmptyBitsString_statevectorWithInitialBits_throwException",
-         testEmptyBitsString_statevectorWithInitialBits_throwException),
-        ("testBitsStringWithLeadingSpaces_statevectorWithInitialBits_throwException",
-         testBitsStringWithLeadingSpaces_statevectorWithInitialBits_throwException),
-        ("testBitsStringWithTrailingSpaces_statevectorWithInitialBits_throwException",
-         testBitsStringWithTrailingSpaces_statevectorWithInitialBits_throwException),
-        ("testBitsStringWithWrongCharacter_statevectorWithInitialBits_throwException",
-         testBitsStringWithWrongCharacter_statevectorWithInitialBits_throwException),
-        ("testValidBitString_statevectorWithInitialBits_produceExpectedVector",
-         testValidBitString_statevectorWithInitialBits_produceExpectedVector),
+        ("testEmptyCircuit_statevector_produceExpectedVector",
+         testEmptyCircuit_statevector_produceExpectedVector),
         ("testCircuitWithKnownQubitCount_statevector_produceExpectedVector",
          testCircuitWithKnownQubitCount_statevector_produceExpectedVector)
     ]

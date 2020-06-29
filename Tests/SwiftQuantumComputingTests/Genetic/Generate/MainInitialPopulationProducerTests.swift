@@ -37,33 +37,6 @@ class MainInitialPopulationProducerTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testSizeEqualToZero_execute_throwException() {
-        // Given
-        let size = 0
-        let depth = (0..<3)
-
-        var randomCount = 0
-        let random: MainInitialPopulationProducer.Random = { [queue] _ in
-            queue.sync {
-                randomCount += 1
-            }
-
-            return 0
-        }
-
-        let initialPopulation = MainInitialPopulationProducer(generator: generator,
-                                                              evaluator: evaluator,
-                                                              score: score,
-                                                              random: random)
-
-        // Then
-        XCTAssertThrowsError(try initialPopulation.execute(size: size, depth: depth))
-        XCTAssertEqual(randomCount, 0)
-        XCTAssertEqual(generator.makeCount, 0)
-        XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
-        XCTAssertEqual(score.calculateCount, 0)
-    }
-
     func testGeneratorThrowException_execute_throwException() {
         // Given
         let size = 3
@@ -84,11 +57,15 @@ class MainInitialPopulationProducerTests: XCTestCase {
                                                               random: random)
 
         // Then
-        XCTAssertThrowsError(try initialPopulation.execute(size: size, depth: depth))
-        XCTAssertEqual(randomCount, size)
-        XCTAssertEqual(generator.makeCount, size)
-        XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
-        XCTAssertEqual(score.calculateCount, 0)
+        switch initialPopulation.execute(size: size, depth: depth) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssertEqual(randomCount, size)
+            XCTAssertEqual(generator.makeCount, size)
+            XCTAssertEqual(evaluator.evaluateCircuitCount, 0)
+            XCTAssertEqual(score.calculateCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testEvaluatorThrowException_execute_throwException() {
@@ -113,11 +90,15 @@ class MainInitialPopulationProducerTests: XCTestCase {
                                                               random: random)
 
         // Then
-        XCTAssertThrowsError(try initialPopulation.execute(size: size, depth: depth))
-        XCTAssertEqual(randomCount, size)
-        XCTAssertEqual(generator.makeCount, size)
-        XCTAssertEqual(evaluator.evaluateCircuitCount, size)
-        XCTAssertEqual(score.calculateCount, 0)
+        switch initialPopulation.execute(size: size, depth: depth) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssertEqual(randomCount, size)
+            XCTAssertEqual(generator.makeCount, size)
+            XCTAssertEqual(evaluator.evaluateCircuitCount, size)
+            XCTAssertEqual(score.calculateCount, 0)
+        default:
+            XCTAssert(false)
+        }
     }
 
     func testAllDependenciesReturnValue_execute_returnResult() {
@@ -143,7 +124,7 @@ class MainInitialPopulationProducerTests: XCTestCase {
                                                               random: random)
 
         // When
-        let result = try? initialPopulation.execute(size: size, depth: depth)
+        let result = try? initialPopulation.execute(size: size, depth: depth).get()
 
         // Then
         XCTAssertEqual(randomCount, size)
@@ -154,8 +135,6 @@ class MainInitialPopulationProducerTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testSizeEqualToZero_execute_throwException",
-         testSizeEqualToZero_execute_throwException),
         ("testGeneratorThrowException_execute_throwException",
          testGeneratorThrowException_execute_throwException),
         ("testEvaluatorThrowException_execute_throwException",

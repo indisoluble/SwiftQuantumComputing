@@ -44,7 +44,11 @@ class UnitarySimulatorFacadeTests: XCTestCase {
         let simulator = UnitarySimulatorFacade(gateFactory: gateFactory)
 
         // Then
-        XCTAssertThrowsError(try simulator.unitary(with: [], qubitCount: qubitCount))
+        var error: UnitaryError?
+        if case .failure(let e) = simulator.unitary(with: [], qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .circuitCanNotBeAnEmptyList)
         XCTAssertEqual(gateFactory.makeGateCount, 0)
     }
 
@@ -55,7 +59,13 @@ class UnitarySimulatorFacadeTests: XCTestCase {
         let circuit = [firstSimulatorGate]
 
         // Then
-        XCTAssertThrowsError(try simulator.unitary(with: circuit, qubitCount: qubitCount))
+        var error: UnitaryError?
+        if case .failure(let e) = simulator.unitary(with: circuit, qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error,
+                       .gateThrowedError(gate: firstSimulatorGate.gate,
+                                         error: .gateMatrixHandlesMoreQubitsThatCircuitActuallyHas))
         XCTAssertEqual(gateFactory.makeGateCount, 1)
         XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
         if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? SimulatorGateTestDouble {
@@ -77,7 +87,7 @@ class UnitarySimulatorFacadeTests: XCTestCase {
         let circuit = [firstSimulatorGate]
 
         // When
-        let result = try? simulator.unitary(with: circuit, qubitCount: qubitCount)
+        let result = try? simulator.unitary(with: circuit, qubitCount: qubitCount).get()
 
         // Then
         XCTAssertEqual(gateFactory.makeGateCount, 1)
@@ -101,7 +111,11 @@ class UnitarySimulatorFacadeTests: XCTestCase {
         let circuit = [firstSimulatorGate]
 
         // Then
-        XCTAssertThrowsError(try simulator.unitary(with: circuit, qubitCount: qubitCount))
+        var error: UnitaryError?
+        if case .failure(let e) = simulator.unitary(with: circuit, qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .resultingMatrixIsNotUnitary)
         XCTAssertEqual(gateFactory.makeGateCount, 1)
         XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
         if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? SimulatorGateTestDouble {
@@ -119,10 +133,19 @@ class UnitarySimulatorFacadeTests: XCTestCase {
 
         gateFactory.applyingResult = firstUnitaryGate
 
+        firstSimulatorGate.gateResult = .hadamard(target: 0)
+        secondSimulatorGate.gateResult = .phaseShift(radians: 0, target: 0)
+
         let circuit = [firstSimulatorGate, secondSimulatorGate]
 
         // Then
-        XCTAssertThrowsError(try simulator.unitary(with: circuit, qubitCount: qubitCount))
+        var error: UnitaryError?
+        if case .failure(let e) = simulator.unitary(with: circuit, qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error,
+                       .gateThrowedError(gate: secondSimulatorGate.gate,
+                                         error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(gateFactory.makeGateCount, 1)
         XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
         if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? SimulatorGateTestDouble {
@@ -152,7 +175,7 @@ class UnitarySimulatorFacadeTests: XCTestCase {
         let circuit = [firstSimulatorGate, secondSimulatorGate, thirdSimulatorGate]
 
         // When
-        let result = try? simulator.unitary(with: circuit, qubitCount: qubitCount)
+        let result = try? simulator.unitary(with: circuit, qubitCount: qubitCount).get()
 
         // Then
         XCTAssertEqual(gateFactory.makeGateCount, 1)

@@ -37,14 +37,22 @@ class ContinuedFractionsSolverTests: XCTestCase {
         let limit = try! Rational(numerator: 1, denominator: 1)
 
         // Then
-        XCTAssertThrowsError(try ContinuedFractionsSolver.findApproximation(of: Rational.zero,
-                                                                            differenceBelowOrEqual: limit))
+        var error: ContinuedFractionsSolver.FindApproximationError?
+        if case .failure(let e) = ContinuedFractionsSolver.findApproximation(of: Rational.zero,
+                                                                             differenceBelowOrEqual: limit) {
+            error = e
+        }
+        XCTAssertEqual(error, .valueHasToBeBiggerThanZero)
     }
 
     func testZeroLimit_findApproximation_throwError() {
         // Then
-        XCTAssertThrowsError(try ContinuedFractionsSolver.findApproximation(of: value,
-                                                                            differenceBelowOrEqual: Rational.zero))
+        var error: ContinuedFractionsSolver.FindApproximationError?
+        if case .failure(let e) = ContinuedFractionsSolver.findApproximation(of: value,
+                                                                             differenceBelowOrEqual: Rational.zero) {
+            error = e
+        }
+        XCTAssertEqual(error, .limitHasToBeBiggerThanZero)
     }
 
     func testBigEnoughLimit_findApproximation_returnFirstConvergent() {
@@ -53,7 +61,7 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelowOrEqual: limit)
+                                                                     differenceBelowOrEqual: limit).get()
 
         // Then
         let expectedResult = try! Rational(numerator: 1, denominator: 1)
@@ -66,7 +74,7 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelowOrEqual: limit)
+                                                                     differenceBelowOrEqual: limit).get()
 
         // Then
         let expectedResult = try! Rational(numerator: 3, denominator: 2)
@@ -79,7 +87,7 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelowOrEqual: limit)
+                                                                     differenceBelowOrEqual: limit).get()
 
         // Then
         let expectedResult = try! Rational(numerator: 4, denominator: 3)
@@ -92,7 +100,7 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelowOrEqual: limit)
+                                                                     differenceBelowOrEqual: limit).get()
 
         // Then
         let expectedResult = try! Rational(numerator: 4, denominator: 3)
@@ -105,7 +113,7 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelowOrEqual: limit)
+                                                                     differenceBelowOrEqual: limit).get()
 
         // Then
         XCTAssertEqual(result, value)
@@ -118,7 +126,7 @@ class ContinuedFractionsSolverTests: XCTestCase {
 
         // When
         let result = try! ContinuedFractionsSolver.findApproximation(of: value,
-                                                                     differenceBelowOrEqual: limit)
+                                                                     differenceBelowOrEqual: limit).get()
 
         // Then
         let expectedResult = try! Rational(numerator: 2, denominator: 1)
