@@ -80,13 +80,13 @@
                 <a class="nav-group-task-link" href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/StatevectorError.html">StatevectorError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
@@ -124,6 +124,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConfigurableGate.html">ConfigurableGate</a>
@@ -173,6 +179,9 @@
                 <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/GeneticUseCase.html">GeneticUseCase</a>
               </li>
               <li class="nav-group-task">
@@ -189,6 +198,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainDrawerFactory.html">MainDrawerFactory</a>
@@ -284,7 +299,7 @@ approximation to a given <code><a href="../Structs/Rational.html">Rational</a></
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="../Structs/ContinuedFractionsSolver.html#/s:21SwiftQuantumComputing24ContinuedFractionsSolverV17findApproximation2of22differenceBelowOrEqualAA8RationalVAH_AHtKFZ">ContinuedFractionsSolver.findApproximation(of:differenceBelowOrEqual:)</a></code></p>
+                        <p>Errors throwed by <code><a href="../Structs/ContinuedFractionsSolver.html#/s:21SwiftQuantumComputing24ContinuedFractionsSolverV17findApproximation2of22differenceBelowOrEquals6ResultOyAA8RationalVAC04FindH5ErrorOGAJ_AJtFZ">ContinuedFractionsSolver.findApproximation(of:differenceBelowOrEqual:)</a></code></p>
 
                         <a href="../Structs/ContinuedFractionsSolver/FindApproximationError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -302,9 +317,9 @@ approximation to a given <code><a href="../Structs/Rational.html">Rational</a></
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing24ContinuedFractionsSolverV17findApproximation2of22differenceBelowOrEqualAA8RationalVAH_AHtKFZ"></a>
+                    <a name="/s:21SwiftQuantumComputing24ContinuedFractionsSolverV17findApproximation2of22differenceBelowOrEquals6ResultOyAA8RationalVAC04FindH5ErrorOGAJ_AJtFZ"></a>
                     <a name="//apple_ref/swift/Method/findApproximation(of:differenceBelowOrEqual:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing24ContinuedFractionsSolverV17findApproximation2of22differenceBelowOrEqualAA8RationalVAH_AHtKFZ">findApproximation(of:<wbr>differenceBelowOrEqual:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing24ContinuedFractionsSolverV17findApproximation2of22differenceBelowOrEquals6ResultOyAA8RationalVAC04FindH5ErrorOGAJ_AJtFZ">findApproximation(of:<wbr>differenceBelowOrEqual:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -313,11 +328,6 @@ approximation to a given <code><a href="../Structs/Rational.html">Rational</a></
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Finds an approximation to a <code>value</code> with a difference below <code>limit</code>.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Structs/ContinuedFractionsSolver/FindApproximationError.html">FindApproximationError</a></code>.</p>
-
-</div>
 
                       </div>
                       <div class="declaration">
@@ -325,7 +335,7 @@ approximation to a given <code><a href="../Structs/Rational.html">Rational</a></
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">findApproximation</span><span class="p">(</span><span class="n">of</span> <span class="nv">value</span><span class="p">:</span> <span class="kt"><a href="../Structs/Rational.html">Rational</a></span><span class="p">,</span>
-                                     <span class="n">differenceBelowOrEqual</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt"><a href="../Structs/Rational.html">Rational</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Rational.html">Rational</a></span></code></pre>
+                                     <span class="n">differenceBelowOrEqual</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt"><a href="../Structs/Rational.html">Rational</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Rational.html">Rational</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/ContinuedFractionsSolver/FindApproximationError.html">FindApproximationError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -362,7 +372,8 @@ approximation to a given <code><a href="../Structs/Rational.html">Rational</a></
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A <code><a href="../Structs/Rational.html">Rational</a></code> number which distance to <code>value</code> is below or equal to <code>limit</code>,</p>
+                        <p>A <code><a href="../Structs/Rational.html">Rational</a></code> number which distance to <code>value</code> is below or equal to <code>limit</code>.
+Or <code><a href="../Structs/ContinuedFractionsSolver/FindApproximationError.html">FindApproximationError</a></code> error.</p>
                       </div>
                     </section>
                   </div>
@@ -375,7 +386,7 @@ approximation to a given <code><a href="../Structs/Rational.html">Rational</a></
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

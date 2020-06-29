@@ -80,13 +80,13 @@
                 <a class="nav-group-task-link" href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/StatevectorError.html">StatevectorError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
@@ -124,6 +124,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConfigurableGate.html">ConfigurableGate</a>
@@ -173,6 +179,9 @@
                 <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/GeneticUseCase.html">GeneticUseCase</a>
               </li>
               <li class="nav-group-task">
@@ -189,6 +198,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainDrawerFactory.html">MainDrawerFactory</a>
@@ -323,9 +338,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing7NotGateV9makeFixed6inputsAA0E0OSaySiG_tKF"></a>
+                    <a name="/s:21SwiftQuantumComputing7NotGateV9makeFixed6inputss6ResultOyAA0E0OAA18EvolveCircuitErrorOGSaySiG_tF"></a>
                     <a name="//apple_ref/swift/Method/makeFixed(inputs:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7NotGateV9makeFixed6inputsAA0E0OSaySiG_tKF">makeFixed(inputs:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7NotGateV9makeFixed6inputss6ResultOyAA0E0OAA18EvolveCircuitErrorOGSaySiG_tF">makeFixed(inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -333,14 +348,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Check <code><a href="../Protocols/ConfigurableGate.html#/s:21SwiftQuantumComputing16ConfigurableGateP9makeFixed6inputsAA0E0OSaySiG_tKF">ConfigurableGate.makeFixed(inputs:)</a></code></p>
+                        <p>Check <code><a href="../Protocols/ConfigurableGate.html#/s:21SwiftQuantumComputing16ConfigurableGateP9makeFixed6inputss6ResultOyAA0E0OAA18EvolveCircuitErrorOGSaySiG_tF">ConfigurableGate.makeFixed(inputs:)</a></code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeFixed</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeFixed</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/EvolveCircuitError.html">EvolveCircuitError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -355,7 +370,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -6,11 +6,9 @@
 ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
 [![Documentation](https://indisoluble.github.io/SwiftQuantumComputing/badge.svg)](https://indisoluble.github.io/SwiftQuantumComputing)
 
-A quantum circuit simulator written in Swift and accelerated with [Accelerate.framework](https://developer.apple.com/documentation/accelerate) in iOS/macOS and [BLAS](http://www.netlib.org/blas/) in Linux.
+The code written so far is mostly based on the content of: [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965), with a few tips from [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X). It is also inspired by [IBM Qiskit](https://github.com/Qiskit/qiskit-terra).
 
 Along side the simulator there is a genetic algorithm to automatically generate circuits as well as others useful algorithms for quantum computing.
-
-The code written so far is mostly based on the content of: [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965), with a few tips from [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X). It is also inspired by [IBM Qiskit](https://github.com/Qiskit/qiskit-terra).
 
 ## Usage
 
@@ -35,16 +33,18 @@ let gates = [
 ]
 //: 2. (Optional) Draw the quantum circuit to see how it looks
 let drawer = MainDrawerFactory().makeDrawer()
-drawer.drawCircuit(gates)
+drawer.drawCircuit(gates).get()
 //: 3. Build the quantum circuit with the list of gates
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
 //: 4. Use the quantum circuit
-print("Statevector: \(circuit.statevector())\n")
-print("Probabilities: \(circuit.probabilities())\n")
-print("Summarized probabilities: \(circuit.summarizedProbabilities())\n")
-let groupedProbs = circuit.groupedProbabilities(byQubits: [1, 0], summarizedByQubits: [4, 3, 2])
+let statevector = circuit.statevector().get()
+print("Statevector: \(statevector)\n")
+print("Probabilities: \(statevector.probabilities())\n")
+print("Summarized probabilities: \(statevector.summarizedProbabilities())\n")
+let groupedProbs = statevector.groupedProbabilities(byQubits: [1, 0],
+                                                    summarizedByQubits: [4, 3, 2]).get()
 print("Grouped probabilities: \(groupedProbs)")
-print("Unitary: \(circuit.unitary())\n")
+print("Unitary: \(circuit.unitary().get())\n")
 ```
 
 Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground/Contents.swift).
@@ -81,7 +81,7 @@ let gates: [ConfigurableGate] = [HadamardGate(), NotGate()]
 //:    the problem modeled with the use cases
 let evolvedCircuit = MainGeneticFactory().evolveCircuit(configuration: config,
                                                         useCases: cases,
-                                                        gates: gates)
+                                                        gates: gates).get()
 print("Solution found. Fitness score: \(evolvedCircuit.eval)")
 
 for useCase in cases {
@@ -138,7 +138,7 @@ let value = Rational(numerator: 15, denominator: 11)
 let limit = Rational(numerator: 1, denominator: 33)
 //: 3. Use Continued Fractions solver to find a solution
 let approximation = ContinuedFractionsSolver.findApproximation(of: value,
-                                                               differenceBelowOrEqual: limit)
+                                                               differenceBelowOrEqual: limit).get()
 print("Approximation for \(value) (limit: \(limit)): \(approximation)")
 ```
 
@@ -179,7 +179,7 @@ Documentation for the project can be found [here](https://indisoluble.github.io/
 
 ## Linux
 
-As mentioned above, this package depends on [BLAS](http://www.netlib.org/blas/) if running on Linux, more exactly, [Ubuntu](https://www.ubuntu.com).
+This package depends on [BLAS](http://www.netlib.org/blas/) if running on Linux, more exactly, [Ubuntu](https://www.ubuntu.com).
 
 This dependency is reflected in `Package.swift` with [CBLAS-Linux](https://github.com/indisoluble/CBLAS-Linux), which in turn expects to find the following file: `/usr/include/x86_64-linux-gnu/cblas-netlib.h`. So, after installing [BLAS](http://www.netlib.org/blas/) (in case it is not already there):
 

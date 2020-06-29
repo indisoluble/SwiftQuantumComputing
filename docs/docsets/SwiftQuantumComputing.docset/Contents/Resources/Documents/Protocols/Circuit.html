@@ -80,13 +80,13 @@
                 <a class="nav-group-task-link" href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a>
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/StatevectorError.html">StatevectorError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
@@ -124,6 +124,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ConfigurableGate.html">ConfigurableGate</a>
@@ -173,6 +179,9 @@
                 <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/GeneticUseCase.html">GeneticUseCase</a>
               </li>
               <li class="nav-group-task">
@@ -189,6 +198,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/MainDrawerFactory.html">MainDrawerFactory</a>
@@ -300,9 +315,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitP7unitary14withQubitCountAA6MatrixVSi_tKF"></a>
+                    <a name="/s:21SwiftQuantumComputing7CircuitP7unitary14withQubitCounts6ResultOyAA6MatrixVAA12UnitaryErrorOGSi_tF"></a>
                     <a name="//apple_ref/swift/Method/unitary(withQubitCount:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitP7unitary14withQubitCountAA6MatrixVSi_tKF">unitary(withQubitCount:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitP7unitary14withQubitCounts6ResultOyAA6MatrixVAA12UnitaryErrorOGSi_tF">unitary(withQubitCount:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -311,18 +326,13 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Produces unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code>.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/UnitaryError.html">UnitaryError</a></code>.</p>
-
-</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">unitary</span><span class="p">(</span><span class="n">withQubitCount</span> <span class="nv">qubitCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Matrix.html">Matrix</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">unitary</span><span class="p">(</span><span class="n">withQubitCount</span> <span class="nv">qubitCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Matrix.html">Matrix</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/UnitaryError.html">UnitaryError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -347,7 +357,7 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>Unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code>.</p>
+                        <p>Unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code>. Or <code><a href="../Enums/UnitaryError.html">UnitaryError</a></code> error.</p>
                       </div>
                     </section>
                   </div>
@@ -355,9 +365,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitP11statevector22withInitialStatevectorAA6VectorVAG_tKF"></a>
+                    <a name="/s:21SwiftQuantumComputing7CircuitP11statevector22withInitialStatevectors6ResultOyAA0dH0_pAA0H5ErrorOGAaH_p_tF"></a>
                     <a name="//apple_ref/swift/Method/statevector(withInitialStatevector:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitP11statevector22withInitialStatevectorAA6VectorVAG_tKF">statevector(withInitialStatevector:<wbr>)</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitP11statevector22withInitialStatevectors6ResultOyAA0dH0_pAA0H5ErrorOGAaH_p_tF">statevector(withInitialStatevector:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -366,18 +376,13 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to <code>initialStatevector</code> to produce a new statevector.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/StatevectorWithInitialStatevectorError.html">StatevectorWithInitialStatevectorError</a></code>.</p>
-
-</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">statevector</span><span class="p">(</span><span class="n">withInitialStatevector</span> <span class="nv">initialStatevector</span><span class="p">:</span> <span class="kt"><a href="../Structs/Vector.html">Vector</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Vector.html">Vector</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">statevector</span><span class="p">(</span><span class="n">withInitialStatevector</span> <span class="nv">initialStatevector</span><span class="p">:</span> <span class="kt"><a href="../Protocols/CircuitStatevector.html">CircuitStatevector</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/CircuitStatevector.html">CircuitStatevector</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/StatevectorError.html">StatevectorError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -402,51 +407,8 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>Another statevector, result of applying <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to <code>initialStatevector</code>.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Public%20types"></a>
-                <a name="//apple_ref/swift/Section/Public types" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Public%20types"></a>
-                  <h3 class="section-name"><p>Public types</p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba"></a>
-                    <a name="//apple_ref/swift/Alias/GroupedProb" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Check value returned by
-<code>Circuit.groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:)</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">GroupedProb</span> <span class="o">=</span> <span class="p">(</span><span class="nv">probability</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">summary</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">])</span></code></pre>
-
-                        </div>
+                        <p>Another <code><a href="../Protocols/CircuitStatevector.html">CircuitStatevector</a></code> instance, result of applying <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to <code>initialStatevector</code>. Or
+<code><a href="../Enums/StatevectorError.html">StatevectorError</a></code> error.</p>
                       </div>
                     </section>
                   </div>
@@ -467,9 +429,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSaySiG_AMSSSgSiSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:roundSummaryToDecimalPlaces:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSaySiG_AMSSSgSiSgtKF">groupedProbabilities(byQubits:<wbr>summarizedByQubits:<wbr>withInitialBits:<wbr>roundSummaryToDecimalPlaces:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE11statevector11withFactorys6ResultOyAA0D11Statevector_pAA0I5ErrorOGAA0diG0_p_tF"></a>
+                    <a name="//apple_ref/swift/Method/statevector(withFactory:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE11statevector11withFactorys6ResultOyAA0D11Statevector_pAA0I5ErrorOGAA0diG0_p_tF">statevector(withFactory:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Extension method
@@ -480,26 +442,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>groupQubits</code>. For each of these combinations, it also lists the probability of each possible combination of qubits
-in <code>summaryQubits</code> conditioned to measure the aformentioned combination in the qubits in <code>groupQubits</code>.
-This is equivalent to get the probability of each possible combination of qubits in <code>summaryQubits</code> after collapsing
-the qubits in <code>groupQubits</code> with a measurement.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a></code>.</p>
-
-</div>
+                        <p>Applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to an initial statevector set to 0 to produce a new statevector.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">groupedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">groupQubits</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-                                 <span class="n">summarizedByQubits</span> <span class="nv">summaryQubits</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
-                                 <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                 <span class="n">roundSummaryToDecimalPlaces</span> <span class="nv">places</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a></span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">statevector</span><span class="p">(</span><span class="n">withFactory</span> <span class="nv">factory</span><span class="p">:</span> <span class="kt"><a href="../Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a></span> <span class="o">=</span> <span class="kt"><a href="../Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a></span><span class="p">())</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/CircuitStatevector.html">CircuitStatevector</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/StatevectorError.html">StatevectorError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -510,50 +460,12 @@ the qubits in <code>groupQubits</code> with a measurement.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>groupQubits</em>
+                                <em>factory</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>List of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>summaryQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>List of qubits for which we want to know the probability of each combination once the
-qubits in <code>groupQubits</code> collapse to a value. if an empty list is provided, an empty summary will be returned.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>places</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If provided, probabilities in each summary are rounded to the given number of decimal <code>places</code>.
-Notice that if a probability ends up rounded to 0.0, it is removed from the summary.</p>
+                                  <p>Used to produce the initial statevector set to 0.</p>
                                 </div>
                               </td>
                             </tr>
@@ -562,10 +474,8 @@ Notice that if a probability ends up rounded to 0.0, it is removed from the summ
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A dictionary where each key is a combination of qubits in <code>groupQubits</code> and its value the probability of
-such combination plus another dictionary where each key is a combination of qubits in <code>summaryQubits</code> and its value
-the probability of such combination if qubits in <code>groupQubits</code> collapse to the first key. Combinations with
-probability 0 are not included..</p>
+                        <p>Another <code><a href="../Protocols/CircuitStatevector.html">CircuitStatevector</a></code> instance, result of applying <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to 0. Or
+<code><a href="../Enums/StatevectorError.html">StatevectorError</a></code> error.</p>
                       </div>
                     </section>
                   </div>
@@ -573,1252 +483,9 @@ probability 0 are not included..</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSaySiG_SnySiGSSSgSiSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:roundSummaryToDecimalPlaces:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSaySiG_SnySiGSSSgSiSgtKF">groupedProbabilities(byQubits:<wbr>summarizedByQubits:<wbr>withInitialBits:<wbr>roundSummaryToDecimalPlaces:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>groupQubits</code>. For each of these combinations, it also lists the probability of each possible combination of qubits
-in <code>summaryQubits</code> conditioned to measure the aformentioned combination in the qubits in <code>groupQubits</code>.
-This is equivalent to get the probability of each possible combination of qubits in <code>summaryQubits</code> after collapsing
-the qubits in <code>groupQubits</code> with a measurement.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">groupedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">groupQubits</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-                                 <span class="n">summarizedByQubits</span> <span class="nv">summaryQubits</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                 <span class="n">roundSummaryToDecimalPlaces</span> <span class="nv">places</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a></span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>groupQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>List of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>summaryQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination once the
-qubits in <code>groupQubits</code> collapse to a value.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>places</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If provided, probabilities in each summary are rounded to the given number of decimal <code>places</code>.
-Notice that if a probability ends up rounded to 0.0, it is removed from the summary.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a combination of qubits in <code>groupQubits</code> and its value the probability of
-such combination plus another dictionary where each key is a combination of qubits in <code>summaryQubits</code> and its value
-the probability of such combination if qubits in <code>groupQubits</code> collapse to the first key. Combinations with
-probability 0 are not included..</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSaySiG_SNySiGSSSgSiSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:roundSummaryToDecimalPlaces:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSaySiG_SNySiGSSSgSiSgtKF">groupedProbabilities(byQubits:<wbr>summarizedByQubits:<wbr>withInitialBits:<wbr>roundSummaryToDecimalPlaces:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>groupQubits</code>. For each of these combinations, it also lists the probability of each possible combination of qubits
-in <code>summaryQubits</code> conditioned to measure the aformentioned combination in the qubits in <code>groupQubits</code>.
-This is equivalent to get the probability of each possible combination of qubits in <code>summaryQubits</code> after collapsing
-the qubits in <code>groupQubits</code> with a measurement.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">groupedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">groupQubits</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-                                 <span class="n">summarizedByQubits</span> <span class="nv">summaryQubits</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                 <span class="n">roundSummaryToDecimalPlaces</span> <span class="nv">places</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a></span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>groupQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>List of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>summaryQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination once the
-qubits in <code>groupQubits</code> collapse to a value.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>places</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If provided, probabilities in each summary are rounded to the given number of decimal <code>places</code>.
-Notice that if a probability ends up rounded to 0.0, it is removed from the summary.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a combination of qubits in <code>groupQubits</code> and its value the probability of
-such combination plus another dictionary where each key is a combination of qubits in <code>summaryQubits</code> and its value
-the probability of such combination if qubits in <code>groupQubits</code> collapse to the first key. Combinations with
-probability 0 are not included..</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSnySiG_SaySiGSSSgSiSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:roundSummaryToDecimalPlaces:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSnySiG_SaySiGSSSgSiSgtKF">groupedProbabilities(byQubits:<wbr>summarizedByQubits:<wbr>withInitialBits:<wbr>roundSummaryToDecimalPlaces:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>groupQubits</code>. For each of these combinations, it also lists the probability of each possible combination of qubits
-in <code>summaryQubits</code> conditioned to measure the aformentioned combination in the qubits in <code>groupQubits</code>.
-This is equivalent to get the probability of each possible combination of qubits in <code>summaryQubits</code> after collapsing
-the qubits in <code>groupQubits</code> with a measurement.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">groupedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">groupQubits</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">summarizedByQubits</span> <span class="nv">summaryQubits</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
-                                 <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                 <span class="n">roundSummaryToDecimalPlaces</span> <span class="nv">places</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a></span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>groupQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>summaryQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>List of qubits for which we want to know the probability of each combination once the
-qubits in <code>groupQubits</code> collapse to a value. if an empty list is provided, an empty summary will be returned.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>places</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If provided, probabilities in each summary are rounded to the given number of decimal <code>places</code>.
-Notice that if a probability ends up rounded to 0.0, it is removed from the summary.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a combination of qubits in <code>groupQubits</code> and its value the probability of
-such combination plus another dictionary where each key is a combination of qubits in <code>summaryQubits</code> and its value
-the probability of such combination if qubits in <code>groupQubits</code> collapse to the first key. Combinations with
-probability 0 are not included..</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSnySiG_AMSSSgSiSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:roundSummaryToDecimalPlaces:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSnySiG_AMSSSgSiSgtKF">groupedProbabilities(byQubits:<wbr>summarizedByQubits:<wbr>withInitialBits:<wbr>roundSummaryToDecimalPlaces:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>groupQubits</code>. For each of these combinations, it also lists the probability of each possible combination of qubits
-in <code>summaryQubits</code> conditioned to measure the aformentioned combination in the qubits in <code>groupQubits</code>.
-This is equivalent to get the probability of each possible combination of qubits in <code>summaryQubits</code> after collapsing
-the qubits in <code>groupQubits</code> with a measurement.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">groupedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">groupQubits</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">summarizedByQubits</span> <span class="nv">summaryQubits</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                 <span class="n">roundSummaryToDecimalPlaces</span> <span class="nv">places</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a></span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>groupQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>summaryQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination once the
-qubits in <code>groupQubits</code> collapse to a value.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>places</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If provided, probabilities in each summary are rounded to the given number of decimal <code>places</code>.
-Notice that if a probability ends up rounded to 0.0, it is removed from the summary.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a combination of qubits in <code>groupQubits</code> and its value the probability of
-such combination plus another dictionary where each key is a combination of qubits in <code>summaryQubits</code> and its value
-the probability of such combination if qubits in <code>groupQubits</code> collapse to the first key. Combinations with
-probability 0 are not included..</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSnySiG_SNySiGSSSgSiSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:roundSummaryToDecimalPlaces:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSnySiG_SNySiGSSSgSiSgtKF">groupedProbabilities(byQubits:<wbr>summarizedByQubits:<wbr>withInitialBits:<wbr>roundSummaryToDecimalPlaces:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>groupQubits</code>. For each of these combinations, it also lists the probability of each possible combination of qubits
-in <code>summaryQubits</code> conditioned to measure the aformentioned combination in the qubits in <code>groupQubits</code>.
-This is equivalent to get the probability of each possible combination of qubits in <code>summaryQubits</code> after collapsing
-the qubits in <code>groupQubits</code> with a measurement.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">groupedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">groupQubits</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">summarizedByQubits</span> <span class="nv">summaryQubits</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                 <span class="n">roundSummaryToDecimalPlaces</span> <span class="nv">places</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a></span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>groupQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>summaryQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination once the
-qubits in <code>groupQubits</code> collapse to a value.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>places</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If provided, probabilities in each summary are rounded to the given number of decimal <code>places</code>.
-Notice that if a probability ends up rounded to 0.0, it is removed from the summary.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a combination of qubits in <code>groupQubits</code> and its value the probability of
-such combination plus another dictionary where each key is a combination of qubits in <code>summaryQubits</code> and its value
-the probability of such combination if qubits in <code>groupQubits</code> collapse to the first key. Combinations with
-probability 0 are not included..</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSNySiG_SaySiGSSSgSiSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:roundSummaryToDecimalPlaces:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSNySiG_SaySiGSSSgSiSgtKF">groupedProbabilities(byQubits:<wbr>summarizedByQubits:<wbr>withInitialBits:<wbr>roundSummaryToDecimalPlaces:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>groupQubits</code>. For each of these combinations, it also lists the probability of each possible combination of qubits
-in <code>summaryQubits</code> conditioned to measure the aformentioned combination in the qubits in <code>groupQubits</code>.
-This is equivalent to get the probability of each possible combination of qubits in <code>summaryQubits</code> after collapsing
-the qubits in <code>groupQubits</code> with a measurement.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">groupedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">groupQubits</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">summarizedByQubits</span> <span class="nv">summaryQubits</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
-                                 <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                 <span class="n">roundSummaryToDecimalPlaces</span> <span class="nv">places</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a></span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>groupQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>summaryQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>List of qubits for which we want to know the probability of each combination once the
-qubits in <code>groupQubits</code> collapse to a value. if an empty list is provided, an empty summary will be returned.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>places</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If provided, probabilities in each summary are rounded to the given number of decimal <code>places</code>.
-Notice that if a probability ends up rounded to 0.0, it is removed from the summary.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a combination of qubits in <code>groupQubits</code> and its value the probability of
-such combination plus another dictionary where each key is a combination of qubits in <code>summaryQubits</code> and its value
-the probability of such combination if qubits in <code>groupQubits</code> collapse to the first key. Combinations with
-probability 0 are not included..</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSNySiG_SnySiGSSSgSiSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:roundSummaryToDecimalPlaces:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSNySiG_SnySiGSSSgSiSgtKF">groupedProbabilities(byQubits:<wbr>summarizedByQubits:<wbr>withInitialBits:<wbr>roundSummaryToDecimalPlaces:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>groupQubits</code>. For each of these combinations, it also lists the probability of each possible combination of qubits
-in <code>summaryQubits</code> conditioned to measure the aformentioned combination in the qubits in <code>groupQubits</code>.
-This is equivalent to get the probability of each possible combination of qubits in <code>summaryQubits</code> after collapsing
-the qubits in <code>groupQubits</code> with a measurement.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">groupedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">groupQubits</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">summarizedByQubits</span> <span class="nv">summaryQubits</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                 <span class="n">roundSummaryToDecimalPlaces</span> <span class="nv">places</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a></span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>groupQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>summaryQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination once the
-qubits in <code>groupQubits</code> collapse to a value.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>places</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If provided, probabilities in each summary are rounded to the given number of decimal <code>places</code>.
-Notice that if a probability ends up rounded to 0.0, it is removed from the summary.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a combination of qubits in <code>groupQubits</code> and its value the probability of
-such combination plus another dictionary where each key is a combination of qubits in <code>summaryQubits</code> and its value
-the probability of such combination if qubits in <code>groupQubits</code> collapse to the first key. Combinations with
-probability 0 are not included..</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSNySiG_AMSSSgSiSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/groupedProbabilities(byQubits:summarizedByQubits:withInitialBits:roundSummaryToDecimalPlaces:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE20groupedProbabilities8byQubits012summarizedByH015withInitialBits27roundSummaryToDecimalPlacesSDySSSd11probability_SDySSSdG7summarytGSNySiG_AMSSSgSiSgtKF">groupedProbabilities(byQubits:<wbr>summarizedByQubits:<wbr>withInitialBits:<wbr>roundSummaryToDecimalPlaces:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>groupQubits</code>. For each of these combinations, it also lists the probability of each possible combination of qubits
-in <code>summaryQubits</code> conditioned to measure the aformentioned combination in the qubits in <code>groupQubits</code>.
-This is equivalent to get the probability of each possible combination of qubits in <code>summaryQubits</code> after collapsing
-the qubits in <code>groupQubits</code> with a measurement.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">groupedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">groupQubits</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">summarizedByQubits</span> <span class="nv">summaryQubits</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                 <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                                 <span class="n">roundSummaryToDecimalPlaces</span> <span class="nv">places</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitPAAE11GroupedProba">GroupedProb</a></span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>groupQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>summaryQubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination once the
-qubits in <code>groupQubits</code> collapse to a value.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>places</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>If provided, probabilities in each summary are rounded to the given number of decimal <code>places</code>.
-Notice that if a probability ends up rounded to 0.0, it is removed from the summary.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a combination of qubits in <code>groupQubits</code> and its value the probability of
-such combination plus another dictionary where each key is a combination of qubits in <code>summaryQubits</code> and its value
-the probability of such combination if qubits in <code>groupQubits</code> collapse to the first key. Combinations with
-probability 0 are not included..</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE13probabilities15withInitialBitsSaySdGSSSg_tKF"></a>
-                    <a name="//apple_ref/swift/Method/probabilities(withInitialBits:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE13probabilities15withInitialBitsSaySdGSSSg_tKF">probabilities(withInitialBits:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probabilities of each possible combinations of qubits.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/ProbabilitiesError.html">ProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">probabilities</span><span class="p">(</span><span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Double</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A list in which each position represents a qubit combination and the value in a position the probability of
-such combination.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE11statevector15withInitialBitsAA6VectorVSSSg_tKF"></a>
-                    <a name="//apple_ref/swift/Method/statevector(withInitialBits:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE11statevector15withInitialBitsAA6VectorVSSSg_tKF">statevector(withInitialBits:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probabilities of each possible combinations of qubits.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/StatevectorError.html">StatevectorError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">statevector</span><span class="p">(</span><span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Vector.html">Vector</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A statevector, result of applying <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to <code>initialBits</code>.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities15withInitialBitsSDySSSdGSSSg_tKF"></a>
-                    <a name="//apple_ref/swift/Method/summarizedProbabilities(withInitialBits:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities15withInitialBitsSDySSSdGSSSg_tKF">summarizedProbabilities(withInitialBits:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/SummarizedProbabilitiesError.html#/s:21SwiftQuantumComputing28SummarizedProbabilitiesErrorO020probabilitiesThrowedF0yAcA0eF0O_tcACmF">SummarizedProbabilitiesError.probabilitiesThrowedError(error:)</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">summarizedProbabilities</span><span class="p">(</span><span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
-with probability 0 are not included.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities8byQubits15withInitialBitsSDySSSdGSaySiG_SSSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/summarizedProbabilities(byQubits:withInitialBits:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities8byQubits15withInitialBitsSDySSSdGSaySiG_SSSgtKF">summarizedProbabilities(byQubits:<wbr>withInitialBits:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>qubits</code>.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">summarizedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">qubits</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-                                    <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Double</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>qubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>List of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
-with probability 0 are not included.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities8byQubits15withInitialBitsSDySSSdGSnySiG_SSSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/summarizedProbabilities(byQubits:withInitialBits:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities8byQubits15withInitialBitsSDySSSdGSnySiG_SSSgtKF">summarizedProbabilities(byQubits:<wbr>withInitialBits:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>qubits</code>.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">summarizedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">qubits</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                    <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Double</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>qubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
-with probability 0 are not included.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities8byQubits15withInitialBitsSDySSSdGSNySiG_SSSgtKF"></a>
-                    <a name="//apple_ref/swift/Method/summarizedProbabilities(byQubits:withInitialBits:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE23summarizedProbabilities8byQubits15withInitialBitsSDySSSdGSNySiG_SSSgtKF">summarizedProbabilities(byQubits:<wbr>withInitialBits:<wbr>)</a>
-                    </code>
-                      <span class="declaration-note">
-                        Extension method
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes circuit with <code>initialBits</code> and applies <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code> to get the probability of each possible combination of qubits
-in <code>qubits</code>.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">summarizedProbabilities</span><span class="p">(</span><span class="n">byQubits</span> <span class="nv">qubits</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                                    <span class="n">withInitialBits</span> <span class="nv">initialBits</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Double</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>qubits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Range of qubits for which we want to know the probability of each combination.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>initialBits</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>String composed only of 0&rsquo;s &amp; 1&rsquo;s. If not provided, a sequence of 0&rsquo;s will be used instead.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A dictionary where each key is a qubit combination and its value the probability of such combination. Combination
-with probability 0 are not included.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE7unitaryAA6MatrixVyKF"></a>
+                    <a name="/s:21SwiftQuantumComputing7CircuitPAAE7unitarys6ResultOyAA6MatrixVAA12UnitaryErrorOGyF"></a>
                     <a name="//apple_ref/swift/Method/unitary()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE7unitaryAA6MatrixVyKF">unitary()</a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing7CircuitPAAE7unitarys6ResultOyAA6MatrixVAA12UnitaryErrorOGyF">unitary()</a>
                     </code>
                       <span class="declaration-note">
                         Extension method
@@ -1830,24 +497,19 @@ with probability 0 are not included.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Produces unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code>.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/UnitaryError.html">UnitaryError</a></code>.</p>
-
-</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">unitary</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Matrix.html">Matrix</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">unitary</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Matrix.html">Matrix</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/UnitaryError.html">UnitaryError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>Unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code>.</p>
+                        <p>Unitary matrix that represents entire list of <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP5gatesSayAA4GateOGvp">gates</a></code>. Or <code><a href="../Enums/UnitaryError.html">UnitaryError</a></code> error.</p>
                       </div>
                     </section>
                   </div>
@@ -1860,7 +522,7 @@ with probability 0 are not included.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-04-11)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/indisoluble/SwiftQuantumComputing" target="_blank" rel="external">Enrique de la Torre</a>. All rights reserved. (Last updated: 2020-06-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
