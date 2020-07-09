@@ -162,16 +162,22 @@ public struct Matrix {
 
         let count = (rowCount * columnCount)
         let actualConcurrency = (maxConcurrency > count ? count : maxConcurrency)
+        let use_value: (Int, (Int, Int) -> Complex) -> Complex = { index, value in
+            value(index % rowCount, index / rowCount)
+        }
 
-        let values: [Complex] = Array(unsafeUninitializedCapacity: count) { buffer, actualCount in
-            actualCount = count
+        var values: [Complex]!
+        if actualConcurrency == 1 {
+            values = (0..<count).lazy.map { use_value($0, value) }
+        } else {
+            values = Array(unsafeUninitializedCapacity: count) { buffer, actualCount in
+                actualCount = count
 
-            let baseAddress = buffer.baseAddress!
-            DispatchQueue.concurrentPerform(iterations: actualConcurrency) { iteration in
-                for index in stride(from: iteration, to: count, by: actualConcurrency) {
-                    let result = value(index % rowCount, index / rowCount)
-
-                    (baseAddress + index).initialize(to: result)
+                let baseAddress = buffer.baseAddress!
+                DispatchQueue.concurrentPerform(iterations: actualConcurrency) { iteration in
+                    for index in stride(from: iteration, to: count, by: actualConcurrency) {
+                        (baseAddress + index).initialize(to: use_value(index, value))
+                    }
                 }
             }
         }
