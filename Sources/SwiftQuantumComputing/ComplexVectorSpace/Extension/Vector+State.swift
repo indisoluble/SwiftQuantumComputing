@@ -37,7 +37,7 @@ extension Vector {
         }
 
         let count = Int.pow(2, qubitCount)
-        guard (0..<count).contains(value) else {
+        guard (0..<count).lazy.contains(value) else {
             return .failure(.valueHasToBeContainedInQubits)
         }
 
