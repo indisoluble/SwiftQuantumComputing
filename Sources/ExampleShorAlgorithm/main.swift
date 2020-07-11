@@ -1,7 +1,7 @@
 import Foundation
 import SwiftQuantumComputing
 
-let factory = MainCircuitFactory()
+let factory = MainCircuitFactory(statevectorConfiguration: .rowByRow(maxConcurrency: 2))
 
 // Primes: https://en.wikipedia.org/wiki/List_of_prime_numbers
 let primes: Set<Int> = [3, 5]

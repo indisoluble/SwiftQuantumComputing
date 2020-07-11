@@ -578,6 +578,7 @@
 		FFBCD5E2214DB6D90047020B /* CircuitViewPosition+PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCD5E1214DB6D90047020B /* CircuitViewPosition+PositionView.swift */; };
 		FFBCD5E5214DBBA60047020B /* LineHorizontalPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */; };
 		FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */; };
+		FFC331AA24B9FDD000A32FF8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC3318A24B9FBDB00A32FF8 /* main.swift */; };
 		FFC5964E2203AFB500151355 /* GeneticFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC5964D2203AFB500151355 /* GeneticFactory.swift */; };
 		FFC5964F2203AFB500151355 /* GeneticFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC5964D2203AFB500151355 /* GeneticFactory.swift */; };
 		FFC596512203B30D00151355 /* GeneticConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC596502203B30D00151355 /* GeneticConfiguration.swift */; };
@@ -754,6 +755,18 @@
 			remoteInfo = SwiftQuantumComputing_macOS;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FFC3318D24B9FCA100A32FF8 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FF002BBC21FC8D3000E40C3A /* MainGeneticGatesRandomizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticGatesRandomizer.swift; sourceTree = "<group>"; };
@@ -1077,6 +1090,8 @@
 		FFBCD5E1214DB6D90047020B /* CircuitViewPosition+PositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitViewPosition+PositionView.swift"; sourceTree = "<group>"; };
 		FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineHorizontalPositionView.xib; sourceTree = "<group>"; };
 		FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineHorizontalPositionView.swift; sourceTree = "<group>"; };
+		FFC3318A24B9FBDB00A32FF8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		FFC3318F24B9FCA100A32FF8 /* ExampleShorAlgorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ExampleShorAlgorithm; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC5964D2203AFB500151355 /* GeneticFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticFactory.swift; sourceTree = "<group>"; };
 		FFC596502203B30D00151355 /* GeneticConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticConfiguration.swift; sourceTree = "<group>"; };
 		FFC95E30243A37960051F174 /* Double+RoundedToDecimalPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+RoundedToDecimalPlaces.swift"; sourceTree = "<group>"; };
@@ -1195,6 +1210,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFBA23F521691E0F003E5727 /* SwiftQuantumComputing.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFC3318C24B9FCA100A32FF8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1731,6 +1753,7 @@
 				FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests.xctest */,
 				FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */,
 				FFBA23F421691E0F003E5727 /* SwiftQuantumComputing_macOSTests.xctest */,
+				FFC3318F24B9FCA100A32FF8 /* ExampleShorAlgorithm */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2289,6 +2312,7 @@
 		FFB7F567227CD5E100DF2937 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FFC3318924B9FBA200A32FF8 /* ExampleShorAlgorithm */,
 				FF64C321216902FD000C2ABD /* SwiftQuantumComputing */,
 				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing_iOS */,
 				FFBA23ED21691E0F003E5727 /* SwiftQuantumComputing_macOS */,
@@ -2426,6 +2450,14 @@
 				FF9BBE39214E7C2400AD1F78 /* QubitPositionView.xib */,
 			);
 			path = PositionView;
+			sourceTree = "<group>";
+		};
+		FFC3318924B9FBA200A32FF8 /* ExampleShorAlgorithm */ = {
+			isa = PBXGroup;
+			children = (
+				FFC3318A24B9FBDB00A32FF8 /* main.swift */,
+			);
+			path = ExampleShorAlgorithm;
 			sourceTree = "<group>";
 		};
 		FFCC7298221CB68900D28A5D /* Fitness */ = {
@@ -2670,13 +2702,30 @@
 			productReference = FFBA23F421691E0F003E5727 /* SwiftQuantumComputing_macOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FFC3318E24B9FCA100A32FF8 /* ExampleShorAlgorithm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFC3319324B9FCA100A32FF8 /* Build configuration list for PBXNativeTarget "ExampleShorAlgorithm" */;
+			buildPhases = (
+				FFC3318B24B9FCA100A32FF8 /* Sources */,
+				FFC3318C24B9FCA100A32FF8 /* Frameworks */,
+				FFC3318D24B9FCA100A32FF8 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ExampleShorAlgorithm;
+			productName = ExampleShorAlgorithm;
+			productReference = FFC3318F24B9FCA100A32FF8 /* ExampleShorAlgorithm */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		FF65E3AC211A181900AA0BD2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Enrique de la Torre";
 				TargetAttributes = {
@@ -2695,6 +2744,9 @@
 					FFBA23F321691E0F003E5727 = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1020;
+					};
+					FFC3318E24B9FCA100A32FF8 = {
+						CreatedOnToolsVersion = 11.5;
 					};
 				};
 			};
@@ -2715,6 +2767,7 @@
 				FF65E3BD211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests */,
 				FFBA23EB21691E0F003E5727 /* SwiftQuantumComputing_macOS */,
 				FFBA23F321691E0F003E5727 /* SwiftQuantumComputing_macOSTests */,
+				FFC3318E24B9FCA100A32FF8 /* ExampleShorAlgorithm */,
 			);
 		};
 /* End PBXProject section */
@@ -3504,6 +3557,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FFC3318B24B9FCA100A32FF8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFC331AA24B9FDD000A32FF8 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -3833,6 +3894,33 @@
 			};
 			name = Release;
 		};
+		FFC3319424B9FCA100A32FF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FFC3319524B9FCA100A32FF8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3877,6 +3965,15 @@
 			buildConfigurations = (
 				FFBA23FF21691E0F003E5727 /* Debug */,
 				FFBA240021691E0F003E5727 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFC3319324B9FCA100A32FF8 /* Build configuration list for PBXNativeTarget "ExampleShorAlgorithm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFC3319424B9FCA100A32FF8 /* Debug */,
+				FFC3319524B9FCA100A32FF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
