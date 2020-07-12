@@ -141,21 +141,46 @@ public struct Matrix {
     enum MakeMatrixError: Error {
         case passRowCountBiggerThanZero
         case passColumnCountBiggerThanZero
+        case passMaxConcurrencyBiggerThanZero
     }
 
     static func makeMatrix(rowCount: Int,
                            columnCount: Int,
+                           maxConcurrency: Int = 1,
                            value: (Int, Int) -> Complex) -> Result<Matrix, MakeMatrixError> {
-        guard (rowCount > 0) else {
+        guard rowCount > 0 else {
             return .failure(.passRowCountBiggerThanZero)
         }
 
-        guard (columnCount > 0) else {
+        guard columnCount > 0 else {
             return .failure(.passColumnCountBiggerThanZero)
         }
 
+        guard maxConcurrency > 0 else {
+            return .failure(.passMaxConcurrencyBiggerThanZero)
+        }
+
         let count = (rowCount * columnCount)
-        let values = (0..<count).map { value($0 % rowCount, $0 / rowCount)  }
+        let actualConcurrency = (maxConcurrency > count ? count : maxConcurrency)
+        let use_value: (Int, (Int, Int) -> Complex) -> Complex = { index, value in
+            value(index % rowCount, index / rowCount)
+        }
+
+        var values: [Complex]!
+        if actualConcurrency == 1 {
+            values = (0..<count).lazy.map { use_value($0, value) }
+        } else {
+            values = Array(unsafeUninitializedCapacity: count) { buffer, actualCount in
+                actualCount = count
+
+                let baseAddress = buffer.baseAddress!
+                DispatchQueue.concurrentPerform(iterations: actualConcurrency) { iteration in
+                    for index in stride(from: iteration, to: count, by: actualConcurrency) {
+                        (baseAddress + index).initialize(to: use_value(index, value))
+                    }
+                }
+            }
+        }
         let matrix = Matrix(rowCount: rowCount, columnCount: columnCount, values: values)
 
         return .success(matrix)

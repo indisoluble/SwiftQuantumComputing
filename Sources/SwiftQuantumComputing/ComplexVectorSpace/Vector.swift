@@ -89,15 +89,23 @@ public struct Vector {
 
     enum MakeVectorError: Error {
         case passCountBiggerThanZero
+        case passMaxConcurrencyBiggerThanZero
     }
 
-    static func makeVector(count: Int, value: (Int) -> Complex) -> Result<Vector, MakeVectorError> {
-        guard (count > 0) else {
+    static func makeVector(count: Int,
+                           maxConcurrency: Int = 1,
+                           value: (Int) -> Complex) -> Result<Vector, MakeVectorError> {
+        guard count > 0 else {
             return .failure(.passCountBiggerThanZero)
+        }
+
+        guard maxConcurrency > 0 else {
+            return .failure(.passMaxConcurrencyBiggerThanZero)
         }
 
         let matrix = try! Matrix.makeMatrix(rowCount: count,
                                             columnCount: 1,
+                                            maxConcurrency: maxConcurrency,
                                             value: { r, c in value(r) }).get()
 
         return .success(Vector(matrix: matrix))

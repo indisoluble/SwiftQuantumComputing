@@ -32,14 +32,15 @@ public struct MainCircuitFactory {
         /// Each `Gate` is expanded into a `Matrix` and applied to the current statevector
         /// to get the final statevector. This configuration has the biggest memory footprint
         case fullMatrix
-        /// Each `Gate` is not expanded into a `Matrix` and applied, as a all, to the current statevector.
-        /// Instead, for each position of the next statevector, the corresponding row of the `Gate` is expanded
-        /// and applied as needed
-        case rowByRow
-        /// Each `Gate` is not expanded into a `Matrix` and applied, as a all, to the current statevector.
-        /// Instead, for each position of the next statevector, element by element of the corresponding row
-        /// in the `Gate` is calculated (on the fly) and applied as needed
-        case elementByElement
+        /// For each position of the next statevector, the corresponding row of the `Gate` is expanded
+        /// and applied as needed. This process can be done in parallel with up to `maxConcurrency`
+        /// number of threads. If `maxConcurrency` is set to 1 or less, the whole process will be serial.
+        case rowByRow(maxConcurrency: Int = 1)
+        /// For each position of the next statevector, element by element of the corresponding row
+        /// in the `Gate` is calculated (on the fly) and applied as needed. This process can be done in
+        /// parallel with up to `maxConcurrency` number of threads. If `maxConcurrency` is set to
+        /// 1 or less, the whole process will be serial.
+        case elementByElement(maxConcurrency: Int = 1)
     }
 
     // MARK: - Private properties
@@ -58,7 +59,7 @@ public struct MainCircuitFactory {
 
      - Returns: A`MainCircuitFactory` instance.
      */
-    public init(statevectorConfiguration: StatevectorConfiguration = .elementByElement) {
+    public init(statevectorConfiguration: StatevectorConfiguration = .elementByElement()) {
         self.statevectorConfiguration = statevectorConfiguration
     }
 }
@@ -106,10 +107,12 @@ private extension MainCircuitFactory {
         switch statevectorConfiguration {
         case .fullMatrix:
             transformation = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
-        case .rowByRow:
-            transformation = CircuitMatrixRowStatevectorTransformation(matrixFactory: matrixFactory)
-        case .elementByElement:
-            transformation = CircuitMatrixElementStatevectorTransformation(matrixFactory: matrixFactory)
+        case .rowByRow(let maxConcurrency):
+            transformation = try! CircuitMatrixRowStatevectorTransformation(matrixFactory: matrixFactory,
+                                                                            maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+        case .elementByElement(let maxConcurrency):
+            transformation = try! CircuitMatrixElementStatevectorTransformation(matrixFactory: matrixFactory,
+                                                                                maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         }
 
         return transformation

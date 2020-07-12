@@ -80,12 +80,68 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(error, .passCountBiggerThanZero)
     }
 
+    func testZeroMaxConcurrency_makeVector_throwException() {
+        // Then
+        var error: Vector.MakeVectorError?
+        if case .failure(let e) = Vector.makeVector(count: 3,
+                                                    maxConcurrency: 0,
+                                                    value: { _ in Complex.zero }) {
+            error = e
+        }
+        XCTAssertEqual(error, .passMaxConcurrencyBiggerThanZero)
+    }
+
     func testValidCount_makeVector_returnExpectedVector() {
         // Given
         let count = 3
 
         // When
         let result = try! Vector.makeVector(count: count, value: { Complex($0) }).get()
+
+        // Then
+        let expectedResult = try! Vector((0..<count).map { Complex($0) })
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testEvenNumberOfElementsAndEvenMaxConcurrency_makeVector_returnExpectedVector() {
+        // Given
+        let count = 6
+        let maxConcurrency = 2
+
+        // When
+        let result = try! Vector.makeVector(count: count,
+                                            maxConcurrency: maxConcurrency,
+                                            value: { Complex($0) }).get()
+
+        // Then
+        let expectedResult = try! Vector((0..<count).map { Complex($0) })
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testEvenNumberOfElementsAndOddMaxConcurrency_makeVector_returnExpectedVector() {
+        // Given
+        let count = 6
+        let maxConcurrency = 3
+
+        // When
+        let result = try! Vector.makeVector(count: count,
+                                            maxConcurrency: maxConcurrency,
+                                            value: { Complex($0) }).get()
+
+        // Then
+        let expectedResult = try! Vector((0..<count).map { Complex($0) })
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testValidCountAndMaxConcurrencyBiggerThanNumberOfElements_makeVector_returnExpectedVector() {
+        // Given
+        let count = 6
+        let maxConcurrency = 100
+
+        // When
+        let result = try! Vector.makeVector(count: count,
+                                            maxConcurrency: maxConcurrency,
+                                            value: { Complex($0) }).get()
 
         // Then
         let expectedResult = try! Vector((0..<count).map { Complex($0) })
@@ -193,8 +249,16 @@ class VectorTests: XCTestCase {
          testAnyVector_subscript_returnExpectedValue),
         ("testCountEqualToZero_makeVector_throwException",
          testCountEqualToZero_makeVector_throwException),
+        ("testZeroMaxConcurrency_makeVector_throwException",
+         testZeroMaxConcurrency_makeVector_throwException),
         ("testValidCount_makeVector_returnExpectedVector",
          testValidCount_makeVector_returnExpectedVector),
+        ("testEvenNumberOfElementsAndEvenMaxConcurrency_makeVector_returnExpectedVector",
+         testEvenNumberOfElementsAndEvenMaxConcurrency_makeVector_returnExpectedVector),
+        ("testEvenNumberOfElementsAndOddMaxConcurrency_makeVector_returnExpectedVector",
+         testEvenNumberOfElementsAndOddMaxConcurrency_makeVector_returnExpectedVector),
+        ("testValidCountAndMaxConcurrencyBiggerThanNumberOfElements_makeVector_returnExpectedVector",
+         testValidCountAndMaxConcurrencyBiggerThanNumberOfElements_makeVector_returnExpectedVector),
         ("testTwoVectorWithDifferentDimensions_innerProduct_throwException",
          testTwoVectorWithDifferentDimensions_innerProduct_throwException),
         ("testTwoVector_innerProduct_returnExpectedValue",
