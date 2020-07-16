@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -384,6 +384,8 @@
 		FF8379102471764D0051C2DC /* MainCircuitFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF83790E2471764D0051C2DC /* MainCircuitFactory.swift */; };
 		FF84D3F5248BD8820092FF28 /* MainGeneticGatesRandomizerFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF84D3F4248BD8820092FF28 /* MainGeneticGatesRandomizerFactoryTests.swift */; };
 		FF84D3F6248BD8820092FF28 /* MainGeneticGatesRandomizerFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF84D3F4248BD8820092FF28 /* MainGeneticGatesRandomizerFactoryTests.swift */; };
+		FF84F14F24C0D854004B0193 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF84F14E24C0D854004B0193 /* ComplexModule */; };
+		FF84F15224C0D8EF004B0193 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF84F15124C0D8EF004B0193 /* ComplexModule */; };
 		FF853B3A2447A70C00D69647 /* DirectStatevectorTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF853B392447A70C00D69647 /* DirectStatevectorTransformation.swift */; };
 		FF853B3B2447A70C00D69647 /* DirectStatevectorTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF853B392447A70C00D69647 /* DirectStatevectorTransformation.swift */; };
 		FF8725BE21D9534600E1004E /* StatevectorRegisterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8725BD21D9534600E1004E /* StatevectorRegisterFactory.swift */; };
@@ -1187,6 +1189,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF84F14F24C0D854004B0193 /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1202,6 +1205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF84F15224C0D8EF004B0193 /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1743,6 +1747,7 @@
 				FFB7F568227CD6F800DF2937 /* Tests */,
 				FF65E3B6211A181900AA0BD2 /* Products */,
 				FF43848422B56C2200319473 /* Package.swift */,
+				FF84F15024C0D8EF004B0193 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1990,6 +1995,13 @@
 				FF7EC7E5237B6D0F0006C3FA /* Drawable+DrawCircuitTests.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		FF84F15024C0D8EF004B0193 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FF8B40CB23AEB7EB00A51475 /* Replicator */ = {
@@ -2644,6 +2656,9 @@
 			dependencies = (
 			);
 			name = SwiftQuantumComputing_iOS;
+			packageProductDependencies = (
+				FF84F14E24C0D854004B0193 /* ComplexModule */,
+			);
 			productName = SwiftQuantumComputing;
 			productReference = FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */;
 			productType = "com.apple.product-type.framework";
@@ -2680,6 +2695,9 @@
 			dependencies = (
 			);
 			name = SwiftQuantumComputing_macOS;
+			packageProductDependencies = (
+				FF84F15124C0D8EF004B0193 /* ComplexModule */,
+			);
 			productName = SwiftQuantumComputing_macOS;
 			productReference = FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */;
 			productType = "com.apple.product-type.framework";
@@ -2759,6 +2777,9 @@
 				Base,
 			);
 			mainGroup = FF65E3AB211A181800AA0BD2;
+			packageReferences = (
+				FF84F14D24C0D854004B0193 /* XCRemoteSwiftPackageReference "swift-numerics" */,
+			);
 			productRefGroup = FF65E3B6211A181900AA0BD2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -3979,6 +4000,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FF84F14D24C0D854004B0193 /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-numerics.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.0.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FF84F14E24C0D854004B0193 /* ComplexModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF84F14D24C0D854004B0193 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			productName = ComplexModule;
+		};
+		FF84F15124C0D8EF004B0193 /* ComplexModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF84F14D24C0D854004B0193 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			productName = ComplexModule;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FF65E3AC211A181900AA0BD2 /* Project object */;
 }
