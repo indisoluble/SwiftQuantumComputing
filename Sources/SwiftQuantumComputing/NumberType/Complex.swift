@@ -50,22 +50,6 @@ public struct Complex {
     public init(_ real: Int) {
         self.init(real: Double(real), imag: 0)
     }
-
-    // MARK: - Internal init methods
-
-    enum InitError: Error {
-        case use1x1Matrix
-    }
-
-    init(_ matrix: Matrix) throws {
-        guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
-            throw InitError.use1x1Matrix
-        }
-
-        let complex = matrix.first
-
-        self.init(real: complex.real, imag: complex.imag)
-    }
 }
 
 // MARK: - Equatable methods
