@@ -28,13 +28,9 @@ class CircuitStatevectorAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let nonPowerOfTwoVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.one
-    ])
-    let squareModulusNotEqualToOneVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.one, Complex.one
-    ])
-    let validVector = try! Vector([Complex.zero, Complex.zero, Complex.one, Complex.zero])
+    let nonPowerOfTwoVector = try! Vector([.zero, .zero, .one])
+    let squareModulusNotEqualToOneVector = try! Vector([.zero, .zero, .one, .one])
+    let validVector = try! Vector([.zero, .zero, .one, .zero])
 
     // MARK: - Tests
 

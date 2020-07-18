@@ -38,8 +38,8 @@ class MainGeneticUseCaseEvaluatorTests: XCTestCase {
     let useCase = try! GeneticUseCase(emptyTruthTableQubitCount: 1,
                                       circuitInput: "01",
                                       circuitOutput: "11")
-    let statevectorInput = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
-    let statevectorOutput = try! Vector([Complex.zero, Complex.zero, Complex.zero, Complex.one])
+    let statevectorInput = try! Vector([.zero, .one, .zero, .zero])
+    let statevectorOutput = try! Vector([.zero, .zero, .zero, .one])
 
     // MARK: - Tests
 

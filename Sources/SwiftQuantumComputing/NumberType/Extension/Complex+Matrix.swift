@@ -18,11 +18,12 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
 
-extension Complex {
+extension Complex where RealType == Double{
 
     // MARK: - Internal init methods
 
@@ -37,6 +38,6 @@ extension Complex {
 
         let complex = matrix.first
 
-        self.init(real: complex.real, imag: complex.imag)
+        self.init(complex.real, complex.imaginary)
     }
 }

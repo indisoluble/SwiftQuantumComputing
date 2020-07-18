@@ -91,24 +91,24 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                         inputs: inputs).get()
         // Then
         let firstMatrix = try! Matrix([
-            [Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one]
+            [.one,  .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .one,  .zero, .zero, .zero, .zero],
+            [.zero, .one,  .zero, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .one,  .zero, .zero, .zero],
+            [.zero, .zero, .one,  .zero, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .zero, .one,  .zero, .zero],
+            [.zero, .zero, .zero, .zero, .zero, .zero, .one,  .zero],
+            [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one]
         ])
         let secondMatrix = try! Matrix([
-            [Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one,  Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,  Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one]
+            [.one,  .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .one,  .zero, .zero, .zero],
+            [.zero, .zero, .zero, .one,  .zero, .zero, .zero, .zero],
+            [.zero, .zero, .one,  .zero, .zero, .zero, .zero, .zero],
+            [.zero, .one,  .zero, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .zero, .one,  .zero, .zero],
+            [.zero, .zero, .zero, .zero, .zero, .zero, .one,  .zero],
+            [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one]
         ])
         let expectedGates = [
             Gate.controlledMatrix(matrix: firstMatrix, inputs: inputs, control: exponent[1]),

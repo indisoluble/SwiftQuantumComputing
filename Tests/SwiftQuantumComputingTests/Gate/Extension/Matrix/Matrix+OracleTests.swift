@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -96,11 +97,11 @@ class Matrix_OracleTests: XCTestCase {
                                             controlCount: controlCount).get()
 
         // Then
-        let rows = [
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-            [Complex.zero, Complex.zero, Complex.one, Complex.zero]
+        let rows: [[Complex<Double>]] = [
+            [.one, .zero, .zero, .zero],
+            [.zero, .one, .zero, .zero],
+            [.zero, .zero, .zero, .one],
+            [.zero, .zero, .one, .zero]
         ]
         let expectedMatrix = try! Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)
@@ -116,11 +117,11 @@ class Matrix_OracleTests: XCTestCase {
                                             controlCount: controlCount).get()
 
         // Then
-        let rows = [
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-            [Complex.zero, Complex.zero, Complex.one, Complex.zero]
+        let rows: [[Complex<Double>]] = [
+            [.one, .zero, .zero, .zero],
+            [.zero, .one, .zero, .zero],
+            [.zero, .zero, .zero, .one],
+            [.zero, .zero, .one, .zero]
         ]
         let expectedMatrix = try! Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)
@@ -136,23 +137,15 @@ class Matrix_OracleTests: XCTestCase {
                                             controlCount: controlCount).get()
 
         // Then
-        let rows = [
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.one,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.one, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.one, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.zero, Complex.one],
-            [Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-             Complex.zero, Complex.zero, Complex.one, Complex.zero]
+        let rows: [[Complex<Double>]] = [
+            [.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .one, .zero, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .one, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .one, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .zero, .one, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
+            [.zero, .zero, .zero, .zero, .zero, .zero, .one, .zero]
         ]
         let expectedMatrix = try! Matrix(rows)
         XCTAssertEqual(matrix, expectedMatrix)

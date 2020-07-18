@@ -32,7 +32,7 @@ final class StatevectorTransformationTestDouble {
     private (set) var lastApplyMatrix: Matrix?
     private (set) var lastApplyVector: Vector?
     private (set) var lastApplyInputs: [Int]?
-    var applyResult = try! Vector([Complex.one, Complex.zero])
+    var applyResult = try! Vector([.one, .zero])
 }
 
 // MARK: - StatevectorTransformation methods

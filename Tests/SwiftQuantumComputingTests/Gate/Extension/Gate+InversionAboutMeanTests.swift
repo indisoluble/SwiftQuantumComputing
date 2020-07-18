@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -45,8 +46,8 @@ class Gate_InversionAboutMeanTests: XCTestCase {
         let result = try? Gate.makeInversionAboutMean(inputs: inputs).get()
 
         // Then
-        let mainValue = Complex(-1.0 + 2.0 / 4.0)
-        let otherValue = Complex(2.0 / 4.0)
+        let mainValue = Complex<Double>(-1.0 + 2.0 / 4.0)
+        let otherValue = Complex<Double>(2.0 / 4.0)
         let expectedMatrix = try! Matrix([[mainValue, otherValue, otherValue, otherValue],
                                           [otherValue, mainValue, otherValue, otherValue],
                                           [otherValue, otherValue, mainValue, otherValue],

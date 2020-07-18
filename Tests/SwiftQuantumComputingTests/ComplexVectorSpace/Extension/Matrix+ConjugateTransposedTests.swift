@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -30,27 +31,21 @@ class Matrix_ConjugateTransposedTests: XCTestCase {
 
     func testSquareMatrix_conjugateTransposed_returnExpectedMatrix() {
         // Given
-        let matrix = try! Matrix([
-            [Complex(real: 0, imag: 1), Complex(real: 1, imag: 0)],
-            [Complex(real: 1, imag: 1), Complex(real: 0, imag: 0)],
-        ])
+        let matrix = try! Matrix([[.i, .one], [Complex(1, 1), .zero]])
 
         // When
         let result = matrix.conjugateTransposed()
 
         // Then
-        let expectedResult = try! Matrix([
-            [Complex(real: 0, imag: -1), Complex(real: 1, imag: -1)],
-            [Complex(real: 1, imag: 0), Complex(real: 0, imag: 0)],
-        ])
+        let expectedResult = try! Matrix([[Complex(imaginary: -1), Complex(1, -1)], [.one, .zero]])
         XCTAssertEqual(result, expectedResult)
     }
 
     func testMatrixWithMoreColumnsThanRows_conjugateTransposed_returnExpectedMatrix() {
         // Given
         let matrix = try! Matrix([
-            [Complex(real: 1, imag: 0), Complex(real: -2, imag: -1), Complex(real: 5, imag: 0)],
-            [Complex(real: 1, imag: 1), Complex(real: 0, imag: 1), Complex(real: 4, imag: -2)]
+            [.one, Complex(-2, -1), Complex(5)],
+            [Complex(1, 1), .i, Complex(4, -2)]
         ])
 
         // When
@@ -58,9 +53,9 @@ class Matrix_ConjugateTransposedTests: XCTestCase {
 
         // Then
         let expectedResult = try! Matrix([
-            [Complex(real: 1, imag: 0), Complex(real: 1, imag: -1)],
-            [Complex(real: -2, imag: 1), Complex(real: 0, imag: -1)],
-            [Complex(real: 5, imag: 0), Complex(real: 4, imag: 2)]
+            [.one, Complex(1, -1)],
+            [Complex(-2, 1), Complex(imaginary: -1)],
+            [Complex(5), Complex(4, 2)]
         ])
         XCTAssertEqual(result, expectedResult)
     }
@@ -68,9 +63,9 @@ class Matrix_ConjugateTransposedTests: XCTestCase {
     func testMatrixWithMoreRowsThanColumns_conjugateTransposed_returnExpectedMatrix() {
         // Given
         let matrix = try! Matrix([
-            [Complex(real: 1, imag: 0), Complex(real: 1, imag: -1)],
-            [Complex(real: -2, imag: 1), Complex(real: 0, imag: -1)],
-            [Complex(real: 5, imag: 0), Complex(real: 4, imag: 2)]
+            [.one, Complex(1, -1)],
+            [Complex(-2, 1), Complex(imaginary: -1)],
+            [Complex(5), Complex(4, 2)]
         ])
 
         // When
@@ -78,8 +73,8 @@ class Matrix_ConjugateTransposedTests: XCTestCase {
 
         // Then
         let expectedResult = try! Matrix([
-            [Complex(real: 1, imag: 0), Complex(real: -2, imag: -1), Complex(real: 5, imag: 0)],
-            [Complex(real: 1, imag: 1), Complex(real: 0, imag: 1), Complex(real: 4, imag: -2)]
+            [.one, Complex(-2, -1), Complex(5)],
+            [Complex(1, 1), .i, Complex(4, -2)]
         ])
         XCTAssertEqual(result, expectedResult)
     }

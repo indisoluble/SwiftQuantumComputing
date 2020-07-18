@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -30,14 +31,14 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
     let circuitStatevector = CircuitStatevectorTestDouble()
     let finalStateVector = try! Vector([
-        Complex(real: 1 / sqrt(3), imag: 0),
-        Complex.zero,
-        Complex.zero,
-        Complex.zero,
-        Complex(real: 1 / sqrt(3), imag: 0),
-        Complex.zero,
-        Complex(real: 1 / sqrt(3), imag: 0),
-        Complex.zero
+        Complex(1 / sqrt(3)),
+        .zero,
+        .zero,
+        .zero,
+        Complex(1 / sqrt(3)),
+        .zero,
+        Complex(1 / sqrt(3)),
+        .zero
     ])
 
     // MARK: - Auxiliar methods

@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -37,8 +38,8 @@ class Matrix_ControlledMatrixTests: XCTestCase {
 
         // Then
         let expectedResult = try! Matrix([
-            [Complex.one, Complex.zero],
-            [Complex.zero, Complex(2)]
+            [.one, .zero],
+            [.zero, Complex(2)]
         ])
         XCTAssertEqual(result, expectedResult)
     }
@@ -52,8 +53,8 @@ class Matrix_ControlledMatrixTests: XCTestCase {
 
         // Then
         let expectedResult = try! Matrix([
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex(2), Complex(3)]
+            [.one, .zero, .zero, .zero],
+            [.zero, .zero, Complex(2), Complex(3)]
         ])
         XCTAssertEqual(result, expectedResult)
     }
@@ -67,10 +68,10 @@ class Matrix_ControlledMatrixTests: XCTestCase {
 
         // Then
         let expectedResult = try! Matrix([
-            [Complex.one, Complex.zero],
-            [Complex.zero, Complex.zero],
-            [Complex.zero, Complex(2)],
-            [Complex.zero, Complex(3)]
+            [.one, .zero],
+            [.zero, .zero],
+            [.zero, Complex(2)],
+            [.zero, Complex(3)]
         ])
         XCTAssertEqual(result, expectedResult)
     }
@@ -87,10 +88,10 @@ class Matrix_ControlledMatrixTests: XCTestCase {
 
         // Then
         let expectedResult = try! Matrix([
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero, Complex(2), Complex(3)],
-            [Complex.zero, Complex.zero, Complex(4), Complex(5)]
+            [.one, .zero, .zero, .zero],
+            [.zero, .one, .zero, .zero],
+            [.zero, .zero, Complex(2), Complex(3)],
+            [.zero, .zero, Complex(4), Complex(5)]
         ])
         XCTAssertEqual(result, expectedResult)
     }

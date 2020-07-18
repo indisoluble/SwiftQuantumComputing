@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -30,8 +31,7 @@ class Complex_MatrixTests: XCTestCase {
 
     func testNotOneByOneMatrix_init_throwException() {
         // Given
-        let complex = Complex(real: 0, imag: 0)
-        let matrix = try! Matrix([[complex, complex], [complex, complex]])
+        let matrix = try! Matrix([[.zero, .zero], [.zero, .zero]])
 
         // Then
         XCTAssertThrowsError(try Complex(matrix))
@@ -39,7 +39,7 @@ class Complex_MatrixTests: XCTestCase {
 
     func testOneByOneMatrix_init_returnExpectedComplexNumber() {
         // Given
-        let expectedValue = Complex(real: 10, imag: 10)
+        let expectedValue = Complex<Double>(10, 10)
         let matrix = try! Matrix([[expectedValue]])
 
         // Then

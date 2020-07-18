@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Protocol definition
@@ -31,5 +32,5 @@ protocol SimulatorCircuitMatrixRow {
 }
 
 protocol SimulatorCircuitMatrixElement {
-    subscript(row: Int, column: Int) -> Complex { get }
+    subscript(row: Int, column: Int) -> Complex<Double> { get }
 }

@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -40,8 +41,8 @@ class MatrixTests: XCTestCase {
 
     func testRowsWithDifferentColumnCount_init_throwException() {
         // Given
-        let complex = Complex.zero
-        let elements: [[Complex]] = [[complex], [complex, complex]]
+        let complex = Complex<Double>.zero
+        let elements: [[Complex<Double>]] = [[complex], [complex, complex]]
 
         // Then
         XCTAssertThrowsError(try Matrix(elements))
@@ -49,8 +50,8 @@ class MatrixTests: XCTestCase {
 
     func testRowsWithSameColumnCount_init_returnMatrixWithExpectedNumberOfRowsAndColumns() {
         // Given
-        let complex = Complex.zero
-        let elements: [[Complex]] = [[complex], [complex]]
+        let complex = Complex<Double>.zero
+        let elements: [[Complex<Double>]] = [[complex], [complex]]
 
         // When
         let matrix = try? Matrix(elements)
@@ -62,11 +63,11 @@ class MatrixTests: XCTestCase {
 
     func testAnyMatrix_first_returnExpectedValue() {
         // Given
-        let expectedValue = Complex(real: 10, imag: 10)
-        let elements = [
-            [expectedValue, Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)],
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)],
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)]
+        let expectedValue = Complex<Double>(10, 10)
+        let elements: [[Complex<Double>]] = [
+            [expectedValue, .zero, .zero],
+            [.zero, .zero, .zero],
+            [.zero, .zero, .zero]
         ]
         let matrix = try! Matrix(elements)
 
@@ -76,12 +77,12 @@ class MatrixTests: XCTestCase {
 
     func testAnyMatrix_subscript_returnExpectedValue() {
         // Given
-        let expectedValue = Complex(real: 10, imag: 10)
-        let elements = [
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)],
-            [Complex(real: 0, imag: 0), expectedValue],
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)],
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0)]
+        let expectedValue = Complex<Double>(10, 10)
+        let elements: [[Complex<Double>]] = [
+            [.zero, .zero],
+            [.zero, expectedValue],
+            [.zero, .zero],
+            [.zero, .zero]
         ]
         let matrix = try! Matrix(elements)
 
@@ -91,10 +92,10 @@ class MatrixTests: XCTestCase {
 
     func testAnyMatrix_loop_returnExpectedSequence() {
         // Given
-        let elements = [
-            [Complex.one, Complex.zero, Complex(2)],
-            [Complex.one, Complex.zero, Complex(2)],
-            [Complex.one, Complex.zero, Complex(2)]
+        let elements: [[Complex<Double>]] = [
+            [.one, .zero, Complex(2)],
+            [.one, .zero, Complex(2)],
+            [.one, .zero, Complex(2)]
         ]
         let matrix = try! Matrix(elements)
 
@@ -102,18 +103,16 @@ class MatrixTests: XCTestCase {
         let sequence = matrix.map { $0 }
 
         // Then
-        let expectedSequence = [
-            Complex.one, Complex.one, Complex.one,
-            Complex.zero, Complex.zero, Complex.zero,
-            Complex(2), Complex(2), Complex(2)
+        let expectedSequence: [Complex<Double>] = [
+            .one, .one, .one, .zero, .zero, .zero, Complex(2), Complex(2), Complex(2)
         ]
         XCTAssertEqual(sequence, expectedSequence)
     }
 
     func testMatricesWithDifferentNumberOfRows_isEqual_returnFalse() {
         // Given
-        let m1 = try! Matrix([[Complex.one], [Complex.one]])
-        let m2 = try! Matrix([[Complex.one], [Complex.one], [Complex.one]])
+        let m1 = try! Matrix([[.one], [.one]])
+        let m2 = try! Matrix([[.one], [.one], [.one]])
 
         // Then
         XCTAssertFalse(m1.isEqual(m2, accuracy: 0.001))
@@ -121,8 +120,8 @@ class MatrixTests: XCTestCase {
 
     func testMatricesWithDifferentNumberOfColumns_isEqual_returnFalse() {
         // Given
-        let m1 = try! Matrix([[Complex.one, Complex.one]])
-        let m2 = try! Matrix([[Complex.one, Complex.one, Complex.one]])
+        let m1 = try! Matrix([[.one, .one]])
+        let m2 = try! Matrix([[.one, .one, .one]])
 
         // Then
         XCTAssertFalse(m1.isEqual(m2, accuracy: 0.001))
@@ -130,7 +129,7 @@ class MatrixTests: XCTestCase {
 
     func testAnyMatrixAndAccuracyZero_isEqual_returnTrue() {
         // Given
-        let matrix = try! Matrix([[Complex.one], [Complex.one]])
+        let matrix = try! Matrix([[.one], [.one]])
 
         // Then
         XCTAssertTrue(matrix.isEqual(matrix, accuracy: 0))
@@ -139,11 +138,9 @@ class MatrixTests: XCTestCase {
     func testMatricesWithValusAroundAccuracy_isEqual_returnTrue() {
         let accuracy = 0.001
         let m1 = try! Matrix([
-            [Complex(real: 1 + accuracy, imag: 0), Complex(real: accuracy, imag: -1)]
+            [Complex(1 + accuracy), Complex(accuracy, -1)]
         ])
-        let m2 = try! Matrix([
-            [Complex(real: 1, imag: accuracy), Complex(real: 2 * accuracy, imag: -1 - accuracy)]
-        ])
+        let m2 = try! Matrix([[Complex(1, accuracy), Complex(2 * accuracy, -1 - accuracy)]])
 
         // Then
         XCTAssertTrue(m1.isEqual(m2, accuracy: accuracy))
@@ -151,8 +148,8 @@ class MatrixTests: XCTestCase {
 
     func testMatricesWithOneValueFartherThanAccuracy_isEqual_returnFalse() {
         let accuracy = 0.001
-        let m1 = try! Matrix([[Complex.one, Complex(real: accuracy, imag: -accuracy)]])
-        let m2 = try! Matrix([[Complex.one, Complex(real: accuracy, imag: accuracy)]])
+        let m1 = try! Matrix([[.one, Complex(accuracy, -accuracy)]])
+        let m2 = try! Matrix([[.one, Complex(accuracy, accuracy)]])
 
         // Then
         XCTAssertFalse(m1.isEqual(m2, accuracy: accuracy))
@@ -160,7 +157,7 @@ class MatrixTests: XCTestCase {
 
     func testNonSquareMatrix_isUnitary_returnFalse() {
         // Given
-        let matrix = try! Matrix([[Complex.one], [Complex.one]])
+        let matrix = try! Matrix([[.one], [.one]])
 
         // Then
         XCTAssertFalse(matrix.isUnitary(accuracy: 0.001))
@@ -168,10 +165,9 @@ class MatrixTests: XCTestCase {
 
     func testSquareNonUnitaryMatrix_isUnitary_returnFalse() {
         // Given
-        let complex = Complex(real: 1, imag: 0)
-        let matrix = try! Matrix([[complex, complex, complex],
-                                  [complex, complex, complex],
-                                  [complex, complex, complex]])
+        let matrix = try! Matrix([[.one, .one, .one],
+                                  [.one, .one, .one],
+                                  [.one, .one, .one]])
 
         // Then
         XCTAssertFalse(matrix.isUnitary(accuracy: 0.001))
@@ -179,16 +175,16 @@ class MatrixTests: XCTestCase {
 
     func testUnitaryMatrix_isUnitary_returnTrue() {
         // Given
-        let elements = [
-            [Complex(real: (1 / 2), imag: (1 / 2)),
-             Complex(real: 0, imag: (1 / sqrt(3))),
-             Complex(real: (3 / (2 * sqrt(15))), imag: (1 / (2 * sqrt(15))))],
-            [Complex(real: -(1 / 2), imag: 0),
-             Complex(real: (1 / sqrt(3)), imag: 0),
-             Complex(real: (4 / (2 * sqrt(15))), imag: (3 / (2 * sqrt(15))))],
-            [Complex(real: (1 / 2), imag: 0),
-             Complex(real: 0, imag: -(1 / sqrt(3))),
-             Complex(real: 0, imag: (5 / (2 * sqrt(15))))]
+        let elements: [[Complex<Double>]] = [
+            [Complex(1.0 / 2.0, 1.0 / 2.0),
+             Complex(imaginary: 1.0 / sqrt(3)),
+             Complex(3.0 / (2.0 * sqrt(15)), 1.0 / (2.0 * sqrt(15)))],
+            [Complex(-1.0 / 2.0),
+             Complex(1.0 / sqrt(3)),
+             Complex(4.0 / (2.0 * sqrt(15)), 3.0 / (2.0 * sqrt(15)))],
+            [Complex(1.0 / 2.0),
+             Complex(imaginary: -1.0 / sqrt(3)),
+             Complex(imaginary: 5.0 / (2.0 * sqrt(15)))]
         ]
         let matrix = try! Matrix(elements)
 
@@ -201,7 +197,7 @@ class MatrixTests: XCTestCase {
         var error: Matrix.MakeMatrixError?
         if case .failure(let e) = Matrix.makeMatrix(rowCount: 0,
                                                     columnCount: 1,
-                                                    value: { _,_ in Complex.zero }) {
+                                                    value: { _,_ in .zero }) {
             error = e
         }
         XCTAssertEqual(error, .passRowCountBiggerThanZero)
@@ -212,7 +208,7 @@ class MatrixTests: XCTestCase {
         var error: Matrix.MakeMatrixError?
         if case .failure(let e) = Matrix.makeMatrix(rowCount: 1,
                                                     columnCount: 0,
-                                                    value: { _,_ in Complex.zero }) {
+                                                    value: { _,_ in .zero }) {
             error = e
         }
         XCTAssertEqual(error, .passColumnCountBiggerThanZero)
@@ -224,7 +220,7 @@ class MatrixTests: XCTestCase {
         if case .failure(let e) = Matrix.makeMatrix(rowCount: 1,
                                                     columnCount: 1,
                                                     maxConcurrency: 0,
-                                                    value: { _,_ in Complex.zero }) {
+                                                    value: { _,_ in .zero }) {
             error = e
         }
         XCTAssertEqual(error, .passMaxConcurrencyBiggerThanZero)
@@ -234,24 +230,24 @@ class MatrixTests: XCTestCase {
         // When
         let matrix = try? Matrix.makeMatrix(rowCount: 1,
                                             columnCount: 1,
-                                            value: { _,_ in Complex.one }).get()
+                                            value: { _,_ in .one }).get()
 
         // Then
-        let expectedMatrix = try? Matrix([[Complex.one]])
+        let expectedMatrix = try? Matrix([[.one]])
 
         XCTAssertEqual(matrix, expectedMatrix)
     }
 
     func testAnyRowsAndColumns_makeMatrix_returnExpectedMatrix() {
         // When
-        let matrix = try? Matrix.makeMatrix(rowCount: 2, columnCount: 3, value: { r, c -> Complex in
-            return Complex(real: Double(r), imag: Double(c))
-            }).get()
+        let matrix = try? Matrix.makeMatrix(rowCount: 2, columnCount: 3, value: { r, c -> Complex<Double> in
+            return Complex(Double(r), Double(c))
+        }).get()
 
         // Then
         let expectedMatrix = try? Matrix([
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 1), Complex(real: 0, imag: 2)],
-            [Complex(real: 1, imag: 0), Complex(real: 1, imag: 1), Complex(real: 1, imag: 2)]
+            [.zero, .i, Complex(imaginary: 2)],
+            [.one, Complex(1, 1), Complex(1, 2)]
         ])
 
         XCTAssertEqual(matrix, expectedMatrix)
@@ -262,14 +258,14 @@ class MatrixTests: XCTestCase {
         let matrix = try? Matrix.makeMatrix(rowCount: 2,
                                             columnCount: 3,
                                             maxConcurrency: 2,
-                                            value: { r, c -> Complex in
-                                                return Complex(real: Double(r), imag: Double(c))
+                                            value: { r, c -> Complex<Double> in
+                                                return Complex(Double(r), Double(c))
         }).get()
 
         // Then
         let expectedMatrix = try? Matrix([
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 1), Complex(real: 0, imag: 2)],
-            [Complex(real: 1, imag: 0), Complex(real: 1, imag: 1), Complex(real: 1, imag: 2)]
+            [.zero, .i, Complex(imaginary: 2)],
+            [.one, Complex(1, 1), Complex(1, 2)]
         ])
 
         XCTAssertEqual(matrix, expectedMatrix)
@@ -280,14 +276,14 @@ class MatrixTests: XCTestCase {
         let matrix = try? Matrix.makeMatrix(rowCount: 2,
                                             columnCount: 3,
                                             maxConcurrency: 3,
-                                            value: { r, c -> Complex in
-                                                return Complex(real: Double(r), imag: Double(c))
+                                            value: { r, c -> Complex<Double> in
+                                                return Complex(Double(r), Double(c))
         }).get()
 
         // Then
         let expectedMatrix = try? Matrix([
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 1), Complex(real: 0, imag: 2)],
-            [Complex(real: 1, imag: 0), Complex(real: 1, imag: 1), Complex(real: 1, imag: 2)]
+            [.zero, .i, Complex(imaginary: 2)],
+            [.one, Complex(1, 1), Complex(1, 2)]
         ])
 
         XCTAssertEqual(matrix, expectedMatrix)
@@ -298,14 +294,14 @@ class MatrixTests: XCTestCase {
         let matrix = try? Matrix.makeMatrix(rowCount: 2,
                                             columnCount: 3,
                                             maxConcurrency: 100,
-                                            value: { r, c -> Complex in
-                                                return Complex(real: Double(r), imag: Double(c))
+                                            value: { r, c -> Complex<Double> in
+                                                return Complex(Double(r), Double(c))
         }).get()
 
         // Then
         let expectedMatrix = try? Matrix([
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 1), Complex(real: 0, imag: 2)],
-            [Complex(real: 1, imag: 0), Complex(real: 1, imag: 1), Complex(real: 1, imag: 2)]
+            [.zero, .i, Complex(imaginary: 2)],
+            [.one, Complex(1, 1), Complex(1, 2)]
         ])
 
         XCTAssertEqual(matrix, expectedMatrix)
@@ -313,9 +309,8 @@ class MatrixTests: XCTestCase {
 
     func testMatricesWithDifferentRowCount_add_throwException() {
         // Given
-        let lhs = try! Matrix([[Complex.zero, Complex.zero]])
-        let rhs = try! Matrix([[Complex.zero, Complex.zero],
-                               [Complex.zero, Complex.zero]])
+        let lhs = try! Matrix([[.zero, .zero]])
+        let rhs = try! Matrix([[.zero, .zero], [.zero, .zero]])
 
         // Then
         var error: Matrix.AddError?
@@ -327,10 +322,8 @@ class MatrixTests: XCTestCase {
 
     func testMatricesWithDifferentColumnCount_add_throwException() {
         // Given
-        let lhs = try! Matrix([[Complex.zero],
-                               [Complex.zero]])
-        let rhs = try! Matrix([[Complex.zero, Complex.zero],
-                               [Complex.zero, Complex.zero]])
+        let lhs = try! Matrix([[.zero], [.zero]])
+        let rhs = try! Matrix([[.zero, .zero], [.zero, .zero]])
 
         // Then
         var error: Matrix.AddError?
@@ -342,47 +335,43 @@ class MatrixTests: XCTestCase {
 
     func testMatricesWithSameSize_add_returnExpectedMatrix() {
         // Given
-        let lhs = try! Matrix([[Complex.zero, Complex.one, Complex.zero],
-                               [Complex.one, Complex.zero, Complex.one],
-                               [Complex.one, Complex.one, Complex.one]])
-        let rhs = try! Matrix([[Complex.one, Complex.zero, Complex.one],
-                               [Complex.zero, Complex.one, Complex.zero],
-                               [Complex.one, Complex.one, Complex.one]])
+        let lhs = try! Matrix([[.zero, .one, .zero],
+                               [.one, .zero, .one],
+                               [.one, .one, .one]])
+        let rhs = try! Matrix([[.one, .zero, .one],
+                               [.zero, .one, .zero],
+                               [.one, .one, .one]])
 
         // When
         let result = try? (lhs + rhs).get()
 
         // Then
-        let expectedResult = try! Matrix([[Complex.one, Complex.one, Complex.one],
-                                          [Complex.one, Complex.one, Complex.one],
+        let expectedResult = try! Matrix([[.one, .one, .one],
+                                          [.one, .one, .one],
                                           [Complex(2), Complex(2), Complex(2)]])
         XCTAssertEqual(result, expectedResult)
     }
 
     func testOneComplexNumberAndOneMatrix_multiply_returnExpectedMatrix() {
         // Given
-        let complex = Complex(real: 3, imag: 2)
-        let row = [Complex(real: 6, imag: 3),
-                   Complex(real: 0, imag: 0),
-                   Complex(real: 5, imag: 1),
-                   Complex(real: 4, imag: 0)]
+        let complex = Complex<Double>(3, 2)
+        let row: [Complex<Double>] = [Complex(6, 3), .zero, Complex(5, 1), Complex(4)]
         let matrix = try! Matrix([row, row])
 
         // When
         let result = (complex * matrix)
 
         // Then
-        let expectedRow = [Complex(real: 12, imag: 21),
-                           Complex(real: 0, imag: 0),
-                           Complex(real: 13, imag: 13),
-                           Complex(real: 12, imag: 8)]
+        let expectedRow: [Complex<Double>] = [
+            Complex(12, 21), .zero, Complex(13, 13), Complex(12, 8)
+        ]
         let expectedResult = try? Matrix([expectedRow, expectedRow])
         XCTAssertEqual(result, expectedResult)
     }
 
     func testMatrixWithColumnCountDifferentThanRowCountInSecondMatrix_multiply_throwException() {
         // Given
-        let complex = Complex(real: 0, imag: 0)
+        let complex = Complex<Double>.zero
         let lhs = try! Matrix([[complex, complex]])
         let rhs = try! Matrix([[complex], [complex], [complex]])
 
@@ -396,28 +385,28 @@ class MatrixTests: XCTestCase {
 
     func testMatrixWithColumnCountEqualToRowCountInSecondMatrix_multiply_returnExpectedMatrix() {
         // Given
-        let lhsElements = [
-            [Complex(real: 3, imag: 2), Complex(real: 0, imag: 0), Complex(real: 5, imag: -6)],
-            [Complex(real: 1, imag: 0), Complex(real: 4, imag: 2), Complex(real: 0, imag: 1)]
+        let lhsElements: [[Complex<Double>]] = [
+            [Complex(3, 2), .zero, Complex(5, -6)],
+            [.one, Complex(4, 2), .i]
         ]
         let lhs = try! Matrix(lhsElements)
 
-        let rhs = try! Matrix([[Complex(real: 5, imag: 0), Complex(real: 2, imag: -1)],
-                               [Complex(real: 0, imag: 0), Complex(real: 4, imag: 5)],
-                               [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])
+        let rhs = try! Matrix([[Complex(5), Complex(2, -1)],
+                               [.zero, Complex(4, 5)],
+                               [Complex(7, -4), Complex(2, 7)]])
 
         // When
         let result = try? (lhs * rhs).get()
 
         // Then
-        let expectedResult = try? Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
-                                          [Complex(real: 9, imag: 7), Complex(real: 1, imag: 29)]])
+        let expectedResult = try? Matrix([[Complex(26, -52), Complex(60, 24)],
+                                          [Complex(9, 7), Complex(1, 29)]])
         XCTAssertEqual(result, expectedResult)
     }
 
     func testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_adjointedMultiply_throwException() {
         // Given
-        let complex = Complex(real: 0, imag: 0)
+        let complex = Complex<Double>.zero
         let lhs = try! Matrix([[complex, complex, complex]])
         let rhs = try! Matrix([[complex], [complex], [complex]])
 
@@ -431,29 +420,29 @@ class MatrixTests: XCTestCase {
 
     func testMatrixWithRowCountEqualToRowCountInSecondMatrix_adjointedMultiply_returnExpectedMatrix() {
         // Given
-        let lhsElements = [
-            [Complex(real: 3, imag: -2), Complex(real: 1, imag: 0)],
-            [Complex(real: 0, imag: 0), Complex(real: 4, imag: -2)],
-            [Complex(real: 5, imag: 6), Complex(real: 0, imag: -1)]
+        let lhsElements: [[Complex<Double>]] = [
+            [Complex(3, -2), .one],
+            [.zero, Complex(4, -2)],
+            [Complex(5,  6), Complex(imaginary: -1)]
         ]
         let lhs = try! Matrix(lhsElements)
 
-        let rhs = try! Matrix([[Complex(real: 5, imag: 0), Complex(real: 2, imag: -1)],
-                               [Complex(real: 0, imag: 0), Complex(real: 4, imag: 5)],
-                               [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])
+        let rhs = try! Matrix([[Complex(5), Complex(2, -1)],
+                               [.zero, Complex(4, 5)],
+                               [Complex(7, -4), Complex(2, 7)]])
 
         // When
         let result = try? (Matrix.Transformation.adjointed(lhs) * rhs).get()
 
         // Then
-        let expectedResult = try? Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
-                                          [Complex(real: 9, imag: 7), Complex(real: 1, imag: 29)]])
+        let expectedResult = try? Matrix([[Complex(26, -52), Complex(60, 24)],
+                                          [Complex(9, 7), Complex(1, 29)]])
         XCTAssertEqual(result, expectedResult)
     }
 
     func testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_transposedMultiply_throwException() {
         // Given
-        let complex = Complex(real: 0, imag: 0)
+        let complex = Complex<Double>.zero
         let lhs = try! Matrix([[complex, complex, complex]])
         let rhs = try! Matrix([[complex], [complex], [complex]])
 
@@ -467,23 +456,23 @@ class MatrixTests: XCTestCase {
 
     func testMatrixWithRowCountEqualToRowCountInSecondMatrix_transposedMultiply_returnExpectedMatrix() {
         // Given
-        let lhsElements = [
-            [Complex(real: 3, imag: 2),  Complex(real: 1, imag: 0)],
-            [Complex(real: 0, imag: 0), Complex(real: 4, imag: 2)],
-            [Complex(real: 5, imag: -6), Complex(real: 0, imag: 1)]
+        let lhsElements: [[Complex<Double>]] = [
+            [Complex(3, 2),  .one],
+            [.zero, Complex(4, 2)],
+            [Complex(5, -6), .i]
         ]
         let lhs = try! Matrix(lhsElements)
 
-        let rhs = try! Matrix([[Complex(real: 5, imag: 0), Complex(real: 2, imag: -1)],
-                               [Complex(real: 0, imag: 0), Complex(real: 4, imag: 5)],
-                               [Complex(real: 7, imag: -4), Complex(real: 2, imag: 7)]])
+        let rhs = try! Matrix([[Complex(5), Complex(2, -1)],
+                               [.zero, Complex(4, 5)],
+                               [Complex(7, -4), Complex(2, 7)]])
 
         // When
         let result = try? (Matrix.Transformation.transposed(lhs) * rhs).get()
 
         // Then
-        let expectedResult = try? Matrix([[Complex(real: 26, imag: -52), Complex(real: 60, imag: 24)],
-                                          [Complex(real: 9, imag: 7), Complex(real: 1, imag: 29)]])
+        let expectedResult = try? Matrix([[Complex(26, -52), Complex(60, 24)],
+                                          [Complex(9, 7), Complex(1, 29)]])
         XCTAssertEqual(result, expectedResult)
     }
 

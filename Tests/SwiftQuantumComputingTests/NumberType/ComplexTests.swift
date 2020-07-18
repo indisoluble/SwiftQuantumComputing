@@ -18,9 +18,8 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
-
-@testable import SwiftQuantumComputing
 
 // MARK: - Main body
 
@@ -33,7 +32,7 @@ class ComplexTests: XCTestCase {
         let number = 10
 
         // Then
-        XCTAssertEqual(Complex(number), Complex(real: Double(number), imag: 0))
+        XCTAssertEqual(Complex<Double>(number), Complex<Double>(Double(number), 0))
     }
 
     func testAnyDouble_init_returnExpectedComplexNumber() {
@@ -41,13 +40,70 @@ class ComplexTests: XCTestCase {
         let number = Double(10)
 
         // Then
-        XCTAssertEqual(Complex(number), Complex(real: number, imag: 0))
+        XCTAssertEqual(Complex<Double>(number), Complex<Double>(number, 0))
+    }
+
+    func testAnyComplexNumber_conjugated_returnExpectecValue() {
+        // Given
+        let complex = Complex<Double>(2, 1)
+
+        // When
+        let result = complex.conjugate
+
+        // Then
+        let expectedResult = Complex<Double>(2, -1)
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testTwoComplexNumbers_add_returnExpectedCompleNumber() {
+        // Given
+        let lhs = Complex<Double>(3, -1)
+        let rhs = Complex<Double>(1, 4)
+
+        // When
+        let result = (lhs + rhs)
+
+        // Then
+        let expectedResult = Complex<Double>(4, 3)
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testTwoComplexNumbers_multiply_returnExpectedCompleNumber() {
+        // Given
+        let lhs = Complex<Double>(3, -1)
+        let rhs = Complex<Double>(1, 4)
+
+        // When
+        let result = (lhs * rhs)
+
+        // Then
+        let expectedResult = Complex<Double>(7, 11)
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testAnyComplexNumber_squaredModulus_returnExpectecValue() {
+        // Given
+        let complex = Complex<Double>(2, 1)
+
+        // When
+        let result = complex.lengthSquared
+
+        // Then
+        XCTAssertEqual(result, 5)
     }
 
     static var allTests = [
         ("testAnyInt_init_returnExpectedComplexNumber",
          testAnyInt_init_returnExpectedComplexNumber),
         ("testAnyDouble_init_returnExpectedComplexNumber",
-         testAnyDouble_init_returnExpectedComplexNumber)
+         testAnyDouble_init_returnExpectedComplexNumber),
+        ("testAnyComplexNumber_conjugated_returnExpectecValue",
+         testAnyComplexNumber_conjugated_returnExpectecValue),
+        ("testTwoComplexNumbers_add_returnExpectedCompleNumber",
+         testTwoComplexNumbers_add_returnExpectedCompleNumber),
+        ("testTwoComplexNumbers_multiply_returnExpectedCompleNumber",
+         testTwoComplexNumbers_multiply_returnExpectedCompleNumber),
+        ("testAnyComplexNumber_squaredModulus_returnExpectecValue",
+         testAnyComplexNumber_squaredModulus_returnExpectecValue)
     ]
 }

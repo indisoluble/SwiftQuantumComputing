@@ -74,7 +74,7 @@ class CircuitStatevectorFactory_BitsTests: XCTestCase {
         if case .success(let r) = factory.makeStatevector(bits: "1") {
             result = r
         }
-        XCTAssertEqual(result?.statevector, try! Vector([Complex.zero, Complex.one]))
+        XCTAssertEqual(result?.statevector, try! Vector([.zero, .one]))
     }
 
     func testBitsFour_makeStatevector_returnExpectedValue() {
@@ -84,10 +84,7 @@ class CircuitStatevectorFactory_BitsTests: XCTestCase {
             result = r
         }
 
-        let expectedVector = try! Vector([
-            Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-            Complex.zero, Complex.one, Complex.zero, Complex.zero
-        ])
+        let expectedVector = try! Vector([.zero, .zero, .zero, .zero, .zero, .one, .zero, .zero])
         XCTAssertEqual(result?.statevector, expectedVector)
     }
 

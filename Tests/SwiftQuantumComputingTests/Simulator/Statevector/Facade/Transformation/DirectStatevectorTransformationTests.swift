@@ -29,40 +29,16 @@ class DirectStatevectorTransformationTests: XCTestCase {
     // MARK: - Properties
 
     let transformation = StatevectorTransformationTestDouble()
-    let threeQubitZeroVector = try! Vector([
-        Complex.one, Complex.zero, Complex.zero, Complex.zero,
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero
-    ])
-    let threeQubitOneVector = try! Vector([
-        Complex.zero, Complex.one, Complex.zero, Complex.zero,
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero
-    ])
-    let threeQubitTwoVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.one, Complex.zero,
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero
-    ])
-    let threeQubitThreeVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.zero, Complex.one,
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero
-    ])
-    let threeQubitFourVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-        Complex.one, Complex.zero, Complex.zero, Complex.zero
-    ])
-    let threeQubitFiveVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-        Complex.zero, Complex.one, Complex.zero, Complex.zero
-    ])
-    let threeQubitSixVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-        Complex.zero, Complex.zero, Complex.one, Complex.zero
-    ])
-    let threeQubitSevenVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-        Complex.zero, Complex.zero, Complex.zero, Complex.one
-    ])
-    let oneQubitZeroVector = try! Vector([Complex.one, Complex.zero])
-    let oneQubitOneVector = try! Vector([Complex.zero, Complex.one])
+    let threeQubitZeroVector = try! Vector([.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero])
+    let threeQubitOneVector = try! Vector([.zero, .one, .zero, .zero, .zero, .zero, .zero, .zero])
+    let threeQubitTwoVector = try! Vector([.zero, .zero, .one, .zero, .zero, .zero, .zero, .zero])
+    let threeQubitThreeVector = try! Vector([.zero, .zero, .zero, .one, .zero, .zero, .zero, .zero])
+    let threeQubitFourVector = try! Vector([.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero])
+    let threeQubitFiveVector = try! Vector([.zero, .zero, .zero, .zero, .zero, .one, .zero, .zero])
+    let threeQubitSixVector = try! Vector([.zero, .zero, .zero, .zero, .zero, .zero, .one, .zero])
+    let threeQubitSevenVector = try! Vector([.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one])
+    let oneQubitZeroVector = try! Vector([.one, .zero])
+    let oneQubitOneVector = try! Vector([.zero, .one])
 
     // MARK: - Tests
 
@@ -286,10 +262,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
-        let matrix = try! Matrix([
-            [Complex.one, Complex.zero],
-            [Complex.zero, Complex.one]
-        ])
+        let matrix = try! Matrix([[.one, .zero], [.zero, .one]])
         let gateMatrix = Matrix.makeControlledMatrix(matrix: matrix)
 
         // When

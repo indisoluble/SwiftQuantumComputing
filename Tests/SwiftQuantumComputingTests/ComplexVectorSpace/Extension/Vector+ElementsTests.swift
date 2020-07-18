@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -30,7 +31,7 @@ class Vector_ElementsTests: XCTestCase {
 
     func testAnyVector_elements_returnExpectedArray() {
         // Given
-        let expectedElements = [Complex.one, Complex.zero, Complex.one]
+        let expectedElements: [Complex<Double>] = [.one, .zero, .one]
 
         let vector = try! Vector(expectedElements)
 

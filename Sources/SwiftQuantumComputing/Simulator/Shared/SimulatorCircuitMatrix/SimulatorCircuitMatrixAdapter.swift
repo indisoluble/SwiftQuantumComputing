@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -68,7 +69,7 @@ extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {
 // MARK: - SimulatorCircuitMatrixElement methods
 
 extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixElement {
-    subscript(row: Int, column: Int) -> Complex {
+    subscript(row: Int, column: Int) -> Complex<Double> {
         let (baseRow, remainingRow) = derives[row]
         let (baseColumn, remainingColumn) = derives[column]
 

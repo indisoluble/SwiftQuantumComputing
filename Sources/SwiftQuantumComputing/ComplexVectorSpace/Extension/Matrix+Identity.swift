@@ -36,7 +36,7 @@ extension Matrix {
         }
 
         let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count, value: { row, col in
-            return row == col ? Complex.one : Complex.zero
+            return row == col ? .one : .zero
         }).get()
 
         return .success(matrix)

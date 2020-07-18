@@ -29,19 +29,19 @@ class Gate_SimulatorGateTests: XCTestCase {
     // MARK: - Properties
 
     let nonPowerOfTwoSizeMatrix = try! Matrix([
-        [Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero]
+        [.zero, .zero, .zero],
+        [.zero, .zero, .zero],
+        [.zero, .zero, .zero]
     ])
     let nonUnitaryMatrix = try! Matrix([
-        [Complex.zero, Complex.one],
-        [Complex.one, Complex.one]
+        [.zero, .one],
+        [.one, .one]
     ])
     let validMatrix = try! Matrix([
-        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-        [Complex.zero, Complex.zero, Complex.one, Complex.zero]
+        [.one, .zero, .zero, .zero],
+        [.zero, .one, .zero, .zero],
+        [.zero, .zero, .zero, .one],
+        [.zero, .zero, .one, .zero]
     ])
     let validQubitCount = 3
     let validInputs = [2, 1]

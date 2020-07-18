@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -27,7 +28,6 @@ extension Matrix {
     // MARK: - Internal class methods
 
     static func makeHadamard() -> Matrix {
-        return (Complex(1 / sqrt(2)) * (try! Matrix([[Complex.one, Complex.one],
-                                                     [Complex.one, Complex(-1)]])))
+        return (Complex(1.0 / sqrt(2)) * (try! Matrix([[.one, .one], [.one, Complex(-1.0)]])))
     }
 }

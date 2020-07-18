@@ -54,7 +54,7 @@ extension CircuitMatrixElementStatevectorTransformation: StatevectorTransformati
                                                                     inputs: inputs)
         let count = vector.count
         return try! Vector.makeVector(count: count, maxConcurrency: maxConcurrency, value: { idx in
-            return vector.enumerated().reduce(Complex.zero) { acc, val in
+            return vector.enumerated().reduce(.zero) { acc, val in
                 return acc + val.element * circuitElement[idx, val.offset]
             }
         }).get()
