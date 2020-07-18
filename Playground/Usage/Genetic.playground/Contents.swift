@@ -1,4 +1,37 @@
 import SwiftQuantumComputing // for macOS
+
+//: 0. Auxiliar functions
+func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircuit,
+                                  with useCase: GeneticUseCase) -> [Gate] {
+    var evolvedGates = evolvedCircuit.gates
+
+    if let oracleAt = evolvedCircuit.oracleAt {
+        switch evolvedGates[oracleAt] {
+        case let .oracle(_, target, controls):
+            evolvedGates[oracleAt] = Gate.oracle(truthTable: useCase.truthTable.truth,
+                                                 target: target,
+                                                 controls: controls)
+        default:
+            fatalError("No oracle found")
+        }
+    }
+
+    return evolvedGates
+}
+
+func drawCircuit(with evolvedGates: [Gate], useCase: GeneticUseCase) -> SQCView {
+    let drawer = MainDrawerFactory().makeDrawer()
+
+    return try! drawer.drawCircuit(evolvedGates, qubitCount: useCase.circuit.qubitCount).get()
+}
+
+func probabilities(in evolvedGates: [Gate], useCase: GeneticUseCase) -> [String: Double] {
+    let circuit = MainCircuitFactory().makeCircuit(gates: evolvedGates)
+    let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: useCase.circuit.input).get()
+    let finalStatevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+
+    return finalStatevector.summarizedProbabilities()
+}
 //: 1. Define a configuration for the genetic algorithm
 let config = GeneticConfiguration(depth: (1..<50),
                                   generationCount: 2000,

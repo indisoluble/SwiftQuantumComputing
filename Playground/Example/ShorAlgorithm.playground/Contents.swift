@@ -36,7 +36,7 @@ while factors.isEmpty {
                                             inputs: (0..<n).reversed()).get()
     gates += [Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(),
                                                inverse: true).get()]
-    drawer.drawCircuit(gates)
+    drawer.drawCircuit(gates).get()
 
     let circuit = factory.makeCircuit(gates: gates)
 
