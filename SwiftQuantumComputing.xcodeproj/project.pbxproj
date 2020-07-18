@@ -259,6 +259,7 @@
 		FF56B0BA23CA48300087F7FA /* XorGaussianEliminationSolverTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF56B0B823CA48300087F7FA /* XorGaussianEliminationSolverTestDouble.swift */; };
 		FF56B0BD23CA496D0087F7FA /* XorGaussianEliminationSolver+ActivatedBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF56B0BC23CA496D0087F7FA /* XorGaussianEliminationSolver+ActivatedBitsTests.swift */; };
 		FF56B0BE23CA496D0087F7FA /* XorGaussianEliminationSolver+ActivatedBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF56B0BC23CA496D0087F7FA /* XorGaussianEliminationSolver+ActivatedBitsTests.swift */; };
+		FF57BA2E24C38B83004A370D /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF57BA2D24C38B83004A370D /* ComplexModule */; };
 		FF57E45F2374C8DD0044A302 /* CircuitViewDrawerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF57E45E2374C8DD0044A302 /* CircuitViewDrawerTests.swift */; };
 		FF57E4602374C8DD0044A302 /* CircuitViewDrawerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF57E45E2374C8DD0044A302 /* CircuitViewDrawerTests.swift */; };
 		FF5920D522216F3A00C86F6A /* MainGeneticCircuitCrossover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5920D422216F3A00C86F6A /* MainGeneticCircuitCrossover.swift */; };
@@ -1200,6 +1201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF57BA2E24C38B83004A370D /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2705,6 +2707,9 @@
 			dependencies = (
 			);
 			name = ExampleShorAlgorithm;
+			packageProductDependencies = (
+				FF57BA2D24C38B83004A370D /* ComplexModule */,
+			);
 			productName = ExampleShorAlgorithm;
 			productReference = FFC3318F24B9FCA100A32FF8 /* ExampleShorAlgorithm */;
 			productType = "com.apple.product-type.tool";
@@ -3971,6 +3976,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FF57BA2D24C38B83004A370D /* ComplexModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF84F14D24C0D854004B0193 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			productName = ComplexModule;
+		};
 		FF84F14E24C0D854004B0193 /* ComplexModule */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FF84F14D24C0D854004B0193 /* XCRemoteSwiftPackageReference "swift-numerics" */;
