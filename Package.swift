@@ -2,14 +2,19 @@
 
 import PackageDescription
 
-var dependencies: [Package.Dependency] = []
+var dependencies: [Package.Dependency] = [
+    .package(
+        url: "https://github.com/apple/swift-numerics.git",
+        .exact("0.0.6")
+    )
+]
 #if os(Linux)
-dependencies = [
+dependencies.append(
     .package(
         url: "https://github.com/indisoluble/CBLAS-Linux.git",
         from: "1.0.0"
     )
-]
+)
 #endif
 
 let package = Package(
@@ -36,6 +41,12 @@ let package = Package(
     targets: [
         .target(
             name: "SwiftQuantumComputing",
+            dependencies: [
+                .product(
+                    name: "ComplexModule",
+                    package: "swift-numerics"
+                )
+            ],
             exclude: [
                 "Drawer"
             ]
