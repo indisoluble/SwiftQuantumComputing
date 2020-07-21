@@ -43,12 +43,3 @@ jobs:
       run: swift build
     - name: Run tests
       run: swift test
-
-  cocoapod:
-
-    runs-on: macOS-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Lint
-      run: pod lib lint
