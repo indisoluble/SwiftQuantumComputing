@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -27,8 +28,8 @@ extension Matrix {
     // MARK: - Public properties
 
     /// Maps matrix into a list of rows
-    public var elements: [[Complex]] {
-        return (0..<rowCount).lazy.map { row -> [Complex] in
+    public var elements: [[Complex<Double>]] {
+        return (0..<rowCount).lazy.map { row -> [Complex<Double>] in
             return (0..<columnCount).lazy.map { self[row, $0] }
         }
     }

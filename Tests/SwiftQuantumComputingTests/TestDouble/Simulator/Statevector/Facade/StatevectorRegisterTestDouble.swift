@@ -29,7 +29,7 @@ final class StatevectorRegisterTestDouble {
     // MARK: - Internal properties
 
     private (set) var measureCount = 0
-    var measureResult = try! Vector([Complex.zero, Complex.one])
+    var measureResult = try! Vector([.zero, .one])
 
     private (set) var simulatorApplyingCount = 0
     private (set) var lastSimulatorApplyingGate: SimulatorGate?

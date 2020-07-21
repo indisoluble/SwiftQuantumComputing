@@ -27,9 +27,9 @@ extension Matrix {
     // MARK: - Internal class methods
 
     static func makeControlledNot() -> Matrix {
-        return try! Matrix([[Complex.one, Complex.zero, Complex.zero, Complex.zero],
-                            [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-                            [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-                            [Complex.zero, Complex.zero, Complex.one, Complex.zero]])
+        return try! Matrix([[.one, .zero, .zero, .zero],
+                            [.zero, .one, .zero, .zero],
+                            [.zero, .zero, .zero, .one],
+                            [.zero, .zero, .one, .zero]])
     }
 }

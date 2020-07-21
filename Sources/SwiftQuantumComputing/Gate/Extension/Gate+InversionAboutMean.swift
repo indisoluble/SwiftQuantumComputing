@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -43,7 +44,7 @@ extension Gate {
         let matrixCount = Int.pow(2, count)
         let identity = try! Matrix.makeIdentity(count: matrixCount).get()
         let average = try! Matrix.makeAverage(count: matrixCount).get()
-        let matrix = try! (Complex(-1) * identity + Complex(2) * average).get()
+        let matrix = try! (Complex(-1.0) * identity + Complex(2.0) * average).get()
 
         return .success(.matrix(matrix: matrix, inputs: inputs)) 
     }

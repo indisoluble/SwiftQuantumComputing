@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -41,8 +42,8 @@ extension Vector {
             return .failure(.valueHasToBeContainedInQubits)
         }
 
-        var elements = Array(repeating: Complex.zero, count: count)
-        elements[value] = Complex.one
+        var elements = Array(repeating: Complex<Double>.zero, count: count)
+        elements[value] = .one
 
         return .success(try! Vector(elements))
     }

@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -68,11 +69,11 @@ private extension DirectStatevectorTransformation {
 
     func isTwoQubitControlledMatrix(_ matrix: Matrix) -> Bool {
         let elements = matrix.elements
-        let expectedElements = [
-            [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero],
-            [Complex.zero, Complex.zero]
+        let expectedElements: [[Complex<Double>]] = [
+            [.one, .zero, .zero, .zero],
+            [.zero, .one, .zero, .zero],
+            [.zero, .zero],
+            [.zero, .zero]
         ]
 
         return zip(elements, expectedElements).reduce(true) { acc, tuple in
@@ -111,7 +112,7 @@ private extension DirectStatevectorTransformation {
         let invMask = ~mask
 
         return try! Vector.makeVector(count: vector.count, value: { index in
-            var value: Complex!
+            var value: Complex<Double>!
 
             if let filter = filter, index & filter == 0 {
                 value = vector[index]

@@ -21,6 +21,14 @@ func isFunctionConstant(truthTable: [String], qubitCount: Int) -> Bool {
     return (abs(1.0 - zerosProbabilities) < 0.001)
 }
 
+func makeQubitCombinations(qubitCount: Int) -> [String] {
+    return (0..<Int.pow(2, qubitCount)).map { String($0, bitCount: qubitCount) }
+}
+
+func selectHalfQubitCombinations(_ combinations: [String]) -> [String] {
+    return combinations.randomElements(count: combinations.count / 2)
+}
+
 let qubitCount = 3
 
 print("Funtion: f(<Any input>) = 0")

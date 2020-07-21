@@ -30,70 +30,70 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
     let twoQubitCount = 2
     let validInputs = [1, 0]
     let validMatrix = try! Matrix([
-        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-        [Complex.zero, Complex.zero, Complex.one, Complex.zero]
+        [.one, .zero, .zero, .zero],
+        [.zero, .one, .zero, .zero],
+        [.zero, .zero, .zero, .one],
+        [.zero, .zero, .one, .zero]
     ])
     let validMatrixWithReversedValidInputs = try! Matrix([
-        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-        [Complex.zero, Complex.zero, Complex.one, Complex.zero],
-        [Complex.zero, Complex.one, Complex.zero, Complex.zero]
+        [.one, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .one],
+        [.zero, .zero, .one, .zero],
+        [.zero, .one, .zero, .zero]
     ])
 
     let oneQubitCount = 1
     let otherValidInputs = [0]
-    let otherValidMatrix = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
+    let otherValidMatrix = try! Matrix([[.zero, .one], [.one, .zero]])
 
     let threeQubitCount = 3
     let nonContiguousInputs = [0, 2]
     let expectedThreeQubitMatrix = try! Matrix([
-        [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero]
+        [.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .one, .zero, .zero],
+        [.zero, .zero, .one, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
+        [.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero],
+        [.zero, .one, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .one, .zero],
+        [.zero, .zero, .zero, .one, .zero, .zero, .zero, .zero]
     ])
 
     let fourQubitCount = 4
     let contiguousInputsButInTheMiddle = [2, 1]
     let expectedFourQubitMatrix = try! Matrix([
-        [Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-         Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.zero, Complex.one, Complex.zero, Complex.zero]
+        [.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
+         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .one, .zero, .zero, .zero, .zero, .zero, .zero,
+         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .one, .zero, .zero, .zero, .zero, .zero,
+         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .one, .zero, .zero, .zero, .zero,
+         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .one, .zero,
+         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one,
+         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero,
+         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .one, .zero, .zero,
+         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
+         .one, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
+         .zero, .one, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
+         .zero, .zero, .one, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
+         .zero, .zero, .zero, .one, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
+         .zero, .zero, .zero, .zero, .zero, .zero, .one, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
+         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
+         .zero, .zero, .zero, .zero, .one, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
+         .zero, .zero, .zero, .zero, .zero, .one, .zero, .zero]
     ])
 
     // MARK: - Tests

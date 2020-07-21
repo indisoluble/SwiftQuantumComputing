@@ -28,6 +28,7 @@ import Accelerate
 
 #endif
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -44,18 +45,18 @@ public struct Matrix {
     public let columnCount: Int
 
     /// Returns first element in first row
-    public var first: Complex {
+    public var first: Complex<Double> {
         return values.first!
     }
 
     /// Use [row, column] to access elements in the matrix
-    public subscript(row: Int, column: Int) -> Complex {
+    public subscript(row: Int, column: Int) -> Complex<Double> {
         return values[(column * rowCount) + row]
     }
 
     // MARK: - Private properties
 
-    private let values: [Complex]
+    private let values: [Complex<Double>]
 
     // MARK: - Public init methods
 
@@ -78,7 +79,7 @@ public struct Matrix {
 
      - Returns: A new `Matrix` instance.
      */
-    public init(_ elements: [[Complex]]) throws {
+    public init(_ elements: [[Complex<Double>]]) throws {
         guard let firstRow = elements.first else {
             throw InitError.doNotPassAnEmptyArray
         }
@@ -103,7 +104,7 @@ public struct Matrix {
 
     // MARK: - Private init methods
 
-    private init(rowCount: Int, columnCount: Int, values: [Complex]) {
+    private init(rowCount: Int, columnCount: Int, values: [Complex<Double>]) {
         self.rowCount = rowCount
         self.columnCount = columnCount
         self.values = values
@@ -118,7 +119,7 @@ public struct Matrix {
 
         return values.elementsEqual(matrix.values) {
             let realInRange = (abs($0.real - $1.real) <= accuracy)
-            let imagInRange = (abs($0.imag - $1.imag) <= accuracy)
+            let imagInRange = (abs($0.imaginary - $1.imaginary) <= accuracy)
 
             return (realInRange && imagInRange)
         }
@@ -147,7 +148,7 @@ public struct Matrix {
     static func makeMatrix(rowCount: Int,
                            columnCount: Int,
                            maxConcurrency: Int = 1,
-                           value: (Int, Int) -> Complex) -> Result<Matrix, MakeMatrixError> {
+                           value: (Int, Int) -> Complex<Double>) -> Result<Matrix, MakeMatrixError> {
         guard rowCount > 0 else {
             return .failure(.passRowCountBiggerThanZero)
         }
@@ -162,11 +163,11 @@ public struct Matrix {
 
         let count = (rowCount * columnCount)
         let actualConcurrency = (maxConcurrency > count ? count : maxConcurrency)
-        let use_value: (Int, (Int, Int) -> Complex) -> Complex = { index, value in
+        let use_value: (Int, (Int, Int) -> Complex<Double>) -> Complex<Double> = { index, value in
             value(index % rowCount, index / rowCount)
         }
 
-        var values: [Complex]!
+        var values: [Complex<Double>]!
         if actualConcurrency == 1 {
             values = (0..<count).lazy.map { use_value($0, value) }
         } else {
@@ -194,7 +195,7 @@ extension Matrix: Equatable {}
 // MARK: - Sequence methods
 
 extension Matrix: Sequence {
-    public typealias Iterator = Array<Complex>.Iterator
+    public typealias Iterator = Array<Complex<Double>>.Iterator
 
     /// Returns iterator that traverses the matrix by column
     public func makeIterator() -> Matrix.Iterator {
@@ -231,7 +232,7 @@ extension Matrix {
         }
 
         let N = Int32(lhs.values.count)
-        var alpha = Complex.one
+        var alpha = Complex<Double>.one
         let X = lhs.values
         let inc = Int32(1)
         var Y = Array(rhs.values)
@@ -243,7 +244,7 @@ extension Matrix {
         return .success(matrix)
     }
 
-    static func *(complex: Complex, matrix: Matrix) -> Matrix {
+    static func *(complex: Complex<Double>, matrix: Matrix) -> Matrix {
         let N = Int32(matrix.values.count)
         var alpha = complex
         var X = Array(matrix.values)
@@ -298,10 +299,10 @@ private extension Matrix {
 
     // MARK: - Private class methods
 
-    static func serializedRowsByColumn(_ rows: [[Complex]],
+    static func serializedRowsByColumn(_ rows: [[Complex<Double>]],
                                        rowCount: Int,
-                                       columnCount: Int) -> [Complex] {
-        var elements: [Complex] = []
+                                       columnCount: Int) -> [Complex<Double>] {
+        var elements: [Complex<Double>] = []
         elements.reserveCapacity(rowCount * columnCount)
 
         for column in 0..<columnCount {
@@ -320,13 +321,13 @@ private extension Matrix {
         let m = (lhsTrans == CblasNoTrans ? lhs.rowCount : lhs.columnCount)
         let n = (rhsTrans == CblasNoTrans ? rhs.columnCount : rhs.rowCount)
         let k = (lhsTrans == CblasNoTrans ? lhs.columnCount : lhs.rowCount)
-        var alpha = Complex.one
+        var alpha = Complex<Double>.one
         var aBuffer = lhs.values
         let lda = lhs.rowCount
         var bBuffer = rhs.values
         let ldb = rhs.rowCount
-        var beta = Complex.zero
-        var cBuffer = Array(repeating: Complex.zero, count: (m * n))
+        var beta = Complex<Double>.zero
+        var cBuffer = Array(repeating: Complex<Double>.zero, count: (m * n))
         let ldc = m
 
         cblas_zgemm(CblasColMajor,

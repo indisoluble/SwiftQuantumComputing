@@ -18,8 +18,7 @@ class Matrix_IsSquareTests: XCTestCase {
 
     func testNonSquareMatrix_isSquare_returnFalse() {
         // Given
-        let complex = Complex.zero
-        let matrix = try! Matrix([[complex], [complex]])
+        let matrix = try! Matrix([[.zero], [.zero]])
 
         // Then
         XCTAssertFalse(matrix.isSquare)
@@ -27,8 +26,7 @@ class Matrix_IsSquareTests: XCTestCase {
 
     func testSquareMatrix_isSquare_returnTrue() {
         // Given
-        let complex = Complex.zero
-        let matrix = try! Matrix([[complex, complex], [complex, complex]])
+        let matrix = try! Matrix([[.zero, .zero], [.zero, .zero]])
 
         // Then
         XCTAssertTrue(matrix.isSquare)

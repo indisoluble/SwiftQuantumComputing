@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -28,8 +29,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrix = try! Matrix([[Complex(real: 0, imag: 0), Complex(real: 0, imag: -1)],
-                              [Complex(real: 0, imag: 1), Complex(real: 0, imag: 0)]])
+    let matrix = try! Matrix([[.zero, Complex(imaginary:-1)], [.i, .zero]])
 
     // MARK: - Tests
 

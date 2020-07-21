@@ -27,6 +27,6 @@ extension Matrix {
     // MARK: - Internal class methods
 
     static func makeNot() -> Matrix {
-        return try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
+        return try! Matrix([[.zero, .one], [.one, .zero]])
     }
 }

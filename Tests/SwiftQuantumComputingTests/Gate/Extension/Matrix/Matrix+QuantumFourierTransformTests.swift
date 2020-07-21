@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -45,9 +46,9 @@ class Matrix_QuantumFourierTransformTests: XCTestCase {
         let val = 1.0 / 2.0
         let expectedResult = try! Matrix([
             [Complex(val), Complex(val), Complex(val), Complex(val)],
-            [Complex(val), Complex(real: 0, imag: val), Complex(-val), Complex(real: 0, imag: -val)],
+            [Complex(val), Complex(imaginary: val), Complex(-val), Complex(imaginary: -val)],
             [Complex(val), Complex(-val), Complex(val), Complex(-val)],
-            [Complex(val), Complex(real: 0, imag: -val), Complex(-val), Complex(real: 0, imag: val)]
+            [Complex(val), Complex(imaginary: -val), Complex(-val), Complex(imaginary: val)]
         ])
         XCTAssertTrue(result.isEqual(expectedResult, accuracy: 0.00001))
     }

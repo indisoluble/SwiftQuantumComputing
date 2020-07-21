@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -40,10 +41,10 @@ extension Matrix {
         let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count, value: { row, column in
             let power = row * column
 
-            var value = Complex.one
+            var value = Complex<Double>.one
             if power > 0 {
                 let radians = ((2 * Double(power)) / n) * Double.pi
-                value = Complex(real: cos(radians), imag: sin(radians))
+                value = Complex(cos(radians), sin(radians))
             }
 
             return normalization * value

@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -27,7 +28,6 @@ extension Matrix {
     // MARK: - Internal class methods
 
     static func makePhaseShift(radians: Double) -> Matrix {
-        return try! Matrix([[Complex.one, Complex.zero],
-                            [Complex.zero, Complex(real: cos(radians), imag: sin(radians))]])
+        return try! Matrix([[.one, .zero], [.zero, Complex(cos(radians), sin(radians))]])
     }
 }

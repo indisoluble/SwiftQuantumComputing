@@ -1,8 +1,8 @@
 //
-//  Complex+ConjugatedTests.swift
+//  Complex+MatrixTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/03/2020.
+//  Created by Enrique de la Torre (dev) on 17/07/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,30 +18,38 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
 
 // MARK: - Main body
 
-class Complex_ConjugatedTests: XCTestCase {
+class Complex_MatrixTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyComplexNumber_conjugated_returnExpectecValue() {
+    func testNotOneByOneMatrix_init_throwException() {
         // Given
-        let complex = Complex(real: 2, imag: 1)
-
-        // When
-        let result = complex.conjugated()
+        let matrix = try! Matrix([[.zero, .zero], [.zero, .zero]])
 
         // Then
-        let expectedResult = Complex(real: 2, imag: -1)
-        XCTAssertEqual(result, expectedResult)
+        XCTAssertThrowsError(try Complex(matrix))
+    }
+
+    func testOneByOneMatrix_init_returnExpectedComplexNumber() {
+        // Given
+        let expectedValue = Complex<Double>(10, 10)
+        let matrix = try! Matrix([[expectedValue]])
+
+        // Then
+        XCTAssertEqual(try? Complex(matrix), expectedValue)
     }
 
     static var allTests = [
-        ("testAnyComplexNumber_conjugated_returnExpectecValue",
-         testAnyComplexNumber_conjugated_returnExpectecValue)
+        ("testNotOneByOneMatrix_init_throwException",
+         testNotOneByOneMatrix_init_throwException),
+        ("testOneByOneMatrix_init_returnExpectedComplexNumber",
+         testOneByOneMatrix_init_returnExpectedComplexNumber)
     ]
 }

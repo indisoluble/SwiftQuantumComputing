@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -40,7 +41,7 @@ class Circuit_StatevectorTests: XCTestCase {
         _ = circuit.statevector()
 
         // Then
-        let initialElements = [Complex.one, Complex.zero]
+        let initialElements: [Complex<Double>] = [.one, .zero]
         let expectedInitialStatevector = try! Vector(initialElements)
 
         XCTAssertEqual(circuit.gatesCount, 1)
@@ -59,8 +60,9 @@ class Circuit_StatevectorTests: XCTestCase {
         _ = circuit.statevector()
 
         // Then
-        let initialElements = [Complex.one, Complex.zero, Complex.zero, Complex.zero,
-                               Complex.zero, Complex.zero, Complex.zero, Complex.zero]
+        let initialElements: [Complex<Double>] = [
+            .one, .zero, .zero, .zero, .zero, .zero, .zero, .zero
+        ]
         let expectedInitialStatevector = try! Vector(initialElements)
 
         XCTAssertEqual(circuit.gatesCount, 1)

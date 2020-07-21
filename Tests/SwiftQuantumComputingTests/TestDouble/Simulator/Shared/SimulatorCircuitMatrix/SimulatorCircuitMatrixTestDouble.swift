@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 @testable import SwiftQuantumComputing
@@ -33,12 +34,12 @@ final class SimulatorCircuitMatrixTestDouble {
 
     private (set) var subscriptRowCount = 0
     private (set) var lastSubscriptRowRow: Int?
-    var subscriptRowResult = try! Vector([Complex.zero])
+    var subscriptRowResult = try! Vector([.zero])
 
     private (set) var subscriptRowColumnCount = 0
     private (set) var lastSubscriptRowColumnRow: Int?
     private (set) var lastSubscriptRowColumnColumn: Int?
-    var subscriptRowColumnResult = Complex.zero
+    var subscriptRowColumnResult = Complex<Double>.zero
 }
 
 // MARK: - SimulatorCircuitMatrix methods
@@ -66,7 +67,7 @@ extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrixRow {
 // MARK: - SimulatorCircuitMatrixElement methods
 
 extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrixElement {
-    subscript(row: Int, column: Int) -> Complex {
+    subscript(row: Int, column: Int) -> Complex<Double> {
         subscriptRowColumnCount += 1
 
         lastSubscriptRowColumnRow = row

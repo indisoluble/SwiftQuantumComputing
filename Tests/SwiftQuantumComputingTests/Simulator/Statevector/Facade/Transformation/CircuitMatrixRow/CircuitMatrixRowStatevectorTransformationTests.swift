@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -41,8 +42,8 @@ class CircuitMatrixRowStatevectorTransformationTests: XCTestCase {
     func testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne() {
         // Given
         let qubitCount = 2
-        var elements = Array(repeating: Complex.zero, count: Int.pow(2, qubitCount))
-        elements[0] = Complex.one
+        var elements = Array(repeating: Complex<Double>.zero, count: Int.pow(2, qubitCount))
+        elements[0] = .one
 
         let vector = try! Vector(elements)
         let adapter = try! CircuitMatrixRowStatevectorTransformation(matrixFactory: matrixFactory,
@@ -67,7 +68,7 @@ class CircuitMatrixRowStatevectorTransformationTests: XCTestCase {
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixRowBaseMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixRowInputs, gateInputs)
 
-        let expectedVector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
+        let expectedVector = try! Vector([.zero, .one, .zero, .zero])
         XCTAssertEqual(result, expectedVector)
     }
 

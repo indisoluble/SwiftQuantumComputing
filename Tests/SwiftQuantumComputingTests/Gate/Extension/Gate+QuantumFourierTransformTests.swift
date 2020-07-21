@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -48,9 +49,9 @@ class Gate_QuantumFourierTransformTests: XCTestCase {
         let val = 1.0 / 2.0
         let expectedMatrix = try! Matrix([
             [Complex(val), Complex(val), Complex(val), Complex(val)],
-            [Complex(val), Complex(real: 0, imag: val), Complex(-val), Complex(real: 0, imag: -val)],
+            [Complex(val), Complex(imaginary: val), Complex(-val), Complex(imaginary: -val)],
             [Complex(val), Complex(-val), Complex(val), Complex(-val)],
-            [Complex(val), Complex(real: 0, imag: -val), Complex(-val), Complex(real: 0, imag: val)]
+            [Complex(val), Complex(imaginary: -val), Complex(-val), Complex(imaginary: val)]
         ])
 
         if case .matrix(let gateMatrix, let gateInputs) = gate {
@@ -72,9 +73,9 @@ class Gate_QuantumFourierTransformTests: XCTestCase {
         let val = 1.0 / 2.0
         let expectedMatrix = try! Matrix([
             [Complex(val), Complex(val), Complex(val), Complex(val)],
-            [Complex(val), Complex(real: 0, imag: -val), Complex(-val), Complex(real: 0, imag: val)],
+            [Complex(val), Complex(imaginary: -val), Complex(-val), Complex(imaginary: val)],
             [Complex(val), Complex(-val), Complex(val), Complex(-val)],
-            [Complex(val), Complex(real: 0, imag: val), Complex(-val), Complex(real: 0, imag: -val)]
+            [Complex(val), Complex(imaginary: val), Complex(-val), Complex(imaginary: -val)]
         ])
 
         if case .matrix(let gateMatrix, let gateInputs) = gate {

@@ -1,8 +1,8 @@
 //
-//  Complex+Constants.swift
+//  Complex+Matrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/03/2020.
+//  Created by Enrique de la Torre on 17/07/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,16 +18,26 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
 
-extension Complex {
+extension Complex where RealType == Double{
 
-    // MARK: - Public constants
+    // MARK: - Internal init methods
 
-    /// Constant: Complex(0)
-    public static let zero = Complex(0)
-    /// Constant: Complex(1)
-    public static let one = Complex(1)
+    enum InitError: Error {
+        case use1x1Matrix
+    }
+
+    init(_ matrix: Matrix) throws {
+        guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
+            throw InitError.use1x1Matrix
+        }
+
+        let complex = matrix.first
+
+        self.init(complex.real, complex.imaginary)
+    }
 }

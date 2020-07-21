@@ -33,16 +33,16 @@ class Gate_ModularExponentiationWithRangeExponentAndInputsTests: XCTestCase {
     let inputs = [1, 0]
     let exponents = [3, 2]
     let firstMatrix = try! Matrix([
-        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-        [Complex.zero, Complex.zero, Complex.one, Complex.zero],
-        [Complex.zero, Complex.one, Complex.zero, Complex.zero]
+        [.one, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .one],
+        [.zero, .zero, .one, .zero],
+        [.zero, .one, .zero, .zero]
     ])
     let secondMatrix = try! Matrix([
-        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.one, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.one]
+        [.one, .zero, .zero, .zero],
+        [.zero, .one, .zero, .zero],
+        [.zero, .zero, .one, .zero],
+        [.zero, .zero, .zero, .one]
     ])
 
     // MARK: - Tests

@@ -36,9 +36,7 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
         // Given
         let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
 
-        let vector = try! Vector([
-            Complex.zero, Complex.zero, Complex.zero, Complex.one
-        ])
+        let vector = try! Vector([.zero, .zero, .zero, .one])
         let statevector = try! CircuitStatevectorAdapter(statevector: vector)
 
         // When

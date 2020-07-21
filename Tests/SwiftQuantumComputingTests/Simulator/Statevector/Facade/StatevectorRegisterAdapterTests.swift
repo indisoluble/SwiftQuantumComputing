@@ -29,23 +29,15 @@ class StatevectorRegisterAdapterTests: XCTestCase {
     // MARK: - Properties
 
     let transformation = StatevectorTransformationTestDouble()
-    let oneQubitZeroVector = try! Vector([Complex.one, Complex.zero])
-    let threeQubitZeroVector = try! Vector([
-        Complex.one, Complex.zero, Complex.zero, Complex.zero,
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero
-    ])
-    let threeQubitFourVector = try! Vector([
-        Complex.zero, Complex.zero, Complex.zero, Complex.zero,
-        Complex.one, Complex.zero, Complex.zero, Complex.zero
-    ])
+    let oneQubitZeroVector = try! Vector([.one, .zero])
+    let threeQubitZeroVector = try! Vector([.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero])
+    let threeQubitFourVector = try! Vector([.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero])
 
     // MARK: - Tests
 
     func testVectorWhichCountIsNotAPowerOfTwo_init_throwException() {
         // Given
-        let notPowerOfTwoVector = try! Vector([
-            Complex.zero, Complex.zero, Complex.one
-        ])
+        let notPowerOfTwoVector = try! Vector([.zero, .zero, .one])
 
         // Then
         XCTAssertThrowsError(try StatevectorRegisterAdapter(vector: notPowerOfTwoVector,

@@ -119,7 +119,7 @@ private extension Gate {
         }
 
         let matrix = try! Matrix.makeMatrix(rowCount: combCount, columnCount: combCount, value: { row, col in
-            return (activatedIndexes[col] == row ? Complex.one : Complex.zero)
+            return (activatedIndexes[col] == row ? .one : .zero)
         }).get()
 
         return .success(matrix)

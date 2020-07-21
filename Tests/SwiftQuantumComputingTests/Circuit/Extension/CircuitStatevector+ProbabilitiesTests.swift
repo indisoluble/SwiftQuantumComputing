@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -35,11 +36,8 @@ class CircuitStatevector_ProbabilitiesTests: XCTestCase {
     func testAnyCircuitStatevector_probabilities_returnExpectedProbabilities() {
         // Given
         circuitStatevector.statevectorResult = try! Vector([
-                   Complex.zero,
-                   Complex(real: 1 / sqrt(2), imag: 0),
-                   Complex.zero,
-                   Complex(real: 0, imag: 1 / sqrt(2)),
-               ])
+            .zero, Complex(1 / sqrt(2)), .zero, Complex(imaginary: 1 / sqrt(2))
+        ])
 
         // When
         let result = circuitStatevector.probabilities()

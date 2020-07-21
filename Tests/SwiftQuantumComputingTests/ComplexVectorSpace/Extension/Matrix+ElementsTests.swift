@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -30,10 +31,10 @@ class Matrix_ElementsTests: XCTestCase {
 
     func testAnyMatrix_elements_returnExpectedArray() {
         // Given
-        let expectedElements = [
-            [Complex.one, Complex.zero, Complex.zero],
-            [Complex.zero, Complex.one, Complex.zero],
-            [Complex.zero, Complex.zero, Complex.one]
+        let expectedElements: [[Complex<Double>]] = [
+            [.one, .zero, .zero],
+            [.zero, .one, .zero],
+            [.zero, .zero, .one]
         ]
 
         let matrix = try! Matrix(expectedElements)

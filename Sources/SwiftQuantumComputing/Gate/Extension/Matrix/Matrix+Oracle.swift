@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -39,17 +40,17 @@ extension Matrix {
         let truthTableAsInts = Matrix.truthTableAsInts(truthTable)
         let columnCount = Int.pow(2, controlCount + 1)
 
-        var rows: [[Complex]] = []
+        var rows: [[Complex<Double>]] = []
 
         for controlValue in 0..<Int.pow(2, controlCount) {
             let isControlValueTrue = truthTableAsInts.contains(controlValue)
 
-            var row = Array(repeating: Complex.zero, count: columnCount)
-            row[2 * controlValue + (isControlValueTrue ? 1 : 0)] = Complex.one
+            var row = Array(repeating: Complex<Double>.zero, count: columnCount)
+            row[2 * controlValue + (isControlValueTrue ? 1 : 0)] = .one
             rows.append(row)
 
             row = Array(repeating: Complex.zero, count: columnCount)
-            row[2 * controlValue + (isControlValueTrue ? 0 : 1)] = Complex.one
+            row[2 * controlValue + (isControlValueTrue ? 0 : 1)] = .one
             rows.append(row)
         }
 

@@ -64,7 +64,7 @@ class CircuitFacadeTests: XCTestCase {
                                    unitarySimulator: unitarySimulator,
                                    statevectorSimulator: statevectorSimulator)
 
-        let expectedResult = try! Matrix([[Complex.zero, Complex.one], [Complex.one, Complex.zero]])
+        let expectedResult = try! Matrix([[.zero, .one], [.one, .zero]])
         unitarySimulator.unitaryResult = expectedResult
 
         // When

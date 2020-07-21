@@ -29,7 +29,7 @@ final class CircuitStatevectorTestDouble {
     // MARK: - Internal properties
 
     private (set) var statevectorCount = 0
-    var statevectorResult = try! Vector([Complex.zero, Complex.one])
+    var statevectorResult = try! Vector([.zero, .one])
 }
 
 // MARK: - CircuitStatevector methods
