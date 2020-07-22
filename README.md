@@ -17,10 +17,10 @@ Along side the simulator there is a genetic algorithm to automatically generate 
 import SwiftQuantumComputing // for macOS
 //: 1. Compose a list of quantum gates. Insert them in the same order
 //:    you want them to appear in the quantum circuit
-let matrix = Matrix([[Complex.one, Complex.zero, Complex.zero, Complex.zero],
-                     [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-                     [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-                     [Complex.zero, Complex.zero, Complex.one, Complex.zero]])
+let matrix = Matrix([[.one, .zero, .zero, .zero],
+                     [.zero, .one, .zero, .zero],
+                     [.zero, .zero, .zero, .one],
+                     [.zero, .zero, .one, .zero]])
 let gates = [
     Gate.hadamard(target: 3),
     Gate.controlledMatrix(matrix: matrix, inputs: [3, 4], control: 1),
@@ -58,6 +58,39 @@ Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuant
 
 ```swift
 import SwiftQuantumComputing // for macOS
+
+//: 0. Auxiliar functions
+func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircuit,
+                                  with useCase: GeneticUseCase) -> [Gate] {
+    var evolvedGates = evolvedCircuit.gates
+
+    if let oracleAt = evolvedCircuit.oracleAt {
+        switch evolvedGates[oracleAt] {
+        case let .oracle(_, target, controls):
+            evolvedGates[oracleAt] = Gate.oracle(truthTable: useCase.truthTable.truth,
+                                                 target: target,
+                                                 controls: controls)
+        default:
+            fatalError("No oracle found")
+        }
+    }
+
+    return evolvedGates
+}
+
+func drawCircuit(with evolvedGates: [Gate], useCase: GeneticUseCase) -> SQCView {
+    let drawer = MainDrawerFactory().makeDrawer()
+
+    return try! drawer.drawCircuit(evolvedGates, qubitCount: useCase.circuit.qubitCount).get()
+}
+
+func probabilities(in evolvedGates: [Gate], useCase: GeneticUseCase) -> [String: Double] {
+    let circuit = MainCircuitFactory().makeCircuit(gates: evolvedGates)
+    let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: useCase.circuit.input).get()
+    let finalStatevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+
+    return finalStatevector.summarizedProbabilities()
+}
 //: 1. Define a configuration for the genetic algorithm
 let config = GeneticConfiguration(depth: (1..<50),
                                   generationCount: 2000,
