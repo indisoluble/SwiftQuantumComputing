@@ -5,10 +5,6 @@
 ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
 [![Documentation](https://indisoluble.github.io/SwiftQuantumComputing/badge.svg)](https://indisoluble.github.io/SwiftQuantumComputing)
 
-The code written so far is mostly based on the content of: [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965), with a few tips from [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X). It is also inspired by [IBM Qiskit](https://github.com/Qiskit/qiskit-terra).
-
-Along side the simulator there is a genetic algorithm to automatically generate circuits as well as others useful algorithms for quantum computing.
-
 ## Usage
 
 ### Build & use a quantum circuit
@@ -53,6 +49,19 @@ Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuan
 ![Draw a quantum circuit](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Drawer.jpg)
 
 Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground/Contents.swift).
+
+## Other examples
+
+Check following playgrounds for more examples:
+
+* [BernsteinVaziraniAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/BernsteinVaziraniAlgorithm.playground/Contents.swift) - Bernstein–Vazirani algorithm.
+* [DeutschAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground/Contents.swift) - Deutsch's algorithm.
+* [DeutschJozsaAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground/Contents.swift) - Deutsch-Jozsa algorithm.
+* [GroverAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/GroverAlgorithm.playground/Contents.swift) - Grover's algorithm.
+* [ShorAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/ShorAlgorithm.playground/Contents.swift) - Shor's Algorithm.
+* [SimonPeriodicityAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground/Contents.swift) - Simon's periodicity algorithm.
+
+## Other algorithms
 
 ### Use a genetic algorithm to automatically generate a quantum circuit
 
@@ -133,19 +142,6 @@ for useCase in cases {
 
 Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground/Contents.swift).
 
-## Other examples
-
-Check following playgrounds for more examples:
-
-* [BernsteinVaziraniAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/BernsteinVaziraniAlgorithm.playground/Contents.swift) - Bernstein–Vazirani algorithm.
-* [DeutschAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground/Contents.swift) - Deutsch's algorithm.
-* [DeutschJozsaAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground/Contents.swift) - Deutsch-Jozsa algorithm.
-* [GroverAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/GroverAlgorithm.playground/Contents.swift) - Grover's algorithm.
-* [ShorAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/ShorAlgorithm.playground/Contents.swift) - Shor's Algorithm.
-* [SimonPeriodicityAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground/Contents.swift) - Simon's periodicity algorithm.
-
-## Other algorithms
-
 ### Euclidean Algorithm: Find greatest common divisor of two integers
 
 ```swift
@@ -208,6 +204,15 @@ Check full code in [XorGaussianElimination.playground](https://github.com/indiso
 ## Documentation
 
 Documentation for the project can be found [here](https://indisoluble.github.io/SwiftQuantumComputing).
+
+## References
+
+* [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X)
+* [Continued Fractions and the Euclidean Algorithm](https://www.math.u-bordeaux.fr/~pjaming/M1/exposes/MA2.pdf)
+* [IBM Qiskit](https://github.com/Qiskit/qiskit-terra)
+* [qHiPSTER: The Quantum High Performance Software Testing Environment](https://arxiv.org/abs/1601.07195)
+* [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965)
+* [Shor's Quantum Factoring Algorithm](https://arxiv.org/abs/quant-ph/0010034)
 
 ## Linux
 
