@@ -5,10 +5,6 @@
 ![platforms](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
 [![Documentation](https://indisoluble.github.io/SwiftQuantumComputing/badge.svg)](https://indisoluble.github.io/SwiftQuantumComputing)
 
-The code written so far is mostly based on the content of: [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965), with a few tips from [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X). It is also inspired by [IBM Qiskit](https://github.com/Qiskit/qiskit-terra).
-
-Along side the simulator there is a genetic algorithm to automatically generate circuits as well as others useful algorithms for quantum computing.
-
 ## Usage
 
 ### Build & use a quantum circuit
@@ -17,10 +13,10 @@ Along side the simulator there is a genetic algorithm to automatically generate 
 import SwiftQuantumComputing // for macOS
 //: 1. Compose a list of quantum gates. Insert them in the same order
 //:    you want them to appear in the quantum circuit
-let matrix = Matrix([[Complex.one, Complex.zero, Complex.zero, Complex.zero],
-                     [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-                     [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-                     [Complex.zero, Complex.zero, Complex.one, Complex.zero]])
+let matrix = Matrix([[.one, .zero, .zero, .zero],
+                     [.zero, .one, .zero, .zero],
+                     [.zero, .zero, .zero, .one],
+                     [.zero, .zero, .one, .zero]])
 let gates = [
     Gate.hadamard(target: 3),
     Gate.controlledMatrix(matrix: matrix, inputs: [3, 4], control: 1),
@@ -54,10 +50,45 @@ Check full code in [Circuit.playground](https://github.com/indisoluble/SwiftQuan
 
 Check full code in [Drawer.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Drawer.playground/Contents.swift).
 
+## Algorithms
+
 ### Use a genetic algorithm to automatically generate a quantum circuit
 
 ```swift
 import SwiftQuantumComputing // for macOS
+
+//: 0. Auxiliar functions
+func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircuit,
+                                  with useCase: GeneticUseCase) -> [Gate] {
+    var evolvedGates = evolvedCircuit.gates
+
+    if let oracleAt = evolvedCircuit.oracleAt {
+        switch evolvedGates[oracleAt] {
+        case let .oracle(_, target, controls):
+            evolvedGates[oracleAt] = Gate.oracle(truthTable: useCase.truthTable.truth,
+                                                 target: target,
+                                                 controls: controls)
+        default:
+            fatalError("No oracle found")
+        }
+    }
+
+    return evolvedGates
+}
+
+func drawCircuit(with evolvedGates: [Gate], useCase: GeneticUseCase) -> SQCView {
+    let drawer = MainDrawerFactory().makeDrawer()
+
+    return try! drawer.drawCircuit(evolvedGates, qubitCount: useCase.circuit.qubitCount).get()
+}
+
+func probabilities(in evolvedGates: [Gate], useCase: GeneticUseCase) -> [String: Double] {
+    let circuit = MainCircuitFactory().makeCircuit(gates: evolvedGates)
+    let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: useCase.circuit.input).get()
+    let finalStatevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+
+    return finalStatevector.summarizedProbabilities()
+}
 //: 1. Define a configuration for the genetic algorithm
 let config = GeneticConfiguration(depth: (1..<50),
                                   generationCount: 2000,
@@ -99,19 +130,6 @@ for useCase in cases {
 ```
 
 Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground/Contents.swift).
-
-## Other examples
-
-Check following playgrounds for more examples:
-
-* [BernsteinVaziraniAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/BernsteinVaziraniAlgorithm.playground/Contents.swift) - Bernstein–Vazirani algorithm.
-* [DeutschAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground/Contents.swift) - Deutsch's algorithm.
-* [DeutschJozsaAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground/Contents.swift) - Deutsch-Jozsa algorithm.
-* [GroverAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/GroverAlgorithm.playground/Contents.swift) - Grover's algorithm.
-* [ShorAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/ShorAlgorithm.playground/Contents.swift) - Shor's Algorithm.
-* [SimonPeriodicityAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground/Contents.swift) - Simon's periodicity algorithm.
-
-## Other algorithms
 
 ### Euclidean Algorithm: Find greatest common divisor of two integers
 
@@ -172,11 +190,36 @@ print("Solutions: \(solver.findActivatedVariablesInEquations(equations))")
 
 Check full code in [XorGaussianElimination.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/XorGaussianElimination.playground/Contents.swift).
 
+## Examples
+
+Check following playgrounds for more examples:
+
+* [BernsteinVaziraniAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/BernsteinVaziraniAlgorithm.playground/Contents.swift) - Bernstein–Vazirani algorithm.
+* [DeutschAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschAlgorithm.playground/Contents.swift) - Deutsch's algorithm.
+* [DeutschJozsaAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/DeutschJozsaAlgorithm.playground/Contents.swift) - Deutsch-Jozsa algorithm.
+* [GroverAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/GroverAlgorithm.playground/Contents.swift) - Grover's algorithm.
+* [ShorAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/ShorAlgorithm.playground/Contents.swift) - Shor's Algorithm.
+* [SimonPeriodicityAlgorithm.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Example/SimonPeriodicityAlgorithm.playground/Contents.swift) - Simon's periodicity algorithm.
+
 ## Documentation
 
 Documentation for the project can be found [here](https://indisoluble.github.io/SwiftQuantumComputing).
 
-## Linux
+## References
+
+* [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X)
+* [Continued Fractions and the Euclidean Algorithm](https://www.math.u-bordeaux.fr/~pjaming/M1/exposes/MA2.pdf)
+* [IBM Qiskit](https://github.com/Qiskit/qiskit-terra)
+* [qHiPSTER: The Quantum High Performance Software Testing Environment](https://arxiv.org/abs/1601.07195)
+* [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965)
+* [Shor's Quantum Factoring Algorithm](https://arxiv.org/abs/quant-ph/0010034)
+
+## SwiftPM dependencies
+
+* [CBLAS-Linux](https://github.com/indisoluble/CBLAS-Linux) (only for Linux)
+* [Swift Numerics](https://github.com/apple/swift-numerics)
+
+### Linux
 
 This package depends on [BLAS](http://www.netlib.org/blas/) if running on Linux, more exactly, [Ubuntu](https://www.ubuntu.com).
 
