@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -30,14 +31,14 @@ class CircuitStatevector_SummarizedProbabilitiesTests: XCTestCase {
 
     let circuitStatevector = CircuitStatevectorTestDouble()
     let finalStateVector = try! Vector([
-        Complex(real: 1 / sqrt(3), imag: 0),
-        Complex.zero,
-        Complex.zero,
-        Complex.zero,
-        Complex(real: 1 / sqrt(3), imag: 0),
-        Complex.zero,
-        Complex(real: 1 / sqrt(3), imag: 0),
-        Complex.zero
+        Complex(1 / sqrt(3)),
+        .zero,
+        .zero,
+        .zero,
+        Complex(1 / sqrt(3)),
+        .zero,
+        Complex(1 / sqrt(3)),
+        .zero
     ])
 
     // MARK: - Tests
@@ -45,10 +46,10 @@ class CircuitStatevector_SummarizedProbabilitiesTests: XCTestCase {
     func testAnyCircuitStatevector_summarizedProbabilities_returnExpectedProbabilities() {
         // Given
         circuitStatevector.statevectorResult = try! Vector([
-            Complex.zero,
-            Complex(real: 1 / sqrt(2), imag: 0),
-            Complex.zero,
-            Complex(real: 0, imag: 1 / sqrt(2)),
+            .zero,
+            Complex(1 / sqrt(2)),
+            .zero,
+            Complex(imaginary: 1 / sqrt(2)),
         ])
 
         // When
@@ -122,10 +123,10 @@ class CircuitStatevector_SummarizedProbabilitiesTests: XCTestCase {
     func testAnyCircuitStatevectorAndOneQubit_summarizedProbabilities_returnExpectedProbabilities() {
         // Given
         circuitStatevector.statevectorResult = try! Vector([
-            Complex.zero,
-            Complex(real: 1 / sqrt(2), imag: 0),
-            Complex.zero,
-            Complex(real: 0, imag: 1 / sqrt(2)),
+            .zero,
+            Complex(1 / sqrt(2)),
+            .zero,
+            Complex(imaginary: 1 / sqrt(2)),
         ])
 
         // When

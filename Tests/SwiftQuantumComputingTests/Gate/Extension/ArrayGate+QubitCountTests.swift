@@ -29,10 +29,10 @@ class ArrayGate_QubitCountTests: XCTestCase {
     // MARK: - Properties
 
     let matrix = try! Matrix([
-        [Complex.one, Complex.zero, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.one, Complex.zero, Complex.zero],
-        [Complex.zero, Complex.zero, Complex.zero, Complex.one],
-        [Complex.zero, Complex.zero, Complex.one, Complex.zero]
+        [.one, .zero, .zero, .zero],
+        [.zero, .one, .zero, .zero],
+        [.zero, .zero, .zero, .one],
+        [.zero, .zero, .one, .zero]
     ])
     let truthTable = [""]
 

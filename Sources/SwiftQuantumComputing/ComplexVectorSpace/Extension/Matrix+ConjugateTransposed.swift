@@ -28,7 +28,7 @@ extension Matrix {
 
     func conjugateTransposed() -> Matrix {
         return try! Matrix.makeMatrix(rowCount: columnCount, columnCount: rowCount, value: { row, col in
-            return self[col, row].conjugated()
+            return self[col, row].conjugate
         }).get()
     }
 }

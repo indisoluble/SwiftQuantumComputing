@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -35,7 +36,7 @@ class VectorTests: XCTestCase {
 
     func testAnyVector_count_returnExpectedValue() {
         // Given
-        let elements = [Complex.zero, Complex.zero, Complex.zero]
+        let elements: [Complex<Double>] = [.zero, .zero, .zero]
         let vector = try! Vector(elements)
 
         // Then
@@ -44,7 +45,7 @@ class VectorTests: XCTestCase {
 
     func testAnyVector_squaredNorm_returnExpectedValue() {
         // Given
-        let vector = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: 2)])
+        let vector = try! Vector([Complex(1, 1), Complex(2, 2)])
 
         // Then
         XCTAssertEqual(vector.squaredNorm, 10)
@@ -52,7 +53,7 @@ class VectorTests: XCTestCase {
 
     func testAnyVector_subscript_returnExpectedValue() {
         // Given
-        let expectedValue = Complex(real: 10, imag: 10)
+        let expectedValue = Complex<Double>(10, 10)
         let vector = try! Vector([Complex.zero, expectedValue, Complex.zero])
 
         // Then
@@ -61,7 +62,7 @@ class VectorTests: XCTestCase {
 
     func testAnyVector_loop_returnExpectedSequence() {
         // Given
-        let elements = [Complex.one, Complex.zero, Complex(2)]
+        let elements: [Complex<Double>] = [.one, .zero, Complex(2)]
         let vector = try! Vector(elements)
 
         // When
@@ -80,12 +81,68 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(error, .passCountBiggerThanZero)
     }
 
+    func testZeroMaxConcurrency_makeVector_throwException() {
+        // Then
+        var error: Vector.MakeVectorError?
+        if case .failure(let e) = Vector.makeVector(count: 3,
+                                                    maxConcurrency: 0,
+                                                    value: { _ in Complex.zero }) {
+            error = e
+        }
+        XCTAssertEqual(error, .passMaxConcurrencyBiggerThanZero)
+    }
+
     func testValidCount_makeVector_returnExpectedVector() {
         // Given
         let count = 3
 
         // When
         let result = try! Vector.makeVector(count: count, value: { Complex($0) }).get()
+
+        // Then
+        let expectedResult = try! Vector((0..<count).map { Complex($0) })
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testEvenNumberOfElementsAndEvenMaxConcurrency_makeVector_returnExpectedVector() {
+        // Given
+        let count = 6
+        let maxConcurrency = 2
+
+        // When
+        let result = try! Vector.makeVector(count: count,
+                                            maxConcurrency: maxConcurrency,
+                                            value: { Complex($0) }).get()
+
+        // Then
+        let expectedResult = try! Vector((0..<count).map { Complex($0) })
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testEvenNumberOfElementsAndOddMaxConcurrency_makeVector_returnExpectedVector() {
+        // Given
+        let count = 6
+        let maxConcurrency = 3
+
+        // When
+        let result = try! Vector.makeVector(count: count,
+                                            maxConcurrency: maxConcurrency,
+                                            value: { Complex($0) }).get()
+
+        // Then
+        let expectedResult = try! Vector((0..<count).map { Complex($0) })
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testValidCountAndMaxConcurrencyBiggerThanNumberOfElements_makeVector_returnExpectedVector() {
+        // Given
+        let count = 6
+        let maxConcurrency = 100
+
+        // When
+        let result = try! Vector.makeVector(count: count,
+                                            maxConcurrency: maxConcurrency,
+                                            value: { Complex($0) }).get()
 
         // Then
         let expectedResult = try! Vector((0..<count).map { Complex($0) })
@@ -107,14 +164,14 @@ class VectorTests: XCTestCase {
 
     func testTwoVector_innerProduct_returnExpectedValue() {
         // Given
-        let lhs = try! Vector([Complex(real: 1, imag: 1), Complex(real: 2, imag: -1)])
-        let rhs = try! Vector([Complex(real: 3, imag: -2), Complex(real: 1, imag: 1)])
+        let lhs = try! Vector([Complex(1, 1), Complex(2, -1)])
+        let rhs = try! Vector([Complex(3, -2), Complex(1, 1)])
 
         // When
         let result = try? Vector.innerProduct(lhs, rhs).get()
 
         // Then
-        let expectedResult = Complex(real: 2, imag: -2)
+        let expectedResult = Complex(2, -2)
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -133,18 +190,14 @@ class VectorTests: XCTestCase {
 
     func testTwoVector_multiply_returnExpectedValue() {
         // Given
-        let lhs = try! Vector(
-            [Complex(real: 3, imag: 2), Complex(real: 0, imag: 0), Complex(real: 5, imag: -6)]
-        )
-        let rhs = try! Vector(
-            [Complex(real: 5, imag: 0), Complex(real: 0, imag: 0), Complex(real: 7, imag: -4)]
-        )
+        let lhs = try! Vector([Complex(3, 2), .zero, Complex(5, -6)])
+        let rhs = try! Vector([Complex(5), .zero, Complex(7, -4)])
 
         // When
         let result = try? (lhs * rhs).get()
 
         // Then
-        let expectedResult = Complex(real: 26, imag: -52)
+        let expectedResult = Complex<Double>(26, -52)
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -163,22 +216,20 @@ class VectorTests: XCTestCase {
 
     func testMatrixWithColumnCountEqualToRowCountInVector_multiply_returnExpectedMatrix() {
         // Given
-        let lhsElements = [
-            [Complex(real: 3, imag: 2), Complex(real: 0, imag: 0), Complex(real: 5, imag: -6)],
-            [Complex(real: 1, imag: 0), Complex(real: 4, imag: 2), Complex(real: 0, imag: 1)]
+        let lhsElements: [[Complex<Double>]] = [
+            [Complex(3, 2), .zero, Complex(5, -6)],
+            [.one, Complex(4, 2), .i]
         ]
         let lhs = try! Matrix(lhsElements)
 
-        let rhsElements = [
-            Complex(real: 5, imag: 0), Complex(real: 0, imag: 0), Complex(real: 7, imag: -4)
-        ]
+        let rhsElements: [Complex<Double>] = [Complex(5), .zero, Complex(7, -4)]
         let rhs = try! Vector(rhsElements)
 
         // When
         let result = try? (lhs * rhs).get()
 
         // Then
-        let expectedResult = try! Vector([Complex(real: 26, imag: -52), Complex(real: 9, imag: 7)])
+        let expectedResult = try! Vector([Complex(26, -52), Complex(9, 7)])
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -193,8 +244,16 @@ class VectorTests: XCTestCase {
          testAnyVector_subscript_returnExpectedValue),
         ("testCountEqualToZero_makeVector_throwException",
          testCountEqualToZero_makeVector_throwException),
+        ("testZeroMaxConcurrency_makeVector_throwException",
+         testZeroMaxConcurrency_makeVector_throwException),
         ("testValidCount_makeVector_returnExpectedVector",
          testValidCount_makeVector_returnExpectedVector),
+        ("testEvenNumberOfElementsAndEvenMaxConcurrency_makeVector_returnExpectedVector",
+         testEvenNumberOfElementsAndEvenMaxConcurrency_makeVector_returnExpectedVector),
+        ("testEvenNumberOfElementsAndOddMaxConcurrency_makeVector_returnExpectedVector",
+         testEvenNumberOfElementsAndOddMaxConcurrency_makeVector_returnExpectedVector),
+        ("testValidCountAndMaxConcurrencyBiggerThanNumberOfElements_makeVector_returnExpectedVector",
+         testValidCountAndMaxConcurrencyBiggerThanNumberOfElements_makeVector_returnExpectedVector),
         ("testTwoVectorWithDifferentDimensions_innerProduct_throwException",
          testTwoVectorWithDifferentDimensions_innerProduct_throwException),
         ("testTwoVector_innerProduct_returnExpectedValue",

@@ -1,5 +1,19 @@
 import SwiftQuantumComputing // for macOS 
 
+func makeSimonTruthTable(secret: String) -> [Gate.ExtendedTruth] {
+    let bitCount = secret.count
+
+    let combinations = (0..<Int.pow(2, bitCount)).map { String($0, bitCount: bitCount) }
+    var activations = combinations.shuffled()
+
+    var tt: [String: String] = [:]
+    for truth in combinations {
+        tt[truth] = tt[String.bitXor(truth, secret)!] ?? activations.popLast()!
+    }
+
+    return tt.map { $0 }
+}
+
 let secret = "1101"
 
 let bitCount = secret.count

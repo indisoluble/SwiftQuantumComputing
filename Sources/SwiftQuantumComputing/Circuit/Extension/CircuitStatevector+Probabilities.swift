@@ -33,6 +33,6 @@ extension CircuitStatevector {
      such combination.
      */
     public func probabilities() -> [Double] {
-        return statevector.map { $0.squaredModulus }
+        return statevector.map { $0.lengthSquared }
     }
 }

@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -30,7 +31,7 @@ extension Matrix {
         let rowCount = (lhs.rowCount * rhs.rowCount)
         let columnCount = (lhs.columnCount * rhs.columnCount)
 
-        return try! Matrix.makeMatrix(rowCount: rowCount, columnCount: columnCount, value: { row, col -> Complex in
+        return try! Matrix.makeMatrix(rowCount: rowCount, columnCount: columnCount, value: { row, col -> Complex<Double> in
             let lhsColumn = (col / rhs.columnCount)
             let lhsRow = (row / rhs.rowCount)
 

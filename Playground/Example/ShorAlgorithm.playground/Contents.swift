@@ -1,7 +1,7 @@
 import SwiftQuantumComputing // for macOS
 
 let drawer = MainDrawerFactory().makeDrawer()
-let factory = MainCircuitFactory()
+let factory = MainCircuitFactory(statevectorConfiguration: .elementByElement(maxConcurrency: 4))
 
 // Primes: https://en.wikipedia.org/wiki/List_of_prime_numbers
 let primes: Set<Int> = [3, 5]
@@ -36,7 +36,7 @@ while factors.isEmpty {
                                             inputs: (0..<n).reversed()).get()
     gates += [Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(),
                                                inverse: true).get()]
-    drawer.drawCircuit(gates)
+    drawer.drawCircuit(gates).get()
 
     let circuit = factory.makeCircuit(gates: gates)
 

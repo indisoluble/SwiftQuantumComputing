@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -30,17 +31,17 @@ class Matrix_TensorProductTests: XCTestCase {
 
     func testTwoMatrices_tensorProduct_returnExpectedMatrix() {
         // Given
-        let lhsElements = [
-            [Complex(real: 3, imag: 2), Complex(real: 5, imag: -1), Complex(real: 0, imag: 2)],
-            [Complex(real: 0, imag: 0), Complex(real: 12, imag: 0), Complex(real: 6, imag: -3)],
-            [Complex(real: 2, imag: 0), Complex(real: 4, imag: 4), Complex(real: 9, imag: 3)]
+        let lhsElements: [[Complex<Double>]] = [
+            [Complex(3, 2), Complex(5, -1), Complex(imaginary: 2)],
+            [.zero, Complex(12), Complex(6, -3)],
+            [Complex(2), Complex(4, 4), Complex(9, 3)]
         ]
         let lhs = try! Matrix(lhsElements)
 
-        let rhsElements = [
-            [Complex(real: 1, imag: 0), Complex(real: 3, imag: 4), Complex(real: 5, imag: -7)],
-            [Complex(real: 10, imag: 2), Complex(real: 6, imag: 0), Complex(real: 2, imag: 5)],
-            [Complex(real: 0, imag: 0), Complex(real: 1, imag: 0), Complex(real: 2, imag: 9)]
+        let rhsElements: [[Complex<Double>]] = [
+            [.one, Complex(3, 4), Complex(5, -7)],
+            [Complex(10, 2), Complex(6), Complex(2, 5)],
+            [.zero, .one, Complex(2, 9)]
         ]
         let rhs = try! Matrix(rhsElements)
 
@@ -48,34 +49,34 @@ class Matrix_TensorProductTests: XCTestCase {
         let result = Matrix.tensorProduct(lhs, rhs)
 
         // Then
-        let expectedElements = [
-            [Complex(real: 3, imag: 2), Complex(real: 1, imag: 18), Complex(real: 29, imag: -11),
-             Complex(real: 5, imag: -1), Complex(real: 19, imag: 17), Complex(real: 18, imag: -40),
-             Complex(real: 0, imag: 2), Complex(real: -8, imag: 6), Complex(real: 14, imag: 10)],
-            [Complex(real: 26, imag: 26), Complex(real: 18, imag: 12), Complex(real: -4, imag: 19),
-             Complex(real: 52, imag: 0), Complex(real: 30, imag: -6), Complex(real: 15, imag: 23),
-             Complex(real: -4, imag: 20), Complex(real: 0, imag: 12), Complex(real: -10, imag: 4)],
-            [Complex(real: 0, imag: 0), Complex(real: 3, imag: 2), Complex(real: -12, imag: 31),
-             Complex(real: 0, imag: 0), Complex(real: 5, imag: -1), Complex(real: 19, imag: 43),
-             Complex(real: 0, imag: 0), Complex(real: 0, imag: 2), Complex(real: -18, imag: 4)],
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0), Complex(real: 0, imag: 0),
-             Complex(real: 12, imag: 0), Complex(real: 36, imag: 48), Complex(real: 60, imag: -84),
-             Complex(real: 6, imag: -3), Complex(real: 30, imag: 15), Complex(real: 9, imag: -57)],
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0), Complex(real: 0, imag: 0),
-             Complex(real: 120, imag: 24), Complex(real: 72, imag: 0), Complex(real: 24, imag: 60),
-             Complex(real: 66, imag: -18), Complex(real: 36, imag: -18), Complex(real: 27, imag: 24)],
-            [Complex(real: 0, imag: 0), Complex(real: 0, imag: 0), Complex(real: 0, imag: 0),
-             Complex(real: 0, imag: 0), Complex(real: 12, imag: 0), Complex(real: 24, imag: 108),
-             Complex(real: 0, imag: 0), Complex(real: 6, imag: -3), Complex(real: 39, imag: 48)],
-            [Complex(real: 2, imag: 0), Complex(real: 6, imag: 8), Complex(real: 10, imag: -14),
-             Complex(real: 4, imag: 4), Complex(real: -4, imag: 28), Complex(real: 48, imag: -8),
-             Complex(real: 9, imag: 3), Complex(real: 15, imag: 45), Complex(real: 66, imag: -48)],
-            [Complex(real: 20, imag: 4), Complex(real: 12, imag: 0), Complex(real: 4, imag: 10),
-             Complex(real: 32, imag: 48), Complex(real: 24, imag: 24), Complex(real: -12, imag: 28),
-             Complex(real: 84, imag: 48), Complex(real: 54, imag: 18), Complex(real: 3, imag: 51)],
-            [Complex(real: 0, imag: 0), Complex(real: 2, imag: 0), Complex(real: 4, imag: 18),
-             Complex(real: 0, imag: 0), Complex(real: 4, imag: 4), Complex(real: -28, imag: 44),
-             Complex(real: 0, imag: 0), Complex(real: 9, imag: 3), Complex(real: -9, imag: 87)]
+        let expectedElements: [[Complex<Double>]] = [
+            [Complex(3, 2), Complex(1, 18), Complex(29, -11),
+             Complex(5, -1), Complex(19, 17), Complex(18, -40),
+             Complex(imaginary: 2), Complex(-8, 6), Complex(14, 10)],
+            [Complex(26, 26), Complex(18, 12), Complex(-4, 19),
+             Complex(52), Complex(30, -6), Complex(15, 23),
+             Complex(-4, 20), Complex(imaginary: 12), Complex(-10, 4)],
+            [.zero, Complex(3, 2), Complex(-12, 31),
+             .zero, Complex(5, -1), Complex(19, 43),
+             .zero, Complex(imaginary: 2), Complex(-18, 4)],
+            [.zero, .zero, .zero,
+             Complex(12), Complex(36, 48), Complex(60, -84),
+             Complex(6, -3), Complex(30, 15), Complex(9, -57)],
+            [.zero, .zero, .zero,
+             Complex(120, 24), Complex(72), Complex(24, 60),
+             Complex(66, -18), Complex(36, -18), Complex(27, 24)],
+            [.zero, .zero, .zero,
+             .zero, Complex(12), Complex(24, 108),
+             .zero, Complex(6, -3), Complex(39, 48)],
+            [Complex(2), Complex(6, 8), Complex(10, -14),
+             Complex(4, 4), Complex(-4, 28), Complex(48, -8),
+             Complex(9, 3), Complex(15, 45), Complex(66, -48)],
+            [Complex(20, 4), Complex(12), Complex(4, 10),
+             Complex(32, 48), Complex(24, 24), Complex(-12, 28),
+             Complex(84, 48), Complex(54, 18), Complex(3, 51)],
+            [.zero, Complex(2), Complex(4, 18),
+             .zero, Complex(4, 4), Complex(-28, 44),
+             .zero, Complex(9, 3), Complex(-9, 87)]
         ]
         let expectedResult = try? Matrix(expectedElements)
         XCTAssertEqual(result, expectedResult)

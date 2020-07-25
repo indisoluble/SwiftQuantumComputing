@@ -13,12 +13,12 @@ jobs:
 
     strategy:
       matrix:
-        destination: ['platform=macOS', 'platform=iOS Simulator,name=iPhone 8,OS=13.5']
+        destination: ['platform=macOS', 'platform=iOS Simulator,name=iPhone 8,OS=13.6']
         include:
           - destination: 'platform=macOS'
             scheme: SwiftQuantumComputing_macOS
             sdk: macosx
-          - destination: 'platform=iOS Simulator,name=iPhone 8,OS=13.5'
+          - destination: 'platform=iOS Simulator,name=iPhone 8,OS=13.6'
             scheme: SwiftQuantumComputing_iOS
             sdk: iphonesimulator
 
@@ -29,7 +29,7 @@ jobs:
         set -o pipefail
         xcodebuild -scheme ${{ matrix.scheme }} -project SwiftQuantumComputing.xcodeproj -sdk ${{ matrix.sdk }} -destination '${{ matrix.destination }}' build test | xcpretty
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1.0.5
+      uses: codecov/codecov-action@v1.0.10
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -43,12 +43,3 @@ jobs:
       run: swift build
     - name: Run tests
       run: swift test
-
-  cocoapod:
-
-    runs-on: macOS-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Lint
-      run: pod lib lint

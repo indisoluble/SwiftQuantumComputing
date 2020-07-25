@@ -23,7 +23,7 @@ import Foundation
 extension Double {
     /// Returns this value rounded to a number of decimal places
     public func rounded(toDecimalPlaces places: Int) -> Double {
-        let div = pow(10.0, Double(places))
+        let div = Double.pow(10.0, Double(places))
 
         return (self * div).rounded() / div
     }

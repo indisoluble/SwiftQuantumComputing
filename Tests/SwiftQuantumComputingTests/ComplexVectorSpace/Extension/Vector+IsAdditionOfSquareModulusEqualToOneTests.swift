@@ -30,7 +30,7 @@ class Vector_IsAdditionOfSquareModulusEqualToOneTests: XCTestCase {
 
     func testVectorWhichAdditionOfSquareModulusIsNotEqualToOne_isAdditionOfSquareModulusEqualToOne_returnFalse() {
         // Given
-        let vector = try! Vector([Complex.one, Complex.one])
+        let vector = try! Vector([.one, .one])
 
         // Then
         XCTAssertFalse(vector.isAdditionOfSquareModulusEqualToOne())
@@ -38,7 +38,7 @@ class Vector_IsAdditionOfSquareModulusEqualToOneTests: XCTestCase {
 
     func testVectorWhichAdditionOfSquareModulusIsEqualToOne_isAdditionOfSquareModulusEqualToOne_returnTrue() {
         // Given
-        let vector = try! Vector([Complex.one, Complex.zero])
+        let vector = try! Vector([.one, .zero])
 
         // Then
         XCTAssertTrue(vector.isAdditionOfSquareModulusEqualToOne())

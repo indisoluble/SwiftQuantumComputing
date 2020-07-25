@@ -27,11 +27,21 @@ struct CircuitMatrixElementStatevectorTransformation {
     // MARK: - Private properties
 
     private let matrixFactory: SimulatorCircuitMatrixElementFactory
+    private let maxConcurrency: Int
 
     // MARK: - Internal init methods
 
-    init(matrixFactory: SimulatorCircuitMatrixElementFactory) {
+    enum InitError: Error {
+        case maxConcurrencyHasToBiggerThanZero
+    }
+
+    init(matrixFactory: SimulatorCircuitMatrixElementFactory, maxConcurrency: Int) throws {
+        guard maxConcurrency > 0 else {
+            throw InitError.maxConcurrencyHasToBiggerThanZero
+        }
+
         self.matrixFactory = matrixFactory
+        self.maxConcurrency = maxConcurrency
     }
 }
 
@@ -42,8 +52,9 @@ extension CircuitMatrixElementStatevectorTransformation: StatevectorTransformati
         let circuitElement = matrixFactory.makeCircuitMatrixElement(qubitCount: Int.log2(vector.count),
                                                                     baseMatrix: gateMatrix,
                                                                     inputs: inputs)
-        return try! Vector.makeVector(count: vector.count, value: { idx in
-            return vector.enumerated().reduce(Complex.zero) { acc, val in
+        let count = vector.count
+        return try! Vector.makeVector(count: count, maxConcurrency: maxConcurrency, value: { idx in
+            return vector.enumerated().reduce(.zero) { acc, val in
                 return acc + val.element * circuitElement[idx, val.offset]
             }
         }).get()

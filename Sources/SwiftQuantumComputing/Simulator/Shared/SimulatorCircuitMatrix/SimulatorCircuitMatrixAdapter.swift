@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -27,7 +28,7 @@ struct SimulatorCircuitMatrixAdapter {
     // MARK: - Private properties
 
     private let count: Int
-    private let derives: [Int: (base: Int, remaining: Int)]
+    private let derives: [(base: Int, remaining: Int)]
     private let baseMatrix: Matrix
 
     // MARK: - Internal init methods
@@ -36,14 +37,13 @@ struct SimulatorCircuitMatrixAdapter {
         let count = Int.pow(2, qubitCount)
         let remainingInputs = (0..<qubitCount).reversed().filter { !inputs.contains($0) }
 
-        var derives: [Int: (base: Int, remaining: Int)] = [:]
-        for value in 0..<count {
-            derives[value] = (value.derived(takingBitsAt: inputs),
-                              value.derived(takingBitsAt: remainingInputs))
+        let derives = (0..<count).lazy.map { value in
+            return (value.derived(takingBitsAt: inputs),
+                    value.derived(takingBitsAt: remainingInputs))
         }
 
         self.count = count
-        self.derives = derives
+        self.derives = Array(derives)
         self.baseMatrix = baseMatrix
     }
 }
@@ -69,12 +69,9 @@ extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {
 // MARK: - SimulatorCircuitMatrixElement methods
 
 extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixElement {
-    subscript(row: Int, column: Int) -> Complex {
-        let baseRow = derives[row]!.base
-        let baseColumn = derives[column]!.base
-
-        let remainingRow = derives[row]!.remaining
-        let remainingColumn = derives[column]!.remaining
+    subscript(row: Int, column: Int) -> Complex<Double> {
+        let (baseRow, remainingRow) = derives[row]
+        let (baseColumn, remainingColumn) = derives[column]
 
         return (remainingRow == remainingColumn ? baseMatrix[baseRow, baseColumn] : Complex.zero)
     }

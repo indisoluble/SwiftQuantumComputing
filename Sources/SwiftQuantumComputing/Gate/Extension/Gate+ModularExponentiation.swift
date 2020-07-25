@@ -107,7 +107,7 @@ private extension Gate {
                                                        modulus: Int,
                                                        inputQubitCount: Int) -> Result<Matrix, MakeModularExponentiationError> {
         let combCount = Int.pow(2, inputQubitCount)
-        let activatedIndexes = (0..<combCount).map { comb in
+        let activatedIndexes = (0..<combCount).lazy.map { comb in
             // A `comb` bigger or equal to `modulus` produces a `remainder` already generated
             // in a previous iteration. If we used this `remainder`, the resulting matrix
             // would not be unitary; instead, we use the `comb` given that it is always unique
@@ -119,7 +119,7 @@ private extension Gate {
         }
 
         let matrix = try! Matrix.makeMatrix(rowCount: combCount, columnCount: combCount, value: { row, col in
-            return (activatedIndexes[col] == row ? Complex.one : Complex.zero)
+            return (activatedIndexes[col] == row ? .one : .zero)
         }).get()
 
         return .success(matrix)

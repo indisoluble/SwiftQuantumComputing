@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -27,7 +28,7 @@ extension Vector {
     // MARK: - Public properties
 
     /// Maps vector into a list
-    public var elements: [Complex] {
-        return (0..<count).map { self[$0] }
+    public var elements: [Complex<Double>] {
+        return (0..<count).lazy.map { self[$0] }
     }
 }

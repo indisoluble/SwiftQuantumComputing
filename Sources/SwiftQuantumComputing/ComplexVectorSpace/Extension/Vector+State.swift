@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -37,12 +38,12 @@ extension Vector {
         }
 
         let count = Int.pow(2, qubitCount)
-        guard (0..<count).contains(value) else {
+        guard (0..<count).lazy.contains(value) else {
             return .failure(.valueHasToBeContainedInQubits)
         }
 
-        var elements = Array(repeating: Complex.zero, count: count)
-        elements[value] = Complex.one
+        var elements = Array(repeating: Complex<Double>.zero, count: count)
+        elements[value] = .one
 
         return .success(try! Vector(elements))
     }

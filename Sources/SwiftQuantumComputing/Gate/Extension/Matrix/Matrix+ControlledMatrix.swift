@@ -38,11 +38,11 @@ extension Matrix {
                                 quadrantColumnCount: quadColCount)
             switch quad {
             case .first(let quadRow, let quadCol):
-                return (quadRow == quadCol ? Complex.one : Complex.zero)
+                return (quadRow == quadCol ? .one : .zero)
             case .second:
-                return Complex.zero
+                return .zero
             case .third:
-                return Complex.zero
+                return .zero
             case .fourth(let quadRow, let quadCol):
                 return matrix[quadRow, quadCol]
             }

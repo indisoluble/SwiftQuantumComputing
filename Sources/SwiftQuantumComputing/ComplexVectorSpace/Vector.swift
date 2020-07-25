@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -33,7 +34,7 @@ public struct Vector {
     }
 
     /// Use [index] to access elements in the vector
-    public subscript(index: Int) -> Complex {
+    public subscript(index: Int) -> Complex<Double> {
         return matrix[index,0]
     }
 
@@ -64,7 +65,7 @@ public struct Vector {
 
      - Returns: A new `Vector` instance.
      */
-    public init(_ elements: [Complex]) throws {
+    public init(_ elements: [Complex<Double>]) throws {
         let rows = elements.map { [$0] }
 
         var matrix: Matrix!
@@ -89,15 +90,23 @@ public struct Vector {
 
     enum MakeVectorError: Error {
         case passCountBiggerThanZero
+        case passMaxConcurrencyBiggerThanZero
     }
 
-    static func makeVector(count: Int, value: (Int) -> Complex) -> Result<Vector, MakeVectorError> {
-        guard (count > 0) else {
+    static func makeVector(count: Int,
+                           maxConcurrency: Int = 1,
+                           value: (Int) -> Complex<Double>) -> Result<Vector, MakeVectorError> {
+        guard count > 0 else {
             return .failure(.passCountBiggerThanZero)
+        }
+
+        guard maxConcurrency > 0 else {
+            return .failure(.passMaxConcurrencyBiggerThanZero)
         }
 
         let matrix = try! Matrix.makeMatrix(rowCount: count,
                                             columnCount: 1,
+                                            maxConcurrency: maxConcurrency,
                                             value: { r, c in value(r) }).get()
 
         return .success(Vector(matrix: matrix))
@@ -107,7 +116,8 @@ public struct Vector {
         case vectorsDoNotHaveSameCount
     }
 
-    static func innerProduct(_ lhs: Vector, _ rhs: Vector) -> Result<Complex, InnerProductError> {
+    static func innerProduct(_ lhs: Vector,
+                             _ rhs: Vector) -> Result<Complex<Double>, InnerProductError> {
         switch Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix {
         case .success(let matrix):
             return .success(try! Complex(matrix))
@@ -132,7 +142,7 @@ extension Vector: Equatable {}
 // MARK: - Sequence methods
 
 extension Vector: Sequence {
-    public typealias Iterator = Array<Complex>.Iterator
+    public typealias Iterator = Array<Complex<Double>>.Iterator
 
     public func makeIterator() -> Vector.Iterator {
         return matrix.makeIterator()
@@ -155,7 +165,7 @@ extension Vector {
 
     // MARK: - Internal operators
 
-    static func *(lhs: Vector, rhs: Vector) -> Result<Complex, VectorByVectorError> {
+    static func *(lhs: Vector, rhs: Vector) -> Result<Complex<Double>, VectorByVectorError> {
         switch Matrix.Transformation.transposed(lhs.matrix) * rhs.matrix {
         case .success(let matrix):
             return .success(matrix.first)

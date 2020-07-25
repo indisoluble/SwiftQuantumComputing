@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -35,8 +36,8 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
     func testMatrixFactoryReturnsMatrix_applying_returnValue() {
         // Given
         let vectorQubitCount = 1
-        var elements = Array(repeating: Complex.zero, count: Int.pow(2, vectorQubitCount))
-        elements[0] = Complex.one
+        var elements = Array(repeating: Complex<Double>.zero, count: Int.pow(2, vectorQubitCount))
+        elements[0] = .one
 
         let vector = try! Vector(elements)
         let adapter = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
@@ -69,8 +70,8 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
     func testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne() {
         // Given
         let qubitCount = 2
-        var elements = Array(repeating: Complex.zero, count: Int.pow(2, qubitCount))
-        elements[0] = Complex.one
+        var elements = Array(repeating: Complex<Double>.zero, count: Int.pow(2, qubitCount))
+        elements[0] = .one
 
         let vector = try! Vector(elements)
         let adapter = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)

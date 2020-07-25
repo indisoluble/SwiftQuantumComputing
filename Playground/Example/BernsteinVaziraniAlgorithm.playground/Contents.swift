@@ -1,5 +1,13 @@
 import SwiftQuantumComputing // for macOS
 
+func makeBernsteinVaziraniTruthTable(secret: String) -> [String] {
+    let bitCount = secret.count
+
+    let combinations = (0..<Int.pow(2, bitCount)).map { String($0, bitCount: bitCount) }
+
+    return combinations.filter { ($0 & secret)!.bitXor()! }
+}
+
 let secret = "110101"
 
 var gates = [Gate.not(target: 0)]
