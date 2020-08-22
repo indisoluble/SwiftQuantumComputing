@@ -43,8 +43,20 @@ class Gate_SimulatorGateTests: XCTestCase {
         [.zero, .zero, .zero, .one],
         [.zero, .zero, .one, .zero]
     ])
+    let extendedValidMatrix = try! Matrix([
+        [.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .one, .zero, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .one, .zero, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .one, .zero, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .one, .zero, .zero],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
+        [.zero, .zero, .zero, .zero, .zero, .zero, .one, .zero],
+    ])
     let validQubitCount = 3
+    let extendedValidQubitCount = 6
     let validInputs = [2, 1]
+    let extendedValidInputs = [5, 2, 1]
 
     // MARK: - Tests
 
@@ -187,6 +199,84 @@ class Gate_SimulatorGateTests: XCTestCase {
         XCTAssertEqual(inputs, validInputs)
     }
 
+    func testGateControlledWithGateThatThrowException_extractComponents_throwException() {
+        // Given
+        let gate = Gate.controlled(gate: .matrix(matrix: nonUnitaryMatrix, inputs: [0]),
+                                   controls: [1])
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
+    }
+
+    func testGateControlledWithEmptyControls_extractComponents_throwException() {
+        // Given
+        let gate = Gate.controlled(gate: .matrix(matrix: validMatrix, inputs: validInputs),
+                                   controls: [])
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
+    }
+
+    func testGateControlledWithNotGate_extractComponents_returnExpectedValues() {
+        // Given
+        let gate = Gate.controlled(gate: .not(target: 1), controls: [2])
+
+        // When
+        var matrix: Matrix?
+        var inputs: [Int]?
+        if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix, validMatrix)
+        XCTAssertEqual(inputs, validInputs)
+    }
+
+    func testGateControlledWithNotGateAndTwoControls_extractComponents_returnExpectedValues() {
+        // Given
+        let gate = Gate.controlled(gate: .not(target: 1), controls: [5, 2])
+
+        // When
+        var matrix: Matrix?
+        var inputs: [Int]?
+        if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix, extendedValidMatrix)
+        XCTAssertEqual(inputs, extendedValidInputs)
+    }
+
+    func testTwoGatesControlledWithNotGate_extractComponents_returnExpectedValues() {
+        // Given
+        let gate = Gate.controlled(gate: .controlled(gate: .not(target: 1), controls: [2]),
+                                   controls: [5])
+
+        // When
+        var matrix: Matrix?
+        var inputs: [Int]?
+        if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix, extendedValidMatrix)
+        XCTAssertEqual(inputs, extendedValidInputs)
+    }
+
     static var allTests = [
         ("testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException",
          testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException),
@@ -209,6 +299,16 @@ class Gate_SimulatorGateTests: XCTestCase {
         ("testGateMatrixWithValidMatrixAndInputsOutOfRange_extractComponents_throwException",
          testGateMatrixWithValidMatrixAndInputsOutOfRange_extractComponents_throwException),
         ("testGateMatrixWithValidMatrixAndValidInputs_extractComponents_returnExpectedValues",
-         testGateMatrixWithValidMatrixAndValidInputs_extractComponents_returnExpectedValues)
+         testGateMatrixWithValidMatrixAndValidInputs_extractComponents_returnExpectedValues),
+        ("testGateControlledWithGateThatThrowException_extractComponents_throwException",
+         testGateControlledWithGateThatThrowException_extractComponents_throwException),
+        ("testGateControlledWithEmptyControls_extractComponents_throwException",
+         testGateControlledWithEmptyControls_extractComponents_throwException),
+        ("testGateControlledWithNotGate_extractComponents_returnExpectedValues",
+         testGateControlledWithNotGate_extractComponents_returnExpectedValues),
+        ("testGateControlledWithNotGateAndTwoControls_extractComponents_returnExpectedValues",
+         testGateControlledWithNotGateAndTwoControls_extractComponents_returnExpectedValues),
+        ("testTwoGatesControlledWithNotGate_extractComponents_returnExpectedValues",
+         testTwoGatesControlledWithNotGate_extractComponents_returnExpectedValues)
     ]
 }

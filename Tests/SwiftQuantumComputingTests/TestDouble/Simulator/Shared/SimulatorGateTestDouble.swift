@@ -35,7 +35,7 @@ final class SimulatorGateTestDouble {
     private (set) var lastExtractComponentsQubitCount: Int?
     var extractComponentsMatrixResult: Matrix?
     var extractComponentsInputsResult: [Int]?
-    var extractComponentsError = GateError.gateOracleControlsCanNotBeAnEmptyList
+    var extractComponentsError = GateError.gateControlsCanNotBeAnEmptyList
 }
 
 // MARK: - SimulatorRawGate methods

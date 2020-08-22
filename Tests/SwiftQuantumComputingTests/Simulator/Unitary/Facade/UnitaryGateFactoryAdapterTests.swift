@@ -44,7 +44,7 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
                                                    simulatorGate: simulatorGate) {
             error = e
         }
-        XCTAssertEqual(error, .gateOracleControlsCanNotBeAnEmptyList)
+        XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
         XCTAssertEqual(simulatorGate.extractComponentsCount, 1)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 0)
     }

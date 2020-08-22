@@ -23,7 +23,9 @@ import Foundation
 // MARK: - Public types
 
 /// A quantum gate with fixed inputs
-public enum Gate {
+public indirect enum Gate {
+    /// Generic quantum `gate` controlled with `controls`
+    case controlled(gate: Gate, controls: [Int])
     /// Generic quantum gate controlled with `control`, built with a `matrix` (it is expected to be unitary)
     /// and any number of `inputs` (as many inputs as `matrix` is able to handle)
     case controlledMatrix(matrix: Matrix, inputs: [Int], control: Int)

@@ -30,6 +30,8 @@ extension Gate {
         var resultInputs: [Int]!
 
         switch self {
+        case .controlled(let gate, let controls):
+            resultInputs = controls + gate.extractInputs()
         case .controlledMatrix(_, let inputs, let control):
             resultInputs = [control] + inputs
         case .controlledNot(let target, let control):
@@ -136,6 +138,20 @@ private extension Gate {
         var resultMatrix: Matrix!
 
         switch self {
+        case .controlled(let gate, let controls):
+            switch gate.extractMatrix() {
+            case .success(let matrix):
+                switch Matrix.makeControlledMatrix(matrix: matrix, controlCount: controls.count) {
+                case .success(let controlledMatrix):
+                    resultMatrix = controlledMatrix
+                case .failure(.controlCountHasToBeBiggerThanZero):
+                    return .failure(.gateControlsCanNotBeAnEmptyList)
+                case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
+                    fatalError("Unexpected error.")
+                }
+            case .failure(let error):
+                return .failure(error)
+            }
         case .controlledMatrix(let matrix, _, _):
             guard matrix.rowCount.isPowerOfTwo else {
                 return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
@@ -167,7 +183,7 @@ private extension Gate {
             case .success(let matrix):
                 resultMatrix = matrix
             case .failure(.controlsCanNotBeAnEmptyList):
-                return .failure(.gateOracleControlsCanNotBeAnEmptyList)
+                return .failure(.gateControlsCanNotBeAnEmptyList)
             }
         case .phaseShift(let radians, _):
             resultMatrix = Matrix.makePhaseShift(radians: radians)

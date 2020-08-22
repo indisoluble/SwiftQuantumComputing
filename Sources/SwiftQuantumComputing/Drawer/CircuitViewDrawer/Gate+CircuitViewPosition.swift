@@ -28,6 +28,9 @@ extension Gate {
 
     func makeLayer(qubitCount: Int) -> Result<[CircuitViewPosition], DrawCircuitError> {
         switch self {
+        case .controlled:
+            // TODO: Pending
+            return .success(makeEmptyLayer(qubitCount: qubitCount))
         case .controlledMatrix(_, let inputs, let control):
             return makeControlledNotMatrixLayer(qubitCount: qubitCount,
                                                 inputs: inputs,
