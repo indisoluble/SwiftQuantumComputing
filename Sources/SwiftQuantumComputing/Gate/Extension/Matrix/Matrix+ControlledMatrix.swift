@@ -26,16 +26,29 @@ extension Matrix {
 
     // MARK: - Internal class methods
 
-    static func makeControlledMatrix(matrix: Matrix) -> Matrix {
-        let quadRowCount = matrix.rowCount
-        let rowCount = 2 * quadRowCount
-        let quadColCount = matrix.columnCount
-        let colCount = 2 * quadColCount
-        return try! Matrix.makeMatrix(rowCount: rowCount, columnCount: colCount, value: { row, col in
-            let quad = Quadrant(row: row,
-                                column: col,
-                                quadrantRowCount: quadRowCount,
-                                quadrantColumnCount: quadColCount)
+    enum MakeControlledMatrixError: Error {
+        case controlCountHasToBeBiggerThanZero
+        case matrixIsNotSquare
+        case matrixRowCountHasToBeAPowerOfTwo
+    }
+
+    static func makeControlledMatrix(matrix: Matrix, controlCount: Int) -> Result<Matrix, MakeControlledMatrixError> {
+        guard matrix.isSquare else {
+            return .failure(.matrixIsNotSquare)
+        }
+
+        guard matrix.rowCount.isPowerOfTwo else {
+            return .failure(.matrixRowCountHasToBeAPowerOfTwo)
+        }
+
+        guard controlCount > 0 else {
+            return .failure(.controlCountHasToBeBiggerThanZero)
+        }
+
+        let count = Int.pow(2, controlCount) *  matrix.rowCount
+        let fourthQuadrantIndex = count - matrix.rowCount
+        let result = try! Matrix.makeMatrix(rowCount: count, columnCount: count, value: { row, col in
+            let quad = Quadrant(row: row, column: col, fourthQuadrantIndex: fourthQuadrantIndex)
             switch quad {
             case .first(let quadRow, let quadCol):
                 return (quadRow == quadCol ? .one : .zero)
@@ -47,6 +60,8 @@ extension Matrix {
                 return matrix[quadRow, quadCol]
             }
         }).get()
+
+        return .success(result)
     }
 }
 
@@ -62,19 +77,19 @@ private extension Matrix {
         case third(quadrantRow: Int, quadrantColumn: Int)
         case fourth(quadrantRow: Int, quadrantColumn: Int)
 
-        init(row: Int, column: Int, quadrantRowCount: Int, quadrantColumnCount: Int) {
-            if (row < quadrantRowCount) {
-                if (column < quadrantColumnCount) {
+        init(row: Int, column: Int, fourthQuadrantIndex: Int) {
+            if (row < fourthQuadrantIndex) {
+                if (column < fourthQuadrantIndex) {
                     self = .first(quadrantRow: row, quadrantColumn: column)
                 } else {
-                    self = .second(quadrantRow: row, quadrantColumn: column - quadrantColumnCount)
+                    self = .second(quadrantRow: row, quadrantColumn: column - fourthQuadrantIndex)
                 }
             } else {
-                if (column < quadrantColumnCount) {
-                    self = .third(quadrantRow: row - quadrantRowCount, quadrantColumn: column)
+                if (column < fourthQuadrantIndex) {
+                    self = .third(quadrantRow: row - fourthQuadrantIndex, quadrantColumn: column)
                 } else {
-                    self = .fourth(quadrantRow: row - quadrantRowCount,
-                                   quadrantColumn: column - quadrantColumnCount)
+                    self = .fourth(quadrantRow: row - fourthQuadrantIndex,
+                                   quadrantColumn: column - fourthQuadrantIndex)
                 }
             }
         }

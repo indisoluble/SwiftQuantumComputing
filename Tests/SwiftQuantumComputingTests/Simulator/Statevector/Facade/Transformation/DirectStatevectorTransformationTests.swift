@@ -263,7 +263,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         let matrix = try! Matrix([[.one, .zero], [.zero, .one]])
-        let gateMatrix = Matrix.makeControlledMatrix(matrix: matrix)
+        let gateMatrix = try! Matrix.makeControlledMatrix(matrix: matrix, controlCount: 1).get()
 
         // When
         let result = adapter.apply(gateMatrix: gateMatrix,

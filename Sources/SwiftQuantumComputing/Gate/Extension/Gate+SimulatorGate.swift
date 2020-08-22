@@ -145,7 +145,7 @@ private extension Gate {
                 return .failure(.gateMatrixIsNotUnitary)
             }
 
-            resultMatrix = Matrix.makeControlledMatrix(matrix: matrix)
+            resultMatrix = try! Matrix.makeControlledMatrix(matrix: matrix, controlCount: 1).get()
         case .controlledNot:
             resultMatrix = Constants.matrixControlledNot
         case .hadamard:
