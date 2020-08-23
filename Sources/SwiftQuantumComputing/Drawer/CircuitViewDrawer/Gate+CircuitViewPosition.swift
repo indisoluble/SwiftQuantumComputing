@@ -28,7 +28,7 @@ extension Gate {
 
     func makeLayer(qubitCount: Int) -> Result<[CircuitViewPosition], DrawCircuitError> {
         switch self {
-        case .controlled:
+        case .controlled, .oracleX:
             // TODO: Pending
             return .success(makeEmptyLayer(qubitCount: qubitCount))
         case .controlledMatrix(_, let inputs, let control):

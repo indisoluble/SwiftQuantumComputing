@@ -32,6 +32,8 @@ extension Gate {
         switch self {
         case .controlled(let gate, let controls):
             resultInputs = controls + gate.extractInputs()
+        case .oracleX(_, let controls, let gate):
+            resultInputs = controls + gate.extractInputs()
         case .controlledMatrix(_, let inputs, let control):
             resultInputs = [control] + inputs
         case .controlledNot(let target, let control):
@@ -144,6 +146,22 @@ private extension Gate {
                 switch Matrix.makeControlledMatrix(matrix: matrix, controlCount: controls.count) {
                 case .success(let controlledMatrix):
                     resultMatrix = controlledMatrix
+                case .failure(.controlCountHasToBeBiggerThanZero):
+                    return .failure(.gateControlsCanNotBeAnEmptyList)
+                case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
+                    fatalError("Unexpected error.")
+                }
+            case .failure(let error):
+                return .failure(error)
+            }
+        case .oracleX(let truthTable, let controls, let gate):
+            switch gate.extractMatrix() {
+            case .success(let matrix):
+                switch Matrix.makeOracle(truthTable: truthTable,
+                                         controlCount: controls.count,
+                                         controlledMatrix: matrix) {
+                case .success(let oracleMatrix):
+                    resultMatrix = oracleMatrix
                 case .failure(.controlCountHasToBeBiggerThanZero):
                     return .failure(.gateControlsCanNotBeAnEmptyList)
                 case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):

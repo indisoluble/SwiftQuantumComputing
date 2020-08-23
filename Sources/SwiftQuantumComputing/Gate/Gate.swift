@@ -26,6 +26,8 @@ import Foundation
 public indirect enum Gate {
     /// Generic quantum `gate` controlled with `controls`
     case controlled(gate: Gate, controls: [Int])
+    /// Oracle gate composed of a `truthtable` that specifies which `controls` activate a `gate`
+    case oracleX(truthTable: [String], controls: [Int], gate: Gate)
     /// Generic quantum gate controlled with `control`, built with a `matrix` (it is expected to be unitary)
     /// and any number of `inputs` (as many inputs as `matrix` is able to handle)
     case controlledMatrix(matrix: Matrix, inputs: [Int], control: Int)
