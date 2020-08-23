@@ -179,11 +179,15 @@ private extension Gate {
         case .not:
             resultMatrix = Constants.matrixNot
         case .oracle(let truthTable, _, let controls):
-            switch Matrix.makeOracle(truthTable: truthTable, controlCount: controls.count) {
+            switch Matrix.makeOracle(truthTable: truthTable,
+                                     controlCount: controls.count,
+                                     controlledMatrix: Constants.matrixNot) {
             case .success(let matrix):
                 resultMatrix = matrix
-            case .failure(.controlsCanNotBeAnEmptyList):
+            case .failure(.controlCountHasToBeBiggerThanZero):
                 return .failure(.gateControlsCanNotBeAnEmptyList)
+            case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
+                fatalError("Unexpected error.")
             }
         case .phaseShift(let radians, _):
             resultMatrix = Matrix.makePhaseShift(radians: radians)
