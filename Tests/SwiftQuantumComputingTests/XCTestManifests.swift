@@ -87,6 +87,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Gate_SimulatorGateTests.allTests),
         testCase(MainGeneticCircuitEvaluatorTests.allTests),
         testCase(MainGeneticUseCaseEvaluatorTests.allTests),
+        testCase(ControlledGateTests.allTests),
         testCase(ControlledMatrixGateTests.allTests),
         testCase(ControlledNotGateTests.allTests),
         testCase(HadamardGateTests.allTests),
