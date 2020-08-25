@@ -404,6 +404,8 @@
 		FF8B40DA23AEDAFC00A51475 /* Gate+OracleReplicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8B40D823AEDAFC00A51475 /* Gate+OracleReplicator.swift */; };
 		FF8B9D9821BD979000A28E34 /* SimulatorGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8B9D9721BD979000A28E34 /* SimulatorGate.swift */; };
 		FF8B9D9921BD979000A28E34 /* SimulatorGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8B9D9721BD979000A28E34 /* SimulatorGate.swift */; };
+		FF90925424F6DCA90026C7C5 /* OracleXGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF90925324F6DCA90026C7C5 /* OracleXGateTests.swift */; };
+		FF90925524F6DCA90026C7C5 /* OracleXGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF90925324F6DCA90026C7C5 /* OracleXGateTests.swift */; };
 		FF9301CA235CC05E008DD87E /* UnitaryGateAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9301C9235CC05E008DD87E /* UnitaryGateAdapterTests.swift */; };
 		FF9301CB235CC05F008DD87E /* UnitaryGateAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9301C9235CC05E008DD87E /* UnitaryGateAdapterTests.swift */; };
 		FF9301CD235CD7E4008DD87E /* UnitaryGateFactoryAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9301CC235CD7E4008DD87E /* UnitaryGateFactoryAdapterTests.swift */; };
@@ -577,6 +579,8 @@
 		FFC596522203B30D00151355 /* GeneticConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC596502203B30D00151355 /* GeneticConfiguration.swift */; };
 		FFC65ABD24F584AE009B1F2A /* ControlledGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC65ABC24F584AE009B1F2A /* ControlledGateTests.swift */; };
 		FFC65ABE24F584AE009B1F2A /* ControlledGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC65ABC24F584AE009B1F2A /* ControlledGateTests.swift */; };
+		FFC65AC024F59C80009B1F2A /* OracleXGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC65ABF24F59C80009B1F2A /* OracleXGate.swift */; };
+		FFC65AC124F59C80009B1F2A /* OracleXGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC65ABF24F59C80009B1F2A /* OracleXGate.swift */; };
 		FFC95E31243A37960051F174 /* Double+RoundedToDecimalPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC95E30243A37960051F174 /* Double+RoundedToDecimalPlaces.swift */; };
 		FFC95E32243A37960051F174 /* Double+RoundedToDecimalPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC95E30243A37960051F174 /* Double+RoundedToDecimalPlaces.swift */; };
 		FFC95E34243A3A050051F174 /* Double+RoundedToDecimalPlacesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC95E33243A3A050051F174 /* Double+RoundedToDecimalPlacesTests.swift */; };
@@ -972,6 +976,7 @@
 		FF8B40D823AEDAFC00A51475 /* Gate+OracleReplicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+OracleReplicator.swift"; sourceTree = "<group>"; };
 		FF8B9D9721BD979000A28E34 /* SimulatorGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorGate.swift; sourceTree = "<group>"; };
 		FF8E49C223CA76AD00C8FD48 /* XorGaussianElimination.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = XorGaussianElimination.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FF90925324F6DCA90026C7C5 /* OracleXGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleXGateTests.swift; sourceTree = "<group>"; };
 		FF9301C9235CC05E008DD87E /* UnitaryGateAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitaryGateAdapterTests.swift; sourceTree = "<group>"; };
 		FF9301CC235CD7E4008DD87E /* UnitaryGateFactoryAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitaryGateFactoryAdapterTests.swift; sourceTree = "<group>"; };
 		FF9301CF235CDC86008DD87E /* UnitarySimulatorFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitarySimulatorFacadeTests.swift; sourceTree = "<group>"; };
@@ -1083,6 +1088,7 @@
 		FFC5964D2203AFB500151355 /* GeneticFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticFactory.swift; sourceTree = "<group>"; };
 		FFC596502203B30D00151355 /* GeneticConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticConfiguration.swift; sourceTree = "<group>"; };
 		FFC65ABC24F584AE009B1F2A /* ControlledGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledGateTests.swift; sourceTree = "<group>"; };
+		FFC65ABF24F59C80009B1F2A /* OracleXGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleXGate.swift; sourceTree = "<group>"; };
 		FFC95E30243A37960051F174 /* Double+RoundedToDecimalPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+RoundedToDecimalPlaces.swift"; sourceTree = "<group>"; };
 		FFC95E33243A3A050051F174 /* Double+RoundedToDecimalPlacesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+RoundedToDecimalPlacesTests.swift"; sourceTree = "<group>"; };
 		FFCC7292221CB0FA00D28A5D /* GeneticPopulationMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticPopulationMutation.swift; sourceTree = "<group>"; };
@@ -2348,6 +2354,7 @@
 				FF9FBCDE21C57A400070D943 /* MatrixGate.swift */,
 				FF9FBCDB21C57A160070D943 /* NotGate.swift */,
 				FF18358D21EAB099003E2F04 /* OracleGate.swift */,
+				FFC65ABF24F59C80009B1F2A /* OracleXGate.swift */,
 				FF9FBCE121C57ACD0070D943 /* PhaseShiftGate.swift */,
 			);
 			path = ConfigurableGate;
@@ -2412,6 +2419,7 @@
 				FFBB6F8B21CD5ECE00389838 /* MatrixGateTests.swift */,
 				FFBB6F8821CD5E3700389838 /* NotGateTests.swift */,
 				FF18359021EABB87003E2F04 /* OracleGateTests.swift */,
+				FF90925324F6DCA90026C7C5 /* OracleXGateTests.swift */,
 				FFBB6F8E21CD619E00389838 /* PhaseShiftGateTests.swift */,
 			);
 			path = ConfigurableGate;
@@ -3020,6 +3028,7 @@
 				FF072EF921BD88C2002248AA /* StatevectorSimulatorFacade.swift in Sources */,
 				FFDC34E221C1BCBD0052AC90 /* StatevectorSimulator.swift in Sources */,
 				FF032F3623B8E4E1000FCA3D /* XorEquationSystemFactory.swift in Sources */,
+				FFC65AC024F59C80009B1F2A /* OracleXGate.swift in Sources */,
 				FFC95E31243A37960051F174 /* Double+RoundedToDecimalPlaces.swift in Sources */,
 				FF56B0B023CA40AD0087F7FA /* XorGaussianEliminationSolver+ActivatedBits.swift in Sources */,
 				FF9BBE54214E979A00AD1F78 /* MatrixBottomPositionView.swift in Sources */,
@@ -3198,6 +3207,7 @@
 				FF0694E721CC05CB00B5D469 /* SimulatorGateTestDouble.swift in Sources */,
 				FF18359121EABB87003E2F04 /* OracleGateTests.swift in Sources */,
 				FF20C75023EA238E00112724 /* SimulatorCircuitMatrixAdapterTests.swift in Sources */,
+				FF90925424F6DCA90026C7C5 /* OracleXGateTests.swift in Sources */,
 				FF0D34BC23FC9796009120B4 /* Gate+InversionAboutMeanWithRangeInputsTests.swift in Sources */,
 				FF9BBE7C214ECEDB00AD1F78 /* Gate+CircuitViewPositionTests.swift in Sources */,
 			);
@@ -3250,6 +3260,7 @@
 				FFEB7B4A21EBCC24009B916B /* MatrixBottomConnectedPositionView.swift in Sources */,
 				FFAF3E562410647C00E6DD6A /* Matrix+ControlledMatrix.swift in Sources */,
 				FF02E88B22B69ECF004CB960 /* Logger.swift in Sources */,
+				FFC65AC124F59C80009B1F2A /* OracleXGate.swift in Sources */,
 				FF2B4C5823BB869A00A388F3 /* XorEquationSystemSimpleSolver.swift in Sources */,
 				FF3A1D11248E9F1D005E4CEB /* CircuitStatevector.swift in Sources */,
 				FF5920FD2221D84E00C86F6A /* GeneticPopulationReproductionFactory.swift in Sources */,
@@ -3548,6 +3559,7 @@
 				FF0694E821CC05CB00B5D469 /* SimulatorGateTestDouble.swift in Sources */,
 				FF18359221EABB87003E2F04 /* OracleGateTests.swift in Sources */,
 				FF20C75123EA238E00112724 /* SimulatorCircuitMatrixAdapterTests.swift in Sources */,
+				FF90925524F6DCA90026C7C5 /* OracleXGateTests.swift in Sources */,
 				FF0D34BD23FC9796009120B4 /* Gate+InversionAboutMeanWithRangeInputsTests.swift in Sources */,
 				FF46EDC52169245C0044C3CA /* Int+IsPowerOfTwoTests.swift in Sources */,
 			);
