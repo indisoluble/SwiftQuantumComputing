@@ -49,6 +49,10 @@ class PositionTextView: PositionView {
     func showIndex(_ index: Int) {
         showText("q\(index):")
     }
+
+    func clearText() {
+        showText("")
+    }
 }
 
 // MARK: - Private body

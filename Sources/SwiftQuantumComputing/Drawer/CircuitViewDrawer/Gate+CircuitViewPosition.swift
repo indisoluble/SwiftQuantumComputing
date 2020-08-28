@@ -141,7 +141,7 @@ private extension Gate {
 
             layer[index] = (isInputConnected ? .matrixMiddleConnected : .matrixMiddleUnconnected)
         }
-        layer[last] = .matrixTop(inputs: inputs, connected: false)
+        layer[last] = .matrixTop(connected: false, inputs: inputs)
 
         return .success(layer)
     }
@@ -180,7 +180,7 @@ private extension Gate {
                     .matrixMiddleConnected :
                     .matrixMiddleUnconnected)
             }
-            layer[lastInput] = .matrixTop(inputs: inputs, connected: isControlAbove)
+            layer[lastInput] = .matrixTop(connected: isControlAbove, inputs: inputs)
         }
 
         if (isControlAbove || isControlBelow) {

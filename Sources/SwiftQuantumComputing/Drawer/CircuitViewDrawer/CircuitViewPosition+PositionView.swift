@@ -72,11 +72,15 @@ extension CircuitViewPosition {
             view.showMatrixInputs([])
 
             return view
-        case .matrixTop(let inputs, let connected):
+        case .matrixTop(let connected, let inputs):
             let view = (connected ?
                 MatrixTopConnectedPositionView(frame: frame) :
                 MatrixTopPositionView(frame: frame))
-            view.showMatrixInputs(inputs)
+            if let inputs = inputs {
+                view.showMatrixInputs(inputs)
+            } else {
+                view.clearText()
+            }
 
             return view
         case .matrixBottom(let connected):
