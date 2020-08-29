@@ -139,7 +139,7 @@ private extension Gate {
         for index in (first + 1)..<last {
             let isInputConnected = sortedInputs.contains(index)
 
-            layer[index] = (isInputConnected ? .matrixMiddleConnected : .matrixMiddleUnconnected)
+            layer[index] = (isInputConnected ? .matrixMiddle : .matrixGap)
         }
         layer[last] = .matrixTop(connected: false, inputs: inputs)
 
@@ -169,20 +169,6 @@ private extension Gate {
         let isControlAbove = (control > lastInput)
         let isControlBelow = (control < firstInput)
 
-        if (inputs.count == 1) {
-            layer[firstInput] = (isControlAbove ? .matrixUp : .matrixDown)
-        } else {
-            layer[firstInput] = .matrixBottom(connected: isControlBelow)
-            for index in (firstInput + 1)..<lastInput {
-                let isInputConnected = sortedInputs.contains(index)
-
-                layer[index] = (isInputConnected ?
-                    .matrixMiddleConnected :
-                    .matrixMiddleUnconnected)
-            }
-            layer[lastInput] = .matrixTop(connected: isControlAbove, inputs: inputs)
-        }
-
         if (isControlAbove || isControlBelow) {
             layer[control] = (isControlAbove ? .controlDown : .controlUp)
 
@@ -193,6 +179,36 @@ private extension Gate {
             }
         } else {
             layer[control] = .control
+        }
+
+        if (inputs.count == 1) {
+            layer[firstInput] = (isControlAbove ? .matrixUp : .matrixDown(inputs: inputs))
+        } else {
+            let isControlUp = (control == firstInput + 1)
+            layer[firstInput] = (isControlUp ? .matrixUp : .matrixBottom(connected: isControlBelow))
+
+            for index in (firstInput + 1)..<lastInput {
+                if index == control {
+                    continue
+                }
+
+                let isInputAGap = !sortedInputs.contains(index)
+                let isControlUp = (control == index + 1)
+                let isControlDown = (control == index - 1)
+
+                layer[index] = (isInputAGap ?
+                    (isControlUp ?
+                        .matrixGapUp :
+                        (isControlDown ? .matrixGapDown : .matrixGap)) :
+                    (isControlUp ?
+                        .matrixTop(connected: true) :
+                        (isControlDown ? .matrixBottom(connected: true) : .matrixMiddle)))
+            }
+
+            let isControlDown = (control == lastInput - 1)
+            layer[lastInput] = (isControlDown ?
+                .matrixDown(inputs: inputs) :
+                .matrixTop(connected: isControlAbove, inputs: inputs))
         }
 
         return .success(layer)
@@ -228,9 +244,7 @@ private extension Gate {
             for index in (firstControl + 1)..<lastControl {
                 let isInputConnected = sortedControls.contains(index)
 
-                layer[index] = (isInputConnected ?
-                    .matrixMiddleConnected :
-                    .matrixMiddleUnconnected)
+                layer[index] = (isInputConnected ? .matrixMiddle : .matrixGap)
             }
             layer[lastControl] = .oracleTop(controls: controls, connected: isTargetAbove)
         }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,32 +39,6 @@
                                 </view>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="2" id="kHU-jf-opp"/>
-                                </constraints>
-                                <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
-                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Y6i-Ld-UXS">
-                                <rect key="frame" x="16" y="79" width="48" height="1"/>
-                                <view key="contentView" id="29v-Aw-6zz">
-                                    <rect key="frame" x="0.0" y="0.0" width="48" height="1"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="OUz-09-Bzb"/>
-                                    <constraint firstAttribute="height" constant="1" id="soO-Wt-OME"/>
-                                </constraints>
-                                <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
-                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Oyo-Yk-WsR">
-                                <rect key="frame" x="16" y="0.0" width="48" height="1"/>
-                                <view key="contentView" id="NPe-wN-AZs">
-                                    <rect key="frame" x="0.0" y="0.0" width="48" height="1"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="9nw-ev-rEy"/>
-                                    <constraint firstAttribute="height" constant="1" id="mlQ-lm-biP"/>
                                 </constraints>
                                 <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -145,12 +119,8 @@
                             </box>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Oyo-Yk-WsR" firstAttribute="centerX" secondItem="ft8-UX-h73" secondAttribute="centerX" id="BPS-3U-9J9"/>
                             <constraint firstItem="YbC-yg-2Yb" firstAttribute="centerY" secondItem="ft8-UX-h73" secondAttribute="centerY" id="CBI-Fi-ZnX"/>
-                            <constraint firstItem="Y6i-Ld-UXS" firstAttribute="centerX" secondItem="ft8-UX-h73" secondAttribute="centerX" id="DYN-jS-0Gn"/>
                             <constraint firstAttribute="bottom" secondItem="zR1-po-MbW" secondAttribute="bottom" id="JZT-2N-Zu6"/>
-                            <constraint firstItem="Y6i-Ld-UXS" firstAttribute="top" secondItem="ft8-UX-h73" secondAttribute="top" id="Lr0-qH-67Y"/>
-                            <constraint firstAttribute="bottom" secondItem="Oyo-Yk-WsR" secondAttribute="bottom" id="SrU-JW-5e8"/>
                             <constraint firstItem="YbC-yg-2Yb" firstAttribute="leading" secondItem="ft8-UX-h73" secondAttribute="leading" id="VLA-TM-3GY"/>
                             <constraint firstItem="zR1-po-MbW" firstAttribute="centerX" secondItem="ft8-UX-h73" secondAttribute="centerX" id="blU-nW-yaw"/>
                             <constraint firstItem="OpI-2b-sKZ" firstAttribute="centerX" secondItem="ft8-UX-h73" secondAttribute="centerX" id="d0W-oG-YTs"/>
@@ -169,6 +139,7 @@
                 <constraint firstAttribute="bottom" secondItem="snV-vW-By4" secondAttribute="bottom" id="f7r-P2-E6v"/>
                 <constraint firstItem="snV-vW-By4" firstAttribute="top" secondItem="tEk-a9-CwF" secondAttribute="top" id="ijG-ey-TIj"/>
             </constraints>
+            <point key="canvasLocation" x="140" y="154"/>
         </customView>
     </objects>
 </document>

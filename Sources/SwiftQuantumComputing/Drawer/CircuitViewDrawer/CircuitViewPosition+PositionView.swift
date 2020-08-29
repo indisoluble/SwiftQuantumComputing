@@ -67,9 +67,9 @@ extension CircuitViewPosition {
             view.showMatrixInputs([])
 
             return view
-        case .matrixDown:
+        case .matrixDown(let inputs):
             let view = MatrixDownConnectedPositionView(frame: frame)
-            view.showMatrixInputs([])
+            view.showMatrixInputs(inputs)
 
             return view
         case .matrixTop(let connected, let inputs):
@@ -87,10 +87,14 @@ extension CircuitViewPosition {
             return (connected ?
                 MatrixBottomConnectedPositionView(frame: frame) :
                 MatrixBottomPositionView(frame: frame))
-        case .matrixMiddleConnected:
-            return MatrixMiddleConnectedPositionView(frame: frame)
-        case .matrixMiddleUnconnected:
-            return MatrixMiddleUnconnectedPositionView(frame: frame)
+        case .matrixMiddle:
+            return MatrixMiddlePositionView(frame: frame)
+        case .matrixGap:
+            return MatrixGapPositionView(frame: frame)
+        case .matrixGapUp:
+            return MatrixGapUpPositionView(frame: frame)
+        case .matrixGapDown:
+            return MatrixGapDownPositionView(frame: frame)
         case .oracleUp:
             let view = MatrixUpConnectedPositionView(frame: frame)
             view.showOracleControls([])

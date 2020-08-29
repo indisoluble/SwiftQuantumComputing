@@ -213,9 +213,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -344,11 +344,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.controlledNot,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -368,14 +368,14 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.controlledNot,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -395,12 +395,12 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.controlledNot,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -420,14 +420,14 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.controlledNot,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -447,17 +447,17 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.controlledNot,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -477,20 +477,20 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.controlledNot,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -510,21 +510,21 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.controlledNot,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -544,22 +544,22 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.controlledNot,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -579,23 +579,23 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.controlledNot,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -615,9 +615,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.oracleBottom(connected: false),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.oracleTop(controls: controls, connected: true),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.controlledNotDown,
@@ -641,9 +641,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.controlledNotUp,
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.oracleBottom(connected: true),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.oracleTop(controls: controls, connected: false),
             CircuitViewPosition.lineHorizontal
         ]
@@ -692,7 +692,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testControlledMatrixGateWithOneInputOnTopOfControl_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: [3], control: 1)
+        let inputs = [3]
+        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 1)
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -702,7 +703,27 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.controlUp,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.matrixDown,
+            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testControlledMatrixGateWithOneInputOnTopOfControlAndNoGap_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 5
+        let inputs = [2]
+        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 1)
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.controlUp,
+            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -727,6 +748,145 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
+    func testControlledMatrixGateWithOneInputBelowControlAndNoGap_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 5
+        let gate = Gate.controlledMatrix(matrix: matrix, inputs: [1], control: 2)
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixUp,
+            CircuitViewPosition.controlDown,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testControlledMatrixGateWithTwoInputsControlInTheMiddleAndNoGaps_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 9
+        let inputs = [7, 5]
+        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 6)
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixUp,
+            CircuitViewPosition.control,
+            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testControlledMatrixGateWithThreeInputsNoGapsAndControlNextToTop_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 9
+        let inputs = [7, 4, 5]
+        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 6)
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixTop(connected: true),
+            CircuitViewPosition.control,
+            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testControlledMatrixGateWithTwoInputsOneGapAndControlNextToTop_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 9
+        let inputs = [7, 4]
+        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 6)
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixGapUp,
+            CircuitViewPosition.control,
+            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testControlledMatrixGateWithThreeInputsNoGapsAndControlNextToBottom_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 9
+        let inputs = [7, 6, 4]
+        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 5)
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixUp,
+            CircuitViewPosition.control,
+            CircuitViewPosition.matrixBottom(connected: true),
+            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testControlledMatrixGateWithTWoInputsOneGapAndControlNextToBottom_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 9
+        let inputs = [7, 4]
+        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 5)
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixUp,
+            CircuitViewPosition.control,
+            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
     func testControlledMatrixGateWithMultipleInputsAndControlInTheMiddle_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 9
@@ -740,11 +900,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGapDown,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -764,14 +924,14 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -791,12 +951,12 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGapDown,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -816,14 +976,14 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -843,17 +1003,17 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -873,20 +1033,20 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -906,21 +1066,21 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -940,22 +1100,22 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -975,23 +1135,23 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleConnected,
+            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]
@@ -1011,9 +1171,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixTop(connected: true, inputs: inputs),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.controlDown,
@@ -1037,9 +1197,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.controlUp,
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.matrixBottom(connected: true),
-            CircuitViewPosition.matrixMiddleUnconnected,
-            CircuitViewPosition.matrixMiddleConnected,
-            CircuitViewPosition.matrixMiddleUnconnected,
+            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
             CircuitViewPosition.lineHorizontal
         ]

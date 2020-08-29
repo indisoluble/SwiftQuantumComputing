@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,32 +43,6 @@
                                 <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </box>
-                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="gyc-3c-tMe">
-                                <rect key="frame" x="16" y="79" width="48" height="1"/>
-                                <view key="contentView" id="5Qk-Sx-3rg">
-                                    <rect key="frame" x="0.0" y="0.0" width="48" height="1"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="DiN-cd-nDL"/>
-                                    <constraint firstAttribute="width" constant="48" id="Ua2-R7-tKO"/>
-                                </constraints>
-                                <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
-                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="vGx-ap-HtA">
-                                <rect key="frame" x="16" y="0.0" width="48" height="1"/>
-                                <view key="contentView" id="j6W-ZP-RU5">
-                                    <rect key="frame" x="0.0" y="0.0" width="48" height="1"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="CA7-5s-r5P"/>
-                                    <constraint firstAttribute="height" constant="1" id="zSq-F7-RPb"/>
-                                </constraints>
-                                <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </box>
                             <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="qSk-2R-Kcb">
                                 <rect key="frame" x="30" y="30" width="20" height="20"/>
                                 <view key="contentView" id="lHp-aP-wKk">
@@ -90,13 +65,9 @@
                         <constraints>
                             <constraint firstItem="qSk-2R-Kcb" firstAttribute="centerY" secondItem="ob6-U4-0Mx" secondAttribute="centerY" id="3LQ-gj-gzD"/>
                             <constraint firstAttribute="bottom" secondItem="AVJ-rx-TfZ" secondAttribute="bottom" id="5oE-IH-1r5"/>
-                            <constraint firstAttribute="bottom" secondItem="vGx-ap-HtA" secondAttribute="bottom" id="9mh-vZ-VcN"/>
-                            <constraint firstItem="gyc-3c-tMe" firstAttribute="top" secondItem="ob6-U4-0Mx" secondAttribute="top" id="DCb-VG-CQU"/>
                             <constraint firstItem="qSk-2R-Kcb" firstAttribute="centerX" secondItem="ob6-U4-0Mx" secondAttribute="centerX" id="G8f-ER-xJ9"/>
                             <constraint firstItem="AVJ-rx-TfZ" firstAttribute="top" secondItem="ob6-U4-0Mx" secondAttribute="top" id="IMM-J7-laj"/>
-                            <constraint firstItem="gyc-3c-tMe" firstAttribute="centerX" secondItem="ob6-U4-0Mx" secondAttribute="centerX" id="L7k-sc-34Z"/>
                             <constraint firstItem="uVk-AV-diF" firstAttribute="centerY" secondItem="ob6-U4-0Mx" secondAttribute="centerY" id="Vdt-ke-GPx"/>
-                            <constraint firstItem="vGx-ap-HtA" firstAttribute="centerX" secondItem="ob6-U4-0Mx" secondAttribute="centerX" id="Veu-zC-Zo1"/>
                             <constraint firstItem="uVk-AV-diF" firstAttribute="leading" secondItem="ob6-U4-0Mx" secondAttribute="leading" id="nXa-ps-kyP"/>
                             <constraint firstItem="AVJ-rx-TfZ" firstAttribute="centerX" secondItem="ob6-U4-0Mx" secondAttribute="centerX" id="yFV-a7-jpE"/>
                             <constraint firstAttribute="trailing" secondItem="uVk-AV-diF" secondAttribute="trailing" id="zth-pB-0Qf"/>
