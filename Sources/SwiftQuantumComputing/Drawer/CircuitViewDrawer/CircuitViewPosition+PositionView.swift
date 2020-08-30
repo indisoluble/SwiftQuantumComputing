@@ -32,7 +32,7 @@ extension CircuitViewPosition {
         switch self {
         case .qubit(let index):
             let view = QubitPositionView(frame: frame)
-            view.showIndex(index)
+            view.showText("q\(index):")
 
             return view
         case .lineHorizontal:
@@ -45,7 +45,7 @@ extension CircuitViewPosition {
             return NotPositionView(frame: frame)
         case .phaseShift(let radians):
             let view = PhaseShiftPositionView(frame: frame)
-            view.showRadians(radians)
+            view.showText(String(format: "R(%.2f)", radians))
 
             return view
         case .controlledNot:
@@ -64,20 +64,20 @@ extension CircuitViewPosition {
             return MatrixPositionView(frame: frame)
         case .matrixUp:
             let view = MatrixUpConnectedPositionView(frame: frame)
-            view.showMatrixInputs([])
+            view.showText("U")
 
             return view
-        case .matrixDown(let inputs):
+        case .matrixDown:
             let view = MatrixDownConnectedPositionView(frame: frame)
-            view.showMatrixInputs(inputs)
+            view.showText("U")
 
             return view
-        case .matrixTop(let connected, let inputs):
+        case .matrixTop(let connected, let showText):
             let view = (connected ?
                 MatrixTopConnectedPositionView(frame: frame) :
                 MatrixTopPositionView(frame: frame))
-            if let inputs = inputs {
-                view.showMatrixInputs(inputs)
+            if showText {
+                view.showText("U")
             } else {
                 view.clearText()
             }

@@ -216,7 +216,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -789,7 +789,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.controlUp,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.matrixDown,
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -808,7 +808,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.controlUp,
-            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.matrixDown,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal
         ]
@@ -871,7 +871,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.matrixDown,
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -893,9 +893,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixTop(connected: true),
+            CircuitViewPosition.matrixTop(connected: true, showText: false),
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.matrixDown,
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -919,7 +919,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixBottom(connected: false),
             CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
-            CircuitViewPosition.matrixDown(inputs: inputs),
+            CircuitViewPosition.matrixDown,
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -943,7 +943,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixUp,
             CircuitViewPosition.control,
             CircuitViewPosition.matrixBottom(connected: true),
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -967,7 +967,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixUp,
             CircuitViewPosition.control,
             CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -991,7 +991,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
             CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1018,7 +1018,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.control,
             CircuitViewPosition.matrixGapDown,
             CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1043,7 +1043,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGapUp,
             CircuitViewPosition.control,
             CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1070,7 +1070,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.control,
             CircuitViewPosition.matrixGapDown,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1100,7 +1100,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGapDown,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1133,7 +1133,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1167,7 +1167,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1202,7 +1202,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1238,7 +1238,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1260,7 +1260,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixTop(connected: true, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: true),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.controlDown,
             CircuitViewPosition.lineHorizontal
@@ -1286,7 +1286,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixTop(connected: false, inputs: inputs),
+            CircuitViewPosition.matrixTop(connected: false),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)

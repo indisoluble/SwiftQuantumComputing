@@ -34,29 +34,6 @@ class PositionTextView: PositionView {
 
     // MARK: - Internal methods
 
-    func showMatrixInputs(_ inputs: [Int]) {
-        showText("U" + asParameters(inputs))
-    }
-
-    func showRadians(_ radians: Double) {
-        showText(String(format: "R(%.2f)", radians))
-    }
-
-    func showIndex(_ index: Int) {
-        showText("q\(index):")
-    }
-
-    func clearText() {
-        showText("")
-    }
-}
-
-// MARK: - Private body
-
-private extension PositionTextView {
-
-    // MARK: - Private methods
-
     func showText(_ text: String) {
         #if os(macOS)
         label.stringValue = text
@@ -65,7 +42,7 @@ private extension PositionTextView {
         #endif
     }
 
-    func asParameters(_ inputs: [Int]) -> String {
-        return (inputs.count > 1 ? "(\(inputs.map { String($0) }.joined(separator: ",")))" : "")
+    func clearText() {
+        showText("")
     }
 }

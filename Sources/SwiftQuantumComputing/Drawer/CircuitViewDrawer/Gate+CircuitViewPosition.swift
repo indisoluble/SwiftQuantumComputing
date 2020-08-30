@@ -141,7 +141,7 @@ private extension Gate {
 
             layer[index] = (isInputConnected ? .matrixMiddle : .matrixGap)
         }
-        layer[last] = .matrixTop(connected: false, inputs: inputs)
+        layer[last] = .matrixTop(connected: false)
 
         return .success(layer)
     }
@@ -182,7 +182,7 @@ private extension Gate {
         }
 
         if (inputs.count == 1) {
-            layer[firstInput] = (isControlAbove ? .matrixUp : .matrixDown(inputs: inputs))
+            layer[firstInput] = (isControlAbove ? .matrixUp : .matrixDown)
         } else {
             let isControlUp = (control == firstInput + 1)
             layer[firstInput] = (isControlUp ? .matrixUp : .matrixBottom(connected: isControlBelow))
@@ -197,18 +197,14 @@ private extension Gate {
                 let isControlDown = (control == index - 1)
 
                 layer[index] = (isInputAGap ?
+                    (isControlUp ? .matrixGapUp : (isControlDown ? .matrixGapDown : .matrixGap)) :
                     (isControlUp ?
-                        .matrixGapUp :
-                        (isControlDown ? .matrixGapDown : .matrixGap)) :
-                    (isControlUp ?
-                        .matrixTop(connected: true) :
+                        .matrixTop(connected: true, showText: false) :
                         (isControlDown ? .matrixBottom(connected: true) : .matrixMiddle)))
             }
 
             let isControlDown = (control == lastInput - 1)
-            layer[lastInput] = (isControlDown ?
-                .matrixDown(inputs: inputs) :
-                .matrixTop(connected: isControlAbove, inputs: inputs))
+            layer[lastInput] = (isControlDown ? .matrixDown : .matrixTop(connected: isControlAbove))
         }
 
         return .success(layer)

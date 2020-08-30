@@ -37,8 +37,8 @@ enum CircuitViewPosition {
     case controlUp
     case matrix
     case matrixUp
-    case matrixDown(inputs: [Int])
-    case matrixTop(connected: Bool, inputs: [Int]? = nil)
+    case matrixDown
+    case matrixTop(connected: Bool, showText: Bool = true)
     case matrixBottom(connected: Bool)
     case matrixMiddle
     case matrixGap
