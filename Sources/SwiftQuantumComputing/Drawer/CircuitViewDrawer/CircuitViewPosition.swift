@@ -44,10 +44,9 @@ enum CircuitViewPosition {
     case matrixGap
     case matrixGapUp
     case matrixGapDown
+    case oracle
     case oracleUp
     case oracleDown
-    case oracleTop(controls: [Int], connected: Bool)
-    case oracleBottom(connected: Bool)
 } 
 
 // MARK: - Equatable methods

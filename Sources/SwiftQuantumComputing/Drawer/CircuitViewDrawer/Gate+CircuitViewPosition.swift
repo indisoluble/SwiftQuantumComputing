@@ -226,40 +226,26 @@ private extension Gate {
             return .failure(.gateTargetIsAlsoAControl(gate: self))
         }
 
-        guard (controls + [target]).allSatisfy({ layer.indices.contains($0) }) else {
+        let allInputs = controls + [target]
+        guard allInputs.allSatisfy({ layer.indices.contains($0) }) else {
             return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
-        let sortedControls = controls.sorted()
-        let firstControl = sortedControls.first!
-        let lastControl = sortedControls.last!
+        let sortedInputs = allInputs.sorted()
+        let firstInput = sortedInputs.first!
+        let lastInput = sortedInputs.last!
 
-        let isTargetAbove = (target > lastControl)
-        let isTargetBelow = (target < firstControl)
-
-        if (controls.count == 1) {
-            layer[firstControl] = (isTargetAbove ? .oracleUp : .oracleDown)
-        } else {
-            layer[firstControl] = .oracleBottom(connected: isTargetBelow)
-            for index in (firstControl + 1)..<lastControl {
-                let isInputConnected = sortedControls.contains(index)
-
-                layer[index] = (isInputConnected ? .matrixMiddle : .matrixGap)
-            }
-            layer[lastControl] = .oracleTop(controls: controls, connected: isTargetAbove)
-        }
-
-        if (isTargetAbove || isTargetBelow) {
-            layer[target] = (isTargetAbove ? .controlledNotDown : .controlledNotUp)
-
-            let step = (isTargetAbove ? -1 : 1)
-            let control = (isTargetAbove ? lastControl : firstControl)
-            for index in stride(from: (target + step), to: control, by: step) {
+        layer[firstInput] = (firstInput == target ? .controlledNotUp : .oracleUp)
+        for index in (firstInput + 1)..<lastInput {
+            if index == target {
+                layer[index] = .controlledNot
+            } else if controls.contains(index) {
+                layer[index] = .oracle
+            } else {
                 layer[index] = .crossedLines
             }
-        } else {
-            layer[target] = .controlledNot
         }
+        layer[lastInput] = (lastInput == target ? .controlledNotDown : .oracleDown)
 
         return .success(layer)
     }

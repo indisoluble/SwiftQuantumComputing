@@ -38,10 +38,6 @@ class PositionTextView: PositionView {
         showText("U" + asParameters(inputs))
     }
 
-    func showOracleControls(_ controls: [Int]) {
-        showText("f" + asParameters(controls))
-    }
-
     func showRadians(_ radians: Double) {
         showText(String(format: "R(%.2f)", radians))
     }
