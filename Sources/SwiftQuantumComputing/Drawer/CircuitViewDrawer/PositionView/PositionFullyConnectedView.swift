@@ -1,8 +1,8 @@
 //
-//  OracleUpPositionView.swift
+//  PositionFullyConnectedView.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre (dev) on 30/08/2020.
+//  Created by Enrique de la Torre on 31/08/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,4 +22,14 @@ import Foundation
 
 // MARK: - Main body
 
-final class OracleUpPositionView: PositionView {}
+class PositionFullyConnectedView: PositionView {
+
+    // MARK: - PositionViewFullyConnectable outlets
+
+    @IBOutlet weak var connectionUp: SQCView!
+    @IBOutlet weak var conenctionDown: SQCView!
+}
+
+// MARK: - PositionViewFullyConnectable methods
+
+extension PositionFullyConnectedView: PositionViewFullyConnectable {}

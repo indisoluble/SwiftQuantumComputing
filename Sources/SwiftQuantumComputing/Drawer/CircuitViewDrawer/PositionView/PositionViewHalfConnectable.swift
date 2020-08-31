@@ -1,9 +1,9 @@
 //
-//  ControlUpPositionView.swift
+//  PositionViewHalfConnectable.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 16/09/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 31/08/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,21 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-final class ControlUpPositionView: PositionView {}
+protocol PositionViewHalfConnectable {
+    var connection: SQCView! { get }
+}
+
+// MARK: - PositionViewHalfConnectable default implementations
+
+extension PositionViewHalfConnectable {
+    var isConnected: Bool {
+        get {
+            return !connection.isHidden
+        }
+        set {
+            connection.isHidden = !newValue
+        }
+    }
+}

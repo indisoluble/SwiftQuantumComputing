@@ -1,8 +1,8 @@
 //
-//  OracleDownPositionView.swift
+//  PositionHalfConnectedTextView.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre (dev) on 30/08/2020.
+//  Created by Enrique de la Torre on 31/08/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,4 +22,25 @@ import Foundation
 
 // MARK: - Main body
 
-final class OracleDownPositionView: PositionView {}
+class PositionHalfConnectedTextView: PositionView {
+
+    // MARK: - PositionViewHalfConnectable outlets
+
+    @IBOutlet weak var connection: SQCView!
+
+    // MARK: - PositionViewTextShowable outlets
+
+    #if os(macOS)
+    @IBOutlet weak var label: NSTextField!
+    #else
+    @IBOutlet weak var label: UILabel!
+    #endif
+}
+
+// MARK: - PositionViewHalfConnectable methods
+
+extension PositionHalfConnectedTextView: PositionViewHalfConnectable {}
+
+// MARK: - PositionViewTextShowable methods
+
+extension PositionHalfConnectedTextView: PositionViewTextShowable {}

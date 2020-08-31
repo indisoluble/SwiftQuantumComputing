@@ -6,7 +6,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="ControlledNotPositionView" customModule="SwiftQuantumComputing" customModuleProvider="target"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="ControlledNotPositionView" customModule="SwiftQuantumComputing" customModuleProvider="target">
+            <connections>
+                <outlet property="conenctionDown" destination="bGg-9B-Eug" id="FWR-am-UC9"/>
+                <outlet property="connectionUp" destination="8i8-7i-h8f" id="KFp-H5-R0e"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="tEk-a9-CwF">
@@ -31,14 +36,26 @@
                                 <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </box>
-                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="zR1-po-MbW">
-                                <rect key="frame" x="39" y="0.0" width="2" height="80"/>
-                                <view key="contentView" id="Jr7-wl-hwq">
-                                    <rect key="frame" x="0.0" y="0.0" width="2" height="80"/>
+                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="8i8-7i-h8f">
+                                <rect key="frame" x="39" y="41" width="2" height="39"/>
+                                <view key="contentView" id="7ON-FL-Eyv">
+                                    <rect key="frame" x="0.0" y="0.0" width="2" height="39"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="2" id="kHU-jf-opp"/>
+                                    <constraint firstAttribute="width" constant="2" id="kwC-M0-r9a"/>
+                                </constraints>
+                                <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </box>
+                            <box boxType="custom" borderType="none" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="bGg-9B-Eug">
+                                <rect key="frame" x="39" y="0.0" width="2" height="39"/>
+                                <view key="contentView" id="ZIY-n4-HEM">
+                                    <rect key="frame" x="0.0" y="0.0" width="2" height="39"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="2" id="mnD-OW-pp1"/>
                                 </constraints>
                                 <color key="borderColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -119,13 +136,16 @@
                             </box>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="8i8-7i-h8f" firstAttribute="top" secondItem="ft8-UX-h73" secondAttribute="top" id="70h-5c-oBZ"/>
+                            <constraint firstItem="8i8-7i-h8f" firstAttribute="centerX" secondItem="ft8-UX-h73" secondAttribute="centerX" id="Bg6-5P-29V"/>
                             <constraint firstItem="YbC-yg-2Yb" firstAttribute="centerY" secondItem="ft8-UX-h73" secondAttribute="centerY" id="CBI-Fi-ZnX"/>
-                            <constraint firstAttribute="bottom" secondItem="zR1-po-MbW" secondAttribute="bottom" id="JZT-2N-Zu6"/>
+                            <constraint firstItem="bGg-9B-Eug" firstAttribute="centerX" secondItem="ft8-UX-h73" secondAttribute="centerX" id="K8s-t1-mfR"/>
+                            <constraint firstAttribute="bottom" secondItem="bGg-9B-Eug" secondAttribute="bottom" id="Ufx-q2-7uu"/>
                             <constraint firstItem="YbC-yg-2Yb" firstAttribute="leading" secondItem="ft8-UX-h73" secondAttribute="leading" id="VLA-TM-3GY"/>
-                            <constraint firstItem="zR1-po-MbW" firstAttribute="centerX" secondItem="ft8-UX-h73" secondAttribute="centerX" id="blU-nW-yaw"/>
+                            <constraint firstItem="8i8-7i-h8f" firstAttribute="bottom" secondItem="YbC-yg-2Yb" secondAttribute="top" id="WCf-1H-DQc"/>
                             <constraint firstItem="OpI-2b-sKZ" firstAttribute="centerX" secondItem="ft8-UX-h73" secondAttribute="centerX" id="d0W-oG-YTs"/>
+                            <constraint firstItem="bGg-9B-Eug" firstAttribute="top" secondItem="YbC-yg-2Yb" secondAttribute="bottom" id="gYM-Ml-aIG"/>
                             <constraint firstItem="OpI-2b-sKZ" firstAttribute="centerY" secondItem="ft8-UX-h73" secondAttribute="centerY" id="goD-1r-T8p"/>
-                            <constraint firstItem="zR1-po-MbW" firstAttribute="top" secondItem="ft8-UX-h73" secondAttribute="top" id="p7b-cZ-teB"/>
                             <constraint firstAttribute="trailing" secondItem="YbC-yg-2Yb" secondAttribute="trailing" id="pVo-aW-ii1"/>
                         </constraints>
                     </view>

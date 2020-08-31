@@ -22,4 +22,4 @@ import Foundation
 
 // MARK: - Main body
 
-final class ControlPositionView: PositionView {}
+final class ControlPositionView: PositionFullyConnectedView {}

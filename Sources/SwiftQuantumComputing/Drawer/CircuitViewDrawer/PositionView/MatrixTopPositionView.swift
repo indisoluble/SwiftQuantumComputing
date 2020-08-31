@@ -22,4 +22,4 @@ import Foundation
 
 // MARK: - Main body
 
-final class MatrixTopPositionView: PositionTextView {}
+final class MatrixTopPositionView: PositionHalfConnectedTextView {}

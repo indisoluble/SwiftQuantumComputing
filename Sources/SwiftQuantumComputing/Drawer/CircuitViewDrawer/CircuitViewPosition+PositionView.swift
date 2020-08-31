@@ -31,8 +31,8 @@ extension CircuitViewPosition {
 
         switch self {
         case .qubit(let index):
-            let view = QubitPositionView(frame: frame)
-            view.showText("q\(index):")
+            var view = QubitPositionView(frame: frame)
+            view.text = "q\(index):"
 
             return view
         case .lineHorizontal:
@@ -40,53 +40,82 @@ extension CircuitViewPosition {
         case .crossedLines:
             return CrossedLinesPositionView(frame: frame)
         case .hadamard:
-            return HadamardPositionView(frame: frame)
+            var view = MatrixPositionView(frame: frame)
+            view.text = "H"
+            view.configureConnectivity(.none)
+
+            return view
         case .not:
-            return NotPositionView(frame: frame)
+            var view = MatrixPositionView(frame: frame)
+            view.text = "X"
+            view.configureConnectivity(.none)
+
+            return view
         case .phaseShift(let radians):
-            let view = PhaseShiftPositionView(frame: frame)
-            view.showText(String(format: "R(%.2f)", radians))
+            var view = MatrixPositionView(frame: frame)
+            view.text =  String(format: "R(%.2f)", radians)
+            view.configureConnectivity(.none)
 
             return view
         case .controlledNot:
-            return ControlledNotPositionView(frame: frame)
+            let view = ControlledNotPositionView(frame: frame)
+            view.configureConnectivity(.both)
+
+            return view
         case .controlledNotDown:
-            return ControlledNotDownPositionView(frame: frame)
+            let view = ControlledNotPositionView(frame: frame)
+            view.configureConnectivity(.down)
+
+            return view
         case .controlledNotUp:
-            return ControlledNotUpPositionView(frame: frame)
+            let view = ControlledNotPositionView(frame: frame)
+            view.configureConnectivity(.up)
+
+            return view
         case .control:
-            return ControlPositionView(frame: frame)
+            let view = ControlPositionView(frame: frame)
+            view.configureConnectivity(.both)
+
+            return view
         case .controlDown:
-            return ControlDownPositionView(frame: frame)
+            let view = ControlPositionView(frame: frame)
+            view.configureConnectivity(.down)
+
+            return view
         case .controlUp:
-            return ControlUpPositionView(frame: frame)
+            let view = ControlPositionView(frame: frame)
+            view.configureConnectivity(.up)
+
+            return view
         case .matrix:
-            return MatrixPositionView(frame: frame)
+            var view = MatrixPositionView(frame: frame)
+            view.text = "U"
+            view.configureConnectivity(.none)
+
+            return view
         case .matrixUp:
-            let view = MatrixUpConnectedPositionView(frame: frame)
-            view.showText("U")
+            var view = MatrixPositionView(frame: frame)
+            view.text = "U"
+            view.configureConnectivity(.up)
 
             return view
         case .matrixDown:
-            let view = MatrixDownConnectedPositionView(frame: frame)
-            view.showText("U")
+            var view = MatrixPositionView(frame: frame)
+            view.text = "U"
+            view.configureConnectivity(.down)
 
             return view
         case .matrixTop(let connected, let showText):
-            let view = (connected ?
-                MatrixTopConnectedPositionView(frame: frame) :
-                MatrixTopPositionView(frame: frame))
-            if showText {
-                view.showText("U")
-            } else {
-                view.clearText()
-            }
+            var view = MatrixTopPositionView(frame: frame)
+            view.text = (showText ? "U" : "")
+            view.isConnected = connected
 
             return view
         case .matrixBottom(let connected):
-            return (connected ?
-                MatrixBottomConnectedPositionView(frame: frame) :
-                MatrixBottomPositionView(frame: frame))
+            var view = MatrixBottomPositionView(frame: frame)
+            view.isConnected = connected
+
+            return view
         case .matrixMiddle:
             return MatrixMiddlePositionView(frame: frame)
         case .matrixGap:
@@ -96,11 +125,20 @@ extension CircuitViewPosition {
         case .matrixGapDown:
             return MatrixGapDownPositionView(frame: frame)
         case .oracle:
-            return OraclePositionView(frame: frame)
+            let view = OraclePositionView(frame: frame)
+            view.configureConnectivity(.both)
+
+            return view
         case .oracleUp:
-            return OracleUpPositionView(frame: frame)
+            let view = OraclePositionView(frame: frame)
+            view.configureConnectivity(.up)
+
+            return view
         case .oracleDown:
-            return OracleDownPositionView(frame: frame)
+            let view = OraclePositionView(frame: frame)
+            view.configureConnectivity(.down)
+
+            return view
         }
     }
 }
