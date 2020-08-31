@@ -1758,19 +1758,7 @@
 		FF663D2B216A0D80002298BA /* PositionView */ = {
 			isa = PBXGroup;
 			children = (
-				FF18358B21EA634D003E2F04 /* ControlledNotPositionView.xib */,
-				FF4BBE7A24130DD1002B4FA6 /* ControlPositionView.xib */,
-				FF663D39216A204F002298BA /* CrossedLinesPositionView.xib */,
-				FF663D3F216A260F002298BA /* LineHorizontalPositionView.xib */,
-				FFB5B556216A2EB6009C59FC /* MatrixBottomPositionView.xib */,
-				FF1EE63724FAAF2E007DC99B /* MatrixGapDownPositionView.xib */,
-				FFB5B55C216A30CD009C59FC /* MatrixGapPositionView.xib */,
-				FF1EE63624FAAF2E007DC99B /* MatrixGapUpPositionView.xib */,
-				FFB5B559216A2FBA009C59FC /* MatrixMiddlePositionView.xib */,
-				FFB5B55F216A3BA9009C59FC /* MatrixPositionView.xib */,
-				FFB5B565216A4A79009C59FC /* MatrixTopPositionView.xib */,
-				FFAA606024FBD21800437D39 /* OraclePositionView.xib */,
-				FFB5B56B216A526A009C59FC /* QubitPositionView.xib */,
+				FFF12ACD24FD799D007360E5 /* Custom */,
 			);
 			path = PositionView;
 			sourceTree = "<group>";
@@ -2385,20 +2373,7 @@
 		FFBCD5E3214DBB670047020B /* PositionView */ = {
 			isa = PBXGroup;
 			children = (
-				FF9BBE5F214EAABD00AD1F78 /* CircleView.swift */,
-				FF18358921EA6201003E2F04 /* ControlledNotPositionView.xib */,
-				FF4BBE8224131CA9002B4FA6 /* ControlPositionView.xib */,
-				FF9BBE29214E759100AD1F78 /* CrossedLinesPositionView.xib */,
-				FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */,
-				FF9BBE55214E980900AD1F78 /* MatrixBottomPositionView.xib */,
-				FF1EE63024FAAE98007DC99B /* MatrixGapDownPositionView.xib */,
-				FF9BBE5D214E9A1E00AD1F78 /* MatrixGapPositionView.xib */,
-				FF1EE63124FAAE99007DC99B /* MatrixGapUpPositionView.xib */,
-				FF9BBE59214E991600AD1F78 /* MatrixMiddlePositionView.xib */,
-				FF9BBE35214E7A9F00AD1F78 /* MatrixPositionView.xib */,
-				FF9BBE51214E969300AD1F78 /* MatrixTopPositionView.xib */,
-				FFAA605724FBC9CB00437D39 /* OraclePositionView.xib */,
-				FF9BBE39214E7C2400AD1F78 /* QubitPositionView.xib */,
+				FFF12ACC24FD798A007360E5 /* Custom */,
 			);
 			path = PositionView;
 			sourceTree = "<group>";
@@ -2442,18 +2417,7 @@
 		FFDEDF1A216968BD005590B4 /* PositionView */ = {
 			isa = PBXGroup;
 			children = (
-				FF18358621EA5E7C003E2F04 /* ControlledNotPositionView.swift */,
-				FF4BBE7F24131980002B4FA6 /* ControlPositionView.swift */,
-				FF9BBE27214E756F00AD1F78 /* CrossedLinesPositionView.swift */,
-				FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */,
-				FF9BBE53214E979A00AD1F78 /* MatrixBottomPositionView.swift */,
-				FF1EE62A24FAAC18007DC99B /* MatrixGapDownPositionView.swift */,
-				FF9BBE5B214E99C900AD1F78 /* MatrixGapPositionView.swift */,
-				FF1EE62D24FAAC3F007DC99B /* MatrixGapUpPositionView.swift */,
-				FF9BBE57214E98C400AD1F78 /* MatrixMiddlePositionView.swift */,
-				FF9BBE33214E7A4C00AD1F78 /* MatrixPositionView.swift */,
-				FF9BBE4F214E960900AD1F78 /* MatrixTopPositionView.swift */,
-				FFAA604D24FBC4C200437D39 /* OraclePositionView.swift */,
+				FFF12ACB24FD790D007360E5 /* Custom */,
 				FFF0C87524FD36D4009B7DF0 /* PositionFullyConnectedTextView.swift */,
 				FF8E4A5324FD12EC00299BE0 /* PositionFullyConnectedView.swift */,
 				FF6657F124FD67EA004563F9 /* PositionHalfConnectedTextView.swift */,
@@ -2463,7 +2427,6 @@
 				FF8E4A5024FD090800299BE0 /* PositionViewFullyConnectable.swift */,
 				FF6657EB24FD5D25004563F9 /* PositionViewHalfConnectable.swift */,
 				FF8E4A4D24FCFDA800299BE0 /* PositionViewTextShowable.swift */,
-				FF9BBE37214E7BD600AD1F78 /* QubitPositionView.swift */,
 			);
 			path = PositionView;
 			sourceTree = "<group>";
@@ -2526,6 +2489,67 @@
 				FF3A1D1B248EB652005E4CEB /* CircuitStatevectorAdapterTests.swift */,
 			);
 			path = Facade;
+			sourceTree = "<group>";
+		};
+		FFF12ACB24FD790D007360E5 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				FF18358621EA5E7C003E2F04 /* ControlledNotPositionView.swift */,
+				FF4BBE7F24131980002B4FA6 /* ControlPositionView.swift */,
+				FF9BBE27214E756F00AD1F78 /* CrossedLinesPositionView.swift */,
+				FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */,
+				FF9BBE53214E979A00AD1F78 /* MatrixBottomPositionView.swift */,
+				FF1EE62A24FAAC18007DC99B /* MatrixGapDownPositionView.swift */,
+				FF9BBE5B214E99C900AD1F78 /* MatrixGapPositionView.swift */,
+				FF1EE62D24FAAC3F007DC99B /* MatrixGapUpPositionView.swift */,
+				FF9BBE57214E98C400AD1F78 /* MatrixMiddlePositionView.swift */,
+				FF9BBE33214E7A4C00AD1F78 /* MatrixPositionView.swift */,
+				FF9BBE4F214E960900AD1F78 /* MatrixTopPositionView.swift */,
+				FFAA604D24FBC4C200437D39 /* OraclePositionView.swift */,
+				FF9BBE37214E7BD600AD1F78 /* QubitPositionView.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		FFF12ACC24FD798A007360E5 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				FF9BBE5F214EAABD00AD1F78 /* CircleView.swift */,
+				FF18358921EA6201003E2F04 /* ControlledNotPositionView.xib */,
+				FF4BBE8224131CA9002B4FA6 /* ControlPositionView.xib */,
+				FF9BBE29214E759100AD1F78 /* CrossedLinesPositionView.xib */,
+				FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */,
+				FF9BBE55214E980900AD1F78 /* MatrixBottomPositionView.xib */,
+				FF1EE63024FAAE98007DC99B /* MatrixGapDownPositionView.xib */,
+				FF9BBE5D214E9A1E00AD1F78 /* MatrixGapPositionView.xib */,
+				FF1EE63124FAAE99007DC99B /* MatrixGapUpPositionView.xib */,
+				FF9BBE59214E991600AD1F78 /* MatrixMiddlePositionView.xib */,
+				FF9BBE35214E7A9F00AD1F78 /* MatrixPositionView.xib */,
+				FF9BBE51214E969300AD1F78 /* MatrixTopPositionView.xib */,
+				FFAA605724FBC9CB00437D39 /* OraclePositionView.xib */,
+				FF9BBE39214E7C2400AD1F78 /* QubitPositionView.xib */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
+		FFF12ACD24FD799D007360E5 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				FF18358B21EA634D003E2F04 /* ControlledNotPositionView.xib */,
+				FF4BBE7A24130DD1002B4FA6 /* ControlPositionView.xib */,
+				FF663D39216A204F002298BA /* CrossedLinesPositionView.xib */,
+				FF663D3F216A260F002298BA /* LineHorizontalPositionView.xib */,
+				FFB5B556216A2EB6009C59FC /* MatrixBottomPositionView.xib */,
+				FF1EE63724FAAF2E007DC99B /* MatrixGapDownPositionView.xib */,
+				FFB5B55C216A30CD009C59FC /* MatrixGapPositionView.xib */,
+				FF1EE63624FAAF2E007DC99B /* MatrixGapUpPositionView.xib */,
+				FFB5B559216A2FBA009C59FC /* MatrixMiddlePositionView.xib */,
+				FFB5B55F216A3BA9009C59FC /* MatrixPositionView.xib */,
+				FFB5B565216A4A79009C59FC /* MatrixTopPositionView.xib */,
+				FFAA606024FBD21800437D39 /* OraclePositionView.xib */,
+				FFB5B56B216A526A009C59FC /* QubitPositionView.xib */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		FFF697F021BF23C7004AE4C2 /* Gate */ = {
