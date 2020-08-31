@@ -27,6 +27,32 @@ enum PositionViewConnectivity {
     case up
     case down
     case both
+
+    // MARK: - Internal init methods
+
+    init(_ connectivity: CircuitViewPosition.ControlConnectivity) {
+        switch connectivity {
+        case .up:
+            self = .up
+        case .down:
+            self = .down
+        case .both:
+            self = .both
+        }
+    }
+
+    init(_ connectivity: CircuitViewPosition.TargetConnectivity) {
+        switch connectivity {
+        case .none:
+            self = .none
+        case .up:
+            self = .up
+        case .down:
+            self = .down
+        case .both:
+            self = .both
+        }
+    }
 }
 
 // MARK: - Protocol definition

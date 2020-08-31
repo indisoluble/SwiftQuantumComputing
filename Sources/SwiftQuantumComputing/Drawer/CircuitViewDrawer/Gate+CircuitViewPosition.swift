@@ -64,7 +64,7 @@ private extension Gate {
             return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
-        layer[target] = .hadamard
+        layer[target] = .hadamard()
 
         return .success(layer)
     }
@@ -76,7 +76,7 @@ private extension Gate {
             return .failure(.gateWithOneOrMoreInputsOutOfRange(gate: self))
         }
 
-        layer[target] = .not
+        layer[target] = .not()
 
         return .success(layer)
     }
@@ -103,8 +103,8 @@ private extension Gate {
         }
 
         let isTargetOnTop = (target > control)
-        layer[target] = (isTargetOnTop ? .controlledNotDown : .controlledNotUp)
-        layer[control] = (isTargetOnTop ? .controlUp : .controlDown)
+        layer[target] = .not(connected: (isTargetOnTop ? .down : .up))
+        layer[control] = .control(connected: (isTargetOnTop ? .up : .down))
 
         let step = (isTargetOnTop ? -1 : 1)
         for index in stride(from: (target + step), to: control, by: step) {
@@ -126,7 +126,7 @@ private extension Gate {
         }
 
         if (inputs.count == 1) {
-            layer[inputs[0]] = .matrix
+            layer[inputs[0]] = .matrix()
 
             return .success(layer)
         }
@@ -139,7 +139,7 @@ private extension Gate {
         for index in (first + 1)..<last {
             let isInputConnected = sortedInputs.contains(index)
 
-            layer[index] = (isInputConnected ? .matrixMiddle : .matrixGap)
+            layer[index] = (isInputConnected ? .matrixMiddle : .matrixGap())
         }
         layer[last] = .matrixTop(connected: false)
 
@@ -170,7 +170,7 @@ private extension Gate {
         let isControlBelow = (control < firstInput)
 
         if (isControlAbove || isControlBelow) {
-            layer[control] = (isControlAbove ? .controlDown : .controlUp)
+            layer[control] = .control(connected: (isControlAbove ? .down : .up))
 
             let step = (isControlAbove ? -1 : 1)
             let input = (isControlAbove ? lastInput : firstInput)
@@ -178,14 +178,16 @@ private extension Gate {
                 layer[index] = .crossedLines
             }
         } else {
-            layer[control] = .control
+            layer[control] = .control(connected: .both)
         }
 
         if (inputs.count == 1) {
-            layer[firstInput] = (isControlAbove ? .matrixUp : .matrixDown)
+            layer[firstInput] = .matrix(connected: (isControlAbove ? .up : .down))
         } else {
             let isControlUp = (control == firstInput + 1)
-            layer[firstInput] = (isControlUp ? .matrixUp : .matrixBottom(connected: isControlBelow))
+            layer[firstInput] = (isControlUp ?
+                .matrix(connected: .up) :
+                .matrixBottom(connected: isControlBelow))
 
             for index in (firstInput + 1)..<lastInput {
                 if index == control {
@@ -197,14 +199,18 @@ private extension Gate {
                 let isControlDown = (control == index - 1)
 
                 layer[index] = (isInputAGap ?
-                    (isControlUp ? .matrixGapUp : (isControlDown ? .matrixGapDown : .matrixGap)) :
+                    (isControlUp ?
+                        .matrixGap(connected: .up) :
+                        (isControlDown ? .matrixGap(connected: .down) : .matrixGap())) :
                     (isControlUp ?
                         .matrixTop(connected: true, showText: false) :
                         (isControlDown ? .matrixBottom(connected: true) : .matrixMiddle)))
             }
 
             let isControlDown = (control == lastInput - 1)
-            layer[lastInput] = (isControlDown ? .matrixDown : .matrixTop(connected: isControlAbove))
+            layer[lastInput] = (isControlDown ?
+                .matrix(connected: .down) :
+                .matrixTop(connected: isControlAbove))
         }
 
         return .success(layer)
@@ -231,17 +237,19 @@ private extension Gate {
         let firstInput = sortedInputs.first!
         let lastInput = sortedInputs.last!
 
-        layer[firstInput] = (firstInput == target ? .controlledNotUp : .oracleUp)
+        layer[firstInput] = (firstInput == target ? .not(connected: .up) : .oracle(connected: .up))
         for index in (firstInput + 1)..<lastInput {
             if index == target {
-                layer[index] = .controlledNot
+                layer[index] = .not(connected: .both)
             } else if controls.contains(index) {
-                layer[index] = .oracle
+                layer[index] = .oracle(connected: .both)
             } else {
                 layer[index] = .crossedLines
             }
         }
-        layer[lastInput] = (lastInput == target ? .controlledNotDown : .oracleDown)
+        layer[lastInput] = (lastInput == target ?
+            .not(connected: .down) :
+            .oracle(connected: .down))
 
         return .success(layer)
     }

@@ -23,31 +23,39 @@ import Foundation
 // MARK: - Internal types
 
 enum CircuitViewPosition {
+    enum ControlConnectivity {
+        case up
+        case down
+        case both
+    }
+
+    enum TargetConnectivity {
+        case none
+        case up
+        case down
+        case both
+    }
+
+    enum GapConnectivity {
+        case none
+        case up
+        case down
+    }
+
     case qubit(index: Int)
     case lineHorizontal
     case crossedLines
-    case hadamard
-    case not
-    case phaseShift(radians: Double)
-    case controlledNot
-    case controlledNotDown
-    case controlledNotUp
-    case control
-    case controlDown
-    case controlUp
-    case matrix
-    case matrixUp
-    case matrixDown
+    case control(connected: ControlConnectivity)
+    case oracle(connected: ControlConnectivity)
+    case hadamard(connected: TargetConnectivity = .none)
+    case not(connected: TargetConnectivity = .none)
+    case phaseShift(radians: Double, connected: TargetConnectivity = .none)
+    case matrix(connected: TargetConnectivity = .none)
     case matrixTop(connected: Bool, showText: Bool = true)
     case matrixBottom(connected: Bool)
     case matrixMiddle
-    case matrixGap
-    case matrixGapUp
-    case matrixGapDown
-    case oracle
-    case oracleUp
-    case oracleDown
-} 
+    case matrixGap(connected: GapConnectivity = .none)
+}
 
 // MARK: - Equatable methods
 

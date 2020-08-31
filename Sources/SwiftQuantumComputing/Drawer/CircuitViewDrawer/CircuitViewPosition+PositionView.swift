@@ -39,70 +39,46 @@ extension CircuitViewPosition {
             return LineHorizontalPositionView(frame: frame)
         case .crossedLines:
             return CrossedLinesPositionView(frame: frame)
-        case .hadamard:
+        case .control(let connected):
+            let view = ControlPositionView(frame: frame)
+            view.configureConnectivity(PositionViewConnectivity(connected))
+
+            return view
+        case .oracle(let connected):
+            let view = OraclePositionView(frame: frame)
+            view.configureConnectivity(PositionViewConnectivity(connected))
+
+            return view
+        case .hadamard(let connected):
             var view = MatrixPositionView(frame: frame)
             view.text = "H"
-            view.configureConnectivity(.none)
+            view.configureConnectivity(PositionViewConnectivity(connected))
 
             return view
-        case .not:
+        case .not(let connected):
+            switch connected {
+            case .none:
+                var view = MatrixPositionView(frame: frame)
+                view.text = "X"
+                view.configureConnectivity(.none)
+
+                return view
+            default:
+                let view = ControlledNotPositionView(frame: frame)
+                view.configureConnectivity(PositionViewConnectivity(connected))
+
+                return view
+            }
+        case .phaseShift(let radians, let connected):
             var view = MatrixPositionView(frame: frame)
-            view.text = "X"
-            view.configureConnectivity(.none)
+            view.text = String(format: "R(%.2f)", radians)
+            view.configureConnectivity(PositionViewConnectivity(connected))
 
             return view
-        case .phaseShift(let radians):
-            var view = MatrixPositionView(frame: frame)
-            view.text =  String(format: "R(%.2f)", radians)
-            view.configureConnectivity(.none)
-
-            return view
-        case .controlledNot:
-            let view = ControlledNotPositionView(frame: frame)
-            view.configureConnectivity(.both)
-
-            return view
-        case .controlledNotDown:
-            let view = ControlledNotPositionView(frame: frame)
-            view.configureConnectivity(.down)
-
-            return view
-        case .controlledNotUp:
-            let view = ControlledNotPositionView(frame: frame)
-            view.configureConnectivity(.up)
-
-            return view
-        case .control:
-            let view = ControlPositionView(frame: frame)
-            view.configureConnectivity(.both)
-
-            return view
-        case .controlDown:
-            let view = ControlPositionView(frame: frame)
-            view.configureConnectivity(.down)
-
-            return view
-        case .controlUp:
-            let view = ControlPositionView(frame: frame)
-            view.configureConnectivity(.up)
-
-            return view
-        case .matrix:
+        case .matrix(let connected):
             var view = MatrixPositionView(frame: frame)
             view.text = "U"
-            view.configureConnectivity(.none)
-
-            return view
-        case .matrixUp:
-            var view = MatrixPositionView(frame: frame)
-            view.text = "U"
-            view.configureConnectivity(.up)
-
-            return view
-        case .matrixDown:
-            var view = MatrixPositionView(frame: frame)
-            view.text = "U"
-            view.configureConnectivity(.down)
+            view.configureConnectivity(PositionViewConnectivity(connected))
 
             return view
         case .matrixTop(let connected, let showText):
@@ -118,27 +94,15 @@ extension CircuitViewPosition {
             return view
         case .matrixMiddle:
             return MatrixMiddlePositionView(frame: frame)
-        case .matrixGap:
-            return MatrixGapPositionView(frame: frame)
-        case .matrixGapUp:
-            return MatrixGapUpPositionView(frame: frame)
-        case .matrixGapDown:
-            return MatrixGapDownPositionView(frame: frame)
-        case .oracle:
-            let view = OraclePositionView(frame: frame)
-            view.configureConnectivity(.both)
-
-            return view
-        case .oracleUp:
-            let view = OraclePositionView(frame: frame)
-            view.configureConnectivity(.up)
-
-            return view
-        case .oracleDown:
-            let view = OraclePositionView(frame: frame)
-            view.configureConnectivity(.down)
-
-            return view
+        case .matrixGap(let connected):
+            switch connected {
+            case .none:
+                return MatrixGapPositionView(frame: frame)
+            case .up:
+                return MatrixGapUpPositionView(frame: frame)
+            case .down:
+                return MatrixGapDownPositionView(frame: frame)
+            }
         }
     }
 }

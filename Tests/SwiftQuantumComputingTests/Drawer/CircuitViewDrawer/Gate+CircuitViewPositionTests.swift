@@ -70,9 +70,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.controlledNotUp,
+            CircuitViewPosition.not(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlDown,
+            CircuitViewPosition.control(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -89,9 +89,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.controlUp,
+            CircuitViewPosition.control(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNotDown,
+            CircuitViewPosition.not(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -121,7 +121,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.hadamard,
+            CircuitViewPosition.hadamard(connected: .none),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -151,7 +151,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.not,
+            CircuitViewPosition.not(connected: .none),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -194,7 +194,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrix,
+            CircuitViewPosition.matrix(connected: .none),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -213,10 +213,10 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -248,7 +248,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.phaseShift(radians: radians),
+            CircuitViewPosition.phaseShift(radians: radians, connected: .none),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -304,9 +304,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.controlledNotUp,
+            CircuitViewPosition.not(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -323,8 +323,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.controlledNotUp,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.not(connected: .up),
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal
         ]
@@ -342,9 +342,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
+            CircuitViewPosition.oracle(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNotDown,
+            CircuitViewPosition.not(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -361,8 +361,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
-            CircuitViewPosition.controlledNotDown,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.not(connected: .down),
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal
         ]
@@ -384,9 +384,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
-            CircuitViewPosition.controlledNot,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.not(connected: .both),
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal
         ]
@@ -407,10 +407,10 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.controlledNot,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.not(connected: .both),
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal
         ]
@@ -429,13 +429,13 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
+            CircuitViewPosition.oracle(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNot,
+            CircuitViewPosition.not(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -453,16 +453,16 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
+            CircuitViewPosition.oracle(connected: .up),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNot,
+            CircuitViewPosition.not(connected: .both),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -480,14 +480,14 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
+            CircuitViewPosition.oracle(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNot,
+            CircuitViewPosition.not(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -505,16 +505,16 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNot,
+            CircuitViewPosition.not(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -532,19 +532,19 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNot,
+            CircuitViewPosition.not(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -562,22 +562,22 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNot,
+            CircuitViewPosition.not(connected: .both),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -595,23 +595,23 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.crossedLines,
-            CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNot,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.not(connected: .both),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -629,24 +629,24 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.crossedLines,
-            CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNot,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.not(connected: .both),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -664,25 +664,25 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.crossedLines,
-            CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNot,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracle,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.not(connected: .both),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -700,13 +700,13 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.oracleUp,
+            CircuitViewPosition.oracle(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlledNotDown,
+            CircuitViewPosition.not(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -724,13 +724,13 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.controlledNotUp,
+            CircuitViewPosition.not(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracle,
+            CircuitViewPosition.oracle(connected: .both),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.oracleDown,
+            CircuitViewPosition.oracle(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -787,9 +787,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.controlUp,
+            CircuitViewPosition.control(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.matrixDown,
+            CircuitViewPosition.matrix(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -807,8 +807,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.controlUp,
-            CircuitViewPosition.matrixDown,
+            CircuitViewPosition.control(connected: .up),
+            CircuitViewPosition.matrix(connected: .down),
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal
         ]
@@ -826,9 +826,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixUp,
+            CircuitViewPosition.matrix(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlDown,
+            CircuitViewPosition.control(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -845,8 +845,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixUp,
-            CircuitViewPosition.controlDown,
+            CircuitViewPosition.matrix(connected: .up),
+            CircuitViewPosition.control(connected: .down),
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal
         ]
@@ -869,9 +869,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixDown,
+            CircuitViewPosition.matrix(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrix(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -894,8 +894,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
             CircuitViewPosition.matrixTop(connected: true, showText: false),
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixDown,
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrix(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -917,9 +917,9 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixDown,
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrix(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -940,10 +940,10 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixUp,
-            CircuitViewPosition.control,
+            CircuitViewPosition.matrix(connected: .up),
+            CircuitViewPosition.control(connected: .both),
             CircuitViewPosition.matrixBottom(connected: true),
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -964,10 +964,10 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrix(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -986,12 +986,12 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1010,15 +1010,15 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1037,13 +1037,13 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1063,14 +1063,14 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1091,16 +1091,16 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixBottom(connected: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1121,19 +1121,19 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixBottom(connected: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1154,20 +1154,20 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixBottom(connected: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1188,21 +1188,21 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixBottom(connected: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1223,22 +1223,22 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixBottom(connected: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixGapUp,
-            CircuitViewPosition.control,
-            CircuitViewPosition.matrixGapDown,
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1257,12 +1257,12 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixTop(connected: true),
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixTop(connected: true, showText: true),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.controlDown,
+            CircuitViewPosition.control(connected: .down),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1280,13 +1280,13 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.controlUp,
+            CircuitViewPosition.control(connected: .up),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.matrixBottom(connected: true),
-            CircuitViewPosition.matrixGap,
+            CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixGap,
-            CircuitViewPosition.matrixTop(connected: false),
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixTop(connected: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
