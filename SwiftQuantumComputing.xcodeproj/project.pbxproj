@@ -443,8 +443,8 @@
 		FF9BBE56214E980900AD1F78 /* MatrixBottomPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9BBE55214E980900AD1F78 /* MatrixBottomPositionView.xib */; };
 		FF9BBE58214E98C400AD1F78 /* MatrixMiddlePositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE57214E98C400AD1F78 /* MatrixMiddlePositionView.swift */; };
 		FF9BBE5A214E991600AD1F78 /* MatrixMiddlePositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9BBE59214E991600AD1F78 /* MatrixMiddlePositionView.xib */; };
-		FF9BBE5C214E99C900AD1F78 /* MatrixGapPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE5B214E99C900AD1F78 /* MatrixGapPositionView.swift */; };
-		FF9BBE5E214E9A1E00AD1F78 /* MatrixGapPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9BBE5D214E9A1E00AD1F78 /* MatrixGapPositionView.xib */; };
+		FF9BBE5C214E99C900AD1F78 /* MatrixGapNonePositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE5B214E99C900AD1F78 /* MatrixGapNonePositionView.swift */; };
+		FF9BBE5E214E9A1E00AD1F78 /* MatrixGapNonePositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9BBE5D214E9A1E00AD1F78 /* MatrixGapNonePositionView.xib */; };
 		FF9BBE60214EAABD00AD1F78 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE5F214EAABD00AD1F78 /* CircleView.swift */; };
 		FF9BBE7C214ECEDB00AD1F78 /* Gate+CircuitViewPositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE7B214ECEDB00AD1F78 /* Gate+CircuitViewPositionTests.swift */; };
 		FF9FBCD321C56C270070D943 /* ConfigurableGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9FBCD221C56C270070D943 /* ConfigurableGate.swift */; };
@@ -532,8 +532,8 @@
 		FFB5B558216A2F82009C59FC /* MatrixBottomPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE53214E979A00AD1F78 /* MatrixBottomPositionView.swift */; };
 		FFB5B55A216A2FBA009C59FC /* MatrixMiddlePositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFB5B559216A2FBA009C59FC /* MatrixMiddlePositionView.xib */; };
 		FFB5B55B216A3058009C59FC /* MatrixMiddlePositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE57214E98C400AD1F78 /* MatrixMiddlePositionView.swift */; };
-		FFB5B55D216A30CD009C59FC /* MatrixGapPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFB5B55C216A30CD009C59FC /* MatrixGapPositionView.xib */; };
-		FFB5B55E216A3B8A009C59FC /* MatrixGapPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE5B214E99C900AD1F78 /* MatrixGapPositionView.swift */; };
+		FFB5B55D216A30CD009C59FC /* MatrixGapNonePositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFB5B55C216A30CD009C59FC /* MatrixGapNonePositionView.xib */; };
+		FFB5B55E216A3B8A009C59FC /* MatrixGapNonePositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE5B214E99C900AD1F78 /* MatrixGapNonePositionView.swift */; };
 		FFB5B560216A3BA9009C59FC /* MatrixPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFB5B55F216A3BA9009C59FC /* MatrixPositionView.xib */; };
 		FFB5B561216A3BE3009C59FC /* MatrixPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE33214E7A4C00AD1F78 /* MatrixPositionView.swift */; };
 		FFB5B563216A46FB009C59FC /* PositionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB5B562216A46FB009C59FC /* PositionTextView.swift */; };
@@ -593,6 +593,10 @@
 		FFCCCD1224A1537F00BC597E /* Circuit+StatevectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCCCD1024A1537F00BC597E /* Circuit+StatevectorTests.swift */; };
 		FFD05D7D23660CC500872BBA /* UnitarySimulatorTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD05D7C23660CC500872BBA /* UnitarySimulatorTestDouble.swift */; };
 		FFD05D7E23660CC500872BBA /* UnitarySimulatorTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD05D7C23660CC500872BBA /* UnitarySimulatorTestDouble.swift */; };
+		FFD2EBAB24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD2EBAA24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift */; };
+		FFD2EBAC24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD2EBAA24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift */; };
+		FFD2EBAE24FFAD0D002FCCB4 /* MatrixGapBothPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD2EBAD24FFAD0D002FCCB4 /* MatrixGapBothPositionView.xib */; };
+		FFD2EBB024FFADCD002FCCB4 /* MatrixGapBothPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD2EBAF24FFADCD002FCCB4 /* MatrixGapBothPositionView.xib */; };
 		FFD7952B245C8BB500E9C74E /* UnitaryGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7952A245C8BB500E9C74E /* UnitaryGate.swift */; };
 		FFD7952C245C8BB500E9C74E /* UnitaryGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7952A245C8BB500E9C74E /* UnitaryGate.swift */; };
 		FFDC34E221C1BCBD0052AC90 /* StatevectorSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDC34E121C1BCBD0052AC90 /* StatevectorSimulator.swift */; };
@@ -985,8 +989,8 @@
 		FF9BBE55214E980900AD1F78 /* MatrixBottomPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixBottomPositionView.xib; sourceTree = "<group>"; };
 		FF9BBE57214E98C400AD1F78 /* MatrixMiddlePositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixMiddlePositionView.swift; sourceTree = "<group>"; };
 		FF9BBE59214E991600AD1F78 /* MatrixMiddlePositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixMiddlePositionView.xib; sourceTree = "<group>"; };
-		FF9BBE5B214E99C900AD1F78 /* MatrixGapPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixGapPositionView.swift; sourceTree = "<group>"; };
-		FF9BBE5D214E9A1E00AD1F78 /* MatrixGapPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixGapPositionView.xib; sourceTree = "<group>"; };
+		FF9BBE5B214E99C900AD1F78 /* MatrixGapNonePositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixGapNonePositionView.swift; sourceTree = "<group>"; };
+		FF9BBE5D214E9A1E00AD1F78 /* MatrixGapNonePositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixGapNonePositionView.xib; sourceTree = "<group>"; };
 		FF9BBE5F214EAABD00AD1F78 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		FF9BBE7B214ECEDB00AD1F78 /* Gate+CircuitViewPositionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+CircuitViewPositionTests.swift"; sourceTree = "<group>"; };
 		FF9CE7EF238B18A90098E5C8 /* Drawer.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Drawer.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -1034,7 +1038,7 @@
 		FFB2277E241EB37900AC64AD /* Rational+CustomStringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rational+CustomStringConvertible.swift"; sourceTree = "<group>"; };
 		FFB5B556216A2EB6009C59FC /* MatrixBottomPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixBottomPositionView.xib; sourceTree = "<group>"; };
 		FFB5B559216A2FBA009C59FC /* MatrixMiddlePositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixMiddlePositionView.xib; sourceTree = "<group>"; };
-		FFB5B55C216A30CD009C59FC /* MatrixGapPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixGapPositionView.xib; sourceTree = "<group>"; };
+		FFB5B55C216A30CD009C59FC /* MatrixGapNonePositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixGapNonePositionView.xib; sourceTree = "<group>"; };
 		FFB5B55F216A3BA9009C59FC /* MatrixPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixPositionView.xib; sourceTree = "<group>"; };
 		FFB5B562216A46FB009C59FC /* PositionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionTextView.swift; sourceTree = "<group>"; };
 		FFB5B565216A4A79009C59FC /* MatrixTopPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixTopPositionView.xib; sourceTree = "<group>"; };
@@ -1072,6 +1076,9 @@
 		FFCCCD1024A1537F00BC597E /* Circuit+StatevectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+StatevectorTests.swift"; sourceTree = "<group>"; };
 		FFD05D7C23660CC500872BBA /* UnitarySimulatorTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitarySimulatorTestDouble.swift; sourceTree = "<group>"; };
 		FFD05D7F236614C900872BBA /* Circuit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Circuit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		FFD2EBAA24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixGapBothPositionView.swift; sourceTree = "<group>"; };
+		FFD2EBAD24FFAD0D002FCCB4 /* MatrixGapBothPositionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatrixGapBothPositionView.xib; sourceTree = "<group>"; };
+		FFD2EBAF24FFADCD002FCCB4 /* MatrixGapBothPositionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MatrixGapBothPositionView.xib; sourceTree = "<group>"; };
 		FFD7952A245C8BB500E9C74E /* UnitaryGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitaryGate.swift; sourceTree = "<group>"; };
 		FFDC34E121C1BCBD0052AC90 /* StatevectorSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorSimulator.swift; sourceTree = "<group>"; };
 		FFDC49F82414178F00DF1E42 /* Matrix+ControlledMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+ControlledMatrixTests.swift"; sourceTree = "<group>"; };
@@ -2499,8 +2506,9 @@
 				FF9BBE27214E756F00AD1F78 /* CrossedLinesPositionView.swift */,
 				FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */,
 				FF9BBE53214E979A00AD1F78 /* MatrixBottomPositionView.swift */,
+				FFD2EBAA24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift */,
 				FF1EE62A24FAAC18007DC99B /* MatrixGapDownPositionView.swift */,
-				FF9BBE5B214E99C900AD1F78 /* MatrixGapPositionView.swift */,
+				FF9BBE5B214E99C900AD1F78 /* MatrixGapNonePositionView.swift */,
 				FF1EE62D24FAAC3F007DC99B /* MatrixGapUpPositionView.swift */,
 				FF9BBE57214E98C400AD1F78 /* MatrixMiddlePositionView.swift */,
 				FF9BBE33214E7A4C00AD1F78 /* MatrixPositionView.swift */,
@@ -2520,8 +2528,9 @@
 				FF9BBE29214E759100AD1F78 /* CrossedLinesPositionView.xib */,
 				FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */,
 				FF9BBE55214E980900AD1F78 /* MatrixBottomPositionView.xib */,
+				FFD2EBAD24FFAD0D002FCCB4 /* MatrixGapBothPositionView.xib */,
 				FF1EE63024FAAE98007DC99B /* MatrixGapDownPositionView.xib */,
-				FF9BBE5D214E9A1E00AD1F78 /* MatrixGapPositionView.xib */,
+				FF9BBE5D214E9A1E00AD1F78 /* MatrixGapNonePositionView.xib */,
 				FF1EE63124FAAE99007DC99B /* MatrixGapUpPositionView.xib */,
 				FF9BBE59214E991600AD1F78 /* MatrixMiddlePositionView.xib */,
 				FF9BBE35214E7A9F00AD1F78 /* MatrixPositionView.xib */,
@@ -2540,8 +2549,9 @@
 				FF663D39216A204F002298BA /* CrossedLinesPositionView.xib */,
 				FF663D3F216A260F002298BA /* LineHorizontalPositionView.xib */,
 				FFB5B556216A2EB6009C59FC /* MatrixBottomPositionView.xib */,
+				FFD2EBAF24FFADCD002FCCB4 /* MatrixGapBothPositionView.xib */,
 				FF1EE63724FAAF2E007DC99B /* MatrixGapDownPositionView.xib */,
-				FFB5B55C216A30CD009C59FC /* MatrixGapPositionView.xib */,
+				FFB5B55C216A30CD009C59FC /* MatrixGapNonePositionView.xib */,
 				FF1EE63624FAAF2E007DC99B /* MatrixGapUpPositionView.xib */,
 				FFB5B559216A2FBA009C59FC /* MatrixMiddlePositionView.xib */,
 				FFB5B55F216A3BA9009C59FC /* MatrixPositionView.xib */,
@@ -2764,13 +2774,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF18358A21EA6201003E2F04 /* ControlledNotPositionView.xib in Resources */,
-				FF9BBE5E214E9A1E00AD1F78 /* MatrixGapPositionView.xib in Resources */,
+				FF9BBE5E214E9A1E00AD1F78 /* MatrixGapNonePositionView.xib in Resources */,
 				FF9BBE56214E980900AD1F78 /* MatrixBottomPositionView.xib in Resources */,
 				FFAA605B24FBC9CB00437D39 /* OraclePositionView.xib in Resources */,
 				FFBCD5E5214DBBA60047020B /* LineHorizontalPositionView.xib in Resources */,
 				FF9BBE3A214E7C2400AD1F78 /* QubitPositionView.xib in Resources */,
 				FF4BBE8324131CA9002B4FA6 /* ControlPositionView.xib in Resources */,
 				FF9BBE5A214E991600AD1F78 /* MatrixMiddlePositionView.xib in Resources */,
+				FFD2EBAE24FFAD0D002FCCB4 /* MatrixGapBothPositionView.xib in Resources */,
 				FF9BBE2A214E759100AD1F78 /* CrossedLinesPositionView.xib in Resources */,
 				FF9BBE36214E7A9F00AD1F78 /* MatrixPositionView.xib in Resources */,
 				FF1EE63424FAAE99007DC99B /* MatrixGapUpPositionView.xib in Resources */,
@@ -2798,8 +2809,9 @@
 				FFB5B560216A3BA9009C59FC /* MatrixPositionView.xib in Resources */,
 				FF663D40216A260F002298BA /* LineHorizontalPositionView.xib in Resources */,
 				FF1EE63924FAAF2E007DC99B /* MatrixGapUpPositionView.xib in Resources */,
+				FFD2EBB024FFADCD002FCCB4 /* MatrixGapBothPositionView.xib in Resources */,
 				FF4BBE7C24130DD1002B4FA6 /* ControlPositionView.xib in Resources */,
-				FFB5B55D216A30CD009C59FC /* MatrixGapPositionView.xib in Resources */,
+				FFB5B55D216A30CD009C59FC /* MatrixGapNonePositionView.xib in Resources */,
 				FFB5B56C216A526A009C59FC /* QubitPositionView.xib in Resources */,
 				FF94375024FAB0FA002BC06E /* MatrixGapDownPositionView.xib in Resources */,
 				FFB5B566216A4A79009C59FC /* MatrixTopPositionView.xib in Resources */,
@@ -2975,6 +2987,7 @@
 				FF97E4C121CABCF1008847FE /* CircuitViewDrawer.swift in Sources */,
 				FF3A1D16248EA989005E4CEB /* CircuitStatevectorAdapter.swift in Sources */,
 				FF8E4A5124FD090800299BE0 /* PositionViewFullyConnectable.swift in Sources */,
+				FFD2EBAB24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift in Sources */,
 				FF79037121964D6F00FFC31D /* String+Bits.swift in Sources */,
 				FF976594246B2D3600376189 /* SimulatorCircuitMatrix.swift in Sources */,
 				FFB22779241E80AD00AC64AD /* Rational.swift in Sources */,
@@ -3013,7 +3026,7 @@
 				FF83790F2471764D0051C2DC /* MainCircuitFactory.swift in Sources */,
 				FF042A78221E05E000C83F3F /* MainGeneticCircuitScore.swift in Sources */,
 				FFB5B563216A46FB009C59FC /* PositionTextView.swift in Sources */,
-				FF9BBE5C214E99C900AD1F78 /* MatrixGapPositionView.swift in Sources */,
+				FF9BBE5C214E99C900AD1F78 /* MatrixGapNonePositionView.swift in Sources */,
 				FFCCCD0E24A14A9D00BC597E /* Circuit+Statevector.swift in Sources */,
 				FFC5964E2203AFB500151355 /* GeneticFactory.swift in Sources */,
 			);
@@ -3244,6 +3257,7 @@
 				FFA6F2C323C2B1E100C678C3 /* XorGaussianEliminationSolverFactory.swift in Sources */,
 				FF46EDD4216924D80044C3CA /* Gate+CircuitViewPosition.swift in Sources */,
 				FFEFC3B82416DB52006214E6 /* Gate+ModularExponentiationWithRangeExponentAndInputs.swift in Sources */,
+				FFD2EBAC24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift in Sources */,
 				FF1CF5F2229C8C33003948F6 /* MainDrawerFactory.swift in Sources */,
 				FFEB608323F8882E00F4FAA1 /* Matrix+Average.swift in Sources */,
 				FF2D447121FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */,
@@ -3291,7 +3305,7 @@
 				FF3A1D1A248EA99D005E4CEB /* MainCircuitStatevectorFactory.swift in Sources */,
 				FF410F3F221F591200D257EE /* MainGeneticPopulationCrossover.swift in Sources */,
 				FF8B40DA23AEDAFC00A51475 /* Gate+OracleReplicator.swift in Sources */,
-				FFB5B55E216A3B8A009C59FC /* MatrixGapPositionView.swift in Sources */,
+				FFB5B55E216A3B8A009C59FC /* MatrixGapNonePositionView.swift in Sources */,
 				FF18358F21EAB099003E2F04 /* OracleGate.swift in Sources */,
 				FF448093247995AE0014D3C0 /* StatevectorRegister.swift in Sources */,
 				FF6657F024FD6614004563F9 /* PositionHalfConnectedView.swift in Sources */,

@@ -40,6 +40,7 @@ enum CircuitViewPosition {
         case none
         case up
         case down
+        case both
     }
 
     case qubit(index: Int)
@@ -50,9 +51,9 @@ enum CircuitViewPosition {
     case hadamard(connected: TargetConnectivity = .none)
     case not(connected: TargetConnectivity = .none)
     case phaseShift(radians: Double, connected: TargetConnectivity = .none)
-    case matrix(connected: TargetConnectivity = .none)
-    case matrixTop(connected: Bool, showText: Bool = true)
-    case matrixBottom(connected: Bool)
+    case matrix(connected: TargetConnectivity = .none, showText: Bool = true)
+    case matrixTop(connectedUp: Bool, showText: Bool = true)
+    case matrixBottom(connectedDown: Bool)
     case matrixMiddle
     case matrixGap(connected: GapConnectivity = .none)
 }

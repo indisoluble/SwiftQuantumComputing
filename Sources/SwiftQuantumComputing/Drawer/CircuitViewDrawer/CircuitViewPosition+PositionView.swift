@@ -75,9 +75,9 @@ extension CircuitViewPosition {
             view.configureConnectivity(PositionViewConnectivity(connected))
 
             return view
-        case .matrix(let connected):
+        case .matrix(let connected, let showText):
             var view = MatrixPositionView(frame: frame)
-            view.text = "U"
+            view.text = (showText ? "U" : "")
             view.configureConnectivity(PositionViewConnectivity(connected))
 
             return view
@@ -97,11 +97,13 @@ extension CircuitViewPosition {
         case .matrixGap(let connected):
             switch connected {
             case .none:
-                return MatrixGapPositionView(frame: frame)
+                return MatrixGapNonePositionView(frame: frame)
             case .up:
                 return MatrixGapUpPositionView(frame: frame)
             case .down:
                 return MatrixGapDownPositionView(frame: frame)
+            case .both:
+                return MatrixGapBothPositionView(frame: frame)
             }
         }
     }
