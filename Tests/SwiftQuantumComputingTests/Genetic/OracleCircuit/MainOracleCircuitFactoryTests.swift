@@ -63,7 +63,7 @@ class MainOracleCircuitFactoryTests: XCTestCase {
 
     func testGeneticCircuitWithTwoOracles_makeOracleCircuit_returnOnlyOneOracle() {
         // Given
-        let oracle = Gate.oracle(truthTable: [], target: 0, controls: [])
+        let oracle = Gate.oracle(truthTable: [], controls: [], gate: .not(target: 0))
 
         let firstOracleGate = GeneticGateTestDouble()
         firstOracleGate.makeFixedResult = (oracle, true)

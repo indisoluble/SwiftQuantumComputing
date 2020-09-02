@@ -111,8 +111,10 @@ class Gate_ModularExponentiationTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one]
         ])
         let expectedGates = [
-            Gate.controlledMatrix(matrix: firstMatrix, inputs: inputs, control: exponent[1]),
-            Gate.controlledMatrix(matrix: secondMatrix, inputs: inputs, control: exponent[0])
+            Gate.controlled(gate: .matrix(matrix: firstMatrix, inputs: inputs),
+                            controls: [exponent[1]]),
+            Gate.controlled(gate: .matrix(matrix: secondMatrix, inputs: inputs),
+                            controls: [exponent[0]])
         ]
         XCTAssertEqual(gates, expectedGates)
     }

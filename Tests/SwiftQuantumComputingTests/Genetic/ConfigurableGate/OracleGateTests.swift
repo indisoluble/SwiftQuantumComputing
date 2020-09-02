@@ -2,8 +2,8 @@
 //  OracleGateTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/01/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 26/08/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,14 +29,38 @@ class OracleGateTests: XCTestCase {
     // MARK: - Tests
 
     func testZeroTruthTableQubits_init_throwException() {
+        // Given
+        let gate = ConfigurableGateTestDouble()
+
         // Then
-        XCTAssertThrowsError(try OracleGate(truthTable: [], truthTableQubitCount: 0))
+        XCTAssertThrowsError(try OracleGate(truthTable: [], truthTableQubitCount: 0, gate: gate))
     }
 
-    func testAnyFactoryAndAsManyInpusAsTruthTableQubits_makeFixed_throwException() {
+    func testGateThatThrowsException_makeFixed_throwException() {
         // Given
-        let truthTableQubitCount = 3
-        let factory = try! OracleGate(truthTable: [], truthTableQubitCount: truthTableQubitCount)
+        let gate = ConfigurableGateTestDouble()
+        gate.makeFixedResult = nil
+
+        let factory = try! OracleGate(truthTable: [], truthTableQubitCount: 1, gate: gate)
+
+        // Then
+        switch factory.makeFixed(inputs: []) {
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            XCTAssert(true)
+        default:
+            XCTAssert(false)
+        }
+    }
+
+    func testValidGateAndLessInputsThanNecessary_makeFixed_throwException() {
+        // Given
+        let gate = ConfigurableGateTestDouble()
+        gate.makeFixedResult = .not(target: 0)
+
+        let truthTableQubitCount = 1
+        let factory = try! OracleGate(truthTable: [],
+                                      truthTableQubitCount: truthTableQubitCount,
+                                      gate: gate)
 
         let inputs = Array(0..<truthTableQubitCount)
 
@@ -49,21 +73,44 @@ class OracleGateTests: XCTestCase {
         }
     }
 
-    func testAnyFactoryAndOneInputMoreThanTruthTableQubits_makeFixed_returnExpectedGate() {
+    func testValidGateAndEnoughInputs_makeFixed_returnExpectedGate() {
         // Given
-        let expectedTruthTable = ["000", "111"]
-        let expectedTruthTableQubitCount = 3
-        let factory = try! OracleGate(truthTable: expectedTruthTable,
-                                      truthTableQubitCount: expectedTruthTableQubitCount)
+        let gate = ConfigurableGateTestDouble()
+        gate.makeFixedResult = .not(target: 0)
 
-        let inputs = Array((0..<(expectedTruthTableQubitCount + 1)).reversed())
+        let factory = try! OracleGate(truthTable: [], truthTableQubitCount: 1, gate: gate)
+
+        let inputs = Array(0..<2)
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.oracle(let truthTable, let target, let controls)):
-            XCTAssertEqual(truthTable, expectedTruthTable)
-            XCTAssertEqual(target, inputs[expectedTruthTableQubitCount])
-            XCTAssertEqual(controls, Array(inputs[0..<expectedTruthTableQubitCount]))
+        case .success(.oracle(let truthTable, let controls, let gate)):
+            XCTAssertEqual(truthTable, [])
+            XCTAssertEqual(controls, [1])
+            XCTAssertEqual(gate, .not(target: 0))
+        default:
+            XCTAssert(false)
+        }
+    }
+
+    func testComposedGateAndEnoughInputs_makeFixed_returnExpectedGate() {
+        // Given
+        let gate = ConfigurableGateTestDouble()
+        gate.makeFixedResult = .oracle(truthTable: ["0"],
+                                       controls: [3, 1, 4],
+                                       gate: .not(target: 0))
+
+        let factory = try! OracleGate(truthTable: ["1"], truthTableQubitCount: 2, gate: gate)
+
+        let inputs = Array(0..<10)
+
+        // Then
+        switch factory.makeFixed(inputs: inputs) {
+        case .success(.oracle(let truthTable, let controls, let gate)):
+            XCTAssertEqual(truthTable, ["1"])
+            XCTAssertEqual(controls, [2, 5])
+            XCTAssertEqual(gate,
+                           .oracle(truthTable: ["0"], controls: [3, 1, 4], gate: .not(target: 0)))
         default:
             XCTAssert(false)
         }
@@ -72,9 +119,13 @@ class OracleGateTests: XCTestCase {
     static var allTests = [
         ("testZeroTruthTableQubits_init_throwException",
          testZeroTruthTableQubits_init_throwException),
-        ("testAnyFactoryAndAsManyInpusAsTruthTableQubits_makeFixed_throwException",
-         testAnyFactoryAndAsManyInpusAsTruthTableQubits_makeFixed_throwException),
-        ("testAnyFactoryAndOneInputMoreThanTruthTableQubits_makeFixed_returnExpectedGate",
-         testAnyFactoryAndOneInputMoreThanTruthTableQubits_makeFixed_returnExpectedGate)
+        ("testGateThatThrowsException_makeFixed_throwException",
+         testGateThatThrowsException_makeFixed_throwException),
+        ("testValidGateAndLessInputsThanNecessary_makeFixed_throwException",
+         testValidGateAndLessInputsThanNecessary_makeFixed_throwException),
+        ("testValidGateAndEnoughInputs_makeFixed_returnExpectedGate",
+         testValidGateAndEnoughInputs_makeFixed_returnExpectedGate),
+        ("testComposedGateAndEnoughInputs_makeFixed_returnExpectedGate",
+         testComposedGateAndEnoughInputs_makeFixed_returnExpectedGate)
     ]
 }

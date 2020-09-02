@@ -36,33 +36,33 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testControlledNotGateWithTargetOutOfRange_makeLayer_throwError() {
         // Given
         let qubitCount = 5
-        let gate = Gate.controlledNot(target: qubitCount, control: 3)
+        let gate = Gate.controlled(gate: .not(target: qubitCount), controls: [3])
 
         // Then
         var error: DrawCircuitError?
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOrControlsOutOfRange(gate: gate))
     }
 
     func testControlledNotGateWithControlOutOfRange_makeLayer_throwError() {
         // Given
         let qubitCount = 5
-        let gate = Gate.controlledNot(target: 1, control: qubitCount)
+        let gate = Gate.controlled(gate: .not(target: 1), controls: [qubitCount])
 
         // Then
         var error: DrawCircuitError?
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOrControlsOutOfRange(gate: gate))
     }
 
     func testControlledNotGate_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = Gate.controlledNot(target: 1, control: 3)
+        let gate = Gate.controlled(gate: .not(target: 1), controls: [3])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -81,7 +81,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testControlledNotGateWithControlBelowTarget_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = Gate.controlledNot(target: 3, control: 1)
+        let gate = Gate.controlled(gate: .not(target: 3), controls: [1])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -107,7 +107,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOrControlsOutOfRange(gate: gate))
     }
 
     func testHadamardGate_makeLayer_returnExpectedPositions() {
@@ -137,7 +137,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOrControlsOutOfRange(gate: gate))
     }
 
     func testNotGate_makeLayer_returnExpectedPositions() {
@@ -180,7 +180,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOrControlsOutOfRange(gate: gate))
     }
 
     func testSingleQubitMatrixGate_makeLayer_returnExpectedPositions() {
@@ -212,11 +212,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .none),
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -233,7 +233,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOrControlsOutOfRange(gate: gate))
     }
 
     func testPhaseShiftGate_makeLayer_returnExpectedPositions() {
@@ -254,49 +254,53 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
-    func testOracleGateWithoutControls_makeLayer_throwException() {
-        // Given
-        let qubitCount = 3
-        let gate = Gate.oracle(truthTable: [], target: 0, controls: [])
-
-        // Then
-        var error: DrawCircuitError?
-        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
-            error = e
-        }
-        XCTAssertEqual(error, .gateWithEmptyInputList(gate: gate))
-    }
-
     func testOracleGateWithTargetEqualToOneOfTheControls_makeLayer_throwException() {
         // Given
         let qubitCount = 3
-        let gate = Gate.oracle(truthTable: [], target: 0, controls: [0, 2])
+        let gate = Gate.oracle(truthTable: [], controls: [0, 2], gate: .not(target: 0))
 
         // Then
         var error: DrawCircuitError?
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateTargetIsAlsoAControl(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsAlsoControls(gate: gate))
     }
 
     func testOracleGateWithTargetOutOfRange_makeLayer_throwException() {
         // Given
         let qubitCount = 3
-        let gate = Gate.oracle(truthTable: [], target: qubitCount, controls: [0, 2])
+        let gate = Gate.oracle(truthTable: [], controls: [0, 2], gate: .not(target: qubitCount))
 
         // Then
         var error: DrawCircuitError?
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOrControlsOutOfRange(gate: gate))
+    }
+
+    func testOracleGateWithoutControls_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 3
+        let gate = Gate.oracle(truthTable: [], controls: [], gate: .not(target: 0))
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.not(connected: .none),
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
     }
 
     func testOracleGateWithOneControlOnTopOfTarget_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = Gate.oracle(truthTable: [], target: 1, controls: [3])
+        let gate = Gate.oracle(truthTable: [], controls: [3], gate: .not(target: 1))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -315,7 +319,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testOracleGateWithOneControlOnTopOfTargetAndNoGaps_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = Gate.oracle(truthTable: [], target: 1, controls: [2])
+        let gate = Gate.oracle(truthTable: [], controls: [2], gate: .not(target: 1))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -334,7 +338,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testOracleGateWithOneControlBelowTarget_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = Gate.oracle(truthTable: [], target: 3, controls: [1])
+        let gate = Gate.oracle(truthTable: [], controls: [1], gate: .not(target: 3))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -353,7 +357,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testOracleGateWithOneControlBelowTargetAndNoGaps_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = Gate.oracle(truthTable: [], target: 2, controls: [1])
+        let gate = Gate.oracle(truthTable: [], controls: [1], gate: .not(target: 2))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -373,7 +377,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let controls = [6, 4]
-        let gate = Gate.oracle(truthTable: [], target: 5, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 5))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -397,7 +401,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let controls = [6, 4, 3]
-        let gate = Gate.oracle(truthTable: [], target: 5, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 5))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -421,7 +425,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let controls = [1, 7, 3]
-        let gate = Gate.oracle(truthTable: [], target: 5, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 5))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -445,7 +449,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 12
         let controls = [1, 10, 4]
-        let gate = Gate.oracle(truthTable: [], target: 7, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 7))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -472,7 +476,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 10
         let controls = [4, 1, 8, 3]
-        let gate = Gate.oracle(truthTable: [], target: 6, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 6))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -497,7 +501,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 12
         let controls = [10, 4, 1, 2, 9, 5]
-        let gate = Gate.oracle(truthTable: [], target: 7, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 7))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -524,7 +528,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 15
         let controls = [1, 2, 6, 3, 11, 5, 7, 13, 12]
-        let gate = Gate.oracle(truthTable: [], target: 9, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 9))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -554,7 +558,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 18
         let controls = [1, 2, 3, 6, 7, 8, 14, 15, 16]
-        let gate = Gate.oracle(truthTable: [], target: 11, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 11))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -587,7 +591,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 19
         let controls = [17, 16, 15, 9, 8, 7, 5, 3, 2, 1]
-        let gate = Gate.oracle(truthTable: [], target: 12, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 12))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -621,7 +625,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 20
         let controls = [18, 17, 16, 10, 9, 8, 6, 5, 3, 2, 1]
-        let gate = Gate.oracle(truthTable: [], target: 13, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 13))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -656,7 +660,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 21
         let controls = [19, 18, 17, 11, 10, 9, 7, 6, 5, 3, 2, 1]
-        let gate = Gate.oracle(truthTable: [], target: 14, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 14))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -692,7 +696,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let controls = [1, 5, 3]
-        let gate = Gate.oracle(truthTable: [], target: 7, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 7))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -716,7 +720,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let controls = [3, 7, 5]
-        let gate = Gate.oracle(truthTable: [], target: 1, controls: controls)
+        let gate = Gate.oracle(truthTable: [], controls: controls, gate: .not(target: 1))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -739,7 +743,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testControlledMatrixGateWithoutInputs_makeLayer_throwException() {
         // Given
         let qubitCount = 3
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: [], control: 0)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: []), controls: [0])
 
         // Then
         var error: DrawCircuitError?
@@ -752,34 +756,35 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testControlledMatrixGateWithControlEqualToOneOfTheInputs_makeLayer_throwException() {
         // Given
         let qubitCount = 3
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: [0, 2], control: 0)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: [0, 2]), controls: [0])
 
         // Then
         var error: DrawCircuitError?
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateControlIsAlsoAnInput(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsAlsoControls(gate: gate))
     }
 
     func testControlledMatrixGateWithControlOutOfRange_makeLayer_throwException() {
         // Given
         let qubitCount = 3
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: [0, 2], control: qubitCount)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: [0, 2]),
+                                   controls: [qubitCount])
 
         // Then
         var error: DrawCircuitError?
         if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateWithOneOrMoreInputsOutOfRange(gate: gate))
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOrControlsOutOfRange(gate: gate))
     }
 
     func testControlledMatrixGateWithOneInputOnTopOfControl_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
         let inputs = [3]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 1)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [1])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -799,7 +804,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 5
         let inputs = [2]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 1)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [1])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -818,7 +823,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testControlledMatrixGateWithOneInputBelowControl_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: [1], control: 3)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: [1]), controls: [3])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -837,7 +842,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
     func testControlledMatrixGateWithOneInputBelowControlAndNoGap_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 5
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: [1], control: 2)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: [1]), controls: [2])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -857,7 +862,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let inputs = [7, 5]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 6)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [6])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -869,7 +874,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrix(connected: .up, showText: true),
+            CircuitViewPosition.matrix(connected: .up, showText: false),
             CircuitViewPosition.control(connected: .both),
             CircuitViewPosition.matrix(connected: .down, showText: true),
             CircuitViewPosition.lineHorizontal
@@ -881,7 +886,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let inputs = [7, 4, 5]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 6)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [6])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -892,8 +897,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
-            CircuitViewPosition.matrixTop(connected: true, showText: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
+            CircuitViewPosition.matrixTop(connectedUp: true, showText: false),
             CircuitViewPosition.control(connected: .both),
             CircuitViewPosition.matrix(connected: .down, showText: true),
             CircuitViewPosition.lineHorizontal
@@ -905,7 +910,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let inputs = [7, 4]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 6)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [6])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -916,7 +921,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixGap(connected: .up),
             CircuitViewPosition.control(connected: .both),
             CircuitViewPosition.matrix(connected: .down, showText: true),
@@ -929,7 +934,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let inputs = [7, 6, 4]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 5)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [5])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -940,10 +945,10 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrix(connected: .up, showText: true),
+            CircuitViewPosition.matrix(connected: .up, showText: false),
             CircuitViewPosition.control(connected: .both),
-            CircuitViewPosition.matrixBottom(connected: true),
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixBottom(connectedDown: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -953,7 +958,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let inputs = [7, 4]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 5)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [5])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -964,10 +969,10 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrix(connected: .up, showText: true),
+            CircuitViewPosition.matrix(connected: .up, showText: false),
             CircuitViewPosition.control(connected: .both),
             CircuitViewPosition.matrixGap(connected: .down),
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -977,7 +982,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let inputs = [1, 7, 3]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 5)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [5])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -985,13 +990,13 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .up),
             CircuitViewPosition.control(connected: .both),
             CircuitViewPosition.matrixGap(connected: .down),
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1001,7 +1006,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 12
         let inputs = [1, 10, 4]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 7)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [7])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1009,7 +1014,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
@@ -1018,7 +1023,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.control(connected: .both),
             CircuitViewPosition.matrixGap(connected: .down),
             CircuitViewPosition.matrixGap(connected: .none),
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1028,7 +1033,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 10
         let inputs = [4, 1, 8, 3]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 6)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [6])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1036,14 +1041,14 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .up),
             CircuitViewPosition.control(connected: .both),
             CircuitViewPosition.matrixGap(connected: .down),
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1053,7 +1058,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 12
         let inputs = [10, 4, 1, 2, 9, 5]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 7)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [7])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1061,7 +1066,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
@@ -1070,7 +1075,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.control(connected: .both),
             CircuitViewPosition.matrixGap(connected: .down),
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1080,7 +1085,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 15
         let inputs = [1, 2, 6, 3, 11, 5, 7, 13, 12]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 9)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [9])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1088,7 +1093,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .none),
@@ -1100,7 +1105,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap(connected: .down),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1110,7 +1115,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 18
         let inputs = [1, 2, 3, 6, 7, 8, 14, 15, 16]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 11)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [11])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1118,7 +1123,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .none),
@@ -1133,7 +1138,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1143,7 +1148,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 19
         let inputs = [17, 16, 15, 9, 8, 7, 5, 3, 2, 1]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 12)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [12])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1151,7 +1156,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .none),
@@ -1167,7 +1172,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1177,7 +1182,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 20
         let inputs = [18, 17, 16, 10, 9, 8, 6, 5, 3, 2, 1]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 13)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [13])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1185,7 +1190,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .none),
@@ -1202,7 +1207,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1212,7 +1217,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 21
         let inputs = [19, 18, 17, 11, 10, 9, 7, 6, 5, 3, 2, 1]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 14)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [14])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1220,7 +1225,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .none),
@@ -1238,7 +1243,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixMiddle,
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)
@@ -1248,7 +1253,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let inputs = [1, 5, 3]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 7)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [7])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1256,11 +1261,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Then
         let expectedPositions = [
             CircuitViewPosition.lineHorizontal,
-            CircuitViewPosition.matrixBottom(connected: false),
+            CircuitViewPosition.matrixBottom(connectedDown: false),
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .none),
-            CircuitViewPosition.matrixTop(connected: true, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: true, showText: true),
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.control(connected: .down),
             CircuitViewPosition.lineHorizontal
@@ -1272,7 +1277,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 9
         let inputs = [3, 7, 5]
-        let gate = Gate.controlledMatrix(matrix: matrix, inputs: inputs, control: 1)
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [1])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1282,11 +1287,11 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.lineHorizontal,
             CircuitViewPosition.control(connected: .up),
             CircuitViewPosition.crossedLines,
-            CircuitViewPosition.matrixBottom(connected: true),
+            CircuitViewPosition.matrixBottom(connectedDown: true),
             CircuitViewPosition.matrixGap(connected: .none),
             CircuitViewPosition.matrixMiddle,
             CircuitViewPosition.matrixGap(connected: .none),
-            CircuitViewPosition.matrixTop(connected: false, showText: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
             CircuitViewPosition.lineHorizontal
         ]
         XCTAssertEqual(positions, expectedPositions)

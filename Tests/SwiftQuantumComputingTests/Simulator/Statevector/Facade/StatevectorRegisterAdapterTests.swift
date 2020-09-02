@@ -63,7 +63,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
         let controls = [1, 2]
         let target = 0
-        let gate = Gate.oracle(truthTable: ["00"], target: target, controls: controls)
+        let gate = Gate.oracle(truthTable: ["00"], controls: controls, gate: .not(target: target))
 
         transformation.applyResult = threeQubitFourVector
 

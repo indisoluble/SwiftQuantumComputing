@@ -78,7 +78,8 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     func testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException() {
         // Given
-        let gate = Gate.controlledMatrix(matrix: nonPowerOfTwoSizeMatrix, inputs: [0], control: 1)
+        let gate = Gate.controlled(gate: .matrix(matrix: nonPowerOfTwoSizeMatrix, inputs: [0]),
+                                   controls: [1])
 
         // Then
         var error: GateError?
@@ -102,7 +103,8 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     func testGateControlledMatrixWithNonUnitaryMatrix_extractComponents_throwException() {
         // Given
-        let gate = Gate.controlledMatrix(matrix: nonUnitaryMatrix, inputs: [0], control: 1)
+        let gate = Gate.controlled(gate: .matrix(matrix: nonUnitaryMatrix, inputs: [0]),
+                                   controls: [1])
 
         // Then
         var error: GateError?
@@ -295,9 +297,9 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     func testGateOracleWithGateThatThrowException_extractComponents_throwException() {
         // Given
-        let gate = Gate.oracleX(truthTable: [],
-                                controls: [1],
-                                gate: .matrix(matrix: nonUnitaryMatrix, inputs: [0]))
+        let gate = Gate.oracle(truthTable: [],
+                               controls: [1],
+                               gate: .matrix(matrix: nonUnitaryMatrix, inputs: [0]))
 
         // Then
         var error: GateError?
@@ -309,9 +311,9 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     func testGateOracleWithEmptyControls_extractComponents_throwException() {
         // Given
-        let gate = Gate.oracleX(truthTable: [],
-                                controls: [],
-                                gate: .matrix(matrix: validMatrix, inputs: validInputs))
+        let gate = Gate.oracle(truthTable: [],
+                               controls: [],
+                               gate: .matrix(matrix: validMatrix, inputs: validInputs))
 
         // Then
         var error: GateError?
@@ -323,7 +325,7 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     func testGateOracleWithNotGate_extractComponents_returnExpectedValues() {
         // Given
-        let gate = Gate.oracleX(truthTable: ["0"], controls: [2], gate: .not(target: 1))
+        let gate = Gate.oracle(truthTable: ["0"], controls: [2], gate: .not(target: 1))
 
         // When
         var matrix: Matrix?
@@ -340,7 +342,7 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     func testGateOracleWithNotGateAndTwoControls_extractComponents_returnExpectedValues() {
         // Given
-        let gate = Gate.oracleX(truthTable: ["00", "11"], controls: [5, 2], gate: .not(target: 1))
+        let gate = Gate.oracle(truthTable: ["00", "11"], controls: [5, 2], gate: .not(target: 1))
 
         // When
         var matrix: Matrix?
@@ -357,9 +359,9 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     func testGateOracleWithGateControlledWithNotGate_extractComponents_returnExpectedValues() {
         // Given
-        let gate = Gate.oracleX(truthTable: ["0"],
-                                controls: [5],
-                                gate: .controlled(gate: .not(target: 1), controls: [2]))
+        let gate = Gate.oracle(truthTable: ["0"],
+                               controls: [5],
+                               gate: .controlled(gate: .not(target: 1), controls: [2]))
 
         // When
         var matrix: Matrix?
@@ -387,9 +389,9 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     func testGateControlledWithGateOracleWithNotGate_extractComponents_returnExpectedValues() {
         // Given
-        let gate = Gate.controlled(gate: .oracleX(truthTable: ["0"],
-                                                  controls: [2],
-                                                  gate: .not(target: 1)),
+        let gate = Gate.controlled(gate: .oracle(truthTable: ["0"],
+                                                 controls: [2],
+                                                 gate: .not(target: 1)),
                                    controls: [5])
 
         // When
@@ -418,11 +420,11 @@ class Gate_SimulatorGateTests: XCTestCase {
 
     func testGateOracleWithGateOracleWithNotGate_extractComponents_returnExpectedValues() {
         // Given
-        let gate = Gate.oracleX(truthTable: ["0"],
-                                controls: [5],
-                                gate: .oracleX(truthTable: ["0"],
-                                               controls: [2],
-                                               gate: .not(target: 1)))
+        let gate = Gate.oracle(truthTable: ["0"],
+                               controls: [5],
+                               gate: .oracle(truthTable: ["0"],
+                                             controls: [2],
+                                             gate: .not(target: 1)))
 
         // When
         var matrix: Matrix?

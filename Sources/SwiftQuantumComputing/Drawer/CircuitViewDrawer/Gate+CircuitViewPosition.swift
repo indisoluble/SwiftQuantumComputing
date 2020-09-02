@@ -159,7 +159,9 @@ private extension Gate {
         case .singleQubit(let gate):
             let target = inputs[0]
             let connected: CircuitViewPosition.TargetConnectivity = (
-                target == minUsedQubit ? .up : (target == maxUsedQubit ? .down : .both)
+                minUsedQubit == maxUsedQubit ?
+                    .none :
+                    (target == minUsedQubit ? .up : (target == maxUsedQubit ? .down : .both))
             )
 
             layer[target] = gate.makePositionView(connected: connected)
