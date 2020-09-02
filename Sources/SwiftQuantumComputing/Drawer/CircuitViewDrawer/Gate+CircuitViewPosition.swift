@@ -90,15 +90,6 @@ private extension Gate {
 
     func extractComponents(controls: [Int] = [], oracleControls: [Int] = []) -> GateComponents {
         switch self {
-        case .oracle, .controlledNot, .controlledMatrix:
-            // TODO: To be removed
-            return ([], [], .multiQubit(inputs: []))
-        case .controlled(let gate, let someControls):
-            return gate.extractComponents(controls: someControls + controls,
-                                          oracleControls: oracleControls)
-        case .oracleX(_, let someControls, let gate):
-            return gate.extractComponents(controls: controls,
-                                          oracleControls: someControls + oracleControls)
         case .not(let target):
             return (controls, oracleControls, .singleQubit(gate: .not(target: target)))
         case .hadamard(let target):
@@ -113,6 +104,12 @@ private extension Gate {
             }
 
             return (controls, oracleControls, .multiQubit(inputs: inputs))
+        case .oracle(_, let someControls, let gate):
+            return gate.extractComponents(controls: controls,
+                                          oracleControls: someControls + oracleControls)
+        case .controlled(let gate, let someControls):
+            return gate.extractComponents(controls: someControls + controls,
+                                          oracleControls: oracleControls)
         }
     }
 

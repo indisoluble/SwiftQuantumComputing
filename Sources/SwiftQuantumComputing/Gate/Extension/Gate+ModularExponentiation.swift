@@ -85,7 +85,8 @@ extension Gate {
                                                           modulus: modulus,
                                                           inputQubitCount: inputs.count) {
             case .success(let matrix):
-                gates.append(.controlledMatrix(matrix: matrix, inputs: inputs, control: control))
+                gates.append(.controlled(gate: .matrix(matrix: matrix, inputs: inputs),
+                                         controls: [control]))
             case .failure(let error):
                 return .failure(error)
             }

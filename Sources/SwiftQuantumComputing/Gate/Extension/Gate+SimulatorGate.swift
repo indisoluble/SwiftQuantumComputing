@@ -30,24 +30,18 @@ extension Gate {
         var resultInputs: [Int]!
 
         switch self {
-        case .controlled(let gate, let controls):
-            resultInputs = controls + gate.extractInputs()
-        case .oracleX(_, let controls, let gate):
-            resultInputs = controls + gate.extractInputs()
-        case .controlledMatrix(_, let inputs, let control):
-            resultInputs = [control] + inputs
-        case .controlledNot(let target, let control):
-            resultInputs = [control, target]
+        case .not(let target):
+            resultInputs = [target]
         case .hadamard(let target):
+            resultInputs = [target]
+        case .phaseShift(_, let target):
             resultInputs = [target]
         case .matrix(_, let inputs):
             resultInputs = inputs
-        case .not(let target):
-            resultInputs = [target]
-        case .oracle(_, let target, let controls):
-            resultInputs = controls + [target]
-        case .phaseShift(_, let target):
-            resultInputs = [target]
+        case .oracle(_, let controls, let gate):
+            resultInputs = controls + gate.extractInputs()
+        case .controlled(let gate, let controls):
+            resultInputs = controls + gate.extractInputs()
         }
 
         return resultInputs
@@ -106,7 +100,6 @@ private extension Gate {
     // MARK: - Constants
 
     enum Constants {
-        static let matrixControlledNot = Matrix.makeControlledNot()
         static let matrixHadamard = Matrix.makeHadamard()
         static let matrixNot = Matrix.makeNot()
         static let unitaryAccuracy = 0.001
@@ -140,21 +133,23 @@ private extension Gate {
         var resultMatrix: Matrix!
 
         switch self {
-        case .controlled(let gate, let controls):
-            switch gate.extractMatrix() {
-            case .success(let matrix):
-                switch Matrix.makeControlledMatrix(matrix: matrix, controlCount: controls.count) {
-                case .success(let controlledMatrix):
-                    resultMatrix = controlledMatrix
-                case .failure(.controlCountHasToBeBiggerThanZero):
-                    return .failure(.gateControlsCanNotBeAnEmptyList)
-                case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
-                    fatalError("Unexpected error.")
-                }
-            case .failure(let error):
-                return .failure(error)
+        case .not:
+            resultMatrix = Constants.matrixNot
+        case .hadamard:
+            resultMatrix = Constants.matrixHadamard
+        case .phaseShift(let radians, _):
+            resultMatrix = Matrix.makePhaseShift(radians: radians)
+        case .matrix(let matrix, _):
+            guard matrix.rowCount.isPowerOfTwo else {
+                return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
             }
-        case .oracleX(let truthTable, let controls, let gate):
+            // Validate matrix before expanding it so the operation requires less time
+            guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
+                return .failure(.gateMatrixIsNotUnitary)
+            }
+
+            resultMatrix = matrix
+        case .oracle(let truthTable, let controls, let gate):
             switch gate.extractMatrix() {
             case .success(let matrix):
                 switch Matrix.makeOracle(truthTable: truthTable,
@@ -170,45 +165,20 @@ private extension Gate {
             case .failure(let error):
                 return .failure(error)
             }
-        case .controlledMatrix(let matrix, _, _):
-            guard matrix.rowCount.isPowerOfTwo else {
-                return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
-            }
-            // Validate matrix before expanding it so the operation requires less time
-            guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
-                return .failure(.gateMatrixIsNotUnitary)
-            }
-
-            resultMatrix = try! Matrix.makeControlledMatrix(matrix: matrix, controlCount: 1).get()
-        case .controlledNot:
-            resultMatrix = Constants.matrixControlledNot
-        case .hadamard:
-            resultMatrix = Constants.matrixHadamard
-        case .matrix(let matrix, _):
-            guard matrix.rowCount.isPowerOfTwo else {
-                return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
-            }
-            // Validate matrix before expanding it so the operation requires less time
-            guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
-                return .failure(.gateMatrixIsNotUnitary)
-            }
-
-            resultMatrix = matrix
-        case .not:
-            resultMatrix = Constants.matrixNot
-        case .oracle(let truthTable, _, let controls):
-            switch Matrix.makeOracle(truthTable: truthTable,
-                                     controlCount: controls.count,
-                                     controlledMatrix: Constants.matrixNot) {
+        case .controlled(let gate, let controls):
+            switch gate.extractMatrix() {
             case .success(let matrix):
-                resultMatrix = matrix
-            case .failure(.controlCountHasToBeBiggerThanZero):
-                return .failure(.gateControlsCanNotBeAnEmptyList)
-            case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
-                fatalError("Unexpected error.")
+                switch Matrix.makeControlledMatrix(matrix: matrix, controlCount: controls.count) {
+                case .success(let controlledMatrix):
+                    resultMatrix = controlledMatrix
+                case .failure(.controlCountHasToBeBiggerThanZero):
+                    return .failure(.gateControlsCanNotBeAnEmptyList)
+                case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
+                    fatalError("Unexpected error.")
+                }
+            case .failure(let error):
+                return .failure(error)
             }
-        case .phaseShift(let radians, _):
-            resultMatrix = Matrix.makePhaseShift(radians: radians)
         }
 
         return .success(resultMatrix)

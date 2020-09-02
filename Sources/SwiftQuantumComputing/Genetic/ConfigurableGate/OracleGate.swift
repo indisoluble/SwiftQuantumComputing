@@ -2,8 +2,8 @@
 //  OracleGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/01/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 25/08/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,33 +29,35 @@ public struct OracleGate {
 
     private let truthTable: [String]
     private let truthTableQubitCount: Int
+    private let gate: ConfigurableGate
 
     // MARK: - Public init methods
 
-    /// Errors throwed by `OracleGate.init(truthTable:truthTableQubitCount:)`
+    /// Errors throwed by `OracleGate.init(truthTable:truthTableQubitCount:gate:)`
     public enum InitError: Error {
         /// Throwed when `truthTableQubitCount` is 0 or less
         case truthTableQubitCountHasToBeBiggerThanZero
     }
 
     /**
-     Initializes a `ConfigurableGate` instance with a given `truthTable`.
+     Initializes a `ConfigurableGate` instance with a given `truthTable` & `gate`.
 
-     - Parameter truthTable: List of qubit combinations for which the `control` in a
-     `Gate.controlledNot(target:control:)` is activated.
+     - Parameter truthTable: List of qubit combinations for which the given `gate` is activated.
      - Parameter truthTableQubitCount: Total number of qubits for all qubits combinations in `truthTable`.
+     - Parameter gate: Another `ConfigurableGate` instance.
 
      - Throws: `OracleGate.InitError`.
 
      - Returns: A `ConfigurableGate` instance.
      */
-    public init(truthTable: [String], truthTableQubitCount: Int) throws {
+    public init(truthTable: [String], truthTableQubitCount: Int, gate: ConfigurableGate) throws {
         guard truthTableQubitCount > 0 else {
             throw InitError.truthTableQubitCountHasToBeBiggerThanZero
         }
 
         self.truthTable = truthTable
         self.truthTableQubitCount = truthTableQubitCount
+        self.gate = gate
     }
 }
 
@@ -65,13 +67,23 @@ extension OracleGate: ConfigurableGate {
 
     /// Check `ConfigurableGate.makeFixed(inputs:)`
     public func makeFixed(inputs: [Int]) -> Result<Gate, EvolveCircuitError> {
-        guard inputs.count >= (truthTableQubitCount + 1) else {
-            return .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self))
-        }
+        switch gate.makeFixed(inputs: inputs) {
+        case .success(let fixedGate):
+            let reservedInputs = fixedGate.extractInputs()
+            let remainingInputs = inputs.filter { !reservedInputs.contains($0) }
+            guard remainingInputs.count >= truthTableQubitCount else {
+                return .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self))
+            }
 
-        let gate = Gate.oracle(truthTable: truthTable,
-                               target: inputs[truthTableQubitCount],
-                               controls: Array(inputs[0..<truthTableQubitCount]))
-        return .success(gate)
+            return .success(.oracle(truthTable: truthTable,
+                                    controls: Array(remainingInputs[0..<truthTableQubitCount]),
+                                    gate: fixedGate))
+        case .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount):
+            return .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self))
+        case .failure(.useCaseListIsEmpty),
+             .failure(.useCaseMeasurementThrowedError),
+             .failure(.useCasesDoNotSpecifySameCircuitQubitCount):
+            fatalError("Unexpected error.")
+        }
     }
 }

@@ -24,27 +24,19 @@ import Foundation
 
 /// A quantum gate with fixed inputs
 public indirect enum Gate {
-    /// Generic quantum `gate` controlled with `controls`
-    case controlled(gate: Gate, controls: [Int])
-    /// Oracle gate composed of a `truthtable` that specifies which `controls` activate a `gate`
-    case oracleX(truthTable: [String], controls: [Int], gate: Gate)
-    /// Generic quantum gate controlled with `control`, built with a `matrix` (it is expected to be unitary)
-    /// and any number of `inputs` (as many inputs as `matrix` is able to handle)
-    case controlledMatrix(matrix: Matrix, inputs: [Int], control: Int)
-    /// Controlled not gate with 2 inputs: `target` & `control`
-    case controlledNot(target: Int, control: Int)
+    /// Not gate with 1 input: `target`
+    case not(target: Int)
     /// Hadamard gate with 1 input: `target`
     case hadamard(target: Int)
+    /// Quantum gate that shifts phase of the quantum state in `target` by `radians`
+    case phaseShift(radians: Double, target: Int)
     /// Generic quantum gate built with a `matrix` (it is expected to be unitary) and any number of `inputs`
     /// (as many inputs as `matrix` is able to handle)
     case matrix(matrix: Matrix, inputs: [Int])
-    /// Not gate with 1 input: `target`
-    case not(target: Int)
-    /// Oracle gate composed of a `truthtable` that specifies which `controls` activate a controlled not
-    /// gate applied to `target`
-    case oracle(truthTable: [String], target: Int, controls: [Int])
-    /// Quantum gate that shifts phase of the quantum state in `target` by `radians`
-    case phaseShift(radians: Double, target: Int)
+    /// Oracle gate composed of a `truthtable` that specifies which `controls` activate a `gate`
+    case oracle(truthTable: [String], controls: [Int], gate: Gate)
+    /// Generic quantum `gate` controlled with `controls`
+    case controlled(gate: Gate, controls: [Int])
 }
 
 // MARK: - Equatable methods
