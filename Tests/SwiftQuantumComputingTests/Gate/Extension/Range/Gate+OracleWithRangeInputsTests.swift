@@ -36,6 +36,18 @@ class Gate_OracleWithRangeInputsTests: XCTestCase {
 
     func testAnyRange_oracleWithControls_returnExpectedGate() {
         // Then
+        XCTAssertEqual(Gate.oracle(truthTable: truthTable,
+                                   controls: 0..<3,
+                                   gate: .not(target: target)),
+                       Gate.oracle(truthTable: truthTable,
+                                   controls: [0, 1, 2],
+                                   gate: .not(target: target)))
+        XCTAssertEqual(Gate.oracle(truthTable: truthTable,
+                                   controls: 0...2,
+                                   gate: .not(target: target)),
+                       Gate.oracle(truthTable: truthTable,
+                                   controls: [0, 1, 2],
+                                   gate: .not(target: target)))
         XCTAssertEqual(Gate.oracle(truthTable: truthTable, controls: 0..<3, target: target),
                        Gate.oracle(truthTable: truthTable,
                                    controls: [0, 1, 2],

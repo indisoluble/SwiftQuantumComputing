@@ -127,6 +127,19 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
+    func testHadamardGateAndOnlyOneQubit_makeLayer_returnExpectedPosition() {
+        // Given
+        let qubitCount = 1
+        let gate = Gate.hadamard(target: 0)
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [CircuitViewPosition.hadamard(connected: .none)]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
     func testNotGateWithTargetOutOfRange_makeLayer_throwError() {
         // Given
         let qubitCount = 3
@@ -740,6 +753,198 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
+    func testOracleGateControllingMatrixWithMultipleControlsAndInputsOnTop_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 10
+        let controls = [1, 5, 3]
+        let gate = Gate.oracle(truthTable: [],
+                               controls: controls,
+                               gate: .matrix(matrix: matrix, inputs: [7, 8]))
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.oracle(connected: .up),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.matrixBottom(connectedDown: true),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testOracleGateControllingMatrixWithMultipleControlsAndInputsBelow_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 10
+        let controls = [4, 8, 6]
+        let gate = Gate.oracle(truthTable: [],
+                               controls: controls,
+                               gate: .matrix(matrix: matrix, inputs: [2, 1]))
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixBottom(connectedDown: false),
+            CircuitViewPosition.matrixTop(connectedUp: true, showText: true),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.oracle(connected: .down),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testOracleGateControllingMatrixWithMultipleControlsInTheMiddleAndInputsAboveAndBelow_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 10
+        let controls = [4, 6, 5]
+        let gate = Gate.oracle(truthTable: [],
+                               controls: controls,
+                               gate: .matrix(matrix: matrix, inputs: [2, 8]))
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixBottom(connectedDown: false),
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testOracleGateControllingMatrixWithMultipleControlsInTheMiddleInputsAboveAndBelowAndNoGaps_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 10
+        let controls = [4, 6, 5]
+        let gate = Gate.oracle(truthTable: [],
+                               controls: controls,
+                               gate: .matrix(matrix: matrix, inputs: [3, 7]))
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrix(connected: .up, showText: false),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.matrix(connected: .down, showText: true),
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testOracleGateControllingMatrixWithInputBetweenControls_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 12
+        let controls = [4, 6, 10]
+        let gate = Gate.oracle(truthTable: [],
+                               controls: controls,
+                               gate: .matrix(matrix: matrix, inputs: [3, 7, 5]))
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrix(connected: .up, showText: false),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.matrix(connected: .both, showText: false),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.matrix(connected: .both, showText: true),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.oracle(connected: .down),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testOracleGateControllingMatrixWithInputBetweenControlsAndNoGaps_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 11
+        let controls = [4, 6, 8]
+        let gate = Gate.oracle(truthTable: [],
+                               controls: controls,
+                               gate: .matrix(matrix: matrix, inputs: [3, 7, 5]))
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrix(connected: .up, showText: false),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.matrix(connected: .both, showText: false),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.matrix(connected: .both, showText: true),
+            CircuitViewPosition.oracle(connected: .down),
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testOracleGateControllingMatrixWithMultipleControlsInTheMiddleInputsAboveAndBelowAndOneGapBetweenControls_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 10
+        let controls = [4, 6]
+        let gate = Gate.oracle(truthTable: [],
+                               controls: controls,
+                               gate: .matrix(matrix: matrix, inputs: [3, 7]))
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrix(connected: .up, showText: false),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .both),
+            CircuitViewPosition.oracle(connected: .both),
+            CircuitViewPosition.matrix(connected: .down, showText: true),
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
     func testControlledMatrixGateWithoutInputs_makeLayer_throwException() {
         // Given
         let qubitCount = 3
@@ -751,6 +956,32 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             error = e
         }
         XCTAssertEqual(error, .gateWithEmptyInputList(gate: gate))
+    }
+
+    func testControlledMatrixGateWithRepeatedInputs_makeLayer_throwException() {
+        // Given
+        let qubitCount = 3
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: [1, 1]), controls: [0])
+
+        // Then
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithRepeatedInputs(gate: gate))
+    }
+
+    func testControlledMatrixGateWithRepeatedControls_makeLayer_throwException() {
+        // Given
+        let qubitCount = 3
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: [0]), controls: [1, 1])
+
+        // Then
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithRepeatedControls(gate: gate))
     }
 
     func testControlledMatrixGateWithControlEqualToOneOfTheInputs_makeLayer_throwException() {
@@ -1249,6 +1480,43 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
+    func testControlledMatrixGateWithConsecutiveControlsInTheMiddle_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 21
+        let inputs = [19, 18, 17, 11, 10, 9, 7, 6, 5, 3, 2, 1]
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs),
+                                   controls: [15, 14, 13])
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixBottom(connectedDown: false),
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.matrixGap(connected: .down),
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
     func testControlledMatrixGateWithMultipleInputsAndControlOnTop_makeLayer_returnExpectedPositions() {
         // Given
         let qubitCount = 9
@@ -1269,6 +1537,30 @@ class Gate_CircuitViewPositionTests: XCTestCase {
             CircuitViewPosition.crossedLines,
             CircuitViewPosition.control(connected: .down),
             CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
+    func testControlledMatrixGateWithMultipleInputsAndTwoControlsOnTop_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 9
+        let inputs = [1, 5, 3]
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [7, 8])
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.matrixBottom(connectedDown: false),
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixTop(connectedUp: true, showText: true),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.control(connected: .down)
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1297,7 +1589,27 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
+    func testControlledMatrixGateWithMultipleInputsAndTwoControlsBelow_makeLayer_returnExpectedPositions() {
+        // Given
+        let qubitCount = 9
+        let inputs = [3, 7, 5]
+        let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs), controls: [0, 1])
 
-    // Test with only ONE qubit
-    // 2 controls inside matrix and ONE gap between 2 controls
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.control(connected: .up),
+            CircuitViewPosition.control(connected: .both),
+            CircuitViewPosition.crossedLines,
+            CircuitViewPosition.matrixBottom(connectedDown: true),
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixMiddle,
+            CircuitViewPosition.matrixGap(connected: .none),
+            CircuitViewPosition.matrixTop(connectedUp: false, showText: true),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
 }
