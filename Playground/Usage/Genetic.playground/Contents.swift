@@ -2,15 +2,15 @@ import SwiftQuantumComputing // for macOS
 
 //: 0. Auxiliar functions
 func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircuit,
-                                  with useCase: GeneticUseCase) -> [Gate] {
+                           with useCase: GeneticUseCase) -> [Gate] {
     var evolvedGates = evolvedCircuit.gates
 
     if let oracleAt = evolvedCircuit.oracleAt {
         switch evolvedGates[oracleAt] {
-        case let .oracle(_, target, controls):
+        case let .oracle(_, controls, gate):
             evolvedGates[oracleAt] = Gate.oracle(truthTable: useCase.truthTable.truth,
-                                                 target: target,
-                                                 controls: controls)
+                                                 controls: controls,
+                                                 gate: gate)
         default:
             fatalError("No oracle found")
         }
@@ -58,11 +58,10 @@ let evolvedCircuit = MainGeneticFactory().evolveCircuit(configuration: config,
 print("Solution found. Fitness score: \(evolvedCircuit.eval)")
 
 for useCase in cases {
-//: 5. (Optional) Draw the solution (check `Sources` folder in Playground for the source code)
+//: 5. (Optional) Draw the solution
     let evolvedGates = configureEvolvedGates(in: evolvedCircuit, with: useCase)
     drawCircuit(with: evolvedGates, useCase: useCase)
 //: 6. (Optional) Check how well the solution found meets each use case
-//:    (check `Sources` folder in Playground for the source code)
     let probs = probabilities(in: evolvedGates, useCase: useCase)
     print(String(format: "Use case: [%@]. Input: %@ -> Output: %@. Probability: %.2f %%",
                  useCase.truthTable.truth.joined(separator: ", "),

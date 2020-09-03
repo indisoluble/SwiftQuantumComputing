@@ -6,7 +6,7 @@ let drawer = MainDrawerFactory().makeDrawer()
 func isFunctionConstant(truthTable: [String], qubitCount: Int) -> Bool {
     var gates = [Gate.not(target: 0)]
     gates += Gate.hadamard(targets: 0...qubitCount)
-    gates += [Gate.oracle(truthTable: truthTable, target: 0, controls: (1...qubitCount).reversed())]
+    gates += [Gate.oracle(truthTable: truthTable, controls: (1...qubitCount).reversed(), target: 0)]
     gates += Gate.hadamard(targets: 1...qubitCount)
 
     try! drawer.drawCircuit(gates).get()
