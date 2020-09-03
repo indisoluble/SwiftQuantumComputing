@@ -27,64 +27,54 @@ import XCTest
 
 class Matrix_ControlledMatrixTests: XCTestCase {
 
+    // MARK: - Properties
+    let nonSquareMatrix = try! Matrix([[.zero, .one]])
+    let nonPowerOfTwoSizeMatrix = try! Matrix([
+        [.zero, .zero, .zero],
+        [.zero, .zero, .zero],
+        [.zero, .zero, .zero]
+    ])
+    let twoByTwoMatrix = try! Matrix([
+        [Complex(2), Complex(3)],
+        [Complex(4), Complex(5)]
+    ])
+
+
     // MARK: - Tests
 
-    func testOneByOneMatrix_makeControlledMatrix_returnExpectedMatrix() {
-        // Given
-        let matrix = try! Matrix([[Complex(2)]])
-
-        // When
-        let result = Matrix.makeControlledMatrix(matrix: matrix)
-
+    func testNonSquareMatrix_makeControlledMatrix_throwException() {
         // Then
-        let expectedResult = try! Matrix([
-            [.one, .zero],
-            [.zero, Complex(2)]
-        ])
-        XCTAssertEqual(result, expectedResult)
+        var error: Matrix.MakeControlledMatrixError?
+        if case .failure(let e) = Matrix.makeControlledMatrix(matrix: nonSquareMatrix,
+                                                              controlCount: 1) {
+            error = e
+        }
+        XCTAssertEqual(error, .matrixIsNotSquare)
     }
 
-    func testOneByTwoMatrix_makeControlledMatrix_returnExpectedMatrix() {
-        // Given
-        let matrix = try! Matrix([[Complex(2), Complex(3)]])
-
-        // When
-        let result = Matrix.makeControlledMatrix(matrix: matrix)
-
+    func testNonPowerOfTwoSizeMatrix_makeControlledMatrix_throwException() {
         // Then
-        let expectedResult = try! Matrix([
-            [.one, .zero, .zero, .zero],
-            [.zero, .zero, Complex(2), Complex(3)]
-        ])
-        XCTAssertEqual(result, expectedResult)
+        var error: Matrix.MakeControlledMatrixError?
+        if case .failure(let e) = Matrix.makeControlledMatrix(matrix: nonPowerOfTwoSizeMatrix,
+                                                              controlCount: 1) {
+            error = e
+        }
+        XCTAssertEqual(error, .matrixRowCountHasToBeAPowerOfTwo)
     }
 
-    func testTwoByOneMatrix_makeControlledMatrix_returnExpectedMatrix() {
-        // Given
-        let matrix = try! Matrix([[Complex(2)], [Complex(3)]])
-
-        // When
-        let result = Matrix.makeControlledMatrix(matrix: matrix)
-
+    func testControlCountEqualToZero_makeControlledMatrix_throwException() {
         // Then
-        let expectedResult = try! Matrix([
-            [.one, .zero],
-            [.zero, .zero],
-            [.zero, Complex(2)],
-            [.zero, Complex(3)]
-        ])
-        XCTAssertEqual(result, expectedResult)
+        var error: Matrix.MakeControlledMatrixError?
+        if case .failure(let e) = Matrix.makeControlledMatrix(matrix: twoByTwoMatrix,
+                                                              controlCount: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .controlCountHasToBeBiggerThanZero)
     }
 
-    func testTwoByTwoMatrix_makeControlledMatrix_returnExpectedMatrix() {
-        // Given
-        let matrix = try! Matrix([
-            [Complex(2), Complex(3)],
-            [Complex(4), Complex(5)]
-        ])
-
+    func testTwoByTwoMatrixAndControlCountEqualToOne_makeControlledMatrix_returnExpectedMatrix() {
         // When
-        let result = Matrix.makeControlledMatrix(matrix: matrix)
+        let result = try? Matrix.makeControlledMatrix(matrix: twoByTwoMatrix, controlCount: 1).get()
 
         // Then
         let expectedResult = try! Matrix([
@@ -96,14 +86,34 @@ class Matrix_ControlledMatrixTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
+    func testTwoByTwoMatrixAndControlCountEqualToTwo_makeControlledMatrix_returnExpectedMatrix() {
+        // When
+        let result = try? Matrix.makeControlledMatrix(matrix: twoByTwoMatrix, controlCount: 2).get()
+
+        // Then
+        let expectedResult = try! Matrix([
+            [.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .one, .zero, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .one, .zero, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .one, .zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .zero, .one, .zero, .zero],
+            [.zero, .zero, .zero, .zero, .zero, .zero, Complex(2), Complex(3)],
+            [.zero, .zero, .zero, .zero, .zero, .zero, Complex(4), Complex(5)]
+        ])
+        XCTAssertEqual(result, expectedResult)
+    }
+
     static var allTests = [
-        ("testOneByOneMatrix_makeControlledMatrix_returnExpectedMatrix",
-         testOneByOneMatrix_makeControlledMatrix_returnExpectedMatrix),
-        ("testOneByTwoMatrix_makeControlledMatrix_returnExpectedMatrix",
-         testOneByTwoMatrix_makeControlledMatrix_returnExpectedMatrix),
-        ("testTwoByOneMatrix_makeControlledMatrix_returnExpectedMatrix",
-         testTwoByOneMatrix_makeControlledMatrix_returnExpectedMatrix),
-        ("testTwoByTwoMatrix_makeControlledMatrix_returnExpectedMatrix",
-         testTwoByTwoMatrix_makeControlledMatrix_returnExpectedMatrix)
+        ("testNonSquareMatrix_makeControlledMatrix_throwException",
+         testNonSquareMatrix_makeControlledMatrix_throwException),
+        ("testNonPowerOfTwoSizeMatrix_makeControlledMatrix_throwException",
+         testNonPowerOfTwoSizeMatrix_makeControlledMatrix_throwException),
+        ("testControlCountEqualToZero_makeControlledMatrix_throwException",
+         testControlCountEqualToZero_makeControlledMatrix_throwException),
+        ("testTwoByTwoMatrixAndControlCountEqualToOne_makeControlledMatrix_returnExpectedMatrix",
+         testTwoByTwoMatrixAndControlCountEqualToOne_makeControlledMatrix_returnExpectedMatrix),
+        ("testTwoByTwoMatrixAndControlCountEqualToTwo_makeControlledMatrix_returnExpectedMatrix",
+         testTwoByTwoMatrixAndControlCountEqualToTwo_makeControlledMatrix_returnExpectedMatrix)
     ]
 }

@@ -35,7 +35,7 @@ class Gate_OracleReplicatorTests: XCTestCase {
         let controls: [Int] = []
 
         // When
-        let gates = Gate.oracle(truthTable: truthTable, targets: targets, controls: controls)
+        let gates = Gate.oracle(truthTable: truthTable, controls: controls, targets: targets)
 
         // Then
         XCTAssertEqual(gates, [])
@@ -48,7 +48,7 @@ class Gate_OracleReplicatorTests: XCTestCase {
         let controls: [Int] = []
 
         // When
-        let gates = Gate.oracle(truthTable: truthTable, targets: targets, controls: controls)
+        let gates = Gate.oracle(truthTable: truthTable, controls: controls, targets: targets)
 
         // Then
         XCTAssertEqual(gates, [])
@@ -65,12 +65,12 @@ class Gate_OracleReplicatorTests: XCTestCase {
         let controls: [Int] = []
 
         // When
-        let gates = Gate.oracle(truthTable: truthTable, targets: targets, controls: controls)
+        let gates = Gate.oracle(truthTable: truthTable, controls: controls, targets: targets)
 
         // Then
         let expectedGates = [
-            Gate.oracle(truthTable: [oneTruth], target: targetZero, controls: controls),
-            Gate.oracle(truthTable: [otherTruth], target: targetOne, controls: controls)
+            Gate.oracle(truthTable: [oneTruth], controls: controls, gate: .not(target: targetZero)),
+            Gate.oracle(truthTable: [otherTruth], controls: controls, gate: .not(target: targetOne))
         ]
         XCTAssertEqual(gates, expectedGates)
     }
@@ -84,11 +84,11 @@ class Gate_OracleReplicatorTests: XCTestCase {
         let controls: [Int] = []
 
         // When
-        let gates = Gate.oracle(truthTable: truthTable, targets: targets, controls: controls)
+        let gates = Gate.oracle(truthTable: truthTable, controls: controls, targets: targets)
 
         // Then
         let expectedGates = [
-            Gate.oracle(truthTable: [otherTruth], target: targetOne, controls: controls)
+            Gate.oracle(truthTable: [otherTruth], controls: controls, gate: .not(target: targetOne))
         ]
         XCTAssertEqual(gates, expectedGates)
     }
@@ -103,12 +103,12 @@ class Gate_OracleReplicatorTests: XCTestCase {
         let controls: [Int] = []
 
         // When
-        let gates = Gate.oracle(truthTable: truthTable, targets: targets, controls: controls)
+        let gates = Gate.oracle(truthTable: truthTable, controls: controls, targets: targets)
 
         // Then
         let expectedGates = [
-            Gate.oracle(truthTable: [oneTruth], target: target, controls: controls),
-            Gate.oracle(truthTable: [otherTruth], target: target, controls: controls)
+            Gate.oracle(truthTable: [oneTruth], controls: controls, gate: .not(target: target)),
+            Gate.oracle(truthTable: [otherTruth], controls: controls, gate: .not(target: target))
         ]
         XCTAssertEqual(gates, expectedGates)
     }
@@ -122,11 +122,11 @@ class Gate_OracleReplicatorTests: XCTestCase {
         let controls: [Int] = []
 
         // When
-        let gates = Gate.oracle(truthTable: truthTable, targets: targets, controls: controls)
+        let gates = Gate.oracle(truthTable: truthTable, controls: controls, targets: targets)
 
         // Then
         let expectedGates = [
-            Gate.oracle(truthTable: [truth], target: target, controls: controls)
+            Gate.oracle(truthTable: [truth], controls: controls, gate: .not(target: target))
         ]
         XCTAssertEqual(gates, expectedGates)
     }
@@ -140,11 +140,11 @@ class Gate_OracleReplicatorTests: XCTestCase {
         let controls: [Int] = []
 
         // When
-        let gates = Gate.oracle(truthTable: truthTable, targets: targets, controls: controls)
+        let gates = Gate.oracle(truthTable: truthTable, controls: controls, targets: targets)
 
         // Then
         let expectedGates = [
-            Gate.oracle(truthTable: [truth], target: target, controls: controls)
+            Gate.oracle(truthTable: [truth], controls: controls, gate: .not(target: target))
         ]
         XCTAssertEqual(gates, expectedGates)
     }
@@ -166,19 +166,19 @@ class Gate_OracleReplicatorTests: XCTestCase {
         let controls: [Int] = []
 
         // When
-        let gates = Gate.oracle(truthTable: truthTable, targets: targets, controls: controls)
+        let gates = Gate.oracle(truthTable: truthTable, controls: controls, targets: targets)
 
         // Then
         let expectedGates = [
             Gate.oracle(truthTable: [oneTruth, anotherTruth],
-                        target: targetZero,
-                        controls: controls),
+                        controls: controls,
+                        gate: .not(target: targetZero)),
             Gate.oracle(truthTable: [otherTruth, anotherTruth],
-                        target: targetOne,
-                        controls: controls),
+                        controls: controls,
+                        gate: .not(target: targetOne)),
             Gate.oracle(truthTable: [otherTruth],
-                        target: targetTwo,
-                        controls: controls)
+                        controls: controls,
+                        gate: .not(target: targetTwo))
         ]
         XCTAssertEqual(gates, expectedGates)
     }

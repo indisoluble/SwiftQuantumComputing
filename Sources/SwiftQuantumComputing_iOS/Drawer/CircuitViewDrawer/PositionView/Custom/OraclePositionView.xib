@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OraclePositionView" customModule="SwiftQuantumComputing" customModuleProvider="target">
+            <connections>
+                <outlet property="conenctionDown" destination="kHd-1z-wRI" id="AdE-eX-35u"/>
+                <outlet property="connectionUp" destination="Udw-xV-K2v" id="ufI-U0-3r9"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="E1W-QX-2CK">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1h-8X-Raa">
+                    <rect key="frame" x="0.0" y="39" width="80" height="2"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="UTb-Ad-7Ei"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Udw-xV-K2v">
+                    <rect key="frame" x="39" y="0.0" width="2" height="39"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="2" id="uou-3i-nRp"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kHd-1z-wRI">
+                    <rect key="frame" x="39" y="41" width="2" height="39"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="2" id="scQ-KF-l7R"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BMR-xI-mWq" customClass="CircleView" customModule="SwiftQuantumComputing" customModuleProvider="target">
+                    <rect key="frame" x="30" y="30" width="20" height="20"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="f" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GKy-e5-C5c">
+                            <rect key="frame" x="7" y="-1" width="6" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="hoO-QE-9Bf"/>
+                        <constraint firstAttribute="width" constant="20" id="xRn-x8-r8E"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Udw-xV-K2v" firstAttribute="top" secondItem="aXb-MG-62z" secondAttribute="top" id="1fg-ER-T1C"/>
+                <constraint firstItem="BMR-xI-mWq" firstAttribute="centerY" secondItem="aXb-MG-62z" secondAttribute="centerY" id="8OK-5x-pJO"/>
+                <constraint firstItem="Udw-xV-K2v" firstAttribute="centerX" secondItem="aXb-MG-62z" secondAttribute="centerX" id="Ca8-MQ-HnX"/>
+                <constraint firstItem="kHd-1z-wRI" firstAttribute="centerX" secondItem="aXb-MG-62z" secondAttribute="centerX" id="FMk-e7-Kix"/>
+                <constraint firstItem="Q1h-8X-Raa" firstAttribute="leading" secondItem="aXb-MG-62z" secondAttribute="leading" id="MkO-xx-q54"/>
+                <constraint firstItem="Udw-xV-K2v" firstAttribute="bottom" secondItem="Q1h-8X-Raa" secondAttribute="top" id="QxG-4P-BZk"/>
+                <constraint firstItem="Q1h-8X-Raa" firstAttribute="centerY" secondItem="aXb-MG-62z" secondAttribute="centerY" id="WRl-59-S0w"/>
+                <constraint firstItem="aXb-MG-62z" firstAttribute="trailing" secondItem="Q1h-8X-Raa" secondAttribute="trailing" id="bk9-1n-pTJ"/>
+                <constraint firstItem="kHd-1z-wRI" firstAttribute="top" secondItem="Q1h-8X-Raa" secondAttribute="bottom" id="dht-cG-UXq"/>
+                <constraint firstItem="aXb-MG-62z" firstAttribute="bottom" secondItem="kHd-1z-wRI" secondAttribute="bottom" id="f1o-sm-Xh8"/>
+                <constraint firstItem="BMR-xI-mWq" firstAttribute="centerX" secondItem="aXb-MG-62z" secondAttribute="centerX" id="hKH-yG-8Nf"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="aXb-MG-62z"/>
+            <point key="canvasLocation" x="52.799999999999997" y="48.575712143928037"/>
+        </view>
+    </objects>
+</document>

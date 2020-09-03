@@ -27,56 +27,68 @@ extension Gate {
     // MARK: - Public class methods
 
     /// Produces an oracle gate
-    public static func oracle(truthTable: [String], target: Int, controls: Range<Int>) -> Gate {
-        return oracle(truthTable: truthTable, target: target, controls: Array(controls))
+    public static func oracle(truthTable: [String], controls: Range<Int>, gate: Gate) -> Gate {
+        return oracle(truthTable: truthTable, controls: Array(controls), gate: gate)
     }
 
     /// Produces an oracle gate
     public static func oracle(truthTable: [String],
-                              target: Int,
-                              controls: ClosedRange<Int>) -> Gate {
-        return oracle(truthTable: truthTable, target: target, controls: Array(controls))
+                              controls: ClosedRange<Int>,
+                              gate: Gate) -> Gate {
+        return oracle(truthTable: truthTable, controls: Array(controls), gate: gate)
+    }
+
+    /// Produces an oracle gate
+    public static func oracle(truthTable: [String], controls: Range<Int>, target: Int) -> Gate {
+        return oracle(truthTable: truthTable, controls: Array(controls), target: target)
+    }
+
+    /// Produces an oracle gate
+    public static func oracle(truthTable: [String],
+                              controls: ClosedRange<Int>,
+                              target: Int) -> Gate {
+        return oracle(truthTable: truthTable, controls: Array(controls), target: target)
     }
 
     /// Produces a list of oracle gates
     public static func oracle(truthTable: [ExtendedTruth],
-                              targets: Range<Int>,
-                              controls: [Int]) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: controls)
+                              controls: [Int],
+                              targets: Range<Int>) -> [Gate] {
+        return oracle(truthTable: truthTable, controls: controls, targets: Array(targets))
     }
 
     /// Produces a list of oracle gates
     public static func oracle(truthTable: [ExtendedTruth],
-                              targets: Range<Int>,
-                              controls: Range<Int>) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: Array(controls))
+                              controls: Range<Int>,
+                              targets: Range<Int>) -> [Gate] {
+        return oracle(truthTable: truthTable, controls: Array(controls), targets: Array(targets))
     }
 
     /// Produces a list of oracle gates
     public static func oracle(truthTable: [ExtendedTruth],
-                              targets: Range<Int>,
-                              controls: ClosedRange<Int>) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: Array(controls))
+                              controls: ClosedRange<Int>,
+                              targets: Range<Int>) -> [Gate] {
+        return oracle(truthTable: truthTable, controls: Array(controls), targets: Array(targets))
     }
 
     /// Produces a list of oracle gates
     public static func oracle(truthTable: [ExtendedTruth],
-                              targets: ClosedRange<Int>,
-                              controls: [Int]) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: controls)
+                              controls: [Int],
+                              targets: ClosedRange<Int>) -> [Gate] {
+        return oracle(truthTable: truthTable, controls: controls, targets: Array(targets))
     }
 
     /// Produces a list of oracle gates
     public static func oracle(truthTable: [ExtendedTruth],
-                              targets: ClosedRange<Int>,
-                              controls: Range<Int>) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: Array(controls))
+                              controls: Range<Int>,
+                              targets: ClosedRange<Int>) -> [Gate] {
+        return oracle(truthTable: truthTable, controls: Array(controls), targets: Array(targets))
     }
 
     /// Produces a list of oracle gates
     public static func oracle(truthTable: [ExtendedTruth],
-                              targets: ClosedRange<Int>,
-                              controls: ClosedRange<Int>) -> [Gate] {
-        return oracle(truthTable: truthTable, targets: Array(targets), controls: Array(controls))
+                              controls: ClosedRange<Int>,
+                              targets: ClosedRange<Int>) -> [Gate] {
+        return oracle(truthTable: truthTable, controls: Array(controls), targets: Array(targets))
     }
 }

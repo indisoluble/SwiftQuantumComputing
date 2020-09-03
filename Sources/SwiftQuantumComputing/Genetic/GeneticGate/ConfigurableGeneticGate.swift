@@ -40,7 +40,8 @@ struct ConfigurableGeneticGate {
 extension ConfigurableGeneticGate: GeneticGate {
     func makeFixed(useCase: GeneticUseCase) -> Result<Fixed, EvolveCircuitError> {
         let oracle = try! OracleGate(truthTable: useCase.truthTable.truth,
-                                     truthTableQubitCount: useCase.truthTable.qubitCount)
+                                     truthTableQubitCount: useCase.truthTable.qubitCount,
+                                     gate: NotGate())
 
         switch oracle.makeFixed(inputs: inputs) {
         case .success(let gate):

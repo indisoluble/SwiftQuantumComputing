@@ -66,13 +66,13 @@ class ArrayGate_QubitCountTests: XCTestCase {
         // Given
         let maxIndex = 10
         let circuit = [
-            Gate.controlledMatrix(matrix: matrix, inputs: [1, 3, 6], control: 2),
-            Gate.controlledNot(target: 0, control: 1),
-            Gate.controlledNot(target: 1, control: 0),
+            Gate.controlled(gate: .matrix(matrix: matrix, inputs: [1, 3, 6]), controls: [2]),
+            Gate.controlled(gate: .not(target: 0), controls: [1]),
+            Gate.controlled(gate: .not(target: 1), controls: [0]),
             Gate.matrix(matrix: matrix, inputs: [1, 3, 6]),
             Gate.matrix(matrix: matrix, inputs: [6, 3, 1]),
-            Gate.oracle(truthTable: truthTable, target: 2, controls: [maxIndex, 7]),
-            Gate.oracle(truthTable: truthTable, target: 7, controls: [2])
+            Gate.oracle(truthTable: truthTable, controls: [maxIndex, 7], gate: .not(target: 2)),
+            Gate.oracle(truthTable: truthTable, controls: [2], gate: .not(target: 7))
         ]
 
         // Then
@@ -92,7 +92,7 @@ class ArrayGate_QubitCountTests: XCTestCase {
         let maxIndex = 10
         let circuit = [
             Gate.matrix(matrix: matrix, inputs: []),
-            Gate.oracle(truthTable: truthTable, target: 2, controls: [maxIndex, 7])
+            Gate.oracle(truthTable: truthTable, controls: [maxIndex, 7], gate: .not(target: 2))
         ]
 
         // Then
@@ -103,7 +103,7 @@ class ArrayGate_QubitCountTests: XCTestCase {
         // Given
         let maxIndex = 10
         let circuit = [
-            Gate.oracle(truthTable: truthTable, target: maxIndex, controls: [])
+            Gate.oracle(truthTable: truthTable, controls: [], gate: .not(target: maxIndex))
         ]
 
         // Then
@@ -114,7 +114,7 @@ class ArrayGate_QubitCountTests: XCTestCase {
         // Given
         let maxIndex = 10
         let circuit = [
-            Gate.oracle(truthTable: truthTable, target: 2, controls: []),
+            Gate.oracle(truthTable: truthTable, controls: [], gate: .not(target: 2)),
             Gate.matrix(matrix: matrix, inputs: [1, maxIndex, 6])
         ]
 

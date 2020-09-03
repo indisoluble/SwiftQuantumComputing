@@ -39,8 +39,8 @@ public enum GateError: Error {
     /// Throwed when the number of rows in a matrix used to build a quantum gate is not a power of 2. A matrix has to
     /// handle all possible combinations for a given number of qubits which is (number of qubits)^2
     case gateMatrixRowCountHasToBeAPowerOfTwo
-    /// Throwed when a `Gate.oracle(truthTable:target:controls:)` without `controls` is used in a circuit
-    case gateOracleControlsCanNotBeAnEmptyList
+    /// Throwed when a gate without `controls` is used in a circuit
+    case gateControlsCanNotBeAnEmptyList
 }
 
 /// Errors throwed by `Circuit.statevector(withInitialStatevector:)`
