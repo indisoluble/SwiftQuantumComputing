@@ -161,13 +161,10 @@
                 <a class="nav-group-task-link" href="../Structs/ContinuedFractionsSolver/FindApproximationError.html">– FindApproximationError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ControlledMatrixGate.html">ControlledMatrixGate</a>
+                <a class="nav-group-task-link" href="../Structs/ControlledGate.html">ControlledGate</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ControlledMatrixGate/InitError.html">– InitError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ControlledNotGate.html">ControlledNotGate</a>
+                <a class="nav-group-task-link" href="../Structs/ControlledGate/InitError.html">– InitError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/EuclideanSolver.html">EuclideanSolver</a>
@@ -286,9 +283,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO24gateControlIsAlsoAnInputyAcA4GateO_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateControlIsAlsoAnInput(gate:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO24gateControlIsAlsoAnInputyAcA4GateO_tcACmF">gateControlIsAlsoAnInput(gate:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO31qubitCountHasToBeBiggerThanZeroyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/qubitCountHasToBeBiggerThanZero" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO31qubitCountHasToBeBiggerThanZeroyA2CmF">qubitCountHasToBeBiggerThanZero</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -296,41 +293,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed when <code>gate</code> tries to use a control qubit also as an input qubit</p>
+                        <p>Throwed when <code>qubitCount</code> is 0, i.e. a circuit requires at least 1 qubit</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateControlIsAlsoAnInput</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO24gateTargetIsAlsoAControlyAcA4GateO_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateTargetIsAlsoAControl(gate:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO24gateTargetIsAlsoAControlyAcA4GateO_tcACmF">gateTargetIsAlsoAControl(gate:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when <code>gate</code> tries to use a target qubit also as a control qubit</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateTargetIsAlsoAControl</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">qubitCountHasToBeBiggerThanZero</span></code></pre>
 
                         </div>
                       </div>
@@ -367,9 +337,91 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO33gateWithOneOrMoreInputsOutOfRangeyAcA4GateO_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateWithOneOrMoreInputsOutOfRange(gate:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO33gateWithOneOrMoreInputsOutOfRangeyAcA4GateO_tcACmF">gateWithOneOrMoreInputsOutOfRange(gate:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO22gateWithRepeatedInputsyAcA4GateO_tcACmF"></a>
+                    <a name="//apple_ref/swift/Element/gateWithRepeatedInputs(gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO22gateWithRepeatedInputsyAcA4GateO_tcACmF">gateWithRepeatedInputs(gate:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Throwed when <code>gate</code> informs the same input qubit twice (or more)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateWithRepeatedInputs</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO24gateWithRepeatedControlsyAcA4GateO_tcACmF"></a>
+                    <a name="//apple_ref/swift/Element/gateWithRepeatedControls(gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO24gateWithRepeatedControlsyAcA4GateO_tcACmF">gateWithRepeatedControls(gate:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Throwed when <code>gate</code> informs the same control qubit twice (or more)
+in the same controlled/oracle gate or in different controlled/oracle gates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateWithRepeatedControls</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO35gateWithOneOrMoreInputsAlsoControlsyAcA4GateO_tcACmF"></a>
+                    <a name="//apple_ref/swift/Element/gateWithOneOrMoreInputsAlsoControls(gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO35gateWithOneOrMoreInputsAlsoControlsyAcA4GateO_tcACmF">gateWithOneOrMoreInputsAlsoControls(gate:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Throwed when <code>gate</code> tries to use one or more input qubits also as control qubits</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateWithOneOrMoreInputsAlsoControls</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO023gateWithOneOrMoreInputsJ18ControlsOutOfRangeyAcA4GateO_tcACmF"></a>
+                    <a name="//apple_ref/swift/Element/gateWithOneOrMoreInputsOrControlsOutOfRange(gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO023gateWithOneOrMoreInputsJ18ControlsOutOfRangeyAcA4GateO_tcACmF">gateWithOneOrMoreInputsOrControlsOutOfRange(gate:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -384,34 +436,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateWithOneOrMoreInputsOutOfRange</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing16DrawCircuitErrorO31qubitCountHasToBeBiggerThanZeroyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/qubitCountHasToBeBiggerThanZero" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16DrawCircuitErrorO31qubitCountHasToBeBiggerThanZeroyA2CmF">qubitCountHasToBeBiggerThanZero</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when <code>qubitCount</code> is 0, i.e. a circuit requires at least 1 qubit</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">qubitCountHasToBeBiggerThanZero</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateWithOneOrMoreInputsOrControlsOutOfRange</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -426,7 +451,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-07-25)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-04)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
