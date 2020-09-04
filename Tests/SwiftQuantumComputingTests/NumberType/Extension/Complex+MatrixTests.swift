@@ -2,7 +2,7 @@
 //  Complex+MatrixTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre (dev) on 17/07/2020.
+//  Created by Enrique de la Torre on 17/07/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");

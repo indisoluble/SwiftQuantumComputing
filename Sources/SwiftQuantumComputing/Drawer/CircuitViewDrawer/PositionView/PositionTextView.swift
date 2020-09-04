@@ -24,48 +24,15 @@ import Foundation
 
 class PositionTextView: PositionView {
 
-    // MARK: - Internal outlets
+    // MARK: - PositionViewTextShowable outlets
 
     #if os(macOS)
     @IBOutlet weak var label: NSTextField!
     #else
     @IBOutlet weak var label: UILabel!
     #endif
-
-    // MARK: - Internal methods
-
-    func showMatrixInputs(_ inputs: [Int]) {
-        showText("U" + asParameters(inputs))
-    }
-
-    func showOracleControls(_ controls: [Int]) {
-        showText("f" + asParameters(controls))
-    }
-
-    func showRadians(_ radians: Double) {
-        showText(String(format: "R(%.2f)", radians))
-    }
-
-    func showIndex(_ index: Int) {
-        showText("q\(index):")
-    }
 }
 
-// MARK: - Private body
+// MARK: - PositionViewTextShowable methods
 
-private extension PositionTextView {
-
-    // MARK: - Private methods
-
-    func showText(_ text: String) {
-        #if os(macOS)
-        label.stringValue = text
-        #else
-        label.text = text
-        #endif
-    }
-
-    func asParameters(_ inputs: [Int]) -> String {
-        return (inputs.count > 1 ? "(\(inputs.map { String($0) }.joined(separator: ",")))" : "")
-    }
-}
+extension PositionTextView: PositionViewTextShowable {}

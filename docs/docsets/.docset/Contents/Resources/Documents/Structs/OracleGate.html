@@ -161,13 +161,10 @@
                 <a class="nav-group-task-link" href="../Structs/ContinuedFractionsSolver/FindApproximationError.html">– FindApproximationError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ControlledMatrixGate.html">ControlledMatrixGate</a>
+                <a class="nav-group-task-link" href="../Structs/ControlledGate.html">ControlledGate</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ControlledMatrixGate/InitError.html">– InitError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ControlledNotGate.html">ControlledNotGate</a>
+                <a class="nav-group-task-link" href="../Structs/ControlledGate/InitError.html">– InitError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/EuclideanSolver.html">EuclideanSolver</a>
@@ -306,7 +303,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="../Structs/OracleGate.html#/s:21SwiftQuantumComputing10OracleGateV10truthTable0fG10QubitCountACSaySSG_SitKcfc">OracleGate.init(truthTable:truthTableQubitCount:)</a></code></p>
+                        <p>Errors throwed by <code><a href="../Structs/OracleGate.html#/s:21SwiftQuantumComputing10OracleGateV10truthTable0fG10QubitCount4gateACSaySSG_SiAA012ConfigurableE0_ptKcfc">OracleGate.init(truthTable:truthTableQubitCount:gate:)</a></code></p>
 
                         <a href="../Structs/OracleGate/InitError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -324,9 +321,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing10OracleGateV10truthTable0fG10QubitCountACSaySSG_SitKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(truthTable:truthTableQubitCount:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing10OracleGateV10truthTable0fG10QubitCountACSaySSG_SitKcfc">init(truthTable:<wbr>truthTableQubitCount:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing10OracleGateV10truthTable0fG10QubitCount4gateACSaySSG_SiAA012ConfigurableE0_ptKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(truthTable:truthTableQubitCount:gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing10OracleGateV10truthTable0fG10QubitCount4gateACSaySSG_SiAA012ConfigurableE0_ptKcfc">init(truthTable:<wbr>truthTableQubitCount:<wbr>gate:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -334,7 +331,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializes a <code><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></code> instance with a given <code>truthTable</code>.</p>
+                        <p>Initializes a <code><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></code> instance with a given <code>truthTable</code> &amp; <code>gate</code>.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <p><code><a href="../Structs/OracleGate/InitError.html">OracleGate.InitError</a></code>.</p>
@@ -346,7 +343,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">truthTableQubitCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">truthTableQubitCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -362,8 +359,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>List of qubit combinations for which the <code>control</code> in a
-<code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO13controlledNotyACSi_SitcACmF">Gate.controlledNot(target:control:)</a></code> is activated.</p>
+                                  <p>List of qubit combinations for which the given <code>gate</code> is activated.</p>
                                 </div>
                               </td>
                             </tr>
@@ -376,6 +372,18 @@
                               <td>
                                 <div>
                                   <p>Total number of qubits for all qubits combinations in <code>truthTable</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>gate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Another <code><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></code> instance.</p>
                                 </div>
                               </td>
                             </tr>
@@ -437,7 +445,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-07-25)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-04)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

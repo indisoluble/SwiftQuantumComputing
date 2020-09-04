@@ -32,22 +32,22 @@ extension Gate {
     // MARK: - Public class methods
 
     /**
-     Produces a list of `Gate.oracle(truthTable:target:controls:)`. An oracle is produced for each target
+     Produces a list of `Gate.oracle(truthTable:controls:gate:)`. A `Gate.not(target:)` is produced for each target
      in `targets` if at least one `activation` in `truthTable` has the bit correspoding to the target activated.
 
-     - Parameter truthTable:List of `Gate.ExtendedTruth` instances.
-     - Parameter targets: Targets for each oracle in the list.
+     - Parameter truthTable: List of `Gate.ExtendedTruth` instances.
      - Parameter controls: Control qubits for each oracle in the list.
+     - Parameter targets: Targets for each oracle in the list.
 
-     - Returns: List of `Gate.oracle(truthTable:target:controls:)`.
+     - Returns: List of `Gate.oracle(truthTable:controls:gate:)`.
      */
     public static func oracle(truthTable: [ExtendedTruth],
-                              targets: [Int],
-                              controls: [Int]) -> [Gate] {
+                              controls: [Int],
+                              targets: [Int]) -> [Gate] {
         return targets.reversed().enumerated().compactMap { (i, tg) -> Gate? in
             let tt = truthTable.compactMap { $0.activation.isBitActivated(at: i) ? $0.truth : nil }
 
-            return (tt.isEmpty ? nil : Gate.oracle(truthTable: tt, target: tg, controls: controls))
+            return (tt.isEmpty ? nil : Gate.oracle(truthTable: tt, controls: controls, target: tg))
         }
     }
 }

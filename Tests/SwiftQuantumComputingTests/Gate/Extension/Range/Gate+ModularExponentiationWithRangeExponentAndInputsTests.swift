@@ -50,21 +50,25 @@ class Gate_ModularExponentiationWithRangeExponentAndInputsTests: XCTestCase {
     func testAnyRange_makeModularExponentiation_returnExpectedGates() {
         // Then
         let gates = [
-            Gate.controlledMatrix(matrix: firstMatrix, inputs: inputs, control: 2),
-            Gate.controlledMatrix(matrix: secondMatrix, inputs: inputs, control: 3)
+            Gate.controlled(gate: .matrix(matrix: firstMatrix, inputs: inputs), controls: [2]),
+            Gate.controlled(gate: .matrix(matrix: secondMatrix, inputs: inputs), controls: [3])
         ]
         let reversedGates = [
-            Gate.controlledMatrix(matrix: firstMatrix, inputs: inputs, control: 3),
-            Gate.controlledMatrix(matrix: secondMatrix, inputs: inputs, control: 2)
+            Gate.controlled(gate: .matrix(matrix: firstMatrix, inputs: inputs), controls: [3]),
+            Gate.controlled(gate: .matrix(matrix: secondMatrix, inputs: inputs), controls: [2])
         ]
         let reversedInputs = Array(inputs.reversed())
         let reversedInputsGates = [
-            Gate.controlledMatrix(matrix: firstMatrix, inputs: reversedInputs, control: 2),
-            Gate.controlledMatrix(matrix: secondMatrix, inputs: reversedInputs, control: 3)
+            Gate.controlled(gate: .matrix(matrix: firstMatrix, inputs: reversedInputs),
+                            controls: [2]),
+            Gate.controlled(gate: .matrix(matrix: secondMatrix, inputs: reversedInputs),
+                            controls: [3])
         ]
         let reversedInputsReversedGates = [
-            Gate.controlledMatrix(matrix: firstMatrix, inputs: reversedInputs, control: 3),
-            Gate.controlledMatrix(matrix: secondMatrix, inputs: reversedInputs, control: 2)
+            Gate.controlled(gate: .matrix(matrix: firstMatrix, inputs: reversedInputs),
+                            controls: [3]),
+            Gate.controlled(gate: .matrix(matrix: secondMatrix, inputs: reversedInputs),
+                            controls: [2])
         ]
 
         XCTAssertEqual(try? Gate.makeModularExponentiation(base: base,

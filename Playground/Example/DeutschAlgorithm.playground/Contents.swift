@@ -9,7 +9,7 @@ func isFunctionConstant(truthTable: [String]) -> Bool {
     ]
     gates += Gate.hadamard(targets: 0, 1)
     gates += [
-        Gate.oracle(truthTable: truthTable, target: 0, controls: [1]),
+        Gate.oracle(truthTable: truthTable, controls: [1], target: 0),
         Gate.hadamard(target: 1)
     ]
 

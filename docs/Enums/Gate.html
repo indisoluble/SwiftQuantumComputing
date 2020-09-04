@@ -161,13 +161,10 @@
                 <a class="nav-group-task-link" href="../Structs/ContinuedFractionsSolver/FindApproximationError.html">– FindApproximationError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ControlledMatrixGate.html">ControlledMatrixGate</a>
+                <a class="nav-group-task-link" href="../Structs/ControlledGate.html">ControlledGate</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ControlledMatrixGate/InitError.html">– InitError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ControlledNotGate.html">ControlledNotGate</a>
+                <a class="nav-group-task-link" href="../Structs/ControlledGate/InitError.html">– InitError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/EuclideanSolver.html">EuclideanSolver</a>
@@ -270,7 +267,7 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Gate</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">indirect</span> <span class="kd">enum</span> <span class="kt">Gate</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Gate</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                 </div>
@@ -287,9 +284,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO16controlledMatrixyAcA0F0V_SaySiGSitcACmF"></a>
-                    <a name="//apple_ref/swift/Element/controlledMatrix(matrix:inputs:control:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO16controlledMatrixyAcA0F0V_SaySiGSitcACmF">controlledMatrix(matrix:<wbr>inputs:<wbr>control:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO3notyACSi_tcACmF"></a>
+                    <a name="//apple_ref/swift/Element/not(target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO3notyACSi_tcACmF">not(target:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -297,42 +294,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Generic quantum gate controlled with <code>control</code>, built with a <code>matrix</code> (it is expected to be unitary)
-and any number of <code>inputs</code> (as many inputs as <code>matrix</code> is able to handle)</p>
+                        <p>Not gate with 1 input: <code>target</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">controlledMatrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="kt"><a href="../Structs/Matrix.html">Matrix</a></span><span class="p">,</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span> <span class="nv">control</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO13controlledNotyACSi_SitcACmF"></a>
-                    <a name="//apple_ref/swift/Element/controlledNot(target:control:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO13controlledNotyACSi_SitcACmF">controlledNot(target:<wbr>control:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Controlled not gate with 2 inputs: <code>target</code> &amp; <code>control</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">controlledNot</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">control</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -360,6 +329,33 @@ and any number of <code>inputs</code> (as many inputs as <code>matrix</code> is 
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO10phaseShiftyACSd_SitcACmF"></a>
+                    <a name="//apple_ref/swift/Element/phaseShift(radians:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO10phaseShiftyACSd_SitcACmF">phaseShift(radians:<wbr>target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Quantum gate that shifts phase of the quantum state in <code>target</code> by <code>radians</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -397,9 +393,9 @@ and any number of <code>inputs</code> (as many inputs as <code>matrix</code> is 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO3notyACSi_tcACmF"></a>
-                    <a name="//apple_ref/swift/Element/not(target:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO3notyACSi_tcACmF">not(target:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SaySiGACtcACmF"></a>
+                    <a name="//apple_ref/swift/Element/oracle(truthTable:controls:gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SaySiGACtcACmF">oracle(truthTable:<wbr>controls:<wbr>gate:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -407,14 +403,14 @@ and any number of <code>inputs</code> (as many inputs as <code>matrix</code> is 
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Not gate with 1 input: <code>target</code></p>
+                        <p>Oracle gate composed of a <code>truthtable</code> that specifies which <code>controls</code> activate a <code>gate</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span> <span class="nv">gate</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -424,9 +420,9 @@ and any number of <code>inputs</code> (as many inputs as <code>matrix</code> is 
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SiSaySiGtcACmF"></a>
-                    <a name="//apple_ref/swift/Element/oracle(truthTable:target:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SiSaySiGtcACmF">oracle(truthTable:<wbr>target:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO10controlledyA2C_SaySiGtcACmF"></a>
+                    <a name="//apple_ref/swift/Element/controlled(gate:controls:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO10controlledyA2C_SaySiGtcACmF">controlled(gate:<wbr>controls:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -434,42 +430,14 @@ and any number of <code>inputs</code> (as many inputs as <code>matrix</code> is 
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Oracle gate composed of a <code>truthtable</code> that specifies which <code>controls</code> activate a controlled not
-gate applied to <code>target</code></p>
+                        <p>Generic quantum <code>gate</code> controlled with <code>controls</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO10phaseShiftyACSd_SitcACmF"></a>
-                    <a name="//apple_ref/swift/Element/phaseShift(radians:target:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO10phaseShiftyACSd_SitcACmF">phaseShift(radians:<wbr>target:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Quantum gate that shifts phase of the quantum state in <code>target</code> by <code>radians</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">controlled</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span></code></pre>
 
                         </div>
                       </div>
@@ -489,6 +457,33 @@ gate applied to <code>target</code></p>
                 </div>
               </div>
               <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO13controlledNot6target7controlACSi_SitFZ"></a>
+                    <a name="//apple_ref/swift/Method/controlledNot(target:control:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO13controlledNot6target7controlACSi_SitFZ">controlledNot(target:<wbr>control:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a controlled not gate with 2 inputs: <code>target</code> &amp; <code>control</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">controlledNot</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">control</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -666,6 +661,80 @@ are equal to [2, 1, 0], qubit[2] and qubit[1] have to be 0 and qubit[0] has to b
                       <div>
                         <h4>Return Value</h4>
                         <p>List of <code>Gate</code> instances that code a modular exponentiation. Or <code><a href="../Enums/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></code> error.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls6targetACSaySSG_SaySiGSitFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls6targetACSaySSG_SaySiGSitFZ">oracle(truthTable:<wbr>controls:<wbr>target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SaySiGACtcACmF">Gate.oracle(truthTable:controls:gate:)</a></code> with a <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO3notyACSi_tcACmF">Gate.not(target:)</a></code> in target.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>truthTable</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Oracle truthtable.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>controls</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Control qubits.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>target</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Target of <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO3notyACSi_tcACmF">Gate.not(target:)</a></code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SaySiGACtcACmF">Gate.oracle(truthTable:controls:gate:)</a></code> instance.</p>
                       </div>
                     </section>
                   </div>
@@ -1024,9 +1093,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target8controlsACSaySSG_SiSnySiGtFZ"></a>
-                    <a name="//apple_ref/swift/Method/oracle(truthTable:target:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target8controlsACSaySSG_SiSnySiGtFZ">oracle(truthTable:<wbr>target:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls4gateACSaySSG_SnySiGACtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls4gateACSaySSG_SnySiGACtFZ">oracle(truthTable:<wbr>controls:<wbr>gate:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1041,7 +1110,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">gate</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
 
                         </div>
                       </div>
@@ -1051,9 +1120,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target8controlsACSaySSG_SiSNySiGtFZ"></a>
-                    <a name="//apple_ref/swift/Method/oracle(truthTable:target:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable6target8controlsACSaySSG_SiSNySiGtFZ">oracle(truthTable:<wbr>target:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls4gateACSaySSG_SNySiGACtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls4gateACSaySSG_SNySiGACtFZ">oracle(truthTable:<wbr>controls:<wbr>gate:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1069,8 +1138,8 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
-                          <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
-                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">gate</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
 
                         </div>
                       </div>
@@ -1080,9 +1149,65 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SnySiGSaySiGtFZ"></a>
-                    <a name="//apple_ref/swift/Method/oracle(truthTable:targets:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SnySiGSaySiGtFZ">oracle(truthTable:<wbr>targets:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls6targetACSaySSG_SnySiGSitFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls6targetACSaySSG_SnySiGSitFZ">oracle(truthTable:<wbr>controls:<wbr>target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls6targetACSaySSG_SNySiGSitFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls6targetACSaySSG_SNySiGSitFZ">oracle(truthTable:<wbr>controls:<wbr>target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGSnySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGSnySiGtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1098,8 +1223,8 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
-                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                          <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1109,9 +1234,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SnySiGALtFZ"></a>
-                    <a name="//apple_ref/swift/Method/oracle(truthTable:targets:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SnySiGALtFZ">oracle(truthTable:<wbr>targets:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SnySiGALtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SnySiGALtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1127,8 +1252,8 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
-                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1138,9 +1263,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SnySiGSNySiGtFZ"></a>
-                    <a name="//apple_ref/swift/Method/oracle(truthTable:targets:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SnySiGSNySiGtFZ">oracle(truthTable:<wbr>targets:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SNySiGSnySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SNySiGSnySiGtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1156,8 +1281,8 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
-                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1167,9 +1292,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SNySiGSaySiGtFZ"></a>
-                    <a name="//apple_ref/swift/Method/oracle(truthTable:targets:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SNySiGSaySiGtFZ">oracle(truthTable:<wbr>targets:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGSNySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGSNySiGtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1185,8 +1310,8 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
-                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                          <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1196,9 +1321,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SNySiGSnySiGtFZ"></a>
-                    <a name="//apple_ref/swift/Method/oracle(truthTable:targets:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SNySiGSnySiGtFZ">oracle(truthTable:<wbr>targets:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SnySiGSNySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SnySiGSNySiGtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1214,8 +1339,8 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
-                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1225,9 +1350,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SNySiGALtFZ"></a>
-                    <a name="//apple_ref/swift/Method/oracle(truthTable:targets:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SNySiGALtFZ">oracle(truthTable:<wbr>targets:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SNySiGALtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SNySiGALtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1243,8 +1368,8 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
-                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
-                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1469,9 +1594,9 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SaySiGALtFZ"></a>
-                    <a name="//apple_ref/swift/Method/oracle(truthTable:targets:controls:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable7targets8controlsSayACGSaySS0F0_SS10activationtG_SaySiGALtFZ">oracle(truthTable:<wbr>targets:<wbr>controls:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGALtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGALtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1479,7 +1604,7 @@ if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Tran
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Produces a list of <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SiSaySiGtcACmF">Gate.oracle(truthTable:target:controls:)</a></code>. An oracle is produced for each target
+                        <p>Produces a list of <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SaySiGACtcACmF">Gate.oracle(truthTable:controls:gate:)</a></code>. A <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO3notyACSi_tcACmF">Gate.not(target:)</a></code> is produced for each target
 in <code>targets</code> if at least one <code>activation</code> in <code>truthTable</code> has the bit correspoding to the target activated.</p>
 
                       </div>
@@ -1488,8 +1613,8 @@ in <code>targets</code> if at least one <code>activation</code> in <code>truthTa
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
-                          <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
-                          <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -1512,18 +1637,6 @@ in <code>targets</code> if at least one <code>activation</code> in <code>truthTa
                             <tr>
                               <td>
                                 <code>
-                                <em>targets</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Targets for each oracle in the list.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
                                 <em>controls</em>
                                 </code>
                               </td>
@@ -1533,12 +1646,24 @@ in <code>targets</code> if at least one <code>activation</code> in <code>truthTa
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>targets</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Targets for each oracle in the list.</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>List of <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SiSaySiGtcACmF">Gate.oracle(truthTable:target:controls:)</a></code>.</p>
+                        <p>List of <code><a href="../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO6oracleyACSaySSG_SaySiGACtcACmF">Gate.oracle(truthTable:controls:gate:)</a></code>.</p>
                       </div>
                     </section>
                   </div>
@@ -1605,7 +1730,7 @@ in <code>targets</code> if at least one <code>activation</code> in <code>truthTa
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-07-25)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-04)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -28,30 +28,45 @@ extension Matrix {
     // MARK: - Internal class methods
 
     enum MakeOracleError: Error {
-        case controlsCanNotBeAnEmptyList
+        case controlCountHasToBeBiggerThanZero
+        case matrixIsNotSquare
+        case matrixRowCountHasToBeAPowerOfTwo
     }
 
     static func makeOracle(truthTable: [String],
-                           controlCount: Int) -> Result<Matrix, MakeOracleError> {
+                           controlCount: Int,
+                           controlledMatrix: Matrix) -> Result<Matrix, MakeOracleError> {
+        guard controlledMatrix.isSquare else {
+            return .failure(.matrixIsNotSquare)
+        }
+
+        guard controlledMatrix.rowCount.isPowerOfTwo else {
+            return .failure(.matrixRowCountHasToBeAPowerOfTwo)
+        }
+
         guard controlCount > 0 else {
-            return .failure(.controlsCanNotBeAnEmptyList)
+            return .failure(.controlCountHasToBeBiggerThanZero)
         }
 
         let truthTableAsInts = Matrix.truthTableAsInts(truthTable)
-        let columnCount = Int.pow(2, controlCount + 1)
+        let controlledMatrixSize = controlledMatrix.columnCount
+        let columnCount = Int.pow(2, controlCount) * controlledMatrixSize
 
         var rows: [[Complex<Double>]] = []
-
         for controlValue in 0..<Int.pow(2, controlCount) {
             let isControlValueTrue = truthTableAsInts.contains(controlValue)
 
-            var row = Array(repeating: Complex<Double>.zero, count: columnCount)
-            row[2 * controlValue + (isControlValueTrue ? 1 : 0)] = .one
-            rows.append(row)
+            for ri in 0..<controlledMatrixSize {
+                var row = Array(repeating: Complex<Double>.zero, count: columnCount)
 
-            row = Array(repeating: Complex.zero, count: columnCount)
-            row[2 * controlValue + (isControlValueTrue ? 0 : 1)] = .one
-            rows.append(row)
+                for ci in 0..<controlledMatrixSize {
+                    row[controlValue * controlledMatrixSize + ci] = (
+                        isControlValueTrue ? controlledMatrix[ri, ci] : (ri == ci ? .one : .zero)
+                    )
+                }
+
+                rows.append(row)
+            }
         }
 
         return .success(try! Matrix(rows)) 

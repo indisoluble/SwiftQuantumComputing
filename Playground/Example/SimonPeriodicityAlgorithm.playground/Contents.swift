@@ -20,11 +20,11 @@ let bitCount = secret.count
 
 var gates = Gate.hadamard(targets: bitCount..<2*bitCount)
 gates += Gate.oracle(truthTable: makeSimonTruthTable(secret: secret),
-                     targets: 0..<bitCount,
-                     controls: (bitCount..<2*bitCount).reversed())
+                     controls: (bitCount..<2*bitCount).reversed(),
+                     targets: 0..<bitCount)
 gates += Gate.hadamard(targets: bitCount..<2*bitCount)
 
-MainDrawerFactory().makeDrawer().drawCircuit(gates)
+MainDrawerFactory().makeDrawer().drawCircuit(gates).get()
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
 let state = circuit.statevector().get()

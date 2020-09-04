@@ -8,16 +8,16 @@ func makeBernsteinVaziraniTruthTable(secret: String) -> [String] {
     return combinations.filter { ($0 & secret)!.bitXor()! }
 }
 
-let secret = "110101"
+let secret = "11010101"
 
 var gates = [Gate.not(target: 0)]
 gates += Gate.hadamard(targets: 0...secret.count)
 gates += [Gate.oracle(truthTable: makeBernsteinVaziraniTruthTable(secret: secret),
-                      target: 0,
-                      controls: (1...secret.count).reversed())]
+                      controls: (1...secret.count).reversed(),
+                      target: 0)]
 gates += Gate.hadamard(targets: 1...secret.count)
 
-MainDrawerFactory().makeDrawer().drawCircuit(gates)
+MainDrawerFactory().makeDrawer().drawCircuit(gates).get()
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
 let statevector = circuit.statevector().get()
