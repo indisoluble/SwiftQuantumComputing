@@ -5,7 +5,7 @@ import PackageDescription
 var dependencies: [Package.Dependency] = [
     .package(
         url: "https://github.com/apple/swift-numerics.git",
-        .exact("0.0.5")
+        .exact("0.0.7")
     )
 ]
 #if os(Linux)
