@@ -58,7 +58,7 @@ struct UnitaryGateAdapter {
 
 extension UnitaryGateAdapter: UnitaryGate {
     func unitary() -> Result<Matrix, UnitaryMatrixError> {
-        guard matrix.isUnitary(accuracy: Constants.accuracy) else {
+        guard matrix.isApproximatelyUnitary(absoluteTolerance: Constants.tolerance) else {
             return .failure(.matrixIsNotUnitary)
         }
 
@@ -88,6 +88,6 @@ private extension UnitaryGateAdapter {
     // MARK: - Constants
 
     enum Constants {
-        static let accuracy = 0.001
+        static let tolerance = 0.001
     }
 }

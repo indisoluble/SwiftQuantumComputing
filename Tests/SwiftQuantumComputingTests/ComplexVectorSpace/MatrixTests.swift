@@ -155,25 +155,25 @@ class MatrixTests: XCTestCase {
         XCTAssertFalse(m1.isApproximatelyEqual(to: m2, absoluteTolerance: accuracy))
     }
 
-    func testNonSquareMatrix_isUnitary_returnFalse() {
+    func testNonSquareMatrix_isApproximatelyUnitary_returnFalse() {
         // Given
         let matrix = try! Matrix([[.one], [.one]])
 
         // Then
-        XCTAssertFalse(matrix.isUnitary(accuracy: 0.001))
+        XCTAssertFalse(matrix.isApproximatelyUnitary(absoluteTolerance: 0.001))
     }
 
-    func testSquareNonUnitaryMatrix_isUnitary_returnFalse() {
+    func testSquareNonUnitaryMatrix_isApproximatelyUnitary_returnFalse() {
         // Given
         let matrix = try! Matrix([[.one, .one, .one],
                                   [.one, .one, .one],
                                   [.one, .one, .one]])
 
         // Then
-        XCTAssertFalse(matrix.isUnitary(accuracy: 0.001))
+        XCTAssertFalse(matrix.isApproximatelyUnitary(absoluteTolerance: 0.001))
     }
 
-    func testUnitaryMatrix_isUnitary_returnTrue() {
+    func testUnitaryMatrix_isApproximatelyUnitary_returnTrue() {
         // Given
         let elements: [[Complex<Double>]] = [
             [Complex(1.0 / 2.0, 1.0 / 2.0),
@@ -189,7 +189,7 @@ class MatrixTests: XCTestCase {
         let matrix = try! Matrix(elements)
 
         // Then
-        XCTAssertTrue(matrix.isUnitary(accuracy: 0.001))
+        XCTAssertTrue(matrix.isApproximatelyUnitary(absoluteTolerance: 0.001))
     }
 
     func testZeroRowCount_makeMatrix_throwException() {
@@ -499,12 +499,12 @@ class MatrixTests: XCTestCase {
          testMatricesWithValusAroundAccuracy_isApproximatelyEqual_returnTrue),
         ("testMatricesWithOneValueFartherThanAccuracy_isApproximatelyEqual_returnFalse",
          testMatricesWithOneValueFartherThanAccuracy_isApproximatelyEqual_returnFalse),
-        ("testNonSquareMatrix_isUnitary_returnFalse",
-         testNonSquareMatrix_isUnitary_returnFalse),
-        ("testSquareNonUnitaryMatrix_isUnitary_returnFalse",
-         testSquareNonUnitaryMatrix_isUnitary_returnFalse),
-        ("testUnitaryMatrix_isUnitary_returnTrue",
-         testUnitaryMatrix_isUnitary_returnTrue),
+        ("testNonSquareMatrix_isApproximatelyUnitary_returnFalse",
+         testNonSquareMatrix_isApproximatelyUnitary_returnFalse),
+        ("testSquareNonUnitaryMatrix_isApproximatelyUnitary_returnFalse",
+         testSquareNonUnitaryMatrix_isApproximatelyUnitary_returnFalse),
+        ("testUnitaryMatrix_isApproximatelyUnitary_returnTrue",
+         testUnitaryMatrix_isApproximatelyUnitary_returnTrue),
         ("testZeroRowCount_makeMatrix_throwException",
          testZeroRowCount_makeMatrix_throwException),
         ("testZeroColumnCount_makeMatrix_throwException",

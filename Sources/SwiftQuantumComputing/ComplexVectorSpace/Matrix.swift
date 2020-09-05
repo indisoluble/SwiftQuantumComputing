@@ -122,16 +122,16 @@ public struct Matrix {
         }
     }
 
-    func isUnitary(accuracy: Double) -> Bool {
+    func isApproximatelyUnitary(absoluteTolerance: Double) -> Bool {
         let identity = try! Matrix.makeIdentity(count: rowCount).get()
 
         var matrix = Matrix.multiply(lhs: self, rhs: self, rhsTrans: CblasConjTrans)
-        guard matrix.isApproximatelyEqual(to: identity, absoluteTolerance: accuracy) else {
+        guard matrix.isApproximatelyEqual(to: identity, absoluteTolerance: absoluteTolerance) else {
             return false
         }
 
         matrix = Matrix.multiply(lhs: self, lhsTrans: CblasConjTrans, rhs: self)
-        return matrix.isApproximatelyEqual(to: identity, absoluteTolerance: accuracy)
+        return matrix.isApproximatelyEqual(to: identity, absoluteTolerance: absoluteTolerance)
     }
 
     // MARK: - Internal class methods
