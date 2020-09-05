@@ -102,7 +102,7 @@ private extension Gate {
     enum Constants {
         static let matrixHadamard = Matrix.makeHadamard()
         static let matrixNot = Matrix.makeNot()
-        static let unitaryAccuracy = 0.001
+        static let unitaryTolerance = 0.001
     }
 
     // MARK: - Private methods
@@ -144,7 +144,7 @@ private extension Gate {
                 return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
             }
             // Validate matrix before expanding it so the operation requires less time
-            guard matrix.isUnitary(accuracy: Constants.unitaryAccuracy) else {
+            guard matrix.isApproximatelyUnitary(absoluteTolerance: Constants.unitaryTolerance) else {
                 return .failure(.gateMatrixIsNotUnitary)
             }
 

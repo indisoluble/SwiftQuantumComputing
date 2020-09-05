@@ -50,7 +50,7 @@ class Matrix_QuantumFourierTransformTests: XCTestCase {
             [Complex(val), Complex(-val), Complex(val), Complex(-val)],
             [Complex(val), Complex(imaginary: -val), Complex(-val), Complex(imaginary: val)]
         ])
-        XCTAssertTrue(result.isEqual(expectedResult, accuracy: 0.00001))
+        XCTAssertTrue(result.isApproximatelyEqual(to: expectedResult, absoluteTolerance: 0.00001))
     }
 
     static var allTests = [

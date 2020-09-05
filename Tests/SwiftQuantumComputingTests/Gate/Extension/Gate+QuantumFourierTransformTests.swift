@@ -55,7 +55,8 @@ class Gate_QuantumFourierTransformTests: XCTestCase {
         ])
 
         if case .matrix(let gateMatrix, let gateInputs) = gate {
-            XCTAssertTrue(gateMatrix.isEqual(expectedMatrix, accuracy: 0.00001))
+            XCTAssertTrue(gateMatrix.isApproximatelyEqual(to: expectedMatrix,
+                                                          absoluteTolerance: 0.00001))
             XCTAssertEqual(gateInputs, inputs)
         } else {
             XCTAssert(false)
@@ -79,7 +80,8 @@ class Gate_QuantumFourierTransformTests: XCTestCase {
         ])
 
         if case .matrix(let gateMatrix, let gateInputs) = gate {
-            XCTAssertTrue(gateMatrix.isEqual(expectedMatrix, accuracy: 0.00001))
+            XCTAssertTrue(gateMatrix.isApproximatelyEqual(to: expectedMatrix,
+                                                          absoluteTolerance: 0.00001))
             XCTAssertEqual(gateInputs, inputs)
         } else {
             XCTAssert(false)
