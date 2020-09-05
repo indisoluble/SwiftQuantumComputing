@@ -1,5 +1,5 @@
 //
-//  Vector+IsAdditionOfSquareModulusEqualToOne.swift
+//  Vector+IsAdditionOfSquareModulusApproximatelyEqualToOne.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/04/2020.
@@ -26,8 +26,8 @@ extension Vector {
 
     // MARK: - Internal methods
 
-    func isAdditionOfSquareModulusEqualToOne() -> Bool {
-        return (abs(squaredNorm - Double(1)) <= Constants.accuracy)
+    func isAdditionOfSquareModulusApproximatelyEqualToOne() -> Bool {
+        return squaredNorm.isApproximatelyEqual(to: 1.0, absoluteTolerance: Constants.tolerance)
     }
 }
 
@@ -38,6 +38,6 @@ private extension Vector {
     // MARK: - Constants
 
     enum Constants {
-        static let accuracy = 0.001
+        static let tolerance = 0.001
     }
 }

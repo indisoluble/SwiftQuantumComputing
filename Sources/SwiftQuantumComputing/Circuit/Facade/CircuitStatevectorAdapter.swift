@@ -40,7 +40,7 @@ struct CircuitStatevectorAdapter {
             throw InitError.statevectorCountHasToBeAPowerOfTwo
         }
 
-        guard statevector.isAdditionOfSquareModulusEqualToOne() else {
+        guard statevector.isAdditionOfSquareModulusApproximatelyEqualToOne() else {
             throw InitError.statevectorAdditionOfSquareModulusIsNotEqualToOne
         }
 
