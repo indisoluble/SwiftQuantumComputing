@@ -109,33 +109,33 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(sequence, expectedSequence)
     }
 
-    func testMatricesWithDifferentNumberOfRows_isEqual_returnFalse() {
+    func testMatricesWithDifferentNumberOfRows_isApproximatelyEqual_returnFalse() {
         // Given
         let m1 = try! Matrix([[.one], [.one]])
         let m2 = try! Matrix([[.one], [.one], [.one]])
 
         // Then
-        XCTAssertFalse(m1.isEqual(m2, accuracy: 0.001))
+        XCTAssertFalse(m1.isApproximatelyEqual(to: m2, absoluteTolerance: 0.001))
     }
 
-    func testMatricesWithDifferentNumberOfColumns_isEqual_returnFalse() {
+    func testMatricesWithDifferentNumberOfColumns_isApproximatelyEqual_returnFalse() {
         // Given
         let m1 = try! Matrix([[.one, .one]])
         let m2 = try! Matrix([[.one, .one, .one]])
 
         // Then
-        XCTAssertFalse(m1.isEqual(m2, accuracy: 0.001))
+        XCTAssertFalse(m1.isApproximatelyEqual(to: m2, absoluteTolerance: 0.001))
     }
 
-    func testAnyMatrixAndAccuracyZero_isEqual_returnTrue() {
+    func testAnyMatrixAndAccuracyZero_isApproximatelyEqual_returnTrue() {
         // Given
         let matrix = try! Matrix([[.one], [.one]])
 
         // Then
-        XCTAssertTrue(matrix.isEqual(matrix, accuracy: 0))
+        XCTAssertTrue(matrix.isApproximatelyEqual(to: matrix, absoluteTolerance: 0))
     }
 
-    func testMatricesWithValusAroundAccuracy_isEqual_returnTrue() {
+    func testMatricesWithValusAroundAccuracy_isApproximatelyEqual_returnTrue() {
         let accuracy = 0.001
         let m1 = try! Matrix([
             [Complex(1 + accuracy), Complex(accuracy, -1)]
@@ -143,16 +143,16 @@ class MatrixTests: XCTestCase {
         let m2 = try! Matrix([[Complex(1, accuracy), Complex(2 * accuracy, -1 - accuracy)]])
 
         // Then
-        XCTAssertTrue(m1.isEqual(m2, accuracy: accuracy))
+        XCTAssertTrue(m1.isApproximatelyEqual(to: m2, absoluteTolerance: accuracy))
     }
 
-    func testMatricesWithOneValueFartherThanAccuracy_isEqual_returnFalse() {
+    func testMatricesWithOneValueFartherThanAccuracy_isApproximatelyEqual_returnFalse() {
         let accuracy = 0.001
         let m1 = try! Matrix([[.one, Complex(accuracy, -accuracy)]])
         let m2 = try! Matrix([[.one, Complex(accuracy, accuracy)]])
 
         // Then
-        XCTAssertFalse(m1.isEqual(m2, accuracy: accuracy))
+        XCTAssertFalse(m1.isApproximatelyEqual(to: m2, absoluteTolerance: accuracy))
     }
 
     func testNonSquareMatrix_isUnitary_returnFalse() {
@@ -489,16 +489,16 @@ class MatrixTests: XCTestCase {
          testAnyMatrix_first_returnExpectedValue),
         ("testAnyMatrix_subscript_returnExpectedValue",
          testAnyMatrix_subscript_returnExpectedValue),
-        ("testMatricesWithDifferentNumberOfRows_isEqual_returnFalse",
-         testMatricesWithDifferentNumberOfRows_isEqual_returnFalse),
-        ("testMatricesWithDifferentNumberOfColumns_isEqual_returnFalse",
-         testMatricesWithDifferentNumberOfColumns_isEqual_returnFalse),
-        ("testAnyMatrixAndAccuracyZero_isEqual_returnTrue",
-         testAnyMatrixAndAccuracyZero_isEqual_returnTrue),
-        ("testMatricesWithValusAroundAccuracy_isEqual_returnTrue",
-         testMatricesWithValusAroundAccuracy_isEqual_returnTrue),
-        ("testMatricesWithOneValueFartherThanAccuracy_isEqual_returnFalse",
-         testMatricesWithOneValueFartherThanAccuracy_isEqual_returnFalse),
+        ("testMatricesWithDifferentNumberOfRows_isApproximatelyEqual_returnFalse",
+         testMatricesWithDifferentNumberOfRows_isApproximatelyEqual_returnFalse),
+        ("testMatricesWithDifferentNumberOfColumns_isApproximatelyEqual_returnFalse",
+         testMatricesWithDifferentNumberOfColumns_isApproximatelyEqual_returnFalse),
+        ("testAnyMatrixAndAccuracyZero_isApproximatelyEqual_returnTrue",
+         testAnyMatrixAndAccuracyZero_isApproximatelyEqual_returnTrue),
+        ("testMatricesWithValusAroundAccuracy_isApproximatelyEqual_returnTrue",
+         testMatricesWithValusAroundAccuracy_isApproximatelyEqual_returnTrue),
+        ("testMatricesWithOneValueFartherThanAccuracy_isApproximatelyEqual_returnFalse",
+         testMatricesWithOneValueFartherThanAccuracy_isApproximatelyEqual_returnFalse),
         ("testNonSquareMatrix_isUnitary_returnFalse",
          testNonSquareMatrix_isUnitary_returnFalse),
         ("testSquareNonUnitaryMatrix_isUnitary_returnFalse",

@@ -112,16 +112,13 @@ public struct Matrix {
 
     // MARK: - Internal methods
 
-    func isEqual(_ matrix: Matrix, accuracy: Double) -> Bool {
+    func isApproximatelyEqual(to matrix: Matrix, absoluteTolerance: Double) -> Bool {
         guard ((rowCount == matrix.rowCount) && (columnCount == matrix.columnCount)) else {
             return false
         }
 
         return values.elementsEqual(matrix.values) {
-            let realInRange = (abs($0.real - $1.real) <= accuracy)
-            let imagInRange = (abs($0.imaginary - $1.imaginary) <= accuracy)
-
-            return (realInRange && imagInRange)
+            return $0.isApproximatelyEqual(to: $1, absoluteTolerance: absoluteTolerance)
         }
     }
 
@@ -129,12 +126,12 @@ public struct Matrix {
         let identity = try! Matrix.makeIdentity(count: rowCount).get()
 
         var matrix = Matrix.multiply(lhs: self, rhs: self, rhsTrans: CblasConjTrans)
-        guard matrix.isEqual(identity, accuracy: accuracy) else {
+        guard matrix.isApproximatelyEqual(to: identity, absoluteTolerance: accuracy) else {
             return false
         }
 
         matrix = Matrix.multiply(lhs: self, lhsTrans: CblasConjTrans, rhs: self)
-        return matrix.isEqual(identity, accuracy: accuracy)
+        return matrix.isApproximatelyEqual(to: identity, absoluteTolerance: accuracy)
     }
 
     // MARK: - Internal class methods
