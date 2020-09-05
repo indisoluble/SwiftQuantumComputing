@@ -154,9 +154,6 @@
 		FF330714220611F300C92BD1 /* Array+RandomElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF330712220611F300C92BD1 /* Array+RandomElements.swift */; };
 		FF343F7C21E6AB81008B8C6B /* Matrix+Oracle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */; };
 		FF343F7D21E6AB81008B8C6B /* Matrix+Oracle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */; };
-		FF34432324C7629D00636877 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF34432224C7629D00636877 /* ComplexModule */; };
-		FF34432524C762D100636877 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF34432424C762D100636877 /* ComplexModule */; };
-		FF34432924C763C000636877 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF34432824C763C000636877 /* ComplexModule */; };
 		FF3500A924F43F9400773013 /* ControlledGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3500A824F43F9400773013 /* ControlledGate.swift */; };
 		FF3500AA24F43F9400773013 /* ControlledGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3500A824F43F9400773013 /* ControlledGate.swift */; };
 		FF36CB0B23E8D72C00C286B2 /* SimulatorCircuitMatrixFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF36CB0A23E8D72C00C286B2 /* SimulatorCircuitMatrixFactory.swift */; };
@@ -706,6 +703,9 @@
 		FFF8D7DC241EE37900A039DA /* Rational+QuotientAndRemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF8D7DA241EE37900A039DA /* Rational+QuotientAndRemainderWithDivisionType.swift */; };
 		FFF8D7DE241EE92D00A039DA /* Rational+QuotientAndRemainderWithDivisionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF8D7DD241EE92D00A039DA /* Rational+QuotientAndRemainderWithDivisionTypeTests.swift */; };
 		FFF8D7DF241EE92D00A039DA /* Rational+QuotientAndRemainderWithDivisionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF8D7DD241EE92D00A039DA /* Rational+QuotientAndRemainderWithDivisionTypeTests.swift */; };
+		FFF9449D2503A9AD005FE50C /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FFF9449C2503A9AD005FE50C /* ComplexModule */; };
+		FFF9449F2503A9C3005FE50C /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FFF9449E2503A9C3005FE50C /* ComplexModule */; };
+		FFF944A12503AAA4005FE50C /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FFF944A02503AAA4005FE50C /* ComplexModule */; };
 		FFFB3D4B23EE15F90013539D /* SimulatorCircuitMatrixFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFB3D4A23EE15F90013539D /* SimulatorCircuitMatrixFactoryTestDouble.swift */; };
 		FFFB3D4C23EE15F90013539D /* SimulatorCircuitMatrixFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFB3D4A23EE15F90013539D /* SimulatorCircuitMatrixFactoryTestDouble.swift */; };
 		FFFEA1822222CE0200E6B45C /* GeneticPopulationCrossoverFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEA1812222CE0200E6B45C /* GeneticPopulationCrossoverFactory.swift */; };
@@ -1147,7 +1147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF34432324C7629D00636877 /* ComplexModule in Frameworks */,
+				FFF9449D2503A9AD005FE50C /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1163,7 +1163,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF34432524C762D100636877 /* ComplexModule in Frameworks */,
+				FFF9449F2503A9C3005FE50C /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1179,7 +1179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF34432924C763C000636877 /* ComplexModule in Frameworks */,
+				FFF944A12503AAA4005FE50C /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2621,7 +2621,7 @@
 			);
 			name = SwiftQuantumComputing_iOS;
 			packageProductDependencies = (
-				FF34432224C7629D00636877 /* ComplexModule */,
+				FFF9449C2503A9AD005FE50C /* ComplexModule */,
 			);
 			productName = SwiftQuantumComputing;
 			productReference = FF65E3B5211A181900AA0BD2 /* SwiftQuantumComputing.framework */;
@@ -2660,7 +2660,7 @@
 			);
 			name = SwiftQuantumComputing_macOS;
 			packageProductDependencies = (
-				FF34432424C762D100636877 /* ComplexModule */,
+				FFF9449E2503A9C3005FE50C /* ComplexModule */,
 			);
 			productName = SwiftQuantumComputing_macOS;
 			productReference = FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */;
@@ -2698,7 +2698,7 @@
 			);
 			name = ExampleShorAlgorithm;
 			packageProductDependencies = (
-				FF34432824C763C000636877 /* ComplexModule */,
+				FFF944A02503AAA4005FE50C /* ComplexModule */,
 			);
 			productName = ExampleShorAlgorithm;
 			productReference = FFC3318F24B9FCA100A32FF8 /* ExampleShorAlgorithm */;
@@ -2745,7 +2745,7 @@
 			);
 			mainGroup = FF65E3AB211A181800AA0BD2;
 			packageReferences = (
-				FF34432124C7629D00636877 /* XCRemoteSwiftPackageReference "swift-numerics" */,
+				FFF9449B2503A9AD005FE50C /* XCRemoteSwiftPackageReference "swift-numerics" */,
 			);
 			productRefGroup = FF65E3B6211A181900AA0BD2 /* Products */;
 			projectDirPath = "";
@@ -3945,30 +3945,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FF34432124C7629D00636877 /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
+		FFF9449B2503A9AD005FE50C /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-numerics.git";
+			repositoryURL = "https://github.com/apple/swift-numerics";
 			requirement = {
 				kind = exactVersion;
-				version = 0.0.5;
+				version = 0.0.7;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FF34432224C7629D00636877 /* ComplexModule */ = {
+		FFF9449C2503A9AD005FE50C /* ComplexModule */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FF34432124C7629D00636877 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			package = FFF9449B2503A9AD005FE50C /* XCRemoteSwiftPackageReference "swift-numerics" */;
 			productName = ComplexModule;
 		};
-		FF34432424C762D100636877 /* ComplexModule */ = {
+		FFF9449E2503A9C3005FE50C /* ComplexModule */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FF34432124C7629D00636877 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			package = FFF9449B2503A9AD005FE50C /* XCRemoteSwiftPackageReference "swift-numerics" */;
 			productName = ComplexModule;
 		};
-		FF34432824C763C000636877 /* ComplexModule */ = {
+		FFF944A02503AAA4005FE50C /* ComplexModule */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FF34432124C7629D00636877 /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			package = FFF9449B2503A9AD005FE50C /* XCRemoteSwiftPackageReference "swift-numerics" */;
 			productName = ComplexModule;
 		};
 /* End XCSwiftPackageProductDependency section */
