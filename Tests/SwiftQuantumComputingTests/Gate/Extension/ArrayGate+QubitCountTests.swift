@@ -56,6 +56,7 @@ class ArrayGate_QubitCountTests: XCTestCase {
             Gate.not(target: 2),
             Gate.hadamard(target: maxIndex),
             Gate.phaseShift(radians: 0, target: 5),
+            Gate.rotation(axis: .x, radians: 0, target: 6)
         ]
 
         // Then

@@ -24,12 +24,21 @@ import Foundation
 
 /// A quantum gate with fixed inputs
 public indirect enum Gate {
+    /// Paulis P = {X, Y, Z}
+    public enum Axis {
+        case x
+        case y
+        case z
+    }
+
     /// Not gate with 1 input: `target`
     case not(target: Int)
     /// Hadamard gate with 1 input: `target`
     case hadamard(target: Int)
     /// Quantum gate that shifts phase of the quantum state in `target` by `radians`
     case phaseShift(radians: Double, target: Int)
+    /// Quantum gate that defines a rotation of `radians` around `axis` of the quantum state in `target`
+    case rotation(axis: Axis, radians: Double, target: Int)
     /// Generic quantum gate built with a `matrix` (it is expected to be unitary) and any number of `inputs`
     /// (as many inputs as `matrix` is able to handle)
     case matrix(matrix: Matrix, inputs: [Int])

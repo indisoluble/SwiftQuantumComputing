@@ -267,6 +267,40 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         XCTAssertEqual(positions, expectedPositions)
     }
 
+    func testRotationGateWithTargetOutOfRange_makeLayer_throwError() {
+        // Given
+        let axis = Gate.Axis.x
+        let radians = 0.1
+        let qubitCount = 3
+        let gate = Gate.rotation(axis: axis, radians: radians, target: qubitCount)
+
+        // Then
+        var error: DrawCircuitError?
+        if case .failure(let e) = gate.makeLayer(qubitCount: qubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateWithOneOrMoreInputsOrControlsOutOfRange(gate: gate))
+    }
+
+    func testRotationGate_makeLayer_returnExpectedPositions() {
+        // Given
+        let axis = Gate.Axis.x
+        let radians = 0.1
+        let qubitCount = 3
+        let gate = Gate.rotation(axis: axis, radians: radians, target: 1)
+
+        // When
+        let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
+
+        // Then
+        let expectedPositions = [
+            CircuitViewPosition.lineHorizontal,
+            CircuitViewPosition.rotation(axis: axis, radians: radians, connected: .none),
+            CircuitViewPosition.lineHorizontal
+        ]
+        XCTAssertEqual(positions, expectedPositions)
+    }
+
     func testOracleGateWithTargetEqualToOneOfTheControls_makeLayer_throwException() {
         // Given
         let qubitCount = 3

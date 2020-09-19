@@ -71,7 +71,23 @@ extension CircuitViewPosition {
             }
         case .phaseShift(let radians, let connected):
             var view = MatrixPositionView(frame: frame)
-            view.text = String(format: "R(%.2f)", radians)
+            view.text = String(format: "R1(%@)", toString(radians))
+            view.configureConnectivity(PositionViewConnectivity(connected))
+
+            return view
+        case .rotation(let axis, let radians, let connected):
+            var suffix = ""
+            switch axis {
+            case .x:
+                suffix = "X"
+            case .y:
+                suffix = "Y"
+            case .z:
+                suffix = "Z"
+            }
+
+            var view = MatrixPositionView(frame: frame)
+            view.text = String(format: "R%@(%@)", suffix, toString(radians))
             view.configureConnectivity(PositionViewConnectivity(connected))
 
             return view
@@ -106,5 +122,20 @@ extension CircuitViewPosition {
                 return MatrixGapBothPositionView(frame: frame)
             }
         }
+    }
+}
+
+// MARK: - Private body
+
+private extension CircuitViewPosition {
+
+    // MARK: - Private methods
+
+    func toString(_ radians: Double) -> String {
+        if radians >= 1.0 {
+            return String(format: "%d.", Int(radians))
+        }
+
+        return String(format: ".%d", Int(100.0 * radians))
     }
 }

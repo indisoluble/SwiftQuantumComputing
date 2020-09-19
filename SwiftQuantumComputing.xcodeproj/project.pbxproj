@@ -560,6 +560,8 @@
 		FFC2341F251649CA00A8D193 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FFC2341E251649CA00A8D193 /* ComplexModule */; };
 		FFC23426251649D500A8D193 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FFC23425251649D500A8D193 /* ComplexModule */; };
 		FFC2342D25164A0B00A8D193 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FFC2342C25164A0B00A8D193 /* ComplexModule */; };
+		FFC234482516942C00A8D193 /* Matrix+Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC234472516942C00A8D193 /* Matrix+Rotation.swift */; };
+		FFC234492516942C00A8D193 /* Matrix+Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC234472516942C00A8D193 /* Matrix+Rotation.swift */; };
 		FFC331AA24B9FDD000A32FF8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC3318A24B9FBDB00A32FF8 /* main.swift */; };
 		FFC5964E2203AFB500151355 /* GeneticFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC5964D2203AFB500151355 /* GeneticFactory.swift */; };
 		FFC5964F2203AFB500151355 /* GeneticFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC5964D2203AFB500151355 /* GeneticFactory.swift */; };
@@ -1053,6 +1055,7 @@
 		FFBCD5E1214DB6D90047020B /* CircuitViewPosition+PositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitViewPosition+PositionView.swift"; sourceTree = "<group>"; };
 		FFBCD5E4214DBBA60047020B /* LineHorizontalPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineHorizontalPositionView.xib; sourceTree = "<group>"; };
 		FFBCD5E6214DBF340047020B /* LineHorizontalPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineHorizontalPositionView.swift; sourceTree = "<group>"; };
+		FFC234472516942C00A8D193 /* Matrix+Rotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Rotation.swift"; sourceTree = "<group>"; };
 		FFC3318A24B9FBDB00A32FF8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FFC3318F24B9FCA100A32FF8 /* ExampleShorAlgorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ExampleShorAlgorithm; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC5964D2203AFB500151355 /* GeneticFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticFactory.swift; sourceTree = "<group>"; };
@@ -2289,6 +2292,7 @@
 				FF343F7B21E6AB81008B8C6B /* Matrix+Oracle.swift */,
 				FFFEFD3021333F140063B559 /* Matrix+PhaseShift.swift */,
 				FF7C6E12241987950016D9CC /* Matrix+QuantumFourierTransform.swift */,
+				FFC234472516942C00A8D193 /* Matrix+Rotation.swift */,
 			);
 			path = Matrix;
 			sourceTree = "<group>";
@@ -2886,6 +2890,7 @@
 				FF36CB0E23E8D79300C286B2 /* SimulatorCircuitMatrixFactoryAdapter.swift in Sources */,
 				FFAFC3FC2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift in Sources */,
 				FFFEFD2B21333EDB0063B559 /* Matrix+ControlledNot.swift in Sources */,
+				FFC234482516942C00A8D193 /* Matrix+Rotation.swift in Sources */,
 				FF40AE3F249A9B1800D26F82 /* CircuitStatevector+SummarizedProbabilities.swift in Sources */,
 				FF6657F224FD67EA004563F9 /* PositionHalfConnectedTextView.swift in Sources */,
 				FF5920DE22219E2400C86F6A /* GeneticPopulationReproduction.swift in Sources */,
@@ -3335,6 +3340,7 @@
 				FF4197A423FB502F00DFEB7D /* Gate+InversionAboutMeanWithRangeInputs.swift in Sources */,
 				FFA6F2B423C24DE600C678C3 /* XorGaussianEliminationSolver.swift in Sources */,
 				FF78EF5523B90A7400BA53A1 /* XorEquationSystemFactoryAdapter.swift in Sources */,
+				FFC234492516942C00A8D193 /* Matrix+Rotation.swift in Sources */,
 				FFB2276A241E758700AC64AD /* Matrix+CustomStringConvertible.swift in Sources */,
 				FFCC7297221CB1A300D28A5D /* MainGeneticPopulationMutation.swift in Sources */,
 				FF3A1D14248EA372005E4CEB /* CircuitStatevectorFactory.swift in Sources */,
