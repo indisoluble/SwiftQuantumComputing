@@ -20,8 +20,8 @@ dependencies.append(
 let package = Package(
     name: "SwiftQuantumComputing",
     platforms: [
-        .iOS(.v11),
-        .macOS(.v10_13)
+        .iOS(.v12),
+        .macOS(.v10_15)
     ],
     products: [
         .library(
