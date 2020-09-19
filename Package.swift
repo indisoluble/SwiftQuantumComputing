@@ -5,7 +5,7 @@ import PackageDescription
 var dependencies: [Package.Dependency] = [
     .package(
         url: "https://github.com/apple/swift-numerics.git",
-        .exact("0.0.7")
+        .exact("0.0.8")
     )
 ]
 #if os(Linux)
@@ -20,8 +20,8 @@ dependencies.append(
 let package = Package(
     name: "SwiftQuantumComputing",
     platforms: [
-        .iOS(.v11),
-        .macOS(.v10_13)
+        .iOS(.v12),
+        .macOS(.v10_15)
     ],
     products: [
         .library(
