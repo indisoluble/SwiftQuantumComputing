@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>StatevectorError Enumeration Reference</title>
+    <title>RotationGate Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/StatevectorError" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/RotationGate" class="dashAnchor"></a>
 
-    <a title="StatevectorError Enumeration Reference"></a>
+    <a title="RotationGate Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      StatevectorError Enumeration Reference
+      RotationGate Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -269,15 +269,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>StatevectorError</h1>
+            <h1>RotationGate</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">StatevectorError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">RotationGate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">RotationGate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></span></code></pre>
 
                 </div>
               </div>
-            <p>Errors throwed by <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP11statevector22withInitialStatevectors6ResultOyAA0dH0_pAA0H5ErrorOGAaH_p_tF">Circuit.statevector(withInitialStatevector:)</a></code></p>
+            <p>A quantum gate used on genetic programming: Rotation</p>
 
           </div>
         </section>
@@ -285,13 +286,22 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20init%20methods"></a>
+                <a name="//apple_ref/swift/Section/Public init methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20init%20methods"></a>
+                  <h3 class="section-name"><p>Public init methods</p>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing16StatevectorErrorO011gateThrowedE0yAcA4GateO_AA0hE0OtcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateThrowedError(gate:error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16StatevectorErrorO011gateThrowedE0yAcA4GateO_AA0hE0OtcACmF">gateThrowedError(gate:<wbr>error:<wbr>)</a>
+                    <a name="/s:21SwiftQuantumComputing12RotationGateV4axis7radiansAcA0E0O4AxisO_Sdtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(axis:radians:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing12RotationGateV4axis7radiansAcA0E0O4AxisO_Sdtcfc">init(axis:<wbr>radians:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -299,26 +309,74 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed if <code>gate</code> throws <code>error</code></p>
+                        <p>Initializes a <code><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></code> instance with a rotation of <code>radians</code> around <code>axis</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateThrowedError</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Enums/GateError.html">GateError</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">axis</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="o">.</span><span class="kt">Axis</span><span class="p">,</span> <span class="nv">radians</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>axis</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Rotation will happen around this axis.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>radians</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Rotation in radians.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Protocols/ConfigurableGate.html">ConfigurableGate</a></code> instance.</p>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/ConfigurableGate%20methods"></a>
+                <a name="//apple_ref/swift/Section/ConfigurableGate methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/ConfigurableGate%20methods"></a>
+                  <h3 class="section-name"><p>ConfigurableGate methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing16StatevectorErrorO09resultingD38AdditionOfSquareModulusIsNotEqualToOneyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing16StatevectorErrorO09resultingD38AdditionOfSquareModulusIsNotEqualToOneyA2CmF">resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne</a>
+                    <a name="/s:21SwiftQuantumComputing12RotationGateV9makeFixed6inputss6ResultOyAA0E0OAA18EvolveCircuitErrorOGSaySiG_tF"></a>
+                    <a name="//apple_ref/swift/Method/makeFixed(inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing12RotationGateV9makeFixed6inputss6ResultOyAA0E0OAA18EvolveCircuitErrorOGSaySiG_tF">makeFixed(inputs:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -326,14 +384,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed when the resulting state vector lost too much precision after applying <code>gates</code></p>
+                        <p>Check <code><a href="../Protocols/ConfigurableGate.html#/s:21SwiftQuantumComputing16ConfigurableGateP9makeFixed6inputss6ResultOyAA0E0OAA18EvolveCircuitErrorOGSaySiG_tF">ConfigurableGate.makeFixed(inputs:)</a></code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeFixed</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/EvolveCircuitError.html">EvolveCircuitError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
