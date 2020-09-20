@@ -51,6 +51,7 @@ enum CircuitViewPosition {
     case hadamard(connected: TargetConnectivity = .none)
     case not(connected: TargetConnectivity = .none)
     case phaseShift(radians: Double, connected: TargetConnectivity = .none)
+    case rotation(axis: Gate.Axis, radians: Double, connected: TargetConnectivity = .none)
     case matrix(connected: TargetConnectivity = .none, showText: Bool = true)
     case matrixTop(connectedUp: Bool, showText: Bool = true)
     case matrixBottom(connectedDown: Bool)

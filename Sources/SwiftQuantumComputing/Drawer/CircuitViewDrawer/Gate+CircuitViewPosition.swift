@@ -41,6 +41,7 @@ private extension Gate {
         case not(target: Int)
         case hadamard(target: Int)
         case phaseShift(radians: Double, target: Int)
+        case rotation(axis: Axis, radians: Double, target: Int)
         case matrix(target: Int)
 
         var target: Int {
@@ -50,6 +51,8 @@ private extension Gate {
             case .hadamard(let target):
                 return target
             case .phaseShift(_, let target):
+                return target
+            case .rotation(_, _, let target):
                 return target
             case .matrix(let target):
                 return target
@@ -64,6 +67,8 @@ private extension Gate {
                 return .hadamard(connected: connected)
             case .phaseShift(let radians, _):
                 return .phaseShift(radians: radians, connected: connected)
+            case .rotation(let axis, let radians, _):
+                return .rotation(axis: axis, radians: radians, connected: connected)
             case .matrix:
                 return .matrix(connected: connected)
             }
@@ -98,6 +103,10 @@ private extension Gate {
             return (controls,
                     oracleControls,
                     .singleQubit(gate: .phaseShift(radians: radians, target: target)))
+        case .rotation(let axis, let radians, let target):
+            return (controls,
+                    oracleControls,
+                    .singleQubit(gate: .rotation(axis: axis, radians: radians, target: target)))
         case .matrix(_, let inputs):
             if inputs.count == 1 {
                 return (controls, oracleControls, .singleQubit(gate: .matrix(target: inputs[0])))
