@@ -36,6 +36,8 @@ extension Gate {
             resultInputs = [target]
         case .phaseShift(_, let target):
             resultInputs = [target]
+        case .rotation(_, _, let target):
+            resultInputs = [target]
         case .matrix(_, let inputs):
             resultInputs = inputs
         case .oracle(_, let controls, let gate):
@@ -139,6 +141,8 @@ private extension Gate {
             resultMatrix = Constants.matrixHadamard
         case .phaseShift(let radians, _):
             resultMatrix = Matrix.makePhaseShift(radians: radians)
+        case .rotation(let axis, let radians, _):
+            resultMatrix = Matrix.makeRotation(axis: axis, radians: radians)
         case .matrix(let matrix, _):
             guard matrix.rowCount.isPowerOfTwo else {
                 return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
