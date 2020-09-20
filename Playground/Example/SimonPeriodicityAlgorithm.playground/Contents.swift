@@ -1,4 +1,4 @@
-import SwiftQuantumComputing // for macOS 
+import SwiftQuantumComputing // for macOS
 
 func makeSimonTruthTable(secret: String) -> [Gate.ExtendedTruth] {
     let bitCount = secret.count
