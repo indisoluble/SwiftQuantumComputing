@@ -22,7 +22,7 @@
         <a class="header-link" href="index.html">
            Docs
         </a>
-         (98% documented)
+         (97% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -62,6 +62,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/Gate.html">Gate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Gate/Axis.html">– Axis</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
@@ -238,6 +241,9 @@
                 <a class="nav-group-task-link" href="Structs/Rational/InitError.html">– InitError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/RotationGate.html">RotationGate</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Vector.html">Vector</a>
               </li>
               <li class="nav-group-task">
@@ -282,10 +288,12 @@
     <span class="o">.</span><span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">),</span>
     <span class="o">.</span><span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span>
     <span class="o">.</span><span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="o">.</span><span class="nf">rotation</span><span class="p">(</span><span class="nv">axis</span><span class="p">:</span> <span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="nv">radians</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">3</span><span class="p">),</span>
     <span class="o">.</span><span class="nf">matrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="n">matrix</span><span class="p">,</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span>
     <span class="o">.</span><span class="nf">matrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="n">matrix</span><span class="p">,</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span>
-    <span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"0"</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nv">gate</span><span class="p">:</span> <span class="o">.</span><span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">3</span><span class="p">)),</span>
-    <span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"01"</span><span class="p">,</span> <span class="s">"10"</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nv">gate</span><span class="p">:</span> <span class="o">.</span><span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">3</span><span class="p">)),</span>
+    <span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"01"</span><span class="p">,</span> <span class="s">"10"</span><span class="p">],</span>
+            <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="nv">gate</span><span class="p">:</span> <span class="o">.</span><span class="nf">rotation</span><span class="p">(</span><span class="nv">axis</span><span class="p">:</span> <span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="nv">radians</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">3</span><span class="p">)),</span>
     <span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"0"</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="mi">2</span><span class="p">),</span>
     <span class="o">.</span><span class="nf">controlled</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="o">.</span><span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">4</span><span class="p">),</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
     <span class="o">.</span><span class="nf">controlled</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="o">.</span><span class="nf">matrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="n">matrix</span><span class="p">,</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span>
@@ -487,7 +495,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-19)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-09-20)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
