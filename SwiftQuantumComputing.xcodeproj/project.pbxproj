@@ -718,6 +718,10 @@
 		FFFEFD2D21333EED0063B559 /* Matrix+Hadamard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEFD2C21333EED0063B559 /* Matrix+Hadamard.swift */; };
 		FFFEFD2F21333EFD0063B559 /* Matrix+Not.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEFD2E21333EFD0063B559 /* Matrix+Not.swift */; };
 		FFFEFD3121333F140063B559 /* Matrix+PhaseShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFEFD3021333F140063B559 /* Matrix+PhaseShift.swift */; };
+		FFFFA2122517821E000154E7 /* RotationGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFFA2112517821E000154E7 /* RotationGate.swift */; };
+		FFFFA2132517821E000154E7 /* RotationGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFFA2112517821E000154E7 /* RotationGate.swift */; };
+		FFFFA21A25178F17000154E7 /* RotationGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFFA21925178F17000154E7 /* RotationGateTests.swift */; };
+		FFFFA21B25178F17000154E7 /* RotationGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFFFA21925178F17000154E7 /* RotationGateTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1143,6 +1147,8 @@
 		FFFEFD2C21333EED0063B559 /* Matrix+Hadamard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Hadamard.swift"; sourceTree = "<group>"; };
 		FFFEFD2E21333EFD0063B559 /* Matrix+Not.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Not.swift"; sourceTree = "<group>"; };
 		FFFEFD3021333F140063B559 /* Matrix+PhaseShift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+PhaseShift.swift"; sourceTree = "<group>"; };
+		FFFFA2112517821E000154E7 /* RotationGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationGate.swift; sourceTree = "<group>"; };
+		FFFFA21925178F17000154E7 /* RotationGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationGateTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2307,6 +2313,7 @@
 				FF9FBCDB21C57A160070D943 /* NotGate.swift */,
 				FFC65ABF24F59C80009B1F2A /* OracleGate.swift */,
 				FF9FBCE121C57ACD0070D943 /* PhaseShiftGate.swift */,
+				FFFFA2112517821E000154E7 /* RotationGate.swift */,
 			);
 			path = ConfigurableGate;
 			sourceTree = "<group>";
@@ -2369,6 +2376,7 @@
 				FFBB6F8821CD5E3700389838 /* NotGateTests.swift */,
 				FF90925324F6DCA90026C7C5 /* OracleGateTests.swift */,
 				FFBB6F8E21CD619E00389838 /* PhaseShiftGateTests.swift */,
+				FFFFA21925178F17000154E7 /* RotationGateTests.swift */,
 			);
 			path = ConfigurableGate;
 			sourceTree = "<group>";
@@ -3024,6 +3032,7 @@
 				FFB5B563216A46FB009C59FC /* PositionTextView.swift in Sources */,
 				FF9BBE5C214E99C900AD1F78 /* MatrixGapNonePositionView.swift in Sources */,
 				FFCCCD0E24A14A9D00BC597E /* Circuit+Statevector.swift in Sources */,
+				FFFFA2122517821E000154E7 /* RotationGate.swift in Sources */,
 				FFC5964E2203AFB500151355 /* GeneticFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3090,6 +3099,7 @@
 				FF4F8AA7222C0B1500A09D61 /* InitialPopulationProducerFactoryTestDouble.swift in Sources */,
 				FF0694E421CC04E400B5D469 /* StatevectorSimulatorFacadeTests.swift in Sources */,
 				FFD05D7D23660CC500872BBA /* UnitarySimulatorTestDouble.swift in Sources */,
+				FFFFA21A25178F17000154E7 /* RotationGateTests.swift in Sources */,
 				FF23373E222AD7E000FD5301 /* MainGeneticPopulationReproductionTests.swift in Sources */,
 				FF3933A6245EF25E000E93D4 /* StatevectorRegisterFactoryAdapterTests.swift in Sources */,
 				FFDDDD9123BCED4200772A03 /* XorEquationSystemTestDouble.swift in Sources */,
@@ -3275,6 +3285,7 @@
 				FF5920DF22219E2400C86F6A /* GeneticPopulationReproduction.swift in Sources */,
 				FF072EFA21BD88C2002248AA /* StatevectorSimulatorFacade.swift in Sources */,
 				FF5920EE2221B95400C86F6A /* MainInitialPopulationProducerFactory.swift in Sources */,
+				FFFFA2132517821E000154E7 /* RotationGate.swift in Sources */,
 				FFDDFE872359099000683CF9 /* UnitaryGateFactory.swift in Sources */,
 				FF5921002221DB0400C86F6A /* MainGeneticPopulationReproductionFactory.swift in Sources */,
 				FF79DA062219D97700D093AA /* GeneticUseCaseEvaluatorFactory.swift in Sources */,
@@ -3441,6 +3452,7 @@
 				FF46EDC1216924510044C3CA /* MatrixTests.swift in Sources */,
 				FFD05D7E23660CC500872BBA /* UnitarySimulatorTestDouble.swift in Sources */,
 				FF23373F222AD7E000FD5301 /* MainGeneticPopulationReproductionTests.swift in Sources */,
+				FFFFA21B25178F17000154E7 /* RotationGateTests.swift in Sources */,
 				FF10374B236E0EA40011706D /* Matrix+ElementsTests.swift in Sources */,
 				FF3933A7245EF25E000E93D4 /* StatevectorRegisterFactoryAdapterTests.swift in Sources */,
 				FFDDDD9223BCED4200772A03 /* XorEquationSystemTestDouble.swift in Sources */,
