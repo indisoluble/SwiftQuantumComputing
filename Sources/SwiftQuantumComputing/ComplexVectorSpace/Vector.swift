@@ -163,6 +163,10 @@ extension Vector {
         case matrixColumnCountDoesNotMatchVectorCount
     }
 
+    enum VectorByMatrixError: Error {
+        case matrixRowCountDoesNotMatchVectorCount
+    }
+
     // MARK: - Internal operators
 
     static func *(lhs: Vector, rhs: Vector) -> Result<Complex<Double>, VectorByVectorError> {
@@ -180,6 +184,15 @@ extension Vector {
             return .success(Vector(matrix: matrix))
         case .failure(.matricesDoNotHaveValidDimensions):
             return .failure(.matrixColumnCountDoesNotMatchVectorCount)
+        }
+    }
+
+    static func *(lhs: Vector, rhs: Matrix) -> Result<Vector, VectorByMatrixError> {
+        switch Matrix.Transformation.transposed(lhs.matrix) * rhs {
+        case .success(let matrix):
+            return .success(Vector(matrix: matrix.transposed()))
+        case .failure(.matricesDoNotHaveValidDimensions):
+            return .failure(.matrixRowCountDoesNotMatchVectorCount)
         }
     }
 }
