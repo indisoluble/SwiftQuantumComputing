@@ -53,7 +53,7 @@ class CircuitStatevector_ProbabilitiesTests: XCTestCase {
         ]
 
         for (value, expectedValue) in zip(result, expectedResult) {
-            XCTAssertEqual(value, expectedValue, accuracy: 0.001)
+            XCTAssertEqual(value, expectedValue, accuracy: SharedConstants.tolerance)
         }
     }
 

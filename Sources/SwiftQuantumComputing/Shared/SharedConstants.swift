@@ -1,8 +1,8 @@
 //
-//  Vector+IsAdditionOfSquareModulusApproximatelyEqualToOne.swift
+//  SharedConstants.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/04/2020.
+//  Created by Enrique de la Torre on 03/10/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,14 +20,8 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Internal constants
 
-extension Vector {
-
-    // MARK: - Internal methods
-
-    func isAdditionOfSquareModulusApproximatelyEqualToOne() -> Bool {
-        return squaredNorm.isApproximatelyEqual(to: 1.0,
-                                                absoluteTolerance: SharedConstants.tolerance)
-    }
+enum SharedConstants {
+    static let tolerance = 0.000000001
 }

@@ -18,7 +18,7 @@ func isFunctionConstant(truthTable: [String], qubitCount: Int) -> Bool {
     let zeros = String(repeating: "0", count: qubitCount)
     let zerosProbabilities = probabilities[zeros] ?? 0.0
 
-    return (abs(1.0 - zerosProbabilities) < 0.001)
+    return (abs(1.0 - zerosProbabilities) < 0.000000001)
 }
 
 func makeQubitCombinations(qubitCount: Int) -> [String] {
