@@ -1447,6 +1447,7 @@
 		FF121F4123B7D9F400C09FD2 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
+				FF2D446A21FA64AB002515EF /* Genetic */,
 				FFA6F2B123C24DA600C678C3 /* XorGaussianElimination */,
 				FFEE573F2426435700AABA86 /* ContinuedFractionsSolver.swift */,
 				FFA4C5262401BF0A00985289 /* EuclideanSolver.swift */,
@@ -1737,7 +1738,6 @@
 				FF7C9BBC211CB7AB008D8897 /* ComplexVectorSpace */,
 				FFB8106621C6FEC8006333BB /* Drawer */,
 				FFF697F021BF23C7004AE4C2 /* Gate */,
-				FF2D446A21FA64AB002515EF /* Genetic */,
 				FF9FBCF021C595050070D943 /* Logger */,
 				FFB22774241E7D8400AC64AD /* NumberType */,
 				FF7AA7102528B6E50090C8E6 /* Shared */,
@@ -1905,6 +1905,7 @@
 		FF78EF5623B9220A00BA53A1 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
+				FF43386C2212258700AB5C06 /* Genetic */,
 				FFA6F2B923C27A5A00C678C3 /* XorGaussianElimination */,
 				FFEE574224267A3C00AABA86 /* ContinuedFractionsSolverTests.swift */,
 				FFA4C52A2401C70100985289 /* EuclideanSolverTests.swift */,
@@ -2383,7 +2384,6 @@
 				FF7C9BBD211CB7D7008D8897 /* ComplexVectorSpace */,
 				FF9BBE77214ECA7F00AD1F78 /* Drawer */,
 				FF18358121EA358C003E2F04 /* Gate */,
-				FF43386C2212258700AB5C06 /* Genetic */,
 				FFB22776241E7DD400AC64AD /* NumberType */,
 				FF7469B2233FF046004AFB83 /* Simulator */,
 				FF1AAFED211F61CB00D3666A /* SwiftTypeExtension */,
@@ -2455,6 +2455,7 @@
 		FFDDDD8D23BCEC4800772A03 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
+				FF43386E221225CF00AB5C06 /* Genetic */,
 				FF7E557823C5437E00A2FEEC /* XorGaussianElimination */,
 			);
 			path = Algorithm;
@@ -2510,7 +2511,6 @@
 				FFDDDD8D23BCEC4800772A03 /* Algorithm */,
 				FFED68FE212F28A100D46D68 /* Circuit */,
 				FF7EC7E0237B64B20006C3FA /* Drawer */,
-				FF43386E221225CF00AB5C06 /* Genetic */,
 				FF7469B3233FF0DD004AFB83 /* Simulator */,
 			);
 			path = TestDouble;
