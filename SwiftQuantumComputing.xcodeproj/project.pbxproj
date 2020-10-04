@@ -217,6 +217,8 @@
 		FF411CA92529E68F0047A0CD /* Complex+EulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF411CA72529E68F0047A0CD /* Complex+EulerTests.swift */; };
 		FF411CB52529EA860047A0CD /* Vector+EliminationMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF411CB42529EA860047A0CD /* Vector+EliminationMatrixTests.swift */; };
 		FF411CB62529EA860047A0CD /* Vector+EliminationMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF411CB42529EA860047A0CD /* Vector+EliminationMatrixTests.swift */; };
+		FF411CC7252A35990047A0CD /* TwoLevelDecompositionSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF411CC6252A35990047A0CD /* TwoLevelDecompositionSolver.swift */; };
+		FF411CC8252A35990047A0CD /* TwoLevelDecompositionSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF411CC6252A35990047A0CD /* TwoLevelDecompositionSolver.swift */; };
 		FF4197A323FB502F00DFEB7D /* Gate+InversionAboutMeanWithRangeInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4197A223FB502F00DFEB7D /* Gate+InversionAboutMeanWithRangeInputs.swift */; };
 		FF4197A423FB502F00DFEB7D /* Gate+InversionAboutMeanWithRangeInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4197A223FB502F00DFEB7D /* Gate+InversionAboutMeanWithRangeInputs.swift */; };
 		FF433871221227CE00AB5C06 /* GeneticGateFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF433870221227CE00AB5C06 /* GeneticGateFactoryTestDouble.swift */; };
@@ -900,6 +902,7 @@
 		FF410F3D221F591200D257EE /* MainGeneticPopulationCrossover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticPopulationCrossover.swift; sourceTree = "<group>"; };
 		FF411CA72529E68F0047A0CD /* Complex+EulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Complex+EulerTests.swift"; sourceTree = "<group>"; };
 		FF411CB42529EA860047A0CD /* Vector+EliminationMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vector+EliminationMatrixTests.swift"; sourceTree = "<group>"; };
+		FF411CC6252A35990047A0CD /* TwoLevelDecompositionSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLevelDecompositionSolver.swift; sourceTree = "<group>"; };
 		FF4197A123FB475B00DFEB7D /* GroverAlgorithm.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = GroverAlgorithm.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF4197A223FB502F00DFEB7D /* Gate+InversionAboutMeanWithRangeInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+InversionAboutMeanWithRangeInputs.swift"; sourceTree = "<group>"; };
 		FF433870221227CE00AB5C06 /* GeneticGateFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticGateFactoryTestDouble.swift; sourceTree = "<group>"; };
@@ -1471,6 +1474,7 @@
 				FFA6F2B123C24DA600C678C3 /* XorGaussianElimination */,
 				FFEE573F2426435700AABA86 /* ContinuedFractionsSolver.swift */,
 				FFA4C5262401BF0A00985289 /* EuclideanSolver.swift */,
+				FF411CC6252A35990047A0CD /* TwoLevelDecompositionSolver.swift */,
 			);
 			path = Algorithm;
 			sourceTree = "<group>";
@@ -2908,6 +2912,7 @@
 				FF5920DB22218FC600C86F6A /* MainInitialPopulationProducer.swift in Sources */,
 				FFAF3E552410647C00E6DD6A /* Matrix+ControlledMatrix.swift in Sources */,
 				FF5920F32221CF5300C86F6A /* MainGeneticCircuitMutationFactory.swift in Sources */,
+				FF411CC7252A35990047A0CD /* TwoLevelDecompositionSolver.swift in Sources */,
 				FF448092247995AE0014D3C0 /* StatevectorRegister.swift in Sources */,
 				FF5920FF2221DB0400C86F6A /* MainGeneticPopulationReproductionFactory.swift in Sources */,
 				FF9FBCDF21C57A400070D943 /* MatrixGate.swift in Sources */,
@@ -3350,6 +3355,7 @@
 				FF46EDD4216924D80044C3CA /* Gate+CircuitViewPosition.swift in Sources */,
 				FFEFC3B82416DB52006214E6 /* Gate+ModularExponentiationWithRangeExponentAndInputs.swift in Sources */,
 				FFD2EBAC24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift in Sources */,
+				FF411CC8252A35990047A0CD /* TwoLevelDecompositionSolver.swift in Sources */,
 				FF1CF5F2229C8C33003948F6 /* MainDrawerFactory.swift in Sources */,
 				FFEB608323F8882E00F4FAA1 /* Matrix+Average.swift in Sources */,
 				FF2D447121FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */,
