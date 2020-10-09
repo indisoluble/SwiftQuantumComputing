@@ -124,6 +124,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(SimulatorCircuitMatrixAdapterTests.allTests),
         testCase(ContinuedFractionsSolverTests.allTests),
         testCase(EuclideanSolverTests.allTests),
+        testCase(TwoLevelDecompositionSolverTests.allTests),
         testCase(XorEquationSystemAdapterTests.allTests),
         testCase(XorEquationSystemBruteForceSolverTests.allTests),
         testCase(XorEquationSystemPreSimplificationSolverTests.allTests),

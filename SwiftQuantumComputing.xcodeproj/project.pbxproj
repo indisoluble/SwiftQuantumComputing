@@ -445,6 +445,8 @@
 		FF976598246B2FF000376189 /* SimulatorCircuitMatrixAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976596246B2FF000376189 /* SimulatorCircuitMatrixAdapter.swift */; };
 		FF97659A246B34F500376189 /* SimulatorCircuitMatrixTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976599246B34F500376189 /* SimulatorCircuitMatrixTestDouble.swift */; };
 		FF97659B246B34F500376189 /* SimulatorCircuitMatrixTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF976599246B34F500376189 /* SimulatorCircuitMatrixTestDouble.swift */; };
+		FF979CD82530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF979CD72530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift */; };
+		FF979CD92530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF979CD72530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift */; };
 		FF97E4C121CABCF1008847FE /* CircuitViewDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF97E4C021CABCF1008847FE /* CircuitViewDrawer.swift */; };
 		FF97E4C221CABCF1008847FE /* CircuitViewDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF97E4C021CABCF1008847FE /* CircuitViewDrawer.swift */; };
 		FF9BBE26214E749200AD1F78 /* PositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE25214E749200AD1F78 /* PositionView.swift */; };
@@ -1019,6 +1021,7 @@
 		FF976593246B2D3600376189 /* SimulatorCircuitMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorCircuitMatrix.swift; sourceTree = "<group>"; };
 		FF976596246B2FF000376189 /* SimulatorCircuitMatrixAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorCircuitMatrixAdapter.swift; sourceTree = "<group>"; };
 		FF976599246B34F500376189 /* SimulatorCircuitMatrixTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorCircuitMatrixTestDouble.swift; sourceTree = "<group>"; };
+		FF979CD72530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLevelDecompositionSolverTests.swift; sourceTree = "<group>"; };
 		FF97E4C021CABCF1008847FE /* CircuitViewDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitViewDrawer.swift; sourceTree = "<group>"; };
 		FF9BBE25214E749200AD1F78 /* PositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionView.swift; sourceTree = "<group>"; };
 		FF9BBE27214E756F00AD1F78 /* CrossedLinesPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossedLinesPositionView.swift; sourceTree = "<group>"; };
@@ -1935,6 +1938,7 @@
 				FFA6F2B923C27A5A00C678C3 /* XorGaussianElimination */,
 				FFEE574224267A3C00AABA86 /* ContinuedFractionsSolverTests.swift */,
 				FFA4C52A2401C70100985289 /* EuclideanSolverTests.swift */,
+				FF979CD72530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift */,
 			);
 			path = Algorithm;
 			sourceTree = "<group>";
@@ -3226,6 +3230,7 @@
 				FF56B0BD23CA496D0087F7FA /* XorGaussianEliminationSolver+ActivatedBitsTests.swift in Sources */,
 				FFBD4F24251F9C060038C786 /* Matrix+PermutationTests.swift in Sources */,
 				FF4949BA223ECDD50087E821 /* GeneticUseCaseTests.swift in Sources */,
+				FF979CD82530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift in Sources */,
 				FFEB608523F89CAE00F4FAA1 /* Matrix+AverageTests.swift in Sources */,
 				FF233744222ADE4C00FD5301 /* GeneticPopulationCrossoverTestDouble.swift in Sources */,
 				FFBD4F39251FC0410038C786 /* Matrix+TransposedTests.swift in Sources */,
@@ -3595,6 +3600,7 @@
 				FF0D945423BBE0BF00BF075F /* Array+CombinationsTests.swift in Sources */,
 				FFBD4F25251F9C060038C786 /* Matrix+PermutationTests.swift in Sources */,
 				FF56B0BE23CA496D0087F7FA /* XorGaussianEliminationSolver+ActivatedBitsTests.swift in Sources */,
+				FF979CD92530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift in Sources */,
 				FFEB608623F89CAE00F4FAA1 /* Matrix+AverageTests.swift in Sources */,
 				FF4949BB223ECDD50087E821 /* GeneticUseCaseTests.swift in Sources */,
 				FFBD4F3A251FC0410038C786 /* Matrix+TransposedTests.swift in Sources */,
