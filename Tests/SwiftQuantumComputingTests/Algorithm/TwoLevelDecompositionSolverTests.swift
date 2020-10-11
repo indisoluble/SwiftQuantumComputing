@@ -144,7 +144,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         // Then
         let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertEqual(expectedUnitary, unitary)
+        XCTAssertEqual(unitary, expectedUnitary)
     }
 
     static var allTests = [

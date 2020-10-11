@@ -24,11 +24,11 @@ import Foundation
 
 struct TwoLevelDecompositionSolver {
 
-    // MARK: - Internal methods
+    // MARK: - Internal class methods
 
     static func decomposeGate(_ gate: Gate,
                               restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], GateError> {
-        let gateMatrix: Matrix!
+        var gateMatrix: Matrix!
         let gateInputs: [Int]!
         switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
         case .success((let matrix, let inputs)):
@@ -44,11 +44,88 @@ struct TwoLevelDecompositionSolver {
         }
 
         let grayCodes = (0..<matrixCount).grayCodes()
+        let controlledGateInputs = deriveControlledGateInputs(fromInputs: gateInputs,
+                                                              withGrayCodes: grayCodes)
+        let identity = try! Matrix.makeIdentity(count: 2).get()
+        let swapRows = try! Matrix.makePermutation(permutation: [1, 0]).get()
+        let swapColumns = swapRows.transposed()
 
-        let inputCount = gateInputs.count
+        var decomposition: [Gate] = []
+        for rowIdx in 0...(matrixCount - 2) {
+            let row = grayCodes[rowIdx]
+
+            for typeIdx in stride(from: matrixCount - 2, through: rowIdx, by: -1) {
+                let col = grayCodes[typeIdx]
+                let colToDelete = grayCodes[typeIdx + 1]
+
+                let colValue = gateMatrix[row, col]
+                let colValueToDelete = gateMatrix[row, colToDelete]
+
+                let vector = try! Vector([colValue, colValueToDelete])
+                var elimination = try! vector.eliminationMatrix().get()
+                if elimination.isApproximatelyEqual(to: identity,
+                                                    absoluteTolerance: SharedConstants.tolerance) {
+                    continue
+                }
+
+                var indexes = (col, colToDelete)
+                if colToDelete < col {
+                    indexes = (colToDelete, col)
+                    elimination = try! (swapRows * (elimination * swapColumns).get()).get()
+                }
+
+                let twoLevelMatrix = try! Matrix.makeTwoLevelUnitary(count: matrixCount,
+                                                                     submatrix: elimination,
+                                                                     indexes: indexes).get()
+                gateMatrix = try! (gateMatrix * twoLevelMatrix).get()
+
+                let subGates = controlledGate(withInputs: controlledGateInputs[typeIdx],
+                                              matrix: elimination.conjugateTransposed())
+                decomposition.append(contentsOf: subGates)
+            }
+        }
+
+        for typeIdx in stride(from: 0, through: matrixCount - 2, by: 2) {
+            let row = grayCodes[typeIdx]
+            let nextRow = grayCodes[typeIdx + 1]
+
+            let diagonal = (row < nextRow ? row : nextRow)
+            let nextDiagonal = (row < nextRow ? nextRow : row)
+
+            let matrix = try! Matrix([
+                [gateMatrix[diagonal, diagonal], .zero],
+                [.zero, gateMatrix[nextDiagonal, nextDiagonal]]
+            ])
+            if matrix.isApproximatelyEqual(to: identity,
+                                           absoluteTolerance: SharedConstants.tolerance) {
+                continue
+            }
+
+            let subGates = controlledGate(withInputs: controlledGateInputs[typeIdx], matrix: matrix)
+            decomposition.append(contentsOf: subGates)
+        }
+
+        return .success(decomposition)
+    }
+}
+
+// MARK: - Private body
+
+private extension TwoLevelDecompositionSolver {
+
+    // MARK: - Private types
+
+    typealias ControlledGateInputs = (target: Int, inputs: [Int], notTargets: [Int])
+
+    // MARK: - Private class methods
+
+    static func deriveControlledGateInputs(fromInputs inputs: [Int],
+                                           withGrayCodes grayCodes: [Int]) -> [ControlledGateInputs] {
+        let inputCount = inputs.count
         let controlRange = (0..<inputCount)
-        var subGateInputs: [(Int, [Int], [Int])] = []
-        for idx in 0..<(matrixCount - 1) {
+
+        var result: [ControlledGateInputs] = []
+        for idx in 0..<(grayCodes.count - 1) {
             var activatedBits = (grayCodes[idx] ^ grayCodes[idx + 1]).activatedBits(count: inputCount)
 
             let targetIndex = inputCount - 1 - activatedBits.first!
@@ -57,65 +134,24 @@ struct TwoLevelDecompositionSolver {
             activatedBits = grayCodes[idx].activatedBits(count: inputCount)
             let notTargetIndexes = controlIndexes.filter { !activatedBits.contains(inputCount - 1 - $0) }
 
-            subGateInputs.append((gateInputs[targetIndex],
-                                  controlIndexes.map { gateInputs[$0] },
-                                  notTargetIndexes.map { gateInputs[$0] }))
+            result.append((inputs[targetIndex],
+                           controlIndexes.map { inputs[$0] },
+                           notTargetIndexes.map { inputs[$0] }))
         }
 
-        let permutation = try! Matrix.makePermutation(permutation: grayCodes).get()
-        var permutated = try! (permutation * (gateMatrix * permutation.transposed()).get()).get()
+        return result
+    }
 
-        var decomposition: [Gate] = []
-        for row in 0..<(matrixCount - 2) {
-            for col in stride(from: matrixCount - 1, to: row, by: -1) {
-                let b = permutated[row, col]
-                if b.isApproximatelyEqual(to: .zero, absoluteTolerance: SharedConstants.tolerance) {
-                    continue
-                }
+    static func controlledGate(withInputs inputs: ControlledGateInputs, matrix: Matrix) -> [Gate] {
+        let (target, controls, notTargets) = inputs
+        let notGates = Gate.not(targets: notTargets)
+        let subGate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: [target]),
+                                      controls: controls)
 
-                let a = permutated[row, col - 1]
-                let eliminationMatrix: Matrix!
-                if a.isApproximatelyEqual(to: .zero, absoluteTolerance: SharedConstants.tolerance) {
-                    eliminationMatrix = Matrix.makeNot()
-                } else {
-                    eliminationMatrix = try! Vector([a, b]).eliminationMatrix().get()
-                }
+        var result = notGates
+        result.append(subGate)
+        result.append(contentsOf: notGates)
 
-                let twoLevelMatrix = try! Matrix.makeTwoLevelUnitary(count: matrixCount,
-                                                                     submatrix: eliminationMatrix,
-                                                                     firstIndex: col - 1,
-                                                                     secondIndex: col).get()
-                permutated = try! (permutated * twoLevelMatrix).get()
-
-                let (target, controls, notTargets) = subGateInputs[col - 1]
-
-                let notGates = Gate.not(targets: notTargets)
-                let subGate = Gate.controlled(gate: .matrix(matrix: eliminationMatrix.conjugateTransposed(),
-                                                            inputs: [target]),
-                                              controls: controls)
-
-                decomposition.insert(contentsOf: notGates, at: 0)
-                decomposition.insert(subGate, at: 0)
-                decomposition.insert(contentsOf: notGates, at: 0)
-            }
-        }
-
-        let lastMatrix = try! Matrix.makeMatrix(rowCount: 2, columnCount: 2, value: { row, col in
-            return permutated[matrixCount - 2 + row, matrixCount - 2 + col]
-        }).get()
-        if !lastMatrix.isApproximatelyEqual(to: try! Matrix.makeIdentity(count: 2).get(),
-                                            absoluteTolerance: SharedConstants.tolerance) {
-            let (target, controls, notTargets) = subGateInputs[matrixCount - 2]
-
-            let notGates = Gate.not(targets: notTargets)
-            let subGate = Gate.controlled(gate: .matrix(matrix: lastMatrix, inputs: [target]),
-                                          controls: controls)
-
-            decomposition.insert(contentsOf: notGates, at: 0)
-            decomposition.insert(subGate, at: 0)
-            decomposition.insert(contentsOf: notGates, at: 0)
-        }
-
-        return .success(decomposition)
+        return result
     }
 }
