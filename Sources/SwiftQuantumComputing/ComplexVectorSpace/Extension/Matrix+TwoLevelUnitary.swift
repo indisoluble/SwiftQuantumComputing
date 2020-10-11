@@ -36,8 +36,7 @@ extension Matrix {
 
     static func makeTwoLevelUnitary(count: Int,
                                     submatrix: Matrix,
-                                    firstIndex: Int,
-                                    secondIndex: Int) -> Result<Matrix, MakeTwoLevelUnitaryError> {
+                                    indexes: (Int, Int)) -> Result<Matrix, MakeTwoLevelUnitaryError> {
         guard count > 2 else {
             return .failure(.passCountBiggerThanTwo)
         }
@@ -50,22 +49,23 @@ extension Matrix {
             return .failure(.submatrixIsNotUnitary)
         }
 
-        guard firstIndex < secondIndex else {
+        guard indexes.0 < indexes.1 else {
+            // To do this, swap rows & columns and then swap indexes
             return .failure(.firstIndexIsNotSmallerThanSecondIndex)
         }
 
-        guard firstIndex >= 0, secondIndex < count else {
+        guard indexes.0 >= 0, indexes.1 < count else {
             return .failure(.indexesOutOfRange)
         }
 
         let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count, value: { row, col in
-            if row == firstIndex && col == firstIndex {
+            if row == indexes.0 && col == indexes.0 {
                 return submatrix[0, 0]
-            } else if row == firstIndex && col == secondIndex {
+            } else if row == indexes.0 && col == indexes.1 {
                 return submatrix[0, 1]
-            } else if row == secondIndex && col == firstIndex {
+            } else if row == indexes.1 && col == indexes.0 {
                 return submatrix[1, 0]
-            } else if row == secondIndex && col == secondIndex {
+            } else if row == indexes.1 && col == indexes.1 {
                 return submatrix[1, 1]
             } else {
                 return row == col ? .one : .zero

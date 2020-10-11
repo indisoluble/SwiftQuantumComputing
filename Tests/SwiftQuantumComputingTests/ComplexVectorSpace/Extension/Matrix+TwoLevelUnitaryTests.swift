@@ -38,8 +38,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         var error: Matrix.MakeTwoLevelUnitaryError?
         if case .failure(let e) = Matrix.makeTwoLevelUnitary(count: 2,
                                                              submatrix: submatrix,
-                                                             firstIndex: 0,
-                                                             secondIndex: 1) {
+                                                             indexes: (0 , 1)) {
             error = e
         }
         XCTAssertEqual(error, .passCountBiggerThanTwo)
@@ -53,8 +52,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         var error: Matrix.MakeTwoLevelUnitaryError?
         if case .failure(let e) = Matrix.makeTwoLevelUnitary(count: count,
                                                              submatrix: nonSquareMatrix,
-                                                             firstIndex: 0,
-                                                             secondIndex: 1) {
+                                                             indexes: (0 , 1)) {
             error = e
         }
         XCTAssertEqual(error, .submatrixIsNot2x2)
@@ -72,8 +70,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         var error: Matrix.MakeTwoLevelUnitaryError?
         if case .failure(let e) = Matrix.makeTwoLevelUnitary(count: count,
                                                              submatrix: non2x2Matrix,
-                                                             firstIndex: 0,
-                                                             secondIndex: 1) {
+                                                             indexes: (0 , 1)) {
             error = e
         }
         XCTAssertEqual(error, .submatrixIsNot2x2)
@@ -87,8 +84,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         var error: Matrix.MakeTwoLevelUnitaryError?
         if case .failure(let e) = Matrix.makeTwoLevelUnitary(count: count,
                                                              submatrix: non2x2Matrix,
-                                                             firstIndex: 0,
-                                                             secondIndex: 1) {
+                                                             indexes: (0 , 1)) {
             error = e
         }
         XCTAssertEqual(error, .submatrixIsNotUnitary)
@@ -99,8 +95,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         var error: Matrix.MakeTwoLevelUnitaryError?
         if case .failure(let e) = Matrix.makeTwoLevelUnitary(count: count,
                                                              submatrix: submatrix,
-                                                             firstIndex: 1,
-                                                             secondIndex: 0) {
+                                                             indexes: (1 , 0)) {
             error = e
         }
         XCTAssertEqual(error, .firstIndexIsNotSmallerThanSecondIndex)
@@ -111,8 +106,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         var error: Matrix.MakeTwoLevelUnitaryError?
         if case .failure(let e) = Matrix.makeTwoLevelUnitary(count: count,
                                                              submatrix: submatrix,
-                                                             firstIndex: 0,
-                                                             secondIndex: count + 1) {
+                                                             indexes: (0 , count + 1)) {
             error = e
         }
         XCTAssertEqual(error, .indexesOutOfRange)
@@ -122,8 +116,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         // When
         let matrix = try! Matrix.makeTwoLevelUnitary(count: count,
                                                      submatrix: submatrix,
-                                                     firstIndex: 0,
-                                                     secondIndex: 1).get()
+                                                     indexes: (0 , 1)).get()
 
         // Then
         let expectedMatrix = try! Matrix(
@@ -138,8 +131,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         // When
         let matrix = try! Matrix.makeTwoLevelUnitary(count: count,
                                                      submatrix: submatrix,
-                                                     firstIndex: 2,
-                                                     secondIndex: 3).get()
+                                                     indexes: (2 , 3)).get()
 
         // Then
         let expectedMatrix = try! Matrix(
@@ -154,8 +146,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         // When
         let matrix = try! Matrix.makeTwoLevelUnitary(count: count,
                                                      submatrix: submatrix,
-                                                     firstIndex: 0,
-                                                     secondIndex: 2).get()
+                                                     indexes: (0 , 2)).get()
 
         // Then
         let expectedMatrix = try! Matrix(
@@ -170,8 +161,7 @@ class Matrix_TwoLevelUnitaryTests: XCTestCase {
         // When
         let matrix = try! Matrix.makeTwoLevelUnitary(count: count,
                                                      submatrix: submatrix,
-                                                     firstIndex: 1,
-                                                     secondIndex: 3).get()
+                                                     indexes: (1 , 3)).get()
 
         // Then
         let expectedMatrix = try! Matrix(
