@@ -36,27 +36,22 @@ extension Vector {
             return .failure(.vectorCountIsNotTwo)
         }
 
-        let b = self[1]
-        if b.isZero {
+        let valueToDelete = self[1]
+        if valueToDelete.isApproximatelyEqual(to: .zero,
+                                              absoluteTolerance: SharedConstants.tolerance) {
             return .success(try! Matrix.makeIdentity(count: count).get())
         }
 
-        let a = self[0]
-        if a.isZero {
-            return .success(Matrix.makeNot())
+        let value = self[0]
+        if value.isApproximatelyEqual(to: .zero, absoluteTolerance: SharedConstants.tolerance) {
+            return .success(.makeNot())
         }
 
-        let theta = atan((b / a).length)
-        let lambda = -a.phase
-        let mu = Double.pi + b.phase
-
-        let cosTheta = Complex(cos(theta))
-        let sinTheta = Complex(sin(theta))
-
-        let matrix = try! Matrix(
-            [[cosTheta * Complex.euler(lambda), sinTheta * Complex.euler(mu)],
-             [-sinTheta * Complex.euler(-mu), cosTheta * Complex.euler(-lambda)]]
-        )
+        let denom = Complex(sqrt(.pow(value.length, 2) + .pow(valueToDelete.length, 2)))
+        let matrix = try! Matrix([
+            [value.conjugate / denom, -valueToDelete / denom],
+            [valueToDelete.conjugate / denom, value / denom]
+        ])
 
         return .success(matrix)
     }
