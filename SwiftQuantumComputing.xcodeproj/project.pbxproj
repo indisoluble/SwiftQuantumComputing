@@ -418,6 +418,10 @@
 		FF8B40DA23AEDAFC00A51475 /* Gate+OracleReplicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8B40D823AEDAFC00A51475 /* Gate+OracleReplicator.swift */; };
 		FF8B9D9821BD979000A28E34 /* SimulatorGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8B9D9721BD979000A28E34 /* SimulatorGate.swift */; };
 		FF8B9D9921BD979000A28E34 /* SimulatorGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8B9D9721BD979000A28E34 /* SimulatorGate.swift */; };
+		FF8E478825362D8D002DB26C /* TwoLevelDecompositionSolver+Gates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8E478725362D8D002DB26C /* TwoLevelDecompositionSolver+Gates.swift */; };
+		FF8E478925362D8D002DB26C /* TwoLevelDecompositionSolver+Gates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8E478725362D8D002DB26C /* TwoLevelDecompositionSolver+Gates.swift */; };
+		FF8E4791253633EA002DB26C /* TwoLevelDecompositionSolver+GatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8E4790253633EA002DB26C /* TwoLevelDecompositionSolver+GatesTests.swift */; };
+		FF8E4792253633EA002DB26C /* TwoLevelDecompositionSolver+GatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8E4790253633EA002DB26C /* TwoLevelDecompositionSolver+GatesTests.swift */; };
 		FF8E4A4E24FCFDA800299BE0 /* PositionViewTextShowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8E4A4D24FCFDA800299BE0 /* PositionViewTextShowable.swift */; };
 		FF8E4A4F24FCFDA800299BE0 /* PositionViewTextShowable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8E4A4D24FCFDA800299BE0 /* PositionViewTextShowable.swift */; };
 		FF8E4A5124FD090800299BE0 /* PositionViewFullyConnectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF8E4A5024FD090800299BE0 /* PositionViewFullyConnectable.swift */; };
@@ -1006,6 +1010,8 @@
 		FF8B40D523AED46700A51475 /* Gate+SingleQubitGateRangeTargetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+SingleQubitGateRangeTargetsTests.swift"; sourceTree = "<group>"; };
 		FF8B40D823AEDAFC00A51475 /* Gate+OracleReplicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+OracleReplicator.swift"; sourceTree = "<group>"; };
 		FF8B9D9721BD979000A28E34 /* SimulatorGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorGate.swift; sourceTree = "<group>"; };
+		FF8E478725362D8D002DB26C /* TwoLevelDecompositionSolver+Gates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TwoLevelDecompositionSolver+Gates.swift"; sourceTree = "<group>"; };
+		FF8E4790253633EA002DB26C /* TwoLevelDecompositionSolver+GatesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TwoLevelDecompositionSolver+GatesTests.swift"; sourceTree = "<group>"; };
 		FF8E49C223CA76AD00C8FD48 /* XorGaussianElimination.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = XorGaussianElimination.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF8E4A4D24FCFDA800299BE0 /* PositionViewTextShowable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionViewTextShowable.swift; sourceTree = "<group>"; };
 		FF8E4A5024FD090800299BE0 /* PositionViewFullyConnectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionViewFullyConnectable.swift; sourceTree = "<group>"; };
@@ -1474,10 +1480,10 @@
 			isa = PBXGroup;
 			children = (
 				FF2D446A21FA64AB002515EF /* Genetic */,
+				FF8E477F25362C0C002DB26C /* TwoLevelDecomposition */,
 				FFA6F2B123C24DA600C678C3 /* XorGaussianElimination */,
 				FFEE573F2426435700AABA86 /* ContinuedFractionsSolver.swift */,
 				FFA4C5262401BF0A00985289 /* EuclideanSolver.swift */,
-				FF411CC6252A35990047A0CD /* TwoLevelDecompositionSolver.swift */,
 			);
 			path = Algorithm;
 			sourceTree = "<group>";
@@ -1935,10 +1941,10 @@
 			isa = PBXGroup;
 			children = (
 				FF43386C2212258700AB5C06 /* Genetic */,
+				FF8E478025362C22002DB26C /* TwoLevelDecomposition */,
 				FFA6F2B923C27A5A00C678C3 /* XorGaussianElimination */,
 				FFEE574224267A3C00AABA86 /* ContinuedFractionsSolverTests.swift */,
 				FFA4C52A2401C70100985289 /* EuclideanSolverTests.swift */,
-				FF979CD72530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift */,
 			);
 			path = Algorithm;
 			sourceTree = "<group>";
@@ -2069,6 +2075,40 @@
 				FF8B40D523AED46700A51475 /* Gate+SingleQubitGateRangeTargetsTests.swift */,
 			);
 			path = Range;
+			sourceTree = "<group>";
+		};
+		FF8E477F25362C0C002DB26C /* TwoLevelDecomposition */ = {
+			isa = PBXGroup;
+			children = (
+				FF8E478625362D5A002DB26C /* Extension */,
+				FF411CC6252A35990047A0CD /* TwoLevelDecompositionSolver.swift */,
+			);
+			path = TwoLevelDecomposition;
+			sourceTree = "<group>";
+		};
+		FF8E478025362C22002DB26C /* TwoLevelDecomposition */ = {
+			isa = PBXGroup;
+			children = (
+				FF8E478F253633B5002DB26C /* Extension */,
+				FF979CD72530DEAF00B20C83 /* TwoLevelDecompositionSolverTests.swift */,
+			);
+			path = TwoLevelDecomposition;
+			sourceTree = "<group>";
+		};
+		FF8E478625362D5A002DB26C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FF8E478725362D8D002DB26C /* TwoLevelDecompositionSolver+Gates.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FF8E478F253633B5002DB26C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FF8E4790253633EA002DB26C /* TwoLevelDecompositionSolver+GatesTests.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		FF9301C7235CC002008DD87E /* Unitary */ = {
@@ -3099,6 +3139,7 @@
 				FF5920D82221844600C86F6A /* InitialPopulationProducer.swift in Sources */,
 				FF9BBE38214E7BD600AD1F78 /* QubitPositionView.swift in Sources */,
 				FF3500A924F43F9400773013 /* ControlledGate.swift in Sources */,
+				FF8E478825362D8D002DB26C /* TwoLevelDecompositionSolver+Gates.swift in Sources */,
 				FF74B15E2219B03300561A1F /* OracleCircuitFactory.swift in Sources */,
 				FFD2EBB224FFE304002FCCB4 /* Gate+Oracle.swift in Sources */,
 				FF7EC7DE237B60540006C3FA /* Drawable+DrawCircuit.swift in Sources */,
@@ -3158,6 +3199,7 @@
 				FFE1A95322232CD500A2F285 /* MainInitialPopulationProducerTests.swift in Sources */,
 				FFE3153F23C0D1CA00352E9C /* XorEquationSystemSimpleSolverTestDouble.swift in Sources */,
 				FFEA7005249163AE006952F7 /* CircuitStatevectorFactory+BitsTests.swift in Sources */,
+				FF8E4791253633EA002DB26C /* TwoLevelDecompositionSolver+GatesTests.swift in Sources */,
 				FF84D3F5248BD8820092FF28 /* MainGeneticGatesRandomizerFactoryTests.swift in Sources */,
 				FF18358421EA36AE003E2F04 /* Matrix+OracleTests.swift in Sources */,
 				FFBB6F8621CD5ABD00389838 /* HadamardGateTests.swift in Sources */,
@@ -3402,6 +3444,7 @@
 				FF46EDD6216924D80044C3CA /* CircuitViewPosition.swift in Sources */,
 				FF79DA0C2219DB8900D093AA /* MainGeneticUseCaseEvaluatorFactory.swift in Sources */,
 				FFB5B56D216A534F009C59FC /* QubitPositionView.swift in Sources */,
+				FF8E478925362D8D002DB26C /* TwoLevelDecompositionSolver+Gates.swift in Sources */,
 				FFAFC3FD2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift in Sources */,
 				FFA48D1524C23BB60030221D /* Complex+Matrix.swift in Sources */,
 				FF8E4A5224FD090800299BE0 /* PositionViewFullyConnectable.swift in Sources */,
@@ -3528,6 +3571,7 @@
 				FFE1A95422232CD500A2F285 /* MainInitialPopulationProducerTests.swift in Sources */,
 				FFE3154023C0D1CB00352E9C /* XorEquationSystemSimpleSolverTestDouble.swift in Sources */,
 				FFEA7006249163AE006952F7 /* CircuitStatevectorFactory+BitsTests.swift in Sources */,
+				FF8E4792253633EA002DB26C /* TwoLevelDecompositionSolver+GatesTests.swift in Sources */,
 				FF84D3F6248BD8820092FF28 /* MainGeneticGatesRandomizerFactoryTests.swift in Sources */,
 				FF18358521EA36AE003E2F04 /* Matrix+OracleTests.swift in Sources */,
 				FF46EDC42169245C0044C3CA /* Int+DerivedTests.swift in Sources */,
