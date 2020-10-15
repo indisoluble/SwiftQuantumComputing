@@ -22,12 +22,24 @@ import Foundation
 
 // MARK: - Main body
 
-struct TwoLevelDecompositionSolver {
+/// A quantum gate can be decomposed into a sequence of fully controlled two-level matrix gates and not gates.
+/// The following implementation is based on:
+/// [Decomposition of unitary matrices and quantum gates](https://arxiv.org/abs/1210.7366) &
+/// [Decomposition of unitary matrix into quantum gates](https://github.com/fedimser/quantum_decomp/blob/master/res/Fedoriaka2019Decomposition.pdf)
+public struct TwoLevelDecompositionSolver {
 
-    // MARK: - Internal class methods
+    // MARK: - Public class methods
 
-    static func decomposeGate(_ gate: Gate,
-                              restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], GateError> {
+    /**
+     Decompose `gate` into a sequence of fully controlled two-level matrix gates and not gates.
+
+     - Parameter gate: `Gate` instance to decompose.
+     - Parameter qubitCount: Number of qubits in the circuit.
+
+     - Returns: A sequence of `Gate` instances that replace the input `gate`. Or `GateError` error.
+     */
+    public static func decomposeGate(_ gate: Gate,
+                                     restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], GateError> {
         var gateMatrix: Matrix!
         let gateInputs: [Int]!
         switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {

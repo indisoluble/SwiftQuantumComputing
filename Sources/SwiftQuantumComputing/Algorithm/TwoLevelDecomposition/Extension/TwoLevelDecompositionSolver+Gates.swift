@@ -24,14 +24,25 @@ import Foundation
 
 extension TwoLevelDecompositionSolver {
 
-    // MARK: - Internal class methods
+    // MARK: - Public class methods
 
-    enum DecomposeGatesError: Error, Equatable {
+    /// Errors throwed by `TwoLevelDecompositionSolver.decomposeGates(:restrictedToCircuitQubitCount:)`
+    public enum DecomposeGatesError: Error, Equatable {
+        /// Throwed if `gate` throws `error`
         case gateThrowedError(gate: Gate, error: GateError)
     }
 
-    static func decomposeGates(_ gates: [Gate],
-                               restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], DecomposeGatesError> {
+    /**
+     Decompose one by one each instance in `gates` to produce an equivalent  sequence of
+     fully controlled two-level matrix gates and not gates.
+
+     - Parameter gates: `Gate` instances to decompose.
+     - Parameter qubitCount: Number of qubits in the circuit.
+
+     - Returns: A sequence of `Gate` instances equivalent to `gates`. Or `DecomposeGatesError` error.
+     */
+    public static func decomposeGates(_ gates: [Gate],
+                                      restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], DecomposeGatesError> {
         var result: [Gate] = []
         for gate in gates {
             switch decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount) {
