@@ -39,10 +39,12 @@ public struct TwoLevelDecompositionSolver {
      - Returns: A sequence of `Gate` instances that replace the input `gate`. Or `GateError` error.
      */
     public static func decomposeGate(_ gate: Gate,
-                                     restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], GateError> {
+                                     restrictedToCircuitQubitCount qubitCount: Int? = nil) -> Result<[Gate], GateError> {
+        let actualQubitCount = (qubitCount == nil ? [gate].qubitCount() : qubitCount!)
+
         var gateMatrix: Matrix!
         let gateInputs: [Int]!
-        switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        switch gate.extractComponents(restrictedToCircuitQubitCount: actualQubitCount) {
         case .success((let matrix, let inputs)):
             gateMatrix = matrix
             gateInputs = inputs

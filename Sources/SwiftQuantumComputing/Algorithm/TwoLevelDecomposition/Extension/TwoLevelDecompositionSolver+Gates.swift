@@ -42,7 +42,7 @@ extension TwoLevelDecompositionSolver {
      - Returns: A sequence of `Gate` instances equivalent to `gates`. Or `DecomposeGatesError` error.
      */
     public static func decomposeGates(_ gates: [Gate],
-                                      restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], DecomposeGatesError> {
+                                      restrictedToCircuitQubitCount qubitCount: Int? = nil) -> Result<[Gate], DecomposeGatesError> {
         var result: [Gate] = []
         for gate in gates {
             switch decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount) {

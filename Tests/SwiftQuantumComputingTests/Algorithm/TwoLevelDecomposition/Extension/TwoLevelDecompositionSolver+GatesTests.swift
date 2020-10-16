@@ -30,20 +30,17 @@ class TwoLevelDecompositionSolver_GatesTests: XCTestCase {
 
     func testEmptyList_decomposeGates_returnEmptyList() {
         // Then
-        XCTAssertEqual(try? TwoLevelDecompositionSolver.decomposeGates([],
-                                                                       restrictedToCircuitQubitCount: 1).get(),
+        XCTAssertEqual(try? TwoLevelDecompositionSolver.decomposeGates([]).get(),
                        [])
     }
 
     func testGateThatThrowsError_decomposeGates_throwError() {
         // Given
         let gate = Gate.matrix(matrix: .makeControlledNot(), inputs: [1])
-        let qubitCount = 2
 
         // Then
         var error: TwoLevelDecompositionSolver.DecomposeGatesError?
-        if case .failure(let e) = TwoLevelDecompositionSolver.decomposeGates([gate],
-                                                                            restrictedToCircuitQubitCount: qubitCount) {
+        if case .failure(let e) = TwoLevelDecompositionSolver.decomposeGates([gate]) {
             error = e
         }
         XCTAssertEqual(error,

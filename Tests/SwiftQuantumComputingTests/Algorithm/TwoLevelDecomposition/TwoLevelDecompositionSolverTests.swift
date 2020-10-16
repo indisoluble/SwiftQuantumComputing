@@ -32,12 +32,10 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
     func testGateThatThrowsError_decomposeGate_throwError() {
         // Given
         let gateWithRepeatedInputs = Gate.matrix(matrix: Matrix.makeNot(), inputs: [0, 0])
-        let qubitCount = 2
 
         // Then
         var error: GateError?
-        if case .failure(let e) = TwoLevelDecompositionSolver.decomposeGate(gateWithRepeatedInputs,
-                                                                            restrictedToCircuitQubitCount: qubitCount) {
+        if case .failure(let e) = TwoLevelDecompositionSolver.decomposeGate(gateWithRepeatedInputs) {
             error = e
         }
         XCTAssertEqual(error, .gateInputsAreNotUnique)
@@ -46,11 +44,9 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
     func testSingleQubitGate_decomposeGate_returnSameGate() {
         // Given
         let gate = Gate.not(target: 0)
-        let qubitCount = 2
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
 
         // Then
         XCTAssertEqual(result, [gate])
@@ -59,11 +55,9 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
     func testTwoQubitControlledGate_decomposeGate_returnSameGate() {
         // Given
         let gate = Gate.controlled(gate: .matrix(matrix: .makeNot(), inputs: [0]), controls: [1])
-        let qubitCount = 5
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
 
         // Then
         XCTAssertEqual(result, [gate])
@@ -72,11 +66,9 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
     func testTwoQubitOracleGate_decomposeGate_returnExpectedGates() {
         // Given
         let gate = Gate.oracle(truthTable: ["0"], controls: [1], gate: .matrix(matrix: .makeNot(), inputs: [0]))
-        let qubitCount = 5
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
 
         // Then
         let expectedResult: [Gate] = [
@@ -91,11 +83,9 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         // Given
         let gate = Gate.controlled(gate: .matrix(matrix: .makeNot(), inputs: [4]),
                                    controls: [8, 9, 1, 5, 2])
-        let qubitCount = 10
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
 
         // Then
         XCTAssertEqual(result, [gate])
@@ -106,11 +96,9 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.oracle(truthTable: ["10100"],
                                controls: [8, 9, 1, 5, 2],
                                gate: .matrix(matrix: .makeNot(), inputs: [4]))
-        let qubitCount = 10
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
 
         // Then
         let expectedResult: [Gate] = [
