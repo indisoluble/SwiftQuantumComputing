@@ -1,8 +1,8 @@
 //
-//  Complex+Matrix.swift
+//  Complex+EulerTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/07/2020.
+//  Created by Enrique de la Torre on 04/10/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,25 +19,25 @@
 //
 
 import ComplexModule
-import Foundation
+import XCTest
+
+@testable import SwiftQuantumComputing
 
 // MARK: - Main body
 
-extension Complex where RealType == Double {
+class Complex_EulerTests: XCTestCase {
 
-    // MARK: - Internal init methods
+    // MARK: - Tests
 
-    enum InitError: Error {
-        case use1x1Matrix
+    func testAnyValue_euler_returnExpectedValue() {
+        // Given
+        let value = 10.0
+
+        // Then
+        XCTAssertEqual(Complex.euler(value), Complex(cos(value), sin(value)))
     }
 
-    init(_ matrix: Matrix) throws {
-        guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
-            throw InitError.use1x1Matrix
-        }
-
-        let complex = matrix.first
-
-        self.init(complex.real, complex.imaginary)
-    }
+    static var allTests = [
+        ("testAnyValue_euler_returnExpectedValue", testAnyValue_euler_returnExpectedValue)
+    ]
 }

@@ -1,8 +1,8 @@
 //
-//  Complex+Matrix.swift
+//  Matrix+Transposed.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/07/2020.
+//  Created by Enrique de la Torre on 26/09/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,26 +18,17 @@
 // limitations under the License.
 //
 
-import ComplexModule
 import Foundation
 
 // MARK: - Main body
 
-extension Complex where RealType == Double {
+extension Matrix {
 
-    // MARK: - Internal init methods
+    // MARK: - Internal methods
 
-    enum InitError: Error {
-        case use1x1Matrix
-    }
-
-    init(_ matrix: Matrix) throws {
-        guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
-            throw InitError.use1x1Matrix
-        }
-
-        let complex = matrix.first
-
-        self.init(complex.real, complex.imaginary)
+    func transposed() -> Matrix {
+        return try! Matrix.makeMatrix(rowCount: columnCount, columnCount: rowCount, value: { row, col in
+            return self[col, row]
+        }).get()
     }
 }

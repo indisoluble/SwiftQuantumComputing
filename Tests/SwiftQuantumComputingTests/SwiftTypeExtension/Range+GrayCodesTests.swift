@@ -1,8 +1,8 @@
 //
-//  Complex+Matrix.swift
+//  Range+GrayCodesTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/07/2020.
+//  Created by Enrique de la Torre on 26/09/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,26 +18,23 @@
 // limitations under the License.
 //
 
-import ComplexModule
-import Foundation
+import XCTest
+
+@testable import SwiftQuantumComputing
 
 // MARK: - Main body
 
-extension Complex where RealType == Double {
+class Range_GrayCodesTests: XCTestCase {
 
-    // MARK: - Internal init methods
+    // MARK: - Tests
 
-    enum InitError: Error {
-        case use1x1Matrix
+    func testAnyRange_grayCodes_returnExpectedList() {
+        // Then
+        XCTAssertEqual((0..<16).grayCodes(),
+                       [0, 1, 3, 2, 6, 7, 5, 4, 12, 13, 15, 14, 10, 11, 9, 8])
     }
 
-    init(_ matrix: Matrix) throws {
-        guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
-            throw InitError.use1x1Matrix
-        }
-
-        let complex = matrix.first
-
-        self.init(complex.real, complex.imaginary)
-    }
+    static var allTests = [
+        ("testAnyRange_grayCodes_returnExpectedList", testAnyRange_grayCodes_returnExpectedList)
+    ]
 }

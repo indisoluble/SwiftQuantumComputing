@@ -67,7 +67,9 @@ class CircuitStatevector_SummarizedProbabilitiesTests: XCTestCase {
         let expectedKeys = Set(expectedResult.keys)
         if keys == expectedKeys {
             for key in keys {
-                XCTAssertEqual(result[key]!, expectedResult[key]!, accuracy: 0.001)
+                XCTAssertEqual(result[key]!,
+                               expectedResult[key]!,
+                               accuracy: SharedConstants.tolerance)
             }
         } else {
             XCTAssert(false)
@@ -143,7 +145,9 @@ class CircuitStatevector_SummarizedProbabilitiesTests: XCTestCase {
             let expectedKeys = Set(expectedResult.keys)
             if keys == expectedKeys {
                 for key in keys {
-                    XCTAssertEqual(result[key]!, expectedResult[key]!, accuracy: 0.001)
+                    XCTAssertEqual(result[key]!,
+                                   expectedResult[key]!,
+                                   accuracy: SharedConstants.tolerance)
                 }
             } else {
                 XCTAssert(false)
@@ -172,7 +176,9 @@ class CircuitStatevector_SummarizedProbabilitiesTests: XCTestCase {
             let expectedKeys = Set(expectedResult.keys)
             if keys == expectedKeys {
                 for key in keys {
-                    XCTAssertEqual(result[key]!, expectedResult[key]!, accuracy: 0.001)
+                    XCTAssertEqual(result[key]!,
+                                   expectedResult[key]!,
+                                   accuracy: SharedConstants.tolerance)
                 }
             } else {
                 XCTAssert(false)
@@ -201,7 +207,9 @@ class CircuitStatevector_SummarizedProbabilitiesTests: XCTestCase {
             let expectedKeys = Set(expectedResult.keys)
             if keys == expectedKeys {
                 for key in keys {
-                    XCTAssertEqual(result[key]!, expectedResult[key]!, accuracy: 0.001)
+                    XCTAssertEqual(result[key]!,
+                                   expectedResult[key]!,
+                                   accuracy: SharedConstants.tolerance)
                 }
             } else {
                 XCTAssert(false)

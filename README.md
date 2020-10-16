@@ -14,7 +14,7 @@ import SwiftQuantumComputing // for macOS
 //: 1. Compose a list of quantum gates. Insert them in the same order
 //:    you want them to appear in the quantum circuit
 let matrix = Matrix([[.one, .zero, .zero, .zero],
-                     [.zero, .one, .zero, .zero],
+                     [.zero, .one, .zero, .zero],	
                      [.zero, .zero, .zero, .one],
                      [.zero, .zero, .one, .zero]])
 let gates: [Gate] = [
@@ -136,6 +136,24 @@ for useCase in cases {
 
 Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground/Contents.swift).
 
+### Two-level decomposition: Decompose a quantum gate into a sequence of fully controlled matrix gates and not gates
+
+```swift
+import SwiftQuantumComputing // for macOS
+
+//: 1. Define a gate
+let gate = Gate.oracle(truthTable: ["000", "101"], controls: [4, 5, 2], gate: .not(target: 0))
+//: 2. (Optional) Draw the gate to see how it looks
+let drawer = MainDrawerFactory().makeDrawer()
+drawer.drawCircuit([gate]).get()
+//: 3. Decompose gate into an equivalent sequence of fully controlled matrix gates and not gates
+let decomposition = TwoLevelDecompositionSolver.decomposeGate(gate).get()
+//:42. (Optional) Draw the decomposition to see how it looks
+drawer.drawCircuit(decomposition).get()
+```
+
+Check full code in [TwoLevelDecomposition.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/TwoLevelDecomposition.playground/Contents.swift).
+
 ### Euclidean Algorithm: Find greatest common divisor of two integers
 
 ```swift
@@ -214,6 +232,8 @@ Documentation for the project can be found [here](https://indisoluble.github.io/
 
 * [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X)
 * [Continued Fractions and the Euclidean Algorithm](https://www.math.u-bordeaux.fr/~pjaming/M1/exposes/MA2.pdf)
+* [Decomposition of unitary matrices and quantum gates](https://arxiv.org/abs/1210.7366)
+* [Decomposition of unitary matrix into quantum gates](https://github.com/fedimser/quantum_decomp/blob/master/res/Fedoriaka2019Decomposition.pdf)
 * [IBM Qiskit](https://github.com/Qiskit/qiskit-terra)
 * [qHiPSTER: The Quantum High Performance Software Testing Environment](https://arxiv.org/abs/1601.07195)
 * [Quantum Computing for Computer Scientists](https://www.amazon.com/Quantum-Computing-Computer-Scientists-Yanofsky/dp/0521879965)

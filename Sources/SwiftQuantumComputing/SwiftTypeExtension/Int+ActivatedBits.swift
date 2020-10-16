@@ -1,8 +1,8 @@
 //
-//  Complex+Matrix.swift
+//  Int+ActivatedBits.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/07/2020.
+//  Created by Enrique de la Torre on 06/10/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,26 +18,25 @@
 // limitations under the License.
 //
 
-import ComplexModule
 import Foundation
 
-// MARK: - Main body
-
-extension Complex where RealType == Double {
-
-    // MARK: - Internal init methods
-
-    enum InitError: Error {
-        case use1x1Matrix
-    }
-
-    init(_ matrix: Matrix) throws {
-        guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
-            throw InitError.use1x1Matrix
+extension Int {
+    func activatedBits(count: Int) -> Set<Int> {
+        guard count > 0 else {
+            return []
         }
 
-        let complex = matrix.first
+        var result: Set<Int> = []
 
-        self.init(complex.real, complex.imaginary)
+        var offset = 1
+        for pos in 0..<count {
+            if self & offset > 0 {
+                result.insert(pos)
+            }
+
+            offset = offset << 1
+        }
+
+        return result
     }
 }

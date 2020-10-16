@@ -115,7 +115,8 @@ class MatrixTests: XCTestCase {
         let m2 = try! Matrix([[.one], [.one], [.one]])
 
         // Then
-        XCTAssertFalse(m1.isApproximatelyEqual(to: m2, absoluteTolerance: 0.001))
+        XCTAssertFalse(m1.isApproximatelyEqual(to: m2,
+                                               absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testMatricesWithDifferentNumberOfColumns_isApproximatelyEqual_returnFalse() {
@@ -124,7 +125,8 @@ class MatrixTests: XCTestCase {
         let m2 = try! Matrix([[.one, .one, .one]])
 
         // Then
-        XCTAssertFalse(m1.isApproximatelyEqual(to: m2, absoluteTolerance: 0.001))
+        XCTAssertFalse(m1.isApproximatelyEqual(to: m2,
+                                               absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testAnyMatrixAndAccuracyZero_isApproximatelyEqual_returnTrue() {
@@ -136,7 +138,7 @@ class MatrixTests: XCTestCase {
     }
 
     func testMatricesWithValusAroundAccuracy_isApproximatelyEqual_returnTrue() {
-        let accuracy = 0.001
+        let accuracy = 0.0001
         let m1 = try! Matrix([
             [Complex(1 + accuracy), Complex(accuracy, -1)]
         ])
@@ -147,7 +149,7 @@ class MatrixTests: XCTestCase {
     }
 
     func testMatricesWithOneValueFartherThanAccuracy_isApproximatelyEqual_returnFalse() {
-        let accuracy = 0.001
+        let accuracy = SharedConstants.tolerance
         let m1 = try! Matrix([[.one, Complex(accuracy, -accuracy)]])
         let m2 = try! Matrix([[.one, Complex(accuracy, accuracy)]])
 
@@ -160,7 +162,7 @@ class MatrixTests: XCTestCase {
         let matrix = try! Matrix([[.one], [.one]])
 
         // Then
-        XCTAssertFalse(matrix.isApproximatelyUnitary(absoluteTolerance: 0.001))
+        XCTAssertFalse(matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testSquareNonUnitaryMatrix_isApproximatelyUnitary_returnFalse() {
@@ -170,7 +172,7 @@ class MatrixTests: XCTestCase {
                                   [.one, .one, .one]])
 
         // Then
-        XCTAssertFalse(matrix.isApproximatelyUnitary(absoluteTolerance: 0.001))
+        XCTAssertFalse(matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testUnitaryMatrix_isApproximatelyUnitary_returnTrue() {
@@ -189,7 +191,7 @@ class MatrixTests: XCTestCase {
         let matrix = try! Matrix(elements)
 
         // Then
-        XCTAssertTrue(matrix.isApproximatelyUnitary(absoluteTolerance: 0.001))
+        XCTAssertTrue(matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testZeroRowCount_makeMatrix_throwException() {
