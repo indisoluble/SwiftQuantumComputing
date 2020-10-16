@@ -871,6 +871,7 @@
 		FF2600AA2378CF79002342AD /* Circuit+UnitaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Circuit+UnitaryTests.swift"; sourceTree = "<group>"; };
 		FF265D652135DD6A00179F75 /* CircuitTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitTestDouble.swift; sourceTree = "<group>"; };
 		FF28D97823C7DD9B0070132F /* String+ActivatedBitsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ActivatedBitsTests.swift"; sourceTree = "<group>"; };
+		FF2B148E253A1A4F004E2E48 /* TwoLevelDecomposition.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TwoLevelDecomposition.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF2B4C5623BB869A00A388F3 /* XorEquationSystemSimpleSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XorEquationSystemSimpleSolver.swift; sourceTree = "<group>"; };
 		FF2B4C5C23BBB08300A388F3 /* Array+Combinations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Combinations.swift"; sourceTree = "<group>"; };
 		FF2BD6ED21FE0749007410EB /* MainGeneticCircuitEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticCircuitEvaluator.swift; sourceTree = "<group>"; };
@@ -1357,6 +1358,7 @@
 				FF9CE7EF238B18A90098E5C8 /* Drawer.playground */,
 				FF67E3892441DA94000CE560 /* EuclideanAlgorithm.playground */,
 				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
+				FF2B148E253A1A4F004E2E48 /* TwoLevelDecomposition.playground */,
 				FF8E49C223CA76AD00C8FD48 /* XorGaussianElimination.playground */,
 			);
 			path = Usage;
