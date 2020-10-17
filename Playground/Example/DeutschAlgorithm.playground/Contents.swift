@@ -19,7 +19,7 @@ func isFunctionConstant(truthTable: [String]) -> Bool {
     let statevector = try! circuit.statevector().get()
     let probabilities = try! statevector.summarizedProbabilities(byQubits: [1]).get()
 
-    return (abs(1 - (probabilities["0"] ?? 0.0)) < 0.001)
+    return (abs(1 - (probabilities["0"] ?? 0.0)) < 0.000000001)
 }
 
 print("Function: f(0) = 0, f(1) = 0. Is it constant? \(isFunctionConstant(truthTable: []))")

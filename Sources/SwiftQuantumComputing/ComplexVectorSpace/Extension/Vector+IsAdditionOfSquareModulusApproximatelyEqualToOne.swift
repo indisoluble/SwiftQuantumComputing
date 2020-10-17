@@ -27,17 +27,7 @@ extension Vector {
     // MARK: - Internal methods
 
     func isAdditionOfSquareModulusApproximatelyEqualToOne() -> Bool {
-        return squaredNorm.isApproximatelyEqual(to: 1.0, absoluteTolerance: Constants.tolerance)
-    }
-}
-
-// MARK: - Private body
-
-private extension Vector {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let tolerance = 0.001
+        return squaredNorm.isApproximatelyEqual(to: 1.0,
+                                                absoluteTolerance: SharedConstants.tolerance)
     }
 }

@@ -28,6 +28,6 @@ extension Matrix {
     // MARK: - Internal class methods
 
     static func makePhaseShift(radians: Double) -> Matrix {
-        return try! Matrix([[.one, .zero], [.zero, Complex(cos(radians), sin(radians))]])
+        return try! Matrix([[.one, .zero], [.zero, Complex.euler(radians)]])
     }
 }

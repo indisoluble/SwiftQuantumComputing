@@ -23,7 +23,7 @@ import Foundation
 
 // MARK: - Main body
 
-extension Complex where RealType == Double{
+extension Complex where RealType == Double {
 
     // MARK: - Internal init methods
 

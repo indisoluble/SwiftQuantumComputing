@@ -201,7 +201,7 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
-    func testMatrixWithColumnCountDifferentThanRowCountInVector_multiply_throwException() {
+    func testMatrixWithColumnCountDifferentThanRowCountInVector_multiplyMatrixByVector_throwException() {
         // Given
         let lhs = try! Matrix([[Complex.zero, Complex.zero]])
         let rhs = try! Vector([Complex.zero, Complex.zero, Complex.zero])
@@ -214,7 +214,7 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(error, .matrixColumnCountDoesNotMatchVectorCount)
     }
 
-    func testMatrixWithColumnCountEqualToRowCountInVector_multiply_returnExpectedMatrix() {
+    func testMatrixWithColumnCountEqualToRowCountInVector_multiplyMatrixByVector_returnExpectedVector() {
         // Given
         let lhsElements: [[Complex<Double>]] = [
             [Complex(3, 2), .zero, Complex(5, -6)],
@@ -224,6 +224,39 @@ class VectorTests: XCTestCase {
 
         let rhsElements: [Complex<Double>] = [Complex(5), .zero, Complex(7, -4)]
         let rhs = try! Vector(rhsElements)
+
+        // When
+        let result = try? (lhs * rhs).get()
+
+        // Then
+        let expectedResult = try! Vector([Complex(26, -52), Complex(9, 7)])
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testMatrixWithRowCountDifferentThanRowCountInVector_multiplyVectorByMatrix_throwException() {
+        // Given
+        let lhs = try! Vector([Complex.zero, Complex.zero, Complex.zero])
+        let rhs = try! Matrix([[Complex.zero, Complex.zero]])
+
+        // Then
+        var error: Vector.VectorByMatrixError?
+        if case .failure(let e) = lhs * rhs {
+            error = e
+        }
+        XCTAssertEqual(error, .matrixRowCountDoesNotMatchVectorCount)
+    }
+
+    func testMatrixWithRowCountEqualToRowCountInVector_multiplyVectorByMatrix_returnExpectedVector() {
+        // Given
+        let lhsElements: [Complex<Double>] = [Complex(5), .zero, Complex(7, -4)]
+        let lhs = try! Vector(lhsElements)
+
+        let rhsElements: [[Complex<Double>]] = [
+            [Complex(3, 2), .one],
+            [.zero, Complex(4, 2)],
+            [Complex(5, -6), .i]
+        ]
+        let rhs = try! Matrix(rhsElements)
 
         // When
         let result = try? (lhs * rhs).get()
@@ -262,9 +295,13 @@ class VectorTests: XCTestCase {
          testTwoVectorWithDifferentDimensions_multiply_throwException),
         ("testTwoVector_multiply_returnExpectedValue",
          testTwoVector_multiply_returnExpectedValue),
-        ("testMatrixWithColumnCountDifferentThanRowCountInVector_multiply_throwException",
-         testMatrixWithColumnCountDifferentThanRowCountInVector_multiply_throwException),
-        ("testMatrixWithColumnCountEqualToRowCountInVector_multiply_returnExpectedMatrix",
-         testMatrixWithColumnCountEqualToRowCountInVector_multiply_returnExpectedMatrix)
+        ("testMatrixWithColumnCountDifferentThanRowCountInVector_multiplyMatrixByVector_throwException",
+         testMatrixWithColumnCountDifferentThanRowCountInVector_multiplyMatrixByVector_throwException),
+        ("testMatrixWithColumnCountEqualToRowCountInVector_multiplyMatrixByVector_returnExpectedVector",
+         testMatrixWithColumnCountEqualToRowCountInVector_multiplyMatrixByVector_returnExpectedVector),
+        ("testMatrixWithRowCountDifferentThanRowCountInVector_multiplyVectorByMatrix_throwException",
+         testMatrixWithRowCountDifferentThanRowCountInVector_multiplyVectorByMatrix_throwException),
+        ("testMatrixWithRowCountEqualToRowCountInVector_multiplyVectorByMatrix_returnExpectedVector",
+         testMatrixWithRowCountEqualToRowCountInVector_multiplyVectorByMatrix_returnExpectedVector)
     ]
 }
