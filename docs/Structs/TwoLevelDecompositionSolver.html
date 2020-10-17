@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Vector Structure Reference</title>
+    <title>TwoLevelDecompositionSolver Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/Vector" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/TwoLevelDecompositionSolver" class="dashAnchor"></a>
 
-    <a title="Vector Structure Reference"></a>
+    <a title="TwoLevelDecompositionSolver Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Vector Structure Reference
+      TwoLevelDecompositionSolver Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -275,18 +275,18 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Vector</h1>
+            <h1>TwoLevelDecompositionSolver</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Vector</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Sequence</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TwoLevelDecompositionSolver</span></code></pre>
 
                 </div>
               </div>
-            <p>Swift representation of a complex vector</p>
+            <p>A quantum gate can be decomposed into a sequence of fully controlled two-level matrix gates and not gates.
+The following implementation is based on:
+<a href="https://arxiv.org/abs/1210.7366">Decomposition of unitary matrices and quantum gates</a> &amp;
+<a href="https://github.com/fedimser/quantum_decomp/blob/master/res/Fedoriaka2019Decomposition.pdf">Decomposition of unitary matrix into quantum gates</a></p>
 
           </div>
         </section>
@@ -295,11 +295,11 @@
           <div class="section-content">
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Public%20properties"></a>
-                <a name="//apple_ref/swift/Section/Public properties" class="dashAnchor"></a>
+                <a name="/Public%20class%20methods"></a>
+                <a name="//apple_ref/swift/Section/Public class methods" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Public%20properties"></a>
-                  <h3 class="section-name"><p>Public properties</p>
+                  <a class="section-name-link" href="#/Public%20class%20methods"></a>
+                  <h3 class="section-name"><p>Public class methods</p>
 </h3>
                 </div>
               </div>
@@ -307,9 +307,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing6VectorV5countSivp"></a>
-                    <a name="//apple_ref/swift/Property/count" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing6VectorV5countSivp">count</a>
+                    <a name="/s:21SwiftQuantumComputing27TwoLevelDecompositionSolverV13decomposeGate_29restrictedToCircuitQubitCounts6ResultOySayAA0I0OGAA0I5ErrorOGAI_SiSgtFZ"></a>
+                    <a name="//apple_ref/swift/Method/decomposeGate(_:restrictedToCircuitQubitCount:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing27TwoLevelDecompositionSolverV13decomposeGate_29restrictedToCircuitQubitCounts6ResultOySayAA0I0OGAA0I5ErrorOGAI_SiSgtFZ">decomposeGate(_:<wbr>restrictedToCircuitQubitCount:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -317,114 +317,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Number of elements in the vector</p>
+                        <p>Decompose <code>gate</code> into a sequence of fully controlled two-level matrix gates and not gates.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing6VectorVy13ComplexModule0E0VySdGSicip"></a>
-                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing6VectorVy13ComplexModule0E0VySdGSicip">subscript(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Use [index] to access elements in the vector</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Public%20init%20methods"></a>
-                <a name="//apple_ref/swift/Section/Public init methods" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Public%20init%20methods"></a>
-                  <h3 class="section-name"><p>Public init methods</p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing6VectorV9InitErrorO"></a>
-                    <a name="//apple_ref/swift/Enum/InitError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing6VectorV9InitErrorO">InitError</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Errors throwed by <code>Vector.init()</code></p>
-
-                        <a href="../Structs/Vector/InitError.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">InitError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing6VectorVyACSay13ComplexModule0E0VySdGGKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing6VectorVyACSay13ComplexModule0E0VySdGGKcfc">init(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initializes a new <code>Vector</code> instance with <code><a href="../Structs/Vector.html#/s:21SwiftQuantumComputing6VectorV8elementsSay13ComplexModule0F0VySdGGvp">elements</a></code>.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Structs/Vector/InitError.html">Vector.InitError</a></code>.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">elements</span><span class="p">:</span> <span class="p">[</span><span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">])</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">decomposeGate</span><span class="p">(</span><span class="n">_</span> <span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">,</span>
+                                 <span class="n">restrictedToCircuitQubitCount</span> <span class="nv">qubitCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">],</span> <span class="kt"><a href="../Enums/GateError.html">GateError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -435,12 +336,24 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>elements</em>
+                                <em>gate</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>List of <code>Complex</code> values.</p>
+                                  <p><code><a href="../Enums/Gate.html">Gate</a></code> instance to decompose.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>qubitCount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of qubits in the circuit.</p>
                                 </div>
                               </td>
                             </tr>
@@ -449,30 +362,17 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A new <code>Vector</code> instance.</p>
+                        <p>A sequence of <code><a href="../Enums/Gate.html">Gate</a></code> instances that replace the input <code>gate</code>. Or <code><a href="../Enums/GateError.html">GateError</a></code> error.</p>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Public%20properties2"></a>
-                <a name="//apple_ref/swift/Section/Public properties" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Public%20properties2"></a>
-                  <h3 class="section-name"><p>Public properties</p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing6VectorV8elementsSay13ComplexModule0F0VySdGGvp"></a>
-                    <a name="//apple_ref/swift/Property/elements" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing6VectorV8elementsSay13ComplexModule0F0VySdGGvp">elements</a>
+                    <a name="/s:21SwiftQuantumComputing27TwoLevelDecompositionSolverV19DecomposeGatesErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/DecomposeGatesError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing27TwoLevelDecompositionSolverV19DecomposeGatesErrorO">DecomposeGatesError</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -480,92 +380,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Maps vector into a list</p>
+                        <p>Errors throwed by <code>TwoLevelDecompositionSolver.decomposeGates(:restrictedToCircuitQubitCount:)</code></p>
 
+                        <a href="../Structs/TwoLevelDecompositionSolver/DecomposeGatesError.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">elements</span><span class="p">:</span> <span class="p">[</span><span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/CustomStringConvertible%20methods"></a>
-                <a name="//apple_ref/swift/Section/CustomStringConvertible methods" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/CustomStringConvertible%20methods"></a>
-                  <h3 class="section-name"><p>CustomStringConvertible methods</p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
-                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Sequence%20methods"></a>
-                <a name="//apple_ref/swift/Section/Sequence methods" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Sequence%20methods"></a>
-                  <h3 class="section-name"><p>Sequence methods</p>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:ST8IteratorQa"></a>
-                    <a name="//apple_ref/swift/Alias/Iterator" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ST8IteratorQa">Iterator</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Iterator</span> <span class="o">=</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">Complex</span><span class="o">&lt;</span><span class="kt">Double</span><span class="o">&gt;&gt;.</span><span class="kt">Iterator</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">DecomposeGatesError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -575,9 +398,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:ST12makeIterator0B0QzyF"></a>
-                    <a name="//apple_ref/swift/Method/makeIterator()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ST12makeIterator0B0QzyF">makeIterator()</a>
+                    <a name="/s:21SwiftQuantumComputing27TwoLevelDecompositionSolverV14decomposeGates_29restrictedToCircuitQubitCounts6ResultOySayAA4GateOGAC09DecomposeI5ErrorOGAJ_SiSgtFZ"></a>
+                    <a name="//apple_ref/swift/Method/decomposeGates(_:restrictedToCircuitQubitCount:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing27TwoLevelDecompositionSolverV14decomposeGates_29restrictedToCircuitQubitCounts6ResultOySayAA4GateOGAC09DecomposeI5ErrorOGAJ_SiSgtFZ">decomposeGates(_:<wbr>restrictedToCircuitQubitCount:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -585,15 +408,53 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Decompose one by one each instance in <code>gates</code> to produce an equivalent  sequence of
+fully controlled two-level matrix gates and not gates.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeIterator</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Vector</span><span class="o">.</span><span class="kt"><a href="../Structs/Vector.html#/s:ST8IteratorQa">Iterator</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">decomposeGates</span><span class="p">(</span><span class="n">_</span> <span class="nv">gates</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">],</span>
+                                  <span class="n">restrictedToCircuitQubitCount</span> <span class="nv">qubitCount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt"><a href="../Enums/Gate.html">Gate</a></span><span class="p">],</span> <span class="kt"><a href="../Structs/TwoLevelDecompositionSolver/DecomposeGatesError.html">DecomposeGatesError</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>gates</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code><a href="../Enums/Gate.html">Gate</a></code> instances to decompose.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>qubitCount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of qubits in the circuit.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A sequence of <code><a href="../Enums/Gate.html">Gate</a></code> instances equivalent to <code>gates</code>. Or <code><a href="../Structs/TwoLevelDecompositionSolver/DecomposeGatesError.html">DecomposeGatesError</a></code> error.</p>
                       </div>
                     </section>
                   </div>

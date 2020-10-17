@@ -1,6 +1,20 @@
 {
   "warnings": [
     {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Algorithm/Genetic/MainGeneticFactory.swift",
+      "line": 25,
+      "symbol": "MainGeneticFactory",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Algorithm/Genetic/MainGeneticFactory.swift",
+      "line": 89,
+      "symbol": "MainGeneticFactory",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Drawer/MainDrawerFactory.swift",
       "line": 25,
       "symbol": "MainDrawerFactory",
@@ -40,20 +54,6 @@
       "line": 31,
       "symbol": "Gate.Axis.z",
       "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/MainGeneticFactory.swift",
-      "line": 25,
-      "symbol": "MainGeneticFactory",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Genetic/MainGeneticFactory.swift",
-      "line": 89,
-      "symbol": "MainGeneticFactory",
-      "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     }
   ],
