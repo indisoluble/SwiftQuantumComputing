@@ -46,7 +46,7 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
             nextVector = apply(oneQubitMatrix: gateMatrix,
                                toStatevector: vector,
                                atInput: inputs.first!)
-        } else if inputs.count == 2 && isTwoQubitControlledMatrix(gateMatrix) {
+        } else if inputs.count == 2 && isControlledMatrix(gateMatrix) {
             nextVector = apply(twoQubitMatrix: gateMatrix,
                                toStatevector: vector,
                                atTarget: inputs.last!,
@@ -67,20 +67,22 @@ private extension DirectStatevectorTransformation {
 
     // MARK: - Private methods
 
-    func isTwoQubitControlledMatrix(_ matrix: Matrix) -> Bool {
-        let elements = matrix.elements
-        let expectedElements: [[Complex<Double>]] = [
-            [.one, .zero, .zero, .zero],
-            [.zero, .one, .zero, .zero],
-            [.zero, .zero],
-            [.zero, .zero]
-        ]
+    func isControlledMatrix(_ matrix: Matrix) -> Bool {
+        for row in 0..<(matrix.rowCount - 2) {
+            for col in 0..<(matrix.columnCount - 2) {
+                let value = matrix[row, col]
 
-        return zip(elements, expectedElements).reduce(true) { acc, tuple in
-            let (row, expectedRow) = tuple
-
-            return acc && Array(row[0..<expectedRow.count]) == expectedRow
+                if row == col {
+                    if value != .one {
+                        return false
+                    }
+                } else if value != .zero {
+                    return false
+                }
+            }
         }
+
+        return true
     }
 
     func apply(oneQubitMatrix matrix: Matrix,
@@ -96,7 +98,7 @@ private extension DirectStatevectorTransformation {
         let submatrix = try! Matrix.makeMatrix(rowCount: 2,
                                                columnCount: 2,
                                                value: { matrix[2+$0, 2+$1] }).get()
-        let filter = 1 << control
+        let filter = Int.mask(activatingBitsAt: [control])
 
         return apply(matrix: submatrix,
                      toStatevector: vector,
