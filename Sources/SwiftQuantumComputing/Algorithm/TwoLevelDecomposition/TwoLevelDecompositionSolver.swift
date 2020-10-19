@@ -45,7 +45,7 @@ public struct TwoLevelDecompositionSolver {
         var gateMatrix: Matrix!
         let gateInputs: [Int]!
         switch gate.extractComponents(restrictedToCircuitQubitCount: actualQubitCount) {
-        case .success((let matrix, let inputs)):
+        case .success((let matrix, _, let inputs)):
             gateMatrix = matrix
             gateInputs = inputs
         case .failure(let error):

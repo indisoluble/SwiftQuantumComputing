@@ -20,6 +20,14 @@
 
 import Foundation
 
+// MARK: - Internal types
+
+enum SimulatorGateMatrixType {
+    case singleQubitMatrix
+    case fullyControlledSingleQubitMatrix
+    case otherMultiQubitMatrix
+}
+
 // MARK: - Protocol definition
 
 protocol SimulatorRawGate {
@@ -27,7 +35,7 @@ protocol SimulatorRawGate {
 }
 
 protocol SimulatorGate {
-    typealias Components = (matrix: Matrix, inputs: [Int])
+    typealias Components = (matrix: Matrix, matrixType: SimulatorGateMatrixType, inputs: [Int])
 
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError>
 }

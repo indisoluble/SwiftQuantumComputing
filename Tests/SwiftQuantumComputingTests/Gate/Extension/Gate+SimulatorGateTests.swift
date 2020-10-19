@@ -69,6 +69,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         [.zero, .zero, .zero, .zero, .zero, .zero, .one, .zero],
     ])
+    let validMatrixType = SimulatorGateMatrixType.otherMultiQubitMatrix
     let validQubitCount = 3
     let extendedValidQubitCount = 6
     let validInputs = [2, 1]
@@ -206,15 +207,106 @@ class Gate_SimulatorGateTests: XCTestCase {
 
         // When
         var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.matrix
+            matrixType = result.matrixType
             inputs = result.inputs
         }
 
         // Then
         XCTAssertEqual(matrix, validMatrix)
+        XCTAssertEqual(matrixType, validMatrixType)
         XCTAssertEqual(inputs, validInputs)
+    }
+
+    func testGateMatrixWithSingleQubitMatrixAndValidInputs_extractComponents_returnExpectedValues() {
+        // Given
+        let singleQubitMatrix = Matrix.makeHadamard()
+        let target = 0
+        let gate = Gate.matrix(matrix: singleQubitMatrix, inputs: [0])
+
+        // When
+        var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
+        var inputs: [Int]?
+        if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            matrixType = result.matrixType
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix, singleQubitMatrix)
+        XCTAssertEqual(matrixType, .singleQubitMatrix)
+        XCTAssertEqual(inputs, [target])
+    }
+
+    func testGateHadamardAndValidInput_extractComponents_returnExpectedValues() {
+        // Given
+        let target = 0
+        let gate = Gate.hadamard(target: target)
+
+        // When
+        var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
+        var inputs: [Int]?
+        if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            matrixType = result.matrixType
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix, Matrix.makeHadamard())
+        XCTAssertEqual(matrixType, .singleQubitMatrix)
+        XCTAssertEqual(inputs, [target])
+    }
+
+    func testGatePhaseShiftAndValidInput_extractComponents_returnExpectedValues() {
+        // Given
+        let radians = 0.1
+        let target = 0
+        let gate = Gate.phaseShift(radians: radians, target: target)
+
+        // When
+        var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
+        var inputs: [Int]?
+        if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            matrixType = result.matrixType
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix, Matrix.makePhaseShift(radians: radians))
+        XCTAssertEqual(matrixType, .singleQubitMatrix)
+        XCTAssertEqual(inputs, [target])
+    }
+
+    func testGateRotationAndValidInput_extractComponents_returnExpectedValues() {
+        // Given
+        let axis = Gate.Axis.x
+        let radians = 0.1
+        let target = 0
+        let gate = Gate.rotation(axis: axis, radians: radians, target: target)
+
+        // When
+        var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
+        var inputs: [Int]?
+        if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            matrixType = result.matrixType
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix, Matrix.makeRotation(axis: axis, radians: radians))
+        XCTAssertEqual(matrixType, .singleQubitMatrix)
+        XCTAssertEqual(inputs, [target])
     }
 
     func testGateControlledWithGateThatThrowException_extractComponents_throwException() {
@@ -249,14 +341,17 @@ class Gate_SimulatorGateTests: XCTestCase {
 
         // When
         var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.matrix
+            matrixType = result.matrixType
             inputs = result.inputs
         }
 
         // Then
         XCTAssertEqual(matrix, validMatrix)
+        XCTAssertEqual(matrixType, .fullyControlledSingleQubitMatrix)
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -266,14 +361,17 @@ class Gate_SimulatorGateTests: XCTestCase {
 
         // When
         var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix
+            matrixType = result.matrixType
             inputs = result.inputs
         }
 
         // Then
         XCTAssertEqual(matrix, extendedValidMatrix)
+        XCTAssertEqual(matrixType, .fullyControlledSingleQubitMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -284,14 +382,17 @@ class Gate_SimulatorGateTests: XCTestCase {
 
         // When
         var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix
+            matrixType = result.matrixType
             inputs = result.inputs
         }
 
         // Then
         XCTAssertEqual(matrix, extendedValidMatrix)
+        XCTAssertEqual(matrixType, .fullyControlledSingleQubitMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -329,14 +430,17 @@ class Gate_SimulatorGateTests: XCTestCase {
 
         // When
         var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.matrix
+            matrixType = result.matrixType
             inputs = result.inputs
         }
 
         // Then
         XCTAssertEqual(matrix, oracleValidMatrix)
+        XCTAssertEqual(matrixType, .otherMultiQubitMatrix)
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -346,14 +450,17 @@ class Gate_SimulatorGateTests: XCTestCase {
 
         // When
         var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix
+            matrixType = result.matrixType
             inputs = result.inputs
         }
 
         // Then
         XCTAssertEqual(matrix, oracleExtendedValidMatrix)
+        XCTAssertEqual(matrixType, .otherMultiQubitMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -365,9 +472,11 @@ class Gate_SimulatorGateTests: XCTestCase {
 
         // When
         var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix
+            matrixType = result.matrixType
             inputs = result.inputs
         }
 
@@ -384,6 +493,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         ])
 
         XCTAssertEqual(matrix, expectedMatrix)
+        XCTAssertEqual(matrixType, .otherMultiQubitMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -396,9 +506,11 @@ class Gate_SimulatorGateTests: XCTestCase {
 
         // When
         var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix
+            matrixType = result.matrixType
             inputs = result.inputs
         }
 
@@ -415,6 +527,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         ])
 
         XCTAssertEqual(matrix, expectedMatrix)
+        XCTAssertEqual(matrixType, .otherMultiQubitMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -428,9 +541,11 @@ class Gate_SimulatorGateTests: XCTestCase {
 
         // When
         var matrix: Matrix?
+        var matrixType: SimulatorGateMatrixType?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix
+            matrixType = result.matrixType
             inputs = result.inputs
         }
 
@@ -447,6 +562,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         ])
 
         XCTAssertEqual(matrix, expectedMatrix)
+        XCTAssertEqual(matrixType, .otherMultiQubitMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -473,6 +589,14 @@ class Gate_SimulatorGateTests: XCTestCase {
          testGateMatrixWithValidMatrixAndInputsOutOfRange_extractComponents_throwException),
         ("testGateMatrixWithValidMatrixAndValidInputs_extractComponents_returnExpectedValues",
          testGateMatrixWithValidMatrixAndValidInputs_extractComponents_returnExpectedValues),
+        ("testGateMatrixWithSingleQubitMatrixAndValidInputs_extractComponents_returnExpectedValues",
+         testGateMatrixWithSingleQubitMatrixAndValidInputs_extractComponents_returnExpectedValues),
+        ("testGateHadamardAndValidInput_extractComponents_returnExpectedValues",
+         testGateHadamardAndValidInput_extractComponents_returnExpectedValues),
+        ("testGatePhaseShiftAndValidInput_extractComponents_returnExpectedValues",
+         testGatePhaseShiftAndValidInput_extractComponents_returnExpectedValues),
+        ("testGateRotationAndValidInput_extractComponents_returnExpectedValues",
+         testGateRotationAndValidInput_extractComponents_returnExpectedValues),
         ("testGateControlledWithGateThatThrowException_extractComponents_throwException",
          testGateControlledWithGateThatThrowException_extractComponents_throwException),
         ("testGateControlledWithEmptyControls_extractComponents_throwException",

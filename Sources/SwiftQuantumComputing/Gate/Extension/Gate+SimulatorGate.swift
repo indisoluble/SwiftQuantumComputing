@@ -68,9 +68,11 @@ extension Gate: SimulatorGate {
         }
 
         var matrix: Matrix!
+        var matrixType: SimulatorGateMatrixType!
         switch extractMatrix() {
-        case .success(let extractedMatrix):
+        case .success((let extractedMatrix, let extractedType)):
             matrix = extractedMatrix
+            matrixType = extractedType
         case .failure(let error):
             return .failure(error)
         }
@@ -91,13 +93,17 @@ extension Gate: SimulatorGate {
             return .failure(.gateInputsAreNotInBound)
         }
 
-        return .success((matrix, inputs))
+        return .success((matrix, matrixType, inputs))
     }
 }
 
 // MARK: - Private body
 
 private extension Gate {
+
+    // MARK: - Private types
+
+    typealias ExtractMatrixResult = (matrix: Matrix, matrixType: SimulatorGateMatrixType)
 
     // MARK: - Constants
 
@@ -130,60 +136,82 @@ private extension Gate {
         return inputs.allSatisfy { validInputs.contains($0) }
     }
 
-    func extractMatrix() -> Result<Matrix, GateError> {
-        var resultMatrix: Matrix!
+    func extractMatrix() -> Result<ExtractMatrixResult, GateError> {
+        var result: Result<ExtractMatrixResult, GateError>!
 
         switch self {
         case .not:
-            resultMatrix = Constants.matrixNot
+            result = .success((Constants.matrixNot, .singleQubitMatrix))
         case .hadamard:
-            resultMatrix = Constants.matrixHadamard
+            result = .success((Constants.matrixHadamard, .singleQubitMatrix))
         case .phaseShift(let radians, _):
-            resultMatrix = Matrix.makePhaseShift(radians: radians)
+            result = .success((Matrix.makePhaseShift(radians: radians), .singleQubitMatrix))
         case .rotation(let axis, let radians, _):
-            resultMatrix = Matrix.makeRotation(axis: axis, radians: radians)
+            result = .success((Matrix.makeRotation(axis: axis, radians: radians),
+                               .singleQubitMatrix))
         case .matrix(let matrix, _):
-            guard matrix.rowCount.isPowerOfTwo else {
-                return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
-            }
-            // Validate matrix before expanding it so the operation requires less time
-            guard matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance) else {
-                return .failure(.gateMatrixIsNotUnitary)
-            }
-
-            resultMatrix = matrix
+            result = makeMatrixResult(matrix: matrix)
         case .oracle(let truthTable, let controls, let gate):
-            switch gate.extractMatrix() {
-            case .success(let matrix):
-                switch Matrix.makeOracle(truthTable: truthTable,
-                                         controlCount: controls.count,
-                                         controlledMatrix: matrix) {
-                case .success(let oracleMatrix):
-                    resultMatrix = oracleMatrix
-                case .failure(.controlCountHasToBeBiggerThanZero):
-                    return .failure(.gateControlsCanNotBeAnEmptyList)
-                case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
-                    fatalError("Unexpected error.")
-                }
-            case .failure(let error):
-                return .failure(error)
-            }
+            result = makeOracleResult(truthTable: truthTable, controls: controls, gate: gate)
         case .controlled(let gate, let controls):
-            switch gate.extractMatrix() {
-            case .success(let matrix):
-                switch Matrix.makeControlledMatrix(matrix: matrix, controlCount: controls.count) {
-                case .success(let controlledMatrix):
-                    resultMatrix = controlledMatrix
-                case .failure(.controlCountHasToBeBiggerThanZero):
-                    return .failure(.gateControlsCanNotBeAnEmptyList)
-                case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
-                    fatalError("Unexpected error.")
-                }
-            case .failure(let error):
-                return .failure(error)
-            }
+            result = makeControlledResult(gate: gate, controls: controls)
         }
 
-        return .success(resultMatrix)
+        return result
+    }
+
+    func makeMatrixResult(matrix: Matrix) -> Result<ExtractMatrixResult, GateError> {
+        guard matrix.rowCount.isPowerOfTwo else {
+            return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
+        }
+        // Validate matrix before expanding it so the operation requires less time
+        guard matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance) else {
+            return .failure(.gateMatrixIsNotUnitary)
+        }
+
+        return .success((matrix,
+                         matrix.rowCount == 2 ? .singleQubitMatrix : .otherMultiQubitMatrix))
+    }
+
+    func makeOracleResult(truthTable: [String],
+                          controls: [Int],
+                          gate: Gate) -> Result<ExtractMatrixResult, GateError> {
+        switch gate.extractMatrix() {
+        case .failure(let error):
+            return .failure(error)
+        case .success((let matrix, _)):
+            switch Matrix.makeOracle(truthTable: truthTable,
+                                     controlCount: controls.count,
+                                     controlledMatrix: matrix) {
+            case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
+                fatalError("Unexpected error.")
+            case .failure(.controlCountHasToBeBiggerThanZero):
+                return .failure(.gateControlsCanNotBeAnEmptyList)
+            case .success(let oracleMatrix):
+                return .success((oracleMatrix, .otherMultiQubitMatrix))
+            }
+        }
+    }
+
+    func makeControlledResult(gate: Gate,
+                              controls: [Int]) -> Result<ExtractMatrixResult, GateError> {
+        switch gate.extractMatrix() {
+        case .failure(let error):
+            return .failure(error)
+        case .success((let matrix, let matrixType)):
+            switch Matrix.makeControlledMatrix(matrix: matrix, controlCount: controls.count) {
+            case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
+                fatalError("Unexpected error.")
+            case .failure(.controlCountHasToBeBiggerThanZero):
+                return .failure(.gateControlsCanNotBeAnEmptyList)
+            case .success(let controlledMatrix):
+                switch matrixType {
+                case .singleQubitMatrix, .fullyControlledSingleQubitMatrix:
+                    return .success((controlledMatrix, .fullyControlledSingleQubitMatrix))
+                case .otherMultiQubitMatrix:
+                    return .success((controlledMatrix, .otherMultiQubitMatrix))
+                }
+            }
+        }
     }
 }
