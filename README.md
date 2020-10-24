@@ -136,20 +136,42 @@ for useCase in cases {
 
 Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground/Contents.swift).
 
-### Two-level decomposition: Decompose a quantum gate into a sequence of fully controlled matrix gates and not gates
+### Two-level decomposition: Decompose any gate into an equivalent sequence faster to execute
+
+When it comes to get the statevector produced by a circuit, single-qubit gates & fully controlled matrix gates (i.e. controlled matrix gates where all inputs but one are controls) can be simulated faster. This algorithm decomposes any gate/s into an equivalent sequence of not gates and fully controlled gates. In most cases, the new sequence will be faster to execute than the original.
 
 ```swift
 import SwiftQuantumComputing // for macOS
 
-//: 1. Define a gate
-let gate = Gate.oracle(truthTable: ["000", "101"], controls: [4, 5, 2], gate: .not(target: 0))
-//: 2. (Optional) Draw the gate to see how it looks
+let factory = MainCircuitFactory(statevectorConfiguration: .elementByElement(maxConcurrency: 4))
 let drawer = MainDrawerFactory().makeDrawer()
-drawer.drawCircuit([gate]).get()
-//: 3. Decompose gate into an equivalent sequence of fully controlled matrix gates and not gates
-let decomposition = TwoLevelDecompositionSolver.decomposeGate(gate).get()
-//:42. (Optional) Draw the decomposition to see how it looks
+
+//: 1. Define gates
+let gates = [
+    Gate.oracle(truthTable: ["0000", "1010"], controls: [7, 5, 2, 10], gate: .not(target: 0)),
+    Gate.oracle(truthTable: ["0011", "1100"], controls: [6, 10, 0, 1], gate: .not(target: 3)),
+    Gate.oracle(truthTable: ["1100", "1001"], controls: [3, 7, 4, 0], gate: .not(target: 10))
+]
+//: 2. (Optional) Draw gates to see how they look
+drawer.drawCircuit(gates).get()
+//: 3. Build circuit and measure how long it takes to get the statevector
+var start = CFAbsoluteTimeGetCurrent()
+factory.makeCircuit(gates: gates).statevector().get()
+var diff = CFAbsoluteTimeGetCurrent() - start
+print("Original circuit executed in \(diff) seconds")
+//: 4. Decompose gates into an equivalent sequence of fully controlled matrix gates and not gates
+start = CFAbsoluteTimeGetCurrent()
+let decomposition = TwoLevelDecompositionSolver.decomposeGates(gates).get()
+diff = CFAbsoluteTimeGetCurrent() - start
+print("Original circuit decomposed in \(diff) seconds")
+//: 5. (Optional) Draw decomposition to see how it looks
 drawer.drawCircuit(decomposition).get()
+//: 6. Build a new circuit and measure how long it takes to get the statevector. Statevector calculation is optimized
+//: for the type of gates returned in the decomposition
+start = CFAbsoluteTimeGetCurrent()
+factory.makeCircuit(gates: decomposition).statevector().get()
+diff = CFAbsoluteTimeGetCurrent() - start
+print("Decomposed circuit executed in \(diff) seconds")
 ```
 
 Check full code in [TwoLevelDecomposition.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/TwoLevelDecomposition.playground/Contents.swift).
