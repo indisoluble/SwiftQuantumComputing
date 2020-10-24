@@ -39,22 +39,23 @@ struct DirectStatevectorTransformation {
 // MARK: - StatevectorTransformation methods
 
 extension DirectStatevectorTransformation: StatevectorTransformation {
-    func apply(gateMatrix: Matrix, toStatevector vector: Vector, atInputs inputs: [Int]) -> Vector {
+    func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
         var nextVector: Vector!
 
-        if inputs.count == 1 {
-            nextVector = apply(oneQubitMatrix: gateMatrix,
+        switch components.matrixType {
+        case .singleQubitMatrix:
+            nextVector = apply(oneQubitMatrix: components.matrix,
                                toStatevector: vector,
-                               atInput: inputs.first!)
-        } else if inputs.count == 2 && isTwoQubitControlledMatrix(gateMatrix) {
-            nextVector = apply(twoQubitMatrix: gateMatrix,
+                               atInput: components.inputs[0])
+        case .fullyControlledSingleQubitMatrix:
+            let lastIndex = components.inputs.count - 1
+
+            nextVector = apply(controlledMatrix: components.matrix,
                                toStatevector: vector,
-                               atTarget: inputs.last!,
-                               withControl: inputs.first!)
-        } else {
-            nextVector = transformation.apply(gateMatrix: gateMatrix,
-                                              toStatevector: vector,
-                                              atInputs: inputs)
+                               atTarget: components.inputs[lastIndex],
+                               withControls: Array(components.inputs[0..<lastIndex]))
+        case .otherMultiQubitMatrix:
+            nextVector = transformation.apply(components: components, toStatevector: vector)
         }
 
         return nextVector
@@ -67,36 +68,22 @@ private extension DirectStatevectorTransformation {
 
     // MARK: - Private methods
 
-    func isTwoQubitControlledMatrix(_ matrix: Matrix) -> Bool {
-        let elements = matrix.elements
-        let expectedElements: [[Complex<Double>]] = [
-            [.one, .zero, .zero, .zero],
-            [.zero, .one, .zero, .zero],
-            [.zero, .zero],
-            [.zero, .zero]
-        ]
-
-        return zip(elements, expectedElements).reduce(true) { acc, tuple in
-            let (row, expectedRow) = tuple
-
-            return acc && Array(row[0..<expectedRow.count]) == expectedRow
-        }
-    }
-
     func apply(oneQubitMatrix matrix: Matrix,
                toStatevector vector: Vector,
                atInput input: Int) -> Vector {
         return apply(matrix: matrix, toStatevector: vector, atInput: input)
     }
 
-    func apply(twoQubitMatrix matrix: Matrix,
+    func apply(controlledMatrix matrix: Matrix,
                toStatevector vector: Vector,
                atTarget target: Int,
-               withControl control: Int) -> Vector {
-        let submatrix = try! Matrix.makeMatrix(rowCount: 2,
-                                               columnCount: 2,
-                                               value: { matrix[2+$0, 2+$1] }).get()
-        let filter = 1 << control
+               withControls controls: [Int]) -> Vector {
+        let firstIndex = matrix.rowCount - 2
+        let submatrix = try! Matrix.makeMatrix(rowCount: 2, columnCount: 2, value: { row, col in
+            return matrix[firstIndex + row, firstIndex + col]
+        }).get()
+
+        let filter = Int.mask(activatingBitsAt: controls)
 
         return apply(matrix: submatrix,
                      toStatevector: vector,
@@ -114,7 +101,7 @@ private extension DirectStatevectorTransformation {
         return try! Vector.makeVector(count: vector.count, value: { index in
             var value: Complex<Double>!
 
-            if let filter = filter, index & filter == 0 {
+            if let filter = filter, index & filter != filter {
                 value = vector[index]
             } else if index & mask == 0 {
                 let otherIndex = index | mask

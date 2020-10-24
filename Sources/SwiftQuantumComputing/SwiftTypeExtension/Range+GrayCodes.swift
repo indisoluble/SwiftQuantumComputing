@@ -22,6 +22,6 @@ import Foundation
 
 extension Range where Element == Int {
     func grayCodes() -> [Int] {
-        return map { $0 ^ ($0 >> 1) }
+        return lazy.map { $0 ^ ($0 >> 1) }
     }
 }

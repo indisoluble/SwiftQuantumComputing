@@ -33,6 +33,7 @@ class UnitaryGateAdapterTests: XCTestCase {
     let simulatorGate = SimulatorGateTestDouble()
     let gateInputs = [0]
     let gateMatrix = Matrix.makeHadamard()
+    let gateMatrixType = SimulatorGateMatrixType.singleQubitMatrix
     let simulatorMatrix = Matrix.makeHadamard()
     let otherSimulatorMatrix = Matrix.makeNot()
     let matrixQubitCount = 1
@@ -113,6 +114,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
         simulatorGate.extractComponentsInputsResult = gateInputs
         simulatorGate.extractComponentsMatrixResult = gateMatrix
+        simulatorGate.extractComponentsMatrixTypeResult = gateMatrixType
 
         let circuitMatrix = SimulatorCircuitMatrixTestDouble()
         circuitMatrix.rawMatrixResult = simulatorMatrix
@@ -142,6 +144,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
         simulatorGate.extractComponentsInputsResult = gateInputs
         simulatorGate.extractComponentsMatrixResult = gateMatrix
+        simulatorGate.extractComponentsMatrixTypeResult = gateMatrixType
 
         let otherCircuitMatrix = SimulatorCircuitMatrixTestDouble()
         otherCircuitMatrix.rawMatrixResult = otherSimulatorMatrix

@@ -1,8 +1,8 @@
 //
-//  StatevectorTransformation.swift
+//  Int+Mask.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 02/05/2020.
+//  Created by Enrique de la Torre on 17/10/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,8 @@
 
 import Foundation
 
-// MARK: - Protocol definition
-
-protocol StatevectorTransformation {
-    func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector
+extension Int {
+    static func mask(activatingBitsAt positions: [Int]) -> Int {
+        return positions.reduce(0) { $0 | (1 << $1) }
+    }
 }
