@@ -39,24 +39,23 @@ struct DirectStatevectorTransformation {
 // MARK: - StatevectorTransformation methods
 
 extension DirectStatevectorTransformation: StatevectorTransformation {
-    func apply(gateMatrix: Matrix, toStatevector vector: Vector, atInputs inputs: [Int]) -> Vector {
+    func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
         var nextVector: Vector!
 
-        if isSingleQubitMatrix(gateMatrix) {
-            nextVector = apply(oneQubitMatrix: gateMatrix,
+        switch components.matrixType {
+        case .singleQubitMatrix:
+            nextVector = apply(oneQubitMatrix: components.matrix,
                                toStatevector: vector,
-                               atInput: inputs[0])
-        } else if isFullyControlledSingleQubitMatrix(gateMatrix) {
-            let lastIndex = inputs.count - 1
+                               atInput: components.inputs[0])
+        case .fullyControlledSingleQubitMatrix:
+            let lastIndex = components.inputs.count - 1
 
-            nextVector = apply(controlledMatrix: gateMatrix,
+            nextVector = apply(controlledMatrix: components.matrix,
                                toStatevector: vector,
-                               atTarget: inputs[lastIndex],
-                               withControls: Array(inputs[0..<lastIndex]))
-        } else {
-            nextVector = transformation.apply(gateMatrix: gateMatrix,
-                                              toStatevector: vector,
-                                              atInputs: inputs)
+                               atTarget: components.inputs[lastIndex],
+                               withControls: Array(components.inputs[0..<lastIndex]))
+        case .otherMultiQubitMatrix:
+            nextVector = transformation.apply(components: components, toStatevector: vector)
         }
 
         return nextVector
@@ -68,14 +67,6 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
 private extension DirectStatevectorTransformation {
 
     // MARK: - Private methods
-
-    func isSingleQubitMatrix(_ matrix: Matrix) -> Bool {
-        return matrix.rowCount == 2
-    }
-
-    func isFullyControlledSingleQubitMatrix(_ matrix: Matrix) -> Bool {
-        return (0..<matrix.rowCount - 2).lazy.allSatisfy { matrix[$0, $0] == .one }
-    }
 
     func apply(oneQubitMatrix matrix: Matrix,
                toStatevector vector: Vector,

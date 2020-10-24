@@ -56,10 +56,8 @@ extension StatevectorRegisterAdapter: StatevectorRegister {
 
     func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
         switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
-        case .success((let matrix, _, let inputs)):
-            let nextVector = transformation.apply(gateMatrix: matrix,
-                                                  toStatevector: vector,
-                                                  atInputs: inputs)
+        case .success(let components):
+            let nextVector = transformation.apply(components: components, toStatevector: vector)
             let adapter = try! StatevectorRegisterAdapter(vector: nextVector,
                                                           transformation: transformation)
             return .success(adapter)

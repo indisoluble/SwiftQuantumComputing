@@ -44,6 +44,7 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
+        let gateMatrixType = SimulatorGateMatrixType.singleQubitMatrix
 
         let circuitMatrix = SimulatorCircuitMatrixTestDouble()
         circuitMatrix.rawMatrixResult = try! Matrix([
@@ -52,9 +53,8 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = adapter.apply(gateMatrix: gateMatrix,
-                                   toStatevector: vector,
-                                   atInputs: gateInputs)
+        let result = adapter.apply(components: (gateMatrix, gateMatrixType, gateInputs),
+                                   toStatevector: vector)
 
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
@@ -78,6 +78,7 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
+        let gateMatrixType = SimulatorGateMatrixType.singleQubitMatrix
 
         let circuitMatrix = SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrix(qubitCount: qubitCount,
                                                                                      baseMatrix: gateMatrix,
@@ -85,9 +86,8 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = adapter.apply(gateMatrix: gateMatrix,
-                                   toStatevector: vector,
-                                   atInputs: gateInputs)
+        let result = adapter.apply(components: (gateMatrix, gateMatrixType, gateInputs),
+                                   toStatevector: vector)
 
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)

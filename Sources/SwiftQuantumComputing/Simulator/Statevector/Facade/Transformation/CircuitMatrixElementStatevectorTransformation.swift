@@ -48,10 +48,10 @@ struct CircuitMatrixElementStatevectorTransformation {
 // MARK: - StatevectorTransformation methods
 
 extension CircuitMatrixElementStatevectorTransformation: StatevectorTransformation {
-    func apply(gateMatrix: Matrix, toStatevector vector: Vector, atInputs inputs: [Int]) -> Vector {
+    func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
         let circuitElement = matrixFactory.makeCircuitMatrixElement(qubitCount: Int.log2(vector.count),
-                                                                    baseMatrix: gateMatrix,
-                                                                    inputs: inputs)
+                                                                    baseMatrix: components.matrix,
+                                                                    inputs: components.inputs)
         let count = vector.count
         return try! Vector.makeVector(count: count, maxConcurrency: maxConcurrency, value: { idx in
             return vector.enumerated().reduce(.zero) { acc, val in
