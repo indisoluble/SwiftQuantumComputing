@@ -51,7 +51,6 @@ class CircuitMatrixElementStatevectorTransformationTests: XCTestCase {
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
-        let gateMatrixType = SimulatorGateMatrixType.singleQubitMatrix
 
         let circuitElement = SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrixElement(qubitCount: qubitCount,
                                                                                              baseMatrix: gateMatrix,
@@ -59,7 +58,7 @@ class CircuitMatrixElementStatevectorTransformationTests: XCTestCase {
         matrixFactory.makeCircuitMatrixElementResult = circuitElement
 
         // When
-        let result = adapter.apply(components: (gateMatrix, gateMatrixType, gateInputs),
+        let result = adapter.apply(components: (.singleQubitMatrix(matrix: gateMatrix), gateInputs),
                                    toStatevector: vector)
 
         // Then

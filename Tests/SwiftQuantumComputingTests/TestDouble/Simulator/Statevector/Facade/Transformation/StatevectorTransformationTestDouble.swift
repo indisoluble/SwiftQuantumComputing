@@ -29,8 +29,7 @@ final class StatevectorTransformationTestDouble {
     // MARK: - Internal properties
 
     private (set) var applyCount = 0
-    private (set) var lastApplyMatrix: Matrix?
-    private (set) var lastApplyMatrixType: SimulatorGateMatrixType?
+    private (set) var lastApplyMatrix: SimulatorGateMatrix?
     private (set) var lastApplyVector: Vector?
     private (set) var lastApplyInputs: [Int]?
     var applyResult = try! Vector([.one, .zero])
@@ -42,8 +41,7 @@ extension StatevectorTransformationTestDouble: StatevectorTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
         applyCount += 1
 
-        lastApplyMatrix = components.matrix
-        lastApplyMatrixType = components.matrixType
+        lastApplyMatrix = components.simulatorGateMatrix
         lastApplyVector = vector
         lastApplyInputs = components.inputs
 

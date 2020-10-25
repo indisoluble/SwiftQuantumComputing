@@ -42,15 +42,15 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
         var nextVector: Vector!
 
-        switch components.matrixType {
-        case .singleQubitMatrix:
-            nextVector = apply(oneQubitMatrix: components.matrix,
+        switch components.simulatorGateMatrix {
+        case .singleQubitMatrix(let matrix):
+            nextVector = apply(oneQubitMatrix: matrix,
                                toStatevector: vector,
                                atInput: components.inputs[0])
-        case .fullyControlledSingleQubitMatrix:
+        case .fullyControlledSingleQubitMatrix(let matrix):
             let lastIndex = components.inputs.count - 1
 
-            nextVector = apply(controlledMatrix: components.matrix,
+            nextVector = apply(controlledMatrix: matrix,
                                toStatevector: vector,
                                atTarget: components.inputs[lastIndex],
                                withControls: Array(components.inputs[0..<lastIndex]))

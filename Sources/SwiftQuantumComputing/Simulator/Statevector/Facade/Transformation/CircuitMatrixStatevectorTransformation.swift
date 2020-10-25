@@ -39,9 +39,12 @@ struct CircuitMatrixStatevectorTransformation {
 
 extension CircuitMatrixStatevectorTransformation: StatevectorTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
-        let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: Int.log2(vector.count),
-                                                            baseMatrix: components.matrix,
-                                                            inputs: components.inputs)
+        let qubitCount = Int.log2(vector.count)
+        let baseMatrix = components.simulatorGateMatrix.rawMatrix
+        let inputs = components.inputs
+        let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
+                                                            baseMatrix: baseMatrix,
+                                                            inputs: inputs)
         return try! (circuitMatrix.rawMatrix * vector).get()
     }
 }
