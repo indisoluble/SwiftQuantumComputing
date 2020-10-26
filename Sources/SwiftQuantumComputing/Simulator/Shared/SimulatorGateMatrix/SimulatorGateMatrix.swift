@@ -24,7 +24,7 @@ import Foundation
 
 enum SimulatorGateMatrix {
     case singleQubitMatrix(matrix: Matrix)
-    case fullyControlledSingleQubitMatrix(matrix: Matrix)
+    case fullyControlledSingleQubitMatrix(controlledMatrix: Matrix, controlCount: Int)
     case otherMultiQubitMatrix(matrix: Matrix)
 }
 

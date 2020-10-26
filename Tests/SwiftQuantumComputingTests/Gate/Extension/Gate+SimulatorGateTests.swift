@@ -43,16 +43,6 @@ class Gate_SimulatorGateTests: XCTestCase {
         [.zero, .zero, .zero, .one],
         [.zero, .zero, .one, .zero]
     ])
-    let extendedValidMatrix = try! Matrix([
-        [.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero],
-        [.zero, .one, .zero, .zero, .zero, .zero, .zero, .zero],
-        [.zero, .zero, .one, .zero, .zero, .zero, .zero, .zero],
-        [.zero, .zero, .zero, .one, .zero, .zero, .zero, .zero],
-        [.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero],
-        [.zero, .zero, .zero, .zero, .zero, .one, .zero, .zero],
-        [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
-        [.zero, .zero, .zero, .zero, .zero, .zero, .one, .zero],
-    ])
     let oracleValidMatrix = try! Matrix([
         [.zero, .one, .zero, .zero],
         [.one, .zero, .zero, .zero],
@@ -333,7 +323,8 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .fullyControlledSingleQubitMatrix(matrix: validMatrix))
+        XCTAssertEqual(matrix, .fullyControlledSingleQubitMatrix(controlledMatrix: .makeNot(),
+                                                                 controlCount: 1))
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -350,7 +341,8 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .fullyControlledSingleQubitMatrix(matrix: extendedValidMatrix))
+        XCTAssertEqual(matrix, .fullyControlledSingleQubitMatrix(controlledMatrix: .makeNot(),
+                                                                 controlCount: 2))
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -368,7 +360,8 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .fullyControlledSingleQubitMatrix(matrix: extendedValidMatrix))
+        XCTAssertEqual(matrix, .fullyControlledSingleQubitMatrix(controlledMatrix: .makeNot(),
+                                                                 controlCount: 2))
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 

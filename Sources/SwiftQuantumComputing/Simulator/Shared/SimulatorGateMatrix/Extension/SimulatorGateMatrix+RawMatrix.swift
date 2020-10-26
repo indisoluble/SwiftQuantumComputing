@@ -32,8 +32,8 @@ extension SimulatorGateMatrix {
             return matrix.rowCount
         case .otherMultiQubitMatrix(let matrix):
             return matrix.rowCount
-        case .fullyControlledSingleQubitMatrix(let matrix):
-            return matrix.rowCount
+        case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
+            return Int.pow(2, controlCount) *  controlledMatrix.rowCount
         }
     }
 
@@ -43,8 +43,9 @@ extension SimulatorGateMatrix {
             return matrix
         case .otherMultiQubitMatrix(let matrix):
             return matrix
-        case .fullyControlledSingleQubitMatrix(let matrix):
-            return matrix
+        case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
+            return try! Matrix.makeControlledMatrix(matrix: controlledMatrix,
+                                                    controlCount: controlCount).get()
         }
     }
 }

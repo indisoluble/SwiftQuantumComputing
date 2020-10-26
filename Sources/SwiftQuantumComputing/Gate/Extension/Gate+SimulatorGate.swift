@@ -193,20 +193,20 @@ private extension Gate {
         switch gate.extractMatrix() {
         case .failure(let error):
             return .failure(error)
-        case .success(let simulatorGateMatrix):
-            switch Matrix.makeControlledMatrix(matrix: simulatorGateMatrix.rawMatrix,
-                                               controlCount: controls.count) {
+        case .success(.singleQubitMatrix(let matrix)):
+            return .success(.fullyControlledSingleQubitMatrix(controlledMatrix: matrix,
+                                                              controlCount: controls.count))
+        case .success(.fullyControlledSingleQubitMatrix(let ctrlMatrix, let ctrlCount)):
+            return .success(.fullyControlledSingleQubitMatrix(controlledMatrix: ctrlMatrix,
+                                                              controlCount: ctrlCount + controls.count))
+        case .success(.otherMultiQubitMatrix(let matrix)):
+            switch Matrix.makeControlledMatrix(matrix: matrix, controlCount: controls.count) {
             case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
                 fatalError("Unexpected error.")
             case .failure(.controlCountHasToBeBiggerThanZero):
                 return .failure(.gateControlsCanNotBeAnEmptyList)
             case .success(let controlledMatrix):
-                switch simulatorGateMatrix {
-                case .singleQubitMatrix, .fullyControlledSingleQubitMatrix:
-                    return .success(.fullyControlledSingleQubitMatrix(matrix: controlledMatrix))
-                case .otherMultiQubitMatrix:
-                    return .success(.otherMultiQubitMatrix(matrix: controlledMatrix))
-                }
+                return .success(.otherMultiQubitMatrix(matrix: controlledMatrix))
             }
         }
     }

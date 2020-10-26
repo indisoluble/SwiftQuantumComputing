@@ -36,13 +36,15 @@ class SimulatorGateMatrix_RawMatrixTests: XCTestCase {
         XCTAssertEqual(SimulatorGateMatrix.singleQubitMatrix(matrix: matrix).rowCount, 2)
     }
 
-    func testFullyControlledSingleQubitMatrix_rowCount_returnExpectedValue() {
+    func testNotMatrixAndControlCountToTwo_rowCount_returnExpectedValue() {
         // Given
-        let matrix = Matrix.makeControlledNot()
+        let controlledMatrix = Matrix.makeNot()
+        let controlCount = 2
 
         // Then
-        XCTAssertEqual(SimulatorGateMatrix.fullyControlledSingleQubitMatrix(matrix: matrix).rowCount,
-                       4)
+        XCTAssertEqual(SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: controlledMatrix,
+                                                                            controlCount: controlCount).rowCount,
+                       8)
     }
 
     func testOtherMultiQubitMatrix_rowCount_returnExpectedValue() {
@@ -63,13 +65,16 @@ class SimulatorGateMatrix_RawMatrixTests: XCTestCase {
         XCTAssertEqual(SimulatorGateMatrix.singleQubitMatrix(matrix: matrix).rawMatrix, matrix)
     }
 
-    func testFullyControlledSingleQubitMatrix_rawMatrix_returnExpectedMatrix() {
+    func testNotMatrixAndControlCountToOne_rawMatrix_returnExpectedMatrix() {
         // Given
-        let matrix = Matrix.makeControlledNot()
+        let controlledMatrix = Matrix.makeNot()
+        let controlCount = 1
 
         // Then
-        XCTAssertEqual(SimulatorGateMatrix.fullyControlledSingleQubitMatrix(matrix: matrix).rawMatrix,
-                       matrix)
+        let expectedMatrix = Matrix.makeControlledNot()
+        XCTAssertEqual(SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: controlledMatrix,
+                                                                            controlCount: controlCount).rawMatrix,
+                       expectedMatrix)
     }
 
     func testOtherMultiQubitMatrix_rawMatrix_returnExpectedMatrix() {
@@ -85,14 +90,14 @@ class SimulatorGateMatrix_RawMatrixTests: XCTestCase {
     static var allTests = [
         ("testSingleQubitMatrix_rowCount_returnExpectedValue",
          testSingleQubitMatrix_rowCount_returnExpectedValue),
-        ("testFullyControlledSingleQubitMatrix_rowCount_returnExpectedValue",
-         testFullyControlledSingleQubitMatrix_rowCount_returnExpectedValue),
+        ("testNotMatrixAndControlCountToTwo_rowCount_returnExpectedValue",
+         testNotMatrixAndControlCountToTwo_rowCount_returnExpectedValue),
         ("testOtherMultiQubitMatrix_rowCount_returnExpectedValue",
          testOtherMultiQubitMatrix_rowCount_returnExpectedValue),
         ("testSingleQubitMatrix_rawMatrix_returnExpectedMatrix",
          testSingleQubitMatrix_rawMatrix_returnExpectedMatrix),
-        ("testFullyControlledSingleQubitMatrix_rawMatrix_returnExpectedMatrix",
-         testFullyControlledSingleQubitMatrix_rawMatrix_returnExpectedMatrix),
+        ("testNotMatrixAndControlCountToOne_rawMatrix_returnExpectedMatrix",
+         testNotMatrixAndControlCountToOne_rawMatrix_returnExpectedMatrix),
         ("testOtherMultiQubitMatrix_rawMatrix_returnExpectedMatrix",
          testOtherMultiQubitMatrix_rawMatrix_returnExpectedMatrix)
     ]

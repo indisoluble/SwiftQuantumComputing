@@ -47,10 +47,10 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
             nextVector = apply(oneQubitMatrix: matrix,
                                toStatevector: vector,
                                atInput: components.inputs[0])
-        case .fullyControlledSingleQubitMatrix(let matrix):
+        case .fullyControlledSingleQubitMatrix(let controlledMatrix, _):
             let lastIndex = components.inputs.count - 1
 
-            nextVector = apply(controlledMatrix: matrix,
+            nextVector = apply(controlledMatrix: controlledMatrix,
                                toStatevector: vector,
                                atTarget: components.inputs[lastIndex],
                                withControls: Array(components.inputs[0..<lastIndex]))
@@ -74,18 +74,13 @@ private extension DirectStatevectorTransformation {
         return apply(matrix: matrix, toStatevector: vector, atInput: input)
     }
 
-    func apply(controlledMatrix matrix: Matrix,
+    func apply(controlledMatrix: Matrix,
                toStatevector vector: Vector,
                atTarget target: Int,
                withControls controls: [Int]) -> Vector {
-        let firstIndex = matrix.rowCount - 2
-        let submatrix = try! Matrix.makeMatrix(rowCount: 2, columnCount: 2, value: { row, col in
-            return matrix[firstIndex + row, firstIndex + col]
-        }).get()
-
         let filter = Int.mask(activatingBitsAt: controls)
 
-        return apply(matrix: submatrix,
+        return apply(matrix: controlledMatrix,
                      toStatevector: vector,
                      atInput: target,
                      selectingStatesWith:filter)
