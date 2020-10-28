@@ -1,9 +1,9 @@
 //
-//  SimulatorGate.swift
+//  SimulatorGateMatrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 09/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 25/10/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,14 +20,14 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Internal types
 
-protocol SimulatorRawGate {
-    var gate: Gate { get }
+enum SimulatorGateMatrix {
+    case singleQubitMatrix(matrix: Matrix)
+    case fullyControlledSingleQubitMatrix(controlledMatrix: Matrix, controlCount: Int)
+    case otherMultiQubitMatrix(matrix: Matrix)
 }
 
-protocol SimulatorGate {
-    typealias Components = (simulatorGateMatrix: SimulatorGateMatrix, inputs: [Int])
+// MARK: - Equatable methods
 
-    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError>
-}
+extension SimulatorGateMatrix: Equatable {}

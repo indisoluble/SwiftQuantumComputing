@@ -47,6 +47,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .one
     ])
+    let simulatorGateControlledNotMatrix = SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: .makeNot(),
+                                                                                                controlCount: 1)
 
     // MARK: - Tests
 
@@ -58,17 +60,17 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let gateMatrix = try! Matrix.makeOracle(truthTable: ["00"],
                                                 controlCount: 2,
                                                 controlledMatrix: Matrix.makeNot()).get()
-        let gateMatrixType = SimulatorGateMatrixType.otherMultiQubitMatrix
+        let simulatorGateMatrix = SimulatorGateMatrix.otherMultiQubitMatrix(matrix: gateMatrix)
 
         transformation.applyResult = threeQubitFourVector
 
         // When
-        let result = adapter.apply(components: (gateMatrix, gateMatrixType, gateInputs),
+        let result = adapter.apply(components: (simulatorGateMatrix, gateInputs),
                                    toStatevector: threeQubitZeroVector)
 
         // Then
         XCTAssertEqual(transformation.applyCount, 1)
-        XCTAssertEqual(transformation.lastApplyMatrix, gateMatrix)
+        XCTAssertEqual(transformation.lastApplyMatrix, simulatorGateMatrix)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
         XCTAssertEqual(transformation.lastApplyInputs, gateInputs)
         XCTAssertEqual(result, threeQubitFourVector)
@@ -82,17 +84,17 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let gateMatrix = try! Matrix.makeOracle(truthTable: ["0"],
                                                 controlCount: 1,
                                                 controlledMatrix: Matrix.makeNot()).get()
-        let gateMatrixType = SimulatorGateMatrixType.otherMultiQubitMatrix
+        let simulatorGateMatrix = SimulatorGateMatrix.otherMultiQubitMatrix(matrix: gateMatrix)
 
         transformation.applyResult = threeQubitFourVector
 
         // When
-        let result = adapter.apply(components: (gateMatrix, gateMatrixType, gateInputs),
+        let result = adapter.apply(components: (simulatorGateMatrix, gateInputs),
                                    toStatevector: threeQubitZeroVector)
 
         // Then
         XCTAssertEqual(transformation.applyCount, 1)
-        XCTAssertEqual(transformation.lastApplyMatrix, gateMatrix)
+        XCTAssertEqual(transformation.lastApplyMatrix, simulatorGateMatrix)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
         XCTAssertEqual(transformation.lastApplyInputs, gateInputs)
         XCTAssertEqual(result, threeQubitFourVector)
@@ -103,7 +105,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeNot(), .singleQubitMatrix, [0]),
+        let result = adapter.apply(components: (.singleQubitMatrix(matrix: .makeNot()), [0]),
                                    toStatevector: oneQubitZeroVector)
 
         // Then
@@ -116,7 +118,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeNot(), .singleQubitMatrix, [2]),
+        let result = adapter.apply(components: (.singleQubitMatrix(matrix: .makeNot()), [2]),
                                    toStatevector: threeQubitZeroVector)
 
         // Then
@@ -129,10 +131,10 @@ class DirectStatevectorTransformationTests: XCTestCase {
         var adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        var result = adapter.apply(components: (Matrix.makeNot(), .singleQubitMatrix, [2]),
+        var result = adapter.apply(components: (.singleQubitMatrix(matrix: .makeNot()), [2]),
                                    toStatevector: threeQubitZeroVector)
         adapter = DirectStatevectorTransformation(transformation: transformation)
-        result = adapter.apply(components: (Matrix.makeNot(), .singleQubitMatrix, [0]),
+        result = adapter.apply(components: (.singleQubitMatrix(matrix: .makeNot()), [0]),
                                toStatevector: result)
 
         // Then
@@ -144,10 +146,9 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
+
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [0, 1]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [0, 1]),
                                    toStatevector: threeQubitZeroVector)
 
         // Then
@@ -160,9 +161,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [0, 1]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [0, 1]),
                                    toStatevector: threeQubitOneVector)
 
         // Then
@@ -175,9 +174,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [0, 1]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [0, 1]),
                                    toStatevector: threeQubitTwoVector)
 
         // Then
@@ -190,9 +187,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [0, 1]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [0, 1]),
                                    toStatevector: threeQubitThreeVector)
 
         // Then
@@ -205,9 +200,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [1, 2]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [1, 2]),
                                    toStatevector: threeQubitThreeVector)
 
         // Then
@@ -220,9 +213,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [2, 0]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [2, 0]),
                                    toStatevector: threeQubitFourVector)
 
         // Then
@@ -235,9 +226,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [2, 0]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [2, 0]),
                                    toStatevector: threeQubitFiveVector)
 
         // Then
@@ -250,9 +239,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [2, 0]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [2, 0]),
                                    toStatevector: threeQubitSevenVector)
 
         // Then
@@ -265,9 +252,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [1, 2]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [1, 2]),
                                    toStatevector: threeQubitSevenVector)
 
         // Then
@@ -280,12 +265,11 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         let matrix = try! Matrix([[.one, .zero], [.zero, .one]])
-        let gateMatrix = try! Matrix.makeControlledMatrix(matrix: matrix, controlCount: 1).get()
+        let simulatorGateMatrix = SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: matrix,
+                                                                                       controlCount: 1)
 
         // When
-        let result = adapter.apply(components: (gateMatrix,
-                                                .fullyControlledSingleQubitMatrix,
-                                                [2, 0]),
+        let result = adapter.apply(components: (simulatorGateMatrix, [2, 0]),
                                    toStatevector: threeQubitSevenVector)
 
         // Then
@@ -298,9 +282,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         // When
-        let result = adapter.apply(components: (Matrix.makeControlledNot(),
-                                                .fullyControlledSingleQubitMatrix,
-                                                [3, 0, 2]),
+        let result = adapter.apply(components: (simulatorGateControlledNotMatrix, [3, 0, 2]),
                                    toStatevector: fourQubitElevenVector)
 
         // Then
@@ -313,13 +295,13 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
         let directAdapter = DirectStatevectorTransformation(transformation: scmAdapter)
 
-        let matrix = Matrix.makeHadamard()
-        let inputs = [1]
+        let simulatorMatrix = SimulatorGateMatrix.singleQubitMatrix(matrix: .makeHadamard())
+        let components: SimulatorGate.Components = (simulatorMatrix, [1])
 
         // When
-        let scmVector = scmAdapter.apply(components: (matrix, .singleQubitMatrix, inputs),
+        let scmVector = scmAdapter.apply(components: components,
                                          toStatevector: threeQubitSevenVector)
-        let directVector = directAdapter.apply(components: (matrix, .singleQubitMatrix, inputs),
+        let directVector = directAdapter.apply(components: components,
                                                toStatevector: threeQubitSevenVector)
 
         // Then
@@ -331,18 +313,14 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
         let directAdapter = DirectStatevectorTransformation(transformation: scmAdapter)
 
-        let matrix = try! Matrix.makeControlledMatrix(matrix: .makeHadamard(),
-                                                      controlCount: 1).get()
-        let inputs = [0, 2]
+        let simulatorMatrix = SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: .makeHadamard(),
+                                                                                   controlCount: 1)
+        let components: SimulatorGate.Components = (simulatorMatrix, [0, 2])
 
         // When
-        let scmVector = scmAdapter.apply(components: (matrix,
-                                                      .fullyControlledSingleQubitMatrix,
-                                                      inputs),
+        let scmVector = scmAdapter.apply(components: components,
                                          toStatevector: threeQubitSevenVector)
-        let directVector = directAdapter.apply(components: (matrix,
-                                                            .fullyControlledSingleQubitMatrix,
-                                                            inputs),
+        let directVector = directAdapter.apply(components: components,
                                                toStatevector: threeQubitSevenVector)
 
         // Then
@@ -354,18 +332,14 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
         let directAdapter = DirectStatevectorTransformation(transformation: scmAdapter)
 
-        let matrix = try! Matrix.makeControlledMatrix(matrix: .makeHadamard(),
-                                                      controlCount: 2).get()
-        let inputs = [0, 3, 1]
+        let simulatorMatrix = SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: .makeHadamard(),
+                                                                                   controlCount: 2)
+        let components: SimulatorGate.Components = (simulatorMatrix, [0, 3, 1])
 
         // When
-        let scmVector = scmAdapter.apply(components: (matrix,
-                                                      .fullyControlledSingleQubitMatrix,
-                                                      inputs),
+        let scmVector = scmAdapter.apply(components: components,
                                          toStatevector: fourQubitElevenVector)
-        let directVector = directAdapter.apply(components: (matrix,
-                                                            .fullyControlledSingleQubitMatrix,
-                                                            inputs),
+        let directVector = directAdapter.apply(components: components,
                                                toStatevector: fourQubitElevenVector)
 
         // Then
@@ -377,18 +351,14 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
         let directAdapter = DirectStatevectorTransformation(transformation: scmAdapter)
 
-        let matrix = try! Matrix.makeControlledMatrix(matrix: .makeHadamard(),
-                                                      controlCount: 3).get()
-        let inputs = [3, 1, 0, 2]
+        let simulatorMatrix = SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: .makeHadamard(),
+                                                                                   controlCount: 3)
+        let components: SimulatorGate.Components = (simulatorMatrix, [3, 1, 0, 2])
 
         // When
-        let scmVector = scmAdapter.apply(components: (matrix,
-                                                      .fullyControlledSingleQubitMatrix,
-                                                      inputs),
+        let scmVector = scmAdapter.apply(components: components,
                                          toStatevector: fourQubitElevenVector)
-        let directVector = directAdapter.apply(components: (matrix,
-                                                            .fullyControlledSingleQubitMatrix,
-                                                            inputs),
+        let directVector = directAdapter.apply(components: components,
                                                toStatevector: fourQubitElevenVector)
 
         // Then
