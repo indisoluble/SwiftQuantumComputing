@@ -13,12 +13,12 @@ jobs:
 
     strategy:
       matrix:
-        destination: ['platform=macOS', 'platform=iOS Simulator,name=iPhone 8,OS=13.7']
+        destination: ['platform=macOS', 'platform=iOS Simulator,name=iPhone 8,OS=14.0']
         include:
           - destination: 'platform=macOS'
             scheme: SwiftQuantumComputing_macOS
             sdk: macosx
-          - destination: 'platform=iOS Simulator,name=iPhone 8,OS=13.7'
+          - destination: 'platform=iOS Simulator,name=iPhone 8,OS=14.0'
             scheme: SwiftQuantumComputing_iOS
             sdk: iphonesimulator
 
