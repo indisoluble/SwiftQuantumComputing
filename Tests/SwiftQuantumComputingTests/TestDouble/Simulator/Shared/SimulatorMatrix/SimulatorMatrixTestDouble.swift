@@ -1,8 +1,8 @@
 //
-//  SimulatorCircuitMatrixTestDouble.swift
+//  SimulatorMatrixTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 12/05/2020.
+//  Created by Enrique de la Torre on 30/10/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,16 +25,12 @@ import Foundation
 
 // MARK: - Main body
 
-final class SimulatorCircuitMatrixTestDouble {
+final class SimulatorMatrixTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var rawMatrixCount = 0
-    var rawMatrixResult = Matrix.makeNot()
-
-    private (set) var subscriptRowCount = 0
-    private (set) var lastSubscriptRowRow: Int?
-    var subscriptRowResult = try! Vector([.zero])
+    private (set) var countCount = 0
+    var countResult = 0
 
     private (set) var subscriptRowColumnCount = 0
     private (set) var lastSubscriptRowColumnRow: Int?
@@ -42,24 +38,21 @@ final class SimulatorCircuitMatrixTestDouble {
     var subscriptRowColumnResult = Complex<Double>.zero
 }
 
-// MARK: - SimulatorCircuitMatrix methods
+// MARK: - SimulatorMatrix methods
 
-extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrix {
-    var rawMatrix: Matrix {
-        rawMatrixCount += 1
+extension SimulatorMatrixTestDouble: SimulatorMatrix {
+    var count: Int {
+        countCount += 1
 
-        return rawMatrixResult
+        return countResult
     }
-}
 
-// MARK: - SimulatorCircuitMatrixRow methods
+    subscript(row: Int, column: Int) -> Complex<Double> {
+        subscriptRowColumnCount += 1
 
-extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrixRow {
-    subscript(row: Int) -> Vector {
-        subscriptRowCount += 1
+        lastSubscriptRowColumnRow = row
+        lastSubscriptRowColumnColumn = column
 
-        lastSubscriptRowRow = row
-
-        return subscriptRowResult
+        return subscriptRowColumnResult
     }
 }

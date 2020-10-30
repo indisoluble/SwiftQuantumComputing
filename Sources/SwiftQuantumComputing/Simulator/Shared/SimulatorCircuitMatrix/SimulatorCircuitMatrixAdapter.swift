@@ -25,9 +25,12 @@ import Foundation
 
 struct SimulatorCircuitMatrixAdapter {
 
+    // MARK: - SimulatorMatrix properties
+
+    let count: Int
+
     // MARK: - Private properties
 
-    private let count: Int
     private let derives: [(base: Int, remaining: Int)]
     private let baseMatrix: Matrix
 
@@ -66,9 +69,9 @@ extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {
     }
 }
 
-// MARK: - SimulatorCircuitMatrixElement methods
+// MARK: - SimulatorMatrix methods
 
-extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixElement {
+extension SimulatorCircuitMatrixAdapter: SimulatorMatrix {
     subscript(row: Int, column: Int) -> Complex<Double> {
         let (baseRow, remainingRow) = derives[row]
         let (baseColumn, remainingColumn) = derives[column]

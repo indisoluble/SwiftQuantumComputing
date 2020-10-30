@@ -53,7 +53,7 @@ extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixRowFactory
 extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixElementFactory {
     func makeCircuitMatrixElement(qubitCount: Int,
                                   baseMatrix: Matrix,
-                                  inputs: [Int]) -> SimulatorCircuitMatrixElement {
+                                  inputs: [Int]) -> SimulatorMatrix {
         return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
                                              baseMatrix: baseMatrix,
                                              inputs: inputs)
