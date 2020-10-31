@@ -25,5 +25,7 @@ import Foundation
 
 protocol SimulatorMatrix {
     var count: Int { get }
+    var rawMatrix: Matrix { get }
+
     subscript(row: Int, column: Int) -> Complex<Double> { get }
 }

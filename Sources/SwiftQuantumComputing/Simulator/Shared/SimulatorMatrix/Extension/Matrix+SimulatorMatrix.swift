@@ -26,4 +26,8 @@ extension Matrix: SimulatorMatrix {
     var count: Int {
         return rowCount
     }
+
+    var rawMatrix: Matrix {
+        return self
+    }
 }

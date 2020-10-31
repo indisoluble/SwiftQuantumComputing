@@ -32,6 +32,9 @@ final class SimulatorMatrixTestDouble {
     private (set) var countCount = 0
     var countResult = 0
 
+    private (set) var rawMatrixCount = 0
+    var rawMatrixResult = Matrix.makeControlledNot()
+
     private (set) var subscriptRowColumnCount = 0
     private (set) var lastSubscriptRowColumnRow: Int?
     private (set) var lastSubscriptRowColumnColumn: Int?
@@ -45,6 +48,12 @@ extension SimulatorMatrixTestDouble: SimulatorMatrix {
         countCount += 1
 
         return countResult
+    }
+
+    var rawMatrix: Matrix {
+        rawMatrixCount += 1
+
+        return rawMatrixResult
     }
 
     subscript(row: Int, column: Int) -> Complex<Double> {

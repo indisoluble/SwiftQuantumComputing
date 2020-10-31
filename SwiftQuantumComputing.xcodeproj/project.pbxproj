@@ -578,8 +578,6 @@
 		FFB6A83C254DCBD000044E49 /* OracleSimulatorMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB6A83A254DCBD000044E49 /* OracleSimulatorMatrix.swift */; };
 		FFB6A848254DD17F00044E49 /* OracleSimulatorMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB6A847254DD17F00044E49 /* OracleSimulatorMatrixTests.swift */; };
 		FFB6A849254DD17F00044E49 /* OracleSimulatorMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB6A847254DD17F00044E49 /* OracleSimulatorMatrixTests.swift */; };
-		FFB6A851254DDD8600044E49 /* SimulatorMatrix+RawMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB6A850254DDD8600044E49 /* SimulatorMatrix+RawMatrix.swift */; };
-		FFB6A852254DDD8600044E49 /* SimulatorMatrix+RawMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB6A850254DDD8600044E49 /* SimulatorMatrix+RawMatrix.swift */; };
 		FFB8106121C6CC37006333BB /* Gate+SimulatorGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB8106021C6CC37006333BB /* Gate+SimulatorGate.swift */; };
 		FFB8106221C6CC37006333BB /* Gate+SimulatorGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB8106021C6CC37006333BB /* Gate+SimulatorGate.swift */; };
 		FFB8106821C6FF89006333BB /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB8106721C6FF89006333BB /* Drawable.swift */; };
@@ -1125,7 +1123,6 @@
 		FFB5B56B216A526A009C59FC /* QubitPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QubitPositionView.xib; sourceTree = "<group>"; };
 		FFB6A83A254DCBD000044E49 /* OracleSimulatorMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleSimulatorMatrix.swift; sourceTree = "<group>"; };
 		FFB6A847254DD17F00044E49 /* OracleSimulatorMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleSimulatorMatrixTests.swift; sourceTree = "<group>"; };
-		FFB6A850254DDD8600044E49 /* SimulatorMatrix+RawMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimulatorMatrix+RawMatrix.swift"; sourceTree = "<group>"; };
 		FFB8106021C6CC37006333BB /* Gate+SimulatorGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+SimulatorGate.swift"; sourceTree = "<group>"; };
 		FFB8106721C6FF89006333BB /* Drawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
 		FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftQuantumComputing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2455,7 +2452,6 @@
 			isa = PBXGroup;
 			children = (
 				FF766CA8254CBB6500342091 /* Matrix+SimulatorMatrix.swift */,
-				FFB6A850254DDD8600044E49 /* SimulatorMatrix+RawMatrix.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3095,7 +3091,6 @@
 				FF2600A82378CA93002342AD /* Circuit+Unitary.swift in Sources */,
 				FF2BD6F221FE3CFA007410EB /* GeneticCircuitCrossover.swift in Sources */,
 				FF410F3E221F591200D257EE /* MainGeneticPopulationCrossover.swift in Sources */,
-				FFB6A851254DDD8600044E49 /* SimulatorMatrix+RawMatrix.swift in Sources */,
 				FFFEA1852222CE7300E6B45C /* MainGeneticPopulationCrossoverFactory.swift in Sources */,
 				FF09865F23A68D35009CEC4E /* Gate+OracleWithRangeInputs.swift in Sources */,
 				FF2BD6EE21FE0749007410EB /* MainGeneticCircuitEvaluator.swift in Sources */,
@@ -3480,7 +3475,6 @@
 				FFB5B564216A46FB009C59FC /* PositionTextView.swift in Sources */,
 				FF2BD6F621FE5B9D007410EB /* Array+RandomSplit.swift in Sources */,
 				FF46EDFB216925180044C3CA /* Int+Pow.swift in Sources */,
-				FFB6A852254DDD8600044E49 /* SimulatorMatrix+RawMatrix.swift in Sources */,
 				FF7C6E14241987950016D9CC /* Matrix+QuantumFourierTransform.swift in Sources */,
 				FF002BCE21FCC19200E40C3A /* GeneticUseCase.swift in Sources */,
 				FFEB3EE721FFB91C00DD3586 /* GeneticCircuitMutation.swift in Sources */,
