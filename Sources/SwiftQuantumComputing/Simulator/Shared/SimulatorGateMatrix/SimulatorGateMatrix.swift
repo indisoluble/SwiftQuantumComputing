@@ -27,7 +27,3 @@ enum SimulatorGateMatrix {
     case fullyControlledSingleQubitMatrix(controlledMatrix: Matrix, controlCount: Int)
     case otherMultiQubitMatrix(matrix: Matrix)
 }
-
-// MARK: - Equatable methods
-
-extension SimulatorGateMatrix: Equatable {}
