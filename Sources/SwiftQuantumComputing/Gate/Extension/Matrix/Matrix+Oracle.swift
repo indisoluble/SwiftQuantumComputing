@@ -48,28 +48,28 @@ extension Matrix {
             return .failure(.controlCountHasToBeBiggerThanZero)
         }
 
-        let truthTableAsInts = Matrix.truthTableAsInts(truthTable)
+        let activatedSections = Matrix.truthTableAsInts(truthTable)
+
         let controlledMatrixSize = controlledMatrix.columnCount
-        let columnCount = Int.pow(2, controlCount) * controlledMatrixSize
+        let count = Int.pow(2, controlCount) * controlledMatrixSize
 
-        var rows: [[Complex<Double>]] = []
-        for controlValue in 0..<Int.pow(2, controlCount) {
-            let isControlValueTrue = truthTableAsInts.contains(controlValue)
+        let matrix = try! Matrix.makeMatrix(rowCount: count, columnCount: count, value: { row, col in
+            let section = row / controlledMatrixSize
 
-            for ri in 0..<controlledMatrixSize {
-                var row = Array(repeating: Complex<Double>.zero, count: columnCount)
-
-                for ci in 0..<controlledMatrixSize {
-                    row[controlValue * controlledMatrixSize + ci] = (
-                        isControlValueTrue ? controlledMatrix[ri, ci] : (ri == ci ? .one : .zero)
-                    )
-                }
-
-                rows.append(row)
+            let isDiagonalSection = section == (col / controlledMatrixSize)
+            if !isDiagonalSection {
+                return .zero
             }
-        }
 
-        return .success(try! Matrix(rows)) 
+            if !activatedSections.contains(section) {
+                return (row == col ? .one : .zero)
+            }
+
+            let sectionFirstPosition = section * controlledMatrixSize
+            return controlledMatrix[row - sectionFirstPosition, col - sectionFirstPosition]
+        }).get()
+
+        return .success(matrix)
     }
 }
 
@@ -79,15 +79,15 @@ private extension Matrix {
 
     // MARK: - Private class methods
 
-    static func truthTableAsInts(_ truthTable: [String]) -> [Int] {
-        var result: [Int] = []
+    static func truthTableAsInts(_ truthTable: [String]) -> Set<Int> {
+        var result: Set<Int> = []
 
         for truth in truthTable {
             guard let truthAsInt = Int(truth, radix: 2) else {
                 continue
             }
 
-            result.append(truthAsInt)
+            result.update(with: truthAsInt)
         }
 
         return result
