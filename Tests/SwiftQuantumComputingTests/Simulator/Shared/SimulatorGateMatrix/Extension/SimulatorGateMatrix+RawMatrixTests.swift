@@ -33,7 +33,7 @@ class SimulatorGateMatrix_RawMatrixTests: XCTestCase {
         let matrix = Matrix.makeNot()
 
         // Then
-        XCTAssertEqual(SimulatorGateMatrix.singleQubitMatrix(matrix: matrix).rowCount, 2)
+        XCTAssertEqual(SimulatorGateMatrix.singleQubitMatrix(matrix: matrix).count, 2)
     }
 
     func testNotMatrixAndControlCountToTwo_rowCount_returnExpectedValue() {
@@ -43,7 +43,7 @@ class SimulatorGateMatrix_RawMatrixTests: XCTestCase {
 
         // Then
         XCTAssertEqual(SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: controlledMatrix,
-                                                                            controlCount: controlCount).rowCount,
+                                                                            controlCount: controlCount).count,
                        8)
     }
 
@@ -54,7 +54,7 @@ class SimulatorGateMatrix_RawMatrixTests: XCTestCase {
                                             controlledMatrix: .makeNot()).get()
 
         // Then
-        XCTAssertEqual(SimulatorGateMatrix.otherMultiQubitMatrix(matrix: matrix).rowCount, 8)
+        XCTAssertEqual(SimulatorGateMatrix.otherMultiQubitMatrix(matrix: matrix).count, 8)
     }
 
     func testSingleQubitMatrix_rawMatrix_returnExpectedMatrix() {

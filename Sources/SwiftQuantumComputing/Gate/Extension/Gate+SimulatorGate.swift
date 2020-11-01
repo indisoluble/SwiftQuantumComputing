@@ -113,13 +113,13 @@ private extension Gate {
     }
 
     func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: SimulatorGateMatrix) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.rowCount)
+        let matrixQubitCount = Int.log2(matrix.count)
 
         return (inputs.count == matrixQubitCount)
     }
 
     func doesMatrixFitInCircuit(_ matrix: SimulatorGateMatrix, qubitCount: Int) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.rowCount)
+        let matrixQubitCount = Int.log2(matrix.count)
 
         return matrixQubitCount <= qubitCount
     }

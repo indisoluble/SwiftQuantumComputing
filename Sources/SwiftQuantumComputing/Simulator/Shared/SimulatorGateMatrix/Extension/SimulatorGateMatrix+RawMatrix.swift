@@ -26,7 +26,7 @@ extension SimulatorGateMatrix {
 
     // MARK: - Internal properties
 
-    var rowCount: Int {
+    var count: Int {
         switch self {
         case .singleQubitMatrix(let matrix):
             return matrix.rowCount
