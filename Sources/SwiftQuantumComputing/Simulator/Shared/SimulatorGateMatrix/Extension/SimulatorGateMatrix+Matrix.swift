@@ -1,8 +1,8 @@
 //
-//  SimulatorGateMatrix+RawMatrix.swift
+//  SimulatorGateMatrix+Matrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 25/10/2020.
+//  Created by Enrique de la Torre on 01/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,30 +26,17 @@ extension SimulatorGateMatrix {
 
     // MARK: - Internal properties
 
-    var count: Int {
+    var matrix: SimulatorMatrix {
         switch self {
         case .singleQubitMatrix(let matrix):
-            return matrix.count
+            return matrix
         case .otherMultiQubitMatrix(let matrix):
-            return matrix.count
-        case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
-            return Int.pow(2, controlCount) *  controlledMatrix.count
-        }
-    }
-
-    var rawMatrix: Matrix {
-        switch self {
-        case .singleQubitMatrix(let matrix):
-            return matrix.rawMatrix
-        case .otherMultiQubitMatrix(let matrix):
-            return matrix.rawMatrix
+            return matrix
         case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
             let truth = String(repeating: "1", count: controlCount)
-            let matrix = OracleSimulatorMatrix(truthTable: [truth],
-                                               controlCount: controlCount,
-                                               controlledMatrix: controlledMatrix)
-
-            return matrix.rawMatrix
+            return OracleSimulatorMatrix(truthTable: [truth],
+                                         controlCount: controlCount,
+                                         controlledMatrix: controlledMatrix)
         }
     }
 }

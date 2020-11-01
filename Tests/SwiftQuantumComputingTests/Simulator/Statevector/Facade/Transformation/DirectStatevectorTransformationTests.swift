@@ -70,7 +70,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
         // Then
         XCTAssertEqual(transformation.applyCount, 1)
-        XCTAssertEqual(transformation.lastApplyMatrix?.rawMatrix, simulatorGateMatrix.rawMatrix)
+        XCTAssertEqual(transformation.lastApplyMatrix?.matrix.rawMatrix,
+                       simulatorGateMatrix.matrix.rawMatrix)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
         XCTAssertEqual(transformation.lastApplyInputs, gateInputs)
         XCTAssertEqual(result, threeQubitFourVector)
@@ -94,7 +95,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
         // Then
         XCTAssertEqual(transformation.applyCount, 1)
-        XCTAssertEqual(transformation.lastApplyMatrix?.rawMatrix, gateMatrix)
+        XCTAssertEqual(transformation.lastApplyMatrix?.matrix.rawMatrix, gateMatrix)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
         XCTAssertEqual(transformation.lastApplyInputs, gateInputs)
         XCTAssertEqual(result, threeQubitFourVector)

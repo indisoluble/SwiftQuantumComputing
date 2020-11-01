@@ -179,22 +179,9 @@ private extension Gate {
         case .failure(let error):
             return .failure(error)
         case .success(let simulatorGateMatrix):
-            let controlledMatrix: SimulatorMatrix!
-            switch simulatorGateMatrix {
-            case .singleQubitMatrix(let matrix):
-                controlledMatrix = matrix
-            case .otherMultiQubitMatrix(let matrix):
-                controlledMatrix = matrix
-            case .fullyControlledSingleQubitMatrix(let ctrlMatrix, let ctrlCount):
-                let truth = String(repeating: "1", count: ctrlCount)
-                controlledMatrix = OracleSimulatorMatrix(truthTable: [truth],
-                                                         controlCount: ctrlCount,
-                                                         controlledMatrix: ctrlMatrix)
-            }
-
             let result = OracleSimulatorMatrix(truthTable: truthTable,
                                                controlCount: controls.count,
-                                               controlledMatrix: controlledMatrix)
+                                               controlledMatrix: simulatorGateMatrix.matrix)
             return .success(.otherMultiQubitMatrix(matrix: result))
         }
     }
