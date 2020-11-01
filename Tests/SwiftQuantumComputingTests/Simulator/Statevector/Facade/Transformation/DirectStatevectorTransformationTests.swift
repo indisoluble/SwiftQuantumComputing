@@ -57,9 +57,9 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         let gateInputs = [2, 1, 0]
-        let gateMatrix = try! Matrix.makeOracle(truthTable: ["00"],
-                                                controlCount: 2,
-                                                controlledMatrix: Matrix.makeNot()).get()
+        let gateMatrix = OracleSimulatorMatrix(truthTable: ["00"],
+                                               controlCount: 2,
+                                               controlledMatrix: Matrix.makeNot()).rawMatrix
         let simulatorGateMatrix = SimulatorGateMatrix.otherMultiQubitMatrix(matrix: gateMatrix)
 
         transformation.applyResult = threeQubitFourVector
@@ -82,9 +82,9 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let adapter = DirectStatevectorTransformation(transformation: transformation)
 
         let gateInputs = [2, 0]
-        let gateMatrix = try! Matrix.makeOracle(truthTable: ["0"],
-                                                controlCount: 1,
-                                                controlledMatrix: Matrix.makeNot()).get()
+        let gateMatrix = OracleSimulatorMatrix(truthTable: ["0"],
+                                               controlCount: 1,
+                                               controlledMatrix: Matrix.makeNot()).rawMatrix
         let simulatorGateMatrix = SimulatorGateMatrix.otherMultiQubitMatrix(matrix: gateMatrix)
 
         transformation.applyResult = threeQubitFourVector

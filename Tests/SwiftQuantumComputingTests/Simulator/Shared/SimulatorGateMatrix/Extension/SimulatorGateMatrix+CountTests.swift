@@ -49,9 +49,9 @@ class SimulatorGateMatrix_CountTests: XCTestCase {
 
     func testOtherMultiQubitMatrix_count_returnExpectedValue() {
         // Given
-        let matrix = try! Matrix.makeOracle(truthTable: ["00"],
-                                            controlCount: 2,
-                                            controlledMatrix: .makeNot()).get()
+        let matrix = OracleSimulatorMatrix(truthTable: ["00"],
+                                           controlCount: 2,
+                                           controlledMatrix: Matrix.makeNot()).rawMatrix
 
         // Then
         XCTAssertEqual(SimulatorGateMatrix.otherMultiQubitMatrix(matrix: matrix).count, 8)

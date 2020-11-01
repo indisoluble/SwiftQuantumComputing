@@ -55,9 +55,9 @@ class SimulatorGateMatrix_MatrixTests: XCTestCase {
 
     func testOtherMultiQubitMatrix_matrix_returnExpectedMatrix() {
         // Given
-        let matrix = try! Matrix.makeOracle(truthTable: ["00"],
-                                            controlCount: 2,
-                                            controlledMatrix: .makeNot()).get()
+        let matrix = OracleSimulatorMatrix(truthTable: ["00"],
+                                           controlCount: 2,
+                                           controlledMatrix: Matrix.makeNot()).rawMatrix
 
         // When
         let result = SimulatorGateMatrix.otherMultiQubitMatrix(matrix: matrix).matrix
