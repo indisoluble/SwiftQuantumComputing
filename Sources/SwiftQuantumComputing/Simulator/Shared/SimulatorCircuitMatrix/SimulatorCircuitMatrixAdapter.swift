@@ -32,11 +32,11 @@ struct SimulatorCircuitMatrixAdapter {
     // MARK: - Private properties
 
     private let derives: [(base: Int, remaining: Int)]
-    private let baseMatrix: Matrix
+    private let baseMatrix: SimulatorMatrix
 
     // MARK: - Internal init methods
 
-    init(qubitCount: Int, baseMatrix: Matrix, inputs: [Int]) {
+    init(qubitCount: Int, baseMatrix: SimulatorMatrix, inputs: [Int]) {
         let count = Int.pow(2, qubitCount)
         let remainingInputs = (0..<qubitCount).reversed().filter { !inputs.contains($0) }
 

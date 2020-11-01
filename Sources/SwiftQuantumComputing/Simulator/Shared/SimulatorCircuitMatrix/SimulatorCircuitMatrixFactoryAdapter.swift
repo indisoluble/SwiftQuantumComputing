@@ -28,7 +28,7 @@ struct SimulatorCircuitMatrixFactoryAdapter {}
 
 extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
     func makeCircuitMatrix(qubitCount: Int,
-                           baseMatrix: Matrix,
+                           baseMatrix: SimulatorMatrix,
                            inputs: [Int]) -> SimulatorCircuitMatrix {
         return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
                                              baseMatrix: baseMatrix,
@@ -40,7 +40,7 @@ extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
 
 extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixRowFactory {
     func makeCircuitMatrixRow(qubitCount: Int,
-                              baseMatrix: Matrix,
+                              baseMatrix: SimulatorMatrix,
                               inputs: [Int]) -> SimulatorCircuitMatrixRow {
         return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
                                              baseMatrix: baseMatrix,
@@ -52,7 +52,7 @@ extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixRowFactory
 
 extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixElementFactory {
     func makeCircuitMatrixElement(qubitCount: Int,
-                                  baseMatrix: Matrix,
+                                  baseMatrix: SimulatorMatrix,
                                   inputs: [Int]) -> SimulatorMatrix {
         return SimulatorCircuitMatrixAdapter(qubitCount: qubitCount,
                                              baseMatrix: baseMatrix,
