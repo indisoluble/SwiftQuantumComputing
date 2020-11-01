@@ -45,6 +45,15 @@ struct OracleSimulatorMatrix {
 
         count = Int.pow(2, controlCount) * controlledMatrixSize
     }
+
+    init(equivalentToControlledGateWithControlCount controlCount: Int,
+         controlledMatrix: SimulatorMatrix) {
+        let truth = String(repeating: "1", count: controlCount)
+
+        self.init(truthTable: [truth],
+                  controlCount: controlCount,
+                  controlledMatrix: controlledMatrix)
+    }
 }
 
 // MARK: - SimulatorMatrix methods

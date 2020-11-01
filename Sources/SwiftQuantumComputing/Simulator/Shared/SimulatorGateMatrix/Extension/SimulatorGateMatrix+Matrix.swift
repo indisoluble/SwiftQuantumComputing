@@ -33,9 +33,7 @@ extension SimulatorGateMatrix {
         case .otherMultiQubitMatrix(let matrix):
             return matrix
         case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
-            let truth = String(repeating: "1", count: controlCount)
-            return OracleSimulatorMatrix(truthTable: [truth],
-                                         controlCount: controlCount,
+            return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
                                          controlledMatrix: controlledMatrix)
         }
     }

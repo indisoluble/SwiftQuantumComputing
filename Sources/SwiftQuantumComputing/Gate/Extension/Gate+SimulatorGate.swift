@@ -202,9 +202,7 @@ private extension Gate {
             return .success(.fullyControlledSingleQubitMatrix(controlledMatrix: ctrlMatrix,
                                                               controlCount: ctrlCount + controls.count))
         case .success(.otherMultiQubitMatrix(let matrix)):
-            let truth = String(repeating: "1", count: controls.count)
-            let result = OracleSimulatorMatrix(truthTable: [truth],
-                                               controlCount: controls.count,
+            let result = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controls.count,
                                                controlledMatrix: matrix)
             return .success(.otherMultiQubitMatrix(matrix: result))
         }

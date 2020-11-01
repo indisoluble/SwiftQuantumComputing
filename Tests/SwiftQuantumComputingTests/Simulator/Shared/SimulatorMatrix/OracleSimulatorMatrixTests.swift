@@ -209,8 +209,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
 
     func testTwoByTwoMatrixControlCountEqualToOneAndControlActivated_rawMatrix_returnExpectedMatrix() {
         // Given
-        let matrix = OracleSimulatorMatrix(truthTable: ["1"],
-                                           controlCount: 1,
+        let matrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
                                            controlledMatrix: twoByTwoMatrix)
 
         // Then
@@ -225,8 +224,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
 
     func testTwoByTwoMatrixControlCountEqualToTwoAndAllControlsActivated_rawMatrix_returnExpectedMatrix() {
         // Given
-        let matrix = OracleSimulatorMatrix(truthTable: ["11"],
-                                           controlCount: 2,
+        let matrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 2,
                                            controlledMatrix: twoByTwoMatrix)
 
         // Then
