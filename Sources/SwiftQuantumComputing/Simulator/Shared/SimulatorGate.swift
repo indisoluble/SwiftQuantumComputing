@@ -27,7 +27,7 @@ protocol SimulatorRawGate {
 }
 
 protocol SimulatorGate {
-    typealias Components = (matrix: Matrix, inputs: [Int])
+    typealias Components = (simulatorGateMatrix: SimulatorGateMatrix, inputs: [Int])
 
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError>
 }

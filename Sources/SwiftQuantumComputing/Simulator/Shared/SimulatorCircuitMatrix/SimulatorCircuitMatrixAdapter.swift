@@ -25,15 +25,18 @@ import Foundation
 
 struct SimulatorCircuitMatrixAdapter {
 
+    // MARK: - SimulatorMatrix properties
+
+    let count: Int
+
     // MARK: - Private properties
 
-    private let count: Int
     private let derives: [(base: Int, remaining: Int)]
-    private let baseMatrix: Matrix
+    private let baseMatrix: SimulatorMatrix
 
     // MARK: - Internal init methods
 
-    init(qubitCount: Int, baseMatrix: Matrix, inputs: [Int]) {
+    init(qubitCount: Int, baseMatrix: SimulatorMatrix, inputs: [Int]) {
         let count = Int.pow(2, qubitCount)
         let remainingInputs = (0..<qubitCount).reversed().filter { !inputs.contains($0) }
 
@@ -66,9 +69,9 @@ extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {
     }
 }
 
-// MARK: - SimulatorCircuitMatrixElement methods
+// MARK: - SimulatorMatrix methods
 
-extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixElement {
+extension SimulatorCircuitMatrixAdapter: SimulatorMatrix {
     subscript(row: Int, column: Int) -> Complex<Double> {
         let (baseRow, remainingRow) = derives[row]
         let (baseColumn, remainingColumn) = derives[column]

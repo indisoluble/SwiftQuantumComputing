@@ -67,7 +67,8 @@ extension UnitaryGateAdapter: UnitaryGate {
 
     func applying(_ gate: SimulatorGate) -> Result<UnitaryGate, GateError> {
         switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
-        case .success((let baseMatrix, let inputs)):
+        case .success((let simulatorGateMatrix, let inputs)):
+            let baseMatrix = simulatorGateMatrix.matrix
             let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
                                                                 baseMatrix: baseMatrix,
                                                                 inputs: inputs)

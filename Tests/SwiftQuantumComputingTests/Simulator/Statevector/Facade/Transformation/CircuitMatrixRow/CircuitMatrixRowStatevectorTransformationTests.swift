@@ -58,14 +58,13 @@ class CircuitMatrixRowStatevectorTransformationTests: XCTestCase {
         matrixFactory.makeCircuitMatrixRowResult = circuitRow
 
         // When
-        let result = adapter.apply(gateMatrix: gateMatrix,
-                                   toStatevector: vector,
-                                   atInputs: gateInputs)
+        let result = adapter.apply(components: (.singleQubitMatrix(matrix: gateMatrix), gateInputs),
+                                   toStatevector: vector)
 
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixRowCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixRowQubitCount, qubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixRowBaseMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixRowBaseMatrix?.rawMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixRowInputs, gateInputs)
 
         let expectedVector = try! Vector([.zero, .one, .zero, .zero])

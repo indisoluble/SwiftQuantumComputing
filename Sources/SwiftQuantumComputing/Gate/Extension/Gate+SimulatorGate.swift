@@ -67,15 +67,15 @@ extension Gate: SimulatorGate {
             return .failure(.gateInputsAreNotUnique)
         }
 
-        var matrix: Matrix!
+        var simulatorGateMatrix: SimulatorGateMatrix!
         switch extractMatrix() {
         case .success(let extractedMatrix):
-            matrix = extractedMatrix
+            simulatorGateMatrix = extractedMatrix
         case .failure(let error):
             return .failure(error)
         }
 
-        guard doesInputCountMatchMatrixQubitCount(inputs, matrix: matrix) else {
+        guard doesInputCountMatchMatrixQubitCount(inputs, matrix: simulatorGateMatrix) else {
             return .failure(.gateInputCountDoesNotMatchGateMatrixQubitCount)
         }
 
@@ -83,7 +83,7 @@ extension Gate: SimulatorGate {
             return .failure(.circuitQubitCountHasToBeBiggerThanZero)
         }
 
-        guard doesMatrixFitInCircuit(matrix, qubitCount: qubitCount) else {
+        guard doesMatrixFitInCircuit(simulatorGateMatrix, qubitCount: qubitCount) else {
             return .failure(.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas)
         }
 
@@ -91,7 +91,7 @@ extension Gate: SimulatorGate {
             return .failure(.gateInputsAreNotInBound)
         }
 
-        return .success((matrix, inputs))
+        return .success((simulatorGateMatrix, inputs))
     }
 }
 
@@ -112,14 +112,14 @@ private extension Gate {
         return (inputs.count == Set(inputs).count)
     }
 
-    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: Matrix) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.rowCount)
+    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: SimulatorGateMatrix) -> Bool {
+        let matrixQubitCount = Int.log2(matrix.count)
 
         return (inputs.count == matrixQubitCount)
     }
 
-    func doesMatrixFitInCircuit(_ matrix: Matrix, qubitCount: Int) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.rowCount)
+    func doesMatrixFitInCircuit(_ matrix: SimulatorGateMatrix, qubitCount: Int) -> Bool {
+        let matrixQubitCount = Int.log2(matrix.count)
 
         return matrixQubitCount <= qubitCount
     }
@@ -130,60 +130,81 @@ private extension Gate {
         return inputs.allSatisfy { validInputs.contains($0) }
     }
 
-    func extractMatrix() -> Result<Matrix, GateError> {
-        var resultMatrix: Matrix!
+    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
+        var result: Result<SimulatorGateMatrix, GateError>!
 
         switch self {
         case .not:
-            resultMatrix = Constants.matrixNot
+            result = .success(.singleQubitMatrix(matrix: Constants.matrixNot))
         case .hadamard:
-            resultMatrix = Constants.matrixHadamard
+            result = .success(.singleQubitMatrix(matrix: Constants.matrixHadamard))
         case .phaseShift(let radians, _):
-            resultMatrix = Matrix.makePhaseShift(radians: radians)
+            result = .success(.singleQubitMatrix(matrix: Matrix.makePhaseShift(radians: radians)))
         case .rotation(let axis, let radians, _):
-            resultMatrix = Matrix.makeRotation(axis: axis, radians: radians)
+            result = .success(.singleQubitMatrix(matrix: Matrix.makeRotation(axis: axis,
+                                                                             radians: radians)))
         case .matrix(let matrix, _):
-            guard matrix.rowCount.isPowerOfTwo else {
-                return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
-            }
-            // Validate matrix before expanding it so the operation requires less time
-            guard matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance) else {
-                return .failure(.gateMatrixIsNotUnitary)
-            }
-
-            resultMatrix = matrix
+            result = makeMatrixResult(matrix: matrix)
         case .oracle(let truthTable, let controls, let gate):
-            switch gate.extractMatrix() {
-            case .success(let matrix):
-                switch Matrix.makeOracle(truthTable: truthTable,
-                                         controlCount: controls.count,
-                                         controlledMatrix: matrix) {
-                case .success(let oracleMatrix):
-                    resultMatrix = oracleMatrix
-                case .failure(.controlCountHasToBeBiggerThanZero):
-                    return .failure(.gateControlsCanNotBeAnEmptyList)
-                case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
-                    fatalError("Unexpected error.")
-                }
-            case .failure(let error):
-                return .failure(error)
-            }
+            result = makeOracleResult(truthTable: truthTable, controls: controls, gate: gate)
         case .controlled(let gate, let controls):
-            switch gate.extractMatrix() {
-            case .success(let matrix):
-                switch Matrix.makeControlledMatrix(matrix: matrix, controlCount: controls.count) {
-                case .success(let controlledMatrix):
-                    resultMatrix = controlledMatrix
-                case .failure(.controlCountHasToBeBiggerThanZero):
-                    return .failure(.gateControlsCanNotBeAnEmptyList)
-                case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
-                    fatalError("Unexpected error.")
-                }
-            case .failure(let error):
-                return .failure(error)
-            }
+            result = makeControlledResult(gate: gate, controls: controls)
         }
 
-        return .success(resultMatrix)
+        return result
+    }
+
+    func makeMatrixResult(matrix: Matrix) -> Result<SimulatorGateMatrix, GateError> {
+        guard matrix.rowCount.isPowerOfTwo else {
+            return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
+        }
+        // Validate matrix before expanding it so the operation requires less time
+        guard matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance) else {
+            return .failure(.gateMatrixIsNotUnitary)
+        }
+
+        return .success(matrix.rowCount == 2 ?
+                            .singleQubitMatrix(matrix: matrix) :
+                            .otherMultiQubitMatrix(matrix: matrix))
+    }
+
+    func makeOracleResult(truthTable: [String],
+                          controls: [Int],
+                          gate: Gate) -> Result<SimulatorGateMatrix, GateError> {
+        guard !controls.isEmpty else {
+            return .failure(.gateControlsCanNotBeAnEmptyList)
+        }
+
+        switch gate.extractMatrix() {
+        case .failure(let error):
+            return .failure(error)
+        case .success(let simulatorGateMatrix):
+            let result = OracleSimulatorMatrix(truthTable: truthTable,
+                                               controlCount: controls.count,
+                                               controlledMatrix: simulatorGateMatrix.matrix)
+            return .success(.otherMultiQubitMatrix(matrix: result))
+        }
+    }
+
+    func makeControlledResult(gate: Gate,
+                              controls: [Int]) -> Result<SimulatorGateMatrix, GateError> {
+        guard !controls.isEmpty else {
+            return .failure(.gateControlsCanNotBeAnEmptyList)
+        }
+
+        switch gate.extractMatrix() {
+        case .failure(let error):
+            return .failure(error)
+        case .success(.singleQubitMatrix(let matrix)):
+            return .success(.fullyControlledSingleQubitMatrix(controlledMatrix: matrix,
+                                                              controlCount: controls.count))
+        case .success(.fullyControlledSingleQubitMatrix(let ctrlMatrix, let ctrlCount)):
+            return .success(.fullyControlledSingleQubitMatrix(controlledMatrix: ctrlMatrix,
+                                                              controlCount: ctrlCount + controls.count))
+        case .success(.otherMultiQubitMatrix(let matrix)):
+            let result = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controls.count,
+                                               controlledMatrix: matrix)
+            return .success(.otherMultiQubitMatrix(matrix: result))
+        }
     }
 }

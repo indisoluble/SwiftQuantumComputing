@@ -44,6 +44,7 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
+        let simulatorGateMatrix = SimulatorGateMatrix.singleQubitMatrix(matrix: gateMatrix)
 
         let circuitMatrix = SimulatorCircuitMatrixTestDouble()
         circuitMatrix.rawMatrixResult = try! Matrix([
@@ -52,14 +53,13 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = adapter.apply(gateMatrix: gateMatrix,
-                                   toStatevector: vector,
-                                   atInputs: gateInputs)
+        let result = adapter.apply(components: (simulatorGateMatrix, gateInputs),
+                                   toStatevector: vector)
 
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, vectorQubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
         XCTAssertEqual(circuitMatrix.rawMatrixCount, 1)
 
@@ -85,14 +85,13 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = adapter.apply(gateMatrix: gateMatrix,
-                                   toStatevector: vector,
-                                   atInputs: gateInputs)
+        let result = adapter.apply(components: (.singleQubitMatrix(matrix: gateMatrix), gateInputs),
+                                   toStatevector: vector)
 
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])

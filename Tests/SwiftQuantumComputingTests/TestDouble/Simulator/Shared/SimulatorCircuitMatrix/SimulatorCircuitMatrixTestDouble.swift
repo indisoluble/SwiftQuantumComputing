@@ -63,16 +63,3 @@ extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrixRow {
         return subscriptRowResult
     }
 }
-
-// MARK: - SimulatorCircuitMatrixElement methods
-
-extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrixElement {
-    subscript(row: Int, column: Int) -> Complex<Double> {
-        subscriptRowColumnCount += 1
-
-        lastSubscriptRowColumnRow = row
-        lastSubscriptRowColumnColumn = column
-
-        return subscriptRowColumnResult
-    }
-}

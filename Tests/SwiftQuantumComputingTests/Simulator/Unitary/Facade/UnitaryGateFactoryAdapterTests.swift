@@ -56,7 +56,7 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
         simulatorGate.extractComponentsInputsResult = gateInputs
-        simulatorGate.extractComponentsMatrixResult = gateMatrix
+        simulatorGate.extractComponentsMatrixResult = .singleQubitMatrix(matrix: gateMatrix)
 
         let simulatorMatrix = Matrix.makeHadamard()
         let circuitMatrix = SimulatorCircuitMatrixTestDouble()
@@ -73,7 +73,7 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         XCTAssertEqual(simulatorGate.lastExtractComponentsQubitCount, qubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
         XCTAssertEqual(circuitMatrix.rawMatrixCount, 1)
         XCTAssertEqual(try? result?.unitary().get(), simulatorMatrix)

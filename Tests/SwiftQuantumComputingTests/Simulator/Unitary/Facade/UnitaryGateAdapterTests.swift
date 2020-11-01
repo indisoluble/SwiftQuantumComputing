@@ -112,7 +112,7 @@ class UnitaryGateAdapterTests: XCTestCase {
                                               matrixFactory: matrixFactory)
 
         simulatorGate.extractComponentsInputsResult = gateInputs
-        simulatorGate.extractComponentsMatrixResult = gateMatrix
+        simulatorGate.extractComponentsMatrixResult = .singleQubitMatrix(matrix: gateMatrix)
 
         let circuitMatrix = SimulatorCircuitMatrixTestDouble()
         circuitMatrix.rawMatrixResult = simulatorMatrix
@@ -127,7 +127,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         XCTAssertEqual(simulatorGate.lastExtractComponentsQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, matrixQubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
         XCTAssertEqual(circuitMatrix.rawMatrixCount, 1)
 
@@ -141,7 +141,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix, matrixFactory: matrixFactory)
 
         simulatorGate.extractComponentsInputsResult = gateInputs
-        simulatorGate.extractComponentsMatrixResult = gateMatrix
+        simulatorGate.extractComponentsMatrixResult = .singleQubitMatrix(matrix: gateMatrix)
 
         let otherCircuitMatrix = SimulatorCircuitMatrixTestDouble()
         otherCircuitMatrix.rawMatrixResult = otherSimulatorMatrix
@@ -156,7 +156,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         XCTAssertEqual(simulatorGate.lastExtractComponentsQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, matrixQubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
         XCTAssertEqual(otherCircuitMatrix.rawMatrixCount, 1)
 
