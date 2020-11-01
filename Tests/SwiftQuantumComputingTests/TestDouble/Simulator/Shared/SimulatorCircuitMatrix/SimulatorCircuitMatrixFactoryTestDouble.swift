@@ -30,28 +30,28 @@ final class SimulatorCircuitMatrixFactoryTestDouble {
 
     private (set) var makeCircuitMatrixCount = 0
     private (set) var lastMakeCircuitMatrixQubitCount: Int?
-    private (set) var lastMakeCircuitMatrixBaseMatrix: Matrix?
+    private (set) var lastMakeCircuitMatrixBaseMatrix: SimulatorMatrix?
     private (set) var lastMakeCircuitMatrixInputs: [Int]?
     var makeCircuitMatrixResult: SimulatorCircuitMatrix = SimulatorCircuitMatrixTestDouble()
 
     private (set) var makeCircuitMatrixRowCount = 0
     private (set) var lastMakeCircuitMatrixRowQubitCount: Int?
-    private (set) var lastMakeCircuitMatrixRowBaseMatrix: Matrix?
+    private (set) var lastMakeCircuitMatrixRowBaseMatrix: SimulatorMatrix?
     private (set) var lastMakeCircuitMatrixRowInputs: [Int]?
     var makeCircuitMatrixRowResult: SimulatorCircuitMatrixRow = SimulatorCircuitMatrixTestDouble()
 
     private (set) var makeCircuitMatrixElementCount = 0
     private (set) var lastMakeCircuitMatrixElementQubitCount: Int?
-    private (set) var lastMakeCircuitMatrixElementBaseMatrix: Matrix?
+    private (set) var lastMakeCircuitMatrixElementBaseMatrix: SimulatorMatrix?
     private (set) var lastMakeCircuitMatrixElementInputs: [Int]?
-    var makeCircuitMatrixElementResult: SimulatorCircuitMatrixElement = SimulatorCircuitMatrixTestDouble()
+    var makeCircuitMatrixElementResult: SimulatorMatrix = SimulatorMatrixTestDouble()
 }
 
 // MARK: - SimulatorCircuitMatrixFactory methods
 
 extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixFactory {
     func makeCircuitMatrix(qubitCount: Int,
-                           baseMatrix: Matrix,
+                           baseMatrix: SimulatorMatrix,
                            inputs: [Int]) -> SimulatorCircuitMatrix {
         makeCircuitMatrixCount += 1
 
@@ -67,7 +67,7 @@ extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixFactory
 
 extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixRowFactory {
     func makeCircuitMatrixRow(qubitCount: Int,
-                              baseMatrix: Matrix,
+                              baseMatrix: SimulatorMatrix,
                               inputs: [Int]) -> SimulatorCircuitMatrixRow {
         makeCircuitMatrixRowCount += 1
 
@@ -81,8 +81,8 @@ extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixRowFact
 
 extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixElementFactory {
     func makeCircuitMatrixElement(qubitCount: Int,
-                                  baseMatrix: Matrix,
-                                  inputs: [Int]) -> SimulatorCircuitMatrixElement {
+                                  baseMatrix: SimulatorMatrix,
+                                  inputs: [Int]) -> SimulatorMatrix {
         makeCircuitMatrixElementCount += 1
 
         lastMakeCircuitMatrixElementQubitCount = qubitCount

@@ -1,8 +1,8 @@
 //
-//  SimulatorGateMatrix.swift
+//  SimulatorGateMatrix+Matrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 25/10/2020.
+//  Created by Enrique de la Torre on 01/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,21 @@
 
 import Foundation
 
-// MARK: - Internal types
+// MARK: - Main body
 
-enum SimulatorGateMatrix {
-    case singleQubitMatrix(matrix: SimulatorMatrix)
-    case fullyControlledSingleQubitMatrix(controlledMatrix: SimulatorMatrix, controlCount: Int)
-    case otherMultiQubitMatrix(matrix: SimulatorMatrix)
+extension SimulatorGateMatrix {
+
+    // MARK: - Internal properties
+
+    var matrix: SimulatorMatrix {
+        switch self {
+        case .singleQubitMatrix(let matrix):
+            return matrix
+        case .otherMultiQubitMatrix(let matrix):
+            return matrix
+        case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
+            return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
+                                         controlledMatrix: controlledMatrix)
+        }
+    }
 }

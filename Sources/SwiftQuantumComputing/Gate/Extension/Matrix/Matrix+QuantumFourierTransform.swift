@@ -44,7 +44,7 @@ extension Matrix {
             var value = Complex<Double>.one
             if power > 0 {
                 let radians = ((2 * Double(power)) / n) * Double.pi
-                value = Complex(cos(radians), sin(radians))
+                value = Complex.euler(radians)
             }
 
             return normalization * value

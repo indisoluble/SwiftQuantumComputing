@@ -113,13 +113,13 @@ private extension Gate {
     }
 
     func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: SimulatorGateMatrix) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.rowCount)
+        let matrixQubitCount = Int.log2(matrix.count)
 
         return (inputs.count == matrixQubitCount)
     }
 
     func doesMatrixFitInCircuit(_ matrix: SimulatorGateMatrix, qubitCount: Int) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.rowCount)
+        let matrixQubitCount = Int.log2(matrix.count)
 
         return matrixQubitCount <= qubitCount
     }
@@ -171,25 +171,27 @@ private extension Gate {
     func makeOracleResult(truthTable: [String],
                           controls: [Int],
                           gate: Gate) -> Result<SimulatorGateMatrix, GateError> {
+        guard !controls.isEmpty else {
+            return .failure(.gateControlsCanNotBeAnEmptyList)
+        }
+
         switch gate.extractMatrix() {
         case .failure(let error):
             return .failure(error)
         case .success(let simulatorGateMatrix):
-            switch Matrix.makeOracle(truthTable: truthTable,
-                                     controlCount: controls.count,
-                                     controlledMatrix: simulatorGateMatrix.rawMatrix) {
-            case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
-                fatalError("Unexpected error.")
-            case .failure(.controlCountHasToBeBiggerThanZero):
-                return .failure(.gateControlsCanNotBeAnEmptyList)
-            case .success(let oracleMatrix):
-                return .success(.otherMultiQubitMatrix(matrix: oracleMatrix))
-            }
+            let result = OracleSimulatorMatrix(truthTable: truthTable,
+                                               controlCount: controls.count,
+                                               controlledMatrix: simulatorGateMatrix.matrix)
+            return .success(.otherMultiQubitMatrix(matrix: result))
         }
     }
 
     func makeControlledResult(gate: Gate,
                               controls: [Int]) -> Result<SimulatorGateMatrix, GateError> {
+        guard !controls.isEmpty else {
+            return .failure(.gateControlsCanNotBeAnEmptyList)
+        }
+
         switch gate.extractMatrix() {
         case .failure(let error):
             return .failure(error)
@@ -200,14 +202,9 @@ private extension Gate {
             return .success(.fullyControlledSingleQubitMatrix(controlledMatrix: ctrlMatrix,
                                                               controlCount: ctrlCount + controls.count))
         case .success(.otherMultiQubitMatrix(let matrix)):
-            switch Matrix.makeControlledMatrix(matrix: matrix, controlCount: controls.count) {
-            case .failure(.matrixIsNotSquare), .failure(.matrixRowCountHasToBeAPowerOfTwo):
-                fatalError("Unexpected error.")
-            case .failure(.controlCountHasToBeBiggerThanZero):
-                return .failure(.gateControlsCanNotBeAnEmptyList)
-            case .success(let controlledMatrix):
-                return .success(.otherMultiQubitMatrix(matrix: controlledMatrix))
-            }
+            let result = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controls.count,
+                                               controlledMatrix: matrix)
+            return .success(.otherMultiQubitMatrix(matrix: result))
         }
     }
 }

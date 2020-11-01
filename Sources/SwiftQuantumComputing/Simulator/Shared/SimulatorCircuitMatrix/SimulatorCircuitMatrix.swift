@@ -30,7 +30,3 @@ protocol SimulatorCircuitMatrix {
 protocol SimulatorCircuitMatrixRow {
     subscript(row: Int) -> Vector { get }
 }
-
-protocol SimulatorCircuitMatrixElement {
-    subscript(row: Int, column: Int) -> Complex<Double> { get }
-}

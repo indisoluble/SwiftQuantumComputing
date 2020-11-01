@@ -203,7 +203,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .otherMultiQubitMatrix(matrix: validMatrix))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, validMatrix)
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -222,7 +222,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .singleQubitMatrix(matrix: singleQubitMatrix))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, singleQubitMatrix)
         XCTAssertEqual(inputs, [target])
     }
 
@@ -240,7 +240,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .singleQubitMatrix(matrix: .makeHadamard()))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, .makeHadamard())
         XCTAssertEqual(inputs, [target])
     }
 
@@ -259,7 +259,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .singleQubitMatrix(matrix: .makePhaseShift(radians: radians)))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, .makePhaseShift(radians: radians))
         XCTAssertEqual(inputs, [target])
     }
 
@@ -279,8 +279,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .singleQubitMatrix(matrix: .makeRotation(axis: axis,
-                                                                        radians: radians)))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, .makeRotation(axis: axis, radians: radians))
         XCTAssertEqual(inputs, [target])
     }
 
@@ -323,8 +322,9 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .fullyControlledSingleQubitMatrix(controlledMatrix: .makeNot(),
-                                                                 controlCount: 1))
+        XCTAssertEqual(matrix?.matrix.rawMatrix,
+                       SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: Matrix.makeNot(),
+                                                                            controlCount: 1).matrix.rawMatrix)
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -341,8 +341,9 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .fullyControlledSingleQubitMatrix(controlledMatrix: .makeNot(),
-                                                                 controlCount: 2))
+        XCTAssertEqual(matrix?.matrix.rawMatrix,
+                       SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: Matrix.makeNot(),
+                                                                            controlCount: 2).matrix.rawMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -360,8 +361,9 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .fullyControlledSingleQubitMatrix(controlledMatrix: .makeNot(),
-                                                                 controlCount: 2))
+        XCTAssertEqual(matrix?.matrix.rawMatrix,
+                       SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: Matrix.makeNot(),
+                                                                            controlCount: 2).matrix.rawMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -406,7 +408,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .otherMultiQubitMatrix(matrix: oracleValidMatrix))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, oracleValidMatrix)
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -423,7 +425,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix, .otherMultiQubitMatrix(matrix: oracleExtendedValidMatrix))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, oracleExtendedValidMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -453,7 +455,7 @@ class Gate_SimulatorGateTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         ])
 
-        XCTAssertEqual(matrix, .otherMultiQubitMatrix(matrix: expectedMatrix))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, expectedMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -484,7 +486,7 @@ class Gate_SimulatorGateTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         ])
 
-        XCTAssertEqual(matrix, .otherMultiQubitMatrix(matrix: expectedMatrix))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, expectedMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -516,7 +518,7 @@ class Gate_SimulatorGateTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         ])
 
-        XCTAssertEqual(matrix, .otherMultiQubitMatrix(matrix: expectedMatrix))
+        XCTAssertEqual(matrix?.matrix.rawMatrix, expectedMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 

@@ -50,7 +50,7 @@ public struct TwoLevelDecompositionSolver {
             case .singleQubitMatrix, .fullyControlledSingleQubitMatrix:
                 return .success([gate])
             case .otherMultiQubitMatrix(let matrix):
-                gateMatrix = matrix
+                gateMatrix = matrix.rawMatrix
                 gateInputs = simulatorInputs
             }
         case .failure(let error):
