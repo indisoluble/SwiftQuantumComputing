@@ -403,18 +403,40 @@
 </code></pre>
 
 <p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground/Contents.swift">Genetic.playground</a>.</p>
-<h3 id='two-level-decomposition-decompose-a-quantum-gate-into-a-sequence-of-fully-controlled-matrix-gates-and-not-gates' class='heading'>Two-level decomposition: Decompose a quantum gate into a sequence of fully controlled matrix gates and not gates</h3>
+<h3 id='two-level-decomposition-decompose-any-gate-into-an-equivalent-sequence-faster-to-execute' class='heading'>Two-level decomposition: Decompose any gate into an equivalent sequence faster to execute</h3>
+
+<p>When it comes to get the statevector produced by a circuit, single-qubit gates &amp; fully controlled matrix gates (i.e. controlled matrix gates where all inputs but one are controls) can be simulated faster. This algorithm decomposes any gate/s into an equivalent sequence of not gates and fully controlled gates. In most cases, the new sequence will be faster to execute than the original.</p>
 <pre class="highlight swift"><code><span class="kd">import</span> <span class="kt">SwiftQuantumComputing</span> <span class="c1">// for macOS</span>
 
-<span class="c1">//: 1. Define a gate</span>
-<span class="k">let</span> <span class="nv">gate</span> <span class="o">=</span> <span class="kt">Gate</span><span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"000"</span><span class="p">,</span> <span class="s">"101"</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="nv">gate</span><span class="p">:</span> <span class="o">.</span><span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">))</span>
-<span class="c1">//: 2. (Optional) Draw the gate to see how it looks</span>
+<span class="k">let</span> <span class="nv">factory</span> <span class="o">=</span> <span class="kt">MainCircuitFactory</span><span class="p">(</span><span class="nv">statevectorConfiguration</span><span class="p">:</span> <span class="o">.</span><span class="nf">elementByElement</span><span class="p">(</span><span class="nv">maxConcurrency</span><span class="p">:</span> <span class="mi">4</span><span class="p">))</span>
 <span class="k">let</span> <span class="nv">drawer</span> <span class="o">=</span> <span class="kt">MainDrawerFactory</span><span class="p">()</span><span class="o">.</span><span class="nf">makeDrawer</span><span class="p">()</span>
-<span class="n">drawer</span><span class="o">.</span><span class="nf">drawCircuit</span><span class="p">([</span><span class="n">gate</span><span class="p">])</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
-<span class="c1">//: 3. Decompose gate into an equivalent sequence of fully controlled matrix gates and not gates</span>
-<span class="k">let</span> <span class="nv">decomposition</span> <span class="o">=</span> <span class="kt">TwoLevelDecompositionSolver</span><span class="o">.</span><span class="nf">decomposeGate</span><span class="p">(</span><span class="n">gate</span><span class="p">)</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
-<span class="c1">//:42. (Optional) Draw the decomposition to see how it looks</span>
+
+<span class="c1">//: 1. Define gates</span>
+<span class="k">let</span> <span class="nv">gates</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"0000"</span><span class="p">,</span> <span class="s">"1010"</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="nv">gate</span><span class="p">:</span> <span class="o">.</span><span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">0</span><span class="p">)),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"0011"</span><span class="p">,</span> <span class="s">"1100"</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="nv">gate</span><span class="p">:</span> <span class="o">.</span><span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">3</span><span class="p">)),</span>
+    <span class="kt">Gate</span><span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="s">"1100"</span><span class="p">,</span> <span class="s">"1001"</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="nv">gate</span><span class="p">:</span> <span class="o">.</span><span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="mi">10</span><span class="p">))</span>
+<span class="p">]</span>
+<span class="c1">//: 2. (Optional) Draw gates to see how they look</span>
+<span class="n">drawer</span><span class="o">.</span><span class="nf">drawCircuit</span><span class="p">(</span><span class="n">gates</span><span class="p">)</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
+<span class="c1">//: 3. Build circuit and measure how long it takes to get the statevector</span>
+<span class="k">var</span> <span class="nv">start</span> <span class="o">=</span> <span class="kt">CFAbsoluteTimeGetCurrent</span><span class="p">()</span>
+<span class="n">factory</span><span class="o">.</span><span class="nf">makeCircuit</span><span class="p">(</span><span class="nv">gates</span><span class="p">:</span> <span class="n">gates</span><span class="p">)</span><span class="o">.</span><span class="nf">statevector</span><span class="p">()</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
+<span class="k">var</span> <span class="nv">diff</span> <span class="o">=</span> <span class="kt">CFAbsoluteTimeGetCurrent</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Original circuit executed in </span><span class="se">\(</span><span class="n">diff</span><span class="se">)</span><span class="s"> seconds"</span><span class="p">)</span>
+<span class="c1">//: 4. Decompose gates into an equivalent sequence of fully controlled matrix gates and not gates</span>
+<span class="n">start</span> <span class="o">=</span> <span class="kt">CFAbsoluteTimeGetCurrent</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">decomposition</span> <span class="o">=</span> <span class="kt">TwoLevelDecompositionSolver</span><span class="o">.</span><span class="nf">decomposeGates</span><span class="p">(</span><span class="n">gates</span><span class="p">)</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="kt">CFAbsoluteTimeGetCurrent</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Original circuit decomposed in </span><span class="se">\(</span><span class="n">diff</span><span class="se">)</span><span class="s"> seconds"</span><span class="p">)</span>
+<span class="c1">//: 5. (Optional) Draw decomposition to see how it looks</span>
 <span class="n">drawer</span><span class="o">.</span><span class="nf">drawCircuit</span><span class="p">(</span><span class="n">decomposition</span><span class="p">)</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
+<span class="c1">//: 6. Build a new circuit and measure how long it takes to get the statevector. Statevector calculation is optimized</span>
+<span class="c1">//: for the type of gates returned in the decomposition</span>
+<span class="n">start</span> <span class="o">=</span> <span class="kt">CFAbsoluteTimeGetCurrent</span><span class="p">()</span>
+<span class="n">factory</span><span class="o">.</span><span class="nf">makeCircuit</span><span class="p">(</span><span class="nv">gates</span><span class="p">:</span> <span class="n">decomposition</span><span class="p">)</span><span class="o">.</span><span class="nf">statevector</span><span class="p">()</span><span class="o">.</span><span class="nf">get</span><span class="p">()</span>
+<span class="n">diff</span> <span class="o">=</span> <span class="kt">CFAbsoluteTimeGetCurrent</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Decomposed circuit executed in </span><span class="se">\(</span><span class="n">diff</span><span class="se">)</span><span class="s"> seconds"</span><span class="p">)</span>
 </code></pre>
 
 <p>Check full code in <a href="https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/TwoLevelDecomposition.playground/Contents.swift">TwoLevelDecomposition.playground</a>.</p>
@@ -518,7 +540,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-10-17)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-01)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
