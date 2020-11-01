@@ -29,23 +29,27 @@ extension SimulatorGateMatrix {
     var count: Int {
         switch self {
         case .singleQubitMatrix(let matrix):
-            return matrix.rowCount
+            return matrix.count
         case .otherMultiQubitMatrix(let matrix):
-            return matrix.rowCount
+            return matrix.count
         case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
-            return Int.pow(2, controlCount) *  controlledMatrix.rowCount
+            return Int.pow(2, controlCount) *  controlledMatrix.count
         }
     }
 
     var rawMatrix: Matrix {
         switch self {
         case .singleQubitMatrix(let matrix):
-            return matrix
+            return matrix.rawMatrix
         case .otherMultiQubitMatrix(let matrix):
-            return matrix
+            return matrix.rawMatrix
         case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
-            return try! Matrix.makeControlledMatrix(matrix: controlledMatrix,
-                                                    controlCount: controlCount).get()
+            let truth = String(repeating: "1", count: controlCount)
+            let matrix = OracleSimulatorMatrix(truthTable: [truth],
+                                               controlCount: controlCount,
+                                               controlledMatrix: controlledMatrix)
+
+            return matrix.rawMatrix
         }
     }
 }

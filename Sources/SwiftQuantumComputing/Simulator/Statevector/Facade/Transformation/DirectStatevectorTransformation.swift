@@ -68,13 +68,13 @@ private extension DirectStatevectorTransformation {
 
     // MARK: - Private methods
 
-    func apply(oneQubitMatrix matrix: Matrix,
+    func apply(oneQubitMatrix matrix: SimulatorMatrix,
                toStatevector vector: Vector,
                atInput input: Int) -> Vector {
         return apply(matrix: matrix, toStatevector: vector, atInput: input)
     }
 
-    func apply(controlledMatrix: Matrix,
+    func apply(controlledMatrix: SimulatorMatrix,
                toStatevector vector: Vector,
                atTarget target: Int,
                withControls controls: [Int]) -> Vector {
@@ -86,7 +86,7 @@ private extension DirectStatevectorTransformation {
                      selectingStatesWith:filter)
     }
 
-    func apply(matrix: Matrix,
+    func apply(matrix: SimulatorMatrix,
                toStatevector vector: Vector,
                atInput input: Int,
                selectingStatesWith filter: Int? = nil) -> Vector {
