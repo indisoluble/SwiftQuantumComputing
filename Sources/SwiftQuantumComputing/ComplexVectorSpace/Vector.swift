@@ -135,9 +135,9 @@ extension Vector: CustomStringConvertible {
     }
 }
 
-// MARK: - Equatable methods
+// MARK: - Hashable methods
 
-extension Vector: Equatable {}
+extension Vector: Hashable {}
 
 // MARK: - Sequence methods
 

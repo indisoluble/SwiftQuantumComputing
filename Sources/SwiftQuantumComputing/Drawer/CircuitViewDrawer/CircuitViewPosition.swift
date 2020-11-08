@@ -59,6 +59,6 @@ enum CircuitViewPosition {
     case matrixGap(connected: GapConnectivity = .none)
 }
 
-// MARK: - Equatable methods
+// MARK: - Hashable methods
 
-extension CircuitViewPosition: Equatable {}
+extension CircuitViewPosition: Hashable {}

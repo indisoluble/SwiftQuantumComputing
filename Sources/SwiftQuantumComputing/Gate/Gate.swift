@@ -48,6 +48,6 @@ public indirect enum Gate {
     case controlled(gate: Gate, controls: [Int])
 }
 
-// MARK: - Equatable methods
+// MARK: - Hashable methods
 
-extension Gate: Equatable {}
+extension Gate: Hashable {}

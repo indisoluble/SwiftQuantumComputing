@@ -185,9 +185,9 @@ public struct Matrix {
     }
 }
 
-// MARK: - Equatable methods
+// MARK: - Hashable methods
 
-extension Matrix: Equatable {}
+extension Matrix: Hashable {}
 
 // MARK: - Sequence methods
 

@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 /// Errors throwed by `CircuitStatevector.summarizedProbabilities(byQubits:)`.
-public enum SummarizedProbabilitiesError: Error, Equatable {
+public enum SummarizedProbabilitiesError: Error, Hashable {
     /// Throwed when `qubits` references a qubit that does not exist in the circuit
     case qubitsAreNotInsideBounds
     /// Throwed when `qubits` contains repeated values

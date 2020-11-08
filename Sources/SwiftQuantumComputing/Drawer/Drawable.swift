@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 /// Errors throwed by `Drawable.drawCircuit(_:qubitCount:)`
-public enum DrawCircuitError: Error, Equatable {
+public enum DrawCircuitError: Error, Hashable {
     /// Throwed when `qubitCount` is 0, i.e. a circuit requires at least 1 qubit
     case qubitCountHasToBeBiggerThanZero
     /// Throwed when `gate` informs no inputs/controls
