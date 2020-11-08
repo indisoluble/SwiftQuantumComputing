@@ -36,7 +36,7 @@ extension CircuitViewDrawer: Drawable {
 
         var column = 0
 
-        let layer = (0..<qubitCount).map { CircuitViewPosition.qubit(index: $0) }
+        let layer = (0..<qubitCount).map { QubitCircuitViewPosition(index: $0) }
         addLayer(layer, to: container, at: column)
 
         for gate in circuit {

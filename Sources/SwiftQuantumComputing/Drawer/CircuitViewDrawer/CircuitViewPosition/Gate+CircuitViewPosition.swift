@@ -26,7 +26,7 @@ extension Gate {
 
     // MARK: - Internal methods
 
-    func makeLayer(qubitCount: Int) -> Result<[CircuitViewPosition], DrawCircuitError> {
+    func makeLayer(qubitCount: Int) -> Result<[AnyCircuitViewPosition], DrawCircuitError> {
         return makeLayer(qubitCount: qubitCount, components: extractComponents())
     }
 }
@@ -59,18 +59,20 @@ private extension Gate {
             }
         }
 
-        func makePositionView(connected: CircuitViewPosition.TargetConnectivity) -> CircuitViewPosition {
+        func makePositionView(connected: CircuitViewPositionConnectivity.Target) -> AnyCircuitViewPosition {
             switch self {
             case .not:
-                return .not(connected: connected)
+                return NotCircuitViewPosition(connected: connected).any()
             case .hadamard:
-                return .hadamard(connected: connected)
+                return HadamardCircuitViewPosition(connected: connected).any()
             case .phaseShift(let radians, _):
-                return .phaseShift(radians: radians, connected: connected)
+                return PhaseShiftCircuitViewPosition(radians: radians, connected: connected).any()
             case .rotation(let axis, let radians, _):
-                return .rotation(axis: axis, radians: radians, connected: connected)
+                return RotationCircuitViewPosition(axis: axis,
+                                                   radians: radians,
+                                                   connected: connected).any()
             case .matrix:
-                return .matrix(connected: connected)
+                return MatrixCircuitViewPosition(connected: connected).any()
             }
         }
     }
@@ -93,37 +95,37 @@ private extension Gate {
 
     // MARK: - Private methods
 
-    func extractComponents(controls: [Int] = [], oracleControls: [Int] = []) -> GateComponents {
+    func extractComponents() -> GateComponents {
         switch self {
         case .not(let target):
-            return (controls, oracleControls, .singleQubit(gate: .not(target: target)))
+            return ([], [], .singleQubit(gate: .not(target: target)))
         case .hadamard(let target):
-            return (controls, oracleControls, .singleQubit(gate: .hadamard(target: target)))
+            return ([], [], .singleQubit(gate: .hadamard(target: target)))
         case .phaseShift(let radians, let target):
-            return (controls,
-                    oracleControls,
-                    .singleQubit(gate: .phaseShift(radians: radians, target: target)))
+            return ([], [], .singleQubit(gate: .phaseShift(radians: radians, target: target)))
         case .rotation(let axis, let radians, let target):
-            return (controls,
-                    oracleControls,
+            return ([],
+                    [],
                     .singleQubit(gate: .rotation(axis: axis, radians: radians, target: target)))
         case .matrix(_, let inputs):
             if inputs.count == 1 {
-                return (controls, oracleControls, .singleQubit(gate: .matrix(target: inputs[0])))
+                return ([], [], .singleQubit(gate: .matrix(target: inputs[0])))
             }
 
-            return (controls, oracleControls, .multiQubit(inputs: inputs))
+            return ([], [], .multiQubit(inputs: inputs))
         case .oracle(_, let someControls, let gate):
-            return gate.extractComponents(controls: controls,
-                                          oracleControls: someControls + oracleControls)
+            let (controls, oracleControls, simpleGate) = gate.extractComponents()
+
+            return (controls, someControls + oracleControls, simpleGate)
         case .controlled(let gate, let someControls):
-            return gate.extractComponents(controls: someControls + controls,
-                                          oracleControls: oracleControls)
+            let (controls, oracleControls, simpleGate) = gate.extractComponents()
+
+            return (someControls + controls, oracleControls, simpleGate)
         }
     }
 
     func makeLayer(qubitCount: Int,
-                   components: GateComponents) -> Result<[CircuitViewPosition], DrawCircuitError> {
+                   components: GateComponents) -> Result<[AnyCircuitViewPosition], DrawCircuitError> {
         let (controls, oracleControls, gate) = components
 
         let inputs = gate.inputs
@@ -150,24 +152,29 @@ private extension Gate {
             return .failure(.gateWithOneOrMoreInputsOrControlsOutOfRange(gate: self))
         }
 
-        var layer = Array(repeating: CircuitViewPosition.lineHorizontal, count: qubitCount)
+        var layer: [AnyCircuitViewPosition] = Array(repeating: LineHorizontalCircuitViewPosition().any(),
+                                                    count: qubitCount)
 
         let minUsedQubit = allUsedQubits.min()!
         let maxUsedQubit = allUsedQubits.max()!
         for index in minUsedQubit...maxUsedQubit {
-            let connected: CircuitViewPosition.ControlConnectivity = (
+            let connected: CircuitViewPositionConnectivity.Control = (
                 index == minUsedQubit ? .up : (index == maxUsedQubit ? .down : .both)
             )
 
-            layer[index] = (controls.contains(index) ?
-                .control(connected: connected) :
-                (oracleControls.contains(index) ? .oracle(connected: connected) : .crossedLines))
+            if controls.contains(index) {
+                layer[index] = ControlCircuitViewPosition(connected: connected).any()
+            } else if oracleControls.contains(index) {
+                layer[index] = OracleCircuitViewPosition(connected: connected).any()
+            } else {
+                layer[index] = CrossedLinesCircuitViewPosition().any()
+            }
         }
 
         switch gate {
         case .singleQubit(let gate):
             let target = inputs[0]
-            let connected: CircuitViewPosition.TargetConnectivity = (
+            let connected: CircuitViewPositionConnectivity.Target = (
                 minUsedQubit == maxUsedQubit ?
                     .none :
                     (target == minUsedQubit ? .up : (target == maxUsedQubit ? .down : .both))
@@ -182,38 +189,39 @@ private extension Gate {
                     let isConnectedAbove = allControls.contains(index + 1)
 
                     layer[index] = (isConnectedAbove ?
-                        .matrix(connected: .up, showText: false) :
-                        .matrixBottom(connectedDown: false))
+                        MatrixCircuitViewPosition(connected: .up, showText: false).any() :
+                        MatrixBottomCircuitViewPosition(connectedDown: false).any())
                 } else if index == maxUsedQubit {
                     let isConnectedBelow = allControls.contains(index - 1)
 
                     layer[index] = (isConnectedBelow ?
-                        .matrix(connected: .down) :
-                        .matrixTop(connectedUp: false))
+                        MatrixCircuitViewPosition(connected: .down).any() :
+                        MatrixTopCircuitViewPosition(connectedUp: false).any())
                 } else {
                     let isConnectedAbove = (index == maxInput) || allControls.contains(index + 1)
                     let isConnectedBelow = (index == minInput) || allControls.contains(index - 1)
 
                     if inputs.contains(index) {
                         if isConnectedAbove && isConnectedBelow {
-                            layer[index] = .matrix(connected: .both, showText: index == maxInput)
+                            layer[index] = MatrixCircuitViewPosition(connected: .both,
+                                                                     showText: index == maxInput).any()
                         } else if isConnectedAbove && !isConnectedBelow {
-                            layer[index] = .matrixTop(connectedUp: true,
-                                                      showText: index == maxInput)
+                            layer[index] = MatrixTopCircuitViewPosition(connectedUp: true,
+                                                                        showText: index == maxInput).any()
                         } else if !isConnectedAbove && isConnectedBelow {
-                            layer[index] = .matrixBottom(connectedDown: true)
+                            layer[index] = MatrixBottomCircuitViewPosition(connectedDown: true).any()
                         } else {
-                            layer[index] = .matrixMiddle
+                            layer[index] = MatrixMiddleCircuitViewPosition().any()
                         }
                     } else if !allControls.contains(index) {
                         if isConnectedAbove && isConnectedBelow {
-                            layer[index] = .matrixGap(connected: .both)
+                            layer[index] = MatrixGapCircuitViewPosition(connected: .both).any()
                         } else if isConnectedAbove && !isConnectedBelow {
-                            layer[index] = .matrixGap(connected: .up)
+                            layer[index] = MatrixGapCircuitViewPosition(connected: .up).any()
                         } else if !isConnectedAbove && isConnectedBelow {
-                            layer[index] = .matrixGap(connected: .down)
+                            layer[index] = MatrixGapCircuitViewPosition(connected: .down).any()
                         } else {
-                            layer[index] = .matrixGap(connected: .none)
+                            layer[index] = MatrixGapCircuitViewPosition(connected: .none).any()
                         }
                     }
                 }
