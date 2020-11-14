@@ -22,12 +22,74 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimulatorRawGate {
-    var gate: Gate { get }
-}
-
 protocol SimulatorGate {
     typealias Components = (simulatorGateMatrix: SimulatorGateMatrix, inputs: [Int])
 
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError>
+}
+
+// MARK: - SimulatorGate default implementations
+
+extension SimulatorGate where Self: SimulatorComponents {
+    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
+        let inputs = extractInputs()
+        guard areInputsUnique(inputs) else {
+            return .failure(.gateInputsAreNotUnique)
+        }
+
+        var simulatorGateMatrix: SimulatorGateMatrix!
+        switch extractMatrix() {
+        case .success(let extractedMatrix):
+            simulatorGateMatrix = extractedMatrix
+        case .failure(let error):
+            return .failure(error)
+        }
+
+        guard doesInputCountMatchMatrixQubitCount(inputs, matrix: simulatorGateMatrix) else {
+            return .failure(.gateInputCountDoesNotMatchGateMatrixQubitCount)
+        }
+
+        guard qubitCount > 0 else {
+            return .failure(.circuitQubitCountHasToBeBiggerThanZero)
+        }
+
+        guard doesMatrixFitInCircuit(simulatorGateMatrix, qubitCount: qubitCount) else {
+            return .failure(.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas)
+        }
+
+        guard areInputsInBound(inputs, qubitCount: qubitCount) else {
+            return .failure(.gateInputsAreNotInBound)
+        }
+
+        return .success((simulatorGateMatrix, inputs))
+    }
+}
+
+// MARK: - Private body
+
+private extension SimulatorGate {
+
+    // MARK: - Private methods
+
+    func areInputsUnique(_ inputs: [Int]) -> Bool {
+        return (inputs.count == Set(inputs).count)
+    }
+
+    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: SimulatorGateMatrix) -> Bool {
+        let matrixQubitCount = Int.log2(matrix.count)
+
+        return (inputs.count == matrixQubitCount)
+    }
+
+    func doesMatrixFitInCircuit(_ matrix: SimulatorGateMatrix, qubitCount: Int) -> Bool {
+        let matrixQubitCount = Int.log2(matrix.count)
+
+        return matrixQubitCount <= qubitCount
+    }
+
+    func areInputsInBound(_ inputs: [Int], qubitCount: Int) -> Bool {
+        let validInputs = (0..<qubitCount)
+
+        return inputs.allSatisfy { validInputs.contains($0) }
+    }
 }

@@ -20,12 +20,21 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - SimulatorRawGate methods
 
-extension Gate {
+extension Gate: SimulatorRawGate {
+    var gate: Gate {
+        return self
+    }
+}
 
-    // MARK: - Internal methods
+// MARK: - SimulatorGate methods
 
+extension Gate: SimulatorGate {}
+
+// MARK: - SimulatorComponents methods
+
+extension Gate: SimulatorComponents {
     func extractInputs() -> [Int] {
         var resultInputs: [Int]!
 
@@ -47,87 +56,6 @@ extension Gate {
         }
 
         return resultInputs
-    }
-}
-
-// MARK: - SimulatorRawGate methods
-
-extension Gate: SimulatorRawGate {
-    var gate: Gate {
-        return self
-    }
-}
-
-// MARK: - SimulatorGate methods
-
-extension Gate: SimulatorGate {
-    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
-        let inputs = extractInputs()
-        guard areInputsUnique(inputs) else {
-            return .failure(.gateInputsAreNotUnique)
-        }
-
-        var simulatorGateMatrix: SimulatorGateMatrix!
-        switch extractMatrix() {
-        case .success(let extractedMatrix):
-            simulatorGateMatrix = extractedMatrix
-        case .failure(let error):
-            return .failure(error)
-        }
-
-        guard doesInputCountMatchMatrixQubitCount(inputs, matrix: simulatorGateMatrix) else {
-            return .failure(.gateInputCountDoesNotMatchGateMatrixQubitCount)
-        }
-
-        guard qubitCount > 0 else {
-            return .failure(.circuitQubitCountHasToBeBiggerThanZero)
-        }
-
-        guard doesMatrixFitInCircuit(simulatorGateMatrix, qubitCount: qubitCount) else {
-            return .failure(.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas)
-        }
-
-        guard areInputsInBound(inputs, qubitCount: qubitCount) else {
-            return .failure(.gateInputsAreNotInBound)
-        }
-
-        return .success((simulatorGateMatrix, inputs))
-    }
-}
-
-// MARK: - Private body
-
-private extension Gate {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let matrixHadamard = Matrix.makeHadamard()
-        static let matrixNot = Matrix.makeNot()
-    }
-
-    // MARK: - Private methods
-
-    func areInputsUnique(_ inputs: [Int]) -> Bool {
-        return (inputs.count == Set(inputs).count)
-    }
-
-    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: SimulatorGateMatrix) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.count)
-
-        return (inputs.count == matrixQubitCount)
-    }
-
-    func doesMatrixFitInCircuit(_ matrix: SimulatorGateMatrix, qubitCount: Int) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.count)
-
-        return matrixQubitCount <= qubitCount
-    }
-
-    func areInputsInBound(_ inputs: [Int], qubitCount: Int) -> Bool {
-        let validInputs = (0..<qubitCount)
-
-        return inputs.allSatisfy { validInputs.contains($0) }
     }
 
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
@@ -153,6 +81,20 @@ private extension Gate {
 
         return result
     }
+}
+
+// MARK: - Private body
+
+private extension Gate {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let matrixHadamard = Matrix.makeHadamard()
+        static let matrixNot = Matrix.makeNot()
+    }
+
+    // MARK: - Private methods
 
     func makeMatrixResult(matrix: Matrix) -> Result<SimulatorGateMatrix, GateError> {
         guard matrix.rowCount.isPowerOfTwo else {
