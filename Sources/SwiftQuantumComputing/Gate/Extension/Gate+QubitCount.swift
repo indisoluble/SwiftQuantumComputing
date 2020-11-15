@@ -1,9 +1,9 @@
 //
-//  SimulatorRawGate.swift
+//  Gate+QubitCount.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/11/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 08/11/2019.
+//  Copyright © 2019 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,8 +20,16 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+extension Array where Element: SimulatorComponents {
+    func qubitCount() -> Int {
+        let maxInput = reduce(0) { currentMax, gate in
+            guard let otherMax = gate.extractInputs().max() else {
+                return currentMax
+            }
 
-protocol SimulatorRawGate {
-    var gate: Gate { get }
+            return otherMax > currentMax ? otherMax : currentMax
+        }
+
+        return maxInput + 1
+    }
 }

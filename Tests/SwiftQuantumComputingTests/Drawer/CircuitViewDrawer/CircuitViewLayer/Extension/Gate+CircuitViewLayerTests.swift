@@ -1,5 +1,5 @@
 //
-//  Gate+CircuitViewPositionTests.swift
+//  Gate+CircuitViewLayerTests.swift
 //  SwiftQuantumComputingTests
 //
 //  Created by Enrique de la Torre on 16/09/2018.
@@ -25,7 +25,7 @@ import XCTest
 
 // MARK: - Main body
 
-class Gate_CircuitViewPositionTests: XCTestCase {
+class Gate_CircuitViewLayerTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -792,8 +792,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let qubitCount = 10
         let controls = [1, 5, 3]
         let gate = Gate.oracle(truthTable: [],
-                               controls: controls,
-                               gate: .matrix(matrix: matrix, inputs: [7, 8]))
+                                  controls: controls,
+                                  gate: .matrix(matrix: matrix, inputs: [7, 8]))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -819,8 +819,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let qubitCount = 10
         let controls = [4, 8, 6]
         let gate = Gate.oracle(truthTable: [],
-                               controls: controls,
-                               gate: .matrix(matrix: matrix, inputs: [2, 1]))
+                                  controls: controls,
+                                  gate: .matrix(matrix: matrix, inputs: [2, 1]))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -846,8 +846,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let qubitCount = 10
         let controls = [4, 6, 5]
         let gate = Gate.oracle(truthTable: [],
-                               controls: controls,
-                               gate: .matrix(matrix: matrix, inputs: [2, 8]))
+                                  controls: controls,
+                                  gate: .matrix(matrix: matrix, inputs: [2, 8]))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -873,8 +873,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let qubitCount = 10
         let controls = [4, 6, 5]
         let gate = Gate.oracle(truthTable: [],
-                               controls: controls,
-                               gate: .matrix(matrix: matrix, inputs: [3, 7]))
+                                  controls: controls,
+                                  gate: .matrix(matrix: matrix, inputs: [3, 7]))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -900,8 +900,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let qubitCount = 12
         let controls = [4, 6, 10]
         let gate = Gate.oracle(truthTable: [],
-                               controls: controls,
-                               gate: .matrix(matrix: matrix, inputs: [3, 7, 5]))
+                                  controls: controls,
+                                  gate: .matrix(matrix: matrix, inputs: [3, 7, 5]))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -929,8 +929,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let qubitCount = 11
         let controls = [4, 6, 8]
         let gate = Gate.oracle(truthTable: [],
-                               controls: controls,
-                               gate: .matrix(matrix: matrix, inputs: [3, 7, 5]))
+                                  controls: controls,
+                                  gate: .matrix(matrix: matrix, inputs: [3, 7, 5]))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -957,8 +957,8 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let qubitCount = 10
         let controls = [4, 6]
         let gate = Gate.oracle(truthTable: [],
-                               controls: controls,
-                               gate: .matrix(matrix: matrix, inputs: [3, 7]))
+                                  controls: controls,
+                                  gate: .matrix(matrix: matrix, inputs: [3, 7]))
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
@@ -1035,7 +1035,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         // Given
         let qubitCount = 3
         let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: [0, 2]),
-                                   controls: [qubitCount])
+                                      controls: [qubitCount])
 
         // Then
         var error: DrawCircuitError?
@@ -1519,7 +1519,7 @@ class Gate_CircuitViewPositionTests: XCTestCase {
         let qubitCount = 21
         let inputs = [19, 18, 17, 11, 10, 9, 7, 6, 5, 3, 2, 1]
         let gate = Gate.controlled(gate: .matrix(matrix: matrix, inputs: inputs),
-                                   controls: [15, 14, 13])
+                                      controls: [15, 14, 13])
 
         // When
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()

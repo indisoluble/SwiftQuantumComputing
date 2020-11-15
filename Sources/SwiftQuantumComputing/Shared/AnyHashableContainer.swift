@@ -22,18 +22,18 @@ import Foundation
 
 // MARK: - Protocol definition
 
-public protocol AnyHashableContainer {
+protocol AnyHashableContainer {
     var anyHash: AnyHashable { get }
 }
 
 // MARK: - Hashable default implementations
 
 extension Hashable where Self: AnyHashableContainer {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
+    static func == (lhs: Self, rhs: Self) -> Bool {
         return lhs.anyHash == rhs.anyHash
     }
 
-    public func hash(into hasher: inout Hasher) {
+    func hash(into hasher: inout Hasher) {
         anyHash.hash(into: &hasher)
     }
 }

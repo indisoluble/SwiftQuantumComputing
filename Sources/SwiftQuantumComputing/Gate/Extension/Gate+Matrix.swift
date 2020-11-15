@@ -1,5 +1,5 @@
 //
-//  Gate.swift
+//  Gate+Matrix.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/11/2020.
@@ -22,33 +22,11 @@ import Foundation
 
 // MARK: - Main body
 
-public struct Gate {
+extension Gate {
 
-    // MARK: - Internal properties
+    // MARK: - Public class methods
 
-    let gate: SimulatorComponents
-
-    // MARK: - Private properties
-
-    private let anyHash: AnyHashable
-
-    // MARK: - Internal init methods
-
-    init<T: SimulatorComponents & Hashable>(gate: T) {
-        self.gate = gate
-
-        anyHash = AnyHashable(gate)
-    }
-}
-
-// MARK: - Hashable methods
-
-extension Gate: Hashable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.anyHash == rhs.anyHash
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        anyHash.hash(into: &hasher)
+    public static func matrix(matrix: Matrix, inputs: [Int]) -> Gate {
+        return Gate(gate: FixedMatrixGate(matrix: matrix, inputs: inputs))
     }
 }

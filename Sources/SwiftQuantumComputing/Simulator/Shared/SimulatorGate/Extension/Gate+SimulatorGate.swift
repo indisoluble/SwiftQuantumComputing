@@ -1,5 +1,5 @@
 //
-//  Gate.swift
+//  Gate+SimulatorGate.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/11/2020.
@@ -20,35 +20,26 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - SimulatorGate methods
 
-public struct Gate {
+extension Gate: SimulatorGate {}
 
-    // MARK: - Internal properties
+// MARK: - SimulatorRawGate methods
 
-    let gate: SimulatorComponents
-
-    // MARK: - Private properties
-
-    private let anyHash: AnyHashable
-
-    // MARK: - Internal init methods
-
-    init<T: SimulatorComponents & Hashable>(gate: T) {
-        self.gate = gate
-
-        anyHash = AnyHashable(gate)
+extension Gate: SimulatorRawGate {
+    var rawGate: Gate {
+        return self
     }
 }
 
-// MARK: - Hashable methods
+// MARK: - SimulatorComponents methods
 
-extension Gate: Hashable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.anyHash == rhs.anyHash
+extension Gate: SimulatorComponents {
+    func extractInputs() -> [Int] {
+        return gate.extractInputs()
     }
 
-    public func hash(into hasher: inout Hasher) {
-        anyHash.hash(into: &hasher)
+    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
+        return gate.extractMatrix()
     }
 }

@@ -61,9 +61,8 @@ class MatrixGateTests: XCTestCase {
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.matrix(let matrixMatrix, let matrixInputs)):
-            XCTAssertEqual(matrixMatrix, matrix)
-            XCTAssertEqual(matrixInputs, Array(inputs[0..<2]))
+        case .success(let gate):
+            XCTAssertEqual(gate, .matrix(matrix: matrix, inputs: Array(inputs[0..<2])))
         default:
             XCTAssert(false)
         }

@@ -26,6 +26,12 @@ extension Gate {
 
     // MARK: - Public class methods
 
+    public static func oracle(truthTable: [String], controls: [Int], gate: Gate) -> Gate {
+        return Gate(gate: FixedOracleGate(truthTable: truthTable,
+                                          controls: controls,
+                                          gate: gate))
+    }
+
     /**
      Produces a `Gate.oracle(truthTable:controls:gate:)` with a `Gate.not(target:)` in target.
 

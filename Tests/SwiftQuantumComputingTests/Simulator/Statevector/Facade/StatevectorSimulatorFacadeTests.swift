@@ -80,7 +80,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
             error = e
         }
         XCTAssertEqual(error,
-                       .gateThrowedError(gate: firstGate.gate,
+                       .gateThrowedError(gate: firstGate.rawGate,
                                          error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
@@ -158,9 +158,9 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
                                                    statevectorFactory: statevectorFactory)
 
-        firstGate.gateResult = .hadamard(target: 0)
-        secondGate.gateResult = .phaseShift(radians: 0, target: 0)
-        thirdGate.gateResult = .not(target: 0)
+        firstGate.rawGateResult = .hadamard(target: 0)
+        secondGate.rawGateResult = .phaseShift(radians: 0, target: 0)
+        thirdGate.rawGateResult = .not(target: 0)
 
         registerFactory.makeRegisterStateResult = register
         register.simulatorApplyingResult = firstRegister
@@ -173,7 +173,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
             error = e
         }
         XCTAssertEqual(error,
-                       .gateThrowedError(gate: thirdGate.gate,
+                       .gateThrowedError(gate: thirdGate.rawGate,
                                          error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)

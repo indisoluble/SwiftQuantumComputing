@@ -1,8 +1,8 @@
 //
-//  Gate.swift
+//  SimulatorRawGate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/11/2020.
+//  Created by Enrique de la Torre on 14/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,35 +20,8 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-public struct Gate {
-
-    // MARK: - Internal properties
-
-    let gate: SimulatorComponents
-
-    // MARK: - Private properties
-
-    private let anyHash: AnyHashable
-
-    // MARK: - Internal init methods
-
-    init<T: SimulatorComponents & Hashable>(gate: T) {
-        self.gate = gate
-
-        anyHash = AnyHashable(gate)
-    }
-}
-
-// MARK: - Hashable methods
-
-extension Gate: Hashable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.anyHash == rhs.anyHash
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        anyHash.hash(into: &hasher)
-    }
+protocol SimulatorRawGate {
+    var rawGate: Gate { get }
 }
