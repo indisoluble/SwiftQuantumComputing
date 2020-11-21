@@ -20,6 +20,10 @@
 
 import Foundation
 
+// MARK: - GateCircuitView methods
+
+extension FixedRotationGate: GateCircuitView {}
+
 // MARK: - GateComponentsCircuitView methods
 
 extension FixedRotationGate: GateComponentsCircuitView {}

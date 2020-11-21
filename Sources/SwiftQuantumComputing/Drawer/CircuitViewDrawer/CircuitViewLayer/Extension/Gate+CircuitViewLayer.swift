@@ -24,7 +24,7 @@ import Foundation
 
 extension Gate: CircuitViewLayer {
     func makeLayer(qubitCount: Int) -> Result<[AnyCircuitViewPosition], DrawCircuitError> {
-        let (controls, oracleControls, extractedGate) = extractComponents()
+        let (controls, extractedGate) = extractComponents()
 
         let inputs = extractedGate.inputs
         guard inputs.count > 0 else {
@@ -35,7 +35,7 @@ extension Gate: CircuitViewLayer {
             return .failure(.gateWithRepeatedInputs(gate: self))
         }
 
-        let allControls = controls + oracleControls
+        let allControls = controls.controlled + controls.oracle
         guard allControls.count == Set(allControls).count else {
             return .failure(.gateWithRepeatedControls(gate: self))
         }
@@ -65,7 +65,7 @@ extension Gate: CircuitViewLayer {
                     index == minUsedQubit ? .up : (index == maxUsedQubit ? .down : .both)
                 )
 
-                return controls.contains(index) ?
+                return controls.controlled.contains(index) ?
                     ControlCircuitViewPosition(connected: connected).any() :
                     OracleCircuitViewPosition(connected: connected).any()
             }
@@ -74,63 +74,9 @@ extension Gate: CircuitViewLayer {
                 return CrossedLinesCircuitViewPosition().any()
             }
 
-            switch extractedGate {
-            case .singleQubit(let gate):
-                let connected: CircuitViewPositionConnectivity.Target = (
-                    minUsedQubit == maxUsedQubit ?
-                        .none :
-                        (minInput == minUsedQubit ? .up : (minInput == maxUsedQubit ? .down : .both))
-                )
-
-                return gate.makePositionView(connected: connected)
-            case .multiQubit:
-                if index == minUsedQubit {
-                    let isConnectedAbove = allControls.contains(index + 1)
-
-                    return isConnectedAbove ?
-                        MatrixCircuitViewPosition(connected: .up, showText: false).any() :
-                        MatrixBottomCircuitViewPosition(connectedDown: false).any()
-                }
-
-                if index == maxUsedQubit {
-                    let isConnectedBelow = allControls.contains(index - 1)
-
-                    return isConnectedBelow ?
-                        MatrixCircuitViewPosition(connected: .down).any() :
-                        MatrixTopCircuitViewPosition(connectedUp: false).any()
-                }
-
-                let isConnectedAbove = (index == maxInput) || allControls.contains(index + 1)
-                let isConnectedBelow = (index == minInput) || allControls.contains(index - 1)
-
-                if inputs.contains(index) {
-                    if isConnectedAbove && isConnectedBelow {
-                        return MatrixCircuitViewPosition(connected: .both,
-                                                         showText: index == maxInput).any()
-                    }
-
-                    if isConnectedAbove && !isConnectedBelow {
-                        return MatrixTopCircuitViewPosition(connectedUp: true,
-                                                            showText: index == maxInput).any()
-                    }
-
-                    if !isConnectedAbove && isConnectedBelow {
-                        return MatrixBottomCircuitViewPosition(connectedDown: true).any()
-                    }
-
-                    return MatrixMiddleCircuitViewPosition().any()
-                }
-
-                if isConnectedAbove && isConnectedBelow {
-                    return MatrixGapCircuitViewPosition(connected: .both).any()
-                } else if isConnectedAbove && !isConnectedBelow {
-                    return MatrixGapCircuitViewPosition(connected: .up).any()
-                } else if !isConnectedAbove && isConnectedBelow {
-                    return MatrixGapCircuitViewPosition(connected: .down).any()
-                }
-
-                return MatrixGapCircuitViewPosition(connected: .none).any()
-            }
+            return extractedGate.factory.makePositionView(index: index,
+                                                          inputs: inputs,
+                                                          controls: allControls)
         }
 
         return .success(layer)

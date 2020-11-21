@@ -20,6 +20,10 @@
 
 import Foundation
 
+// MARK: - GateCircuitView methods
+
+extension FixedNotGate: GateCircuitView {}
+
 // MARK: - GateComponentsCircuitView methods
 
 extension FixedNotGate: GateComponentsCircuitView {}

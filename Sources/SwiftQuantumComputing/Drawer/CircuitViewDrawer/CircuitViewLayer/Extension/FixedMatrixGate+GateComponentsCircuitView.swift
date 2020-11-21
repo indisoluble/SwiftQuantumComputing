@@ -20,15 +20,19 @@
 
 import Foundation
 
+// MARK: - GateCircuitView methods
+
+extension FixedMatrixGate: GateCircuitView {}
+
 // MARK: - GateComponentsCircuitView methods
 
 extension FixedMatrixGate: GateComponentsCircuitView {
     func extractComponents() -> GateComponents {
         if inputs.count == 1 {
-            return ([], [], .singleQubit(gate: self))
+            return (([], []), ([target], self))
         }
 
-        return ([], [], .multiQubit(inputs: inputs))
+        return (([], []), (inputs, MultiQubitGateCircuitView()))
     }
 }
 

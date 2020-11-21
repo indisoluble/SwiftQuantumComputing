@@ -20,34 +20,20 @@
 
 import Foundation
 
-// MARK: - Internal types
-
-enum GateCircuitView {
-    case singleQubit(gate: SingleQubitGateCircuitView)
-    case multiQubit(inputs: [Int])
-
-    var inputs: [Int] {
-        switch self {
-        case .singleQubit(let gate):
-            return [gate.target]
-        case .multiQubit(let inputs):
-            return inputs
-        }
-    }
-}
-
 // MARK: - Protocol definition
 
 protocol GateComponentsCircuitView {
-    typealias GateComponents = (controls: [Int], oracleControls: [Int], gate: GateCircuitView)
+    typealias GateControls = (controlled: [Int], oracle: [Int])
+    typealias GateInputs = (inputs: [Int], factory: GateCircuitView)
+    typealias GateComponents = (controls: GateControls, gate: GateInputs)
 
     func extractComponents() -> GateComponents
 }
 
 // MARK: - GateComponentsCircuitView default implementations
 
-extension GateComponentsCircuitView where Self: SingleQubitGateCircuitView {
+extension GateComponentsCircuitView where Self: SingleQubitGateCircuitView & GateCircuitView {
     func extractComponents() -> GateComponents {
-        return ([], [], .singleQubit(gate: self))
+        return (([], []), ([target], self))
     }
 }

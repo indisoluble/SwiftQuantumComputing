@@ -20,6 +20,10 @@
 
 import Foundation
 
+// MARK: - GateCircuitView methods
+
+extension FixedPhaseShiftGate: GateCircuitView {}
+
 // MARK: - GateComponentsCircuitView methods
 
 extension FixedPhaseShiftGate: GateComponentsCircuitView {}

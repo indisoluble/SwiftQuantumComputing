@@ -26,6 +26,7 @@ extension FixedControlledGate: GateComponentsCircuitView {
     func extractComponents() -> GateComponents {
         let components = (gate as! GateComponentsCircuitView).extractComponents()
 
-        return (controls + components.controls, components.oracleControls, components.gate)
+        return ((controls + components.controls.controlled, components.controls.oracle),
+                components.gate)
     }
 }
