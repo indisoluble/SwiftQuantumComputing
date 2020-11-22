@@ -28,17 +28,17 @@ protocol GateCircuitView {
 
 // MARK: - GateCircuitView default implementations
 
-extension GateCircuitView where Self: SingleQubitGateCircuitView {
+extension GateCircuitView where Self: SimpleGateCircuitView {
     func makePositionView(index: Int, inputs: [Int], controls: [Int]) -> AnyCircuitViewPosition {
         if controls.isEmpty {
             return makePositionView(connected: .none)
         }
 
-        if target < controls.min()! {
+        if index < controls.min()! {
             return makePositionView(connected: .up)
         }
 
-        if target > controls.max()! {
+        if index > controls.max()! {
             return makePositionView(connected: .down)
         }
 

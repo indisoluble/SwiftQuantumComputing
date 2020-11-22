@@ -20,18 +20,22 @@
 
 import Foundation
 
-// MARK: - GateCircuitView methods
-
-extension FixedNotGate: GateCircuitView {}
-
 // MARK: - GateComponentsCircuitView methods
 
 extension FixedNotGate: GateComponentsCircuitView {}
 
 // MARK: - SingleQubitGateCircuitView methods
 
-extension FixedNotGate: SingleQubitGateCircuitView {
+extension FixedNotGate: SingleQubitGateCircuitView {}
+
+// MARK: - SimpleGateCircuitView methods
+
+extension FixedNotGate: SimpleGateCircuitView {
     func makePositionView(connected: CircuitViewPositionConnectivity.Target) -> AnyCircuitViewPosition {
         return NotCircuitViewPosition(connected: connected).any()
     }
 }
+
+// MARK: - GateCircuitView methods
+
+extension FixedNotGate: GateCircuitView {}

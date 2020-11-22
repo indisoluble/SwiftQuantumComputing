@@ -24,6 +24,4 @@ import Foundation
 
 protocol SingleQubitGateCircuitView {
     var target: Int { get }
-
-    func makePositionView(connected: CircuitViewPositionConnectivity.Target) -> AnyCircuitViewPosition
 }

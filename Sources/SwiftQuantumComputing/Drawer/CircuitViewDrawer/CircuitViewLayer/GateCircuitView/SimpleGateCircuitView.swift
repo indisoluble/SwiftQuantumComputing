@@ -1,8 +1,8 @@
 //
-//  FixedHadamardGate+GateComponentsCircuitView.swift
+//  SimpleGateCircuitView.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/11/2020.
+//  Created by Enrique de la Torre on 22/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,22 +20,8 @@
 
 import Foundation
 
-// MARK: - GateComponentsCircuitView methods
+// MARK: - Protocol definition
 
-extension FixedHadamardGate: GateComponentsCircuitView {}
-
-// MARK: - SingleQubitGateCircuitView methods
-
-extension FixedHadamardGate: SingleQubitGateCircuitView {}
-
-// MARK: - SimpleGateCircuitView methods
-
-extension FixedHadamardGate: SimpleGateCircuitView {
-    func makePositionView(connected: CircuitViewPositionConnectivity.Target) -> AnyCircuitViewPosition {
-        return HadamardCircuitViewPosition(connected: connected).any()
-    }
+protocol SimpleGateCircuitView {
+    func makePositionView(connected: CircuitViewPositionConnectivity.Target) -> AnyCircuitViewPosition
 }
-
-// MARK: - GateCircuitView methods
-
-extension FixedHadamardGate: GateCircuitView {}

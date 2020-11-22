@@ -823,6 +823,8 @@
 		FFEB608323F8882E00F4FAA1 /* Matrix+Average.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB608123F8882E00F4FAA1 /* Matrix+Average.swift */; };
 		FFEB608523F89CAE00F4FAA1 /* Matrix+AverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB608423F89CAE00F4FAA1 /* Matrix+AverageTests.swift */; };
 		FFEB608623F89CAE00F4FAA1 /* Matrix+AverageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB608423F89CAE00F4FAA1 /* Matrix+AverageTests.swift */; };
+		FFEB6847256A80A3000EB0B2 /* SimpleGateCircuitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB6846256A80A3000EB0B2 /* SimpleGateCircuitView.swift */; };
+		FFEB6848256A80A3000EB0B2 /* SimpleGateCircuitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEB6846256A80A3000EB0B2 /* SimpleGateCircuitView.swift */; };
 		FFEC383F2545B5840027509D /* SimulatorGateMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEC383E2545B5840027509D /* SimulatorGateMatrix.swift */; };
 		FFEC38402545B5840027509D /* SimulatorGateMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEC383E2545B5840027509D /* SimulatorGateMatrix.swift */; };
 		FFEC38532545C3AC0027509D /* SimulatorGateMatrix+MatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFEC38522545C3AC0027509D /* SimulatorGateMatrix+MatrixTests.swift */; };
@@ -1354,6 +1356,7 @@
 		FFEB607E23F87A7100F4FAA1 /* Matrix+IdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+IdentityTests.swift"; sourceTree = "<group>"; };
 		FFEB608123F8882E00F4FAA1 /* Matrix+Average.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Average.swift"; sourceTree = "<group>"; };
 		FFEB608423F89CAE00F4FAA1 /* Matrix+AverageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+AverageTests.swift"; sourceTree = "<group>"; };
+		FFEB6846256A80A3000EB0B2 /* SimpleGateCircuitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleGateCircuitView.swift; sourceTree = "<group>"; };
 		FFEC383E2545B5840027509D /* SimulatorGateMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorGateMatrix.swift; sourceTree = "<group>"; };
 		FFEC38522545C3AC0027509D /* SimulatorGateMatrix+MatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimulatorGateMatrix+MatrixTests.swift"; sourceTree = "<group>"; };
 		FFED6908212F2DE600D46D68 /* CircuitFacadeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitFacadeTests.swift; sourceTree = "<group>"; };
@@ -2034,6 +2037,7 @@
 				FF84EFC12569464700712E12 /* GateCircuitView */,
 				FF52118B2561598E008C98A5 /* CircuitViewLayer.swift */,
 				FF2518592560714800565DAA /* GateComponentsCircuitView.swift */,
+				FF2517F32560643700565DAA /* SingleQubitGateCircuitView.swift */,
 			);
 			path = CircuitViewLayer;
 			sourceTree = "<group>";
@@ -2356,7 +2360,7 @@
 			children = (
 				FF84EFC22569466200712E12 /* GateCircuitView.swift */,
 				FFE948B825694EEC00BE7D48 /* MultiQubitGateCircuitView.swift */,
-				FF2517F32560643700565DAA /* SingleQubitGateCircuitView.swift */,
+				FFEB6846256A80A3000EB0B2 /* SimpleGateCircuitView.swift */,
 			);
 			path = GateCircuitView;
 			sourceTree = "<group>";
@@ -3399,6 +3403,7 @@
 				FFEC383F2545B5840027509D /* SimulatorGateMatrix.swift in Sources */,
 				FF12A5A92561AC99002E8FCA /* Gate+CircuitViewLayer.swift in Sources */,
 				FF1EE62E24FAAC3F007DC99B /* MatrixGapUpPositionView.swift in Sources */,
+				FFEB6847256A80A3000EB0B2 /* SimpleGateCircuitView.swift in Sources */,
 				FF2517B02560522800565DAA /* FixedHadamardGate+SimulatorGate.swift in Sources */,
 				FF2517B82560524200565DAA /* FixedMatrixGate+SimulatorGate.swift in Sources */,
 				FF9BBE60214EAABD00AD1F78 /* CircleView.swift in Sources */,
@@ -3773,6 +3778,7 @@
 				FF43393523DCCD0800E26FA4 /* String+BitAnd.swift in Sources */,
 				FFF3929D23AFCCB300470C58 /* String+IsBitActivated.swift in Sources */,
 				FF2B45DA255C7E1900C17D87 /* FixedPhaseShiftGate.swift in Sources */,
+				FFEB6848256A80A3000EB0B2 /* SimpleGateCircuitView.swift in Sources */,
 				FF46EDF5216925100044C3CA /* Vector.swift in Sources */,
 				FF3C365525585020007F15C2 /* OracleCircuitViewPosition.swift in Sources */,
 				FF74B1622219B16900561A1F /* MainOracleCircuitFactory.swift in Sources */,

@@ -24,6 +24,22 @@ import Foundation
 
 extension FixedMatrixGate: GateCircuitView {}
 
+// MARK: - SingleQubitGateCircuitView methods
+
+extension FixedMatrixGate: SingleQubitGateCircuitView {
+    var target: Int {
+        return inputs[0]
+    }
+}
+
+// MARK: - SimpleGateCircuitView methods
+
+extension FixedMatrixGate: SimpleGateCircuitView {
+    func makePositionView(connected: CircuitViewPositionConnectivity.Target) -> AnyCircuitViewPosition {
+        return MatrixCircuitViewPosition(connected: connected).any()
+    }
+}
+
 // MARK: - GateComponentsCircuitView methods
 
 extension FixedMatrixGate: GateComponentsCircuitView {
@@ -33,17 +49,5 @@ extension FixedMatrixGate: GateComponentsCircuitView {
         }
 
         return (([], []), (inputs, MultiQubitGateCircuitView()))
-    }
-}
-
-// MARK: - SingleQubitGateCircuitView methods
-
-extension FixedMatrixGate: SingleQubitGateCircuitView {
-    var target: Int {
-        return inputs[0]
-    }
-
-    func makePositionView(connected: CircuitViewPositionConnectivity.Target) -> AnyCircuitViewPosition {
-        return MatrixCircuitViewPosition(connected: connected).any()
     }
 }

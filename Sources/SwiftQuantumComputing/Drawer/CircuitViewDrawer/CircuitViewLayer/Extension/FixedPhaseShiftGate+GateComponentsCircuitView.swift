@@ -20,18 +20,22 @@
 
 import Foundation
 
-// MARK: - GateCircuitView methods
-
-extension FixedPhaseShiftGate: GateCircuitView {}
-
 // MARK: - GateComponentsCircuitView methods
 
 extension FixedPhaseShiftGate: GateComponentsCircuitView {}
 
 // MARK: - SingleQubitGateCircuitView methods
 
-extension FixedPhaseShiftGate: SingleQubitGateCircuitView {
+extension FixedPhaseShiftGate: SingleQubitGateCircuitView {}
+
+// MARK: - SimpleGateCircuitView methods
+
+extension FixedPhaseShiftGate: SimpleGateCircuitView {
     func makePositionView(connected: CircuitViewPositionConnectivity.Target) -> AnyCircuitViewPosition {
         return PhaseShiftCircuitViewPosition(radians: radians, connected: connected).any()
     }
 }
+
+// MARK: - GateCircuitView methods
+
+extension FixedPhaseShiftGate: GateCircuitView {}
