@@ -27,7 +27,7 @@ extension FixedHadamardGate: SimulatorGate {}
 // MARK: - SimulatorComponents methods
 
 extension FixedHadamardGate: SimulatorComponents {
-    func extractInputs() -> [Int] {
+    func extractRawInputs() -> [Int] {
         return [target]
     }
 

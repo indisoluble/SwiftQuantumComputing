@@ -27,8 +27,8 @@ extension FixedOracleGate: SimulatorGate {}
 // MARK: - SimulatorComponents methods
 
 extension FixedOracleGate: SimulatorComponents {
-    func extractInputs() -> [Int] {
-        return controls + gate.extractInputs()
+    func extractRawInputs() -> [Int] {
+        return controls + gate.extractRawInputs()
     }
 
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {

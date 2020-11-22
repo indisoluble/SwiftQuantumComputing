@@ -27,7 +27,7 @@ extension FixedPhaseShiftGate: SimulatorGate {}
 // MARK: - SimulatorComponents methods
 
 extension FixedPhaseShiftGate: SimulatorComponents {
-    func extractInputs() -> [Int] {
+    func extractRawInputs() -> [Int] {
         return [target]
     }
 

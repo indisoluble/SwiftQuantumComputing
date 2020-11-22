@@ -32,7 +32,7 @@ protocol SimulatorGate {
 
 extension SimulatorGate where Self: SimulatorComponents {
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
-        let inputs = extractInputs()
+        let inputs = extractRawInputs()
         guard areInputsUnique(inputs) else {
             return .failure(.gateInputsAreNotUnique)
         }

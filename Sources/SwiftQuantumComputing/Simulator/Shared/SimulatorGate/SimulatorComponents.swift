@@ -23,6 +23,6 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorComponents {
-    func extractInputs() -> [Int]
+    func extractRawInputs() -> [Int]
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError>
 }

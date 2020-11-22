@@ -27,7 +27,7 @@ extension FixedNotGate: SimulatorGate {}
 // MARK: - SimulatorComponents methods
 
 extension FixedNotGate: SimulatorComponents {
-    func extractInputs() -> [Int] {
+    func extractRawInputs() -> [Int] {
         return [target]
     }
 

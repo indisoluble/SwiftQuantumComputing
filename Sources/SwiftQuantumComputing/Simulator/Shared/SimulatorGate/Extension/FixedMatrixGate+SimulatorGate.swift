@@ -27,7 +27,7 @@ extension FixedMatrixGate: SimulatorGate {}
 // MARK: - SimulatorComponents methods
 
 extension FixedMatrixGate: SimulatorComponents {
-    func extractInputs() -> [Int] {
+    func extractRawInputs() -> [Int] {
         return inputs
     }
 

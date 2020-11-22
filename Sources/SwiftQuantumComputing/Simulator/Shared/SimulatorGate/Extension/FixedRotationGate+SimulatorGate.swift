@@ -27,7 +27,7 @@ extension FixedRotationGate: SimulatorGate {}
 // MARK: - SimulatorComponents methods
 
 extension FixedRotationGate: SimulatorComponents {
-    func extractInputs() -> [Int] {
+    func extractRawInputs() -> [Int] {
         return [target]
     }
 
