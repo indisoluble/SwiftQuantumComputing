@@ -36,7 +36,7 @@ extension CircuitViewDrawer: Drawable {
 
         var column = 0
 
-        let layer = (0..<qubitCount).map { QubitCircuitViewPosition(index: $0) }
+        let layer = (0..<qubitCount).map { QubitPositionViewFactory(index: $0) }
         addLayer(layer, to: container, at: column)
 
         for gate in circuit {
@@ -74,7 +74,7 @@ private extension CircuitViewDrawer {
         return SQCView(frame: frame)
     }
 
-    func addLayer(_ layer: [CircuitViewPosition], to container: SQCView, at column: Int) {
+    func addLayer(_ layer: [PositionViewFactory], to container: SQCView, at column: Int) {
         let positionsCount = layer.count
 
         for pos in 0..<positionsCount {

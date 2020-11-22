@@ -23,10 +23,9 @@ import Foundation
 // MARK: - CircuitViewLayer methods
 
 extension Gate: CircuitViewLayer {
-    func makeLayer(qubitCount: Int) -> Result<[AnyCircuitViewPosition], DrawCircuitError> {
-        let (controls, extractedGate) = extractComponents()
+    func makeLayer(qubitCount: Int) -> Result<[AnyPositionViewFactory], DrawCircuitError> {
+        let ((controls, oracleControls), (inputs, inputFactory)) = extractComponents()
 
-        let inputs = extractedGate.inputs
         guard inputs.count > 0 else {
             return .failure(.gateWithEmptyInputList(gate: self))
         }
@@ -35,7 +34,7 @@ extension Gate: CircuitViewLayer {
             return .failure(.gateWithRepeatedInputs(gate: self))
         }
 
-        let allControls = controls.controlled + controls.oracle
+        let allControls = controls + oracleControls
         guard allControls.count == Set(allControls).count else {
             return .failure(.gateWithRepeatedControls(gate: self))
         }
@@ -55,38 +54,30 @@ extension Gate: CircuitViewLayer {
         let minInput = inputs.min()!
         let maxInput = inputs.max()!
 
-        let layer = qubitRange.map { index -> AnyCircuitViewPosition in
+        let layer = qubitRange.map { index -> AnyPositionViewFactory in
             if index < minUsedQubit || index > maxUsedQubit {
-                return LineHorizontalCircuitViewPosition().any()
+                return LineHorizontalPositionViewFactory().any()
             }
 
             if allControls.contains(index) {
-                let connected: CircuitViewPositionConnectivity.Control = (
+                let connected: PositionViewFactoryConnectivity.Control = (
                     index == minUsedQubit ? .up : (index == maxUsedQubit ? .down : .both)
                 )
 
-                return controls.controlled.contains(index) ?
-                    ControlCircuitViewPosition(connected: connected).any() :
-                    OracleCircuitViewPosition(connected: connected).any()
+                return controls.contains(index) ?
+                    ControlPositionViewFactory(connected: connected).any() :
+                    OraclePositionViewFactory(connected: connected).any()
             }
 
             if index < minInput || index > maxInput {
-                return CrossedLinesCircuitViewPosition().any()
+                return CrossedLinesPositionViewFactory().any()
             }
 
-            return extractedGate.factory.makePositionView(index: index,
-                                                          inputs: inputs,
-                                                          controls: allControls)
+            return inputFactory.makePositionViewFactory(index: index,
+                                                        inputs: inputs,
+                                                        controls: allControls)
         }
 
         return .success(layer)
-    }
-}
-
-// MARK: - GateComponentsCircuitView methods
-
-extension Gate: GateComponentsCircuitView {
-    func extractComponents() -> GateComponents {
-        return (gate as! GateComponentsCircuitView).extractComponents()
     }
 }

@@ -1,8 +1,8 @@
 //
-//  CircuitViewLayer.swift
+//  Gate+CircuitViewLayerComponents.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/11/2020.
+//  Created by Enrique de la Torre on 22/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,10 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - CircuitViewLayerComponents methods
 
-protocol CircuitViewLayer {
-    func makeLayer(qubitCount: Int) -> Result<[AnyPositionViewFactory], DrawCircuitError>
+extension Gate: CircuitViewLayerComponents {
+    func extractComponents() -> LayerComponents {
+        return (gate as! CircuitViewLayerComponents).extractComponents()
+    }
 }

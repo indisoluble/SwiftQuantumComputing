@@ -1,8 +1,8 @@
 //
-//  CircuitViewLayer.swift
+//  CircuitViewLayerComponents.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/11/2020.
+//  Created by Enrique de la Torre on 14/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,18 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol CircuitViewLayer {
-    func makeLayer(qubitCount: Int) -> Result<[AnyPositionViewFactory], DrawCircuitError>
+protocol CircuitViewLayerComponents {
+    typealias LayerControls = (controlled: [Int], oracle: [Int])
+    typealias LayerInputs = (inputs: [Int], factory: InputPositionViewFactory)
+    typealias LayerComponents = (controls: LayerControls, inputs: LayerInputs)
+
+    func extractComponents() -> LayerComponents
+}
+
+// MARK: - CircuitViewLayerComponents default implementations
+
+extension CircuitViewLayerComponents where Self: SingleQubitGateCircuitView & InputPositionViewFactory {
+    func extractComponents() -> LayerComponents {
+        return (([], []), ([target], self))
+    }
 }

@@ -69,11 +69,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            ControlCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            ControlPositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -88,11 +88,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            ControlCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            ControlPositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -120,9 +120,9 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            HadamardCircuitViewPosition(connected: .none).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            HadamardPositionViewFactory(connected: .none).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -136,7 +136,7 @@ class Gate_CircuitViewLayerTests: XCTestCase {
         let positions = try? gate.makeLayer(qubitCount: qubitCount).get()
 
         // Then
-        let expectedPositions = [HadamardCircuitViewPosition(connected: .none).any()]
+        let expectedPositions = [HadamardPositionViewFactory(connected: .none).any()]
         XCTAssertEqual(positions, expectedPositions)
     }
 
@@ -163,9 +163,9 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .none).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .none).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -206,9 +206,9 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .none, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .none, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -224,13 +224,13 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -260,9 +260,9 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            PhaseShiftCircuitViewPosition(radians: radians, connected: .none).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            PhaseShiftPositionViewFactory(radians: radians, connected: .none).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -294,9 +294,9 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            RotationCircuitViewPosition(axis: axis, radians: radians, connected: .none).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            RotationPositionViewFactory(axis: axis, radians: radians, connected: .none).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -337,9 +337,9 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            NotCircuitViewPosition(connected: .none).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            NotPositionViewFactory(connected: .none).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -354,11 +354,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -373,11 +373,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .up).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .up).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -392,11 +392,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -411,11 +411,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            NotCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            NotPositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -431,15 +431,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            NotPositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -455,15 +455,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            NotPositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -479,15 +479,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -503,18 +503,18 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -530,16 +530,16 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -555,18 +555,18 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -582,21 +582,21 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -612,24 +612,24 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -645,25 +645,25 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -679,26 +679,26 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -714,27 +714,27 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -750,15 +750,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -774,15 +774,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            NotCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            NotPositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -800,16 +800,16 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: true).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: true).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -827,16 +827,16 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixTopCircuitViewPosition(connectedUp: true, showText: true).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixTopPositionViewFactory(connectedUp: true, showText: true).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -854,16 +854,16 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -881,16 +881,16 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .up, showText: false).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            MatrixCircuitViewPosition(connected: .down, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .up, showText: false).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            MatrixPositionViewFactory(connected: .down, showText: true).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -908,18 +908,18 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .up, showText: false).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            MatrixCircuitViewPosition(connected: .both, showText: false).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            MatrixCircuitViewPosition(connected: .both, showText: true).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            CrossedLinesCircuitViewPosition().any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .up, showText: false).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            MatrixPositionViewFactory(connected: .both, showText: false).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            MatrixPositionViewFactory(connected: .both, showText: true).any(),
+            CrossedLinesPositionViewFactory().any(),
+            CrossedLinesPositionViewFactory().any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -937,17 +937,17 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .up, showText: false).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            MatrixCircuitViewPosition(connected: .both, showText: false).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            MatrixCircuitViewPosition(connected: .both, showText: true).any(),
-            OracleCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .up, showText: false).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            MatrixPositionViewFactory(connected: .both, showText: false).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            MatrixPositionViewFactory(connected: .both, showText: true).any(),
+            OraclePositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -965,16 +965,16 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .up, showText: false).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .both).any(),
-            OracleCircuitViewPosition(connected: .both).any(),
-            MatrixCircuitViewPosition(connected: .down, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .up, showText: false).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .both).any(),
+            OraclePositionViewFactory(connected: .both).any(),
+            MatrixPositionViewFactory(connected: .down, showText: true).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1056,11 +1056,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            ControlCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .down, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            ControlPositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .down, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1076,11 +1076,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            ControlCircuitViewPosition(connected: .up).any(),
-            MatrixCircuitViewPosition(connected: .down, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            ControlPositionViewFactory(connected: .up).any(),
+            MatrixPositionViewFactory(connected: .down, showText: true).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1095,11 +1095,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .up, showText: true).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            ControlCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .up, showText: true).any(),
+            CrossedLinesPositionViewFactory().any(),
+            ControlPositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1114,11 +1114,11 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .up, showText: true).any(),
-            ControlCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .up, showText: true).any(),
+            ControlPositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1134,15 +1134,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .up, showText: false).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixCircuitViewPosition(connected: .down, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .up, showText: false).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixPositionViewFactory(connected: .down, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1158,15 +1158,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixTopCircuitViewPosition(connectedUp: true, showText: false).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixCircuitViewPosition(connected: .down, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixTopPositionViewFactory(connectedUp: true, showText: false).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixPositionViewFactory(connected: .down, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1182,15 +1182,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixCircuitViewPosition(connected: .down, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixPositionViewFactory(connected: .down, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1206,15 +1206,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .up, showText: false).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixBottomCircuitViewPosition(connectedDown: true).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .up, showText: false).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixBottomPositionViewFactory(connectedDown: true).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1230,15 +1230,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixCircuitViewPosition(connected: .up, showText: false).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            LineHorizontalPositionViewFactory().any(),
+            MatrixPositionViewFactory(connected: .up, showText: false).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1254,15 +1254,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1278,18 +1278,18 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1305,16 +1305,16 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1330,18 +1330,18 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1357,21 +1357,21 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1387,24 +1387,24 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1420,25 +1420,25 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1454,26 +1454,26 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1489,27 +1489,27 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1526,27 +1526,27 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            MatrixGapCircuitViewPosition(connected: .down).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            MatrixGapPositionViewFactory(connected: .down).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1562,15 +1562,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixTopCircuitViewPosition(connectedUp: true, showText: true).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            ControlCircuitViewPosition(connected: .down).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixTopPositionViewFactory(connectedUp: true, showText: true).any(),
+            CrossedLinesPositionViewFactory().any(),
+            ControlPositionViewFactory(connected: .down).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1586,15 +1586,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: false).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixTopCircuitViewPosition(connectedUp: true, showText: true).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            ControlCircuitViewPosition(connected: .down).any()
+            LineHorizontalPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: false).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixTopPositionViewFactory(connectedUp: true, showText: true).any(),
+            CrossedLinesPositionViewFactory().any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            ControlPositionViewFactory(connected: .down).any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1610,15 +1610,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            LineHorizontalCircuitViewPosition().any(),
-            ControlCircuitViewPosition(connected: .up).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: true).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            LineHorizontalPositionViewFactory().any(),
+            ControlPositionViewFactory(connected: .up).any(),
+            CrossedLinesPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: true).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }
@@ -1634,15 +1634,15 @@ class Gate_CircuitViewLayerTests: XCTestCase {
 
         // Then
         let expectedPositions = [
-            ControlCircuitViewPosition(connected: .up).any(),
-            ControlCircuitViewPosition(connected: .both).any(),
-            CrossedLinesCircuitViewPosition().any(),
-            MatrixBottomCircuitViewPosition(connectedDown: true).any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixMiddleCircuitViewPosition().any(),
-            MatrixGapCircuitViewPosition(connected: .none).any(),
-            MatrixTopCircuitViewPosition(connectedUp: false, showText: true).any(),
-            LineHorizontalCircuitViewPosition().any()
+            ControlPositionViewFactory(connected: .up).any(),
+            ControlPositionViewFactory(connected: .both).any(),
+            CrossedLinesPositionViewFactory().any(),
+            MatrixBottomPositionViewFactory(connectedDown: true).any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixMiddlePositionViewFactory().any(),
+            MatrixGapPositionViewFactory(connected: .none).any(),
+            MatrixTopPositionViewFactory(connectedUp: false, showText: true).any(),
+            LineHorizontalPositionViewFactory().any()
         ]
         XCTAssertEqual(positions, expectedPositions)
     }

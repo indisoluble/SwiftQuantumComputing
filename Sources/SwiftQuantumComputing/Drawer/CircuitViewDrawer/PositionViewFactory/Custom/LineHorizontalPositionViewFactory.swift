@@ -1,8 +1,8 @@
 //
-//  CircuitViewLayer.swift
+//  LineHorizontalPositionViewFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/11/2020.
+//  Created by Enrique de la Torre on 08/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,18 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol CircuitViewLayer {
-    func makeLayer(qubitCount: Int) -> Result<[AnyPositionViewFactory], DrawCircuitError>
+struct LineHorizontalPositionViewFactory {}
+
+// MARK: - Hashable methods
+
+extension LineHorizontalPositionViewFactory: Hashable {}
+
+// MARK: - PositionViewFactory methods
+
+extension LineHorizontalPositionViewFactory: PositionViewFactory {
+    func makePositionView(frame: CGRect) -> PositionView {
+        return LineHorizontalPositionView(frame: frame)
+    }
 }

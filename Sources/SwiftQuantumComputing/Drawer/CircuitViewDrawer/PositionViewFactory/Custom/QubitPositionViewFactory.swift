@@ -1,8 +1,8 @@
 //
-//  CircuitViewLayer.swift
+//  QubitPositionViewFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/11/2020.
+//  Created by Enrique de la Torre on 08/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,32 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol CircuitViewLayer {
-    func makeLayer(qubitCount: Int) -> Result<[AnyPositionViewFactory], DrawCircuitError>
+struct QubitPositionViewFactory {
+
+    // MARK: - Private properties
+
+    private let index: Int
+
+    // MARK: - Internal init methods
+
+    init(index: Int) {
+        self.index = index
+    }
+}
+
+// MARK: - Hashable methods
+
+extension QubitPositionViewFactory: Hashable {}
+
+// MARK: - PositionViewFactory methods
+
+extension QubitPositionViewFactory: PositionViewFactory {
+    func makePositionView(frame: CGRect) -> PositionView {
+        var view = QubitPositionView(frame: frame)
+        view.text = "q\(index):"
+
+        return view
+    }
 }

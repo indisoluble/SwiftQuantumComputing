@@ -30,7 +30,7 @@ enum PositionViewConnectivity {
 
     // MARK: - Internal init methods
 
-    init(_ connectivity: CircuitViewPositionConnectivity.Control) {
+    init(_ connectivity: PositionViewFactoryConnectivity.Control) {
         switch connectivity {
         case .up:
             self = .up
@@ -41,7 +41,7 @@ enum PositionViewConnectivity {
         }
     }
 
-    init(_ connectivity: CircuitViewPositionConnectivity.Target) {
+    init(_ connectivity: PositionViewFactoryConnectivity.Target) {
         switch connectivity {
         case .none:
             self = .none

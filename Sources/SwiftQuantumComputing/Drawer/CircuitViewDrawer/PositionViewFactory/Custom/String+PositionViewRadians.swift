@@ -1,8 +1,8 @@
 //
-//  CircuitViewLayer.swift
+//  String+PositionViewRadians.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/11/2020.
+//  Created by Enrique de la Torre on 08/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,14 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol CircuitViewLayer {
-    func makeLayer(qubitCount: Int) -> Result<[AnyPositionViewFactory], DrawCircuitError>
+extension String {
+    init(positionViewRadians radians: Double) {
+        if radians >= 1.0 {
+            self.init(format: "%d.", Int(radians))
+        } else {
+            self.init(format: ".%d", Int(100.0 * radians))
+        }
+    }
 }
