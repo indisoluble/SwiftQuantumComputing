@@ -1,8 +1,8 @@
 //
-//  FixedHadamardGate.swift
+//  SimplifiedGateConvertible.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 11/11/2020.
+//  Created by Enrique de la Torre on 23/11/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +20,24 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Public types
 
-struct FixedHadamardGate  {
-
-    // MARK: - Internal properties
-
-    let target: Int
+public indirect enum SimplifiedGate {
+    case not(target: Int)
+    case hadamard(target: Int)
+    case phaseShift(radians: Double, target: Int)
+    case rotation(axis: Gate.Axis, radians: Double, target: Int)
+    case matrix(matrix: Matrix, inputs: [Int])
+    case oracle(truthTable: [String], controls: [Int], gate: SimplifiedGate)
+    case controlled(gate: SimplifiedGate, controls: [Int])
 }
 
 // MARK: - Hashable methods
 
-extension FixedHadamardGate: Hashable {}
+extension SimplifiedGate: Hashable {}
 
-// MARK: - SimplifiedGateConvertible methods
+// MARK: - Protocol definition
 
-extension FixedHadamardGate: SimplifiedGateConvertible {
-    var simplified: SimplifiedGate {
-        return .hadamard(target: target)
-    }
+public protocol SimplifiedGateConvertible {
+    var simplified: SimplifiedGate { get }
 }

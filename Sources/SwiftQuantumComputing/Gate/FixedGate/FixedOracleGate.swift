@@ -28,7 +28,7 @@ struct FixedOracleGate {
 
     let truthTable: [String]
     let controls: [Int]
-    let gate: SimulatorComponents
+    let gate: SimulatorComponents & SimplifiedGateConvertible
 
     // MARK: - AnyHashableContainer properties
 
@@ -36,7 +36,9 @@ struct FixedOracleGate {
 
     // MARK: - Internal init methods
 
-    init<T: SimulatorComponents & Hashable>(truthTable: [String], controls: [Int], gate: T) {
+    init<T: SimulatorComponents & SimplifiedGateConvertible & Hashable>(truthTable: [String],
+                                                                        controls: [Int],
+                                                                        gate: T) {
         self.truthTable = truthTable
         self.controls = controls
         self.gate = gate
@@ -52,3 +54,11 @@ extension FixedOracleGate: Hashable {}
 // MARK: - AnyHashableContainer methods
 
 extension FixedOracleGate: AnyHashableContainer {}
+
+// MARK: - SimplifiedGateConvertible methods
+
+extension FixedOracleGate: SimplifiedGateConvertible {
+    var simplified: SimplifiedGate {
+        return .oracle(truthTable: truthTable, controls: controls, gate: gate.simplified)
+    }
+}

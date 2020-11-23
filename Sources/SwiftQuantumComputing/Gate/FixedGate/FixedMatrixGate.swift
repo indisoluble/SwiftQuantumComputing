@@ -33,3 +33,11 @@ struct FixedMatrixGate  {
 // MARK: - Hashable methods
 
 extension FixedMatrixGate: Hashable {}
+
+// MARK: - SimplifiedGateConvertible methods
+
+extension FixedMatrixGate: SimplifiedGateConvertible {
+    var simplified: SimplifiedGate {
+        return .matrix(matrix: matrix, inputs: inputs)
+    }
+}

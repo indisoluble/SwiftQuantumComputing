@@ -26,7 +26,7 @@ public struct Gate {
 
     // MARK: - Internal properties
 
-    let gate: SimulatorComponents
+    let gate: SimulatorComponents & SimplifiedGateConvertible
 
     // MARK: - Private properties
 
@@ -34,7 +34,7 @@ public struct Gate {
 
     // MARK: - Internal init methods
 
-    init<T: SimulatorComponents & Hashable>(gate: T) {
+    init<T: SimulatorComponents & SimplifiedGateConvertible & Hashable>(gate: T) {
         self.gate = gate
 
         anyHash = AnyHashable(gate)
@@ -50,5 +50,13 @@ extension Gate: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         anyHash.hash(into: &hasher)
+    }
+}
+
+// MARK: - SimplifiedGateConvertible methods
+
+extension Gate: SimplifiedGateConvertible {
+    public var simplified: SimplifiedGate {
+        return gate.simplified
     }
 }

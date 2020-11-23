@@ -33,3 +33,11 @@ struct FixedPhaseShiftGate  {
 // MARK: - Hashable methods
 
 extension FixedPhaseShiftGate: Hashable {}
+
+// MARK: - SimplifiedGateConvertible methods
+
+extension FixedPhaseShiftGate: SimplifiedGateConvertible {
+    var simplified: SimplifiedGate {
+        return .phaseShift(radians: radians, target: target)
+    }
+}

@@ -26,7 +26,7 @@ struct FixedControlledGate {
 
     // MARK: - Internal properties
 
-    let gate: SimulatorComponents
+    let gate: SimulatorComponents & SimplifiedGateConvertible
     let controls: [Int]
 
     // MARK: - AnyHashableContainer properties
@@ -35,7 +35,7 @@ struct FixedControlledGate {
 
     // MARK: - Internal init methods
 
-    init<T: SimulatorComponents & Hashable>(gate: T, controls: [Int]) {
+    init<T: SimulatorComponents & SimplifiedGateConvertible & Hashable>(gate: T, controls: [Int]) {
         self.gate = gate
         self.controls = controls
 
@@ -50,3 +50,11 @@ extension FixedControlledGate: Hashable {}
 // MARK: - AnyHashableContainer methods
 
 extension FixedControlledGate: AnyHashableContainer {}
+
+// MARK: - SimplifiedGateConvertible methods
+
+extension FixedControlledGate: SimplifiedGateConvertible {
+    var simplified: SimplifiedGate {
+        return .controlled(gate: gate.simplified, controls: controls)
+    }
+}

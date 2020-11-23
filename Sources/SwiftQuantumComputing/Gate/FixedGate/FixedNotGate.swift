@@ -32,3 +32,11 @@ struct FixedNotGate  {
 // MARK: - Hashable methods
 
 extension FixedNotGate: Hashable {}
+
+// MARK: - SimplifiedGateConvertible methods
+
+extension FixedNotGate: SimplifiedGateConvertible {
+    var simplified: SimplifiedGate {
+        return .not(target: target)
+    }
+}

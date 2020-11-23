@@ -344,6 +344,8 @@
 		FF46EDFB216925180044C3CA /* Int+Pow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1AAFF0211F66D400D3666A /* Int+Pow.swift */; };
 		FF4949BA223ECDD50087E821 /* GeneticUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4949B9223ECDD50087E821 /* GeneticUseCaseTests.swift */; };
 		FF4949BB223ECDD50087E821 /* GeneticUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4949B9223ECDD50087E821 /* GeneticUseCaseTests.swift */; };
+		FF4B322C256C59500093CB50 /* SimplifiedGateConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4B322B256C59500093CB50 /* SimplifiedGateConvertible.swift */; };
+		FF4B322D256C59500093CB50 /* SimplifiedGateConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4B322B256C59500093CB50 /* SimplifiedGateConvertible.swift */; };
 		FF4BBE7C24130DD1002B4FA6 /* ControlPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF4BBE7A24130DD1002B4FA6 /* ControlPositionView.xib */; };
 		FF4BBE8024131980002B4FA6 /* ControlPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4BBE7F24131980002B4FA6 /* ControlPositionView.swift */; };
 		FF4BBE8124131980002B4FA6 /* ControlPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF4BBE7F24131980002B4FA6 /* ControlPositionView.swift */; };
@@ -1087,6 +1089,7 @@
 		FF43848422B56C2200319473 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		FF448091247995AE0014D3C0 /* StatevectorRegister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorRegister.swift; sourceTree = "<group>"; };
 		FF4949B9223ECDD50087E821 /* GeneticUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticUseCaseTests.swift; sourceTree = "<group>"; };
+		FF4B322B256C59500093CB50 /* SimplifiedGateConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplifiedGateConvertible.swift; sourceTree = "<group>"; };
 		FF4BBE7A24130DD1002B4FA6 /* ControlPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControlPositionView.xib; sourceTree = "<group>"; };
 		FF4BBE7F24131980002B4FA6 /* ControlPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPositionView.swift; sourceTree = "<group>"; };
 		FF4BBE8224131CA9002B4FA6 /* ControlPositionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlPositionView.xib; sourceTree = "<group>"; };
@@ -3093,6 +3096,7 @@
 				FF0C3FAE23F97F6200623A6A /* Extension */,
 				FF2B45C7255C7D6500C17D87 /* FixedGate */,
 				FF5211ED256187B5008C98A5 /* Gate.swift */,
+				FF4B322B256C59500093CB50 /* SimplifiedGateConvertible.swift */,
 			);
 			path = Gate;
 			sourceTree = "<group>";
@@ -3389,6 +3393,7 @@
 				FF43393423DCCD0800E26FA4 /* String+BitAnd.swift in Sources */,
 				FF3C363C25584F71007F15C2 /* LineHorizontalPositionViewFactory.swift in Sources */,
 				FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */,
+				FF4B322C256C59500093CB50 /* SimplifiedGateConvertible.swift in Sources */,
 				FF79DA18221A143200D093AA /* MainGeneticGatesRandomizerFactory.swift in Sources */,
 				FF3C365C2558505D007F15C2 /* HadamardPositionViewFactory.swift in Sources */,
 				FF25187B2560822300565DAA /* FixedNotGate+CircuitViewLayerComponents.swift in Sources */,
@@ -4048,6 +4053,7 @@
 				FF6657F324FD67EA004563F9 /* PositionHalfConnectedTextView.swift in Sources */,
 				FF2B45E2255C7E5300C17D87 /* FixedRotationGate.swift in Sources */,
 				FFCCCD0F24A14A9D00BC597E /* Circuit+Statevector.swift in Sources */,
+				FF4B322D256C59500093CB50 /* SimplifiedGateConvertible.swift in Sources */,
 				FF3C36AA25586421007F15C2 /* String+PositionViewRadians.swift in Sources */,
 				FF2B4C5E23BBB08300A388F3 /* Array+Combinations.swift in Sources */,
 				FF2B45D2255C7DFA00C17D87 /* FixedHadamardGate.swift in Sources */,
