@@ -29,9 +29,9 @@ struct FixedControlledGate {
     let gate: SimulatorComponents & SimplifiedGateConvertible
     let controls: [Int]
 
-    // MARK: - AnyHashableContainer properties
+    // MARK: - Private properties
 
-    let anyHash: AnyHashable
+    private let anyHash: AnyHashable
 
     // MARK: - Internal init methods
 
@@ -45,11 +45,16 @@ struct FixedControlledGate {
 
 // MARK: - Hashable methods
 
-extension FixedControlledGate: Hashable {}
+extension FixedControlledGate: Hashable {
+    static func == (lhs: FixedControlledGate, rhs: FixedControlledGate) -> Bool {
+        return lhs.controls == rhs.controls && lhs.anyHash == rhs.anyHash
+    }
 
-// MARK: - AnyHashableContainer methods
-
-extension FixedControlledGate: AnyHashableContainer {}
+    func hash(into hasher: inout Hasher) {
+        controls.hash(into: &hasher)
+        anyHash.hash(into: &hasher)
+    }
+}
 
 // MARK: - SimplifiedGateConvertible methods
 

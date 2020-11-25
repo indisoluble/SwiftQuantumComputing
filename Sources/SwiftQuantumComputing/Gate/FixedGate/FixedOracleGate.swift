@@ -30,9 +30,9 @@ struct FixedOracleGate {
     let controls: [Int]
     let gate: SimulatorComponents & SimplifiedGateConvertible
 
-    // MARK: - AnyHashableContainer properties
+    // MARK: - Private properties
 
-    let anyHash: AnyHashable
+    private let anyHash: AnyHashable
 
     // MARK: - Internal init methods
 
@@ -49,11 +49,19 @@ struct FixedOracleGate {
 
 // MARK: - Hashable methods
 
-extension FixedOracleGate: Hashable {}
+extension FixedOracleGate: Hashable {
+    static func == (lhs: FixedOracleGate, rhs: FixedOracleGate) -> Bool {
+        return lhs.truthTable == rhs.truthTable &&
+            lhs.controls == rhs.controls &&
+            lhs.anyHash == rhs.anyHash
+    }
 
-// MARK: - AnyHashableContainer methods
-
-extension FixedOracleGate: AnyHashableContainer {}
+    func hash(into hasher: inout Hasher) {
+        truthTable.hash(into: &hasher)
+        controls.hash(into: &hasher)
+        anyHash.hash(into: &hasher)
+    }
+}
 
 // MARK: - SimplifiedGateConvertible methods
 

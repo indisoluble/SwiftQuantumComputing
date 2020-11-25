@@ -24,13 +24,10 @@ import Foundation
 
 struct AnyPositionViewFactory {
 
-    // MARK: - AnyHashableContainer properties
-
-    let anyHash: AnyHashable
-
     // MARK: - Private properties
 
     private let factory: PositionViewFactory
+    private let anyHash: AnyHashable
 
     // MARK: - Internal init methods
 
@@ -42,11 +39,15 @@ struct AnyPositionViewFactory {
 
 // MARK: - Hashable methods
 
-extension AnyPositionViewFactory: Hashable {}
+extension AnyPositionViewFactory: Hashable {
+    static func == (lhs: AnyPositionViewFactory, rhs: AnyPositionViewFactory) -> Bool {
+        return lhs.anyHash == rhs.anyHash
+    }
 
-// MARK: - AnyHashableContainer methods
-
-extension AnyPositionViewFactory: AnyHashableContainer {}
+    func hash(into hasher: inout Hasher) {
+        anyHash.hash(into: &hasher)
+    }
+}
 
 // MARK: - PositionViewFactory methods
 
