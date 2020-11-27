@@ -27,6 +27,8 @@ extension Gate {
     // MARK: - Public class methods
 
     public static func controlled(gate: Gate, controls: [Int]) -> Gate {
-        return Gate(gate: FixedControlledGate(gate: gate, controls: controls))
+        return Gate(gate: FixedControlledGate(gate: gate.gate,
+                                              gateHash: gate.gateHash,
+                                              controls: controls))
     }
 }

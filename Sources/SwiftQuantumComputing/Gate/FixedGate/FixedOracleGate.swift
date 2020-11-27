@@ -32,18 +32,27 @@ struct FixedOracleGate {
 
     // MARK: - Private properties
 
-    private let anyHash: AnyHashable
+    private let gateHash: AnyHashable
 
     // MARK: - Internal init methods
 
     init<T: SimulatorComponents & SimplifiedGateConvertible & Hashable>(truthTable: [String],
                                                                         controls: [Int],
                                                                         gate: T) {
+        self.init(truthTable: truthTable,
+                  controls: controls,
+                  gate: gate,
+                  gateHash: AnyHashable(gate))
+    }
+
+    init(truthTable: [String],
+         controls: [Int],
+         gate: SimulatorComponents & SimplifiedGateConvertible,
+         gateHash: AnyHashable) {
         self.truthTable = truthTable
         self.controls = controls
         self.gate = gate
-
-        anyHash = AnyHashable(gate)
+        self.gateHash = gateHash
     }
 }
 
@@ -53,13 +62,13 @@ extension FixedOracleGate: Hashable {
     static func == (lhs: FixedOracleGate, rhs: FixedOracleGate) -> Bool {
         return lhs.truthTable == rhs.truthTable &&
             lhs.controls == rhs.controls &&
-            lhs.anyHash == rhs.anyHash
+            lhs.gateHash == rhs.gateHash
     }
 
     func hash(into hasher: inout Hasher) {
         truthTable.hash(into: &hasher)
         controls.hash(into: &hasher)
-        anyHash.hash(into: &hasher)
+        gateHash.hash(into: &hasher)
     }
 }
 

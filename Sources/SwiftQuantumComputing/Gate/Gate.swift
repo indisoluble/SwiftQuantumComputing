@@ -27,17 +27,14 @@ public struct Gate {
     // MARK: - Internal properties
 
     let gate: SimulatorComponents & SimplifiedGateConvertible
-
-    // MARK: - Private properties
-
-    private let anyHash: AnyHashable
+    let gateHash: AnyHashable
 
     // MARK: - Internal init methods
 
     init<T: SimulatorComponents & SimplifiedGateConvertible & Hashable>(gate: T) {
         self.gate = gate
 
-        anyHash = AnyHashable(gate)
+        gateHash = AnyHashable(gate)
     }
 }
 
@@ -45,11 +42,11 @@ public struct Gate {
 
 extension Gate: Hashable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.anyHash == rhs.anyHash
+        return lhs.gateHash == rhs.gateHash
     }
 
     public func hash(into hasher: inout Hasher) {
-        anyHash.hash(into: &hasher)
+        gateHash.hash(into: &hasher)
     }
 }
 

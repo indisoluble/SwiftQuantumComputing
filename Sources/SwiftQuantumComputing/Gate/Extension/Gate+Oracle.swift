@@ -29,7 +29,8 @@ extension Gate {
     public static func oracle(truthTable: [String], controls: [Int], gate: Gate) -> Gate {
         return Gate(gate: FixedOracleGate(truthTable: truthTable,
                                           controls: controls,
-                                          gate: gate))
+                                          gate: gate.gate,
+                                          gateHash: gate.gateHash))
     }
 
     /**
