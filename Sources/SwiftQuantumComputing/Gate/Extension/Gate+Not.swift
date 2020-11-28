@@ -26,6 +26,7 @@ extension Gate {
 
     // MARK: - Public class methods
 
+    /// Returns a not gate with 1 input: `target`
     public static func not(target: Int) -> Gate {
         return Gate(gate: FixedNotGate(target: target))
     }

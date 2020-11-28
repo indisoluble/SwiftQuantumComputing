@@ -26,6 +26,7 @@ extension Gate {
 
     // MARK: - Public class methods
 
+    /// Returns an oracle gate composed of a `truthtable` that specifies which `controls` activate a `gate`
     public static func oracle(truthTable: [String], controls: [Int], gate: Gate) -> Gate {
         return Gate(gate: FixedOracleGate(truthTable: truthTable,
                                           controls: controls,

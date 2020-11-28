@@ -26,6 +26,7 @@ extension Gate {
 
     // MARK: - Public class methods
 
+    /// Returns a hadamard gate with 1 input: `target`
     public static func hadamard(target: Int) -> Gate {
         return Gate(gate: FixedHadamardGate(target: target))
     }

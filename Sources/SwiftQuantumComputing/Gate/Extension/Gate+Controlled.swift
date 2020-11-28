@@ -26,6 +26,7 @@ extension Gate {
 
     // MARK: - Public class methods
 
+    /// Returns a generic quantum `gate` controlled with `controls`
     public static func controlled(gate: Gate, controls: [Int]) -> Gate {
         return Gate(gate: FixedControlledGate(gate: gate.gate,
                                               gateHash: gate.gateHash,

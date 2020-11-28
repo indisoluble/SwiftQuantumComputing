@@ -22,13 +22,21 @@ import Foundation
 
 // MARK: - Public types
 
+/// Simplified representation of a quantum gate. Use to easily identify the type of a quantum gate and its components
 public indirect enum SimplifiedGate {
+    /// Not gate with 1 input: `target`
     case not(target: Int)
+    /// Hadamard gate with 1 input: `target`
     case hadamard(target: Int)
+    /// Quantum gate that shifts phase of the quantum state in `target` by `radians`
     case phaseShift(radians: Double, target: Int)
+    /// Quantum gate that defines a rotation of `radians` around `axis` of the quantum state in `target`
     case rotation(axis: Gate.Axis, radians: Double, target: Int)
+    /// Quantum gate built with a `matrix` and any number of `inputs`
     case matrix(matrix: Matrix, inputs: [Int])
+    /// Oracle gate composed of a `truthtable` that specifies which `controls` activate a `gate`
     case oracle(truthTable: [String], controls: [Int], gate: SimplifiedGate)
+    /// Quantum `gate` controlled with `controls`
     case controlled(gate: SimplifiedGate, controls: [Int])
 }
 
@@ -38,6 +46,8 @@ extension SimplifiedGate: Hashable {}
 
 // MARK: - Protocol definition
 
+/// A type with a simplified representation of a quantum gate
 public protocol SimplifiedGateConvertible {
+    /// Simplified representation of the gate
     var simplified: SimplifiedGate { get }
 }

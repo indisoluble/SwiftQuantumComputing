@@ -26,14 +26,19 @@ extension Gate {
 
     // MARK: - Public types
 
+    /// Paulis P = {X, Y, Z}
     public enum Axis {
+        /// Pauli X
         case x
+        /// Pauli Y
         case y
+        /// Pauli Z
         case z
     }
 
     // MARK: - Public class methods
 
+    /// Returns a quantum gate that defines a rotation of `radians` around `axis` of the quantum state in `target`
     public static func rotation(axis: Axis, radians: Double, target: Int) -> Gate {
         return Gate(gate: FixedRotationGate(axis: axis, radians: radians, target: target))
     }

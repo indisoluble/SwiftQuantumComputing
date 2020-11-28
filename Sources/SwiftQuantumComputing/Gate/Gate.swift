@@ -22,6 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
+/// A generic quantum gate
 public struct Gate {
 
     // MARK: - Internal properties
@@ -53,6 +54,7 @@ extension Gate: Hashable {
 // MARK: - SimplifiedGateConvertible methods
 
 extension Gate: SimplifiedGateConvertible {
+    /// Check `SimplifiedGateConvertible.simplified`
     public var simplified: SimplifiedGate {
         return gate.simplified
     }

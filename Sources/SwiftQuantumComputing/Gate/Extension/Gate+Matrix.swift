@@ -26,6 +26,8 @@ extension Gate {
 
     // MARK: - Public class methods
 
+    /// Returns a generic quantum gate built with a `matrix` (it is expected to be unitary) and any number of `inputs`
+    /// (as many inputs as `matrix` is able to handle)
     public static func matrix(matrix: Matrix, inputs: [Int]) -> Gate {
         return Gate(gate: FixedMatrixGate(matrix: matrix, inputs: inputs))
     }

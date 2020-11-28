@@ -26,6 +26,7 @@ extension Gate {
 
     // MARK: - Public class methods
 
+    /// Returns a quantum gate that shifts phase of the quantum state in `target` by `radians`
     public static func phaseShift(radians: Double, target: Int) -> Gate {
         return Gate(gate: FixedPhaseShiftGate(radians: radians, target: target))
     }
