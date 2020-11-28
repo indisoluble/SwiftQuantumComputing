@@ -69,12 +69,12 @@ func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircuit,
     var evolvedGates = evolvedCircuit.gates
 
     if let oracleAt = evolvedCircuit.oracleAt {
-        switch evolvedGates[oracleAt] {
-        case let .oracle(_, controls, gate):
+        if case .oracle(_, let controls, let gate) = evolvedGates[oracleAt].simplified,
+           case .not(let target) = gate {
             evolvedGates[oracleAt] = Gate.oracle(truthTable: useCase.truthTable.truth,
                                                  controls: controls,
-                                                 gate: gate)
-        default:
+                                                 target: target)
+        } else {
             fatalError("No oracle found")
         }
     }
