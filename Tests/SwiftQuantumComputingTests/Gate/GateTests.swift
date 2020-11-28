@@ -129,6 +129,27 @@ class GateTests: XCTestCase {
         XCTAssertTrue(result.count == 2)
     }
 
+    func testAnyGate_simplified_returnExpectedSimplifiedGate() {
+        // Given
+        let gates: [(Gate, SimplifiedGate)] = [
+            (.controlled(gate: .not(target: 0), controls: [1]),
+             .controlled(gate: .not(target: 0), controls: [1])),
+            (.hadamard(target: 0), .hadamard(target: 0)),
+            (.matrix(matrix: .makeNot(), inputs: [0]), .matrix(matrix: .makeNot(), inputs: [0])),
+            (.not(target: 0), .not(target: 0)),
+            (.oracle(truthTable: ["0"], controls: [0], gate: .not(target: 1)),
+             .oracle(truthTable: ["0"], controls: [0], gate: .not(target: 1))),
+            (.phaseShift(radians: 0.5, target: 0), .phaseShift(radians: 0.5, target: 0)),
+            (.rotation(axis: .x, radians: 0.5, target: 0),
+             .rotation(axis: .x, radians: 0.5, target: 0))
+        ]
+
+        // Then
+        for (gate, simplified) in gates {
+            XCTAssertEqual(gate.simplified, simplified)
+        }
+    }
+
     static var allTests = [
         ("testTwoIdenticalGates_equal_returnTrue",
          testTwoIdenticalGates_equal_returnTrue),
@@ -149,6 +170,8 @@ class GateTests: XCTestCase {
         ("testTwoGatesWithDifferentFixedGates_set_setCountIsTwo",
          testTwoGatesWithDifferentFixedGates_set_setCountIsTwo),
         ("testTwoGatesWithDifferentEmbeddedGates_set_setCountIsTwo",
-         testTwoGatesWithDifferentEmbeddedGates_set_setCountIsTwo)
+         testTwoGatesWithDifferentEmbeddedGates_set_setCountIsTwo),
+        ("testAnyGate_simplified_returnExpectedSimplifiedGate",
+         testAnyGate_simplified_returnExpectedSimplifiedGate)
     ]
 }

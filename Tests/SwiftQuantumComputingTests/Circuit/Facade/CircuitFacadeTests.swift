@@ -58,6 +58,29 @@ class CircuitFacadeTests: XCTestCase {
         XCTAssertTrue(result as AnyObject? === expectedResult)
     }
 
+    func testAnyCircuitAndStatevectorSimulatorThatThrowsError_circuitStatevector_forwardCallToStatevectorSimulatorAndReturnError() {
+        // Given
+        let facade = CircuitFacade(gates: gates,
+                                   unitarySimulator: unitarySimulator,
+                                   statevectorSimulator: statevectorSimulator)
+        statevectorSimulator.applyStateError = .resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
+
+        // When
+        var error: StatevectorError?
+        if case .failure(let e) = facade.statevector(withInitialStatevector: initialCircuitStatevector) {
+            error = e
+        }
+
+        // Then
+        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialStatevector
+        let lastStatevectorGates = statevectorSimulator.lastApplyStateCircuit
+
+        XCTAssertEqual(statevectorSimulator.applyStateCount, 1)
+        XCTAssertTrue(lastApplyInitialStatevector as AnyObject? === initialCircuitStatevector)
+        XCTAssertEqual(lastStatevectorGates as? [Gate], gates)
+        XCTAssertEqual(error, .resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
+    }
+
     func testAnyCircuit_unitary_forwardCallToUnitarySimulator() {
         // Given
         let facade = CircuitFacade(gates: gates,
@@ -80,10 +103,37 @@ class CircuitFacadeTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
+    func testAnyCircuitAndUnitarySimulatorThatThrowsError_unitary_forwardCallToUnitarySimulatorAndReturnError() {
+        // Given
+        let facade = CircuitFacade(gates: gates,
+                                   unitarySimulator: unitarySimulator,
+                                   statevectorSimulator: statevectorSimulator)
+        unitarySimulator.unitaryError = .resultingMatrixIsNotUnitary
+
+        // When
+        var error: UnitaryError?
+        if case .failure(let e) = facade.unitary(withQubitCount: qubitCount) {
+            error = e
+        }
+
+        // Then
+        let lastUnitaryQubitCount = unitarySimulator.lastUnitaryQubitCount
+        let lastUnitaryGates = unitarySimulator.lastUnitaryCircuit
+
+        XCTAssertEqual(unitarySimulator.unitaryCount, 1)
+        XCTAssertEqual(lastUnitaryQubitCount, qubitCount)
+        XCTAssertEqual(lastUnitaryGates as? [Gate], gates)
+        XCTAssertEqual(error, .resultingMatrixIsNotUnitary)
+    }
+
     static var allTests = [
         ("testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator",
          testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator),
+        ("testAnyCircuitAndStatevectorSimulatorThatThrowsError_circuitStatevector_forwardCallToStatevectorSimulatorAndReturnError",
+         testAnyCircuitAndStatevectorSimulatorThatThrowsError_circuitStatevector_forwardCallToStatevectorSimulatorAndReturnError),
         ("testAnyCircuit_unitary_forwardCallToUnitarySimulator",
-         testAnyCircuit_unitary_forwardCallToUnitarySimulator)
+         testAnyCircuit_unitary_forwardCallToUnitarySimulator),
+        ("testAnyCircuitAndUnitarySimulatorThatThrowsError_unitary_forwardCallToUnitarySimulatorAndReturnError",
+         testAnyCircuitAndUnitarySimulatorThatThrowsError_unitary_forwardCallToUnitarySimulatorAndReturnError)
     ]
 }
