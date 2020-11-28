@@ -48,8 +48,8 @@ class HadamardGateTests: XCTestCase {
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.hadamard(let target)):
-            XCTAssertEqual(inputs[0], target)
+        case .success(let gate):
+            XCTAssertEqual(gate, .hadamard(target: inputs[0]))
         default:
             XCTAssert(false)
         }

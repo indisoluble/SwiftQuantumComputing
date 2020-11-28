@@ -27,7 +27,7 @@ extension TwoLevelDecompositionSolver {
     // MARK: - Public class methods
 
     /// Errors throwed by `TwoLevelDecompositionSolver.decomposeGates(:restrictedToCircuitQubitCount:)`
-    public enum DecomposeGatesError: Error, Equatable {
+    public enum DecomposeGatesError: Error, Hashable {
         /// Throwed if `gate` throws `error`
         case gateThrowedError(gate: Gate, error: GateError)
     }

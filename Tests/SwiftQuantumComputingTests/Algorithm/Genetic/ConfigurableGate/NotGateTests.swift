@@ -48,8 +48,8 @@ class NotGateTests: XCTestCase {
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.not(let target)):
-            XCTAssertEqual(inputs[0], target)
+        case .success(let gate):
+            XCTAssertEqual(gate, .not(target: inputs[0]))
         default:
             XCTAssert(false)
         }

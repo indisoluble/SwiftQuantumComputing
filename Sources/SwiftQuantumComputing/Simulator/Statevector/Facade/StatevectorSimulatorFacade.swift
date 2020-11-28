@@ -57,7 +57,7 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
             case .success(let nextRegister):
                 register = nextRegister
             case .failure(let error):
-                return .failure(.gateThrowedError(gate: gate.gate, error: error))
+                return .failure(.gateThrowedError(gate: gate.rawGate, error: error))
             }
         }
 

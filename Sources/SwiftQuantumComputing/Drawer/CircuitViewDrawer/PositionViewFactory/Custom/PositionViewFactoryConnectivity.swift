@@ -1,9 +1,9 @@
 //
-//  ArrayGate+QubitCount.swift
+//  PositionViewFactoryConnectivity.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 08/11/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 08/11/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,16 +20,30 @@
 
 import Foundation
 
-extension Array where Element == Gate {
-    func qubitCount() -> Int {
-        let maxInput = reduce(0) { currentMax, gate in
-            guard let otherMax = gate.extractInputs().max() else {
-                return currentMax
-            }
+// MARK: - Internal types
 
-            return otherMax > currentMax ? otherMax : currentMax
-        }
+enum PositionViewFactoryConnectivity {
+    enum Control {
+        case up
+        case down
+        case both
+    }
 
-        return maxInput + 1
+    enum Target {
+        case none
+        case up
+        case down
+        case both
+    }
+
+    enum Gap {
+        case none
+        case up
+        case down
+        case both
     }
 }
+
+// MARK: - Hashable methods
+
+extension PositionViewFactoryConnectivity: Hashable {}

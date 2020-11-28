@@ -2,8 +2,8 @@
 //  Gate.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 15/11/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,34 +20,42 @@
 
 import Foundation
 
-// MARK: - Public types
+// MARK: - Main body
 
-/// A quantum gate with fixed inputs
-public indirect enum Gate {
-    /// Paulis P = {X, Y, Z}
-    public enum Axis {
-        case x
-        case y
-        case z
+/// A generic quantum gate
+public struct Gate {
+
+    // MARK: - Internal properties
+
+    let gate: SimulatorComponents & SimplifiedGateConvertible
+    let gateHash: AnyHashable
+
+    // MARK: - Internal init methods
+
+    init<T: SimulatorComponents & SimplifiedGateConvertible & Hashable>(gate: T) {
+        self.gate = gate
+
+        gateHash = AnyHashable(gate)
     }
-
-    /// Not gate with 1 input: `target`
-    case not(target: Int)
-    /// Hadamard gate with 1 input: `target`
-    case hadamard(target: Int)
-    /// Quantum gate that shifts phase of the quantum state in `target` by `radians`
-    case phaseShift(radians: Double, target: Int)
-    /// Quantum gate that defines a rotation of `radians` around `axis` of the quantum state in `target`
-    case rotation(axis: Axis, radians: Double, target: Int)
-    /// Generic quantum gate built with a `matrix` (it is expected to be unitary) and any number of `inputs`
-    /// (as many inputs as `matrix` is able to handle)
-    case matrix(matrix: Matrix, inputs: [Int])
-    /// Oracle gate composed of a `truthtable` that specifies which `controls` activate a `gate`
-    case oracle(truthTable: [String], controls: [Int], gate: Gate)
-    /// Generic quantum `gate` controlled with `controls`
-    case controlled(gate: Gate, controls: [Int])
 }
 
-// MARK: - Equatable methods
+// MARK: - Hashable methods
 
-extension Gate: Equatable {}
+extension Gate: Hashable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.gateHash == rhs.gateHash
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        gateHash.hash(into: &hasher)
+    }
+}
+
+// MARK: - SimplifiedGateConvertible methods
+
+extension Gate: SimplifiedGateConvertible {
+    /// Check `SimplifiedGateConvertible.simplified`
+    public var simplified: SimplifiedGate {
+        return gate.simplified
+    }
+}

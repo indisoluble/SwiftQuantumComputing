@@ -24,7 +24,7 @@ import Foundation
 
 /// Errors throwed by
 /// `CircuitStatevector.groupedProbabilities(byQubits:summarizedByQubits:roundingSummaryToDecimalPlaces:)`.
-public enum GroupedProbabilitiesError: Error, Equatable {
+public enum GroupedProbabilitiesError: Error, Hashable {
     /// Throwed when `groupQubits` does not specify any qubit, i.e. it is empty
     case groupQubitsCanNotBeAnEmptyList
     /// Throwed when `groupQubits` and/or `summaryQubits` references a qubit that does not exist in the circuit

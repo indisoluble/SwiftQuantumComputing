@@ -28,8 +28,8 @@ final class SimulatorGateTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var gateCount = 0
-    var gateResult = Gate.not(target: 0)
+    private (set) var rawGateCount = 0
+    var rawGateResult = Gate.not(target: 0)
 
     private (set) var extractComponentsCount = 0
     private (set) var lastExtractComponentsQubitCount: Int?
@@ -41,10 +41,10 @@ final class SimulatorGateTestDouble {
 // MARK: - SimulatorRawGate methods
 
 extension SimulatorGateTestDouble: SimulatorRawGate {
-    var gate: Gate {
-        gateCount += 1
+    var rawGate: Gate {
+        rawGateCount += 1
 
-        return gateResult
+        return rawGateResult
     }
 }
 
