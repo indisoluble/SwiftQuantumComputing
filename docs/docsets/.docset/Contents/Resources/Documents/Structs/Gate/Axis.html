@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>MakeInversionAboutMeanError Enumeration Reference</title>
+    <title>Axis Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,16 +14,16 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/MakeInversionAboutMeanError" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/Axis" class="dashAnchor"></a>
 
-    <a title="MakeInversionAboutMeanError Enumeration Reference"></a>
+    <a title="Axis Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../../index.html">
            Docs
         </a>
-         (97% documented)
+         (98% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html"> Reference</a>
       <img class="carat" src="../../img/carat.png" />
-      MakeInversionAboutMeanError Enumeration Reference
+      Axis Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -62,21 +62,6 @@
                 <a class="nav-group-task-link" href="../../Enums/EvolveCircuitError.html">EvolveCircuitError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate.html">Gate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate/Axis.html">– Axis</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Enums/GateError.html">GateError</a>
               </li>
               <li class="nav-group-task">
@@ -87,6 +72,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/SimplifiedGate.html">SimplifiedGate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Enums/StatevectorError.html">StatevectorError</a>
@@ -147,6 +135,9 @@
                 <a class="nav-group-task-link" href="../../Protocols/GeneticFactory.html">GeneticFactory</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/SimplifiedGateConvertible.html">SimplifiedGateConvertible</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a>
               </li>
               <li class="nav-group-task">
@@ -171,6 +162,21 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/EuclideanSolver.html">EuclideanSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate.html">Gate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate/Axis.html">– Axis</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
@@ -275,15 +281,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>MakeInversionAboutMeanError</h1>
+            <h1>Axis</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MakeInversionAboutMeanError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Axis</span></code></pre>
 
                 </div>
               </div>
-            <p>Errors throwed by <code><a href="../../Enums/Gate.html#/s:21SwiftQuantumComputing4GateO22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSaySiG_tFZ">Gate.makeInversionAboutMean(inputs:)</a></code></p>
+            <p>Paulis P = {X, Y, Z}</p>
 
           </div>
         </section>
@@ -295,9 +301,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO27MakeInversionAboutMeanErrorO25inputsCanNotBeAnEmptyListyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/inputsCanNotBeAnEmptyList" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO27MakeInversionAboutMeanErrorO25inputsCanNotBeAnEmptyListyA2EmF">inputsCanNotBeAnEmptyList</a>
+                    <a name="/s:21SwiftQuantumComputing4GateV4AxisO1xyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/x" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV4AxisO1xyA2EmF">x</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -305,14 +311,68 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed if <code>inputs</code> is an empty list</p>
+                        <p>Pauli X</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">inputsCanNotBeAnEmptyList</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">x</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV4AxisO1yyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/y" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV4AxisO1yyA2EmF">y</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Pauli Y</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">y</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV4AxisO1zyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/z" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV4AxisO1zyA2EmF">z</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Pauli Z</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">z</span></code></pre>
 
                         </div>
                       </div>
@@ -327,7 +387,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-01)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

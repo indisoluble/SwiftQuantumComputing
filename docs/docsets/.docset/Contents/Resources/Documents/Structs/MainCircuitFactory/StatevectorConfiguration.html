@@ -23,7 +23,7 @@
         <a class="header-link" href="../../index.html">
            Docs
         </a>
-         (97% documented)
+         (98% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -62,21 +62,6 @@
                 <a class="nav-group-task-link" href="../../Enums/EvolveCircuitError.html">EvolveCircuitError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate.html">Gate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate/Axis.html">– Axis</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../../Enums/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Enums/GateError.html">GateError</a>
               </li>
               <li class="nav-group-task">
@@ -87,6 +72,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Enums/SimplifiedGate.html">SimplifiedGate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Enums/StatevectorError.html">StatevectorError</a>
@@ -147,6 +135,9 @@
                 <a class="nav-group-task-link" href="../../Protocols/GeneticFactory.html">GeneticFactory</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Protocols/SimplifiedGateConvertible.html">SimplifiedGateConvertible</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a>
               </li>
               <li class="nav-group-task">
@@ -171,6 +162,21 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/EuclideanSolver.html">EuclideanSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate.html">Gate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../../Structs/Gate/Axis.html">– Axis</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
@@ -305,7 +311,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Each <code><a href="../../Enums/Gate.html">Gate</a></code> is expanded into a <code><a href="../../Structs/Matrix.html">Matrix</a></code> and applied to the current statevector
+                        <p>Each <code><a href="../../Structs/Gate.html">Gate</a></code> is expanded into a <code><a href="../../Structs/Matrix.html">Matrix</a></code> and applied to the current statevector
 to get the final statevector. This configuration has the biggest memory footprint</p>
 
                       </div>
@@ -333,7 +339,7 @@ to get the final statevector. This configuration has the biggest memory footprin
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>For each position of the next statevector, the corresponding row of the <code><a href="../../Enums/Gate.html">Gate</a></code> is expanded
+                        <p>For each position of the next statevector, the corresponding row of the <code><a href="../../Structs/Gate.html">Gate</a></code> is expanded
 and applied as needed. This process can be done in parallel with up to <code>maxConcurrency</code>
 number of threads. If <code>maxConcurrency</code> is set to 1 or less, the whole process will be serial.</p>
 
@@ -363,7 +369,7 @@ number of threads. If <code>maxConcurrency</code> is set to 1 or less, the whole
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>For each position of the next statevector, element by element of the corresponding row
-in the <code><a href="../../Enums/Gate.html">Gate</a></code> is calculated (on the fly) and applied as needed. This process can be done in
+in the <code><a href="../../Structs/Gate.html">Gate</a></code> is calculated (on the fly) and applied as needed. This process can be done in
 parallel with up to <code>maxConcurrency</code> number of threads. If <code>maxConcurrency</code> is set to
 1 or less, the whole process will be serial.</p>
 
@@ -387,7 +393,7 @@ parallel with up to <code>maxConcurrency</code> number of threads. If <code>maxC
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-01)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

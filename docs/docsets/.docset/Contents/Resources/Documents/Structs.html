@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
            Docs
         </a>
-         (97% documented)
+         (98% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -62,21 +62,6 @@
                 <a class="nav-group-task-link" href="Enums/EvolveCircuitError.html">EvolveCircuitError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate.html">Gate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/Axis.html">– Axis</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/GateError.html">GateError</a>
               </li>
               <li class="nav-group-task">
@@ -87,6 +72,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/MakeStatevectorError.html">MakeStatevectorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/SimplifiedGate.html">SimplifiedGate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/StatevectorError.html">StatevectorError</a>
@@ -147,6 +135,9 @@
                 <a class="nav-group-task-link" href="Protocols/GeneticFactory.html">GeneticFactory</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/SimplifiedGateConvertible.html">SimplifiedGateConvertible</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a>
               </li>
               <li class="nav-group-task">
@@ -171,6 +162,21 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/EuclideanSolver.html">EuclideanSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate.html">Gate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/Axis.html">– Axis</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/GeneticConfiguration.html">GeneticConfiguration</a>
@@ -782,7 +788,7 @@ The following implementation is based on:
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Matrix</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Matrix</span><span class="p">:</span> <span class="kt">Sequence</span></code></pre>
 
                         </div>
@@ -813,8 +819,38 @@ The following implementation is based on:
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Vector</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Vector</span><span class="p">:</span> <span class="kt">Sequence</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV"></a>
+                    <a name="//apple_ref/swift/Struct/Gate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV">Gate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A generic quantum gate</p>
+
+                        <a href="Structs/Gate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Gate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Gate</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Gate</span><span class="p">:</span> <span class="kt"><a href="Protocols/SimplifiedGateConvertible.html">SimplifiedGateConvertible</a></span></code></pre>
 
                         </div>
                       </div>
@@ -873,7 +909,7 @@ The following implementation is based on:
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Rational</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Rational</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Rational</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Rational</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -888,7 +924,7 @@ The following implementation is based on:
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-01)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
