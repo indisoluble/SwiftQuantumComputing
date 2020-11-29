@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>UnitaryError Enumeration Reference</title>
+    <title>SimplifiedGateConvertible Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/UnitaryError" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Protocol/SimplifiedGateConvertible" class="dashAnchor"></a>
 
-    <a title="UnitaryError Enumeration Reference"></a>
+    <a title="SimplifiedGateConvertible Protocol Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" />
-      UnitaryError Enumeration Reference
+      SimplifiedGateConvertible Protocol Reference
     </p>
 
     <div class="content-wrapper">
@@ -281,15 +281,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>UnitaryError</h1>
+            <h1>SimplifiedGateConvertible</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">UnitaryError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">SimplifiedGateConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>Errors throwed by <code><a href="../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP7unitary14withQubitCounts6ResultOyAA6MatrixVAA12UnitaryErrorOGSi_tF">Circuit.unitary(withQubitCount:)</a></code></p>
+            <p>A type with a simplified representation of a quantum gate</p>
 
           </div>
         </section>
@@ -301,9 +301,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing12UnitaryErrorO26circuitCanNotBeAnEmptyListyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/circuitCanNotBeAnEmptyList" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing12UnitaryErrorO26circuitCanNotBeAnEmptyListyA2CmF">circuitCanNotBeAnEmptyList</a>
+                    <a name="/s:21SwiftQuantumComputing25SimplifiedGateConvertibleP10simplifiedAA0dE0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/simplified" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing25SimplifiedGateConvertibleP10simplifiedAA0dE0Ovp">simplified</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -311,68 +311,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed when the circuit has no gate from which to produce an unitary matrix</p>
+                        <p>Simplified representation of the gate</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">circuitCanNotBeAnEmptyList</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing12UnitaryErrorO011gateThrowedE0yAcA4GateV_AA0hE0OtcACmF"></a>
-                    <a name="//apple_ref/swift/Element/gateThrowedError(gate:error:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing12UnitaryErrorO011gateThrowedE0yAcA4GateV_AA0hE0OtcACmF">gateThrowedError(gate:<wbr>error:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed if <code>gate</code> throws <code>error</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">gateThrowedError</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt"><a href="../Structs/Gate.html">Gate</a></span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt"><a href="../Enums/GateError.html">GateError</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21SwiftQuantumComputing12UnitaryErrorO020resultingMatrixIsNotD0yA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/resultingMatrixIsNotUnitary" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing12UnitaryErrorO020resultingMatrixIsNotD0yA2CmF">resultingMatrixIsNotUnitary</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Throwed when the resulting matrix lost too much precision after applying <code>gates</code></p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">resultingMatrixIsNotUnitary</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">simplified</span><span class="p">:</span> <span class="kt"><a href="../Enums/SimplifiedGate.html">SimplifiedGate</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>

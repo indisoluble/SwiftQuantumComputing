@@ -34,27 +34,6 @@
       "symbol": "SQCView",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
-    },
-    {
-      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Gate/Gate.swift",
-      "line": 29,
-      "symbol": "Gate.Axis.x",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Gate/Gate.swift",
-      "line": 30,
-      "symbol": "Gate.Axis.y",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing/Sources/SwiftQuantumComputing/Gate/Gate.swift",
-      "line": 31,
-      "symbol": "Gate.Axis.z",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
     }
   ],
   "source_directory": "/Users/indi_dev/Documents/Proyectos/QISKit/Repositories/SwiftQuantumComputing"
