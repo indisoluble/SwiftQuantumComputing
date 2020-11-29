@@ -52,6 +52,6 @@ public struct Rational {
     }
 }
 
-// MARK: - Equatable methods
+// MARK: - Hashable methods
 
-extension Rational: Equatable {}
+extension Rational: Hashable {}

@@ -44,7 +44,7 @@ public enum GateError: Error {
 }
 
 /// Errors throwed by `Circuit.statevector(withInitialStatevector:)`
-public enum StatevectorError: Error, Equatable {
+public enum StatevectorError: Error, Hashable {
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
     /// Throwed when the resulting state vector lost too much precision after applying `gates`
@@ -52,7 +52,7 @@ public enum StatevectorError: Error, Equatable {
 }
 
 /// Errors throwed by `Circuit.unitary(withQubitCount:)`
-public enum UnitaryError: Error, Equatable {
+public enum UnitaryError: Error, Hashable {
     /// Throwed when the circuit has no gate from which to produce an unitary matrix
     case circuitCanNotBeAnEmptyList
     /// Throwed if `gate` throws `error`

@@ -50,9 +50,8 @@ class PhaseShiftGateTests: XCTestCase {
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.phaseShift(let gateRadians, let target)):
-            XCTAssertEqual(radians, gateRadians)
-            XCTAssertEqual(inputs[0], target)
+        case .success(let gate):
+            XCTAssertEqual(gate, .phaseShift(radians: radians, target: inputs[0]))
         default:
             XCTAssert(false)
         }

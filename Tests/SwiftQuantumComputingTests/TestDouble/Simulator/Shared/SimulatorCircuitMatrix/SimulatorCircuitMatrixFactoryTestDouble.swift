@@ -38,13 +38,15 @@ final class SimulatorCircuitMatrixFactoryTestDouble {
     private (set) var lastMakeCircuitMatrixRowQubitCount: Int?
     private (set) var lastMakeCircuitMatrixRowBaseMatrix: SimulatorMatrix?
     private (set) var lastMakeCircuitMatrixRowInputs: [Int]?
-    var makeCircuitMatrixRowResult: SimulatorCircuitMatrixRow = SimulatorCircuitMatrixTestDouble()
+    var makeCircuitMatrixRowResult: SimulatorCircuitMatrixRow = SimulatorCircuitMatrixAdapter(qubitCount: 1,
+                                                                                              baseMatrix: Matrix.makeNot(),
+                                                                                              inputs: [0])
 
     private (set) var makeCircuitMatrixElementCount = 0
     private (set) var lastMakeCircuitMatrixElementQubitCount: Int?
     private (set) var lastMakeCircuitMatrixElementBaseMatrix: SimulatorMatrix?
     private (set) var lastMakeCircuitMatrixElementInputs: [Int]?
-    var makeCircuitMatrixElementResult: SimulatorMatrix = SimulatorMatrixTestDouble()
+    var makeCircuitMatrixElementResult: SimulatorMatrix = Matrix.makeNot()
 }
 
 // MARK: - SimulatorCircuitMatrixFactory methods

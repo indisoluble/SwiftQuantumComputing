@@ -84,10 +84,8 @@ class OracleGateTests: XCTestCase {
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.oracle(let truthTable, let controls, let gate)):
-            XCTAssertEqual(truthTable, [])
-            XCTAssertEqual(controls, [1])
-            XCTAssertEqual(gate, .not(target: 0))
+        case .success(let gate):
+            XCTAssertEqual(gate, .oracle(truthTable: [], controls: [1], gate: .not(target: 0)))
         default:
             XCTAssert(false)
         }
@@ -106,11 +104,12 @@ class OracleGateTests: XCTestCase {
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.oracle(let truthTable, let controls, let gate)):
-            XCTAssertEqual(truthTable, ["1"])
-            XCTAssertEqual(controls, [2, 5])
-            XCTAssertEqual(gate,
-                           .oracle(truthTable: ["0"], controls: [3, 1, 4], gate: .not(target: 0)))
+        case .success(let gate):
+            XCTAssertEqual(gate, .oracle(truthTable: ["1"],
+                                         controls: [2, 5],
+                                         gate: .oracle(truthTable: ["0"],
+                                                       controls: [3, 1, 4],
+                                                       gate: .not(target: 0))))
         default:
             XCTAssert(false)
         }

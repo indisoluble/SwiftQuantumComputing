@@ -53,7 +53,7 @@ extension UnitarySimulatorFacade: UnitarySimulator {
             case .success(let nextGate):
                 unitaryGate = nextGate
             case .failure(let error):
-                return .failure(.gateThrowedError(gate: gate.gate, error: error))
+                return .failure(.gateThrowedError(gate: gate.rawGate, error: error))
             }
         }
 

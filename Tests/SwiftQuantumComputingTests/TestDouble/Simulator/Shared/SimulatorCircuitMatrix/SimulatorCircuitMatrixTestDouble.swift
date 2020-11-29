@@ -31,15 +31,6 @@ final class SimulatorCircuitMatrixTestDouble {
 
     private (set) var rawMatrixCount = 0
     var rawMatrixResult = Matrix.makeNot()
-
-    private (set) var subscriptRowCount = 0
-    private (set) var lastSubscriptRowRow: Int?
-    var subscriptRowResult = try! Vector([.zero])
-
-    private (set) var subscriptRowColumnCount = 0
-    private (set) var lastSubscriptRowColumnRow: Int?
-    private (set) var lastSubscriptRowColumnColumn: Int?
-    var subscriptRowColumnResult = Complex<Double>.zero
 }
 
 // MARK: - SimulatorCircuitMatrix methods
@@ -49,17 +40,5 @@ extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrix {
         rawMatrixCount += 1
 
         return rawMatrixResult
-    }
-}
-
-// MARK: - SimulatorCircuitMatrixRow methods
-
-extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrixRow {
-    subscript(row: Int) -> Vector {
-        subscriptRowCount += 1
-
-        lastSubscriptRowRow = row
-
-        return subscriptRowResult
     }
 }

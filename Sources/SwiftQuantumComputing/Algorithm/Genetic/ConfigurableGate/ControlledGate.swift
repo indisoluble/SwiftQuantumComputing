@@ -66,7 +66,7 @@ extension ControlledGate: ConfigurableGate {
     public func makeFixed(inputs: [Int]) -> Result<Gate, EvolveCircuitError> {
         switch gate.makeFixed(inputs: inputs) {
         case .success(let fixedGate):
-            let reservedInputs = fixedGate.extractInputs()
+            let reservedInputs = fixedGate.extractRawInputs()
             let remainingInputs = inputs.filter { !reservedInputs.contains($0) }
             guard remainingInputs.count >= controlCount else {
                 return .failure(.gateInputCountIsBiggerThanUseCaseCircuitQubitCount(gate: self))

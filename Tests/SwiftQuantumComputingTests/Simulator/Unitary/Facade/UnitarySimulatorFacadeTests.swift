@@ -64,7 +64,7 @@ class UnitarySimulatorFacadeTests: XCTestCase {
             error = e
         }
         XCTAssertEqual(error,
-                       .gateThrowedError(gate: firstSimulatorGate.gate,
+                       .gateThrowedError(gate: firstSimulatorGate.rawGate,
                                          error: .gateMatrixHandlesMoreQubitsThatCircuitActuallyHas))
         XCTAssertEqual(gateFactory.makeGateCount, 1)
         XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
@@ -133,8 +133,8 @@ class UnitarySimulatorFacadeTests: XCTestCase {
 
         gateFactory.applyingResult = firstUnitaryGate
 
-        firstSimulatorGate.gateResult = .hadamard(target: 0)
-        secondSimulatorGate.gateResult = .phaseShift(radians: 0, target: 0)
+        firstSimulatorGate.rawGateResult = .hadamard(target: 0)
+        secondSimulatorGate.rawGateResult = .phaseShift(radians: 0, target: 0)
 
         let circuit = [firstSimulatorGate, secondSimulatorGate]
 
@@ -144,7 +144,7 @@ class UnitarySimulatorFacadeTests: XCTestCase {
             error = e
         }
         XCTAssertEqual(error,
-                       .gateThrowedError(gate: secondSimulatorGate.gate,
+                       .gateThrowedError(gate: secondSimulatorGate.rawGate,
                                          error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(gateFactory.makeGateCount, 1)
         XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)

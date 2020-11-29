@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
            Docs
         </a>
-         (97% documented)
+         (98% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -62,21 +62,6 @@
                 <a class="nav-group-task-link" href="Enums/EvolveCircuitError.html">EvolveCircuitError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate.html">Gate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/Axis.html">– Axis</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/GateError.html">GateError</a>
               </li>
               <li class="nav-group-task">
@@ -87,6 +72,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/MakeStatevectorError.html">MakeStatevectorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/SimplifiedGate.html">SimplifiedGate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/StatevectorError.html">StatevectorError</a>
@@ -147,6 +135,9 @@
                 <a class="nav-group-task-link" href="Protocols/GeneticFactory.html">GeneticFactory</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/SimplifiedGateConvertible.html">SimplifiedGateConvertible</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a>
               </li>
               <li class="nav-group-task">
@@ -171,6 +162,21 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/EuclideanSolver.html">EuclideanSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate.html">Gate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/Axis.html">– Axis</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/GeneticConfiguration.html">GeneticConfiguration</a>
@@ -307,7 +313,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="Protocols/GeneticFactory.html#/s:21SwiftQuantumComputing14GeneticFactoryP13evolveCircuit13configuration8useCases5gatess6ResultOySd4eval_SayAA4GateOGAGSiSg8oracleAttAA06EvolveG5ErrorOGAA0D13ConfigurationV_SayAA0D7UseCaseVGSayAA012ConfigurableN0_pGtF">GeneticFactory.evolveCircuit(configuration:useCases:gates:)</a></code></p>
+                        <p>Errors throwed by <code><a href="Protocols/GeneticFactory.html#/s:21SwiftQuantumComputing14GeneticFactoryP13evolveCircuit13configuration8useCases5gatess6ResultOySd4eval_SayAA4GateVGAGSiSg8oracleAttAA06EvolveG5ErrorOGAA0D13ConfigurationV_SayAA0D7UseCaseVGSayAA012ConfigurableN0_pGtF">GeneticFactory.evolveCircuit(configuration:useCases:gates:)</a></code></p>
 
                         <a href="Enums/EvolveCircuitError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -335,7 +341,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed  while acting on or using a <code><a href="Enums/Gate.html">Gate</a></code> in a <code><a href="Protocols/Circuit.html">Circuit</a></code></p>
+                        <p>Errors throwed  while acting on or using a <code><a href="Structs/Gate.html">Gate</a></code> in a <code><a href="Protocols/Circuit.html">Circuit</a></code></p>
 
                         <a href="Enums/GateError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -371,7 +377,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">StatevectorError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">StatevectorError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -399,7 +405,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">UnitaryError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">UnitaryError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -456,7 +462,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">GroupedProbabilitiesError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">GroupedProbabilitiesError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -484,7 +490,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SummarizedProbabilitiesError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SummarizedProbabilitiesError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -532,7 +538,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="Protocols/Drawable.html#/s:21SwiftQuantumComputing8DrawableP11drawCircuit_10qubitCounts6ResultOySo6NSViewCAA04DrawF5ErrorOGSayAA4GateOG_SitF">Drawable.drawCircuit(_:qubitCount:)</a></code></p>
+                        <p>Errors throwed by <code><a href="Protocols/Drawable.html#/s:21SwiftQuantumComputing8DrawableP11drawCircuit_10qubitCounts6ResultOySo6NSViewCAA04DrawF5ErrorOGSayAA4GateVG_SitF">Drawable.drawCircuit(_:qubitCount:)</a></code></p>
 
                         <a href="Enums/DrawCircuitError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -540,7 +546,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">DrawCircuitError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">DrawCircuitError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -563,9 +569,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing4GateO"></a>
-                    <a name="//apple_ref/swift/Enum/Gate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing4GateO">Gate</a>
+                    <a name="/s:21SwiftQuantumComputing14SimplifiedGateO"></a>
+                    <a name="//apple_ref/swift/Enum/SimplifiedGate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing14SimplifiedGateO">SimplifiedGate</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -573,16 +579,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A quantum gate with fixed inputs</p>
+                        <p>Simplified representation of a quantum gate. Use to easily identify the type of a quantum gate and its components</p>
 
-                        <a href="Enums/Gate.html" class="slightly-smaller">See more</a>
+                        <a href="Enums/SimplifiedGate.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">indirect</span> <span class="kd">enum</span> <span class="kt">Gate</span></code></pre>
-<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Gate</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">indirect</span> <span class="kd">enum</span> <span class="kt">SimplifiedGate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SimplifiedGate</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -597,7 +603,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-01)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

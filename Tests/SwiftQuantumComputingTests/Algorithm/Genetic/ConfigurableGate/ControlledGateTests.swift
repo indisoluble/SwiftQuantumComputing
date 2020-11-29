@@ -83,9 +83,8 @@ class ControlledGateTests: XCTestCase {
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.controlled(let gate, let controls)):
-            XCTAssertEqual(gate, .not(target: 0))
-            XCTAssertEqual(controls, [1])
+        case .success(let gate):
+            XCTAssertEqual(gate, .controlled(gate: .not(target: 0), controls: [1]))
         default:
             XCTAssert(false)
         }
@@ -102,9 +101,10 @@ class ControlledGateTests: XCTestCase {
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.controlled(let gate, let controls)):
-            XCTAssertEqual(gate, .controlled(gate: .not(target: 0), controls: [1, 3, 4]))
-            XCTAssertEqual(controls, [2, 5])
+        case .success(let gate):
+            XCTAssertEqual(gate, .controlled(gate: .controlled(gate: .not(target: 0),
+                                                               controls: [1, 3, 4]),
+                                             controls: [2, 5]))
         default:
             XCTAssert(false)
         }

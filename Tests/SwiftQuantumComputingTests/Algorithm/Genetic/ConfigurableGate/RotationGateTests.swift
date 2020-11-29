@@ -51,10 +51,8 @@ class RotationGateTests: XCTestCase {
 
         // Then
         switch factory.makeFixed(inputs: inputs) {
-        case .success(.rotation(let gateAxis, let gateRadians, let target)):
-            XCTAssertEqual(axis, gateAxis)
-            XCTAssertEqual(radians, gateRadians)
-            XCTAssertEqual(inputs[0], target)
+        case .success(let gate):
+            XCTAssertEqual(gate, .rotation(axis: axis, radians: radians, target: inputs[0]))
         default:
             XCTAssert(false)
         }

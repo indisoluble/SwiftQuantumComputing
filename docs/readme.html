@@ -22,7 +22,7 @@
         <a class="header-link" href="index.html">
            Docs
         </a>
-         (97% documented)
+         (98% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -61,21 +61,6 @@
                 <a class="nav-group-task-link" href="Enums/EvolveCircuitError.html">EvolveCircuitError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate.html">Gate</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/Axis.html">– Axis</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/GateError.html">GateError</a>
               </li>
               <li class="nav-group-task">
@@ -86,6 +71,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/MakeStatevectorError.html">MakeStatevectorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/SimplifiedGate.html">SimplifiedGate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/StatevectorError.html">StatevectorError</a>
@@ -146,6 +134,9 @@
                 <a class="nav-group-task-link" href="Protocols/GeneticFactory.html">GeneticFactory</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/SimplifiedGateConvertible.html">SimplifiedGateConvertible</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a>
               </li>
               <li class="nav-group-task">
@@ -170,6 +161,21 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/EuclideanSolver.html">EuclideanSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate.html">Gate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Gate/Axis.html">– Axis</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/GeneticConfiguration.html">GeneticConfiguration</a>
@@ -337,12 +343,12 @@
     <span class="k">var</span> <span class="nv">evolvedGates</span> <span class="o">=</span> <span class="n">evolvedCircuit</span><span class="o">.</span><span class="n">gates</span>
 
     <span class="k">if</span> <span class="k">let</span> <span class="nv">oracleAt</span> <span class="o">=</span> <span class="n">evolvedCircuit</span><span class="o">.</span><span class="n">oracleAt</span> <span class="p">{</span>
-        <span class="k">switch</span> <span class="n">evolvedGates</span><span class="p">[</span><span class="n">oracleAt</span><span class="p">]</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="kd">let</span> <span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">controls</span><span class="p">,</span> <span class="n">gate</span><span class="p">):</span>
+        <span class="k">if</span> <span class="k">case</span> <span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="k">let</span> <span class="nv">controls</span><span class="p">,</span> <span class="k">let</span> <span class="nv">gate</span><span class="p">)</span> <span class="o">=</span> <span class="n">evolvedGates</span><span class="p">[</span><span class="n">oracleAt</span><span class="p">]</span><span class="o">.</span><span class="n">simplified</span><span class="p">,</span>
+           <span class="k">case</span> <span class="o">.</span><span class="nf">not</span><span class="p">(</span><span class="k">let</span> <span class="nv">target</span><span class="p">)</span> <span class="o">=</span> <span class="n">gate</span> <span class="p">{</span>
             <span class="n">evolvedGates</span><span class="p">[</span><span class="n">oracleAt</span><span class="p">]</span> <span class="o">=</span> <span class="kt">Gate</span><span class="o">.</span><span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="n">useCase</span><span class="o">.</span><span class="n">truthTable</span><span class="o">.</span><span class="n">truth</span><span class="p">,</span>
                                                  <span class="nv">controls</span><span class="p">:</span> <span class="n">controls</span><span class="p">,</span>
-                                                 <span class="nv">gate</span><span class="p">:</span> <span class="n">gate</span><span class="p">)</span>
-        <span class="k">default</span><span class="p">:</span>
+                                                 <span class="nv">target</span><span class="p">:</span> <span class="n">target</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="nf">fatalError</span><span class="p">(</span><span class="s">"No oracle found"</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -540,7 +546,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-01)</p>
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-29)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

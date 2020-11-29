@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Gate Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Struct/Gate" class="dashAnchor"></a>
+
+    <a title="Gate Structure Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+           Docs
+        </a>
+         (98% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html"> Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      Gate Structure Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../readme.html">README</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DrawCircuitError.html">DrawCircuitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/EvolveCircuitError.html">EvolveCircuitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/GateError.html">GateError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/GroupedProbabilitiesError.html">GroupedProbabilitiesError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorBitsError.html">MakeStatevectorBitsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/MakeStatevectorError.html">MakeStatevectorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SimplifiedGate.html">SimplifiedGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/StatevectorError.html">StatevectorError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SummarizedProbabilitiesError.html">SummarizedProbabilitiesError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/UnitaryError.html">UnitaryError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/Int/DivisionType.html">– DivisionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Circuit.html">Circuit</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitFactory.html">CircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevector.html">CircuitStatevector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/CircuitStatevectorFactory.html">CircuitStatevectorFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ConfigurableGate.html">ConfigurableGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/Drawable.html">Drawable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DrawerFactory.html">DrawerFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/GeneticFactory.html">GeneticFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SimplifiedGateConvertible.html">SimplifiedGateConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/XorGaussianEliminationSolver.html">XorGaussianEliminationSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/XorGaussianEliminationSolverFactory.html">XorGaussianEliminationSolverFactory</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ContinuedFractionsSolver.html">ContinuedFractionsSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ContinuedFractionsSolver/FindApproximationError.html">– FindApproximationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ControlledGate.html">ControlledGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ControlledGate/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/EuclideanSolver.html">EuclideanSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Gate.html">Gate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Gate/MakeInversionAboutMeanError.html">– MakeInversionAboutMeanError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Gate/MakeModularExponentiationError.html">– MakeModularExponentiationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Gate/MakeQuantumFourierTransformError.html">– MakeQuantumFourierTransformError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Gate/Axis.html">– Axis</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration.html">GeneticConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticConfiguration/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticUseCase.html">GeneticUseCase</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticUseCase/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticUseCase/TruthTable.html">– TruthTable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GeneticUseCase/Circuit.html">– Circuit</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/HadamardGate.html">HadamardGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory.html">MainCircuitFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitFactory/StatevectorConfiguration.html">– StatevectorConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainCircuitStatevectorFactory.html">MainCircuitStatevectorFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainDrawerFactory.html">MainDrawerFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainGeneticFactory.html">MainGeneticFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MainXorGaussianEliminationSolverFactory.html">MainXorGaussianEliminationSolverFactory</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Matrix.html">Matrix</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Matrix/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MatrixGate.html">MatrixGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MatrixGate/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/NotGate.html">NotGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/OracleGate.html">OracleGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/OracleGate/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PhaseShiftGate.html">PhaseShiftGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Rational.html">Rational</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Rational/InitError.html">– InitError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/RotationGate.html">RotationGate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TwoLevelDecompositionSolver.html">TwoLevelDecompositionSolver</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TwoLevelDecompositionSolver/DecomposeGatesError.html">– DecomposeGatesError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector.html">Vector</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Vector/InitError.html">– InitError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/SQCView">SQCView</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:21SwiftQuantumComputing7SQCViewa">SQCView</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>Gate</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Gate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Gate</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Gate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/SimplifiedGateConvertible.html">SimplifiedGateConvertible</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>A generic quantum gate</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20class%20methods"></a>
+                <a name="//apple_ref/swift/Section/Public class methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20class%20methods"></a>
+                  <h3 class="section-name"><p>Public class methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV10controlled4gate8controlsA2C_SaySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/controlled(gate:controls:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV10controlled4gate8controlsA2C_SaySiGtFZ">controlled(gate:<wbr>controls:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a generic quantum <code>gate</code> controlled with <code>controls</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">controlled</span><span class="p">(</span><span class="nv">gate</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">,</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV13controlledNot6target7controlACSi_SitFZ"></a>
+                    <a name="//apple_ref/swift/Method/controlledNot(target:control:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV13controlledNot6target7controlACSi_SitFZ">controlledNot(target:<wbr>control:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a controlled not gate with 2 inputs: <code>target</code> &amp; <code>control</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">controlledNot</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">control</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV8hadamard6targetACSi_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/hadamard(target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV8hadamard6targetACSi_tFZ">hadamard(target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a hadamard gate with 1 input: <code>target</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">hadamard</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV27MakeInversionAboutMeanErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/MakeInversionAboutMeanError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV27MakeInversionAboutMeanErrorO">MakeInversionAboutMeanError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Errors throwed by <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSaySiG_tFZ">Gate.makeInversionAboutMean(inputs:)</a></code></p>
+
+                        <a href="../Structs/Gate/MakeInversionAboutMeanError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MakeInversionAboutMeanError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSaySiG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeInversionAboutMean(inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSaySiG_tFZ">makeInversionAboutMean(inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Buils a <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV6matrixAD6inputsAcA6MatrixV_SaySiGtFZ">Gate.matrix(matrix:inputs:)</a></code> gate that produces an inversion about the mean on
+the given <code>inputs</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeInversionAboutMean</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Gate</span><span class="p">,</span> <span class="kt"><a href="../Structs/Gate/MakeInversionAboutMeanError.html">MakeInversionAboutMeanError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6matrixAD6inputsAcA6MatrixV_SaySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/matrix(matrix:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6matrixAD6inputsAcA6MatrixV_SaySiGtFZ">matrix(matrix:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a generic quantum gate built with a <code>matrix</code> (it is expected to be unitary) and any number of <code>inputs</code>
+(as many inputs as <code>matrix</code> is able to handle)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">matrix</span><span class="p">(</span><span class="nv">matrix</span><span class="p">:</span> <span class="kt"><a href="../Structs/Matrix.html">Matrix</a></span><span class="p">,</span> <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV30MakeModularExponentiationErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/MakeModularExponentiationError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV30MakeModularExponentiationErrorO">MakeModularExponentiationError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Errors throwed by <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGAOtFZ">Gate.makeModularExponentiation(base:modulus:exponent:inputs:)</a></code></p>
+
+                        <a href="../Structs/Gate/MakeModularExponentiationError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MakeModularExponentiationError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGAOtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGAOtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code>.
+While <code>base</code> &amp; <code>modulus</code> are constant integers, <code>exponent</code> is a list of qubits and, therefore, its actual value can vary.
+The extra <code>inputs</code> are used to pass the result from one gate to the next and they HAVE TO be set to |1&gt;.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">exponent</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>base</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Base of the modular exponentiation, a positive integer bigger than zero.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>modulus</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Modulus of the modular exponentiation, a positive integer bigger than zero..</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>exponent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>List of qubits that defines the exponent of the modular exponentiation. For example, if <code>exponent</code>
+is equal to [2, 1, 0] and qubit[2]=1, qubit[1]=1 &amp; qubit[0]=0, the actual value of the exponent is &lsquo;110&rsquo;=6. Notice that
+If <code>exponent</code> was reveresed (i.e. [0, 1, 2]), the actual of the exponent would be &lsquo;011&rsquo;=3.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inputs</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>List of qubits used to pass the result from one gate to the next. Notice that, because this is a modulo,
+you have to provide at least enough input qubits to code <code>modulus</code> values (from 0 to <code>modulus</code> - 1). Also, in order to get the
+expected result at the end of the list of <code>Gate</code> instances, the input qubits have to be set to |1&gt;. For example, if <code>inputs</code>
+are equal to [2, 1, 0], qubit[2] and qubit[1] have to be 0 and qubit[0] has to be 1. On the other hand, if <code>inputs</code> were
+[0, 1, 2], qubit[0] and qubit[1] should be 0 and qubit[2] should be 1.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>List of <code>Gate</code> instances that code a modular exponentiation. Or <code><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></code> error.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV3not6targetACSi_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/not(target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV3not6targetACSi_tFZ">not(target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a not gate with 1 input: <code>target</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">not</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SaySiGACtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SaySiGACtFZ">oracle(truthTable:<wbr>controls:<wbr>gate:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an oracle gate composed of a <code>truthtable</code> that specifies which <code>controls</code> activate a <code>gate</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span> <span class="nv">gate</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls6targetACSaySSG_SaySiGSitFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls6targetACSaySSG_SaySiGSitFZ">oracle(truthTable:<wbr>controls:<wbr>target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SaySiGACtFZ">Gate.oracle(truthTable:controls:gate:)</a></code> with a <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV3not6targetACSi_tFZ">Gate.not(target:)</a></code> in target.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>truthTable</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Oracle truthtable.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>controls</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Control qubits.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>target</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Target of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV3not6targetACSi_tFZ">Gate.not(target:)</a></code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SaySiGACtFZ">Gate.oracle(truthTable:controls:gate:)</a></code> instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV10phaseShift7radians6targetACSd_SitFZ"></a>
+                    <a name="//apple_ref/swift/Method/phaseShift(radians:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV10phaseShift7radians6targetACSd_SitFZ">phaseShift(radians:<wbr>target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a quantum gate that shifts phase of the quantum state in <code>target</code> by <code>radians</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">phaseShift</span><span class="p">(</span><span class="nv">radians</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV04MakeB21FourierTransformErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/MakeQuantumFourierTransformError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV04MakeB21FourierTransformErrorO">MakeQuantumFourierTransformError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Errors throwed by <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV04makeB16FourierTransform6inputs7inverses6ResultOyA2C04MakebfG5ErrorOGSaySiG_SbtFZ">Gate.makeQuantumFourierTransform(inputs:inverse:)</a></code></p>
+
+                        <a href="../Structs/Gate/MakeQuantumFourierTransformError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MakeQuantumFourierTransformError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV04makeB16FourierTransform6inputs7inverses6ResultOyA2C04MakebfG5ErrorOGSaySiG_SbtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeQuantumFourierTransform(inputs:inverse:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV04makeB16FourierTransform6inputs7inverses6ResultOyA2C04MakebfG5ErrorOGSaySiG_SbtFZ">makeQuantumFourierTransform(inputs:<wbr>inverse:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Buils a <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV6matrixAD6inputsAcA6MatrixV_SaySiGtFZ">Gate.matrix(matrix:inputs:)</a></code> gate that performs a Quantum Fourier Transform over <code>inputs</code>
+if <code>inverse</code> is <code>false</code> or an inverse Quantum Fourier Transform otherwise</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeQuantumFourierTransform</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                                               <span class="nv">inverse</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Gate</span><span class="p">,</span> <span class="kt"><a href="../Structs/Gate/MakeQuantumFourierTransformError.html">MakeQuantumFourierTransformError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20types"></a>
+                <a name="//apple_ref/swift/Section/Public types" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20types"></a>
+                  <h3 class="section-name"><p>Public types</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV4AxisO"></a>
+                    <a name="//apple_ref/swift/Enum/Axis" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV4AxisO">Axis</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Paulis P = {X, Y, Z}</p>
+
+                        <a href="../Structs/Gate/Axis.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Axis</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20class%20methods2"></a>
+                <a name="//apple_ref/swift/Section/Public class methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20class%20methods2"></a>
+                  <h3 class="section-name"><p>Public class methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV8rotation4axis7radians6targetA2C4AxisO_SdSitFZ"></a>
+                    <a name="//apple_ref/swift/Method/rotation(axis:radians:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV8rotation4axis7radians6targetA2C4AxisO_SdSitFZ">rotation(axis:<wbr>radians:<wbr>target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a quantum gate that defines a rotation of <code>radians</code> around <code>axis</code> of the quantum state in <code>target</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">rotation</span><span class="p">(</span><span class="nv">axis</span><span class="p">:</span> <span class="kt"><a href="../Structs/Gate/Axis.html">Axis</a></span><span class="p">,</span> <span class="nv">radians</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSnySiG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeInversionAboutMean(inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSnySiG_tFZ">makeInversionAboutMean(inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Builds a <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV6matrixAD6inputsAcA6MatrixV_SaySiGtFZ">Gate.matrix(matrix:inputs:)</a></code> gate that produces an inversion about the mean on</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeInversionAboutMean</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Gate</span><span class="p">,</span> <span class="kt"><a href="../Structs/Gate/MakeInversionAboutMeanError.html">MakeInversionAboutMeanError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSNySiG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeInversionAboutMean(inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV22makeInversionAboutMean6inputss6ResultOyA2C04MakefgH5ErrorOGSNySiG_tFZ">makeInversionAboutMean(inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Builds a <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV6matrixAD6inputsAcA6MatrixV_SaySiGtFZ">Gate.matrix(matrix:inputs:)</a></code> gate that produces an inversion about the mean on</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeInversionAboutMean</span><span class="p">(</span><span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="kt">Gate</span><span class="p">,</span> <span class="kt"><a href="../Structs/Gate/MakeInversionAboutMeanError.html">MakeInversionAboutMeanError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGSaySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGSaySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">exponent</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGSaySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGSaySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">exponent</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGSnySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGSnySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">exponent</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGSNySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSaySiGSNySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">exponent</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGAOtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGAOtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">exponent</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGSNySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSnySiGSNySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">exponent</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGSnySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGSnySiGtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">exponent</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGAOtFZ"></a>
+                    <a name="//apple_ref/swift/Method/makeModularExponentiation(base:modulus:exponent:inputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV25makeModularExponentiation4base7modulus8exponent6inputss6ResultOySayACGAC04MakefG5ErrorOGSi_SiSNySiGAOtFZ">makeModularExponentiation(base:<wbr>modulus:<wbr>exponent:<wbr>inputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implements with <code>Gate</code> instances a modular exponentiation performed over <code>modulus</code> with <code>base</code> raised to <code>exponent</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">makeModularExponentiation</span><span class="p">(</span><span class="nv">base</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">modulus</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+                                             <span class="nv">exponent</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                                             <span class="nv">inputs</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Gate</span><span class="p">],</span> <span class="kt"><a href="../Structs/Gate/MakeModularExponentiationError.html">MakeModularExponentiationError</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SnySiGACtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SnySiGACtFZ">oracle(truthTable:<wbr>controls:<wbr>gate:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">gate</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SNySiGACtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:gate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SNySiGACtFZ">oracle(truthTable:<wbr>controls:<wbr>gate:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">gate</span><span class="p">:</span> <span class="kt">Gate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls6targetACSaySSG_SnySiGSitFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls6targetACSaySSG_SnySiGSitFZ">oracle(truthTable:<wbr>controls:<wbr>target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls6targetACSaySSG_SNySiGSitFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:target:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls6targetACSaySSG_SNySiGSitFZ">oracle(truthTable:<wbr>controls:<wbr>target:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces an oracle gate</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">target</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Gate</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGSnySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGSnySiGtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of oracle gates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SnySiGALtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SnySiGALtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of oracle gates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SNySiGSnySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SNySiGSnySiGtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of oracle gates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGSNySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGSNySiGtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of oracle gates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SnySiGSNySiGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SnySiGSNySiGtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of oracle gates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SNySiGALtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SNySiGALtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of oracle gates</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV8hadamard7targetsSayACGSnySiG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/hadamard(targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV8hadamard7targetsSayACGSnySiG_tFZ">hadamard(targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV8hadamard6targetACSi_tFZ">Gate.hadamard(target:)</a></code>, each gate on one of the <code>targets</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">hadamard</span><span class="p">(</span><span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV8hadamard7targetsSayACGSNySiG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/hadamard(targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV8hadamard7targetsSayACGSNySiG_tFZ">hadamard(targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV8hadamard6targetACSi_tFZ">Gate.hadamard(target:)</a></code>, each gate on one of the <code>targets</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">hadamard</span><span class="p">(</span><span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV8hadamard7targetsSayACGSid_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/hadamard(targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV8hadamard7targetsSayACGSid_tFZ">hadamard(targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV8hadamard6targetACSi_tFZ">Gate.hadamard(target:)</a></code>, each gate on one of the <code>targets</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">hadamard</span><span class="p">(</span><span class="nv">targets</span><span class="p">:</span> <span class="kt">Int</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV3not7targetsSayACGSnySiG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/not(targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV3not7targetsSayACGSnySiG_tFZ">not(targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV3not6targetACSi_tFZ">Gate.not(target:)</a></code>, each gate on one of the <code>targets</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">not</span><span class="p">(</span><span class="nv">targets</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV3not7targetsSayACGSNySiG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/not(targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV3not7targetsSayACGSNySiG_tFZ">not(targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV3not6targetACSi_tFZ">Gate.not(target:)</a></code>, each gate on one of the <code>targets</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">not</span><span class="p">(</span><span class="nv">targets</span><span class="p">:</span> <span class="kt">ClosedRange</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV3not7targetsSayACGSid_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/not(targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV3not7targetsSayACGSid_tFZ">not(targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV3not6targetACSi_tFZ">Gate.not(target:)</a></code>, each gate on one of the <code>targets</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">not</span><span class="p">(</span><span class="nv">targets</span><span class="p">:</span> <span class="kt">Int</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20types2"></a>
+                <a name="//apple_ref/swift/Section/Public types" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20types2"></a>
+                  <h3 class="section-name"><p>Public types</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV13ExtendedTrutha"></a>
+                    <a name="//apple_ref/swift/Alias/ExtendedTruth" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV13ExtendedTrutha">ExtendedTruth</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Represents the <code>activation</code> (or bits) produded by a function after inputting a given <code>truth</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ExtendedTruth</span> <span class="o">=</span> <span class="p">(</span><span class="nv">truth</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">activation</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20class%20methods3"></a>
+                <a name="//apple_ref/swift/Section/Public class methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20class%20methods3"></a>
+                  <h3 class="section-name"><p>Public class methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGALtFZ"></a>
+                    <a name="//apple_ref/swift/Method/oracle(truthTable:controls:targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls7targetsSayACGSaySS0F0_SS10activationtG_SaySiGALtFZ">oracle(truthTable:<wbr>controls:<wbr>targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SaySiGACtFZ">Gate.oracle(truthTable:controls:gate:)</a></code>. A <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV3not6targetACSi_tFZ">Gate.not(target:)</a></code> is produced for each target
+in <code>targets</code> if at least one <code>activation</code> in <code>truthTable</code> has the bit correspoding to the target activated.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">oracle</span><span class="p">(</span><span class="nv">truthTable</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV13ExtendedTrutha">ExtendedTruth</a></span><span class="p">],</span>
+                          <span class="nv">controls</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">],</span>
+                          <span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>truthTable</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>List of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV13ExtendedTrutha">Gate.ExtendedTruth</a></code> instances.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>controls</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Control qubits for each oracle in the list.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>targets</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Targets for each oracle in the list.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>List of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV6oracle10truthTable8controls4gateACSaySSG_SaySiGACtFZ">Gate.oracle(truthTable:controls:gate:)</a></code>.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV8hadamard7targetsSayACGSaySiG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/hadamard(targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV8hadamard7targetsSayACGSaySiG_tFZ">hadamard(targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV8hadamard6targetACSi_tFZ">Gate.hadamard(target:)</a></code>, each gate on one of the <code>targets</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">hadamard</span><span class="p">(</span><span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV3not7targetsSayACGSaySiG_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/not(targets:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV3not7targetsSayACGSaySiG_tFZ">not(targets:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Produces a list of <code><a href="../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV3not6targetACSi_tFZ">Gate.not(target:)</a></code>, each gate on one of the <code>targets</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">not</span><span class="p">(</span><span class="nv">targets</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Gate</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Hashable%20methods"></a>
+                <a name="//apple_ref/swift/Section/Hashable methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Hashable%20methods"></a>
+                  <h3 class="section-name"><p>Hashable methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="p">`</span><span class="nv">Self</span><span class="p">`)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SH4hash4intoys6HasherVz_tF"></a>
+                    <a name="//apple_ref/swift/Method/hash(into:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SH4hash4intoys6HasherVz_tF">hash(into:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hash</span><span class="p">(</span><span class="n">into</span> <span class="nv">hasher</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">Hasher</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/SimplifiedGateConvertible%20methods"></a>
+                <a name="//apple_ref/swift/Section/SimplifiedGateConvertible methods" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/SimplifiedGateConvertible%20methods"></a>
+                  <h3 class="section-name"><p>SimplifiedGateConvertible methods</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing4GateV10simplifiedAA010SimplifiedD0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/simplified" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing4GateV10simplifiedAA010SimplifiedD0Ovp">simplified</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Check <code><a href="../Protocols/SimplifiedGateConvertible.html#/s:21SwiftQuantumComputing25SimplifiedGateConvertibleP10simplifiedAA0dE0Ovp">SimplifiedGateConvertible.simplified</a></code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">simplified</span><span class="p">:</span> <span class="kt"><a href="../Enums/SimplifiedGate.html">SimplifiedGate</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-11-29)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
