@@ -31,22 +31,21 @@ struct SimulatorCircuitMatrixAdapter {
 
     // MARK: - Private properties
 
-    private let derives: [(base: Int, remaining: Int)]
     private let baseMatrix: SimulatorMatrix
+    private let stateEquivalences: [(baseIndex: Int, remainingState: Int)]
 
     // MARK: - Internal init methods
 
     init(qubitCount: Int, baseMatrix: SimulatorMatrix, inputs: [Int]) {
-        let count = Int.pow(2, qubitCount)
-        let remainingInputs = (0..<qubitCount).reversed().filter { !inputs.contains($0) }
+        let rearranger = BitRearranger(origins: inputs)
 
-        let derives = (0..<count).lazy.map { value in
-            return (value.derived(takingBitsAt: inputs),
-                    value.derived(takingBitsAt: remainingInputs))
+        let count = Int.pow(2, qubitCount)
+        let stateEquivalences = (0..<count).lazy.map { state in
+            return (rearranger.rearrangeBits(in: state), state & rearranger.unselectedBitsMask)
         }
 
         self.count = count
-        self.derives = Array(derives)
+        self.stateEquivalences = Array(stateEquivalences)
         self.baseMatrix = baseMatrix
     }
 }
@@ -73,8 +72,8 @@ extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {
 
 extension SimulatorCircuitMatrixAdapter: SimulatorMatrix {
     subscript(row: Int, column: Int) -> Complex<Double> {
-        let (baseRow, remainingRow) = derives[row]
-        let (baseColumn, remainingColumn) = derives[column]
+        let (baseRow, remainingRow) = stateEquivalences[row]
+        let (baseColumn, remainingColumn) = stateEquivalences[column]
 
         return (remainingRow == remainingColumn ? baseMatrix[baseRow, baseColumn] : Complex.zero)
     }
