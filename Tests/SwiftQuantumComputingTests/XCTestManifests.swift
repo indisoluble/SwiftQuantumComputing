@@ -71,7 +71,6 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Bool_XorTests.allTests),
         testCase(Double_RoundedToDecimalPlacesTests.allTests),
         testCase(Int_ActivatedBitsTests.allTests),
-        testCase(Int_DerivedTests.allTests),
         testCase(Int_IsPowerOfTwoTests.allTests),
         testCase(Int_MaskTests.allTests),
         testCase(Int_QuotientAndRemainderWithDivisionTypeTests.allTests),
