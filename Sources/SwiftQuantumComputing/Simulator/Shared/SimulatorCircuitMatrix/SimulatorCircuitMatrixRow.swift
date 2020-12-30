@@ -1,8 +1,8 @@
 //
-//  SimulatorCircuitMatrix.swift
+//  SimulatorCircuitMatrixRow.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 12/05/2020.
+//  Created by Enrique de la Torre on 30/12/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,16 +22,14 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimulatorCircuitMatrix {
-    var rawMatrix: Matrix { get }
+protocol SimulatorCircuitMatrixRow {
+    subscript(row: Int) -> Vector { get }
 }
 
-// MARK: - SimulatorCircuitMatrix default implementations
+// MARK: - SimulatorCircuitMatrixRow default implementations
 
-extension SimulatorCircuitMatrix where Self: SimulatorMatrix {
-    var rawMatrix: Matrix {
-        return try! Matrix.makeMatrix(rowCount: count,
-                                      columnCount: count,
-                                      value: { self[$0, $1] }).get()
+extension SimulatorCircuitMatrixRow where Self: SimulatorMatrix {
+    subscript(row: Int) -> Vector {
+        return try! Vector.makeVector(count: count, value: { self[row, $0] }).get()
     }
 }

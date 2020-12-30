@@ -52,21 +52,11 @@ struct SimulatorCircuitMatrixAdapter {
 
 // MARK: - SimulatorCircuitMatrix methods
 
-extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrix {
-    var rawMatrix: Matrix {
-        return try! Matrix.makeMatrix(rowCount: count,
-                                      columnCount: count,
-                                      value: { self[$0, $1] }).get()
-    }
-}
+extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrix {}
 
 // MARK: - SimulatorCircuitMatrixRow methods
 
-extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {
-    subscript(row: Int) -> Vector {
-        return try! Vector.makeVector(count: count, value: { self[row, $0] }).get()
-    }
-}
+extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {}
 
 // MARK: - SimulatorMatrix methods
 
