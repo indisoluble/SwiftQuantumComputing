@@ -90,7 +90,7 @@ private extension DirectStatevectorTransformation {
                toStatevector vector: Vector,
                atInput input: Int,
                selectingStatesWith filter: Int? = nil) -> Vector {
-        let mask = 1 << input
+        let mask = Int.mask(activatingBitAt: input)
         let invMask = ~mask
 
         return try! Vector.makeVector(count: vector.count, value: { index in

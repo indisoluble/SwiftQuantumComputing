@@ -44,7 +44,7 @@ struct BitRearranger {
         var partialDestinations: [Destination] = []
 
         for (dest, org) in origins.reversed().enumerated() {
-            let selectMask = 1 << org
+            let selectMask = Int.mask(activatingBitAt: org)
 
             partialDestinations.append((selectMask, org - dest))
             partialSelectedBitsMask |= selectMask
