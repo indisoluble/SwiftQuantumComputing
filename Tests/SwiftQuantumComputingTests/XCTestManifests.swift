@@ -123,7 +123,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(GeneticUseCaseTests.allTests),
         testCase(MainGeneticFactoryTests.allTests),
         testCase(BitRearrangerTests.allTests),
-        testCase(SimulatorCircuitMatrixAdapterTests.allTests),
+        testCase(SimulatorCircuitMatrixTests.allTests),
         testCase(SimulatorGateMatrix_CountTests.allTests),
         testCase(SimulatorGateMatrix_MatrixTests.allTests),
         testCase(OracleSimulatorMatrixTests.allTests),

@@ -1,5 +1,5 @@
 //
-//  SimulatorCircuitMatrixRow.swift
+//  SimulatorCircuitRowTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 30/12/2020.
@@ -20,16 +20,27 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+@testable import SwiftQuantumComputing
 
-protocol SimulatorCircuitMatrixRow {
-    subscript(row: Int) -> Vector { get }
+// MARK: - Main body
+
+final class SimulatorCircuitRowTestDouble {
+
+    // MARK: - Internal properties
+
+    private (set) var subscriptCount = 0
+    private (set) var lastSubscriptRow: Int?
+    var subscriptResult = try! Vector([.zero])
 }
 
-// MARK: - SimulatorCircuitMatrixRow default implementations
+// MARK: - SimulatorCircuitRow methods
 
-extension SimulatorCircuitMatrixRow where Self: SimulatorMatrix {
+extension SimulatorCircuitRowTestDouble: SimulatorCircuitRow {
     subscript(row: Int) -> Vector {
-        return try! Vector.makeVector(count: count, value: { self[row, $0] }).get()
+        subscriptCount += 1
+
+        lastSubscriptRow = row
+
+        return subscriptResult
     }
 }
