@@ -1,8 +1,8 @@
 //
-//  BitRearrangerTests.swift
+//  Array+RearrangeBitsTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 29/12/2020.
+//  Created by Enrique de la Torre on 31/12/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,53 +24,82 @@ import XCTest
 
 // MARK: - Main body
 
-class BitRearrangerTests: XCTestCase {
+class Array_RearrangeBitsTests: XCTestCase {
 
     // MARK: - Tests
 
     func testTwoAndNoOrigins_rearrangeBits_returnExpectedValue() {
+        // Given
+        let sut: [BitwiseShift] = []
+
         // Then
-        XCTAssertEqual(BitRearranger(origins: []).rearrangeBits(in: 2), 0)
+        XCTAssertEqual(sut.rearrangeBits(in: 2), 0)
     }
 
     func testTwoAndTwoSortedOrigins_rearrangeBits_returnExpectedValue() {
+        // Given
+        let sut = [
+            BitwiseShift(origin: 2, destination: 1),
+            BitwiseShift(origin: 1, destination: 0)
+        ]
+
         // Then
-        XCTAssertEqual(BitRearranger(origins: [2, 1]).rearrangeBits(in: 2), 1)
+        XCTAssertEqual(sut.rearrangeBits(in: 2), 1)
     }
 
     func testTwoAndTwoInvertedOrigins_rearrangeBits_returnExpectedValue() {
+        // Given
+        let sut = [
+            BitwiseShift(origin: 1, destination: 1),
+            BitwiseShift(origin: 2, destination: 0)
+        ]
+
         // Then
-        XCTAssertEqual(BitRearranger(origins: [1, 2]).rearrangeBits(in: 2), 2)
+        XCTAssertEqual(sut.rearrangeBits(in: 2), 2)
     }
 
     func testFiftySevenAndTwoSortedOrigins_rearrangeBits_returnExpectedValue() {
+        // Given
+        let sut = [
+            BitwiseShift(origin: 3, destination: 1),
+            BitwiseShift(origin: 1, destination: 0)
+        ]
+
         // Then
-        XCTAssertEqual(BitRearranger(origins: [3, 1]).rearrangeBits(in: 57), 2)
+        XCTAssertEqual(sut.rearrangeBits(in: 57), 2)
     }
 
     func testFortyTwoAndTwoInvertedOrigins_rearrangeBits_returnExpectedValue() {
+        // Given
+        let sut = [
+            BitwiseShift(origin: 1, destination: 1),
+            BitwiseShift(origin: 4, destination: 0)
+        ]
+
         // Then
-        XCTAssertEqual(BitRearranger(origins: [1, 4]).rearrangeBits(in: 42), 2)
+        XCTAssertEqual(sut.rearrangeBits(in: 42), 2)
     }
 
     func testAnyNumberAndOriginOutOfRange_rearrangeBits_returnZero() {
+        // Given
+        let sut = [
+            BitwiseShift(origin: 1000, destination: 0)
+        ]
+
         // Then
-        XCTAssertEqual(BitRearranger(origins: [1000]).rearrangeBits(in: 2), 0)
+        XCTAssertEqual(sut.rearrangeBits(in: 2), 0)
     }
 
     func testFortyTwoTwoInvertedOriginAndOneOutOfRange_rearrangeBits_returnExpectedValue() {
-        // Then
-        XCTAssertEqual(BitRearranger(origins: [1000, 1, 2]).rearrangeBits(in: 42), 2)
-    }
+        // Given
+        let sut = [
+            BitwiseShift(origin: 1000, destination: 2),
+            BitwiseShift(origin: 1, destination: 1),
+            BitwiseShift(origin: 2, destination: 0)
+        ]
 
-    func testTwoInvertedOrigins_selectedBitsMask_returnExpectedValue() {
         // Then
-        XCTAssertEqual(BitRearranger(origins: [1, 4]).selectedBitsMask, 18)
-    }
-
-    func testTwoInvertedOrigins_unselectedBitsMask_returnExpectedValue() {
-        // Then
-        XCTAssertEqual(BitRearranger(origins: [1, 4]).unselectedBitsMask, ~18)
+        XCTAssertEqual(sut.rearrangeBits(in: 42), 2)
     }
 
     static var allTests = [
@@ -87,10 +116,6 @@ class BitRearrangerTests: XCTestCase {
         ("testAnyNumberAndOriginOutOfRange_rearrangeBits_returnZero",
          testAnyNumberAndOriginOutOfRange_rearrangeBits_returnZero),
         ("testFortyTwoTwoInvertedOriginAndOneOutOfRange_rearrangeBits_returnExpectedValue",
-         testFortyTwoTwoInvertedOriginAndOneOutOfRange_rearrangeBits_returnExpectedValue),
-        ("testTwoInvertedOrigins_selectedBitsMask_returnExpectedValue",
-         testTwoInvertedOrigins_selectedBitsMask_returnExpectedValue),
-        ("testTwoInvertedOrigins_unselectedBitsMask_returnExpectedValue",
-         testTwoInvertedOrigins_unselectedBitsMask_returnExpectedValue)
+         testFortyTwoTwoInvertedOriginAndOneOutOfRange_rearrangeBits_returnExpectedValue)
     ]
 }

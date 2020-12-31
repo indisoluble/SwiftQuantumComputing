@@ -37,11 +37,20 @@ struct SimulatorCircuitMatrix {
     // MARK: - Internal init methods
 
     init(qubitCount: Int, baseMatrix: SimulatorMatrix, inputs: [Int]) {
-        let rearranger = BitRearranger(origins: inputs)
+        var rearranger: [BitwiseShift] = []
+        var selectedBitMask = 0
+        for (destination, origin) in inputs.reversed().enumerated() {
+            let action = BitwiseShift(origin: origin, destination: destination)
+
+            rearranger.append(action)
+
+            selectedBitMask |= action.selectMask
+        }
 
         let count = Int.pow(2, qubitCount)
+        let unselectedBitMask = ~selectedBitMask
         let stateEquivalences = (0..<count).lazy.map { state in
-            return (rearranger.rearrangeBits(in: state), state & rearranger.unselectedBitsMask)
+            return (rearranger.rearrangeBits(in: state), state & unselectedBitMask)
         }
 
         self.count = count
