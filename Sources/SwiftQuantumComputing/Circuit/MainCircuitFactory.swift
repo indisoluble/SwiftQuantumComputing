@@ -41,6 +41,13 @@ public struct MainCircuitFactory {
         /// parallel with up to `maxConcurrency` number of threads. If `maxConcurrency` is set to
         /// 1 or less, the whole process will be serial.
         case elementByElement(maxConcurrency: Int = 1)
+        /// Similar to `StatevectorConfiguration.elementByElement` but instead of calculating
+        /// (on the fly) all positions in a row, only those that are needed (not zero) are generated. If each gate
+        /// only uses a few qubits in the circuit, this is the fastest option and it does not consume more memory
+        /// than `StatevectorConfiguration.elementByElement`. This process can be done in
+        /// parallel with up to `maxConcurrency` number of threads. If `maxConcurrency` is set to 1 or
+        /// less, the whole process will be serial.
+        case direct(maxConcurrency: Int = 1)
     }
 
     // MARK: - Private properties
@@ -53,13 +60,13 @@ public struct MainCircuitFactory {
      Initialize a `MainCircuitFactory` instance.
 
      - Parameter statevectorConfiguration: Defines how a statevector is calculated. By default is set to
-     `StatevectorConfiguration.elementByElement`, however the performance of each configuration
-     depends on each use case. It is recommended to try different configurations so see how long an execution takes and
-     how much memory is required.
+     `StatevectorConfiguration.direct`, however the performance of each configuration depends on each
+     use case. It is recommended to try different configurations so see how long an execution takes and how much
+     memory is required.
 
      - Returns: A`MainCircuitFactory` instance.
      */
-    public init(statevectorConfiguration: StatevectorConfiguration = .elementByElement()) {
+    public init(statevectorConfiguration: StatevectorConfiguration = .direct()) {
         self.statevectorConfiguration = statevectorConfiguration
     }
 }
@@ -90,9 +97,8 @@ private extension MainCircuitFactory {
     }
 
     func makeStatevectorSimulator() -> StatevectorSimulator {
-        let baseTransformation = makeBaseStatevectorTransformation()
-        let directTransformation = DirectStatevectorTransformation(transformation: baseTransformation)
-        let registerFactory = StatevectorRegisterFactoryAdapter(transformation: directTransformation)
+        let transformation = makeStatevectorTransformation()
+        let registerFactory = StatevectorRegisterFactoryAdapter(transformation: transformation)
 
         let statevectorFactory = MainCircuitStatevectorFactory()
 
@@ -100,7 +106,7 @@ private extension MainCircuitFactory {
                                           statevectorFactory: statevectorFactory)
     }
 
-    func makeBaseStatevectorTransformation() -> StatevectorTransformation {
+    func makeStatevectorTransformation() -> StatevectorTransformation {
         var transformation: StatevectorTransformation!
         switch statevectorConfiguration {
         case .fullMatrix:
@@ -117,6 +123,8 @@ private extension MainCircuitFactory {
 
             transformation = try! CircuitMatrixElementStatevectorTransformation(matrixFactory: matrixFactory,
                                                                                 maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+        case .direct(let maxConcurrency):
+            transformation = try! DirectStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         }
 
         return transformation
