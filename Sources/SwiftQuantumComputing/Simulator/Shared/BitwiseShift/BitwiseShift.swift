@@ -1,9 +1,9 @@
 //
-//  Int+Derived.swift
+//  BitwiseShift.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/08/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 31/12/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,12 +20,25 @@
 
 import Foundation
 
-extension Int {
-    func derived(takingBitsAt positions: [Int]) -> Int {
-        return positions.reversed().enumerated().reduce(0) { (acc, arg) -> Int in
-            let (next_pos, current_pos) = arg
+// MARK: - Main body
 
-            return acc + ((self & (1 << current_pos)) >> (current_pos - next_pos))
-        }
+struct BitwiseShift {
+
+    // MARK: - Internal properties
+
+    let selectMask: Int
+    let placesToTheRight: Int
+
+    // MARK: - Internal init methods
+
+    init(origin: Int, destination: Int) {
+        selectMask = Int.mask(activatingBitAt: origin)
+        placesToTheRight = origin - destination
+    }
+
+    // MARK: - Internal methods
+
+    func perform(on value: Int) -> Int {
+        return (value & selectMask) >> placesToTheRight
     }
 }

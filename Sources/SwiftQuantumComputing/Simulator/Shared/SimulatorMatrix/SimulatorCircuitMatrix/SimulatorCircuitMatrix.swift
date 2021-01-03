@@ -1,5 +1,5 @@
 //
-//  SimulatorCircuitMatrixAdapter.swift
+//  SimulatorCircuitMatrix.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 12/05/2020.
@@ -23,7 +23,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct SimulatorCircuitMatrixAdapter {
+struct SimulatorCircuitMatrix {
 
     // MARK: - SimulatorMatrix properties
 
@@ -31,50 +31,44 @@ struct SimulatorCircuitMatrixAdapter {
 
     // MARK: - Private properties
 
-    private let derives: [(base: Int, remaining: Int)]
     private let baseMatrix: SimulatorMatrix
+    private let stateEquivalences: [(baseIndex: Int, remainingState: Int)]
 
     // MARK: - Internal init methods
 
     init(qubitCount: Int, baseMatrix: SimulatorMatrix, inputs: [Int]) {
-        let count = Int.pow(2, qubitCount)
-        let remainingInputs = (0..<qubitCount).reversed().filter { !inputs.contains($0) }
+        var rearranger: [BitwiseShift] = []
+        var selectedBitMask = 0
+        for (destination, origin) in inputs.reversed().enumerated() {
+            let action = BitwiseShift(origin: origin, destination: destination)
 
-        let derives = (0..<count).lazy.map { value in
-            return (value.derived(takingBitsAt: inputs),
-                    value.derived(takingBitsAt: remainingInputs))
+            rearranger.append(action)
+
+            selectedBitMask |= action.selectMask
+        }
+
+        let count = Int.pow(2, qubitCount)
+        let unselectedBitMask = ~selectedBitMask
+        let stateEquivalences = (0..<count).lazy.map { state in
+            return (rearranger.rearrangeBits(in: state), state & unselectedBitMask)
         }
 
         self.count = count
-        self.derives = Array(derives)
+        self.stateEquivalences = Array(stateEquivalences)
         self.baseMatrix = baseMatrix
     }
 }
 
-// MARK: - SimulatorCircuitMatrix methods
+// MARK: - SimulatorCircuitRow methods
 
-extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrix {
-    var rawMatrix: Matrix {
-        return try! Matrix.makeMatrix(rowCount: count,
-                                      columnCount: count,
-                                      value: { self[$0, $1] }).get()
-    }
-}
-
-// MARK: - SimulatorCircuitMatrixRow methods
-
-extension SimulatorCircuitMatrixAdapter: SimulatorCircuitMatrixRow {
-    subscript(row: Int) -> Vector {
-        return try! Vector.makeVector(count: count, value: { self[row, $0] }).get()
-    }
-}
+extension SimulatorCircuitMatrix: SimulatorCircuitRow {}
 
 // MARK: - SimulatorMatrix methods
 
-extension SimulatorCircuitMatrixAdapter: SimulatorMatrix {
+extension SimulatorCircuitMatrix: SimulatorMatrix {
     subscript(row: Int, column: Int) -> Complex<Double> {
-        let (baseRow, remainingRow) = derives[row]
-        let (baseColumn, remainingColumn) = derives[column]
+        let (baseRow, remainingRow) = stateEquivalences[row]
+        let (baseColumn, remainingColumn) = stateEquivalences[column]
 
         return (remainingRow == remainingColumn ? baseMatrix[baseRow, baseColumn] : Complex.zero)
     }

@@ -26,7 +26,7 @@ struct CircuitMatrixRowStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let matrixFactory: SimulatorCircuitMatrixRowFactory
+    private let rowFactory: SimulatorCircuitRowFactory
     private let maxConcurrency: Int
 
     // MARK: - Internal init methods
@@ -35,12 +35,12 @@ struct CircuitMatrixRowStatevectorTransformation {
         case maxConcurrencyHasToBiggerThanZero
     }
 
-    init(matrixFactory: SimulatorCircuitMatrixRowFactory, maxConcurrency: Int) throws {
+    init(rowFactory: SimulatorCircuitRowFactory, maxConcurrency: Int) throws {
         guard maxConcurrency > 0 else {
             throw InitError.maxConcurrencyHasToBiggerThanZero
         }
 
-        self.matrixFactory = matrixFactory
+        self.rowFactory = rowFactory
         self.maxConcurrency = maxConcurrency
     }
 }
@@ -52,9 +52,9 @@ extension CircuitMatrixRowStatevectorTransformation: StatevectorTransformation {
         let qubitCount = Int.log2(vector.count)
         let baseMatrix = components.simulatorGateMatrix.matrix
         let inputs = components.inputs
-        let circuitRow = matrixFactory.makeCircuitMatrixRow(qubitCount: qubitCount,
-                                                            baseMatrix: baseMatrix,
-                                                            inputs: inputs)
+        let circuitRow = rowFactory.makeCircuitMatrixRow(qubitCount: qubitCount,
+                                                         baseMatrix: baseMatrix,
+                                                         inputs: inputs)
         return try! Vector.makeVector(count: vector.count,
                                       maxConcurrency: maxConcurrency,
                                       value: { try! (circuitRow[$0] * vector).get() }).get()

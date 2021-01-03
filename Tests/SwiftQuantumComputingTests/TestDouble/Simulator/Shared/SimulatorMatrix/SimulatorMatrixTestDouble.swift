@@ -1,8 +1,8 @@
 //
-//  SimulatorCircuitMatrixTestDouble.swift
+//  SimulatorMatrixTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 12/05/2020.
+//  Created by Enrique de la Torre on 30/12/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,20 +25,43 @@ import Foundation
 
 // MARK: - Main body
 
-final class SimulatorCircuitMatrixTestDouble {
+final class SimulatorMatrixTestDouble {
 
     // MARK: - Internal properties
 
+    private (set) var countCount = 0
+    var countResult = 0
+
     private (set) var rawMatrixCount = 0
     var rawMatrixResult = Matrix.makeNot()
+
+    private (set) var subscriptCount = 0
+    private (set) var lastSubscriptRow: Int?
+    private (set) var lastSubscriptColumn: Int?
+    var subscriptResult = Complex<Double>.zero
 }
 
-// MARK: - SimulatorCircuitMatrix methods
+// MARK: - SimulatorMatrix methods
 
-extension SimulatorCircuitMatrixTestDouble: SimulatorCircuitMatrix {
+extension SimulatorMatrixTestDouble: SimulatorMatrix {
+    var count: Int {
+        countCount += 1
+
+        return countResult
+    }
+
     var rawMatrix: Matrix {
         rawMatrixCount += 1
 
         return rawMatrixResult
+    }
+
+    subscript(row: Int, column: Int) -> Complex<Double> {
+        subscriptCount += 1
+
+        lastSubscriptRow = row
+        lastSubscriptColumn = column
+
+        return subscriptResult
     }
 }

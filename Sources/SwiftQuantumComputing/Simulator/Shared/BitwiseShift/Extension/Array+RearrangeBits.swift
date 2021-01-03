@@ -1,8 +1,8 @@
 //
-//  SimulatorMatrix.swift
+//  Array+RearrangeBits.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/10/2020.
+//  Created by Enrique de la Torre on 31/12/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,24 +18,10 @@
 // limitations under the License.
 //
 
-import ComplexModule
 import Foundation
 
-// MARK: - Protocol definition
-
-protocol SimulatorMatrix {
-    var count: Int { get }
-    var rawMatrix: Matrix { get }
-
-    subscript(row: Int, column: Int) -> Complex<Double> { get }
-}
-
-// MARK: - SimulatorMatrix default implementations
-
-extension SimulatorMatrix {
-    var rawMatrix: Matrix {
-        return try! Matrix.makeMatrix(rowCount: count,
-                                      columnCount: count,
-                                      value: { self[$0, $1] }).get()
+extension Array where Element == BitwiseShift {
+    func rearrangeBits(in value: Int) -> Int {
+        return reduce(0) { $0 | $1.perform(on: value)}
     }
 }

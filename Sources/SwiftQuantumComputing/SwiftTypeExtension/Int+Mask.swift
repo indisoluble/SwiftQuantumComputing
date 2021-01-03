@@ -21,7 +21,11 @@
 import Foundation
 
 extension Int {
+    static func mask(activatingBitAt position: Int) -> Int {
+        return 1 << position
+    }
+
     static func mask(activatingBitsAt positions: [Int]) -> Int {
-        return positions.reduce(0) { $0 | (1 << $1) }
+        return positions.reduce(0) { $0 | Int.mask(activatingBitAt: $1) }
     }
 }
