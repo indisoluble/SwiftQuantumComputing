@@ -46,7 +46,7 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         let gateMatrix = Matrix.makeNot()
         let simulatorGateMatrix = SimulatorGateMatrix.singleQubitMatrix(matrix: gateMatrix)
 
-        let circuitMatrix = SimulatorCircuitMatrixTestDouble()
+        let circuitMatrix = SimulatorMatrixTestDouble()
         circuitMatrix.rawMatrixResult = try! Matrix([
             [Complex.zero, Complex.one], [Complex.one, Complex.zero]
         ])

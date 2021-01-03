@@ -29,3 +29,13 @@ protocol SimulatorMatrix {
 
     subscript(row: Int, column: Int) -> Complex<Double> { get }
 }
+
+// MARK: - SimulatorMatrix default implementations
+
+extension SimulatorMatrix {
+    var rawMatrix: Matrix {
+        return try! Matrix.makeMatrix(rowCount: count,
+                                      columnCount: count,
+                                      value: { self[$0, $1] }).get()
+    }
+}

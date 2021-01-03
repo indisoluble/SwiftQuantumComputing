@@ -27,45 +27,46 @@ import XCTest
 
 class CircuitMatrixRowStatevectorTransformationTests: XCTestCase {
 
-    // MARK: - Properties
-
-    let matrixFactory = SimulatorCircuitMatrixFactoryTestDouble()
-
     // MARK: - Tests
 
     func testMaxConcurrencyEqualToZero_init_throwError() {
+        // Given
+        let rowFactory = SimulatorCircuitRowFactoryTestDouble()
+
         // Then
-        XCTAssertThrowsError(try CircuitMatrixRowStatevectorTransformation(matrixFactory: matrixFactory,
+        XCTAssertThrowsError(try CircuitMatrixRowStatevectorTransformation(rowFactory: rowFactory,
                                                                            maxConcurrency: 0))
     }
 
     func testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne() {
         // Given
+        let rowFactory = SimulatorCircuitRowFactoryTestDouble()
+
         let qubitCount = 2
         var elements = Array(repeating: Complex<Double>.zero, count: Int.pow(2, qubitCount))
         elements[0] = .one
 
         let vector = try! Vector(elements)
-        let adapter = try! CircuitMatrixRowStatevectorTransformation(matrixFactory: matrixFactory,
+        let adapter = try! CircuitMatrixRowStatevectorTransformation(rowFactory: rowFactory,
                                                                      maxConcurrency: 1)
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
 
-        let circuitRow = SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrixRow(qubitCount: qubitCount,
-                                                                                     baseMatrix: gateMatrix,
-                                                                                     inputs: gateInputs)
-        matrixFactory.makeCircuitMatrixRowResult = circuitRow
+        let circuitRow = SimulatorCircuitRowFactoryAdapter().makeCircuitMatrixRow(qubitCount: qubitCount,
+                                                                                  baseMatrix: gateMatrix,
+                                                                                  inputs: gateInputs)
+        rowFactory.makeCircuitMatrixRowResult = circuitRow
 
         // When
         let result = adapter.apply(components: (.singleQubitMatrix(matrix: gateMatrix), gateInputs),
                                    toStatevector: vector)
 
         // Then
-        XCTAssertEqual(matrixFactory.makeCircuitMatrixRowCount, 1)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixRowQubitCount, qubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixRowBaseMatrix?.rawMatrix, gateMatrix)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixRowInputs, gateInputs)
+        XCTAssertEqual(rowFactory.makeCircuitMatrixRowCount, 1)
+        XCTAssertEqual(rowFactory.lastMakeCircuitMatrixRowQubitCount, qubitCount)
+        XCTAssertEqual(rowFactory.lastMakeCircuitMatrixRowBaseMatrix?.rawMatrix, gateMatrix)
+        XCTAssertEqual(rowFactory.lastMakeCircuitMatrixRowInputs, gateInputs)
 
         let expectedVector = try! Vector([.zero, .one, .zero, .zero])
         XCTAssertEqual(result, expectedVector)

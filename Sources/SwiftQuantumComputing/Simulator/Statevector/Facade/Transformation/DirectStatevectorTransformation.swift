@@ -27,12 +27,20 @@ struct DirectStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let transformation: StatevectorTransformation
+    private let maxConcurrency: Int
 
     // MARK: - Internal init methods
 
-    init(transformation: StatevectorTransformation) {
-        self.transformation = transformation
+    enum InitError: Error {
+        case maxConcurrencyHasToBiggerThanZero
+    }
+
+    init(maxConcurrency: Int) throws {
+        guard maxConcurrency > 0 else {
+            throw InitError.maxConcurrencyHasToBiggerThanZero
+        }
+
+        self.maxConcurrency = maxConcurrency
     }
 }
 
@@ -50,12 +58,19 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
         case .fullyControlledSingleQubitMatrix(let controlledMatrix, _):
             let lastIndex = components.inputs.count - 1
 
-            nextVector = apply(controlledMatrix: controlledMatrix,
+            let target = components.inputs[lastIndex]
+
+            let controls = Array(components.inputs[0..<lastIndex])
+            let filter = Int.mask(activatingBitsAt: controls)
+
+            nextVector = apply(oneQubitMatrix: controlledMatrix,
                                toStatevector: vector,
-                               atTarget: components.inputs[lastIndex],
-                               withControls: Array(components.inputs[0..<lastIndex]))
-        case .otherMultiQubitMatrix:
-            nextVector = transformation.apply(components: components, toStatevector: vector)
+                               atInput: target,
+                               selectingStatesWith: filter)
+        case .otherMultiQubitMatrix(let matrix):
+            nextVector = apply(multiQubitMatrix: matrix,
+                               toStatevector: vector,
+                               atInputs: components.inputs)
         }
 
         return nextVector
@@ -68,32 +83,14 @@ private extension DirectStatevectorTransformation {
 
     // MARK: - Private methods
 
-    func apply(oneQubitMatrix matrix: SimulatorMatrix,
-               toStatevector vector: Vector,
-               atInput input: Int) -> Vector {
-        return apply(matrix: matrix, toStatevector: vector, atInput: input)
-    }
-
-    func apply(controlledMatrix: SimulatorMatrix,
-               toStatevector vector: Vector,
-               atTarget target: Int,
-               withControls controls: [Int]) -> Vector {
-        let filter = Int.mask(activatingBitsAt: controls)
-
-        return apply(matrix: controlledMatrix,
-                     toStatevector: vector,
-                     atInput: target,
-                     selectingStatesWith:filter)
-    }
-
-    func apply(matrix: SimulatorMatrix,
+    func apply(oneQubitMatrix: SimulatorMatrix,
                toStatevector vector: Vector,
                atInput input: Int,
                selectingStatesWith filter: Int? = nil) -> Vector {
-        let mask = 1 << input
+        let mask = Int.mask(activatingBitAt: input)
         let invMask = ~mask
 
-        return try! Vector.makeVector(count: vector.count, value: { index in
+        return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { index in
             var value: Complex<Double>!
 
             if let filter = filter, index & filter != filter {
@@ -101,14 +98,50 @@ private extension DirectStatevectorTransformation {
             } else if index & mask == 0 {
                 let otherIndex = index | mask
 
-                value = matrix[0, 0] * vector[index] + matrix[0, 1] * vector[otherIndex]
+                value = oneQubitMatrix[0, 0] * vector[index] + oneQubitMatrix[0, 1] * vector[otherIndex]
             } else {
                 let otherIndex = index & invMask
 
-                value = matrix[1, 0] * vector[otherIndex] + matrix[1, 1] * vector[index]
+                value = oneQubitMatrix[1, 0] * vector[otherIndex] + oneQubitMatrix[1, 1] * vector[index]
             }
 
             return value
+        }).get()
+    }
+
+    func apply(multiQubitMatrix matrix: SimulatorMatrix,
+               toStatevector vector: Vector,
+               atInputs inputs: [Int]) -> Vector {
+        var rearranger: [BitwiseShift] = []
+        var selectedBitMask = 0
+        var activationMasks: [Int] = []
+        for (destination, origin) in inputs.reversed().enumerated() {
+            let action = BitwiseShift(origin: origin, destination: destination)
+
+            rearranger.append(action)
+
+            selectedBitMask |= action.selectMask
+
+            activationMasks.append(action.selectMask)
+            let partialCount = activationMasks.count - 1
+            for index in 0..<partialCount {
+                activationMasks.append(activationMasks[index] | action.selectMask)
+            }
+        }
+
+        let unselectedBitMask = ~selectedBitMask
+
+        return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { vectorIndex in
+            let matrixRow = rearranger.rearrangeBits(in: vectorIndex)
+
+            let derivedIndex = vectorIndex & unselectedBitMask
+            var vectorValue = matrix[matrixRow, 0] * vector[derivedIndex]
+
+            for index in 0..<activationMasks.count {
+                vectorValue += matrix[matrixRow, index + 1] * vector[derivedIndex | activationMasks[index]]
+            }
+
+            return vectorValue
         }).get()
     }
 }

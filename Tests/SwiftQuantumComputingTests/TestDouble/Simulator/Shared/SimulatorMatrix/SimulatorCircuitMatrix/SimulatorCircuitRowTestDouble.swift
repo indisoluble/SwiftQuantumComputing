@@ -1,8 +1,8 @@
 //
-//  SimulatorCircuitMatrix.swift
+//  SimulatorCircuitRowTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 12/05/2020.
+//  Created by Enrique de la Torre on 30/12/2020.
 //  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,15 +18,29 @@
 // limitations under the License.
 //
 
-import ComplexModule
 import Foundation
 
-// MARK: - Protocol definition
+@testable import SwiftQuantumComputing
 
-protocol SimulatorCircuitMatrix {
-    var rawMatrix: Matrix { get }
+// MARK: - Main body
+
+final class SimulatorCircuitRowTestDouble {
+
+    // MARK: - Internal properties
+
+    private (set) var subscriptCount = 0
+    private (set) var lastSubscriptRow: Int?
+    var subscriptResult = try! Vector([.zero])
 }
 
-protocol SimulatorCircuitMatrixRow {
-    subscript(row: Int) -> Vector { get }
+// MARK: - SimulatorCircuitRow methods
+
+extension SimulatorCircuitRowTestDouble: SimulatorCircuitRow {
+    subscript(row: Int) -> Vector {
+        subscriptCount += 1
+
+        lastSubscriptRow = row
+
+        return subscriptResult
+    }
 }

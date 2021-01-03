@@ -52,20 +52,20 @@ class CircuitMatrixElementStatevectorTransformationTests: XCTestCase {
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
 
-        let circuitElement = SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrixElement(qubitCount: qubitCount,
-                                                                                             baseMatrix: gateMatrix,
-                                                                                             inputs: gateInputs)
-        matrixFactory.makeCircuitMatrixElementResult = circuitElement
+        let circuitElement = SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrix(qubitCount: qubitCount,
+                                                                                      baseMatrix: gateMatrix,
+                                                                                      inputs: gateInputs)
+        matrixFactory.makeCircuitMatrixResult = circuitElement
 
         // When
         let result = adapter.apply(components: (.singleQubitMatrix(matrix: gateMatrix), gateInputs),
                                    toStatevector: vector)
 
         // Then
-        XCTAssertEqual(matrixFactory.makeCircuitMatrixElementCount, 1)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixElementQubitCount, qubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixElementBaseMatrix?.rawMatrix, gateMatrix)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixElementInputs, gateInputs)
+        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
+        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
         XCTAssertEqual(result, expectedVector)

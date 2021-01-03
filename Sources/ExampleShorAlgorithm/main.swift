@@ -1,47 +1,56 @@
 import Foundation
 import SwiftQuantumComputing
 
-let factory = MainCircuitFactory(statevectorConfiguration: .rowByRow(maxConcurrency: 2))
+// Complete list of prime numbers (2 will be randomly selected) & maximun number of threads
+// the simulator will be allowed to use
+let primes: Set<Int> = [3, 7]
+let maxConcurrency = 1
 
-// Primes: https://en.wikipedia.org/wiki/List_of_prime_numbers
-let primes: Set<Int> = [3, 5]
+let factory = MainCircuitFactory(statevectorConfiguration: .direct(maxConcurrency: maxConcurrency))
 
 let actualFactors = Array(primes).shuffled()[..<2]
 let input = actualFactors.reduce(1, *)
 print("Looking for factors of: \(input)\n")
 
+let n = Int(Foundation.log2(Double(input)).rounded(.up))
+let qubitCount = 3 * n
+
+print("Build Quantum Fourier Transformation gate with \(qubitCount - n) inputs")
+let start = DispatchTime.now()
+let fourierGate = try! Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(),
+                                                        inverse: true).get()
+let diff = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
+print("Gate built in \(diff) seconds (\(diff / 60.0) minutes)\n")
+
+print("Build other quantum gates that only depends on the number of qubits\n")
+let notGate = Gate.not(target: 0)
+let hadamardGates = Gate.hadamard(targets: n..<qubitCount)
+
 var factors: [Int] = []
-while factors.isEmpty {
-    let base = (2..<input).randomElement()!
+for base in (2..<input).shuffled() {
     print("Try randomly selected base: \(base)")
 
     let gcd = EuclideanSolver.findGreatestCommonDivisor(base, input)
     if gcd != 1 {
-        factors.append(contentsOf: [gcd, input / gcd])
-        print("Factors found for base \(base): \(factors)\n")
+        print("Factors found for base \(base): \([gcd, input / gcd]). Try another base\n")
 
         continue
     }
 
-    print("Build quantum circuit for base \(base) & modulus \(input)")
+    print("Build modular exponentiation for base \(base) & modulus \(input) with quantum gates")
     var start = DispatchTime.now()
-
-    let n = Int(Foundation.log2(Double(input)).rounded(.up))
-    let qubitCount = 3 * n
-
-    var gates = [Gate.not(target: 0)]
-    gates += Gate.hadamard(targets: n..<qubitCount)
-    gates += try! Gate.makeModularExponentiation(base: base,
-                                                 modulus: input,
-                                                 exponent: (n..<qubitCount).reversed(),
-                                                 inputs: (0..<n).reversed()).get()
-    gates += [
-        try! Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(),
-                                              inverse: true).get()
-    ]
-
-    let circuit = factory.makeCircuit(gates: gates)
+    let modExpGates = try! Gate.makeModularExponentiation(base: base,
+                                                          modulus: input,
+                                                          exponent: (n..<qubitCount).reversed(),
+                                                          inputs: (0..<n).reversed()).get()
     var diff = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
+    print("Gates built in \(diff) seconds (\(diff / 60.0) minutes)")
+
+    print("Build quantum circuit with \(qubitCount) qubits, base \(base) & modulus \(input)")
+    start = DispatchTime.now()
+    let gates = [notGate] + hadamardGates + modExpGates + [fourierGate]
+    let circuit = factory.makeCircuit(gates: gates)
+    diff = Double(DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds) / 1_000_000_000
     print("Circuit built in \(diff) seconds (\(diff / 60.0) minutes)")
 
     print("Run quantum circuit with \(qubitCount) qubits & \(circuit.gates.count) gates")
@@ -53,7 +62,7 @@ while factors.isEmpty {
     print("Execution completed in \(diff) seconds (\(diff / 60.0) minutes)")
 
     let (bottomMeasure, topMeasures) = probs.randomElement()!
-    let srtMeasures = topMeasures.summary.shuffled().sorted { $0.value > $1.value }
+    let srtMeasures = topMeasures.summary.sorted { $0.value > $1.value }
     let topMeasure = srtMeasures.first(where: { Int($0.key, radix: 2)! != 0 })!.key
     print("Bottom qubits measurement: \(bottomMeasure). Top qubits measurement: \(topMeasure)")
 
@@ -69,7 +78,7 @@ while factors.isEmpty {
     print("Validating candidate period: \(period)")
 
     if period % 2 != 0 {
-        print("Period \(period) is odd. Discard & try again\n")
+        print("Period \(period) is odd. Discard period & try another base\n")
 
         continue
     }
@@ -78,7 +87,8 @@ while factors.isEmpty {
     let bppMod = basePowPeriod.quotientAndRemainder(dividingBy: input,
                                                     division: .euclidean).remainder
     if bppMod != 1.quotientAndRemainder(dividingBy: input, division: .euclidean).remainder {
-        print("(\(base)^\(period)) mod \(input) != 1 mod \(input). Discard period & try again\n")
+        print("(\(base)^\(period)) mod \(input) != 1 mod \(input). Discard period",
+              "& try another base\n")
 
         continue
     }
@@ -88,18 +98,20 @@ while factors.isEmpty {
     let bphpMod = basePowHalfPeriod.quotientAndRemainder(dividingBy: input,
                                                          division: .euclidean).remainder
     if bphpMod == (-1).quotientAndRemainder(dividingBy: input, division: .euclidean).remainder {
-        print("(\(base)^\(halfPeriod)) mod \(input) == -1 mod \(input). Discard & try again\n")
+        print("(\(base)^\(halfPeriod)) mod \(input) == -1 mod \(input). Discard period",
+              "& try another base\n")
 
         continue
     }
 
-    print("Period \(period) is valid")
+    print("Period \(period) is valid\n")
 
     factors.append(contentsOf: [
         EuclideanSolver.findGreatestCommonDivisor(basePowHalfPeriod + 1, input),
         EuclideanSolver.findGreatestCommonDivisor(basePowHalfPeriod - 1, input)
     ])
-    print("Factors found: \(factors)\n")
+
+    break
 }
 
 if Set(actualFactors) == Set(factors) {

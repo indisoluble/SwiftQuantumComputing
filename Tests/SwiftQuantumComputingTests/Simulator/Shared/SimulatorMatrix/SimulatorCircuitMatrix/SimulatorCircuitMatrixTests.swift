@@ -1,5 +1,5 @@
 //
-//  SimulatorCircuitMatrixAdapterTests.swift
+//  SimulatorCircuitMatrixTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 04/02/2020.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class SimulatorCircuitMatrixAdapterTests: XCTestCase {
+class SimulatorCircuitMatrixTests: XCTestCase {
 
     // MARK: - Properties
     let twoQubitCount = 2
@@ -100,9 +100,9 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: twoQubitCount,
-                                                baseMatrix: validMatrix,
-                                                inputs: validInputs)
+        let sut = SimulatorCircuitMatrix(qubitCount: twoQubitCount,
+                                         baseMatrix: validMatrix,
+                                         inputs: validInputs)
 
         // Then
         XCTAssertEqual(sut.rawMatrix, validMatrix)
@@ -110,9 +110,9 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     func testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: oneQubitCount,
-                                                baseMatrix: otherValidMatrix,
-                                                inputs: otherValidInputs)
+        let sut = SimulatorCircuitMatrix(qubitCount: oneQubitCount,
+                                         baseMatrix: otherValidMatrix,
+                                         inputs: otherValidInputs)
 
         // Then
         XCTAssertEqual(sut.rawMatrix, otherValidMatrix)
@@ -120,9 +120,9 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     func testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: twoQubitCount,
-                                                baseMatrix: validMatrix,
-                                                inputs: validInputs.reversed())
+        let sut = SimulatorCircuitMatrix(qubitCount: twoQubitCount,
+                                         baseMatrix: validMatrix,
+                                         inputs: validInputs.reversed())
 
         // Then
         XCTAssertEqual(sut.rawMatrix, validMatrixWithReversedValidInputs)
@@ -130,9 +130,9 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     func testNonContiguousInputs_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: threeQubitCount,
-                                                baseMatrix: validMatrix,
-                                                inputs: nonContiguousInputs)
+        let sut = SimulatorCircuitMatrix(qubitCount: threeQubitCount,
+                                         baseMatrix: validMatrix,
+                                         inputs: nonContiguousInputs)
 
         // Then
         XCTAssertEqual(sut.rawMatrix, expectedThreeQubitMatrix)
@@ -140,9 +140,9 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     func testNonContiguousInputs_subscriptRow_returnExpectedValues() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: threeQubitCount,
-                                                baseMatrix: validMatrix,
-                                                inputs: nonContiguousInputs)
+        let sut = SimulatorCircuitMatrix(qubitCount: threeQubitCount,
+                                         baseMatrix: validMatrix,
+                                         inputs: nonContiguousInputs)
 
         // Then
         for row in 0..<expectedThreeQubitMatrix.rowCount {
@@ -156,9 +156,9 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     func testNonContiguousInputs_subscriptRowColumn_returnExpectedValues() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: threeQubitCount,
-                                                baseMatrix: validMatrix,
-                                                inputs: nonContiguousInputs)
+        let sut = SimulatorCircuitMatrix(qubitCount: threeQubitCount,
+                                         baseMatrix: validMatrix,
+                                         inputs: nonContiguousInputs)
 
         // Then
         for row in 0..<expectedThreeQubitMatrix.rowCount {
@@ -170,20 +170,19 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
 
     func testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: fourQubitCount,
-                                                baseMatrix: validMatrix,
-                                                inputs: contiguousInputsButInTheMiddle)
+        let sut = SimulatorCircuitMatrix(qubitCount: fourQubitCount,
+                                         baseMatrix: validMatrix,
+                                         inputs: contiguousInputsButInTheMiddle)
 
         // Then
         XCTAssertEqual(sut.rawMatrix, expectedFourQubitMatrix)
     }
 
-
     func testContiguousInputsButInTheMiddle_subscriptRow_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: fourQubitCount,
-                                                baseMatrix: validMatrix,
-                                                inputs: contiguousInputsButInTheMiddle)
+        let sut = SimulatorCircuitMatrix(qubitCount: fourQubitCount,
+                                         baseMatrix: validMatrix,
+                                         inputs: contiguousInputsButInTheMiddle)
 
         // Then
         for row in 0..<expectedFourQubitMatrix.rowCount {
@@ -195,12 +194,11 @@ class SimulatorCircuitMatrixAdapterTests: XCTestCase {
         }
     }
 
-
     func testContiguousInputsButInTheMiddle_subscriptRowColumn_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrixAdapter(qubitCount: fourQubitCount,
-                                                baseMatrix: validMatrix,
-                                                inputs: contiguousInputsButInTheMiddle)
+        let sut = SimulatorCircuitMatrix(qubitCount: fourQubitCount,
+                                         baseMatrix: validMatrix,
+                                         inputs: contiguousInputsButInTheMiddle)
 
         // Then
         for row in 0..<expectedFourQubitMatrix.rowCount {
