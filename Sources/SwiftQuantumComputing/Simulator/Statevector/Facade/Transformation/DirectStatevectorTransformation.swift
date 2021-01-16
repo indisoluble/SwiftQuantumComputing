@@ -133,15 +133,14 @@ private extension DirectStatevectorTransformation {
 
         return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { vectorIndex in
             let matrixRow = rearranger.rearrangeBits(in: vectorIndex)
-
             let derivedIndex = vectorIndex & unselectedBitMask
-            var vectorValue = matrix[matrixRow, 0] * vector[derivedIndex]
 
-            for index in 0..<activationMasks.count {
-                vectorValue += matrix[matrixRow, index + 1] * vector[derivedIndex | activationMasks[index]]
+            let initial = matrix[matrixRow, 0] * vector[derivedIndex]
+            return activationMasks.enumerated().reduce(initial) { (acc, value) in
+                let (index, mask) = value
+
+                return acc + matrix[matrixRow, index + 1] * vector[derivedIndex | mask]
             }
-
-            return vectorValue
         }).get()
     }
 }
