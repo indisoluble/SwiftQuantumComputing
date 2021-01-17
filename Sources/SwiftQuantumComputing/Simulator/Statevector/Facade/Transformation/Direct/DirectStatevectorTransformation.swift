@@ -112,34 +112,13 @@ private extension DirectStatevectorTransformation {
     func apply(multiQubitMatrix matrix: SimulatorMatrix,
                toStatevector vector: Vector,
                atInputs inputs: [Int]) -> Vector {
-        var rearranger: [BitwiseShift] = []
-        var selectedBitMask = 0
-        var activationMasks: [Int] = []
-        for (destination, origin) in inputs.reversed().enumerated() {
-            let action = BitwiseShift(origin: origin, destination: destination)
-
-            rearranger.append(action)
-
-            selectedBitMask |= action.selectMask
-
-            activationMasks.append(action.selectMask)
-            let partialCount = activationMasks.count - 1
-            for index in 0..<partialCount {
-                activationMasks.append(activationMasks[index] | action.selectMask)
-            }
-        }
-
-        let unselectedBitMask = ~selectedBitMask
+        let idxTransformation = DirectStatevectorIndexTransformation(gateInputs: inputs)
 
         return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { vectorIndex in
-            let matrixRow = rearranger.rearrangeBits(in: vectorIndex)
-            let derivedIndex = vectorIndex & unselectedBitMask
+            let (matrixRow, multiplications) = idxTransformation.indexesToCalculateStatevectorValueAtPosition(vectorIndex)
 
-            let initial = matrix[matrixRow, 0] * vector[derivedIndex]
-            return activationMasks.enumerated().reduce(initial) { (acc, value) in
-                let (index, mask) = value
-
-                return acc + matrix[matrixRow, index + 1] * vector[derivedIndex | mask]
+            return multiplications.reduce(.zero) { (acc, indexes) in
+                return acc + matrix[matrixRow, indexes.gateMatrixColumn] * vector[indexes.inputStatevectorPosition]
             }
         }).get()
     }
