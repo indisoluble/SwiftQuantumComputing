@@ -2,7 +2,7 @@
 //  DirectStatevectorIndexTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 16/01/2021.
+//  Created by Enrique de la Torre on 18/01/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,54 +20,12 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Internal types
 
-struct DirectStatevectorIndexTransformation {
+typealias DirectStatevectorMultiplicationIndexes = (gateMatrixColumn: Int, inputStatevectorPosition: Int)
 
-    // MARK: - Internal types
+// MARK: - Protocol definition
 
-    typealias AdditionIndexes = (gateMatrixRow: Int,
-                                 multiplications: DirectStatevectorMultiplicationIndexes)
-
-    // MARK: - Private properties
-
-    private let rearranger: [BitwiseShift]
-    private let activationMasks: [Int]
-    private let unselectedBitMask: Int
-
-    // MARK: - Init methods
-
-    init(gateInputs: [Int]) {
-        var rearranger: [BitwiseShift] = []
-        var selectedBitMask = 0
-        var activationMasks: [Int] = []
-        for (destination, origin) in gateInputs.reversed().enumerated() {
-            let action = BitwiseShift(origin: origin, destination: destination)
-
-            rearranger.append(action)
-
-            selectedBitMask |= action.selectMask
-
-            activationMasks.append(action.selectMask)
-            let partialCount = activationMasks.count - 1
-            for index in 0..<partialCount {
-                activationMasks.append(activationMasks[index] | action.selectMask)
-            }
-        }
-
-        self.rearranger = rearranger
-        self.activationMasks = activationMasks
-        unselectedBitMask = ~selectedBitMask
-    }
-
-    // MARK: - Internal methods
-
-    func indexesToCalculateStatevectorValueAtPosition(_ position: Int) -> AdditionIndexes {
-        let matrixRow = rearranger.rearrangeBits(in: position)
-
-        let derivedIndex = position & unselectedBitMask
-        let multiplications = DirectStatevectorMultiplicationIndexes(derivedIndex: derivedIndex,
-                                                                     activationMasks: activationMasks)
-        return (matrixRow, multiplications)
-    }
+protocol DirectStatevectorIndexTransformation {
+    func indexesToCalculateStatevectorValueAtPosition(_ position: Int) -> AnySequence<DirectStatevectorMultiplicationIndexes>
 }

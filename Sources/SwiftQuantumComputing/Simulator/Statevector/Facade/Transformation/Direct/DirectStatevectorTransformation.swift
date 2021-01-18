@@ -112,7 +112,7 @@ private extension DirectStatevectorTransformation {
     func apply(multiQubitMatrix matrix: SimulatorMatrix,
                toStatevector vector: Vector,
                atInputs inputs: [Int]) -> Vector {
-        let idxTransformation = DirectStatevectorIndexTransformation(gateInputs: inputs)
+        let idxTransformation = DirectStatevectorMultiQubitGateIndexTransformation(gateInputs: inputs)
 
         return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { vectorIndex in
             let (matrixRow, multiplications) = idxTransformation.indexesToCalculateStatevectorValueAtPosition(vectorIndex)

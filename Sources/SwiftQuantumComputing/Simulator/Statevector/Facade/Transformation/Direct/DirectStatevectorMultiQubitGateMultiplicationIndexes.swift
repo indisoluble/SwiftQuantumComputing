@@ -1,5 +1,5 @@
 //
-//  DirectStatevectorMultiplicationIndexes.swift
+//  DirectStatevectorMultiQubitGateMultiplicationIndexes.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 17/01/2021.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct DirectStatevectorMultiplicationIndexes {
+struct DirectStatevectorMultiQubitGateMultiplicationIndexes {
 
     // MARK: - Internal types
 
@@ -47,11 +47,11 @@ struct DirectStatevectorMultiplicationIndexes {
 
 // MARK: - Sequence methods
 
-extension DirectStatevectorMultiplicationIndexes: Sequence {}
+extension DirectStatevectorMultiQubitGateMultiplicationIndexes: Sequence {}
 
 // MARK: - IteratorProtocol methods
 
-extension DirectStatevectorMultiplicationIndexes: IteratorProtocol {
+extension DirectStatevectorMultiQubitGateMultiplicationIndexes: IteratorProtocol {
     mutating func next() -> MultiplicationIndexes? {
         guard let mask = activationMasks.next() else {
             return nil
