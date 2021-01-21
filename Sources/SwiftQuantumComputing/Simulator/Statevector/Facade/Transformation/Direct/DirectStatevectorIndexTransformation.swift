@@ -22,10 +22,13 @@ import Foundation
 
 // MARK: - Internal types
 
-typealias DirectStatevectorMultiplicationIndexes = (gateMatrixColumn: Int, inputStatevectorPosition: Int)
+typealias DirectStatevectorMultiplicationIndexes = (gateMatrixColumn: Int,
+                                                    inputStatevectorPosition: Int)
+typealias DirectStatevectorAdditionIndexes = (gateMatrixRow: Int,
+                                              multiplications: AnySequence<DirectStatevectorMultiplicationIndexes>)
 
 // MARK: - Protocol definition
 
 protocol DirectStatevectorIndexTransformation {
-    func indexesToCalculateStatevectorValueAtPosition(_ position: Int) -> AnySequence<DirectStatevectorMultiplicationIndexes>
+    func indexesToCalculateStatevectorValueAtPosition(_ position: Int) -> DirectStatevectorAdditionIndexes
 }

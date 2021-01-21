@@ -59,15 +59,17 @@ struct DirectStatevectorMultiQubitGateIndexTransformation {
         self.activationMasks = activationMasks
         unselectedBitMask = ~selectedBitMask
     }
+}
 
-    // MARK: - Internal methods
+// MARK: - DirectStatevectorIndexTransformation methods
 
-    func indexesToCalculateStatevectorValueAtPosition(_ position: Int) -> AdditionIndexes {
+extension DirectStatevectorMultiQubitGateIndexTransformation: DirectStatevectorIndexTransformation {
+    func indexesToCalculateStatevectorValueAtPosition(_ position: Int) -> DirectStatevectorAdditionIndexes {
         let matrixRow = rearranger.rearrangeBits(in: position)
 
         let derivedIndex = position & unselectedBitMask
         let multiplications = DirectStatevectorMultiQubitGateMultiplicationIndexes(derivedIndex: derivedIndex,
                                                                                    activationMasks: activationMasks)
-        return (matrixRow, multiplications)
+        return (matrixRow, AnySequence(multiplications))
     }
 }
