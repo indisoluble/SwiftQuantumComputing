@@ -68,9 +68,11 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
                                atInput: target,
                                selectingStatesWith: filter)
         case .otherMultiQubitMatrix(let matrix):
+            let idxTransformation = DirectStatevectorMultiQubitGateIndexTransformation(gateInputs: components.inputs)
+
             nextVector = apply(multiQubitMatrix: matrix,
                                toStatevector: vector,
-                               atInputs: components.inputs)
+                               withIndexTransformation: idxTransformation)
         }
 
         return nextVector
@@ -111,9 +113,7 @@ private extension DirectStatevectorTransformation {
 
     func apply(multiQubitMatrix matrix: SimulatorMatrix,
                toStatevector vector: Vector,
-               atInputs inputs: [Int]) -> Vector {
-        let idxTransformation = DirectStatevectorMultiQubitGateIndexTransformation(gateInputs: inputs)
-
+               withIndexTransformation idxTransformation: DirectStatevectorIndexTransformation) -> Vector {
         return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { vectorIndex in
             let (matrixRow, multiplications) = idxTransformation.indexesToCalculateStatevectorValueAtPosition(vectorIndex)
 
