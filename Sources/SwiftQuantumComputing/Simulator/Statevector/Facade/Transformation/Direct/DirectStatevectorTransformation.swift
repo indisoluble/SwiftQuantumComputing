@@ -51,10 +51,6 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
         var nextVector: Vector!
 
         switch components.simulatorGateMatrix {
-        case .singleQubitMatrix(let matrix):
-            nextVector = apply(oneQubitMatrix: matrix,
-                               toStatevector: vector,
-                               atInput: components.inputs[0])
         case .fullyControlledSingleQubitMatrix(let controlledMatrix, _):
             let lastIndex = components.inputs.count - 1
 
@@ -67,6 +63,12 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
                                toStatevector: vector,
                                atInput: target,
                                selectingStatesWith: filter)
+        case .singleQubitMatrix(let matrix):
+            let idxTransformation = DirectStatevectorSingleQubitGateIndexTransformation(gateInput: components.inputs[0])
+
+            nextVector = apply(multiQubitMatrix: matrix,
+                               toStatevector: vector,
+                               withIndexTransformation: idxTransformation)
         case .otherMultiQubitMatrix(let matrix):
             let idxTransformation = DirectStatevectorMultiQubitGateIndexTransformation(gateInputs: components.inputs)
 
