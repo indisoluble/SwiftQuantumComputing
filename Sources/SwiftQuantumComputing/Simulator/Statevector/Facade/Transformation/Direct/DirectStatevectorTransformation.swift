@@ -55,26 +55,28 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
             let lastIndex = components.inputs.count - 1
 
             let target = components.inputs[lastIndex]
+            let idxTransformation = DirectStatevectorSingleQubitGateIndexTransformation(gateInput: target)
 
             let controls = Array(components.inputs[0..<lastIndex])
             let filter = Int.mask(activatingBitsAt: controls)
 
-            nextVector = apply(oneQubitMatrix: controlledMatrix,
+            nextVector = apply(matrix: controlledMatrix,
                                toStatevector: vector,
-                               atInput: target,
+                               transformingIndexesWith: idxTransformation,
                                selectingStatesWith: filter)
         case .singleQubitMatrix(let matrix):
-            let idxTransformation = DirectStatevectorSingleQubitGateIndexTransformation(gateInput: components.inputs[0])
+            let target = components.inputs[0]
+            let idxTransformation = DirectStatevectorSingleQubitGateIndexTransformation(gateInput: target)
 
-            nextVector = apply(multiQubitMatrix: matrix,
+            nextVector = apply(matrix: matrix,
                                toStatevector: vector,
-                               withIndexTransformation: idxTransformation)
+                               transformingIndexesWith: idxTransformation)
         case .otherMultiQubitMatrix(let matrix):
             let idxTransformation = DirectStatevectorMultiQubitGateIndexTransformation(gateInputs: components.inputs)
 
-            nextVector = apply(multiQubitMatrix: matrix,
+            nextVector = apply(matrix: matrix,
                                toStatevector: vector,
-                               withIndexTransformation: idxTransformation)
+                               transformingIndexesWith: idxTransformation)
         }
 
         return nextVector
@@ -87,38 +89,16 @@ private extension DirectStatevectorTransformation {
 
     // MARK: - Private methods
 
-    func apply(oneQubitMatrix: SimulatorMatrix,
+    func apply(matrix: SimulatorMatrix,
                toStatevector vector: Vector,
-               atInput input: Int,
+               transformingIndexesWith idxTransformation: DirectStatevectorIndexTransformation,
                selectingStatesWith filter: Int? = nil) -> Vector {
-        let mask = Int.mask(activatingBitAt: input)
-        let invMask = ~mask
-
-        return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { index in
-            var value: Complex<Double>!
-
-            if let filter = filter, index & filter != filter {
-                value = vector[index]
-            } else if index & mask == 0 {
-                let otherIndex = index | mask
-
-                value = oneQubitMatrix[0, 0] * vector[index] + oneQubitMatrix[0, 1] * vector[otherIndex]
-            } else {
-                let otherIndex = index & invMask
-
-                value = oneQubitMatrix[1, 0] * vector[otherIndex] + oneQubitMatrix[1, 1] * vector[index]
+        return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { vectorIndex in
+            if let filter = filter, vectorIndex & filter != filter {
+                return vector[vectorIndex]
             }
 
-            return value
-        }).get()
-    }
-
-    func apply(multiQubitMatrix matrix: SimulatorMatrix,
-               toStatevector vector: Vector,
-               withIndexTransformation idxTransformation: DirectStatevectorIndexTransformation) -> Vector {
-        return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { vectorIndex in
             let (matrixRow, multiplications) = idxTransformation.indexesToCalculateStatevectorValueAtPosition(vectorIndex)
-
             return multiplications.reduce(.zero) { (acc, indexes) in
                 return acc + matrix[matrixRow, indexes.gateMatrixColumn] * vector[indexes.inputStatevectorPosition]
             }
