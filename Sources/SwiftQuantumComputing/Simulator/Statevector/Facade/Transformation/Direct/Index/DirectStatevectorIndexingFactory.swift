@@ -1,5 +1,5 @@
 //
-//  DirectStatevectorIndexTransformationFactoryAdapter.swift
+//  DirectStatevectorIndexingFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 23/01/2021.
@@ -20,18 +20,9 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-struct DirectStatevectorIndexTransformationFactoryAdapter {}
-
-// MARK: - DirectStatevectorIndexTransformationFactory methods
-
-extension DirectStatevectorIndexTransformationFactoryAdapter: DirectStatevectorIndexTransformationFactory {
-    func makeSingleQubitGateIndexTransformation(gateInput: Int) -> DirectStatevectorIndexTransformation {
-        return DirectStatevectorSingleQubitGateIndexTransformation(gateInput: gateInput)
-    }
-
-    func makeMultiQubitGateIndexTransformation(gateInputs: [Int]) -> DirectStatevectorIndexTransformation {
-        return DirectStatevectorMultiQubitGateIndexTransformation(gateInputs: gateInputs)
-    }
+protocol DirectStatevectorIndexingFactory {
+    func makeSingleQubitGateIndexer(gateInput: Int) -> DirectStatevectorIndexing
+    func makeMultiQubitGateIndexer(gateInputs: [Int]) -> DirectStatevectorIndexing
 }

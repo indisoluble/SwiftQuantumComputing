@@ -28,7 +28,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Properties
 
-    let adapter = try! DirectStatevectorTransformation(indexTransformationFactory: DirectStatevectorIndexTransformationFactoryAdapter(),
+    let adapter = try! DirectStatevectorTransformation(indexingFactory: DirectStatevectorIndexingFactoryAdapter(),
                                                        maxConcurrency: 1)
 
     let threeQubitZeroVector = try! Vector([.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero])

@@ -24,10 +24,6 @@ import Foundation
 
 struct DirectStatevectorMultiQubitGateMultiplicationIndexes {
 
-    // MARK: - Internal types
-
-    typealias MultiplicationIndexes = (gateMatrixColumn: Int, inputStatevectorPosition: Int)
-
     // MARK: - Private properties
 
     private let derivedIndex: Int
@@ -52,12 +48,12 @@ extension DirectStatevectorMultiQubitGateMultiplicationIndexes: Sequence {}
 // MARK: - IteratorProtocol methods
 
 extension DirectStatevectorMultiQubitGateMultiplicationIndexes: IteratorProtocol {
-    mutating func next() -> MultiplicationIndexes? {
+    mutating func next() -> DirectStatevectorMultiplicationIndexes? {
         guard let mask = activationMasks.next() else {
             return nil
         }
 
-        let indexes: MultiplicationIndexes = (gateMatrixColumn, derivedIndex | mask)
+        let indexes: DirectStatevectorMultiplicationIndexes = (gateMatrixColumn, derivedIndex | mask)
         gateMatrixColumn += 1
 
         return indexes

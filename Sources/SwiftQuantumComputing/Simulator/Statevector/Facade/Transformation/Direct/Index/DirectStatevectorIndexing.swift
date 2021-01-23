@@ -1,8 +1,8 @@
 //
-//  DirectStatevectorIndexTransformationFactory.swift
+//  DirectStatevectorIndexing.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 23/01/2021.
+//  Created by Enrique de la Torre on 18/01/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +20,15 @@
 
 import Foundation
 
+// MARK: - Internal types
+
+typealias DirectStatevectorMultiplicationIndexes = (gateMatrixColumn: Int,
+                                                    inputStatevectorPosition: Int)
+typealias DirectStatevectorAdditionIndexes = (gateMatrixRow: Int,
+                                              multiplications: AnySequence<DirectStatevectorMultiplicationIndexes>)
+
 // MARK: - Protocol definition
 
-protocol DirectStatevectorIndexTransformationFactory {
-    func makeSingleQubitGateIndexTransformation(gateInput: Int) -> DirectStatevectorIndexTransformation
-    func makeMultiQubitGateIndexTransformation(gateInputs: [Int]) -> DirectStatevectorIndexTransformation
+protocol DirectStatevectorIndexing {
+    func indexesToCalculateStatevectorValueAtPosition(_ position: Int) -> DirectStatevectorAdditionIndexes
 }

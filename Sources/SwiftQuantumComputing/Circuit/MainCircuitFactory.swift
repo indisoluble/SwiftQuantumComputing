@@ -124,9 +124,9 @@ private extension MainCircuitFactory {
             transformation = try! CircuitMatrixElementStatevectorTransformation(matrixFactory: matrixFactory,
                                                                                 maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         case .direct(let maxConcurrency):
-            let indexTransformationFactory = DirectStatevectorIndexTransformationFactoryAdapter()
+            let indexingFactory = DirectStatevectorIndexingFactoryAdapter()
 
-            transformation = try! DirectStatevectorTransformation(indexTransformationFactory: indexTransformationFactory,
+            transformation = try! DirectStatevectorTransformation(indexingFactory: indexingFactory,
                                                                   maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         }
 
