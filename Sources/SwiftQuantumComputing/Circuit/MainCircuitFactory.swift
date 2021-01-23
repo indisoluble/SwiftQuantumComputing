@@ -107,7 +107,7 @@ private extension MainCircuitFactory {
     }
 
     func makeStatevectorTransformation() -> StatevectorTransformation {
-        var transformation: StatevectorTransformation!
+        let transformation: StatevectorTransformation!
         switch statevectorConfiguration {
         case .fullMatrix:
             let matrixFactory = SimulatorCircuitMatrixFactoryAdapter()
@@ -124,7 +124,10 @@ private extension MainCircuitFactory {
             transformation = try! CircuitMatrixElementStatevectorTransformation(matrixFactory: matrixFactory,
                                                                                 maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         case .direct(let maxConcurrency):
-            transformation = try! DirectStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+            let indexTransformationFactory = DirectStatevectorIndexTransformationFactoryAdapter()
+
+            transformation = try! DirectStatevectorTransformation(indexTransformationFactory: indexTransformationFactory,
+                                                                  maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         }
 
         return transformation

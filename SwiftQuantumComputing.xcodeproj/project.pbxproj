@@ -695,6 +695,10 @@
 		FFB6A83C254DCBD000044E49 /* OracleSimulatorMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB6A83A254DCBD000044E49 /* OracleSimulatorMatrix.swift */; };
 		FFB6A848254DD17F00044E49 /* OracleSimulatorMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB6A847254DD17F00044E49 /* OracleSimulatorMatrixTests.swift */; };
 		FFB6A849254DD17F00044E49 /* OracleSimulatorMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB6A847254DD17F00044E49 /* OracleSimulatorMatrixTests.swift */; };
+		FFB77E9425BC63CA008798F6 /* DirectStatevectorIndexTransformationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB77E9325BC63CA008798F6 /* DirectStatevectorIndexTransformationFactory.swift */; };
+		FFB77E9525BC63CA008798F6 /* DirectStatevectorIndexTransformationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB77E9325BC63CA008798F6 /* DirectStatevectorIndexTransformationFactory.swift */; };
+		FFB77EA125BC7163008798F6 /* DirectStatevectorIndexTransformationFactoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB77EA025BC7163008798F6 /* DirectStatevectorIndexTransformationFactoryAdapter.swift */; };
+		FFB77EA225BC7163008798F6 /* DirectStatevectorIndexTransformationFactoryAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB77EA025BC7163008798F6 /* DirectStatevectorIndexTransformationFactoryAdapter.swift */; };
 		FFB8106821C6FF89006333BB /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB8106721C6FF89006333BB /* Drawable.swift */; };
 		FFB8106921C6FF89006333BB /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB8106721C6FF89006333BB /* Drawable.swift */; };
 		FFBA23F521691E0F003E5727 /* SwiftQuantumComputing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */; };
@@ -1311,6 +1315,8 @@
 		FFB5B56B216A526A009C59FC /* QubitPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QubitPositionView.xib; sourceTree = "<group>"; };
 		FFB6A83A254DCBD000044E49 /* OracleSimulatorMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleSimulatorMatrix.swift; sourceTree = "<group>"; };
 		FFB6A847254DD17F00044E49 /* OracleSimulatorMatrixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleSimulatorMatrixTests.swift; sourceTree = "<group>"; };
+		FFB77E9325BC63CA008798F6 /* DirectStatevectorIndexTransformationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectStatevectorIndexTransformationFactory.swift; sourceTree = "<group>"; };
+		FFB77EA025BC7163008798F6 /* DirectStatevectorIndexTransformationFactoryAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectStatevectorIndexTransformationFactoryAdapter.swift; sourceTree = "<group>"; };
 		FFB8106721C6FF89006333BB /* Drawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
 		FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftQuantumComputing.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFBA23EE21691E0F003E5727 /* SwiftQuantumComputing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftQuantumComputing.h; sourceTree = "<group>"; };
@@ -2946,6 +2952,8 @@
 			isa = PBXGroup;
 			children = (
 				FF1581FC25B632D700AA1BE3 /* DirectStatevectorIndexTransformation.swift */,
+				FFB77E9325BC63CA008798F6 /* DirectStatevectorIndexTransformationFactory.swift */,
+				FFB77EA025BC7163008798F6 /* DirectStatevectorIndexTransformationFactoryAdapter.swift */,
 				FFC1C5A825B37EAD004A4445 /* DirectStatevectorMultiQubitGateIndexTransformation.swift */,
 				FF46178725B4B5F600FD9660 /* DirectStatevectorMultiQubitGateMultiplicationIndexes.swift */,
 				FF03271925BB5D9600A3E91A /* DirectStatevectorSingleQubitGateIndexTransformation.swift */,
@@ -3494,6 +3502,7 @@
 				FF2D447021FA6FDD002515EF /* SimpleGeneticGate.swift in Sources */,
 				FFF54191241C3A9300385597 /* Gate+QuantumFourierTransform.swift in Sources */,
 				FF8B40D323AED0A100A51475 /* Gate+SingleQubitGateRangeTargets.swift in Sources */,
+				FFB77EA125BC7163008798F6 /* DirectStatevectorIndexTransformationFactoryAdapter.swift in Sources */,
 				FF002BCA21FCC0E700E40C3A /* MainGeneticUseCaseEvaluator.swift in Sources */,
 				FF43393423DCCD0800E26FA4 /* String+BitAnd.swift in Sources */,
 				FF3C363C25584F71007F15C2 /* LineHorizontalPositionViewFactory.swift in Sources */,
@@ -3644,6 +3653,7 @@
 				FF79DA052219D97700D093AA /* GeneticUseCaseEvaluatorFactory.swift in Sources */,
 				FFDDFE8C23590C3500683CF9 /* UnitaryGateAdapter.swift in Sources */,
 				FF5920E122219F5C00C86F6A /* MainGeneticPopulationReproduction.swift in Sources */,
+				FFB77E9425BC63CA008798F6 /* DirectStatevectorIndexTransformationFactory.swift in Sources */,
 				FF3C364425584FCD007F15C2 /* CrossedLinesPositionViewFactory.swift in Sources */,
 				FFA50BB32357BEDC00BA9BAC /* UnitarySimulatorFacade.swift in Sources */,
 				FF3307102205ECE300C92BD1 /* MainGeneticFactory.swift in Sources */,
@@ -4005,6 +4015,7 @@
 				FF2B460A255C888A00C17D87 /* FixedControlledGate.swift in Sources */,
 				FFAA604F24FBC4C200437D39 /* OraclePositionView.swift in Sources */,
 				FFBD4F32251FBD460038C786 /* Matrix+Transposed.swift in Sources */,
+				FFB77EA225BC7163008798F6 /* DirectStatevectorIndexTransformationFactoryAdapter.swift in Sources */,
 				FFA6F2C323C2B1E100C678C3 /* XorGaussianEliminationSolverFactory.swift in Sources */,
 				FFEFC3B82416DB52006214E6 /* Gate+ModularExponentiationWithRangeExponentAndInputs.swift in Sources */,
 				FFD2EBAC24FFAC21002FCCB4 /* MatrixGapBothPositionView.swift in Sources */,
@@ -4034,6 +4045,7 @@
 				FFB22755241E60E300AC64AD /* Matrix+ConjugateTransposed.swift in Sources */,
 				FF032F3423B8E084000FCA3D /* XorEquationSystem.swift in Sources */,
 				FF5920DF22219E2400C86F6A /* GeneticPopulationReproduction.swift in Sources */,
+				FFB77E9525BC63CA008798F6 /* DirectStatevectorIndexTransformationFactory.swift in Sources */,
 				FFB6A83C254DCBD000044E49 /* OracleSimulatorMatrix.swift in Sources */,
 				FF072EFA21BD88C2002248AA /* StatevectorSimulatorFacade.swift in Sources */,
 				FF5920EE2221B95400C86F6A /* MainInitialPopulationProducerFactory.swift in Sources */,

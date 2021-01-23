@@ -27,6 +27,7 @@ struct DirectStatevectorTransformation {
 
     // MARK: - Private properties
 
+    private let indexTransformationFactory: DirectStatevectorIndexTransformationFactory
     private let maxConcurrency: Int
 
     // MARK: - Internal init methods
@@ -35,11 +36,13 @@ struct DirectStatevectorTransformation {
         case maxConcurrencyHasToBiggerThanZero
     }
 
-    init(maxConcurrency: Int) throws {
+    init(indexTransformationFactory: DirectStatevectorIndexTransformationFactory,
+         maxConcurrency: Int) throws {
         guard maxConcurrency > 0 else {
             throw InitError.maxConcurrencyHasToBiggerThanZero
         }
 
+        self.indexTransformationFactory = indexTransformationFactory
         self.maxConcurrency = maxConcurrency
     }
 }
@@ -48,14 +51,14 @@ struct DirectStatevectorTransformation {
 
 extension DirectStatevectorTransformation: StatevectorTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
-        var nextVector: Vector!
+        let nextVector: Vector!
 
         switch components.simulatorGateMatrix {
         case .fullyControlledSingleQubitMatrix(let controlledMatrix, _):
             let lastIndex = components.inputs.count - 1
 
             let target = components.inputs[lastIndex]
-            let idxTransformation = DirectStatevectorSingleQubitGateIndexTransformation(gateInput: target)
+            let idxTransformation = indexTransformationFactory.makeSingleQubitGateIndexTransformation(gateInput: target)
 
             let controls = Array(components.inputs[0..<lastIndex])
             let filter = Int.mask(activatingBitsAt: controls)
@@ -66,13 +69,13 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
                                selectingStatesWith: filter)
         case .singleQubitMatrix(let matrix):
             let target = components.inputs[0]
-            let idxTransformation = DirectStatevectorSingleQubitGateIndexTransformation(gateInput: target)
+            let idxTransformation = indexTransformationFactory.makeSingleQubitGateIndexTransformation(gateInput: target)
 
             nextVector = apply(matrix: matrix,
                                toStatevector: vector,
                                transformingIndexesWith: idxTransformation)
         case .otherMultiQubitMatrix(let matrix):
-            let idxTransformation = DirectStatevectorMultiQubitGateIndexTransformation(gateInputs: components.inputs)
+            let idxTransformation = indexTransformationFactory.makeMultiQubitGateIndexTransformation(gateInputs: components.inputs)
 
             nextVector = apply(matrix: matrix,
                                toStatevector: vector,
