@@ -28,11 +28,9 @@ extension SimulatorGateMatrix {
 
     var count: Int {
         switch self {
-        case .singleQubitMatrix(let matrix):
+        case .matrix(let matrix):
             return matrix.count
-        case .otherMultiQubitMatrix(let matrix):
-            return matrix.count
-        case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
+        case .fullyControlledMatrix(let controlledMatrix, let controlCount):
             return Int.pow(2, controlCount) *  controlledMatrix.count
         }
     }

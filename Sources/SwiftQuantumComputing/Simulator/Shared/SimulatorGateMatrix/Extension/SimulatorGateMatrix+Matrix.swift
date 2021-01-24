@@ -28,11 +28,9 @@ extension SimulatorGateMatrix {
 
     var matrix: SimulatorMatrix {
         switch self {
-        case .singleQubitMatrix(let matrix):
+        case .matrix(let matrix):
             return matrix
-        case .otherMultiQubitMatrix(let matrix):
-            return matrix
-        case .fullyControlledSingleQubitMatrix(let controlledMatrix, let controlCount):
+        case .fullyControlledMatrix(let controlledMatrix, let controlCount):
             return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
                                          controlledMatrix: controlledMatrix)
         }

@@ -47,12 +47,14 @@ public struct TwoLevelDecompositionSolver {
         switch gate.extractComponents(restrictedToCircuitQubitCount: actualQubitCount) {
         case .success((let simulatorGateMatrix, let simulatorInputs)):
             switch simulatorGateMatrix {
-            case .singleQubitMatrix, .fullyControlledSingleQubitMatrix:
-                return .success([gate])
-            case .otherMultiQubitMatrix(let matrix):
-                gateMatrix = matrix.rawMatrix
-                gateInputs = simulatorInputs
+            case .matrix(let matrix), .fullyControlledMatrix(let matrix, _):
+                if matrix.count == 2 {
+                    return .success([gate])
+                }
             }
+
+            gateMatrix = simulatorGateMatrix.matrix.rawMatrix
+            gateInputs = simulatorInputs
         case .failure(let error):
             return .failure(error)
         }

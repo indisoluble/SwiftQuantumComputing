@@ -36,19 +36,19 @@ extension FixedControlledGate: SimulatorComponents {
             return .failure(.gateControlsCanNotBeAnEmptyList)
         }
 
+        let ctrlMatrix: SimulatorMatrix!
+        var ctrlCount = 0
         switch gate.extractMatrix() {
         case .failure(let error):
             return .failure(error)
-        case .success(.singleQubitMatrix(let matrix)):
-            return .success(.fullyControlledSingleQubitMatrix(controlledMatrix: matrix,
-                                                              controlCount: controls.count))
-        case .success(.fullyControlledSingleQubitMatrix(let ctrlMatrix, let ctrlCount)):
-            return .success(.fullyControlledSingleQubitMatrix(controlledMatrix: ctrlMatrix,
-                                                              controlCount: ctrlCount + controls.count))
-        case .success(.otherMultiQubitMatrix(let matrix)):
-            let result = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controls.count,
-                                               controlledMatrix: matrix)
-            return .success(.otherMultiQubitMatrix(matrix: result))
+        case .success(.matrix(let embeddedMatrix)):
+            ctrlMatrix = embeddedMatrix
+        case .success(.fullyControlledMatrix(let embeddedMatrix, let embeddedCount)):
+            ctrlMatrix = embeddedMatrix
+            ctrlCount = embeddedCount
         }
+
+        return .success(.fullyControlledMatrix(controlledMatrix: ctrlMatrix,
+                                               controlCount: ctrlCount + controls.count))
     }
 }

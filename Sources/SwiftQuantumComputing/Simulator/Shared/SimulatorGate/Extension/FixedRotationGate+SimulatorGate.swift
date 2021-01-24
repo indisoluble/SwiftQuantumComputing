@@ -32,7 +32,6 @@ extension FixedRotationGate: SimulatorComponents {
     }
 
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        return .success(.singleQubitMatrix(matrix: Matrix.makeRotation(axis: axis,
-                                                                       radians: radians)))
+        return .success(.matrix(matrix: Matrix.makeRotation(axis: axis, radians: radians)))
     }
 }

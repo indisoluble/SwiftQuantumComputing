@@ -112,7 +112,7 @@ class UnitaryGateAdapterTests: XCTestCase {
                                               matrixFactory: matrixFactory)
 
         simulatorGate.extractComponentsInputsResult = gateInputs
-        simulatorGate.extractComponentsMatrixResult = .singleQubitMatrix(matrix: gateMatrix)
+        simulatorGate.extractComponentsMatrixResult = .matrix(matrix: gateMatrix)
 
         let circuitMatrix = SimulatorMatrixTestDouble()
         circuitMatrix.rawMatrixResult = simulatorMatrix
@@ -141,7 +141,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix, matrixFactory: matrixFactory)
 
         simulatorGate.extractComponentsInputsResult = gateInputs
-        simulatorGate.extractComponentsMatrixResult = .singleQubitMatrix(matrix: gateMatrix)
+        simulatorGate.extractComponentsMatrixResult = .matrix(matrix: gateMatrix)
 
         let otherCircuitMatrix = SimulatorMatrixTestDouble()
         otherCircuitMatrix.rawMatrixResult = otherSimulatorMatrix

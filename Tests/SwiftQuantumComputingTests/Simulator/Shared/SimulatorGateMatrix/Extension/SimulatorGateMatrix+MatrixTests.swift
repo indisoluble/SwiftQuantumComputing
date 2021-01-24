@@ -33,7 +33,7 @@ class SimulatorGateMatrix_MatrixTests: XCTestCase {
         let matrix = Matrix.makeNot()
 
         // When
-        let result = SimulatorGateMatrix.singleQubitMatrix(matrix: matrix).matrix
+        let result = SimulatorGateMatrix.matrix(matrix: matrix).matrix
 
         // Then
         XCTAssertEqual(result.rawMatrix, matrix)
@@ -45,8 +45,8 @@ class SimulatorGateMatrix_MatrixTests: XCTestCase {
         let controlCount = 1
 
         // When
-        let result = SimulatorGateMatrix.fullyControlledSingleQubitMatrix(controlledMatrix: controlledMatrix,
-                                                                          controlCount: controlCount).matrix
+        let result = SimulatorGateMatrix.fullyControlledMatrix(controlledMatrix: controlledMatrix,
+                                                               controlCount: controlCount).matrix
 
         // Then
         let expectedMatrix = Matrix.makeControlledNot()
@@ -60,7 +60,7 @@ class SimulatorGateMatrix_MatrixTests: XCTestCase {
                                            controlledMatrix: Matrix.makeNot()).rawMatrix
 
         // When
-        let result = SimulatorGateMatrix.otherMultiQubitMatrix(matrix: matrix).matrix
+        let result = SimulatorGateMatrix.matrix(matrix: matrix).matrix
 
         // Then
         XCTAssertEqual(result.rawMatrix, matrix)

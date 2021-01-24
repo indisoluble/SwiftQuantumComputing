@@ -52,30 +52,24 @@ struct DirectStatevectorTransformation {
 extension DirectStatevectorTransformation: StatevectorTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
         let matrix: SimulatorMatrix!
-        let indexer: DirectStatevectorIndexing!
+        var inputs: [Int] = []
         var filter: Int? = nil
 
         switch components.simulatorGateMatrix {
-        case .singleQubitMatrix(let singleQubitmatrix):
-            matrix = singleQubitmatrix
-
-            let target = components.inputs[0]
-            indexer = indexingFactory.makeSingleQubitGateIndexer(gateInput: target)
-        case .otherMultiQubitMatrix(let multiQubitMatrix):
-            matrix = multiQubitMatrix
-
-            indexer = indexingFactory.makeMultiQubitGateIndexer(gateInputs: components.inputs)
-        case .fullyControlledSingleQubitMatrix(let controlledMatrix, _):
+        case .matrix(let embeddedMatrix):
+            matrix = embeddedMatrix
+            inputs = components.inputs
+        case .fullyControlledMatrix(let controlledMatrix, let controlCount):
             matrix = controlledMatrix
+            inputs = Array(components.inputs[controlCount..<components.inputs.count])
 
-            let lastIndex = components.inputs.count - 1
-
-            let target = components.inputs[lastIndex]
-            indexer = indexingFactory.makeSingleQubitGateIndexer(gateInput: target)
-
-            let controls = Array(components.inputs[0..<lastIndex])
+            let controls = Array(components.inputs[0..<controlCount])
             filter = Int.mask(activatingBitsAt: controls)
         }
+
+        let indexer = (inputs.count == 1 ?
+                        indexingFactory.makeSingleQubitGateIndexer(gateInput: inputs[0]) :
+                        indexingFactory.makeMultiQubitGateIndexer(gateInputs: inputs))
 
         return apply(matrix: matrix,
                      toStatevector: vector,

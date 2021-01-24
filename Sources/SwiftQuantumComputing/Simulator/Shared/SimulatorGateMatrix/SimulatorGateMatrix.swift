@@ -23,7 +23,6 @@ import Foundation
 // MARK: - Internal types
 
 enum SimulatorGateMatrix {
-    case singleQubitMatrix(matrix: SimulatorMatrix)
-    case fullyControlledSingleQubitMatrix(controlledMatrix: SimulatorMatrix, controlCount: Int)
-    case otherMultiQubitMatrix(matrix: SimulatorMatrix)
+    case matrix(matrix: SimulatorMatrix)
+    case fullyControlledMatrix(controlledMatrix: SimulatorMatrix, controlCount: Int)
 }

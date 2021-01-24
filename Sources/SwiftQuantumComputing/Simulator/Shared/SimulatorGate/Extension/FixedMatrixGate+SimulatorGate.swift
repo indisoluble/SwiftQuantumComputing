@@ -40,8 +40,6 @@ extension FixedMatrixGate: SimulatorComponents {
             return .failure(.gateMatrixIsNotUnitary)
         }
 
-        return .success(matrix.rowCount == 2 ?
-                            .singleQubitMatrix(matrix: matrix) :
-                            .otherMultiQubitMatrix(matrix: matrix))
+        return .success(.matrix(matrix: matrix))
     }
 }
