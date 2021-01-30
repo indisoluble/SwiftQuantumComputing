@@ -32,7 +32,8 @@ extension FixedHadamardGate: SimulatorComponents {
     }
 
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        return .success(.matrix(matrix: Constants.matrixHadamard))
+        return .success(.fullyControlledMatrix(controlledMatrix: Constants.matrixHadamard,
+                                               controlCount: 0))
     }
 }
 

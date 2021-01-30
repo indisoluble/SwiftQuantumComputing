@@ -32,6 +32,8 @@ extension FixedPhaseShiftGate: SimulatorComponents {
     }
 
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        .success(.matrix(matrix: Matrix.makePhaseShift(radians: radians)))
+        let matrix = Matrix.makePhaseShift(radians: radians)
+
+        return .success(.fullyControlledMatrix(controlledMatrix: matrix, controlCount: 0))
     }
 }

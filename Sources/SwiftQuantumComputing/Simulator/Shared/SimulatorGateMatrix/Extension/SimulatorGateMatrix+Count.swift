@@ -28,8 +28,6 @@ extension SimulatorGateMatrix {
 
     var count: Int {
         switch self {
-        case .matrix(let matrix):
-            return matrix.count
         case .fullyControlledMatrix(let controlledMatrix, let controlCount):
             return Int.pow(2, controlCount) *  controlledMatrix.count
         }

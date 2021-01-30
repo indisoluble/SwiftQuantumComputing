@@ -33,7 +33,8 @@ class SimulatorGateMatrix_MatrixTests: XCTestCase {
         let matrix = Matrix.makeNot()
 
         // When
-        let result = SimulatorGateMatrix.matrix(matrix: matrix).matrix
+        let result = SimulatorGateMatrix.fullyControlledMatrix(controlledMatrix: matrix,
+                                                               controlCount: 0).matrix
 
         // Then
         XCTAssertEqual(result.rawMatrix, matrix)
@@ -60,7 +61,8 @@ class SimulatorGateMatrix_MatrixTests: XCTestCase {
                                            controlledMatrix: Matrix.makeNot()).rawMatrix
 
         // When
-        let result = SimulatorGateMatrix.matrix(matrix: matrix).matrix
+        let result = SimulatorGateMatrix.fullyControlledMatrix(controlledMatrix: matrix,
+                                                               controlCount: 0).matrix
 
         // Then
         XCTAssertEqual(result.rawMatrix, matrix)

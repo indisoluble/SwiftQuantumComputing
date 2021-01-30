@@ -23,6 +23,5 @@ import Foundation
 // MARK: - Internal types
 
 enum SimulatorGateMatrix {
-    case matrix(matrix: SimulatorMatrix)
     case fullyControlledMatrix(controlledMatrix: SimulatorMatrix, controlCount: Int)
 }

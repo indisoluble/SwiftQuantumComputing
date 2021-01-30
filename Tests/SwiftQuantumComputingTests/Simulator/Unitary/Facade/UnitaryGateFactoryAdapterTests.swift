@@ -56,7 +56,8 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
         simulatorGate.extractComponentsInputsResult = gateInputs
-        simulatorGate.extractComponentsMatrixResult = .matrix(matrix: gateMatrix)
+        simulatorGate.extractComponentsMatrixResult = .fullyControlledMatrix(controlledMatrix: gateMatrix,
+                                                                             controlCount: 0)
 
         let simulatorMatrix = Matrix.makeHadamard()
         let circuitMatrix = SimulatorMatrixTestDouble()

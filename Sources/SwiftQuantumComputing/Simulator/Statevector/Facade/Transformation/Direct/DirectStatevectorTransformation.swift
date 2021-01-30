@@ -56,15 +56,14 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
         var filter: Int? = nil
 
         switch components.simulatorGateMatrix {
-        case .matrix(let embeddedMatrix):
-            matrix = embeddedMatrix
-            inputs = components.inputs
         case .fullyControlledMatrix(let controlledMatrix, let controlCount):
             matrix = controlledMatrix
             inputs = Array(components.inputs[controlCount..<components.inputs.count])
 
-            let controls = Array(components.inputs[0..<controlCount])
-            filter = Int.mask(activatingBitsAt: controls)
+            if controlCount > 0 {
+                let controls = Array(components.inputs[0..<controlCount])
+                filter = Int.mask(activatingBitsAt: controls)
+            }
         }
 
         let indexer = (inputs.count == 1 ?

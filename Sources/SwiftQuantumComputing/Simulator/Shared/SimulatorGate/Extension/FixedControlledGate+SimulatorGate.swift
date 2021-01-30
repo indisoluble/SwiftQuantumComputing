@@ -36,19 +36,12 @@ extension FixedControlledGate: SimulatorComponents {
             return .failure(.gateControlsCanNotBeAnEmptyList)
         }
 
-        let ctrlMatrix: SimulatorMatrix!
-        var ctrlCount = 0
         switch gate.extractMatrix() {
         case .failure(let error):
             return .failure(error)
-        case .success(.matrix(let embeddedMatrix)):
-            ctrlMatrix = embeddedMatrix
         case .success(.fullyControlledMatrix(let embeddedMatrix, let embeddedCount)):
-            ctrlMatrix = embeddedMatrix
-            ctrlCount = embeddedCount
+            return .success(.fullyControlledMatrix(controlledMatrix: embeddedMatrix,
+                                                   controlCount: embeddedCount + controls.count))
         }
-
-        return .success(.fullyControlledMatrix(controlledMatrix: ctrlMatrix,
-                                               controlCount: ctrlCount + controls.count))
     }
 }

@@ -33,7 +33,9 @@ class SimulatorGateMatrix_CountTests: XCTestCase {
         let matrix = Matrix.makeNot()
 
         // Then
-        XCTAssertEqual(SimulatorGateMatrix.matrix(matrix: matrix).count, 2)
+        XCTAssertEqual(SimulatorGateMatrix.fullyControlledMatrix(controlledMatrix: matrix,
+                                                                 controlCount: 0).count,
+                       2)
     }
 
     func testNotMatrixAndControlCountToTwo_count_returnExpectedValue() {
@@ -54,7 +56,9 @@ class SimulatorGateMatrix_CountTests: XCTestCase {
                                            controlledMatrix: Matrix.makeNot()).rawMatrix
 
         // Then
-        XCTAssertEqual(SimulatorGateMatrix.matrix(matrix: matrix).count, 8)
+        XCTAssertEqual(SimulatorGateMatrix.fullyControlledMatrix(controlledMatrix: matrix,
+                                                                 controlCount: 0).count,
+                       8)
     }
 
     static var allTests = [
