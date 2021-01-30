@@ -43,7 +43,7 @@ extension FixedOracleGate: SimulatorComponents {
             let result = OracleSimulatorMatrix(truthTable: truthTable,
                                                controlCount: controls.count,
                                                controlledMatrix: simulatorGateMatrix.matrix)
-            return .success(.fullyControlledMatrix(controlledMatrix: result, controlCount: 0))
+            return .success(SimulatorGateMatrix(matrix: result))
         }
     }
 }

@@ -27,14 +27,11 @@ extension SimulatorGateMatrix {
     // MARK: - Internal properties
 
     var matrix: SimulatorMatrix {
-        switch self {
-        case .fullyControlledMatrix(let controlledMatrix, let controlCount):
-            if controlCount == 0 {
-                return controlledMatrix
-            }
-
-            return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
-                                         controlledMatrix: controlledMatrix)
+        if controlCount == 0 {
+            return controlledMatrix
         }
+
+        return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
+                                     controlledMatrix: controlledMatrix)
     }
 }

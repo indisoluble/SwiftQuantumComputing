@@ -44,8 +44,7 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
 
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
-        let simulatorGateMatrix = SimulatorGateMatrix.fullyControlledMatrix(controlledMatrix: gateMatrix,
-                                                                            controlCount: 0)
+        let simulatorGateMatrix = SimulatorGateMatrix(matrix: gateMatrix)
 
         let circuitMatrix = SimulatorMatrixTestDouble()
         circuitMatrix.rawMatrixResult = try! Matrix([
@@ -86,8 +85,7 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
         // When
-        let result = adapter.apply(components: (.fullyControlledMatrix(controlledMatrix: gateMatrix,
-                                                                       controlCount: 0),
+        let result = adapter.apply(components: (SimulatorGateMatrix(matrix: gateMatrix),
                                                 gateInputs),
                                    toStatevector: vector)
 

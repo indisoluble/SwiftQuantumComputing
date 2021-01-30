@@ -51,19 +51,16 @@ struct DirectStatevectorTransformation {
 
 extension DirectStatevectorTransformation: StatevectorTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
-        let matrix: SimulatorMatrix!
-        var inputs: [Int] = []
+        let simulatorGateMatrix = components.simulatorGateMatrix
+        let matrix = simulatorGateMatrix.controlledMatrix
+
+        let controlCount = simulatorGateMatrix.controlCount
+        let inputs = Array(components.inputs[controlCount..<components.inputs.count])
+
         var filter: Int? = nil
-
-        switch components.simulatorGateMatrix {
-        case .fullyControlledMatrix(let controlledMatrix, let controlCount):
-            matrix = controlledMatrix
-            inputs = Array(components.inputs[controlCount..<components.inputs.count])
-
-            if controlCount > 0 {
-                let controls = Array(components.inputs[0..<controlCount])
-                filter = Int.mask(activatingBitsAt: controls)
-            }
+        if controlCount > 0 {
+            let controls = Array(components.inputs[0..<controlCount])
+            filter = Int.mask(activatingBitsAt: controls)
         }
 
         let indexer = (inputs.count == 1 ?

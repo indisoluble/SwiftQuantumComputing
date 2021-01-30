@@ -20,8 +20,32 @@
 
 import Foundation
 
-// MARK: - Internal types
+// MARK: - Main body
 
-enum SimulatorGateMatrix {
-    case fullyControlledMatrix(controlledMatrix: SimulatorMatrix, controlCount: Int)
+struct SimulatorGateMatrix {
+
+    // MARK: - Internal properties
+
+    let controlCount: Int
+    let controlledMatrix: SimulatorMatrix
+
+    // MARK: - Internal init methods
+
+    init(matrix: SimulatorMatrix) {
+        self.init(controlCount: 0, controlledMatrix: matrix)
+    }
+
+    // MARK: - Private internal methods
+
+    private init(controlCount: Int, controlledMatrix: SimulatorMatrix) {
+        self.controlCount = controlCount
+        self.controlledMatrix = controlledMatrix
+    }
+
+    // MARK: - Internal methods
+
+    func addingControlCount(_ controlCount: Int) -> SimulatorGateMatrix {
+        return SimulatorGateMatrix(controlCount: self.controlCount + controlCount,
+                                   controlledMatrix: controlledMatrix)
+    }
 }

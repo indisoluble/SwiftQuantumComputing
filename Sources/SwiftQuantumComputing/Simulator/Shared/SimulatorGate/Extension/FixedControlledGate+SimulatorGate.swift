@@ -39,9 +39,8 @@ extension FixedControlledGate: SimulatorComponents {
         switch gate.extractMatrix() {
         case .failure(let error):
             return .failure(error)
-        case .success(.fullyControlledMatrix(let embeddedMatrix, let embeddedCount)):
-            return .success(.fullyControlledMatrix(controlledMatrix: embeddedMatrix,
-                                                   controlCount: embeddedCount + controls.count))
+        case .success(let matrix):
+            return .success(matrix.addingControlCount(controls.count))
         }
     }
 }

@@ -27,9 +27,6 @@ extension SimulatorGateMatrix {
     // MARK: - Internal properties
 
     var count: Int {
-        switch self {
-        case .fullyControlledMatrix(let controlledMatrix, let controlCount):
-            return Int.pow(2, controlCount) *  controlledMatrix.count
-        }
+        return Int.pow(2, controlCount) *  controlledMatrix.count
     }
 }
