@@ -40,6 +40,6 @@ extension FixedMatrixGate: SimulatorComponents {
             return .failure(.gateMatrixIsNotUnitary)
         }
 
-        return .success(SimulatorGateMatrix(matrix: matrix))
+        return .success(matrix)
     }
 }

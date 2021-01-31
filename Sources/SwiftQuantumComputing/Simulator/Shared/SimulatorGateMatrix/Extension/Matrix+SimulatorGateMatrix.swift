@@ -1,9 +1,9 @@
 //
-//  FixedPhaseShiftGate+SimulatorGate.swift
+//  Matrix+SimulatorGateMatrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/11/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 31/01/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,18 +20,6 @@
 
 import Foundation
 
-// MARK: - SimulatorGate methods
+// MARK: - SimulatorGateMatrix methods
 
-extension FixedPhaseShiftGate: SimulatorGate {}
-
-// MARK: - SimulatorComponents methods
-
-extension FixedPhaseShiftGate: SimulatorComponents {
-    func extractRawInputs() -> [Int] {
-        return [target]
-    }
-
-    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        return .success(Matrix.makePhaseShift(radians: radians))
-    }
-}
+extension Matrix: SimulatorGateMatrix {}

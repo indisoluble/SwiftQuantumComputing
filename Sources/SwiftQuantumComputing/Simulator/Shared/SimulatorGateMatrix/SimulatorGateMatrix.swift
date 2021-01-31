@@ -20,32 +20,35 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-struct SimulatorGateMatrix {
+protocol SimulatorGateMatrix {
+    var matrix: SimulatorMatrix { get }
+    var matrixCount: Int { get }
 
-    // MARK: - Internal properties
+    var controlCount: Int { get }
+    var controlledMatrix: SimulatorMatrix { get }
+}
 
-    let controlCount: Int
-    let controlledMatrix: SimulatorMatrix
+// MARK: - SimulatorGateMatrix default implementations
 
-    // MARK: - Internal init methods
-
-    init(matrix: SimulatorMatrix) {
-        self.init(controlCount: 0, controlledMatrix: matrix)
+extension SimulatorGateMatrix {
+    var matrixCount: Int {
+        return matrix.count
     }
 
-    // MARK: - Private internal methods
-
-    private init(controlCount: Int, controlledMatrix: SimulatorMatrix) {
-        self.controlCount = controlCount
-        self.controlledMatrix = controlledMatrix
+    var controlCount: Int {
+        return 0
     }
 
-    // MARK: - Internal methods
+    var controlledMatrix: SimulatorMatrix {
+        return matrix
+    }
+}
 
-    func addingControlCount(_ controlCount: Int) -> SimulatorGateMatrix {
-        return SimulatorGateMatrix(controlCount: self.controlCount + controlCount,
-                                   controlledMatrix: controlledMatrix)
+
+extension SimulatorGateMatrix where Self: SimulatorMatrix {
+    var matrix: SimulatorMatrix {
+        return self
     }
 }

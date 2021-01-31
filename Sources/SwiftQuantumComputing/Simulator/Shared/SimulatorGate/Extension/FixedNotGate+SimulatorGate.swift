@@ -32,7 +32,7 @@ extension FixedNotGate: SimulatorComponents {
     }
 
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        return .success(SimulatorGateMatrix(matrix: Constants.matrixNot))
+        return .success(Constants.matrixNot)
     }
 }
 

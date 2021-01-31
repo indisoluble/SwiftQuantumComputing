@@ -59,9 +59,7 @@ class CircuitMatrixRowStatevectorTransformationTests: XCTestCase {
         rowFactory.makeCircuitMatrixRowResult = circuitRow
 
         // When
-        let result = adapter.apply(components: (SimulatorGateMatrix(matrix: gateMatrix),
-                                                gateInputs),
-                                   toStatevector: vector)
+        let result = adapter.apply(components: (gateMatrix, gateInputs), toStatevector: vector)
 
         // Then
         XCTAssertEqual(rowFactory.makeCircuitMatrixRowCount, 1)

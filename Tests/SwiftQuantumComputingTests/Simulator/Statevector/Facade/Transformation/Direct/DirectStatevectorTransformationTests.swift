@@ -53,10 +53,11 @@ class DirectStatevectorTransformationTests: XCTestCase {
         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .one
     ])
-    let simulatorGateNotMatrix = SimulatorGateMatrix(matrix: Matrix.makeNot())
-    let simulatorGateControlledNotMatrix = SimulatorGateMatrix(matrix: Matrix.makeNot()).addingControlCount(1)
-    let simulatorGateMultiqubitMatrix = SimulatorGateMatrix(matrix: OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
-                                                                                          controlledMatrix: Matrix.makeNot()))
+    let simulatorGateNotMatrix = Matrix.makeNot()
+    let simulatorGateControlledNotMatrix = ControlledSimulatorGateMatrix(controlCount: 1,
+                                                                         controlledMatrix: Matrix.makeNot())
+    let simulatorGateMultiqubitMatrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
+                                                              controlledMatrix: Matrix.makeNot())
 
     // MARK: - Tests
 
@@ -197,7 +198,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
     func testControlledMatrixAndSevenQubitThreeVector_apply_returnExpectedVector() {
         // Given
         let matrix = try! Matrix([[.one, .zero], [.zero, .one]])
-        let simulatorGateMatrix = SimulatorGateMatrix(matrix: matrix).addingControlCount(1)
+        let simulatorGateMatrix = ControlledSimulatorGateMatrix(controlCount: 1,
+                                                                controlledMatrix: matrix)
 
         // When
         let result = adapter.apply(components: (simulatorGateMatrix, [2, 0]),
@@ -209,7 +211,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     func testThreeQubitControlledNotMatrixAndElevenQubitFourVector_apply_returnExpectedVector() {
         // Given
-        let simulatorGateMatrix = SimulatorGateMatrix(matrix: Matrix.makeNot()).addingControlCount(2)
+        let simulatorGateMatrix = ControlledSimulatorGateMatrix(controlCount: 2,
+                                                                controlledMatrix: Matrix.makeNot())
 
         // When
         let result = adapter.apply(components: (simulatorGateMatrix, [3, 0, 2]),
@@ -222,7 +225,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
     func testThreeQubitControlledNotNotMatrixAndElevenQubitFourVector_apply_returnExpectedVector() {
         // Given
         let matrix = Matrix.tensorProduct(Matrix.makeNot(), Matrix.makeNot())
-        let simulatorGateMatrix = SimulatorGateMatrix(matrix: matrix).addingControlCount(1)
+        let simulatorGateMatrix = ControlledSimulatorGateMatrix(controlCount: 1,
+                                                                controlledMatrix: matrix)
 
         // When
         let result = adapter.apply(components: (simulatorGateMatrix, [3, 0, 2]),
@@ -325,8 +329,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
     func testOtherMultiqubitMatrixAndSevenQubitThreeVector_apply_returnExpectedVector() {
         // Given
         let matrix = try! Matrix([[.one, .zero], [.zero, .one]])
-        let simulatorGateMatrix = SimulatorGateMatrix(matrix: OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
-                                                                                    controlledMatrix: matrix))
+        let simulatorGateMatrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
+                                                        controlledMatrix: matrix)
 
         // When
         let result = adapter.apply(components: (simulatorGateMatrix, [2, 0]),
@@ -338,8 +342,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     func testThreeQubitMultiqubitMatrixAndElevenQubitFourVector_apply_returnExpectedVector() {
         // Given
-        let simulatorGateMatrix = SimulatorGateMatrix(matrix: OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 2,
-                                                                                    controlledMatrix: Matrix.makeNot()))
+        let simulatorGateMatrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 2,
+                                                        controlledMatrix: Matrix.makeNot())
 
         // When
         let result = adapter.apply(components: (simulatorGateMatrix, [3, 0, 2]),
@@ -353,7 +357,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
 
-        let simulatorMatrix = SimulatorGateMatrix(matrix: Matrix.makeHadamard())
+        let simulatorMatrix = Matrix.makeHadamard()
         let components: SimulatorGate.Components = (simulatorMatrix, [1])
 
         // When
@@ -370,7 +374,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
 
-        let simulatorMatrix = SimulatorGateMatrix(matrix: Matrix.makeHadamard()).addingControlCount(1)
+        let simulatorMatrix = ControlledSimulatorGateMatrix(controlCount: 1,
+                                                            controlledMatrix: Matrix.makeHadamard())
         let components: SimulatorGate.Components = (simulatorMatrix, [0, 2])
 
         // When
@@ -387,7 +392,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
 
-        let simulatorMatrix = SimulatorGateMatrix(matrix: Matrix.makeHadamard()).addingControlCount(2)
+        let simulatorMatrix = ControlledSimulatorGateMatrix(controlCount: 2,
+                                                            controlledMatrix: Matrix.makeHadamard())
         let components: SimulatorGate.Components = (simulatorMatrix, [0, 3, 1])
 
         // When
@@ -404,7 +410,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
 
-        let simulatorMatrix = SimulatorGateMatrix(matrix: Matrix.makeHadamard()).addingControlCount(3)
+        let simulatorMatrix = ControlledSimulatorGateMatrix(controlCount: 3,
+                                                            controlledMatrix: Matrix.makeHadamard())
         let components: SimulatorGate.Components = (simulatorMatrix, [3, 1, 0, 2])
 
         // When
@@ -422,8 +429,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
 
         let rawMatrix = Matrix.makeRotation(axis: .y, radians: 0.1)
-        let simulatorMatrix = SimulatorGateMatrix(matrix: OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
-                                                                                controlledMatrix: rawMatrix))
+        let simulatorMatrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
+                                                    controlledMatrix: rawMatrix)
         let components: SimulatorGate.Components = (simulatorMatrix, [2, 0])
 
         // When
@@ -441,8 +448,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
 
         let rawMatrix = Matrix.makeRotation(axis: .x, radians: 0.1)
-        let simulatorMatrix = SimulatorGateMatrix(matrix: OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 2,
-                                                                                controlledMatrix: rawMatrix))
+        let simulatorMatrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 2,
+                                                    controlledMatrix: rawMatrix)
         let components: SimulatorGate.Components = (simulatorMatrix, [0, 3, 2])
 
         // When
@@ -460,8 +467,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let scmAdapter = CircuitMatrixStatevectorTransformation(matrixFactory: SimulatorCircuitMatrixFactoryAdapter())
 
         let rawMatrix = Matrix.makeRotation(axis: .x, radians: 0.1)
-        let simulatorMatrix = SimulatorGateMatrix(matrix: OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 3,
-                                                                                controlledMatrix: rawMatrix))
+        let simulatorMatrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 3,
+                                                    controlledMatrix: rawMatrix)
         let components: SimulatorGate.Components = (simulatorMatrix, [2, 0, 1, 3])
 
         // When

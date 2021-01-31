@@ -40,7 +40,8 @@ extension FixedControlledGate: SimulatorComponents {
         case .failure(let error):
             return .failure(error)
         case .success(let matrix):
-            return .success(matrix.addingControlCount(controls.count))
+            return .success(ControlledSimulatorGateMatrix(controlCount: matrix.controlCount + controls.count,
+                                                          controlledMatrix: matrix.controlledMatrix))
         }
     }
 }

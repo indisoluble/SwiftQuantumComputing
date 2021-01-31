@@ -40,10 +40,9 @@ extension FixedOracleGate: SimulatorComponents {
         case .failure(let error):
             return .failure(error)
         case .success(let simulatorGateMatrix):
-            let result = OracleSimulatorMatrix(truthTable: truthTable,
-                                               controlCount: controls.count,
-                                               controlledMatrix: simulatorGateMatrix.matrix)
-            return .success(SimulatorGateMatrix(matrix: result))
+            return .success(OracleSimulatorMatrix(truthTable: truthTable,
+                                                  controlCount: controls.count,
+                                                  controlledMatrix: simulatorGateMatrix.matrix))
         }
     }
 }

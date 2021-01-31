@@ -1,9 +1,9 @@
 //
-//  SimulatorGateMatrix+Matrix.swift
+//  OracleSimulatorMatrix+SimulatorGateMatrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 01/11/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 31/01/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,18 +20,6 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - SimulatorGateMatrix methods
 
-extension SimulatorGateMatrix {
-
-    // MARK: - Internal properties
-
-    var matrix: SimulatorMatrix {
-        if controlCount == 0 {
-            return controlledMatrix
-        }
-
-        return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
-                                     controlledMatrix: controlledMatrix)
-    }
-}
+extension OracleSimulatorMatrix: SimulatorGateMatrix {}
