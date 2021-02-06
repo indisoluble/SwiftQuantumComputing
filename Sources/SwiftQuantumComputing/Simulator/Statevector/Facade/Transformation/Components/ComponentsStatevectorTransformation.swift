@@ -1,5 +1,5 @@
 //
-//  StatevectorComponentsTransformation.swift
+//  ComponentsStatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 06/02/2021.
@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol StatevectorComponentsTransformation {
+protocol ComponentsStatevectorTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector
 }

@@ -28,7 +28,7 @@ protocol StatevectorTransformation {
 
 // MARK: - StatevectorTransformation default implementations
 
-extension StatevectorTransformation where Self: StatevectorComponentsTransformation {
+extension StatevectorTransformation where Self: ComponentsStatevectorTransformation {
     func apply(gate: SimulatorGate, toStatevector vector: Vector) -> Result<Vector, GateError> {
         switch gate.extractComponents(restrictedToCircuitQubitCount: Int.log2(vector.count)) {
         case .success(let components):

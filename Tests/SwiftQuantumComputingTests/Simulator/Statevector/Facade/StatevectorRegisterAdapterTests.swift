@@ -28,7 +28,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let transformation = StatevectorComponentsTransformationTestDouble()
+    let transformation = ComponentsStatevectorTransformationTestDouble()
     let oneQubitZeroVector = try! Vector([.one, .zero])
     let threeQubitZeroVector = try! Vector([.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero])
     let threeQubitFourVector = try! Vector([.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero])
