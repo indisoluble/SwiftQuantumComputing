@@ -49,7 +49,11 @@ struct DirectStatevectorTransformation {
 
 // MARK: - StatevectorTransformation methods
 
-extension DirectStatevectorTransformation: StatevectorTransformation {
+extension DirectStatevectorTransformation: StatevectorTransformation {}
+
+// MARK: - StatevectorComponentsTransformation methods
+
+extension DirectStatevectorTransformation: StatevectorComponentsTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
         let simulatorGateMatrix = components.simulatorGateMatrix
         let matrix = simulatorGateMatrix.controlledMatrix

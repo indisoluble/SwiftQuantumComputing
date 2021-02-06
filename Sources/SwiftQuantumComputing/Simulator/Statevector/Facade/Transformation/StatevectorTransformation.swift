@@ -23,5 +23,18 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol StatevectorTransformation {
-    func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector
+    func apply(gate: SimulatorGate, toStatevector vector: Vector) -> Result<Vector, GateError>
+}
+
+// MARK: - StatevectorTransformation default implementations
+
+extension StatevectorTransformation where Self: StatevectorComponentsTransformation {
+    func apply(gate: SimulatorGate, toStatevector vector: Vector) -> Result<Vector, GateError> {
+        switch gate.extractComponents(restrictedToCircuitQubitCount: Int.log2(vector.count)) {
+        case .success(let components):
+            return .success(apply(components: components, toStatevector: vector))
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
 }

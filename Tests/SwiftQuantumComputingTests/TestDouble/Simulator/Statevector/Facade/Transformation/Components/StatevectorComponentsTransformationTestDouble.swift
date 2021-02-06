@@ -1,5 +1,5 @@
 //
-//  StatevectorTransformationTestDouble.swift
+//  StatevectorComponentsTransformationTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 08/05/2020.
@@ -24,7 +24,7 @@ import Foundation
 
 // MARK: - Main body
 
-final class StatevectorTransformationTestDouble {
+final class StatevectorComponentsTransformationTestDouble {
 
     // MARK: - Internal properties
 
@@ -37,7 +37,11 @@ final class StatevectorTransformationTestDouble {
 
 // MARK: - StatevectorTransformation methods
 
-extension StatevectorTransformationTestDouble: StatevectorTransformation {
+extension StatevectorComponentsTransformationTestDouble: StatevectorTransformation {}
+
+// MARK: - StatevectorComponentsTransformation methods
+
+extension StatevectorComponentsTransformationTestDouble: StatevectorComponentsTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
         applyCount += 1
 

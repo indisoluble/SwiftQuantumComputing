@@ -28,7 +28,7 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let transformation = StatevectorTransformationTestDouble()
+    let transformation = StatevectorComponentsTransformationTestDouble()
 
     // MARK: - Tests
 
