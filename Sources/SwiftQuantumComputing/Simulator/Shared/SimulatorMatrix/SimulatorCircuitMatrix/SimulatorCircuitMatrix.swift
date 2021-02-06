@@ -59,10 +59,6 @@ struct SimulatorCircuitMatrix {
     }
 }
 
-// MARK: - SimulatorCircuitRow methods
-
-extension SimulatorCircuitMatrix: SimulatorCircuitRow {}
-
 // MARK: - SimulatorMatrix methods
 
 extension SimulatorCircuitMatrix: SimulatorMatrix {
