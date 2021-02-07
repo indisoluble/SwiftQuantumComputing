@@ -23,26 +23,3 @@ import Foundation
 // MARK: - SimulatorGate methods
 
 extension FixedOracleGate: SimulatorGate {}
-
-// MARK: - SimulatorComponents methods
-
-extension FixedOracleGate: SimulatorComponents {
-    func extractRawInputs() -> [Int] {
-        return controls + gate.extractRawInputs()
-    }
-
-    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        guard !controls.isEmpty else {
-            return .failure(.gateControlsCanNotBeAnEmptyList)
-        }
-
-        switch gate.extractMatrix() {
-        case .failure(let error):
-            return .failure(error)
-        case .success(let simulatorGateMatrix):
-            return .success(OracleSimulatorMatrix(truthTable: truthTable,
-                                                  controlCount: controls.count,
-                                                  controlledMatrix: simulatorGateMatrix.matrix))
-        }
-    }
-}

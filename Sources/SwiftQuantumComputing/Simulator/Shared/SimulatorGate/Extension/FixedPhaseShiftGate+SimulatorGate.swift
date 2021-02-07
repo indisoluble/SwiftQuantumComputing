@@ -23,15 +23,3 @@ import Foundation
 // MARK: - SimulatorGate methods
 
 extension FixedPhaseShiftGate: SimulatorGate {}
-
-// MARK: - SimulatorComponents methods
-
-extension FixedPhaseShiftGate: SimulatorComponents {
-    func extractRawInputs() -> [Int] {
-        return [target]
-    }
-
-    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        return .success(Matrix.makePhaseShift(radians: radians))
-    }
-}

@@ -23,15 +23,3 @@ import Foundation
 // MARK: - SimulatorGate methods
 
 extension FixedRotationGate: SimulatorGate {}
-
-// MARK: - SimulatorComponents methods
-
-extension FixedRotationGate: SimulatorComponents {
-    func extractRawInputs() -> [Int] {
-        return [target]
-    }
-
-    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        return .success(Matrix.makeRotation(axis: axis, radians: radians))
-    }
-}

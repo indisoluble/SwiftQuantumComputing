@@ -23,25 +23,3 @@ import Foundation
 // MARK: - SimulatorGate methods
 
 extension FixedControlledGate: SimulatorGate {}
-
-// MARK: - SimulatorComponents methods
-
-extension FixedControlledGate: SimulatorComponents {
-    func extractRawInputs() -> [Int] {
-        return controls + gate.extractRawInputs()
-    }
-
-    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        guard !controls.isEmpty else {
-            return .failure(.gateControlsCanNotBeAnEmptyList)
-        }
-
-        switch gate.extractMatrix() {
-        case .failure(let error):
-            return .failure(error)
-        case .success(let matrix):
-            return .success(ControlledSimulatorGateMatrix(controlCount: matrix.controlCount + controls.count,
-                                                          controlledMatrix: matrix.controlledMatrix))
-        }
-    }
-}
