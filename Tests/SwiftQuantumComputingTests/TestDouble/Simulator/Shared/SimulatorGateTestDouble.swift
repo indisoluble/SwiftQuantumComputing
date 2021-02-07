@@ -28,24 +28,11 @@ final class SimulatorGateTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var rawGateCount = 0
-    var rawGateResult = Gate.not(target: 0)
-
     private (set) var extractComponentsCount = 0
     private (set) var lastExtractComponentsQubitCount: Int?
     var extractComponentsMatrixResult: SimulatorGateMatrix?
     var extractComponentsInputsResult: [Int]?
     var extractComponentsError = GateError.gateControlsCanNotBeAnEmptyList
-}
-
-// MARK: - SimulatorRawGate methods
-
-extension SimulatorGateTestDouble: SimulatorRawGate {
-    var rawGate: Gate {
-        rawGateCount += 1
-
-        return rawGateResult
-    }
 }
 
 // MARK: - SimulatorGate methods

@@ -24,14 +24,6 @@ import Foundation
 
 extension Gate: SimulatorGate {}
 
-// MARK: - SimulatorRawGate methods
-
-extension Gate: SimulatorRawGate {
-    var rawGate: Gate {
-        return self
-    }
-}
-
 // MARK: - SimulatorComponents methods
 
 extension Gate: SimulatorComponents {

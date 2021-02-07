@@ -640,8 +640,6 @@
 		FFAC3DD824940EF800515AEB /* CircuitStatevectorTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC3DD624940EF800515AEB /* CircuitStatevectorTestDouble.swift */; };
 		FFAF768D25602AB900AC7908 /* SimulatorComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF768C25602AB900AC7908 /* SimulatorComponents.swift */; };
 		FFAF768E25602AB900AC7908 /* SimulatorComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF768C25602AB900AC7908 /* SimulatorComponents.swift */; };
-		FFAF769A25602B4700AC7908 /* SimulatorRawGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF769925602B4700AC7908 /* SimulatorRawGate.swift */; };
-		FFAF769B25602B4700AC7908 /* SimulatorRawGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF769925602B4700AC7908 /* SimulatorRawGate.swift */; };
 		FFAFC3FC2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FB2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift */; };
 		FFAFC3FD2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FB2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift */; };
 		FFAFC3FF24030B0F00B97BC9 /* Int+QuotientAndRemainderWithDivisionTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FE24030B0F00B97BC9 /* Int+QuotientAndRemainderWithDivisionTypeTests.swift */; };
@@ -1297,7 +1295,6 @@
 		FFAC3DD124940C2D00515AEB /* CircuitStatevectorFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitStatevectorFactoryTestDouble.swift; sourceTree = "<group>"; };
 		FFAC3DD624940EF800515AEB /* CircuitStatevectorTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitStatevectorTestDouble.swift; sourceTree = "<group>"; };
 		FFAF768C25602AB900AC7908 /* SimulatorComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorComponents.swift; sourceTree = "<group>"; };
-		FFAF769925602B4700AC7908 /* SimulatorRawGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorRawGate.swift; sourceTree = "<group>"; };
 		FFAFC3FB2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+QuotientAndRemainderWithDivisionType.swift"; sourceTree = "<group>"; };
 		FFAFC3FE24030B0F00B97BC9 /* Int+QuotientAndRemainderWithDivisionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+QuotientAndRemainderWithDivisionTypeTests.swift"; sourceTree = "<group>"; };
 		FFB09CBE24465B1F00C098C3 /* Vector+IsAdditionOfSquareModulusApproximatelyEqualToOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Vector+IsAdditionOfSquareModulusApproximatelyEqualToOne.swift"; sourceTree = "<group>"; };
@@ -1948,7 +1945,6 @@
 				FF2517A62560507400565DAA /* Extension */,
 				FFAF768C25602AB900AC7908 /* SimulatorComponents.swift */,
 				FF8B9D9721BD979000A28E34 /* SimulatorGate.swift */,
-				FFAF769925602B4700AC7908 /* SimulatorRawGate.swift */,
 			);
 			path = SimulatorGate;
 			sourceTree = "<group>";
@@ -3840,7 +3836,6 @@
 				FFE1D70D211A1AEB00A50D9C /* Vector.swift in Sources */,
 				FF8B9D9821BD979000A28E34 /* SimulatorGate.swift in Sources */,
 				FFB2277F241EB37900AC64AD /* Rational+CustomStringConvertible.swift in Sources */,
-				FFAF769A25602B4700AC7908 /* SimulatorRawGate.swift in Sources */,
 				FF5920ED2221B95400C86F6A /* MainInitialPopulationProducerFactory.swift in Sources */,
 				FF103742236E0AAF0011706D /* Matrix+Elements.swift in Sources */,
 				FFBD4F31251FBD460038C786 /* Matrix+Transposed.swift in Sources */,
@@ -4292,7 +4287,6 @@
 				FF3C363D25584F71007F15C2 /* LineHorizontalPositionViewFactory.swift in Sources */,
 				FF52123925619A66008C98A5 /* Gate+SimulatorGate.swift in Sources */,
 				FF46EDE2216924EE0044C3CA /* Matrix+PhaseShift.swift in Sources */,
-				FFAF769B25602B4700AC7908 /* SimulatorRawGate.swift in Sources */,
 				FF6AF8F52214C4BD00B35ECC /* GeneticGatesRandomizer.swift in Sources */,
 				FF79DA1C221A18E800D093AA /* GeneticCircuitEvaluator.swift in Sources */,
 				FF66129123BEA25D00C3C91D /* Bool+Xor.swift in Sources */,
