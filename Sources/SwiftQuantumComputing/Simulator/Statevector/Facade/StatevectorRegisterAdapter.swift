@@ -52,7 +52,7 @@ extension StatevectorRegisterAdapter: StatevectorRegister {
         return vector
     }
 
-    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
+    func applying(_ gate: Gate) -> Result<StatevectorRegister, GateError> {
         switch transformation.apply(gate: gate, toStatevector: vector) {
         case .success(let nextVector):
             let adapter = try! StatevectorRegisterAdapter(vector: nextVector,

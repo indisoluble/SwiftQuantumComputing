@@ -24,5 +24,5 @@ import Foundation
 
 protocol StatevectorRegister {
     func measure() -> Vector
-    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError>
+    func applying(_ gate: Gate) -> Result<StatevectorRegister, GateError>
 }
