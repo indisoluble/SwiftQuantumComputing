@@ -1,5 +1,5 @@
 //
-//  FixedPhaseShiftGate+SimulatorComponents.swift
+//  FixedControlledGate+SimulatorMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 07/02/2021.
@@ -20,10 +20,20 @@
 
 import Foundation
 
-// MARK: - SimulatorComponents methods
+// MARK: - SimulatorMatrixExtracting methods
 
-extension FixedPhaseShiftGate: SimulatorComponents {
+extension FixedControlledGate: SimulatorMatrixExtracting {
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        return .success(Matrix.makePhaseShift(radians: radians))
+        guard !controls.isEmpty else {
+            return .failure(.gateControlsCanNotBeAnEmptyList)
+        }
+
+        switch gate.extractMatrix() {
+        case .failure(let error):
+            return .failure(error)
+        case .success(let matrix):
+            return .success(ControlledSimulatorGateMatrix(controlCount: matrix.controlCount + controls.count,
+                                                          controlledMatrix: matrix.controlledMatrix))
+        }
     }
 }

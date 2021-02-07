@@ -1,5 +1,5 @@
 //
-//  FixedRotationGate+SimulatorComponents.swift
+//  Gate+SimulatorMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 07/02/2021.
@@ -20,10 +20,10 @@
 
 import Foundation
 
-// MARK: - SimulatorComponents methods
+// MARK: - SimulatorMatrixExtracting methods
 
-extension FixedRotationGate: SimulatorComponents {
+extension Gate: SimulatorMatrixExtracting {
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        return .success(Matrix.makeRotation(axis: axis, radians: radians))
+        return gate.extractMatrix()
     }
 }

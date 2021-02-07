@@ -1,5 +1,5 @@
 //
-//  FixedOracleGate+SimulatorComponents.swift
+//  FixedOracleGate+SimulatorMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 07/02/2021.
@@ -20,9 +20,9 @@
 
 import Foundation
 
-// MARK: - SimulatorComponents methods
+// MARK: - SimulatorMatrixExtracting methods
 
-extension FixedOracleGate: SimulatorComponents {
+extension FixedOracleGate: SimulatorMatrixExtracting {
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
         guard !controls.isEmpty else {
             return .failure(.gateControlsCanNotBeAnEmptyList)

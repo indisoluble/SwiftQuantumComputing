@@ -1,5 +1,5 @@
 //
-//  FixedNotGate+SimulatorComponents.swift
+//  FixedMatrixGate+SimulatorMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 07/02/2021.
@@ -20,21 +20,18 @@
 
 import Foundation
 
-// MARK: - SimulatorComponents methods
+// MARK: - SimulatorMatrixExtracting methods
 
-extension FixedNotGate: SimulatorComponents {
+extension FixedMatrixGate: SimulatorMatrixExtracting {
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        return .success(Constants.matrixNot)
-    }
-}
+        guard matrix.rowCount.isPowerOfTwo else {
+            return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
+        }
+        // Validate matrix before expanding it so the operation requires less time
+        guard matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance) else {
+            return .failure(.gateMatrixIsNotUnitary)
+        }
 
-// MARK: - Private body
-
-private extension FixedNotGate {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let matrixNot = Matrix.makeNot()
+        return .success(matrix)
     }
 }

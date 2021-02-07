@@ -1,9 +1,9 @@
 //
-//  Gate+SimulatorGate.swift
+//  FixedHadamardGate+SimulatorMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/11/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 07/02/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,21 @@
 
 import Foundation
 
-// MARK: - SimulatorGate methods
+// MARK: - SimulatorMatrixExtracting methods
 
-extension Gate: SimulatorGate {}
+extension FixedHadamardGate: SimulatorMatrixExtracting {
+    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
+        return .success(Constants.matrixHadamard)
+    }
+}
+
+// MARK: - Private body
+
+private extension FixedHadamardGate {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let matrixHadamard = Matrix.makeHadamard()
+    }
+}

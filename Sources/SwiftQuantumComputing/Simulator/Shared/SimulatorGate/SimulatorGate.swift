@@ -30,7 +30,7 @@ protocol SimulatorGate {
 
 // MARK: - SimulatorGate default implementations
 
-extension SimulatorGate where Self: SimulatorInputExtracting & SimulatorComponents {
+extension SimulatorGate where Self: SimulatorInputExtracting & SimulatorMatrixExtracting {
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
         let inputs = extractRawInputs()
         guard areInputsUnique(inputs) else {
