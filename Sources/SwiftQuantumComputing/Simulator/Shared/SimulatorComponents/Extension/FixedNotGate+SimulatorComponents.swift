@@ -23,10 +23,6 @@ import Foundation
 // MARK: - SimulatorComponents methods
 
 extension FixedNotGate: SimulatorComponents {
-    func extractRawInputs() -> [Int] {
-        return [target]
-    }
-
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
         return .success(Constants.matrixNot)
     }

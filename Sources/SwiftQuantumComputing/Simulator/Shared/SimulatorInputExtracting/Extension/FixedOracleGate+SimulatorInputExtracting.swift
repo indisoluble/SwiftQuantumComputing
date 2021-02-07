@@ -1,9 +1,9 @@
 //
-//  Gate+QubitCount.swift
+//  FixedOracleGate+SimulatorInputExtracting.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 08/11/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 07/02/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,16 +20,10 @@
 
 import Foundation
 
-extension Array where Element: SimulatorInputExtracting {
-    func qubitCount() -> Int {
-        let maxInput = reduce(0) { currentMax, gate in
-            guard let otherMax = gate.extractRawInputs().max() else {
-                return currentMax
-            }
+// MARK: - SimulatorInputExtracting methods
 
-            return otherMax > currentMax ? otherMax : currentMax
-        }
-
-        return maxInput + 1
+extension FixedOracleGate: SimulatorInputExtracting {
+    func extractRawInputs() -> [Int] {
+        return controls + gate.extractRawInputs()
     }
 }

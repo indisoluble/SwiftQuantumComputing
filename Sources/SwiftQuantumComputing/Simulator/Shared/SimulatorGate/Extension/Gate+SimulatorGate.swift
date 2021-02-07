@@ -27,10 +27,6 @@ extension Gate: SimulatorGate {}
 // MARK: - SimulatorComponents methods
 
 extension Gate: SimulatorComponents {
-    func extractRawInputs() -> [Int] {
-        return gate.extractRawInputs()
-    }
-
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
         return gate.extractMatrix()
     }

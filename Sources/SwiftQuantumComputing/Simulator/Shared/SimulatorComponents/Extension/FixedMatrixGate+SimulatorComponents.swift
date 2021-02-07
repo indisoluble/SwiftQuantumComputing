@@ -23,10 +23,6 @@ import Foundation
 // MARK: - SimulatorComponents methods
 
 extension FixedMatrixGate: SimulatorComponents {
-    func extractRawInputs() -> [Int] {
-        return inputs
-    }
-
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
         guard matrix.rowCount.isPowerOfTwo else {
             return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
