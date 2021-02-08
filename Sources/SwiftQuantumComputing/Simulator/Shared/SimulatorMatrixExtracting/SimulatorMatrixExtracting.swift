@@ -25,3 +25,17 @@ import Foundation
 protocol SimulatorMatrixExtracting {
     func extractMatrix() -> Result<SimulatorGateMatrix, GateError>
 }
+
+
+// MARK: - SimulatorMatrixExtracting default implementations
+
+extension SimulatorMatrixExtracting where Self: RawMatrixExtracting {
+    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
+        switch extractRawMatrix() {
+        case .success(let matrix):
+            return .success(matrix)
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}
