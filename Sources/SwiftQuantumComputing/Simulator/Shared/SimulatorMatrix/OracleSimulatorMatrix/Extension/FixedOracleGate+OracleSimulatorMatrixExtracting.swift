@@ -1,8 +1,8 @@
 //
-//  FixedOracleGate+SimulatorMatrixExtracting.swift
+//  FixedOracleGate+OracleSimulatorMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/02/2021.
+//  Created by Enrique de la Torre on 12/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,15 +20,21 @@
 
 import Foundation
 
-// MARK: - SimulatorMatrixExtracting methods
+// MARK: - OracleSimulatorMatrixExtracting methods
 
-extension FixedOracleGate: SimulatorMatrixExtracting {
-    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
-        switch extractOracleMatrix() {
-        case .success(let matrix):
-            return .success(matrix)
+extension FixedOracleGate: OracleSimulatorMatrixExtracting {
+    func extractOracleMatrix() -> Result<OracleSimulatorMatrix, GateError> {
+        guard !controls.isEmpty else {
+            return .failure(.gateControlsCanNotBeAnEmptyList)
+        }
+
+        switch gate.extractMatrix() {
         case .failure(let error):
             return .failure(error)
+        case .success(let simulatorGateMatrix):
+            return .success(OracleSimulatorMatrix(truthTable: truthTable,
+                                                  controlCount: controls.count,
+                                                  controlledMatrix: simulatorGateMatrix.matrix))
         }
     }
 }
