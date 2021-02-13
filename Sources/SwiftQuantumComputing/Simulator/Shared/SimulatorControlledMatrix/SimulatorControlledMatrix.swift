@@ -23,8 +23,8 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorControlledMatrix {
-    var controlCount_: Int { get }
-    var controlledMatrix_: SimulatorMatrix { get }
+    var controlCount: Int { get }
+    var controlledMatrix: SimulatorMatrix { get }
 
     var expandedMatrixCount: Int { get }
     func expandedMatrix() -> SimulatorMatrix
@@ -33,11 +33,11 @@ protocol SimulatorControlledMatrix {
 // MARK: - SimulatorControlledMatrix default implementations
 
 extension SimulatorControlledMatrix where Self: SimulatorMatrix {
-    var controlCount_: Int {
+    var controlCount: Int {
         return 0
     }
 
-    var controlledMatrix_: SimulatorMatrix {
+    var controlledMatrix: SimulatorMatrix {
         return self
     }
 

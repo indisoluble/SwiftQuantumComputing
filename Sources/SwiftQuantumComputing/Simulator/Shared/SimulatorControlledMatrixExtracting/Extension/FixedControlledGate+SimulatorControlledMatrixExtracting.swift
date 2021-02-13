@@ -32,8 +32,8 @@ extension FixedControlledGate: SimulatorControlledMatrixExtracting {
         case .failure(let error):
             return .failure(error)
         case .success(let matrix):
-            return .success(SimulatorControlledMatrixAdapter(controlCount_: matrix.controlCount_ + controls.count,
-                                                             controlledMatrix_: matrix.controlledMatrix_))
+            return .success(SimulatorControlledMatrixAdapter(controlCount: matrix.controlCount + controls.count,
+                                                             controlledMatrix: matrix.controlledMatrix))
         }
     }
 }

@@ -56,9 +56,9 @@ extension DirectStatevectorTransformation: StatevectorTransformation {}
 extension DirectStatevectorTransformation: ComponentsStatevectorTransformation {
     func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
         let simulatorGateMatrix = components.simulatorGateMatrix
-        let matrix = simulatorGateMatrix.controlledMatrix_
+        let matrix = simulatorGateMatrix.controlledMatrix
 
-        let controlCount = simulatorGateMatrix.controlCount_
+        let controlCount = simulatorGateMatrix.controlCount
         let inputs = Array(components.inputs[controlCount..<components.inputs.count])
 
         var filter: Int? = nil

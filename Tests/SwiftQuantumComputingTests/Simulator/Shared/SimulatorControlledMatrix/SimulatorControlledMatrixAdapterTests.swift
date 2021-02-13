@@ -1,5 +1,5 @@
 //
-//  ControlledSimulatorGateMatrixTests.swift
+//  SimulatorControlledMatrixAdapterTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 31/01/2021.
@@ -24,34 +24,34 @@ import XCTest
 
 // MARK: - Main body
 
-class ControlledSimulatorGateMatrixTests: XCTestCase {
+class SimulatorControlledMatrixAdapterTests: XCTestCase {
 
     func testNotMatrixAndControlCountToTwo_matrixCount_returnExpectedValue() {
         // Given
         let controlledMatrix = Matrix.makeNot()
         let controlCount = 2
-        let sut = ControlledSimulatorGateMatrix(controlCount: controlCount,
-                                                controlledMatrix: controlledMatrix)
+        let sut = SimulatorControlledMatrixAdapter(controlCount: controlCount,
+                                                   controlledMatrix: controlledMatrix)
 
         // Then
-        XCTAssertEqual(sut.matrixCount, 8)
+        XCTAssertEqual(sut.expandedMatrixCount, 8)
     }
 
-    func testNotMatrixAndControlCountToOne_matrix_returnExpectedMatrix() {
+    func testNotMatrixAndControlCountToOne_expandedMatrix_returnExpectedMatrix() {
         // Given
         let controlledMatrix = Matrix.makeNot()
         let controlCount = 1
-        let sut = ControlledSimulatorGateMatrix(controlCount: controlCount,
-                                                controlledMatrix: controlledMatrix)
+        let sut = SimulatorControlledMatrixAdapter(controlCount: controlCount,
+                                                   controlledMatrix: controlledMatrix)
 
         // Then
-        XCTAssertEqual(sut.matrix.rawMatrix, Matrix.makeControlledNot())
+        XCTAssertEqual(sut.expandedMatrix().rawMatrix, Matrix.makeControlledNot())
     }
 
     static var allTests = [
         ("testNotMatrixAndControlCountToTwo_matrixCount_returnExpectedValue",
          testNotMatrixAndControlCountToTwo_matrixCount_returnExpectedValue),
-        ("testNotMatrixAndControlCountToOne_matrix_returnExpectedMatrix",
-         testNotMatrixAndControlCountToOne_matrix_returnExpectedMatrix)
+        ("testNotMatrixAndControlCountToOne_expandedMatrix_returnExpectedMatrix",
+         testNotMatrixAndControlCountToOne_expandedMatrix_returnExpectedMatrix)
     ]
 }

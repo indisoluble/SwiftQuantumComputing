@@ -127,7 +127,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(SimulatorCircuitMatrixTests.allTests),
         testCase(Array_RearrangeBitsTests.allTests),
         testCase(BitwiseShiftTests.allTests),
-        testCase(ControlledSimulatorGateMatrixTests.allTests),
+        testCase(SimulatorControlledMatrixAdapterTests.allTests),
         testCase(OracleSimulatorMatrixTests.allTests),
         testCase(ContinuedFractionsSolverTests.allTests),
         testCase(EuclideanSolverTests.allTests),

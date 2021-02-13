@@ -26,19 +26,19 @@ struct SimulatorControlledMatrixAdapter {
 
     // MARK: - SimulatorControlledMatrix properties
 
-    let controlCount_: Int
-    let controlledMatrix_: SimulatorMatrix
+    let controlCount: Int
+    let controlledMatrix: SimulatorMatrix
 }
 
 // MARK: - SimulatorControlledMatrix methods
 
 extension SimulatorControlledMatrixAdapter: SimulatorControlledMatrix {
     var expandedMatrixCount: Int {
-        return Int.pow(2, controlCount_) *  controlledMatrix_.count
+        return Int.pow(2, controlCount) *  controlledMatrix.count
     }
 
     func expandedMatrix() -> SimulatorMatrix {
-        return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount_,
-                                     controlledMatrix: controlledMatrix_)
+        return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
+                                     controlledMatrix: controlledMatrix)
     }
 }
