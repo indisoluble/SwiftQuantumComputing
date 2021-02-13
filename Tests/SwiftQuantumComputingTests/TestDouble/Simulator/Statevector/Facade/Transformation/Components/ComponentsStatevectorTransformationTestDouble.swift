@@ -29,7 +29,7 @@ final class ComponentsStatevectorTransformationTestDouble {
     // MARK: - Internal properties
 
     private (set) var applyCount = 0
-    private (set) var lastApplyMatrix: SimulatorGateMatrix?
+    private (set) var lastApplyMatrix: SimulatorControlledMatrix?
     private (set) var lastApplyVector: Vector?
     private (set) var lastApplyInputs: [Int]?
     var applyResult = try! Vector([.one, .zero])

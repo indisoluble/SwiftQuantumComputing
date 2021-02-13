@@ -195,7 +195,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -203,7 +203,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix, validMatrix)
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, validMatrix)
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -214,7 +214,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: singleQubitMatrix, inputs: [0])
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -222,7 +222,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix, singleQubitMatrix)
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, singleQubitMatrix)
         XCTAssertEqual(inputs, [target])
     }
 
@@ -232,7 +232,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.hadamard(target: target)
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -240,7 +240,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix, .makeHadamard())
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, .makeHadamard())
         XCTAssertEqual(inputs, [target])
     }
 
@@ -251,7 +251,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.phaseShift(radians: radians, target: target)
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -259,7 +259,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix, .makePhaseShift(radians: radians))
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, .makePhaseShift(radians: radians))
         XCTAssertEqual(inputs, [target])
     }
 
@@ -271,7 +271,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.rotation(axis: axis, radians: radians, target: target)
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -279,7 +279,8 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix, .makeRotation(axis: axis, radians: radians))
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix,
+                       .makeRotation(axis: axis, radians: radians))
         XCTAssertEqual(inputs, [target])
     }
 
@@ -314,7 +315,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.controlled(gate: .not(target: 1), controls: [2])
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -322,7 +323,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix, Matrix.makeControlledNot())
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, Matrix.makeControlledNot())
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -331,7 +332,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.controlled(gate: .not(target: 1), controls: [5, 2])
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -339,7 +340,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix,
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix,
                        ControlledSimulatorGateMatrix(controlCount: 2,
                                                      controlledMatrix: Matrix.makeNot()).matrix.rawMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
@@ -351,7 +352,7 @@ class Gate_SimulatorGateTests: XCTestCase {
                                    controls: [5])
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -359,7 +360,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix,
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix,
                        ControlledSimulatorGateMatrix(controlCount: 2,
                                                      controlledMatrix: Matrix.makeNot()).matrix.rawMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
@@ -398,7 +399,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.oracle(truthTable: ["0"], controls: [2], gate: .not(target: 1))
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -406,7 +407,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix, oracleValidMatrix)
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, oracleValidMatrix)
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -415,7 +416,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.oracle(truthTable: ["00", "11"], controls: [5, 2], gate: .not(target: 1))
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -423,7 +424,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.matrix.rawMatrix, oracleExtendedValidMatrix)
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, oracleExtendedValidMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -434,7 +435,7 @@ class Gate_SimulatorGateTests: XCTestCase {
                                gate: .controlled(gate: .not(target: 1), controls: [2]))
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -453,7 +454,7 @@ class Gate_SimulatorGateTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         ])
 
-        XCTAssertEqual(matrix?.matrix.rawMatrix, expectedMatrix)
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, expectedMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -465,7 +466,7 @@ class Gate_SimulatorGateTests: XCTestCase {
                                    controls: [5])
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -484,7 +485,7 @@ class Gate_SimulatorGateTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         ])
 
-        XCTAssertEqual(matrix?.matrix.rawMatrix, expectedMatrix)
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, expectedMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -497,7 +498,7 @@ class Gate_SimulatorGateTests: XCTestCase {
                                              gate: .not(target: 1)))
 
         // When
-        var matrix: SimulatorGateMatrix?
+        var matrix: SimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -516,7 +517,7 @@ class Gate_SimulatorGateTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         ])
 
-        XCTAssertEqual(matrix?.matrix.rawMatrix, expectedMatrix)
+        XCTAssertEqual(matrix?.expandedMatrix().rawMatrix, expectedMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 

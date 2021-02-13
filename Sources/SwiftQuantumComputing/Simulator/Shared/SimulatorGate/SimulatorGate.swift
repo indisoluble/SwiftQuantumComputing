@@ -23,22 +23,22 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorGate {
-    typealias Components = (simulatorGateMatrix: SimulatorGateMatrix, inputs: [Int])
+    typealias Components = (simulatorGateMatrix: SimulatorControlledMatrix, inputs: [Int])
 
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError>
 }
 
 // MARK: - SimulatorGate default implementations
 
-extension SimulatorGate where Self: SimulatorInputExtracting & SimulatorMatrixExtracting {
+extension SimulatorGate where Self: SimulatorInputExtracting & SimulatorControlledMatrixExtracting {
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
         let inputs = extractRawInputs()
         guard areInputsUnique(inputs) else {
             return .failure(.gateInputsAreNotUnique)
         }
 
-        var simulatorGateMatrix: SimulatorGateMatrix!
-        switch extractMatrix() {
+        var simulatorGateMatrix: SimulatorControlledMatrix!
+        switch extractControlledMatrix() {
         case .success(let extractedMatrix):
             simulatorGateMatrix = extractedMatrix
         case .failure(let error):
@@ -75,14 +75,14 @@ private extension SimulatorGate {
         return (inputs.count == Set(inputs).count)
     }
 
-    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: SimulatorGateMatrix) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.matrixCount)
+    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: SimulatorControlledMatrix) -> Bool {
+        let matrixQubitCount = Int.log2(matrix.expandedMatrixCount)
 
         return (inputs.count == matrixQubitCount)
     }
 
-    func doesMatrixFitInCircuit(_ matrix: SimulatorGateMatrix, qubitCount: Int) -> Bool {
-        let matrixQubitCount = Int.log2(matrix.matrixCount)
+    func doesMatrixFitInCircuit(_ matrix: SimulatorControlledMatrix, qubitCount: Int) -> Bool {
+        let matrixQubitCount = Int.log2(matrix.expandedMatrixCount)
 
         return matrixQubitCount <= qubitCount
     }

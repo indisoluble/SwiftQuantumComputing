@@ -28,12 +28,12 @@ extension FixedControlledGate: SimulatorControlledMatrixExtracting {
             return .failure(.gateControlsCanNotBeAnEmptyList)
         }
 
-        switch gate.extractMatrix() {
+        switch gate.extractControlledMatrix() {
         case .failure(let error):
             return .failure(error)
         case .success(let matrix):
-            return .success(SimulatorControlledMatrixAdapter(controlCount_: matrix.controlCount + controls.count,
-                                                             controlledMatrix_: matrix.controlledMatrix))
+            return .success(SimulatorControlledMatrixAdapter(controlCount_: matrix.controlCount_ + controls.count,
+                                                             controlledMatrix_: matrix.controlledMatrix_))
         }
     }
 }

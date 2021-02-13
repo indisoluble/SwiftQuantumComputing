@@ -31,10 +31,10 @@ extension FixedOracleGate: OracleSimulatorMatrixExtracting {
         switch gate.extractMatrix() {
         case .failure(let error):
             return .failure(error)
-        case .success(let simulatorGateMatrix):
+        case .success(let matrix):
             return .success(OracleSimulatorMatrix(truthTable: truthTable,
                                                   controlCount: controls.count,
-                                                  controlledMatrix: simulatorGateMatrix.matrix))
+                                                  controlledMatrix: matrix))
         }
     }
 }

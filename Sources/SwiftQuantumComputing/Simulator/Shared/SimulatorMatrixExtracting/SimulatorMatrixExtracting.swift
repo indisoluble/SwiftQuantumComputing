@@ -23,14 +23,14 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorMatrixExtracting {
-    func extractMatrix() -> Result<SimulatorGateMatrix, GateError>
+    func extractMatrix() -> Result<SimulatorMatrix, GateError>
 }
 
 
 // MARK: - SimulatorMatrixExtracting default implementations
 
 extension SimulatorMatrixExtracting where Self: RawMatrixExtracting {
-    func extractMatrix() -> Result<SimulatorGateMatrix, GateError> {
+    func extractMatrix() -> Result<SimulatorMatrix, GateError> {
         switch extractRawMatrix() {
         case .success(let matrix):
             return .success(matrix)
