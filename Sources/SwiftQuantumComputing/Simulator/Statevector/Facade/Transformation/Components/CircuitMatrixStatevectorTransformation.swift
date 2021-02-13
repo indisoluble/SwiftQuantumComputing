@@ -49,6 +49,6 @@ extension CircuitMatrixStatevectorTransformation: ComponentsStatevectorTransform
         let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
                                                             baseMatrix: baseMatrix,
                                                             inputs: inputs)
-        return try! (circuitMatrix.rawMatrix * vector).get()
+        return try! (circuitMatrix.expandedRawMatrix() * vector).get()
     }
 }

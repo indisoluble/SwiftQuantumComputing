@@ -137,6 +137,14 @@
 		FF163C9A25D86A1A00C3D97E /* OracleSimulatorMatrix+SimulatorMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163C9825D86A1A00C3D97E /* OracleSimulatorMatrix+SimulatorMatrixExpandable.swift */; };
 		FF163CA125D86BC700C3D97E /* SimulatorControlledMatrixAdapter+SimulatorMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CA025D86BC700C3D97E /* SimulatorControlledMatrixAdapter+SimulatorMatrixExpandable.swift */; };
 		FF163CA225D86BC700C3D97E /* SimulatorControlledMatrixAdapter+SimulatorMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CA025D86BC700C3D97E /* SimulatorControlledMatrixAdapter+SimulatorMatrixExpandable.swift */; };
+		FF163CAA25D8762B00C3D97E /* RawMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CA925D8762B00C3D97E /* RawMatrixExpandable.swift */; };
+		FF163CAB25D8762B00C3D97E /* RawMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CA925D8762B00C3D97E /* RawMatrixExpandable.swift */; };
+		FF163CB325D876E800C3D97E /* Matrix+RawMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CB225D876E800C3D97E /* Matrix+RawMatrixExpandable.swift */; };
+		FF163CB425D876E800C3D97E /* Matrix+RawMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CB225D876E800C3D97E /* Matrix+RawMatrixExpandable.swift */; };
+		FF163CBB25D881A900C3D97E /* OracleSimulatorMatrix+RawMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CBA25D881A900C3D97E /* OracleSimulatorMatrix+RawMatrixExpandable.swift */; };
+		FF163CBC25D881A900C3D97E /* OracleSimulatorMatrix+RawMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CBA25D881A900C3D97E /* OracleSimulatorMatrix+RawMatrixExpandable.swift */; };
+		FF163CC325D8832A00C3D97E /* SimulatorCircuitMatrix+RawMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CC225D8832A00C3D97E /* SimulatorCircuitMatrix+RawMatrixExpandable.swift */; };
+		FF163CC425D8832A00C3D97E /* SimulatorCircuitMatrix+RawMatrixExpandable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF163CC225D8832A00C3D97E /* SimulatorCircuitMatrix+RawMatrixExpandable.swift */; };
 		FF1725FC2353D99000D24E9C /* CircuitMatrixStatevectorTransformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1725FB2353D99000D24E9C /* CircuitMatrixStatevectorTransformationTests.swift */; };
 		FF1725FD2353D99000D24E9C /* CircuitMatrixStatevectorTransformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1725FB2353D99000D24E9C /* CircuitMatrixStatevectorTransformationTests.swift */; };
 		FF1806FB216A8AFD00A57DBD /* SQCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1806FA216A8AFD00A57DBD /* SQCView.swift */; };
@@ -1080,6 +1088,10 @@
 		FF163C9025D869BB00C3D97E /* Matrix+SimulatorMatrixExpandable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+SimulatorMatrixExpandable.swift"; sourceTree = "<group>"; };
 		FF163C9825D86A1A00C3D97E /* OracleSimulatorMatrix+SimulatorMatrixExpandable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OracleSimulatorMatrix+SimulatorMatrixExpandable.swift"; sourceTree = "<group>"; };
 		FF163CA025D86BC700C3D97E /* SimulatorControlledMatrixAdapter+SimulatorMatrixExpandable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimulatorControlledMatrixAdapter+SimulatorMatrixExpandable.swift"; sourceTree = "<group>"; };
+		FF163CA925D8762B00C3D97E /* RawMatrixExpandable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawMatrixExpandable.swift; sourceTree = "<group>"; };
+		FF163CB225D876E800C3D97E /* Matrix+RawMatrixExpandable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+RawMatrixExpandable.swift"; sourceTree = "<group>"; };
+		FF163CBA25D881A900C3D97E /* OracleSimulatorMatrix+RawMatrixExpandable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OracleSimulatorMatrix+RawMatrixExpandable.swift"; sourceTree = "<group>"; };
+		FF163CC225D8832A00C3D97E /* SimulatorCircuitMatrix+RawMatrixExpandable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SimulatorCircuitMatrix+RawMatrixExpandable.swift"; sourceTree = "<group>"; };
 		FF1725FB2353D99000D24E9C /* CircuitMatrixStatevectorTransformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitMatrixStatevectorTransformationTests.swift; sourceTree = "<group>"; };
 		FF1806FA216A8AFD00A57DBD /* SQCView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQCView.swift; sourceTree = "<group>"; };
 		FF18358621EA5E7C003E2F04 /* ControlledNotPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlledNotPositionView.swift; sourceTree = "<group>"; };
@@ -2028,6 +2040,25 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		FF163CA825D875FF00C3D97E /* RawMatrixExpandable */ = {
+			isa = PBXGroup;
+			children = (
+				FF163CB125D876C300C3D97E /* Extension */,
+				FF163CA925D8762B00C3D97E /* RawMatrixExpandable.swift */,
+			);
+			path = RawMatrixExpandable;
+			sourceTree = "<group>";
+		};
+		FF163CB125D876C300C3D97E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FF163CB225D876E800C3D97E /* Matrix+RawMatrixExpandable.swift */,
+				FF163CBA25D881A900C3D97E /* OracleSimulatorMatrix+RawMatrixExpandable.swift */,
+				FF163CC225D8832A00C3D97E /* SimulatorCircuitMatrix+RawMatrixExpandable.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		FF18358121EA358C003E2F04 /* Gate */ = {
 			isa = PBXGroup;
 			children = (
@@ -2364,6 +2395,7 @@
 			isa = PBXGroup;
 			children = (
 				FF8945DB259DFCC900F1EC1A /* BitwiseShift */,
+				FF163CA825D875FF00C3D97E /* RawMatrixExpandable */,
 				FF06CFE425D082CE0073B7FF /* SimulatorControlledMatrix */,
 				FFFCD7F725D708450001D9D2 /* SimulatorControlledMatrixExtracting */,
 				FF2517A52560502200565DAA /* SimulatorGate */,
@@ -3779,6 +3811,7 @@
 				FF1A502F212997090023313E /* CircuitFacade.swift in Sources */,
 				FF79DA082219DA0400D093AA /* GeneticUseCaseEvaluator.swift in Sources */,
 				FFFCD82F25D710350001D9D2 /* FixedRotationGate+SimulatorControlledMatrixExtracting.swift in Sources */,
+				FF163CBB25D881A900C3D97E /* OracleSimulatorMatrix+RawMatrixExpandable.swift in Sources */,
 				FF002BC621FCA37600E40C3A /* SimpleGeneticGateFactory.swift in Sources */,
 				FF39339D245EDBBD000E93D4 /* StatevectorRegisterAdapter.swift in Sources */,
 				FF410F3B221F588300D257EE /* GeneticPopulationCrossover.swift in Sources */,
@@ -3801,6 +3834,7 @@
 				FF06CF8225D04F7F0073B7FF /* FixedPhaseShiftGate+SimulatorInputExtracting.swift in Sources */,
 				FFBCD5E7214DBF340047020B /* LineHorizontalPositionView.swift in Sources */,
 				FF4B322C256C59500093CB50 /* SimplifiedGateConvertible.swift in Sources */,
+				FF163CAA25D8762B00C3D97E /* RawMatrixExpandable.swift in Sources */,
 				FF7AE58525D81F6300631BF8 /* Gate+SimulatorControlledMatrixExtracting.swift in Sources */,
 				FF79DA18221A143200D093AA /* MainGeneticGatesRandomizerFactory.swift in Sources */,
 				FF3C365C2558505D007F15C2 /* HadamardPositionViewFactory.swift in Sources */,
@@ -3808,6 +3842,7 @@
 				FFA50BAF2357BAEE00BA9BAC /* UnitarySimulator.swift in Sources */,
 				FF36CB0B23E8D72C00C286B2 /* SimulatorCircuitMatrixFactory.swift in Sources */,
 				FFFCD7F925D709630001D9D2 /* SimulatorControlledMatrixExtracting.swift in Sources */,
+				FF163CB325D876E800C3D97E /* Matrix+RawMatrixExpandable.swift in Sources */,
 				FFD7A2DB259D079C002FB663 /* SimulatorCircuitRowFactory.swift in Sources */,
 				FF330713220611F300C92BD1 /* Array+RandomElements.swift in Sources */,
 				FF8B40D923AEDAFC00A51475 /* Gate+OracleReplicator.swift in Sources */,
@@ -3835,6 +3870,7 @@
 				FFB6A83B254DCBD000044E49 /* OracleSimulatorMatrix.swift in Sources */,
 				FF8E4A5424FD12EC00299BE0 /* PositionFullyConnectedView.swift in Sources */,
 				FFEA700224915BC1006952F7 /* CircuitStatevectorFactory+Bits.swift in Sources */,
+				FF163CC325D8832A00C3D97E /* SimulatorCircuitMatrix+RawMatrixExpandable.swift in Sources */,
 				FF18358721EA5E7C003E2F04 /* ControlledNotPositionView.swift in Sources */,
 				FF1AAFE6211F4DC500D3666A /* Int+IsPowerOfTwo.swift in Sources */,
 				FFB8106821C6FF89006333BB /* Drawable.swift in Sources */,
@@ -4249,6 +4285,7 @@
 				FF2517D1256052D300565DAA /* FixedPhaseShiftGate+SimulatorGate.swift in Sources */,
 				FF2517B92560524200565DAA /* FixedMatrixGate+SimulatorGate.swift in Sources */,
 				FF46EDDF216924EE0044C3CA /* Matrix+ControlledNot.swift in Sources */,
+				FF163CB425D876E800C3D97E /* Matrix+RawMatrixExpandable.swift in Sources */,
 				FFFCD81825D70FA30001D9D2 /* FixedMatrixGate+SimulatorControlledMatrixExtracting.swift in Sources */,
 				FF43393523DCCD0800E26FA4 /* String+BitAnd.swift in Sources */,
 				FFF3929D23AFCCB300470C58 /* String+IsBitActivated.swift in Sources */,
@@ -4291,6 +4328,7 @@
 				FF2BD6F621FE5B9D007410EB /* Array+RandomSplit.swift in Sources */,
 				FF46EDFB216925180044C3CA /* Int+Pow.swift in Sources */,
 				FF7C6E14241987950016D9CC /* Matrix+QuantumFourierTransform.swift in Sources */,
+				FF163CAB25D8762B00C3D97E /* RawMatrixExpandable.swift in Sources */,
 				FF002BCE21FCC19200E40C3A /* GeneticUseCase.swift in Sources */,
 				FFEB3EE721FFB91C00DD3586 /* GeneticCircuitMutation.swift in Sources */,
 				FF3C365D2558505D007F15C2 /* HadamardPositionViewFactory.swift in Sources */,
@@ -4486,6 +4524,7 @@
 				FFD2EBB624FFEBE9002FCCB4 /* Gate+ControlledNot.swift in Sources */,
 				FF2518842560823800565DAA /* FixedOracleGate+CircuitViewLayerComponents.swift in Sources */,
 				FFD7A2C5259CF9A9002FB663 /* SimulatorCircuitRow.swift in Sources */,
+				FF163CC425D8832A00C3D97E /* SimulatorCircuitMatrix+RawMatrixExpandable.swift in Sources */,
 				FF5920F12221CEEE00C86F6A /* GeneticCircuitMutationFactory.swift in Sources */,
 				FFCC729B221CB8E100D28A5D /* Fitness.swift in Sources */,
 				FF2B4602255C882A00C17D87 /* FixedOracleGate.swift in Sources */,
@@ -4550,6 +4589,7 @@
 				FF06CF7325D04F070073B7FF /* FixedNotGate+SimulatorInputExtracting.swift in Sources */,
 				FFF8D7DC241EE37900A039DA /* Rational+QuotientAndRemainderWithDivisionType.swift in Sources */,
 				FF13D839256AC645006EA2BA /* Gate+CircuitViewLayerComponents.swift in Sources */,
+				FF163CBC25D881A900C3D97E /* OracleSimulatorMatrix+RawMatrixExpandable.swift in Sources */,
 				FF40AE40249A9B1800D26F82 /* CircuitStatevector+SummarizedProbabilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

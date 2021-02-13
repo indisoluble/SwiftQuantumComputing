@@ -29,7 +29,7 @@ struct SimulatorCircuitMatrixFactoryAdapter {}
 extension SimulatorCircuitMatrixFactoryAdapter: SimulatorCircuitMatrixFactory {
     func makeCircuitMatrix(qubitCount: Int,
                            baseMatrix: SimulatorMatrix,
-                           inputs: [Int]) -> SimulatorMatrix {
+                           inputs: [Int]) -> CircuitMatrix {
         return SimulatorCircuitMatrix(qubitCount: qubitCount,
                                       baseMatrix: baseMatrix,
                                       inputs: inputs)

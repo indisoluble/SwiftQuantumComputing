@@ -63,7 +63,8 @@ class CircuitMatrixElementStatevectorTransformationTests: XCTestCase {
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
+        XCTAssertEqual((matrixFactory.lastMakeCircuitMatrixBaseMatrix as? RawMatrixExpandable)?.expandedRawMatrix(),
+                       gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])

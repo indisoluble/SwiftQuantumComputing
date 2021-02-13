@@ -98,44 +98,44 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix() {
+    func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix() {
         // When
         let sut = SimulatorCircuitMatrix(qubitCount: twoQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: validInputs)
 
         // Then
-        XCTAssertEqual(sut.rawMatrix, validMatrix)
+        XCTAssertEqual(sut.expandedRawMatrix(), validMatrix)
     }
 
-    func testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix() {
+    func testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix() {
         // When
         let sut = SimulatorCircuitMatrix(qubitCount: oneQubitCount,
                                          baseMatrix: otherValidMatrix,
                                          inputs: otherValidInputs)
 
         // Then
-        XCTAssertEqual(sut.rawMatrix, otherValidMatrix)
+        XCTAssertEqual(sut.expandedRawMatrix(), otherValidMatrix)
     }
 
-    func testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix() {
+    func testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_expandedRawMatrix_returnExpectedMatrix() {
         // When
         let sut = SimulatorCircuitMatrix(qubitCount: twoQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: validInputs.reversed())
 
         // Then
-        XCTAssertEqual(sut.rawMatrix, validMatrixWithReversedValidInputs)
+        XCTAssertEqual(sut.expandedRawMatrix(), validMatrixWithReversedValidInputs)
     }
 
-    func testNonContiguousInputs_rawMatrix_returnExpectedMatrix() {
+    func testNonContiguousInputs_expandedRawMatrix_returnExpectedMatrix() {
         // When
         let sut = SimulatorCircuitMatrix(qubitCount: threeQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: nonContiguousInputs)
 
         // Then
-        XCTAssertEqual(sut.rawMatrix, expectedThreeQubitMatrix)
+        XCTAssertEqual(sut.expandedRawMatrix(), expectedThreeQubitMatrix)
     }
 
     func testNonContiguousInputs_subscriptRow_returnExpectedValues() {
@@ -168,14 +168,14 @@ class SimulatorCircuitMatrixTests: XCTestCase {
         }
     }
 
-    func testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix() {
+    func testContiguousInputsButInTheMiddle_expandedRawMatrix_returnExpectedMatrix() {
         // When
         let sut = SimulatorCircuitMatrix(qubitCount: fourQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: contiguousInputsButInTheMiddle)
 
         // Then
-        XCTAssertEqual(sut.rawMatrix, expectedFourQubitMatrix)
+        XCTAssertEqual(sut.expandedRawMatrix(), expectedFourQubitMatrix)
     }
 
     func testContiguousInputsButInTheMiddle_subscriptRow_returnExpectedMatrix() {
@@ -209,20 +209,20 @@ class SimulatorCircuitMatrixTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix",
-         testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix),
-        ("testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix",
-         testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_rawMatrix_returnExpectedMatrix),
-        ("testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix",
-         testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_rawMatrix_returnExpectedMatrix),
-        ("testNonContiguousInputs_rawMatrix_returnExpectedMatrix",
-         testNonContiguousInputs_rawMatrix_returnExpectedMatrix),
+        ("testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix",
+         testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix),
+        ("testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix",
+         testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix),
+        ("testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_expandedRawMatrix_returnExpectedMatrix",
+         testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_expandedRawMatrix_returnExpectedMatrix),
+        ("testNonContiguousInputs_expandedRawMatrix_returnExpectedMatrix",
+         testNonContiguousInputs_expandedRawMatrix_returnExpectedMatrix),
         ("testNonContiguousInputs_subscriptRow_returnExpectedValues",
          testNonContiguousInputs_subscriptRow_returnExpectedValues),
         ("testNonContiguousInputs_subscriptRowColumn_returnExpectedValues",
          testNonContiguousInputs_subscriptRowColumn_returnExpectedValues),
-        ("testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix",
-         testContiguousInputsButInTheMiddle_rawMatrix_returnExpectedMatrix),
+        ("testContiguousInputsButInTheMiddle_expandedRawMatrix_returnExpectedMatrix",
+         testContiguousInputsButInTheMiddle_expandedRawMatrix_returnExpectedMatrix),
         ("testContiguousInputsButInTheMiddle_subscriptRow_returnExpectedMatrix",
          testContiguousInputsButInTheMiddle_subscriptRow_returnExpectedMatrix),
         ("testContiguousInputsButInTheMiddle_subscriptRowColumn_returnExpectedMatrix",

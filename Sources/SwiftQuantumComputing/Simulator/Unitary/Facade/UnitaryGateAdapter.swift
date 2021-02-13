@@ -72,7 +72,7 @@ extension UnitaryGateAdapter: UnitaryGate {
             let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
                                                                 baseMatrix: baseMatrix,
                                                                 inputs: inputs)
-            let nextMatrix = try! (circuitMatrix.rawMatrix * matrix).get()
+            let nextMatrix = try! (circuitMatrix.expandedRawMatrix() * matrix).get()
             let adapter = try! UnitaryGateAdapter(matrix: nextMatrix, matrixFactory: matrixFactory)
 
             return .success(adapter)

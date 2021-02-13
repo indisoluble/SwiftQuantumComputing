@@ -47,7 +47,7 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         let simulatorGateMatrix = gateMatrix
 
         let circuitMatrix = SimulatorMatrixTestDouble()
-        circuitMatrix.rawMatrixResult = try! Matrix([
+        circuitMatrix.expandedRawMatrixResult = try! Matrix([
             [Complex.zero, Complex.one], [Complex.one, Complex.zero]
         ])
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
@@ -59,9 +59,10 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, vectorQubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
+        XCTAssertEqual((matrixFactory.lastMakeCircuitMatrixBaseMatrix as? RawMatrixExpandable)?.expandedRawMatrix(),
+                       gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
-        XCTAssertEqual(circuitMatrix.rawMatrixCount, 1)
+        XCTAssertEqual(circuitMatrix.expandedRawMatrixCount, 1)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one])
         XCTAssertEqual(result, expectedVector)
@@ -90,7 +91,8 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         // Then
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
+        XCTAssertEqual((matrixFactory.lastMakeCircuitMatrixBaseMatrix as? RawMatrixExpandable)?.expandedRawMatrix(),
+                       gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
 
         let expectedVector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])

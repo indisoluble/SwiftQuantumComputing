@@ -24,10 +24,10 @@ import Foundation
 
 extension SimulatorControlledMatrixAdapter: SimulatorMatrixExpandable {
     var expandedMatrixCount: Int {
-        return Int.pow(2, controlCount) *  controlledMatrix.count
+        return Int.pow(2, controlCount) * controlledMatrix.count
     }
 
-    func expandedMatrix() -> SimulatorMatrix {
+    func expandedMatrix() -> ExpandedMatrix {
         return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
                                      controlledMatrix: controlledMatrix)
     }

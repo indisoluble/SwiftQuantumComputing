@@ -1,5 +1,5 @@
 //
-//  SimulatorMatrixExpandable.swift
+//  Matrix+RawMatrixExpandable.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/02/2021.
@@ -20,23 +20,10 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - RawMatrixExpandable methods
 
-protocol SimulatorMatrixExpandable {
-    typealias ExpandedMatrix = SimulatorMatrix & RawMatrixExpandable
-
-    var expandedMatrixCount: Int { get }
-    func expandedMatrix() -> ExpandedMatrix
-}
-
-// MARK: - SimulatorMatrixExpandable default implementations
-
-extension SimulatorMatrixExpandable where Self: ExpandedMatrix {
-    var expandedMatrixCount: Int {
-        return count
-    }
-
-    func expandedMatrix() -> ExpandedMatrix {
+extension Matrix: RawMatrixExpandable {
+    func expandedRawMatrix() -> Matrix {
         return self
     }
 }

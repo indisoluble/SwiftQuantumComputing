@@ -50,7 +50,7 @@ public struct TwoLevelDecompositionSolver {
                 return .success([gate])
             }
 
-            gateMatrix = simulatorGateMatrix.expandedMatrix().rawMatrix
+            gateMatrix = simulatorGateMatrix.expandedMatrix().expandedRawMatrix()
             gateInputs = simulatorInputs
         case .failure(let error):
             return .failure(error)

@@ -32,13 +32,13 @@ final class SimulatorMatrixTestDouble {
     private (set) var countCount = 0
     var countResult = 0
 
-    private (set) var rawMatrixCount = 0
-    var rawMatrixResult = Matrix.makeNot()
-
     private (set) var subscriptCount = 0
     private (set) var lastSubscriptRow: Int?
     private (set) var lastSubscriptColumn: Int?
     var subscriptResult = Complex<Double>.zero
+
+    private (set) var expandedRawMatrixCount = 0
+    var expandedRawMatrixResult = Matrix.makeNot()
 }
 
 // MARK: - SimulatorMatrix methods
@@ -50,12 +50,6 @@ extension SimulatorMatrixTestDouble: SimulatorMatrix {
         return countResult
     }
 
-    var rawMatrix: Matrix {
-        rawMatrixCount += 1
-
-        return rawMatrixResult
-    }
-
     subscript(row: Int, column: Int) -> Complex<Double> {
         subscriptCount += 1
 
@@ -63,5 +57,13 @@ extension SimulatorMatrixTestDouble: SimulatorMatrix {
         lastSubscriptColumn = column
 
         return subscriptResult
+    }
+}
+
+extension SimulatorMatrixTestDouble: RawMatrixExpandable {
+    func expandedRawMatrix() -> Matrix {
+        expandedRawMatrixCount += 1
+
+        return expandedRawMatrixResult
     }
 }

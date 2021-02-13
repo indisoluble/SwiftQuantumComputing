@@ -115,7 +115,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         simulatorGate.extractComponentsMatrixResult = gateMatrix
 
         let circuitMatrix = SimulatorMatrixTestDouble()
-        circuitMatrix.rawMatrixResult = simulatorMatrix
+        circuitMatrix.expandedRawMatrixResult = simulatorMatrix
 
         matrixFactory.makeCircuitMatrixResult = circuitMatrix
 
@@ -127,9 +127,10 @@ class UnitaryGateAdapterTests: XCTestCase {
         XCTAssertEqual(simulatorGate.lastExtractComponentsQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, matrixQubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
+        XCTAssertEqual((matrixFactory.lastMakeCircuitMatrixBaseMatrix as? RawMatrixExpandable)?.expandedRawMatrix(),
+                       gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
-        XCTAssertEqual(circuitMatrix.rawMatrixCount, 1)
+        XCTAssertEqual(circuitMatrix.expandedRawMatrixCount, 1)
 
         let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[.one, .one],
                                                                     [Complex(-1), .one]])))
@@ -144,7 +145,7 @@ class UnitaryGateAdapterTests: XCTestCase {
         simulatorGate.extractComponentsMatrixResult = gateMatrix
 
         let otherCircuitMatrix = SimulatorMatrixTestDouble()
-        otherCircuitMatrix.rawMatrixResult = otherSimulatorMatrix
+        otherCircuitMatrix.expandedRawMatrixResult = otherSimulatorMatrix
 
         matrixFactory.makeCircuitMatrixResult = otherCircuitMatrix
 
@@ -156,9 +157,10 @@ class UnitaryGateAdapterTests: XCTestCase {
         XCTAssertEqual(simulatorGate.lastExtractComponentsQubitCount, matrixQubitCount)
         XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, matrixQubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
+        XCTAssertEqual((matrixFactory.lastMakeCircuitMatrixBaseMatrix as? RawMatrixExpandable)?.expandedRawMatrix(),
+                       gateMatrix)
         XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
-        XCTAssertEqual(otherCircuitMatrix.rawMatrixCount, 1)
+        XCTAssertEqual(otherCircuitMatrix.expandedRawMatrixCount, 1)
 
         let expectedUnitary = (Complex(1 / sqrt(2)) * (try! Matrix([[Complex.one, Complex(-1)],
                                                                     [Complex.one, Complex.one]])))

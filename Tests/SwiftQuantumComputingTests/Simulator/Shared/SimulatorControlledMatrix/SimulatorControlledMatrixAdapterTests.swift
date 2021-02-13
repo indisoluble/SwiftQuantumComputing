@@ -45,7 +45,7 @@ class SimulatorControlledMatrixAdapterTests: XCTestCase {
                                                    controlledMatrix: controlledMatrix)
 
         // Then
-        XCTAssertEqual(sut.expandedMatrix().rawMatrix, Matrix.makeControlledNot())
+        XCTAssertEqual(sut.expandedMatrix().expandedRawMatrix(), Matrix.makeControlledNot())
     }
 
     static var allTests = [

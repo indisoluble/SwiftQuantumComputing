@@ -45,7 +45,7 @@ extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
             let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
                                                                 baseMatrix: baseMatrix,
                                                                 inputs: inputs)
-            let adapter = try! UnitaryGateAdapter(matrix: circuitMatrix.rawMatrix,
+            let adapter = try! UnitaryGateAdapter(matrix: circuitMatrix.expandedRawMatrix(),
                                                   matrixFactory: matrixFactory)
             return .success(adapter)
         case .failure(let error):
