@@ -23,7 +23,8 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorGate {
-    typealias Components = (simulatorGateMatrix: SimulatorControlledMatrix, inputs: [Int])
+    typealias SimulatorGateMatrix = SimulatorControlledMatrix & SimulatorMatrixExpandable
+    typealias Components = (simulatorGateMatrix: SimulatorGateMatrix, inputs: [Int])
 
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError>
 }
@@ -37,7 +38,7 @@ extension SimulatorGate where Self: SimulatorInputExtracting & SimulatorControll
             return .failure(.gateInputsAreNotUnique)
         }
 
-        var simulatorGateMatrix: SimulatorControlledMatrix!
+        var simulatorGateMatrix: SimulatorControlledMatrixExtracting.ControlledMatrix!
         switch extractControlledMatrix() {
         case .success(let extractedMatrix):
             simulatorGateMatrix = extractedMatrix
@@ -75,13 +76,13 @@ private extension SimulatorGate {
         return (inputs.count == Set(inputs).count)
     }
 
-    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: SimulatorControlledMatrix) -> Bool {
+    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: SimulatorMatrixExpandable) -> Bool {
         let matrixQubitCount = Int.log2(matrix.expandedMatrixCount)
 
         return (inputs.count == matrixQubitCount)
     }
 
-    func doesMatrixFitInCircuit(_ matrix: SimulatorControlledMatrix, qubitCount: Int) -> Bool {
+    func doesMatrixFitInCircuit(_ matrix: SimulatorMatrixExpandable, qubitCount: Int) -> Bool {
         let matrixQubitCount = Int.log2(matrix.expandedMatrixCount)
 
         return matrixQubitCount <= qubitCount

@@ -23,7 +23,7 @@ import Foundation
 // MARK: - SimulatorControlledMatrixExtracting methods
 
 extension FixedNotGate: SimulatorControlledMatrixExtracting {
-    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
+    func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
         return .success(Constants.matrixNot)
     }
 }

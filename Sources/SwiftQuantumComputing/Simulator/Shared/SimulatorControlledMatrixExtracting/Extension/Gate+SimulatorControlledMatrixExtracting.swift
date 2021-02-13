@@ -23,7 +23,7 @@ import Foundation
 // MARK: - SimulatorControlledMatrixExtracting methods
 
 extension Gate: SimulatorControlledMatrixExtracting {
-    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
+    func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
         return gate.extractControlledMatrix()
     }
 }

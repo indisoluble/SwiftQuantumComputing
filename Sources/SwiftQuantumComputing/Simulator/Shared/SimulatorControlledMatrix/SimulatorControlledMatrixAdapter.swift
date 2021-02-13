@@ -32,13 +32,4 @@ struct SimulatorControlledMatrixAdapter {
 
 // MARK: - SimulatorControlledMatrix methods
 
-extension SimulatorControlledMatrixAdapter: SimulatorControlledMatrix {
-    var expandedMatrixCount: Int {
-        return Int.pow(2, controlCount) *  controlledMatrix.count
-    }
-
-    func expandedMatrix() -> SimulatorMatrix {
-        return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
-                                     controlledMatrix: controlledMatrix)
-    }
-}
+extension SimulatorControlledMatrixAdapter: SimulatorControlledMatrix {}

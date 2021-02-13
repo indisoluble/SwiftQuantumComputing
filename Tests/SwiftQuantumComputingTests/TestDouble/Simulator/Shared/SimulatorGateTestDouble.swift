@@ -30,7 +30,7 @@ final class SimulatorGateTestDouble {
 
     private (set) var extractComponentsCount = 0
     private (set) var lastExtractComponentsQubitCount: Int?
-    var extractComponentsMatrixResult: SimulatorControlledMatrix?
+    var extractComponentsMatrixResult: SimulatorGate.SimulatorGateMatrix?
     var extractComponentsInputsResult: [Int]?
     var extractComponentsError = GateError.gateControlsCanNotBeAnEmptyList
 }

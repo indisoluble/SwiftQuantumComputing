@@ -195,7 +195,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: validMatrix, inputs: validInputs)
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -214,7 +214,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.matrix(matrix: singleQubitMatrix, inputs: [0])
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -232,7 +232,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.hadamard(target: target)
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -251,7 +251,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.phaseShift(radians: radians, target: target)
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -271,7 +271,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.rotation(axis: axis, radians: radians, target: target)
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -315,7 +315,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.controlled(gate: .not(target: 1), controls: [2])
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -332,7 +332,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.controlled(gate: .not(target: 1), controls: [5, 2])
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -352,7 +352,7 @@ class Gate_SimulatorGateTests: XCTestCase {
                                    controls: [5])
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -399,7 +399,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.oracle(truthTable: ["0"], controls: [2], gate: .not(target: 1))
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -416,7 +416,7 @@ class Gate_SimulatorGateTests: XCTestCase {
         let gate = Gate.oracle(truthTable: ["00", "11"], controls: [5, 2], gate: .not(target: 1))
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -435,7 +435,7 @@ class Gate_SimulatorGateTests: XCTestCase {
                                gate: .controlled(gate: .not(target: 1), controls: [2]))
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -466,7 +466,7 @@ class Gate_SimulatorGateTests: XCTestCase {
                                    controls: [5])
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix
@@ -498,7 +498,7 @@ class Gate_SimulatorGateTests: XCTestCase {
                                              gate: .not(target: 1)))
 
         // When
-        var matrix: SimulatorControlledMatrix?
+        var matrix: SimulatorGate.SimulatorGateMatrix?
         var inputs: [Int]?
         if case .success(let result) = gate.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.simulatorGateMatrix

@@ -23,5 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorControlledMatrixExtracting {
-    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError>
+    typealias ControlledMatrix = SimulatorControlledMatrix & SimulatorMatrixExpandable
+
+    func extractControlledMatrix() -> Result<ControlledMatrix, GateError>
 }

@@ -1,8 +1,8 @@
 //
-//  FixedHadamardGate+SimulatorControlledMatrixExtracting.swift
+//  SimulatorMatrixExpandable.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 12/02/2021.
+//  Created by Enrique de la Torre on 13/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,21 +20,21 @@
 
 import Foundation
 
-// MARK: - SimulatorControlledMatrixExtracting methods
+// MARK: - Protocol definition
 
-extension FixedHadamardGate: SimulatorControlledMatrixExtracting {
-    func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
-        return .success(Constants.matrixHadamard)
-    }
+protocol SimulatorMatrixExpandable {
+    var expandedMatrixCount: Int { get }
+    func expandedMatrix() -> SimulatorMatrix
 }
 
-// MARK: - Private body
+// MARK: - SimulatorMatrixExpandable default implementations
 
-private extension FixedHadamardGate {
+extension SimulatorMatrixExpandable where Self: SimulatorMatrix {
+    var expandedMatrixCount: Int {
+        return count
+    }
 
-    // MARK: - Constants
-
-    enum Constants {
-        static let matrixHadamard = Matrix.makeHadamard()
+    func expandedMatrix() -> SimulatorMatrix {
+        return self
     }
 }

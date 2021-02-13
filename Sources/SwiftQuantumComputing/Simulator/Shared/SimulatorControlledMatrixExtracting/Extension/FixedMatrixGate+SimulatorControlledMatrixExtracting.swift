@@ -23,7 +23,7 @@ import Foundation
 // MARK: - SimulatorControlledMatrixExtracting methods
 
 extension FixedMatrixGate: SimulatorControlledMatrixExtracting {
-    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
+    func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
         guard matrix.rowCount.isPowerOfTwo else {
             return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
         }

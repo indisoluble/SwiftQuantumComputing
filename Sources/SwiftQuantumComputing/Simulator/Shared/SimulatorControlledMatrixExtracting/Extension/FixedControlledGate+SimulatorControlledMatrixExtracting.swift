@@ -23,7 +23,7 @@ import Foundation
 // MARK: - SimulatorControlledMatrixExtracting methods
 
 extension FixedControlledGate: SimulatorControlledMatrixExtracting {
-    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
+    func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
         guard !controls.isEmpty else {
             return .failure(.gateControlsCanNotBeAnEmptyList)
         }
