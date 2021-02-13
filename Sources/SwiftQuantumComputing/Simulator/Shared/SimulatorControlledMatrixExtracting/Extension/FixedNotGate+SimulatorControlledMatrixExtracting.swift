@@ -22,4 +22,19 @@ import Foundation
 
 // MARK: - SimulatorControlledMatrixExtracting methods
 
-extension FixedNotGate: SimulatorControlledMatrixExtracting {}
+extension FixedNotGate: SimulatorControlledMatrixExtracting {
+    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
+        return .success(Constants.matrixNot)
+    }
+}
+
+// MARK: - Private body
+
+private extension FixedNotGate {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let matrixNot = Matrix.makeNot()
+    }
+}

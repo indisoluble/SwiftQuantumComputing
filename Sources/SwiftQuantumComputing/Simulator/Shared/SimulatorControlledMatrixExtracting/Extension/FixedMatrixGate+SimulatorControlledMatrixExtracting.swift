@@ -22,4 +22,16 @@ import Foundation
 
 // MARK: - SimulatorControlledMatrixExtracting methods
 
-extension FixedMatrixGate: SimulatorControlledMatrixExtracting {}
+extension FixedMatrixGate: SimulatorControlledMatrixExtracting {
+    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
+        guard matrix.rowCount.isPowerOfTwo else {
+            return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
+        }
+        // Validate matrix before expanding it so the operation requires less time
+        guard matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance) else {
+            return .failure(.gateMatrixIsNotUnitary)
+        }
+
+        return .success(matrix)
+    }
+}

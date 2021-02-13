@@ -25,16 +25,3 @@ import Foundation
 protocol SimulatorControlledMatrixExtracting {
     func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError>
 }
-
-// MARK: - SimulatorControlledMatrixExtracting default implementations
-
-extension SimulatorControlledMatrixExtracting where Self: RawMatrixExtracting {
-    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
-        switch extractRawMatrix() {
-        case .success(let matrix):
-            return .success(matrix)
-        case .failure(let error):
-            return .failure(error)
-        }
-    }
-}

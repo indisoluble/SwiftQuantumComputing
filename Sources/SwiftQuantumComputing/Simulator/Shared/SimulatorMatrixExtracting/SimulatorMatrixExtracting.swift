@@ -29,13 +29,13 @@ protocol SimulatorMatrixExtracting {
 
 // MARK: - SimulatorMatrixExtracting default implementations
 
-extension SimulatorMatrixExtracting where Self: RawMatrixExtracting {
+extension SimulatorMatrixExtracting where Self: SimulatorControlledMatrixExtracting {
     func extractMatrix() -> Result<SimulatorMatrix, GateError> {
-        switch extractRawMatrix() {
-        case .success(let matrix):
-            return .success(matrix)
+        switch extractControlledMatrix() {
         case .failure(let error):
             return .failure(error)
+        case .success(let controlledMatrix):
+            return .success(controlledMatrix.expandedMatrix())
         }
     }
 }
