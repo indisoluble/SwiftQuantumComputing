@@ -26,7 +26,7 @@ extension FixedControlledGate: RawMatrixExtracting {
     func extractRawMatrix() -> Result<Matrix, GateError> {
         switch extractControlledMatrixAdapter() {
         case .success(let adapter):
-            return .success(adapter.expandedMatrix().expandedRawMatrix())
+            return .success(adapter.expandedRawMatrix())
         case .failure(let error):
             return .failure(error)
         }

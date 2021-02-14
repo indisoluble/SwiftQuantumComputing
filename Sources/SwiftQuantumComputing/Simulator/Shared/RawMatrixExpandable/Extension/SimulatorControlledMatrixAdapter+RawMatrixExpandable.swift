@@ -1,8 +1,8 @@
 //
-//  FixedControlledGate+SimulatorMatrixExtracting.swift
+//  SimulatorControlledMatrixAdapter+RawMatrixExpandable.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/02/2021.
+//  Created by Enrique de la Torre on 14/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,15 +20,12 @@
 
 import Foundation
 
-// MARK: - SimulatorMatrixExtracting methods
+// MARK: - RawMatrixExpandable methods
 
-extension FixedControlledGate: SimulatorMatrixExtracting {
-    func extractMatrix() -> Result<SimulatorMatrix, GateError> {
-        switch extractControlledMatrixAdapter() {
-        case .success(let adapter):
-            return .success(adapter.expandedMatrix())
-        case .failure(let error):
-            return .failure(error)
-        }
+extension SimulatorControlledMatrixAdapter: RawMatrixExpandable {
+    func expandedRawMatrix() -> Matrix {
+        let oracle = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
+                                           controlledMatrix: controlledMatrix)
+        return oracle.expandedRawMatrix()
     }
 }
