@@ -1,8 +1,8 @@
 //
-//  SimulatorControlledMatrixAdapter.swift
+//  MatrixCountable.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/02/2021.
+//  Created by Enrique de la Torre on 20/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,8 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-struct SimulatorControlledMatrixAdapter {
-
-    // MARK: - SimulatorControlledMatrix properties
-
-    let controlCount: Int
-    let controlledMatrix: SimulatorMatrix
+protocol MatrixCountable {
+    var count: Int { get }
 }
-
-// MARK: - SimulatorControlledMatrix methods
-
-extension SimulatorControlledMatrixAdapter: SimulatorControlledMatrix {}

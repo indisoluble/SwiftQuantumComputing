@@ -1,5 +1,5 @@
 //
-//  FixedRotationGate+SimulatorInputExtracting.swift
+//  FixedControlledGate+RawInputsExtracting.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 07/02/2021.
@@ -20,10 +20,10 @@
 
 import Foundation
 
-// MARK: - SimulatorInputExtracting methods
+// MARK: - RawInputsExtracting methods
 
-extension FixedRotationGate: SimulatorInputExtracting {
+extension FixedControlledGate: RawInputsExtracting {
     func extractRawInputs() -> [Int] {
-        return [target]
+        return controls + gate.extractRawInputs()
     }
 }

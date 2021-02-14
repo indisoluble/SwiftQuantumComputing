@@ -1,5 +1,5 @@
 //
-//  FixedOracleGate+SimulatorInputExtracting.swift
+//  SimulatorControlledMatrixAdapter.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 07/02/2021.
@@ -20,10 +20,23 @@
 
 import Foundation
 
-// MARK: - SimulatorInputExtracting methods
+// MARK: - Main body
 
-extension FixedOracleGate: SimulatorInputExtracting {
-    func extractRawInputs() -> [Int] {
-        return controls + gate.extractRawInputs()
+struct SimulatorControlledMatrixAdapter {
+
+    // MARK: - SimulatorControlledMatrix properties
+
+    let controlCount: Int
+    let controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable
+
+    // MARK: - Internal methods
+
+    func expandedOracleMatrix() -> OracleSimulatorMatrix {
+        return OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: controlCount,
+                                     controlledCountableMatrix: controlledCountableMatrix)
     }
 }
+
+// MARK: - SimulatorControlledMatrix methods
+
+extension SimulatorControlledMatrixAdapter: SimulatorControlledMatrix {}

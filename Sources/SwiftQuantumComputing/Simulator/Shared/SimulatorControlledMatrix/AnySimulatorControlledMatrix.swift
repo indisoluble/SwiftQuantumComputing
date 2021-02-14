@@ -1,8 +1,8 @@
 //
-//  FixedHadamardGate+SimulatorInputExtracting.swift
+//  AnySimulatorControlledMatrix.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/02/2021.
+//  Created by Enrique de la Torre on 15/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,29 @@
 
 import Foundation
 
-// MARK: - SimulatorInputExtracting methods
+// MARK: - Main body
 
-extension FixedHadamardGate: SimulatorInputExtracting {
-    func extractRawInputs() -> [Int] {
-        return [target]
+struct AnySimulatorControlledMatrix {
+
+    // MARK: - Private properties
+
+    private let matrix: SimulatorControlledMatrix
+
+    // MARK: - Internal init methods
+
+    init(matrix: SimulatorControlledMatrix) {
+        self.matrix = matrix
+    }
+}
+
+// MARK: - SimulatorControlledMatrix methods
+
+extension AnySimulatorControlledMatrix: SimulatorControlledMatrix {
+    var controlCount: Int {
+        return matrix.controlCount
+    }
+
+    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable {
+        return matrix.controlledCountableMatrix
     }
 }

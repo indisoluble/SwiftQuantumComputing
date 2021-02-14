@@ -25,10 +25,6 @@ import Foundation
 
 struct CircuitSimulatorMatrix {
 
-    // MARK: - SimulatorMatrix properties
-
-    let count: Int
-
     // MARK: - Private properties
 
     private let baseMatrix: SimulatorMatrix
@@ -53,7 +49,6 @@ struct CircuitSimulatorMatrix {
             return (rearranger.rearrangeBits(in: state), state & unselectedBitMask)
         }
 
-        self.count = count
         self.stateEquivalences = Array(stateEquivalences)
         self.baseMatrix = baseMatrix
     }

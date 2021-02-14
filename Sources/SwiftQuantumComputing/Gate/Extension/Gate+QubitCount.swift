@@ -20,7 +20,7 @@
 
 import Foundation
 
-extension Array where Element: SimulatorInputExtracting {
+extension Array where Element: RawInputsExtracting {
     func qubitCount() -> Int {
         let maxInput = reduce(0) { currentMax, gate in
             guard let otherMax = gate.extractRawInputs().max() else {

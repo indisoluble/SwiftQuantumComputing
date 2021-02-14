@@ -24,17 +24,17 @@ import Foundation
 
 protocol SimulatorControlledMatrix {
     var controlCount: Int { get }
-    var controlledMatrix: SimulatorMatrix { get }
+    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable { get }
 }
 
 // MARK: - SimulatorControlledMatrix default implementations
 
-extension SimulatorControlledMatrix where Self: SimulatorMatrix {
+extension SimulatorControlledMatrix where Self: SimulatorMatrixExtracting.SimulatorMatrixCountable {
     var controlCount: Int {
         return 0
     }
 
-    var controlledMatrix: SimulatorMatrix {
+    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable {
         return self
     }
 }

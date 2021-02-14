@@ -1,8 +1,8 @@
 //
-//  FixedControlledGate+SimulatorInputExtracting.swift
+//  OracleSimulatorMatrix+MatrixCountable.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/02/2021.
+//  Created by Enrique de la Torre on 21/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,6 @@
 
 import Foundation
 
-// MARK: - SimulatorInputExtracting methods
+// MARK: - MatrixCountable methods
 
-extension FixedControlledGate: SimulatorInputExtracting {
-    func extractRawInputs() -> [Int] {
-        return controls + gate.extractRawInputs()
-    }
-}
+extension OracleSimulatorMatrix: MatrixCountable {}

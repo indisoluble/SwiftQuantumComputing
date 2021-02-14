@@ -24,6 +24,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorMatrix {
-    var count: Int { get }
     subscript(row: Int, column: Int) -> Complex<Double> { get }
 }

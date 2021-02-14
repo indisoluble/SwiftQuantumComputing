@@ -25,34 +25,44 @@ import Foundation
 
 struct OracleSimulatorMatrix {
 
-    // MARK: - SimulatorMatrix properties
+    // MARK: - MatrixCountable properties
 
     let count: Int
 
     // MARK: - Private properties
 
     private let activatedSections: Set<Int>
-    private let controlledMatrix: SimulatorMatrix
     private let controlledMatrixSize: Int
+    private let controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable
 
     // MARK: - Internal init methods
 
-    init(truthTable: [String], controlCount: Int, controlledMatrix: SimulatorMatrix) {
+    init(truthTable: [String],
+         controlCount: Int,
+         controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable) {
         activatedSections = OracleSimulatorMatrix.truthTableAsInts(truthTable)
 
-        controlledMatrixSize = controlledMatrix.count
-        self.controlledMatrix = controlledMatrix
-
+        controlledMatrixSize = controlledCountableMatrix.count
         count = Int.pow(2, controlCount) * controlledMatrixSize
+
+        self.controlledCountableMatrix = controlledCountableMatrix
     }
 
     init(equivalentToControlledGateWithControlCount controlCount: Int,
-         controlledMatrix: SimulatorMatrix) {
+         controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable) {
         let truth = String(repeating: "1", count: controlCount)
 
         self.init(truthTable: [truth],
                   controlCount: controlCount,
-                  controlledMatrix: controlledMatrix)
+                  controlledCountableMatrix: controlledCountableMatrix)
+    }
+
+    // MARK: - Internal methods
+
+    func expandedRawMatrix() -> Matrix {
+        return try! Matrix.makeMatrix(rowCount: count,
+                                      columnCount: count,
+                                      value: { self[$0, $1] }).get()
     }
 }
 
@@ -72,7 +82,7 @@ extension OracleSimulatorMatrix: SimulatorMatrix {
         }
 
         let sectionFirstPosition = section * controlledMatrixSize
-        return controlledMatrix[row - sectionFirstPosition, column - sectionFirstPosition]
+        return controlledCountableMatrix[row - sectionFirstPosition, column - sectionFirstPosition]
     }
 }
 

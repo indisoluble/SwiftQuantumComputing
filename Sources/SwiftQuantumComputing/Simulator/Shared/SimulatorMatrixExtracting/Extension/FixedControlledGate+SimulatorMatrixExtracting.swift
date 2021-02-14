@@ -23,10 +23,10 @@ import Foundation
 // MARK: - SimulatorMatrixExtracting methods
 
 extension FixedControlledGate: SimulatorMatrixExtracting {
-    func extractMatrix() -> Result<SimulatorMatrix, GateError> {
+    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
         switch extractControlledMatrixAdapter() {
         case .success(let adapter):
-            return .success(adapter.expandedMatrix())
+            return .success(adapter.expandedOracleMatrix())
         case .failure(let error):
             return .failure(error)
         }

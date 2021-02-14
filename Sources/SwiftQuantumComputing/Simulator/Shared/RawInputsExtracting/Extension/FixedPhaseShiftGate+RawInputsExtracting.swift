@@ -1,5 +1,5 @@
 //
-//  SimulatorInputExtracting.swift
+//  FixedPhaseShiftGate+RawInputsExtracting.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 07/02/2021.
@@ -20,8 +20,10 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - RawInputsExtracting methods
 
-protocol SimulatorInputExtracting {
-    func extractRawInputs() -> [Int]
+extension FixedPhaseShiftGate: RawInputsExtracting {
+    func extractRawInputs() -> [Int] {
+        return [target]
+    }
 }

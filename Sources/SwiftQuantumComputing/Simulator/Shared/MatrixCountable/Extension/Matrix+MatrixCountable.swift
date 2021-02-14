@@ -1,8 +1,8 @@
 //
-//  SimulatorMatrixExpandable.swift
+//  Matrix+MatrixCountable.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/02/2021.
+//  Created by Enrique de la Torre on 20/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,23 +20,10 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - MatrixCountable methods
 
-protocol SimulatorMatrixExpandable {
-    typealias ExpandedMatrix = SimulatorMatrix & RawMatrixExpandable
-
-    var expandedMatrixCount: Int { get }
-    func expandedMatrix() -> ExpandedMatrix
-}
-
-// MARK: - SimulatorMatrixExpandable default implementations
-
-extension SimulatorMatrixExpandable where Self: ExpandedMatrix {
-    var expandedMatrixCount: Int {
-        return count
-    }
-
-    func expandedMatrix() -> ExpandedMatrix {
-        return self
+extension Matrix: MatrixCountable {
+    var count: Int {
+        return rowCount
     }
 }

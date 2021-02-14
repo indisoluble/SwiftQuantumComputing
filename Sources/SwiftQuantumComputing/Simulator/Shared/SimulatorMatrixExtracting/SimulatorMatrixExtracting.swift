@@ -23,13 +23,15 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorMatrixExtracting {
-    func extractMatrix() -> Result<SimulatorMatrix, GateError>
+    typealias SimulatorMatrixCountable = SimulatorMatrix & MatrixCountable
+
+    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError>
 }
 
 // MARK: - SimulatorMatrixExtracting default implementations
 
 extension SimulatorMatrixExtracting where Self: RawMatrixExtracting {
-    func extractMatrix() -> Result<SimulatorMatrix, GateError> {
+    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
         switch extractRawMatrix() {
         case .success(let matrix):
             return .success(matrix)

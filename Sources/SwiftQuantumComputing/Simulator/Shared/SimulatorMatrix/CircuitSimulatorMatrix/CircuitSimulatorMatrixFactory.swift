@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol CircuitSimulatorMatrixFactory {
-    typealias CircuitMatrix = SimulatorMatrix & RawMatrixExpandable
+    typealias CircuitMatrix = SimulatorMatrix
 
     func makeCircuitMatrix(qubitCount: Int,
                            baseMatrix: SimulatorMatrix,

@@ -22,12 +22,4 @@ import Foundation
 
 // MARK: - SimulatorMatrix methods
 
-extension Matrix: SimulatorMatrix {
-    var count: Int {
-        return rowCount
-    }
-
-    var rawMatrix: Matrix {
-        return self
-    }
-}
+extension Matrix: SimulatorMatrix {}

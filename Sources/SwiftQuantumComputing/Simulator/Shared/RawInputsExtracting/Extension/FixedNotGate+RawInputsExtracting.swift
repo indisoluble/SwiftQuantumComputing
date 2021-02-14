@@ -1,8 +1,8 @@
 //
-//  RawMatrixExpandable.swift
+//  FixedNotGate+RawInputsExtracting.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/02/2021.
+//  Created by Enrique de la Torre on 07/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,18 +20,10 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - RawInputsExtracting methods
 
-protocol RawMatrixExpandable {
-    func expandedRawMatrix() -> Matrix
-}
-
-// MARK: - RawMatrixExpandable default implementations
-
-extension RawMatrixExpandable where Self: SimulatorMatrix {
-    func expandedRawMatrix() -> Matrix {
-        return try! Matrix.makeMatrix(rowCount: count,
-                                      columnCount: count,
-                                      value: { self[$0, $1] }).get()
+extension FixedNotGate: RawInputsExtracting {
+    func extractRawInputs() -> [Int] {
+        return [target]
     }
 }
