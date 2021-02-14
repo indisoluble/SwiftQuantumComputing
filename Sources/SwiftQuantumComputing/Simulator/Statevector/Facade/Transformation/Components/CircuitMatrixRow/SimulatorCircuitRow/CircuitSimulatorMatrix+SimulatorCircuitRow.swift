@@ -1,5 +1,5 @@
 //
-//  SimulatorCircuitMatrix+SimulatorCircuitRow.swift
+//  CircuitSimulatorMatrix+SimulatorCircuitRow.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 06/02/2021.
@@ -22,4 +22,4 @@ import Foundation
 
 // MARK: - SimulatorCircuitRow methods
 
-extension SimulatorCircuitMatrix: SimulatorCircuitRow {}
+extension CircuitSimulatorMatrix: SimulatorCircuitRow {}

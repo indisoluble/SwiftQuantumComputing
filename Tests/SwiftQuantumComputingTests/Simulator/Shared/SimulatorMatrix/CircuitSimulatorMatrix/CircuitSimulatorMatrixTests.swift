@@ -1,5 +1,5 @@
 //
-//  SimulatorCircuitMatrixTests.swift
+//  CircuitSimulatorMatrixTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 04/02/2020.
@@ -24,9 +24,10 @@ import XCTest
 
 // MARK: - Main body
 
-class SimulatorCircuitMatrixTests: XCTestCase {
+class CircuitSimulatorMatrixTests: XCTestCase {
 
     // MARK: - Properties
+
     let twoQubitCount = 2
     let validInputs = [1, 0]
     let validMatrix = try! Matrix([
@@ -100,7 +101,7 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrix(qubitCount: twoQubitCount,
+        let sut = CircuitSimulatorMatrix(qubitCount: twoQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: validInputs)
 
@@ -110,7 +111,7 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     func testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrix(qubitCount: oneQubitCount,
+        let sut = CircuitSimulatorMatrix(qubitCount: oneQubitCount,
                                          baseMatrix: otherValidMatrix,
                                          inputs: otherValidInputs)
 
@@ -120,7 +121,7 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     func testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_expandedRawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrix(qubitCount: twoQubitCount,
+        let sut = CircuitSimulatorMatrix(qubitCount: twoQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: validInputs.reversed())
 
@@ -130,7 +131,7 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     func testNonContiguousInputs_expandedRawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrix(qubitCount: threeQubitCount,
+        let sut = CircuitSimulatorMatrix(qubitCount: threeQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: nonContiguousInputs)
 
@@ -140,7 +141,7 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     func testNonContiguousInputs_subscriptRow_returnExpectedValues() {
         // When
-        let sut = SimulatorCircuitMatrix(qubitCount: threeQubitCount,
+        let sut = CircuitSimulatorMatrix(qubitCount: threeQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: nonContiguousInputs)
 
@@ -156,7 +157,7 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     func testNonContiguousInputs_subscriptRowColumn_returnExpectedValues() {
         // When
-        let sut = SimulatorCircuitMatrix(qubitCount: threeQubitCount,
+        let sut = CircuitSimulatorMatrix(qubitCount: threeQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: nonContiguousInputs)
 
@@ -170,7 +171,7 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     func testContiguousInputsButInTheMiddle_expandedRawMatrix_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrix(qubitCount: fourQubitCount,
+        let sut = CircuitSimulatorMatrix(qubitCount: fourQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: contiguousInputsButInTheMiddle)
 
@@ -180,7 +181,7 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     func testContiguousInputsButInTheMiddle_subscriptRow_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrix(qubitCount: fourQubitCount,
+        let sut = CircuitSimulatorMatrix(qubitCount: fourQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: contiguousInputsButInTheMiddle)
 
@@ -196,7 +197,7 @@ class SimulatorCircuitMatrixTests: XCTestCase {
 
     func testContiguousInputsButInTheMiddle_subscriptRowColumn_returnExpectedMatrix() {
         // When
-        let sut = SimulatorCircuitMatrix(qubitCount: fourQubitCount,
+        let sut = CircuitSimulatorMatrix(qubitCount: fourQubitCount,
                                          baseMatrix: validMatrix,
                                          inputs: contiguousInputsButInTheMiddle)
 

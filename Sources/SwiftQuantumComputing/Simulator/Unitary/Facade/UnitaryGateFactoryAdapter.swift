@@ -26,11 +26,11 @@ struct UnitaryGateFactoryAdapter {
 
     // MARK: - Private properties
 
-    private let matrixFactory: SimulatorCircuitMatrixFactory
+    private let matrixFactory: CircuitSimulatorMatrixFactory
 
     // MARK: - Internal init methods
 
-    init(matrixFactory: SimulatorCircuitMatrixFactory) {
+    init(matrixFactory: CircuitSimulatorMatrixFactory) {
         self.matrixFactory = matrixFactory
     }
 }

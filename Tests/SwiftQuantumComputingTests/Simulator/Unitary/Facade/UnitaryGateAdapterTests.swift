@@ -29,7 +29,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrixFactory = SimulatorCircuitMatrixFactoryTestDouble()
+    let matrixFactory = CircuitSimulatorMatrixFactoryTestDouble()
     let simulatorGate = SimulatorGateTestDouble()
     let gateInputs = [0]
     let gateMatrix = Matrix.makeHadamard()

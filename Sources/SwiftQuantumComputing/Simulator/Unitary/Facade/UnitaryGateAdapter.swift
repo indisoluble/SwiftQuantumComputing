@@ -27,7 +27,7 @@ struct UnitaryGateAdapter {
     // MARK: - Private properties
 
     private let matrix: Matrix
-    private let matrixFactory: SimulatorCircuitMatrixFactory
+    private let matrixFactory: CircuitSimulatorMatrixFactory
 
     private let qubitCount: Int
 
@@ -38,7 +38,7 @@ struct UnitaryGateAdapter {
         case matrixRowCountHasToBeAPowerOfTwo
     }
 
-    init(matrix: Matrix, matrixFactory: SimulatorCircuitMatrixFactory) throws {
+    init(matrix: Matrix, matrixFactory: CircuitSimulatorMatrixFactory) throws {
         guard matrix.isSquare else {
             throw InitError.matrixIsNotSquare
         }

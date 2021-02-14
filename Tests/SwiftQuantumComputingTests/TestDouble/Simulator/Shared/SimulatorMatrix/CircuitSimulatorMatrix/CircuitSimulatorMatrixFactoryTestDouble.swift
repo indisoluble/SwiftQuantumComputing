@@ -1,5 +1,5 @@
 //
-//  SimulatorCircuitMatrixFactoryTestDouble.swift
+//  CircuitSimulatorMatrixFactoryTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 07/02/2020.
@@ -24,7 +24,7 @@ import Foundation
 
 // MARK: - Main body
 
-final class SimulatorCircuitMatrixFactoryTestDouble {
+final class CircuitSimulatorMatrixFactoryTestDouble {
 
     // MARK: - Internal properties
 
@@ -35,9 +35,9 @@ final class SimulatorCircuitMatrixFactoryTestDouble {
     var makeCircuitMatrixResult: CircuitMatrix = SimulatorMatrixTestDouble()
 }
 
-// MARK: - SimulatorCircuitMatrixFactory methods
+// MARK: - CircuitSimulatorMatrixFactory methods
 
-extension SimulatorCircuitMatrixFactoryTestDouble: SimulatorCircuitMatrixFactory {
+extension CircuitSimulatorMatrixFactoryTestDouble: CircuitSimulatorMatrixFactory {
     func makeCircuitMatrix(qubitCount: Int,
                            baseMatrix: SimulatorMatrix,
                            inputs: [Int]) -> CircuitMatrix {

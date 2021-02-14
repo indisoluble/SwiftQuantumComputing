@@ -90,7 +90,7 @@ private extension MainCircuitFactory {
     // MARK: - Private methods
 
     func makeUnitarySimulator() -> UnitarySimulator {
-        let matrixFactory = SimulatorCircuitMatrixFactoryAdapter()
+        let matrixFactory = CircuitSimulatorMatrixFactoryAdapter()
         let unitaryGateFactory = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
 
         return UnitarySimulatorFacade(gateFactory: unitaryGateFactory)
@@ -110,7 +110,7 @@ private extension MainCircuitFactory {
         let transformation: StatevectorTransformation!
         switch statevectorConfiguration {
         case .fullMatrix:
-            let matrixFactory = SimulatorCircuitMatrixFactoryAdapter()
+            let matrixFactory = CircuitSimulatorMatrixFactoryAdapter()
 
             transformation = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
         case .rowByRow(let maxConcurrency):
@@ -119,7 +119,7 @@ private extension MainCircuitFactory {
             transformation = try! CircuitMatrixRowStatevectorTransformation(rowFactory: rowFactory,
                                                                             maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         case .elementByElement(let maxConcurrency):
-            let matrixFactory = SimulatorCircuitMatrixFactoryAdapter()
+            let matrixFactory = CircuitSimulatorMatrixFactoryAdapter()
 
             transformation = try! CircuitMatrixElementStatevectorTransformation(matrixFactory: matrixFactory,
                                                                                 maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)

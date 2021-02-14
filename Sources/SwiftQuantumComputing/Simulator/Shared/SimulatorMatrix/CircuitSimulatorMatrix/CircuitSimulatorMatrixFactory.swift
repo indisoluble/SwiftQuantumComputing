@@ -1,9 +1,9 @@
 //
-//  SimulatorCircuitMatrix+RawMatrixExpandable.swift
+//  CircuitSimulatorMatrixFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/02/2021.
-//  Copyright © 2021 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 03/02/2020.
+//  Copyright © 2020 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,12 @@
 
 import Foundation
 
-// MARK: - RawMatrixExpandable methods
+// MARK: - Protocol definition
 
-extension SimulatorCircuitMatrix: RawMatrixExpandable {}
+protocol CircuitSimulatorMatrixFactory {
+    typealias CircuitMatrix = SimulatorMatrix & RawMatrixExpandable
+
+    func makeCircuitMatrix(qubitCount: Int,
+                           baseMatrix: SimulatorMatrix,
+                           inputs: [Int]) -> CircuitMatrix
+}

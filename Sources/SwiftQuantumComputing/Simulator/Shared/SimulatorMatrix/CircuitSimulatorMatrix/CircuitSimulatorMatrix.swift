@@ -1,5 +1,5 @@
 //
-//  SimulatorCircuitMatrix.swift
+//  CircuitSimulatorMatrix.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 12/05/2020.
@@ -23,7 +23,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct SimulatorCircuitMatrix {
+struct CircuitSimulatorMatrix {
 
     // MARK: - SimulatorMatrix properties
 
@@ -61,7 +61,7 @@ struct SimulatorCircuitMatrix {
 
 // MARK: - SimulatorMatrix methods
 
-extension SimulatorCircuitMatrix: SimulatorMatrix {
+extension CircuitSimulatorMatrix: SimulatorMatrix {
     subscript(row: Int, column: Int) -> Complex<Double> {
         let (baseRow, remainingRow) = stateEquivalences[row]
         let (baseColumn, remainingColumn) = stateEquivalences[column]

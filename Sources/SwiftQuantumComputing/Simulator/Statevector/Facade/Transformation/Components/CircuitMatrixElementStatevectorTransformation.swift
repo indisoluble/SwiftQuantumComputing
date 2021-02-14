@@ -26,7 +26,7 @@ struct CircuitMatrixElementStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let matrixFactory: SimulatorCircuitMatrixFactory
+    private let matrixFactory: CircuitSimulatorMatrixFactory
     private let maxConcurrency: Int
 
     // MARK: - Internal init methods
@@ -35,7 +35,7 @@ struct CircuitMatrixElementStatevectorTransformation {
         case maxConcurrencyHasToBiggerThanZero
     }
 
-    init(matrixFactory: SimulatorCircuitMatrixFactory, maxConcurrency: Int) throws {
+    init(matrixFactory: CircuitSimulatorMatrixFactory, maxConcurrency: Int) throws {
         guard maxConcurrency > 0 else {
             throw InitError.maxConcurrencyHasToBiggerThanZero
         }

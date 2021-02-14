@@ -124,7 +124,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(GeneticConfigurationTests.allTests),
         testCase(GeneticUseCaseTests.allTests),
         testCase(MainGeneticFactoryTests.allTests),
-        testCase(SimulatorCircuitMatrixTests.allTests),
+        testCase(CircuitSimulatorMatrixTests.allTests),
         testCase(Array_RearrangeBitsTests.allTests),
         testCase(BitwiseShiftTests.allTests),
         testCase(SimulatorControlledMatrixAdapterTests.allTests),

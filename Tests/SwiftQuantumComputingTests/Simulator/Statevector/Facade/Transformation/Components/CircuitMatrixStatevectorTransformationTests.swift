@@ -29,7 +29,7 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrixFactory = SimulatorCircuitMatrixFactoryTestDouble()
+    let matrixFactory = CircuitSimulatorMatrixFactoryTestDouble()
 
     // MARK: - Tests
 
@@ -80,7 +80,7 @@ class CircuitMatrixStatevectorTransformationTests: XCTestCase {
         let gateInputs = [0]
         let gateMatrix = Matrix.makeNot()
 
-        let circuitMatrix = SimulatorCircuitMatrixFactoryAdapter().makeCircuitMatrix(qubitCount: qubitCount,
+        let circuitMatrix = CircuitSimulatorMatrixFactoryAdapter().makeCircuitMatrix(qubitCount: qubitCount,
                                                                                      baseMatrix: gateMatrix,
                                                                                      inputs: gateInputs)
         matrixFactory.makeCircuitMatrixResult = circuitMatrix

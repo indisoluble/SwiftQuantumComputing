@@ -28,7 +28,7 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let matrixFactory = SimulatorCircuitMatrixFactoryTestDouble()
+    let matrixFactory = CircuitSimulatorMatrixFactoryTestDouble()
     let qubitCount = 1
     let simulatorGate = SimulatorGateTestDouble()
 
