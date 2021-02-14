@@ -22,8 +22,4 @@ import Foundation
 
 // MARK: - SimulatorControlledMatrixExtracting methods
 
-extension FixedRotationGate: SimulatorControlledMatrixExtracting {
-    func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
-        return .success(Matrix.makeRotation(axis: axis, radians: radians))
-    }
-}
+extension FixedRotationGate: SimulatorControlledMatrixExtracting {}

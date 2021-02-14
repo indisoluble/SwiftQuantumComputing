@@ -24,16 +24,11 @@ import Foundation
 
 extension FixedControlledGate: SimulatorControlledMatrixExtracting {
     func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
-        guard !controls.isEmpty else {
-            return .failure(.gateControlsCanNotBeAnEmptyList)
-        }
-
-        switch gate.extractControlledMatrix() {
+        switch extractControlledMatrixAdapter() {
+        case .success(let adapter):
+            return .success(adapter)
         case .failure(let error):
             return .failure(error)
-        case .success(let matrix):
-            return .success(SimulatorControlledMatrixAdapter(controlCount: matrix.controlCount + controls.count,
-                                                             controlledMatrix: matrix.controlledMatrix))
         }
     }
 }

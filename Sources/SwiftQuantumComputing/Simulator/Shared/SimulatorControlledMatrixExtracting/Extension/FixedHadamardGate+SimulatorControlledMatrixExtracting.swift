@@ -22,19 +22,4 @@ import Foundation
 
 // MARK: - SimulatorControlledMatrixExtracting methods
 
-extension FixedHadamardGate: SimulatorControlledMatrixExtracting {
-    func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
-        return .success(Constants.matrixHadamard)
-    }
-}
-
-// MARK: - Private body
-
-private extension FixedHadamardGate {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let matrixHadamard = Matrix.makeHadamard()
-    }
-}
+extension FixedHadamardGate: SimulatorControlledMatrixExtracting {}

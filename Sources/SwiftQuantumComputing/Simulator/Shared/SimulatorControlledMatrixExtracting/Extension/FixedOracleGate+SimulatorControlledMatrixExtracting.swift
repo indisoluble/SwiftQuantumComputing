@@ -24,17 +24,11 @@ import Foundation
 
 extension FixedOracleGate: SimulatorControlledMatrixExtracting {
     func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
-        guard !controls.isEmpty else {
-            return .failure(.gateControlsCanNotBeAnEmptyList)
-        }
-
-        switch gate.extractControlledMatrix() {
+        switch extractOracleMatrix() {
+        case .success(let oracleMatrix):
+            return .success(oracleMatrix)
         case .failure(let error):
             return .failure(error)
-        case .success(let controlledMatrix):
-            return .success(OracleSimulatorMatrix(truthTable: truthTable,
-                                                  controlCount: controls.count,
-                                                  controlledMatrix: controlledMatrix.expandedMatrix()))
         }
     }
 }

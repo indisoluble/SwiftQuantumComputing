@@ -22,8 +22,4 @@ import Foundation
 
 // MARK: - SimulatorControlledMatrixExtracting methods
 
-extension FixedPhaseShiftGate: SimulatorControlledMatrixExtracting {
-    func extractControlledMatrix() -> Result<ControlledMatrix, GateError> {
-        return .success(Matrix.makePhaseShift(radians: radians))
-    }
-}
+extension FixedPhaseShiftGate: SimulatorControlledMatrixExtracting {}
