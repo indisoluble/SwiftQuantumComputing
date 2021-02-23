@@ -704,6 +704,8 @@
 		FFAC3DD524940ED000515AEB /* CircuitStatevectorFactoryTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC3DD124940C2D00515AEB /* CircuitStatevectorFactoryTestDouble.swift */; };
 		FFAC3DD724940EF800515AEB /* CircuitStatevectorTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC3DD624940EF800515AEB /* CircuitStatevectorTestDouble.swift */; };
 		FFAC3DD824940EF800515AEB /* CircuitStatevectorTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC3DD624940EF800515AEB /* CircuitStatevectorTestDouble.swift */; };
+		FFAC723625E5A8CB00C90763 /* CircuitSimulatorMatrix+MatrixCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC723525E5A8CB00C90763 /* CircuitSimulatorMatrix+MatrixCountable.swift */; };
+		FFAC723725E5A8CB00C90763 /* CircuitSimulatorMatrix+MatrixCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC723525E5A8CB00C90763 /* CircuitSimulatorMatrix+MatrixCountable.swift */; };
 		FFAF768D25602AB900AC7908 /* SimulatorMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */; };
 		FFAF768E25602AB900AC7908 /* SimulatorMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */; };
 		FFAFC3FC2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FB2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift */; };
@@ -1403,6 +1405,7 @@
 		FFAA606024FBD21800437D39 /* OraclePositionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OraclePositionView.xib; sourceTree = "<group>"; };
 		FFAC3DD124940C2D00515AEB /* CircuitStatevectorFactoryTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitStatevectorFactoryTestDouble.swift; sourceTree = "<group>"; };
 		FFAC3DD624940EF800515AEB /* CircuitStatevectorTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitStatevectorTestDouble.swift; sourceTree = "<group>"; };
+		FFAC723525E5A8CB00C90763 /* CircuitSimulatorMatrix+MatrixCountable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CircuitSimulatorMatrix+MatrixCountable.swift"; sourceTree = "<group>"; };
 		FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorMatrixExtracting.swift; sourceTree = "<group>"; };
 		FFAFC3FB2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+QuotientAndRemainderWithDivisionType.swift"; sourceTree = "<group>"; };
 		FFAFC3FE24030B0F00B97BC9 /* Int+QuotientAndRemainderWithDivisionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+QuotientAndRemainderWithDivisionTypeTests.swift"; sourceTree = "<group>"; };
@@ -2604,6 +2607,7 @@
 			isa = PBXGroup;
 			children = (
 				FF412CA925E2FAAF00F9DCE8 /* AnySimulatorControlledMatrix+MatrixCountable.swift */,
+				FFAC723525E5A8CB00C90763 /* CircuitSimulatorMatrix+MatrixCountable.swift */,
 				FF7B458B25E1998C00A1A2BF /* Matrix+MatrixCountable.swift */,
 				FF412CB625E3064A00F9DCE8 /* OracleSimulatorMatrix+MatrixCountable.swift */,
 			);
@@ -4022,6 +4026,7 @@
 				FFB77E9425BC63CA008798F6 /* DirectStatevectorIndexingFactory.swift in Sources */,
 				FF3C364425584FCD007F15C2 /* CrossedLinesPositionViewFactory.swift in Sources */,
 				FFA50BB32357BEDC00BA9BAC /* UnitarySimulatorFacade.swift in Sources */,
+				FFAC723625E5A8CB00C90763 /* CircuitSimulatorMatrix+MatrixCountable.swift in Sources */,
 				FF3307102205ECE300C92BD1 /* MainGeneticFactory.swift in Sources */,
 				FF9FBCDC21C57A160070D943 /* NotGate.swift in Sources */,
 				FF0D74292528F51B00C970CB /* Vector+EliminationMatrix.swift in Sources */,
@@ -4618,6 +4623,7 @@
 				FF3933A1245EE318000E93D4 /* StatevectorRegisterFactoryAdapter.swift in Sources */,
 				FF5920E52221AE5D00C86F6A /* GeneticCircuitEvaluatorFactory.swift in Sources */,
 				FF46EDE9216925040044C3CA /* Circuit.swift in Sources */,
+				FFAC723725E5A8CB00C90763 /* CircuitSimulatorMatrix+MatrixCountable.swift in Sources */,
 				FF06CF7325D04F070073B7FF /* FixedNotGate+RawInputsExtracting.swift in Sources */,
 				FFF8D7DC241EE37900A039DA /* Rational+QuotientAndRemainderWithDivisionType.swift in Sources */,
 				FF13D839256AC645006EA2BA /* Gate+CircuitViewLayerComponents.swift in Sources */,

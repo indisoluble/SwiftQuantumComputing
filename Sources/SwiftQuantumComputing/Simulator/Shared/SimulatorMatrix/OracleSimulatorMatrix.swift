@@ -56,14 +56,6 @@ struct OracleSimulatorMatrix {
                   controlCount: controlCount,
                   controlledCountableMatrix: controlledCountableMatrix)
     }
-
-    // MARK: - Internal methods
-
-    func expandedRawMatrix() -> Matrix {
-        return try! Matrix.makeMatrix(rowCount: count,
-                                      columnCount: count,
-                                      value: { self[$0, $1] }).get()
-    }
 }
 
 // MARK: - SimulatorMatrix methods

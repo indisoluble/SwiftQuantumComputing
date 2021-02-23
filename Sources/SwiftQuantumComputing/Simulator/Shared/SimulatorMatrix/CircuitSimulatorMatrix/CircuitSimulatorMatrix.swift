@@ -25,6 +25,10 @@ import Foundation
 
 struct CircuitSimulatorMatrix {
 
+    // MARK: - MatrixCountable properties
+
+    let count: Int
+
     // MARK: - Private properties
 
     private let baseMatrix: SimulatorMatrix
@@ -51,6 +55,7 @@ struct CircuitSimulatorMatrix {
 
         self.stateEquivalences = Array(stateEquivalences)
         self.baseMatrix = baseMatrix
+        self.count = count
     }
 }
 

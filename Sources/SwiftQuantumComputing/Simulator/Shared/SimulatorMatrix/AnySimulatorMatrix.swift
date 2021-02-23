@@ -50,4 +50,8 @@ extension AnySimulatorMatrix: SimulatorMatrix {
     subscript(row: Int, column: Int) -> Complex<Double> {
         return matrix[row, column]
     }
+
+    func expandedRawMatrix() -> Matrix {
+        return matrix.expandedRawMatrix()
+    }
 }
