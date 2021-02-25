@@ -23,5 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol ComponentsStatevectorTransformation {
-    func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector
+    typealias Components = (matrix: SimulatorMatrix, inputs: [Int])
+
+    func apply(components: Components, toStatevector vector: Vector) -> Vector
 }

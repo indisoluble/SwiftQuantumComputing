@@ -22,4 +22,8 @@ import Foundation
 
 // MARK: - SimulatorCircuitRow methods
 
-extension CircuitSimulatorMatrix: SimulatorCircuitRow {}
+extension CircuitSimulatorMatrix: SimulatorCircuitRow {
+    subscript(row: Int) -> Vector {
+        return try! Vector.makeVector(count: count, value: { self[row, $0] }).get()
+    }
+}

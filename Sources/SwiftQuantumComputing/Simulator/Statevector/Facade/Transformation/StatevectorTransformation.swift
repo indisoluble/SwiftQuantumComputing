@@ -30,7 +30,8 @@ protocol StatevectorTransformation {
 
 extension StatevectorTransformation where Self: ComponentsStatevectorTransformation {
     func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, GateError> {
-        switch gate.extractComponents(restrictedToCircuitQubitCount: Int.log2(vector.count)) {
+        let extractor = SimulatorMatrixExtractor(extractor: gate)
+        switch extractor.extractComponents(restrictedToCircuitQubitCount: Int.log2(vector.count)) {
         case .success(let components):
             return .success(apply(components: components, toStatevector: vector))
         case .failure(let error):

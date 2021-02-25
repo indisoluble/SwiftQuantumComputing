@@ -42,13 +42,11 @@ extension CircuitMatrixStatevectorTransformation: StatevectorTransformation {}
 // MARK: - ComponentsStatevectorTransformation methods
 
 extension CircuitMatrixStatevectorTransformation: ComponentsStatevectorTransformation {
-    func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
+    func apply(components: Components, toStatevector vector: Vector) -> Vector {
         let qubitCount = Int.log2(vector.count)
-        let baseMatrix = components.simulatorGateMatrix.expandedMatrix()
-        let inputs = components.inputs
         let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
-                                                            baseMatrix: baseMatrix,
-                                                            inputs: inputs)
+                                                            baseMatrix: components.matrix,
+                                                            inputs: components.inputs)
         return try! (circuitMatrix.expandedRawMatrix() * vector).get()
     }
 }

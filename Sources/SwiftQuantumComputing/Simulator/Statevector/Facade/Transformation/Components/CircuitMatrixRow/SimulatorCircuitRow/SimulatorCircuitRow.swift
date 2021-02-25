@@ -25,11 +25,3 @@ import Foundation
 protocol SimulatorCircuitRow {
     subscript(row: Int) -> Vector { get }
 }
-
-// MARK: - SimulatorCircuitRow default implementations
-
-extension SimulatorCircuitRow where Self: SimulatorMatrix {
-    subscript(row: Int) -> Vector {
-        return try! Vector.makeVector(count: count, value: { self[row, $0] }).get()
-    }
-}
