@@ -49,32 +49,41 @@ struct DirectStatevectorTransformation {
 
 // MARK: - StatevectorTransformation methods
 
-extension DirectStatevectorTransformation: StatevectorTransformation {}
+extension DirectStatevectorTransformation: StatevectorTransformation {
+    func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, GateError> {
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
+        let qubitCount = Int.log2(vector.count)
 
-// MARK: - ComponentsStatevectorTransformation methods
+        let gateMatrix: SimulatorControlledMatrix
+        let gateInputs: [Int]
+        switch extractor.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        case .success((let matrix, let inputs)):
+            gateMatrix = matrix
+            gateInputs = inputs
+        case .failure(let error):
+            return .failure(error)
+        }
 
-extension DirectStatevectorTransformation: ComponentsStatevectorTransformation {
-    func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
-        let simulatorGateMatrix = components.simulatorGateMatrix
-        let matrix = simulatorGateMatrix.controlledMatrix
+        let matrix = gateMatrix.controlledCountableMatrix
+        let controlCount = gateMatrix.controlCount
 
-        let controlCount = simulatorGateMatrix.controlCount
-        let inputs = Array(components.inputs[controlCount..<components.inputs.count])
+        let controls = Array(gateInputs[0..<controlCount])
+        let inputs = Array(gateInputs[controlCount..<gateInputs.count])
 
         var filter: Int? = nil
         if controlCount > 0 {
-            let controls = Array(components.inputs[0..<controlCount])
             filter = Int.mask(activatingBitsAt: controls)
         }
 
         let indexer = (inputs.count == 1 ?
                         indexingFactory.makeSingleQubitGateIndexer(gateInput: inputs[0]) :
                         indexingFactory.makeMultiQubitGateIndexer(gateInputs: inputs))
+        let nextVector = apply(matrix: matrix,
+                               toStatevector: vector,
+                               transformingIndexesWith: indexer,
+                               selectingStatesWith: filter)
 
-        return apply(matrix: matrix,
-                     toStatevector: vector,
-                     transformingIndexesWith: indexer,
-                     selectingStatesWith: filter)
+        return .success(nextVector)
     }
 }
 
