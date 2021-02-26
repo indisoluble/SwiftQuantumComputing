@@ -59,6 +59,10 @@ struct CircuitSimulatorMatrix {
     }
 }
 
+// MARK: - MatrixCountable methods
+
+extension CircuitSimulatorMatrix: MatrixCountable {}
+
 // MARK: - SimulatorMatrix methods
 
 extension CircuitSimulatorMatrix: SimulatorMatrix {

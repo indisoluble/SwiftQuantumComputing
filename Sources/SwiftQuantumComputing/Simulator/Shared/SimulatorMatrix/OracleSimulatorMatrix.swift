@@ -58,6 +58,10 @@ struct OracleSimulatorMatrix {
     }
 }
 
+// MARK: - MatrixCountable methods
+
+extension OracleSimulatorMatrix: MatrixCountable {}
+
 // MARK: - SimulatorMatrix methods
 
 extension OracleSimulatorMatrix: SimulatorMatrix {
