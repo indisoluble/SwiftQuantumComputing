@@ -28,12 +28,18 @@ protocol StatevectorTransformation {
 
 // MARK: - StatevectorTransformation default implementations
 
-extension StatevectorTransformation where Self: ComponentsStatevectorTransformation {
+extension StatevectorTransformation where Self: CircuitSimulatorMatrixStatevectorTransformation {
     func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, GateError> {
         let extractor = SimulatorMatrixExtractor(extractor: gate)
-        switch extractor.extractComponents(restrictedToCircuitQubitCount: Int.log2(vector.count)) {
-        case .success(let components):
-            return .success(apply(components: components, toStatevector: vector))
+        let qubitCount = Int.log2(vector.count)
+
+        switch extractor.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        case .success((let baseMatrix, let inputs)):
+            let circuitMatrix = CircuitSimulatorMatrix(qubitCount: qubitCount,
+                                                       baseMatrix: baseMatrix,
+                                                       inputs: inputs)
+
+            return .success(apply(matrix: circuitMatrix, toStatevector: vector))
         case .failure(let error):
             return .failure(error)
         }

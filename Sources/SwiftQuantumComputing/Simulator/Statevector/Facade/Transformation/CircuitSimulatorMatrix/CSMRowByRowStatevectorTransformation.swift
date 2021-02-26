@@ -1,5 +1,5 @@
 //
-//  CircuitMatrixRowStatevectorTransformation.swift
+//  CSMRowByRowStatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/05/2020.
@@ -22,11 +22,10 @@ import Foundation
 
 // MARK: - Main body
 
-struct CircuitMatrixRowStatevectorTransformation {
+struct CSMRowByRowStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let rowFactory: SimulatorCircuitRowFactory
     private let maxConcurrency: Int
 
     // MARK: - Internal init methods
@@ -35,30 +34,25 @@ struct CircuitMatrixRowStatevectorTransformation {
         case maxConcurrencyHasToBiggerThanZero
     }
 
-    init(rowFactory: SimulatorCircuitRowFactory, maxConcurrency: Int) throws {
+    init(maxConcurrency: Int) throws {
         guard maxConcurrency > 0 else {
             throw InitError.maxConcurrencyHasToBiggerThanZero
         }
 
-        self.rowFactory = rowFactory
         self.maxConcurrency = maxConcurrency
     }
 }
 
 // MARK: - StatevectorTransformation methods
 
-extension CircuitMatrixRowStatevectorTransformation: StatevectorTransformation {}
+extension CSMRowByRowStatevectorTransformation: StatevectorTransformation {}
 
-// MARK: - ComponentsStatevectorTransformation methods
+// MARK: - CircuitSimulatorMatrixStatevectorTransformation methods
 
-extension CircuitMatrixRowStatevectorTransformation: ComponentsStatevectorTransformation {
-    func apply(components: Components, toStatevector vector: Vector) -> Vector {
-        let qubitCount = Int.log2(vector.count)
-        let circuitRow = rowFactory.makeCircuitMatrixRow(qubitCount: qubitCount,
-                                                         baseMatrix: components.matrix,
-                                                         inputs: components.inputs)
+extension CSMRowByRowStatevectorTransformation: CircuitSimulatorMatrixStatevectorTransformation {
+    func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector {
         return try! Vector.makeVector(count: vector.count,
                                       maxConcurrency: maxConcurrency,
-                                      value: { try! (circuitRow[$0] * vector).get() }).get()
+                                      value: { try! (matrix[$0] * vector).get() }).get()
     }
 }

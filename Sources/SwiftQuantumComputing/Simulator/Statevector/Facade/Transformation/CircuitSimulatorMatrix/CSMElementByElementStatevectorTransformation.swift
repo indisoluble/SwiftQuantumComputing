@@ -1,5 +1,5 @@
 //
-//  CircuitMatrixElementStatevectorTransformation.swift
+//  CSMElementByElementStatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/05/2020.
@@ -22,11 +22,10 @@ import Foundation
 
 // MARK: - Main body
 
-struct CircuitMatrixElementStatevectorTransformation {
+struct CSMElementByElementStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let matrixFactory: CircuitSimulatorMatrixFactory
     private let maxConcurrency: Int
 
     // MARK: - Internal init methods
@@ -35,32 +34,26 @@ struct CircuitMatrixElementStatevectorTransformation {
         case maxConcurrencyHasToBiggerThanZero
     }
 
-    init(matrixFactory: CircuitSimulatorMatrixFactory, maxConcurrency: Int) throws {
+    init(maxConcurrency: Int) throws {
         guard maxConcurrency > 0 else {
             throw InitError.maxConcurrencyHasToBiggerThanZero
         }
 
-        self.matrixFactory = matrixFactory
         self.maxConcurrency = maxConcurrency
     }
 }
 
 // MARK: - StatevectorTransformation methods
 
-extension CircuitMatrixElementStatevectorTransformation: StatevectorTransformation {}
+extension CSMElementByElementStatevectorTransformation: StatevectorTransformation {}
 
-// MARK: - ComponentsStatevectorTransformation methods
+// MARK: - CircuitSimulatorMatrixStatevectorTransformation methods
 
-extension CircuitMatrixElementStatevectorTransformation: ComponentsStatevectorTransformation {
-    func apply(components: Components, toStatevector vector: Vector) -> Vector {
-        let qubitCount = Int.log2(vector.count)
-        let circuitElement = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
-                                                             baseMatrix: components.matrix,
-                                                             inputs: components.inputs)
-        let count = vector.count
-        return try! Vector.makeVector(count: count, maxConcurrency: maxConcurrency, value: { idx in
+extension CSMElementByElementStatevectorTransformation: CircuitSimulatorMatrixStatevectorTransformation {
+    func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector {
+        return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { idx in
             return vector.enumerated().reduce(.zero) { acc, val in
-                return acc + val.element * circuitElement[idx, val.offset]
+                return acc + val.element * matrix[idx, val.offset]
             }
         }).get()
     }

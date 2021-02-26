@@ -110,19 +110,11 @@ private extension MainCircuitFactory {
         let transformation: StatevectorTransformation!
         switch statevectorConfiguration {
         case .fullMatrix:
-            let matrixFactory = CircuitSimulatorMatrixFactoryAdapter()
-
-            transformation = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
+            transformation = CSMFullMatrixStatevectorTransformation()
         case .rowByRow(let maxConcurrency):
-            let rowFactory = SimulatorCircuitRowFactoryAdapter()
-
-            transformation = try! CircuitMatrixRowStatevectorTransformation(rowFactory: rowFactory,
-                                                                            maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+            transformation = try! CSMRowByRowStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         case .elementByElement(let maxConcurrency):
-            let matrixFactory = CircuitSimulatorMatrixFactoryAdapter()
-
-            transformation = try! CircuitMatrixElementStatevectorTransformation(matrixFactory: matrixFactory,
-                                                                                maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+            transformation = try! CSMElementByElementStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         case .direct(let maxConcurrency):
             let indexingFactory = DirectStatevectorIndexingFactoryAdapter()
 

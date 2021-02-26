@@ -1,9 +1,9 @@
 //
-//  CircuitSimulatorMatrixFactory.swift
+//  CircuitSimulatorMatrixStatevectorTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 03/02/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 06/02/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,10 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol CircuitSimulatorMatrixFactory {
-    typealias CircuitMatrix = SimulatorMatrix
-
-    func makeCircuitMatrix(qubitCount: Int,
-                           baseMatrix: SimulatorMatrix,
-                           inputs: [Int]) -> CircuitMatrix
+protocol CircuitSimulatorMatrixStatevectorTransformation {
+    func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector
 }
