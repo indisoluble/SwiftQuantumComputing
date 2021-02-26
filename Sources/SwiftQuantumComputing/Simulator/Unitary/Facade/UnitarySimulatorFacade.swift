@@ -46,7 +46,7 @@ extension UnitarySimulatorFacade: UnitarySimulator {
         var unitaryGate: UnitaryGate?
         for gate in circuit {
             let result = (unitaryGate == nil ?
-                gateFactory.makeGate(qubitCount: qubitCount, simulatorGate: gate) :
+                gateFactory.makeUnitaryGate(qubitCount: qubitCount, gate: gate) :
                 unitaryGate!.applying(gate))
             switch result {
             case .success(let nextGate):

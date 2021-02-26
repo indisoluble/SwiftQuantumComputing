@@ -23,14 +23,14 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol MatrixExtracting {
-    associatedtype ExtractedMatrix: MatrixCountable
+    associatedtype ExtractedMatrix
 
     func extractMatrix() -> Result<ExtractedMatrix, GateError>
 }
 
 // MARK: - MatrixExtracting default implementations
 
-extension MatrixExtracting where Self: RawInputsExtracting {
+extension MatrixExtracting where Self: RawInputsExtracting, ExtractedMatrix: MatrixCountable {
     typealias Components = (matrix: ExtractedMatrix, inputs: [Int])
 
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
@@ -67,6 +67,19 @@ extension MatrixExtracting where Self: RawInputsExtracting {
     }
 }
 
+extension MatrixExtracting where Self: RawInputsExtracting, ExtractedMatrix: MatrixCountable & SimulatorMatrix {
+    func extractCircuitMatrix(restrictedToCircuitQubitCount qubitCount: Int) -> Result<CircuitSimulatorMatrix, GateError> {
+        switch extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        case .success((let baseMatrix, let inputs)):
+            return .success(CircuitSimulatorMatrix(qubitCount: qubitCount,
+                                                   baseMatrix: baseMatrix,
+                                                   inputs: inputs))
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}
+
 // MARK: - Private body
 
 private extension MatrixExtracting {
@@ -77,13 +90,13 @@ private extension MatrixExtracting {
         return (inputs.count == Set(inputs).count)
     }
 
-    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: ExtractedMatrix) -> Bool {
+    func doesInputCountMatchMatrixQubitCount(_ inputs: [Int], matrix: MatrixCountable) -> Bool {
         let matrixQubitCount = Int.log2(matrix.count)
 
         return (inputs.count == matrixQubitCount)
     }
 
-    func doesMatrixFitInCircuit(_ matrix: ExtractedMatrix, qubitCount: Int) -> Bool {
+    func doesMatrixFitInCircuit(_ matrix: MatrixCountable, qubitCount: Int) -> Bool {
         let matrixQubitCount = Int.log2(matrix.count)
 
         return matrixQubitCount <= qubitCount

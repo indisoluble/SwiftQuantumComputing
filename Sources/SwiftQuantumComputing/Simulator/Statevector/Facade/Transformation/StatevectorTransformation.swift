@@ -33,12 +33,8 @@ extension StatevectorTransformation where Self: CircuitSimulatorMatrixStatevecto
         let extractor = SimulatorMatrixExtractor(extractor: gate)
         let qubitCount = Int.log2(vector.count)
 
-        switch extractor.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
-        case .success((let baseMatrix, let inputs)):
-            let circuitMatrix = CircuitSimulatorMatrix(qubitCount: qubitCount,
-                                                       baseMatrix: baseMatrix,
-                                                       inputs: inputs)
-
+        switch extractor.extractCircuitMatrix(restrictedToCircuitQubitCount: qubitCount) {
+        case .success(let circuitMatrix):
             return .success(apply(matrix: circuitMatrix, toStatevector: vector))
         case .failure(let error):
             return .failure(error)
