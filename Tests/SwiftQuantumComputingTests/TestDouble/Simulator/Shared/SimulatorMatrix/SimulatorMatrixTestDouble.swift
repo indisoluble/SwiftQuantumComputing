@@ -29,9 +29,6 @@ final class SimulatorMatrixTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var countCount = 0
-    var countResult = 0
-
     private (set) var subscriptCount = 0
     private (set) var lastSubscriptRow: Int?
     private (set) var lastSubscriptColumn: Int?
@@ -44,12 +41,6 @@ final class SimulatorMatrixTestDouble {
 // MARK: - SimulatorMatrix methods
 
 extension SimulatorMatrixTestDouble: SimulatorMatrix {
-    var count: Int {
-        countCount += 1
-
-        return countResult
-    }
-
     subscript(row: Int, column: Int) -> Complex<Double> {
         subscriptCount += 1
 
@@ -58,9 +49,7 @@ extension SimulatorMatrixTestDouble: SimulatorMatrix {
 
         return subscriptResult
     }
-}
 
-extension SimulatorMatrixTestDouble: RawMatrixExpandable {
     func expandedRawMatrix() -> Matrix {
         expandedRawMatrixCount += 1
 

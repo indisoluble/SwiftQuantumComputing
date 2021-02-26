@@ -29,8 +29,8 @@ final class UnitaryGateFactoryTestDouble {
     // MARK: - Internal properties
 
     private (set) var makeGateCount = 0
-    private (set) var lastMakeGateQubitCount: Int?
-    private (set) var lastMakeGateSimulatorGate: SimulatorGate?
+    private (set) var lastMakeUnitaryGateQubitCount: Int?
+    private (set) var lastMakeUnitaryGateGate: Gate?
     var applyingResult: UnitaryGateTestDouble?
     var applyingError = GateError.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas
 }
@@ -38,11 +38,11 @@ final class UnitaryGateFactoryTestDouble {
 // MARK: - UnitaryGateFactory methods
 
 extension UnitaryGateFactoryTestDouble: UnitaryGateFactory {
-    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) -> Result<UnitaryGate, GateError> {
+    func makeUnitaryGate(qubitCount: Int, gate: Gate) -> Result<UnitaryGate, GateError> {
         makeGateCount += 1
 
-        lastMakeGateQubitCount = qubitCount
-        lastMakeGateSimulatorGate = simulatorGate
+        lastMakeUnitaryGateQubitCount = qubitCount
+        lastMakeUnitaryGateGate = gate
 
         if let applyingResult = applyingResult {
             return .success(applyingResult)

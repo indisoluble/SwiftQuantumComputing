@@ -28,7 +28,7 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let transformation = ComponentsStatevectorTransformationTestDouble()
+    let transformation = StatevectorTransformationTestDouble()
     let oneQubitZeroVector = try! Vector([.one, .zero])
     let threeQubitZeroVector = try! Vector([.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero])
     let threeQubitFourVector = try! Vector([.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero])
@@ -72,8 +72,8 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
         // Then
         XCTAssertEqual(transformation.applyCount, 1)
+        XCTAssertEqual(transformation.lastApplyGate, gate)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
-        XCTAssertEqual(transformation.lastApplyInputs, controls + [target])
         XCTAssertEqual(result?.measure(), threeQubitFourVector)
     }
 

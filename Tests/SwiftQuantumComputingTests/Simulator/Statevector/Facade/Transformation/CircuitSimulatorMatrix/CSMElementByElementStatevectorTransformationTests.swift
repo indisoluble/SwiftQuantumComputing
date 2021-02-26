@@ -1,5 +1,5 @@
 //
-//  CircuitMatrixRowStatevectorTransformationTests.swift
+//  CSMElementByElementStatevectorTransformationTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/05/2020.
@@ -25,50 +25,33 @@ import XCTest
 
 // MARK: - Main body
 
-class CircuitMatrixRowStatevectorTransformationTests: XCTestCase {
+class CSMElementByElementStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Tests
 
     func testMaxConcurrencyEqualToZero_init_throwError() {
-        // Given
-        let rowFactory = SimulatorCircuitRowFactoryTestDouble()
-
         // Then
-        XCTAssertThrowsError(try CircuitMatrixRowStatevectorTransformation(rowFactory: rowFactory,
-                                                                           maxConcurrency: 0))
+        XCTAssertThrowsError(try CSMElementByElementStatevectorTransformation(maxConcurrency: 0))
     }
 
     func testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne() {
         // Given
-        let rowFactory = SimulatorCircuitRowFactoryTestDouble()
-
         let qubitCount = 2
         var elements = Array(repeating: Complex<Double>.zero, count: Int.pow(2, qubitCount))
         elements[0] = .one
 
         let vector = try! Vector(elements)
-        let adapter = try! CircuitMatrixRowStatevectorTransformation(rowFactory: rowFactory,
-                                                                     maxConcurrency: 1)
+        let adapter = try! CSMElementByElementStatevectorTransformation(maxConcurrency: 1)
 
-        let gateInputs = [0]
-        let gateMatrix = Matrix.makeNot()
-
-        let circuitRow = SimulatorCircuitRowFactoryAdapter().makeCircuitMatrixRow(qubitCount: qubitCount,
-                                                                                  baseMatrix: gateMatrix,
-                                                                                  inputs: gateInputs)
-        rowFactory.makeCircuitMatrixRowResult = circuitRow
+        let circuitElement = CircuitSimulatorMatrix(qubitCount: qubitCount,
+                                                    baseMatrix: Matrix.makeNot(),
+                                                    inputs: [0])
 
         // When
-        let result = adapter.apply(components: (gateMatrix, gateInputs), toStatevector: vector)
+        let result = adapter.apply(matrix: circuitElement, toStatevector: vector)
 
         // Then
-        XCTAssertEqual(rowFactory.makeCircuitMatrixRowCount, 1)
-        XCTAssertEqual(rowFactory.lastMakeCircuitMatrixRowQubitCount, qubitCount)
-        XCTAssertEqual((rowFactory.lastMakeCircuitMatrixRowBaseMatrix as? RawMatrixExpandable)?.expandedRawMatrix(),
-                       gateMatrix)
-        XCTAssertEqual(rowFactory.lastMakeCircuitMatrixRowInputs, gateInputs)
-
-        let expectedVector = try! Vector([.zero, .one, .zero, .zero])
+        let expectedVector = try! Vector([Complex.zero, Complex.one, Complex.zero, Complex.zero])
         XCTAssertEqual(result, expectedVector)
     }
 
@@ -78,4 +61,5 @@ class CircuitMatrixRowStatevectorTransformationTests: XCTestCase {
         ("testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne",
          testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne)
     ]
+
 }

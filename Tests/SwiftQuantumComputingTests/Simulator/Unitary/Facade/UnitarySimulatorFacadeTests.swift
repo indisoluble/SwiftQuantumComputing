@@ -67,12 +67,8 @@ class UnitarySimulatorFacadeTests: XCTestCase {
                        .gateThrowedError(gate: firstSimulatorGate,
                                          error: .gateMatrixHandlesMoreQubitsThatCircuitActuallyHas))
         XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
-        if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? Gate {
-            XCTAssertTrue(lastMakeGateSimulatorGate == firstSimulatorGate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateQubitCount, qubitCount)
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateGate, firstSimulatorGate)
     }
 
     func testOneGateCircuitAndGateFactoryThatReturnsGate_unitary_returnExpectedMatrix() {
@@ -91,12 +87,8 @@ class UnitarySimulatorFacadeTests: XCTestCase {
 
         // Then
         XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
-        if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? Gate {
-            XCTAssertTrue(lastMakeGateSimulatorGate == firstSimulatorGate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateQubitCount, qubitCount)
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateGate, firstSimulatorGate)
         XCTAssertEqual(firstUnitaryGate.applyingCount, 0)
         XCTAssertEqual(firstUnitaryGate.unitaryCount, 1)
         XCTAssertEqual(result, expectedResult)
@@ -117,12 +109,8 @@ class UnitarySimulatorFacadeTests: XCTestCase {
         }
         XCTAssertEqual(error, .resultingMatrixIsNotUnitary)
         XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
-        if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? Gate {
-            XCTAssertTrue(lastMakeGateSimulatorGate == firstSimulatorGate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateQubitCount, qubitCount)
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateGate, firstSimulatorGate)
         XCTAssertEqual(firstUnitaryGate.applyingCount, 0)
         XCTAssertEqual(firstUnitaryGate.unitaryCount, 1)
     }
@@ -144,18 +132,10 @@ class UnitarySimulatorFacadeTests: XCTestCase {
                        .gateThrowedError(gate: secondSimulatorGate,
                                          error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
-        if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? Gate {
-            XCTAssertTrue(lastMakeGateSimulatorGate == firstSimulatorGate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateQubitCount, qubitCount)
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateGate, firstSimulatorGate)
         XCTAssertEqual(firstUnitaryGate.applyingCount, 1)
-        if let lastApplyingGate = firstUnitaryGate.lastApplyingGate as? Gate {
-            XCTAssertTrue(lastApplyingGate == secondSimulatorGate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(firstUnitaryGate.lastApplyingGate, secondSimulatorGate)
     }
 
     func testThreeGatesCircuitFactoryThatReturnsUnitaryAndUnitariesThatDoTheSame_unitary_returnExpectedMatrix() {
@@ -176,24 +156,12 @@ class UnitarySimulatorFacadeTests: XCTestCase {
 
         // Then
         XCTAssertEqual(gateFactory.makeGateCount, 1)
-        XCTAssertEqual(gateFactory.lastMakeGateQubitCount, qubitCount)
-        if let lastMakeGateSimulatorGate = gateFactory.lastMakeGateSimulatorGate as? Gate {
-            XCTAssertTrue(lastMakeGateSimulatorGate == firstSimulatorGate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateQubitCount, qubitCount)
+        XCTAssertEqual(gateFactory.lastMakeUnitaryGateGate, firstSimulatorGate)
         XCTAssertEqual(firstUnitaryGate.applyingCount, 1)
-        if let lastApplyingGate = firstUnitaryGate.lastApplyingGate as? Gate {
-            XCTAssertTrue(lastApplyingGate == secondSimulatorGate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(firstUnitaryGate.lastApplyingGate, secondSimulatorGate)
         XCTAssertEqual(secondUnitaryGate.applyingCount, 1)
-        if let lastApplyingGate = secondUnitaryGate.lastApplyingGate as? Gate {
-            XCTAssertTrue(lastApplyingGate == thirdSimulatorGate)
-        } else {
-            XCTAssert(false)
-        }
+        XCTAssertEqual(secondUnitaryGate.lastApplyingGate, thirdSimulatorGate)
         XCTAssertEqual(thirdUnitaryGate.applyingCount, 0)
         XCTAssertEqual(thirdUnitaryGate.unitaryCount, 1)
         XCTAssertEqual(result, expectedResult)

@@ -26,31 +26,18 @@ import XCTest
 
 class SimulatorControlledMatrixAdapterTests: XCTestCase {
 
-    func testNotMatrixAndControlCountToTwo_matrixCount_returnExpectedValue() {
-        // Given
-        let controlledMatrix = Matrix.makeNot()
-        let controlCount = 2
-        let sut = SimulatorControlledMatrixAdapter(controlCount: controlCount,
-                                                   controlledMatrix: controlledMatrix)
-
-        // Then
-        XCTAssertEqual(sut.expandedMatrixCount, 8)
-    }
-
     func testNotMatrixAndControlCountToOne_expandedMatrix_returnExpectedMatrix() {
         // Given
         let controlledMatrix = Matrix.makeNot()
         let controlCount = 1
         let sut = SimulatorControlledMatrixAdapter(controlCount: controlCount,
-                                                   controlledMatrix: controlledMatrix)
+                                                   controlledCountableMatrix: controlledMatrix)
 
         // Then
-        XCTAssertEqual(sut.expandedMatrix().expandedRawMatrix(), Matrix.makeControlledNot())
+        XCTAssertEqual(sut.expandedOracleMatrix().expandedRawMatrix(), Matrix.makeControlledNot())
     }
 
     static var allTests = [
-        ("testNotMatrixAndControlCountToTwo_matrixCount_returnExpectedValue",
-         testNotMatrixAndControlCountToTwo_matrixCount_returnExpectedValue),
         ("testNotMatrixAndControlCountToOne_expandedMatrix_returnExpectedMatrix",
          testNotMatrixAndControlCountToOne_expandedMatrix_returnExpectedMatrix)
     ]

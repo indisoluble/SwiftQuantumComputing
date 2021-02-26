@@ -1,9 +1,9 @@
 //
-//  ComponentsStatevectorTransformationTestDouble.swift
+//  StatevectorTransformationTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 08/05/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 27/02/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,31 +24,30 @@ import Foundation
 
 // MARK: - Main body
 
-final class ComponentsStatevectorTransformationTestDouble {
+final class StatevectorTransformationTestDouble {
 
     // MARK: - Internal properties
 
     private (set) var applyCount = 0
-    private (set) var lastApplyMatrix: SimulatorControlledMatrix?
+    private (set) var lastApplyGate: Gate?
     private (set) var lastApplyVector: Vector?
-    private (set) var lastApplyInputs: [Int]?
-    var applyResult = try! Vector([.one, .zero])
+    var applyResult: Vector?
+    var applyError = GateError.gateControlsCanNotBeAnEmptyList
 }
 
 // MARK: - StatevectorTransformation methods
 
-extension ComponentsStatevectorTransformationTestDouble: StatevectorTransformation {}
-
-// MARK: - ComponentsStatevectorTransformation methods
-
-extension ComponentsStatevectorTransformationTestDouble: ComponentsStatevectorTransformation {
-    func apply(components: SimulatorGate.Components, toStatevector vector: Vector) -> Vector {
+extension StatevectorTransformationTestDouble: StatevectorTransformation {
+    func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, GateError> {
         applyCount += 1
 
-        lastApplyMatrix = components.simulatorGateMatrix
+        lastApplyGate = gate
         lastApplyVector = vector
-        lastApplyInputs = components.inputs
 
-        return applyResult
+        if let applyResult = applyResult {
+            return .success(applyResult)
+        }
+
+        return .failure(applyError)
     }
 }

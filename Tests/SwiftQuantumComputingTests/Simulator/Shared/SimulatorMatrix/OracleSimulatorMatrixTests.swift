@@ -48,7 +48,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
         let controlCount = 5
         let matrix = OracleSimulatorMatrix(truthTable: [],
                                            controlCount: controlCount,
-                                           controlledMatrix: notMatrix)
+                                           controlledCountableMatrix: notMatrix)
 
         // Then
         XCTAssertEqual(matrix.expandedRawMatrix(),
@@ -60,7 +60,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
         let controlCount = 5
         let matrix = OracleSimulatorMatrix(truthTable: [""],
                                            controlCount: controlCount,
-                                           controlledMatrix: notMatrix)
+                                           controlledCountableMatrix: notMatrix)
 
         // Then
         XCTAssertEqual(matrix.expandedRawMatrix(),
@@ -73,7 +73,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
         let controlCount = 5
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
-                                           controlledMatrix: notMatrix)
+                                           controlledCountableMatrix: notMatrix)
 
         // Then
         XCTAssertEqual(matrix.expandedRawMatrix(),
@@ -86,7 +86,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
         let truthTable = [String(repeating: "1", count: controlCount + 1)]
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
-                                           controlledMatrix: notMatrix)
+                                           controlledCountableMatrix: notMatrix)
 
         // Then
         XCTAssertEqual(matrix.expandedRawMatrix(),
@@ -99,7 +99,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
         let controlCount = 1
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
-                                           controlledMatrix: notMatrix)
+                                           controlledCountableMatrix: notMatrix)
 
         // Then
         let rows: [[Complex<Double>]] = [
@@ -118,7 +118,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
         let controlCount = 1
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
-                                           controlledMatrix: notMatrix)
+                                           controlledCountableMatrix: notMatrix)
 
         // Then
         let rows: [[Complex<Double>]] = [
@@ -137,7 +137,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
         let controlCount = 2
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
-                                           controlledMatrix: notMatrix)
+                                           controlledCountableMatrix: notMatrix)
 
         // Then
         let rows: [[Complex<Double>]] = [
@@ -166,7 +166,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
         ])
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
-                                           controlledMatrix: controlledMatrix)
+                                           controlledCountableMatrix: controlledMatrix)
 
         // Then
         let rows: [[Complex<Double>]] = [
@@ -210,7 +210,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
     func testTwoByTwoMatrixControlCountEqualToOneAndControlActivated_expandedRawMatrix_returnExpectedMatrix() {
         // Given
         let matrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
-                                           controlledMatrix: twoByTwoMatrix)
+                                           controlledCountableMatrix: twoByTwoMatrix)
 
         // Then
         let expectedResult = try! Matrix([
@@ -225,7 +225,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
     func testTwoByTwoMatrixControlCountEqualToTwoAndAllControlsActivated_expandedRawMatrix_returnExpectedMatrix() {
         // Given
         let matrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 2,
-                                           controlledMatrix: twoByTwoMatrix)
+                                           controlledCountableMatrix: twoByTwoMatrix)
 
         // Then
         let expectedResult = try! Matrix([
