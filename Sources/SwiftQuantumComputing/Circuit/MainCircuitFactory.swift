@@ -90,10 +90,7 @@ private extension MainCircuitFactory {
     // MARK: - Private methods
 
     func makeUnitarySimulator() -> UnitarySimulator {
-        let matrixFactory = SimulatorCircuitMatrixFactoryAdapter()
-        let unitaryGateFactory = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
-
-        return UnitarySimulatorFacade(gateFactory: unitaryGateFactory)
+        return UnitarySimulatorFacade(gateFactory: UnitaryGateFactoryAdapter())
     }
 
     func makeStatevectorSimulator() -> StatevectorSimulator {
@@ -107,24 +104,19 @@ private extension MainCircuitFactory {
     }
 
     func makeStatevectorTransformation() -> StatevectorTransformation {
-        var transformation: StatevectorTransformation!
+        let transformation: StatevectorTransformation!
         switch statevectorConfiguration {
         case .fullMatrix:
-            let matrixFactory = SimulatorCircuitMatrixFactoryAdapter()
-
-            transformation = CircuitMatrixStatevectorTransformation(matrixFactory: matrixFactory)
+            transformation = CSMFullMatrixStatevectorTransformation()
         case .rowByRow(let maxConcurrency):
-            let rowFactory = SimulatorCircuitRowFactoryAdapter()
-
-            transformation = try! CircuitMatrixRowStatevectorTransformation(rowFactory: rowFactory,
-                                                                            maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+            transformation = try! CSMRowByRowStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         case .elementByElement(let maxConcurrency):
-            let matrixFactory = SimulatorCircuitMatrixFactoryAdapter()
-
-            transformation = try! CircuitMatrixElementStatevectorTransformation(matrixFactory: matrixFactory,
-                                                                                maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+            transformation = try! CSMElementByElementStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         case .direct(let maxConcurrency):
-            transformation = try! DirectStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+            let indexingFactory = DirectStatevectorIndexingFactoryAdapter()
+
+            transformation = try! DirectStatevectorTransformation(indexingFactory: indexingFactory,
+                                                                  maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         }
 
         return transformation

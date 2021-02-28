@@ -27,7 +27,6 @@ struct UnitaryGateAdapter {
     // MARK: - Private properties
 
     private let matrix: Matrix
-    private let matrixFactory: SimulatorCircuitMatrixFactory
 
     private let qubitCount: Int
 
@@ -38,7 +37,7 @@ struct UnitaryGateAdapter {
         case matrixRowCountHasToBeAPowerOfTwo
     }
 
-    init(matrix: Matrix, matrixFactory: SimulatorCircuitMatrixFactory) throws {
+    init(matrix: Matrix) throws {
         guard matrix.isSquare else {
             throw InitError.matrixIsNotSquare
         }
@@ -50,7 +49,6 @@ struct UnitaryGateAdapter {
         qubitCount = Int.log2(matrix.rowCount)
 
         self.matrix = matrix
-        self.matrixFactory = matrixFactory
     }
 }
 
@@ -65,17 +63,14 @@ extension UnitaryGateAdapter: UnitaryGate {
         return .success(matrix)
     }
 
-    func applying(_ gate: SimulatorGate) -> Result<UnitaryGate, GateError> {
-        switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
-        case .success((let simulatorGateMatrix, let inputs)):
-            let baseMatrix = simulatorGateMatrix.matrix
-            let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
-                                                                baseMatrix: baseMatrix,
-                                                                inputs: inputs)
-            let nextMatrix = try! (circuitMatrix.rawMatrix * matrix).get()
-            let adapter = try! UnitaryGateAdapter(matrix: nextMatrix, matrixFactory: matrixFactory)
+    func applying(_ gate: Gate) -> Result<UnitaryGate, GateError> {
+        let extractor = SimulatorMatrixExtractor(extractor: gate)
 
-            return .success(adapter)
+        switch extractor.extractCircuitMatrix(restrictedToCircuitQubitCount: qubitCount) {
+        case .success(let circuitMatrix):
+            let nextMatrix = try! (circuitMatrix.expandedRawMatrix() * matrix).get()
+
+            return .success(try! UnitaryGateAdapter(matrix: nextMatrix))
         case .failure(let error):
             return .failure(error)
         }

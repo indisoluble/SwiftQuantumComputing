@@ -28,7 +28,7 @@ struct FixedOracleGate {
 
     let truthTable: [String]
     let controls: [Int]
-    let gate: SimulatorComponents & SimplifiedGateConvertible
+    let gate: Gate.InternalGate
 
     // MARK: - Private properties
 
@@ -36,19 +36,14 @@ struct FixedOracleGate {
 
     // MARK: - Internal init methods
 
-    init<T: SimulatorComponents & SimplifiedGateConvertible & Hashable>(truthTable: [String],
-                                                                        controls: [Int],
-                                                                        gate: T) {
+    init<T: Gate.InternalGate & Hashable>(truthTable: [String], controls: [Int], gate: T) {
         self.init(truthTable: truthTable,
                   controls: controls,
                   gate: gate,
                   gateHash: AnyHashable(gate))
     }
 
-    init(truthTable: [String],
-         controls: [Int],
-         gate: SimulatorComponents & SimplifiedGateConvertible,
-         gateHash: AnyHashable) {
+    init(truthTable: [String], controls: [Int], gate: Gate.InternalGate, gateHash: AnyHashable) {
         self.truthTable = truthTable
         self.controls = controls
         self.gate = gate
