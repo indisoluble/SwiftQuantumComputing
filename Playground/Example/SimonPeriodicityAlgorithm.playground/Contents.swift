@@ -14,7 +14,7 @@ func makeSimonTruthTable(secret: String) -> [Gate.ExtendedTruth] {
     return tt.map { $0 }
 }
 
-let secret = "1101"
+let secret = "11010"
 
 let bitCount = secret.count
 
