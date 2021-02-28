@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol UnitaryGateFactory {
-    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) -> Result<UnitaryGate, GateError>
+    func makeUnitaryGate(qubitCount: Int, gate: Gate) -> Result<UnitaryGate, GateError>
 }

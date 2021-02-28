@@ -22,32 +22,17 @@ import Foundation
 
 // MARK: - Main body
 
-struct UnitaryGateFactoryAdapter {
-
-    // MARK: - Private properties
-
-    private let matrixFactory: SimulatorCircuitMatrixFactory
-
-    // MARK: - Internal init methods
-
-    init(matrixFactory: SimulatorCircuitMatrixFactory) {
-        self.matrixFactory = matrixFactory
-    }
-}
+struct UnitaryGateFactoryAdapter {}
 
 // MARK: - UnitaryGateFactory methods
 
 extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
-    func makeGate(qubitCount: Int, simulatorGate: SimulatorGate) -> Result<UnitaryGate, GateError> {
-        switch simulatorGate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
-        case .success((let simulatorGateMatrix, let inputs)):
-            let baseMatrix = simulatorGateMatrix.matrix
-            let circuitMatrix = matrixFactory.makeCircuitMatrix(qubitCount: qubitCount,
-                                                                baseMatrix: baseMatrix,
-                                                                inputs: inputs)
-            let adapter = try! UnitaryGateAdapter(matrix: circuitMatrix.rawMatrix,
-                                                  matrixFactory: matrixFactory)
-            return .success(adapter)
+    func makeUnitaryGate(qubitCount: Int, gate: Gate) -> Result<UnitaryGate, GateError> {
+        let extractor = SimulatorMatrixExtractor(extractor: gate)
+
+        switch extractor.extractCircuitMatrix(restrictedToCircuitQubitCount: qubitCount) {
+        case .success(let circuitMatrix):
+            return .success(try! UnitaryGateAdapter(matrix: circuitMatrix.expandedRawMatrix()))
         case .failure(let error):
             return .failure(error)
         }

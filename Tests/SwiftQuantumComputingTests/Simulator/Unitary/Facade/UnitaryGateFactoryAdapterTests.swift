@@ -26,63 +26,37 @@ import XCTest
 
 class UnitaryGateFactoryAdapterTests: XCTestCase {
 
-    // MARK: - Properties
-
-    let matrixFactory = SimulatorCircuitMatrixFactoryTestDouble()
-    let qubitCount = 1
-    let simulatorGate = SimulatorGateTestDouble()
-
     // MARK: - Tests
 
-    func testGateThatThrowsError_applying_throwError() {
+    func testGateThatThrowsError_makeUnitaryGate_throwError() {
         // Given
-        let adapter = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
+        let adapter = UnitaryGateFactoryAdapter()
+        let failingGate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
         var error: GateError?
-        if case .failure(let e) = adapter.makeGate(qubitCount: qubitCount,
-                                                   simulatorGate: simulatorGate) {
+        if case .failure(let e) = adapter.makeUnitaryGate(qubitCount: 1, gate: failingGate) {
             error = e
         }
-        XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
-        XCTAssertEqual(simulatorGate.extractComponentsCount, 1)
-        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 0)
+        XCTAssertEqual(error, .gateInputsAreNotUnique)
     }
 
-    func testGateReturnsComponents_applying_returnValue() {
+    func testGateReturnsComponents_makeUnitaryGate_returnValue() {
         // Given
-        let adapter = UnitaryGateFactoryAdapter(matrixFactory: matrixFactory)
-
-        let gateInputs = [0]
-        let gateMatrix = Matrix.makeNot()
-        simulatorGate.extractComponentsInputsResult = gateInputs
-        simulatorGate.extractComponentsMatrixResult = .singleQubitMatrix(matrix: gateMatrix)
-
-        let simulatorMatrix = Matrix.makeHadamard()
-        let circuitMatrix = SimulatorMatrixTestDouble()
-        circuitMatrix.rawMatrixResult = simulatorMatrix
-
-        matrixFactory.makeCircuitMatrixResult = circuitMatrix
+        let adapter = UnitaryGateFactoryAdapter()
+        let gate = Gate.hadamard(target: 0)
 
         // When
-        let result = try? adapter.makeGate(qubitCount: qubitCount,
-                                           simulatorGate: simulatorGate).get()
+        let result = try? adapter.makeUnitaryGate(qubitCount: 1, gate: gate).get()
 
         // Then
-        XCTAssertEqual(simulatorGate.extractComponentsCount, 1)
-        XCTAssertEqual(simulatorGate.lastExtractComponentsQubitCount, qubitCount)
-        XCTAssertEqual(matrixFactory.makeCircuitMatrixCount, 1)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixQubitCount, qubitCount)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixBaseMatrix?.rawMatrix, gateMatrix)
-        XCTAssertEqual(matrixFactory.lastMakeCircuitMatrixInputs, gateInputs)
-        XCTAssertEqual(circuitMatrix.rawMatrixCount, 1)
-        XCTAssertEqual(try? result?.unitary().get(), simulatorMatrix)
+        XCTAssertEqual(try? result?.unitary().get(), Matrix.makeHadamard())
     }
 
     static var allTests = [
-        ("testGateThatThrowsError_applying_throwError",
-         testGateThatThrowsError_applying_throwError),
-        ("testGateReturnsComponents_applying_returnValue",
-         testGateReturnsComponents_applying_returnValue)
+        ("testGateThatThrowsError_makeUnitaryGate_throwError",
+         testGateThatThrowsError_makeUnitaryGate_throwError),
+        ("testGateReturnsComponents_makeUnitaryGate_returnValue",
+         testGateReturnsComponents_makeUnitaryGate_returnValue)
     ]
 }

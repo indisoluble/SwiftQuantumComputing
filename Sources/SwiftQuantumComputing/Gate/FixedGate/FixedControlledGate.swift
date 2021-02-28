@@ -26,7 +26,7 @@ struct FixedControlledGate {
 
     // MARK: - Internal properties
 
-    let gate: SimulatorComponents & SimplifiedGateConvertible
+    let gate: Gate.InternalGate
     let controls: [Int]
 
     // MARK: - Private properties
@@ -35,11 +35,11 @@ struct FixedControlledGate {
 
     // MARK: - Internal init methods
 
-    init<T: SimulatorComponents & SimplifiedGateConvertible & Hashable>(gate: T, controls: [Int]) {
+    init<T: Gate.InternalGate & Hashable>(gate: T, controls: [Int]) {
         self.init(gate: gate, gateHash: AnyHashable(gate), controls: controls)
     }
 
-    init(gate: SimulatorComponents & SimplifiedGateConvertible, gateHash: AnyHashable, controls: [Int]) {
+    init(gate: Gate.InternalGate, gateHash: AnyHashable, controls: [Int]) {
         self.gate = gate
         self.gateHash = gateHash
         self.controls = controls

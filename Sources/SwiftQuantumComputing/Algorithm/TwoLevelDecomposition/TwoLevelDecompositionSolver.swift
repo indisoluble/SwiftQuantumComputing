@@ -40,19 +40,19 @@ public struct TwoLevelDecompositionSolver {
      */
     public static func decomposeGate(_ gate: Gate,
                                      restrictedToCircuitQubitCount qubitCount: Int? = nil) -> Result<[Gate], GateError> {
+        let extractor = SimulatorMatrixExtractor(extractor: gate)
         let actualQubitCount = (qubitCount == nil ? [gate].qubitCount() : qubitCount!)
 
-        var gateMatrix: Matrix!
-        let gateInputs: [Int]!
-        switch gate.extractComponents(restrictedToCircuitQubitCount: actualQubitCount) {
+        var gateMatrix: Matrix
+        let gateInputs: [Int]
+        switch extractor.extractComponents(restrictedToCircuitQubitCount: actualQubitCount) {
         case .success((let simulatorGateMatrix, let simulatorInputs)):
-            switch simulatorGateMatrix {
-            case .singleQubitMatrix, .fullyControlledSingleQubitMatrix:
+            if simulatorGateMatrix.count == 2 {
                 return .success([gate])
-            case .otherMultiQubitMatrix(let matrix):
-                gateMatrix = matrix.rawMatrix
-                gateInputs = simulatorInputs
             }
+
+            gateMatrix = simulatorGateMatrix.expandedRawMatrix()
+            gateInputs = simulatorInputs
         case .failure(let error):
             return .failure(error)
         }

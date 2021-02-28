@@ -72,8 +72,8 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
         // Then
         XCTAssertEqual(transformation.applyCount, 1)
+        XCTAssertEqual(transformation.lastApplyGate, gate)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
-        XCTAssertEqual(transformation.lastApplyInputs, controls + [target])
         XCTAssertEqual(result?.measure(), threeQubitFourVector)
     }
 

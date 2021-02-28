@@ -138,19 +138,25 @@ Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuan
 
 ### Two-level decomposition: Decompose any gate into an equivalent sequence faster to execute
 
-When it comes to get the statevector produced by a circuit, single-qubit gates & fully controlled matrix gates (i.e. controlled matrix gates where all inputs but one are controls) can be simulated faster. This algorithm decomposes any gate/s into an equivalent sequence of not gates and fully controlled gates. In most cases, the new sequence will be faster to execute than the original.
+When it comes to get the statevector produced by a circuit, single-qubit gates & fully controlled matrix gates (i.e. controlled matrix gates where all inputs but one are controls) can be simulated faster. This algorithm decomposes any gate/s into an equivalent sequence of not gates and fully controlled gates. In some cases, the new sequence will be faster to execute than the original; although the gates in the new sequence are faster to execute, this algorithm produces a lot of them.
 
 ```swift
 import SwiftQuantumComputing // for macOS
 
-let factory = MainCircuitFactory(statevectorConfiguration: .elementByElement(maxConcurrency: 4))
+let factory = MainCircuitFactory()
 let drawer = MainDrawerFactory().makeDrawer()
 
 //: 1. Define gates
 let gates = [
-    Gate.oracle(truthTable: ["0000", "1010"], controls: [7, 5, 2, 10], gate: .not(target: 0)),
-    Gate.oracle(truthTable: ["0011", "1100"], controls: [6, 10, 0, 1], gate: .not(target: 3)),
-    Gate.oracle(truthTable: ["1100", "1001"], controls: [3, 7, 4, 0], gate: .not(target: 10))
+    Gate.oracle(truthTable: ["000000", "101011"],
+                controls: [7, 5, 2, 10, 12, 14],
+                gate: .not(target: 0)),
+    Gate.oracle(truthTable: ["101011", "011000"],
+                controls: [14, 6, 10, 0, 11, 1],
+                gate: .hadamard(target: 3)),
+    Gate.oracle(truthTable: ["110101", "110011"],
+                controls: [3, 8, 4, 0, 13, 14],
+                gate: .phaseShift(radians: 0.25, target: 10))
 ]
 //: 2. (Optional) Draw gates to see how they look
 drawer.drawCircuit(gates).get()
@@ -166,8 +172,9 @@ diff = CFAbsoluteTimeGetCurrent() - start
 print("Original circuit decomposed in \(diff) seconds")
 //: 5. (Optional) Draw decomposition to see how it looks
 drawer.drawCircuit(decomposition).get()
-//: 6. Build a new circuit and measure how long it takes to get the statevector. Statevector calculation is optimized
-//: for the type of gates returned in the decomposition
+//: 6. Build a new circuit and measure how long it takes to get the statevector.
+//: Single qubit gates & fully controlled gates are faster to execute, however this
+//: descomposition produces a lot of them
 start = CFAbsoluteTimeGetCurrent()
 factory.makeCircuit(gates: decomposition).statevector().get()
 diff = CFAbsoluteTimeGetCurrent() - start

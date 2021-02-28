@@ -24,16 +24,15 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorMatrix {
-    var count: Int { get }
-    var rawMatrix: Matrix { get }
-
     subscript(row: Int, column: Int) -> Complex<Double> { get }
+
+    func expandedRawMatrix() -> Matrix
 }
 
 // MARK: - SimulatorMatrix default implementations
 
-extension SimulatorMatrix {
-    var rawMatrix: Matrix {
+extension SimulatorMatrix where Self: MatrixCountable {
+    func expandedRawMatrix() -> Matrix {
         return try! Matrix.makeMatrix(rowCount: count,
                                       columnCount: count,
                                       value: { self[$0, $1] }).get()

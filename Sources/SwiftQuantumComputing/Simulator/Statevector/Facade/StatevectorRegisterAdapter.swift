@@ -26,7 +26,6 @@ struct StatevectorRegisterAdapter {
 
     // MARK: - Private properties
 
-    private let qubitCount: Int
     private let vector: Vector
     private let transformation: StatevectorTransformation
 
@@ -41,7 +40,6 @@ struct StatevectorRegisterAdapter {
             throw InitError.vectorCountHasToBeAPowerOfTwo
         }
 
-        qubitCount = Int.log2(vector.count)
         self.vector = vector
         self.transformation = transformation
     }
@@ -54,10 +52,9 @@ extension StatevectorRegisterAdapter: StatevectorRegister {
         return vector
     }
 
-    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
-        switch gate.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
-        case .success(let components):
-            let nextVector = transformation.apply(components: components, toStatevector: vector)
+    func applying(_ gate: Gate) -> Result<StatevectorRegister, GateError> {
+        switch transformation.apply(gate: gate, toStatevector: vector) {
+        case .success(let nextVector):
             let adapter = try! StatevectorRegisterAdapter(vector: nextVector,
                                                           transformation: transformation)
             return .success(adapter)

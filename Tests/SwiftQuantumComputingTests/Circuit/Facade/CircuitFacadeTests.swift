@@ -54,7 +54,7 @@ class CircuitFacadeTests: XCTestCase {
 
         XCTAssertEqual(statevectorSimulator.applyStateCount, 1)
         XCTAssertTrue(lastApplyInitialStatevector as AnyObject? === initialCircuitStatevector)
-        XCTAssertEqual(lastStatevectorGates as? [Gate], gates)
+        XCTAssertEqual(lastStatevectorGates, gates)
         XCTAssertTrue(result as AnyObject? === expectedResult)
     }
 
@@ -77,7 +77,7 @@ class CircuitFacadeTests: XCTestCase {
 
         XCTAssertEqual(statevectorSimulator.applyStateCount, 1)
         XCTAssertTrue(lastApplyInitialStatevector as AnyObject? === initialCircuitStatevector)
-        XCTAssertEqual(lastStatevectorGates as? [Gate], gates)
+        XCTAssertEqual(lastStatevectorGates, gates)
         XCTAssertEqual(error, .resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
     }
 
@@ -99,7 +99,7 @@ class CircuitFacadeTests: XCTestCase {
 
         XCTAssertEqual(unitarySimulator.unitaryCount, 1)
         XCTAssertEqual(lastUnitaryQubitCount, qubitCount)
-        XCTAssertEqual(lastUnitaryGates as? [Gate], gates)
+        XCTAssertEqual(lastUnitaryGates, gates)
         XCTAssertEqual(result, expectedResult)
     }
 
@@ -122,7 +122,7 @@ class CircuitFacadeTests: XCTestCase {
 
         XCTAssertEqual(unitarySimulator.unitaryCount, 1)
         XCTAssertEqual(lastUnitaryQubitCount, qubitCount)
-        XCTAssertEqual(lastUnitaryGates as? [Gate], gates)
+        XCTAssertEqual(lastUnitaryGates, gates)
         XCTAssertEqual(error, .resultingMatrixIsNotUnitary)
     }
 

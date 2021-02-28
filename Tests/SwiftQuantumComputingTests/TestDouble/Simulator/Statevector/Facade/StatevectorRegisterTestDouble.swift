@@ -32,7 +32,7 @@ final class StatevectorRegisterTestDouble {
     var measureResult = try! Vector([.zero, .one])
 
     private (set) var simulatorApplyingCount = 0
-    private (set) var lastSimulatorApplyingGate: SimulatorGate?
+    private (set) var lastSimulatorApplyingGate: Gate?
     var simulatorApplyingResult: StatevectorRegisterTestDouble?
     var simulatorApplyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
 }
@@ -44,7 +44,7 @@ extension StatevectorRegisterTestDouble: StatevectorRegister {
         return measureResult
     }
 
-    func applying(_ gate: SimulatorGate) -> Result<StatevectorRegister, GateError> {
+    func applying(_ gate: Gate) -> Result<StatevectorRegister, GateError> {
         simulatorApplyingCount += 1
 
         lastSimulatorApplyingGate = gate

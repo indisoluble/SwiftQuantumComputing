@@ -25,14 +25,21 @@ import Foundation
 /// A generic quantum gate
 public struct Gate {
 
+    // MARK: - Internal types
+
+    typealias InternalGate = RawInputsExtracting &
+        SimulatorMatrixExtracting &
+        SimulatorControlledMatrixExtracting &
+        SimplifiedGateConvertible
+
     // MARK: - Internal properties
 
-    let gate: SimulatorComponents & SimplifiedGateConvertible
+    let gate: InternalGate
     let gateHash: AnyHashable
 
     // MARK: - Internal init methods
 
-    init<T: SimulatorComponents & SimplifiedGateConvertible & Hashable>(gate: T) {
+    init<T: InternalGate & Hashable>(gate: T) {
         self.gate = gate
 
         gateHash = AnyHashable(gate)

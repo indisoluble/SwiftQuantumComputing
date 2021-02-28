@@ -23,11 +23,7 @@ import Foundation
 // MARK: - SimulatorMatrix methods
 
 extension Matrix: SimulatorMatrix {
-    var count: Int {
-        return rowCount
-    }
-
-    var rawMatrix: Matrix {
+    func expandedRawMatrix() -> Matrix {
         return self
     }
 }
