@@ -1,5 +1,5 @@
 //
-//  TwoLevelDecompositionSolverTests.swift
+//  TwoLevelDecompositionSolverFacadeTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 09/10/2020.
@@ -25,7 +25,11 @@ import XCTest
 
 // MARK: - Main body
 
-class TwoLevelDecompositionSolverTests: XCTestCase {
+class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
+
+    // MARK: - Properties
+
+    let sut = TwoLevelDecompositionSolverFacade(singleQubitGateDecomposer: DummySingleQubitGateDecompositionSolver())
 
     // MARK: - Tests
 
@@ -35,7 +39,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
 
         // Then
         var error: GateError?
-        if case .failure(let e) = TwoLevelDecompositionSolver.decomposeGate(gateWithRepeatedInputs) {
+        if case .failure(let e) = sut.decomposeGate(gateWithRepeatedInputs) {
             error = e
         }
         XCTAssertEqual(error, .gateInputsAreNotUnique)
@@ -46,7 +50,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.not(target: 0)
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
+        let result = try? sut.decomposeGate(gate).get()
 
         // Then
         XCTAssertEqual(result, [gate])
@@ -57,7 +61,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.controlled(gate: .matrix(matrix: .makeNot(), inputs: [0]), controls: [1])
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
+        let result = try? sut.decomposeGate(gate).get()
 
         // Then
         XCTAssertEqual(result, [gate])
@@ -65,10 +69,12 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
 
     func testTwoQubitOracleGate_decomposeGate_returnExpectedGates() {
         // Given
-        let gate = Gate.oracle(truthTable: ["0"], controls: [1], gate: .matrix(matrix: .makeNot(), inputs: [0]))
+        let gate = Gate.oracle(truthTable: ["0"],
+                               controls: [1],
+                               gate: .matrix(matrix: .makeNot(), inputs: [0]))
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
+        let result = try? sut.decomposeGate(gate).get()
 
         // Then
         let expectedResult: [Gate] = [
@@ -85,7 +91,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
                                    controls: [8, 9, 1, 5, 2])
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
+        let result = try? sut.decomposeGate(gate).get()
 
         // Then
         XCTAssertEqual(result, [gate])
@@ -98,7 +104,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
                                gate: .matrix(matrix: .makeNot(), inputs: [4]))
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGate(gate).get()
+        let result = try? sut.decomposeGate(gate).get()
 
         // Then
         let expectedResult: [Gate] = [
@@ -126,8 +132,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
@@ -148,8 +153,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
@@ -170,8 +174,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
@@ -192,8 +195,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
@@ -214,8 +216,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
@@ -236,8 +237,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
@@ -258,8 +258,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
@@ -281,8 +280,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
@@ -309,8 +307,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
@@ -335,8 +332,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let unitary = try! circuitFactory.makeCircuit(gates: [gate]).unitary(withQubitCount: qubitCount).get()
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
@@ -359,8 +355,7 @@ class TwoLevelDecompositionSolverTests: XCTestCase {
         let unitary = try! circuitFactory.makeCircuit(gates: [gate]).unitary(withQubitCount: qubitCount).get()
 
         // When
-        let result = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                    restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()

@@ -133,7 +133,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(OracleSimulatorMatrixTests.allTests),
         testCase(ContinuedFractionsSolverTests.allTests),
         testCase(EuclideanSolverTests.allTests),
-        testCase(TwoLevelDecompositionSolverTests.allTests),
+        testCase(TwoLevelDecompositionSolverFacadeTests.allTests),
         testCase(TwoLevelDecompositionSolver_GatesTests.allTests),
         testCase(XorEquationSystemAdapterTests.allTests),
         testCase(XorEquationSystemBruteForceSolverTests.allTests),
