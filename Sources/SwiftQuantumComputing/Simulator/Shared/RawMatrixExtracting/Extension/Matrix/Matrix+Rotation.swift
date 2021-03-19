@@ -39,8 +39,8 @@ extension Matrix {
             elements = [[Complex(cos(angle)), Complex(-sin(angle))],
                         [Complex(sin(angle)), Complex(cos(angle))]]
         case .z:
-            elements = [[Complex(cos(angle), -sin(angle)), .zero],
-                        [.zero, Complex(cos(angle), sin(angle))]]
+            elements = [[-Complex.euler(angle), .zero],
+                        [.zero, Complex.euler(angle)]]
         }
 
         return try! Matrix(elements)
