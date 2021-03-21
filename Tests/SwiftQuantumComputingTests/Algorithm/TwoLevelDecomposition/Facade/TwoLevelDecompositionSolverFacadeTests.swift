@@ -29,7 +29,8 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
-    let sut = TwoLevelDecompositionSolverFacade(singleQubitGateDecomposer: DummySingleQubitGateDecompositionSolver())
+    let dummySut = TwoLevelDecompositionSolverFacade(singleQubitGateDecomposer: DummySingleQubitGateDecompositionSolver())
+    let cosSinSut = TwoLevelDecompositionSolverFacade(singleQubitGateDecomposer: CosineSineDecompositionSolver())
 
     // MARK: - Tests
 
@@ -39,7 +40,7 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
 
         // Then
         var error: GateError?
-        if case .failure(let e) = sut.decomposeGate(gateWithRepeatedInputs) {
+        if case .failure(let e) = dummySut.decomposeGate(gateWithRepeatedInputs) {
             error = e
         }
         XCTAssertEqual(error, .gateInputsAreNotUnique)
@@ -50,7 +51,7 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.not(target: 0)
 
         // When
-        let result = try? sut.decomposeGate(gate).get()
+        let result = try? dummySut.decomposeGate(gate).get()
 
         // Then
         XCTAssertEqual(result, [gate])
@@ -61,7 +62,7 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.controlled(gate: .matrix(matrix: .makeNot(), inputs: [0]), controls: [1])
 
         // When
-        let result = try? sut.decomposeGate(gate).get()
+        let result = try? dummySut.decomposeGate(gate).get()
 
         // Then
         XCTAssertEqual(result, [gate])
@@ -74,7 +75,7 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
                                gate: .matrix(matrix: .makeNot(), inputs: [0]))
 
         // When
-        let result = try? sut.decomposeGate(gate).get()
+        let result = try? dummySut.decomposeGate(gate).get()
 
         // Then
         let expectedResult: [Gate] = [
@@ -91,7 +92,7 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
                                    controls: [8, 9, 1, 5, 2])
 
         // When
-        let result = try? sut.decomposeGate(gate).get()
+        let result = try? dummySut.decomposeGate(gate).get()
 
         // Then
         XCTAssertEqual(result, [gate])
@@ -104,7 +105,7 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
                                gate: .matrix(matrix: .makeNot(), inputs: [4]))
 
         // When
-        let result = try? sut.decomposeGate(gate).get()
+        let result = try? dummySut.decomposeGate(gate).get()
 
         // Then
         let expectedResult: [Gate] = [
@@ -132,13 +133,19 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertEqual(unitary, expectedUnitary)
+        XCTAssertEqual(unitary, dummyUnitary)
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testAlmostControlledGateWithNegativeValues_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -153,13 +160,19 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertEqual(unitary, expectedUnitary)
+        XCTAssertEqual(unitary, dummyUnitary)
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testMatrixWithNonZeroValuesOnePositionToTheRight_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -174,13 +187,19 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertEqual(unitary, expectedUnitary)
+        XCTAssertEqual(unitary, dummyUnitary)
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testMatrixWithNonZeroValuesOnePositionToTheLeft_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -195,13 +214,19 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertEqual(unitary, expectedUnitary)
+        XCTAssertEqual(unitary, dummyUnitary)
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testMatrixWithAlmostAllNonZeroValuesOnePositionToTheLeft_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -216,13 +241,19 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertEqual(unitary, expectedUnitary)
+        XCTAssertEqual(unitary, dummyUnitary)
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testMatrixWithOppositeDiagonalPopulated_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -237,13 +268,19 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertEqual(unitary, expectedUnitary)
+        XCTAssertEqual(unitary, dummyUnitary)
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testMatrixWithOppositeDiagonalPopulatedAndNegativeValues_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -258,13 +295,19 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertEqual(unitary, expectedUnitary)
+        XCTAssertEqual(unitary, dummyUnitary)
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testMoreDenselyPopulatedMatrix_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -280,14 +323,20 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertTrue(expectedUnitary.isApproximatelyEqual(to: unitary,
-                                                           absoluteTolerance: SharedConstants.tolerance))
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: dummyUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testHadamardMatrix_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -307,14 +356,20 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gate = Gate.matrix(matrix: unitary, inputs: [1, 0])
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         let circuitFactory = MainCircuitFactory()
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertTrue(expectedUnitary.isApproximatelyEqual(to: unitary,
-                                                           absoluteTolerance: SharedConstants.tolerance))
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: dummyUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testHadamardMatrixInAThreeQubitCircuit_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -332,12 +387,19 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let unitary = try! circuitFactory.makeCircuit(gates: [gate]).unitary(withQubitCount: qubitCount).get()
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertTrue(expectedUnitary.isApproximatelyEqual(to: unitary, absoluteTolerance: SharedConstants.tolerance))
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: dummyUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     func testHadamardPhaseShiftMatrixInAThreeQubitCircuit_decomposeGate_returnGatesThatProduceSameUnitary() {
@@ -355,12 +417,19 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let unitary = try! circuitFactory.makeCircuit(gates: [gate]).unitary(withQubitCount: qubitCount).get()
 
         // When
-        let result = try! sut.decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount).get()
+        let dummyResult = try! dummySut.decomposeGate(gate,
+                                                      restrictedToCircuitQubitCount: qubitCount).get()
+        let cosSinResult = try! cosSinSut.decomposeGate(gate,
+                                                        restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
-        let expectedUnitary = try! circuitFactory.makeCircuit(gates: result).unitary(withQubitCount: qubitCount).get()
+        let dummyUnitary = try! circuitFactory.makeCircuit(gates: dummyResult).unitary(withQubitCount: qubitCount).get()
+        let cosSinUnitary = try! circuitFactory.makeCircuit(gates: cosSinResult).unitary(withQubitCount: qubitCount).get()
 
-        XCTAssertTrue(expectedUnitary.isApproximatelyEqual(to: unitary, absoluteTolerance: SharedConstants.tolerance))
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: dummyUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
+        XCTAssertTrue(unitary.isApproximatelyEqual(to: cosSinUnitary,
+                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
     static var allTests = [

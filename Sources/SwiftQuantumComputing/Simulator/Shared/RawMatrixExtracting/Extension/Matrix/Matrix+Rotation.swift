@@ -39,7 +39,7 @@ extension Matrix {
             elements = [[Complex(cos(angle)), Complex(-sin(angle))],
                         [Complex(sin(angle)), Complex(cos(angle))]]
         case .z:
-            elements = [[-Complex.euler(angle), .zero],
+            elements = [[Complex.euler(-angle), .zero],
                         [.zero, Complex.euler(angle)]]
         }
 

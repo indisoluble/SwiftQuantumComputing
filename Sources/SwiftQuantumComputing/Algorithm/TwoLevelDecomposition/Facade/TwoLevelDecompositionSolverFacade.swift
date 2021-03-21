@@ -60,7 +60,6 @@ extension TwoLevelDecompositionSolverFacade: TwoLevelDecompositionSolver {
         let grayCodes = (0..<matrixCount).grayCodes()
         let controlledGateInputs = deriveControlledGateInputs(fromInputs: gateInputs,
                                                               withGrayCodes: grayCodes)
-        let identity = try! Matrix.makeIdentity(count: 2).get()
         let swapRows = try! Matrix.makePermutation(permutation: [1, 0]).get()
         let swapColumns = swapRows.transposed()
 
@@ -77,7 +76,7 @@ extension TwoLevelDecompositionSolverFacade: TwoLevelDecompositionSolver {
 
                 let vector = try! Vector([colValue, colValueToDelete])
                 var elimination = try! vector.eliminationMatrix().get()
-                if elimination.isApproximatelyEqual(to: identity,
+                if elimination.isApproximatelyEqual(to: Constants.matrixIdentity,
                                                     absoluteTolerance: SharedConstants.tolerance) {
                     continue
                 }
@@ -110,7 +109,7 @@ extension TwoLevelDecompositionSolverFacade: TwoLevelDecompositionSolver {
                 [gateMatrix[diagonal, diagonal], .zero],
                 [.zero, gateMatrix[nextDiagonal, nextDiagonal]]
             ])
-            if matrix.isApproximatelyEqual(to: identity,
+            if matrix.isApproximatelyEqual(to: Constants.matrixIdentity,
                                            absoluteTolerance: SharedConstants.tolerance) {
                 continue
             }
@@ -130,6 +129,12 @@ private extension TwoLevelDecompositionSolverFacade {
     // MARK: - Private types
 
     typealias ControlledGateInputs = (target: Int, inputs: [Int], notTargets: [Int])
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let matrixIdentity = try! Matrix.makeIdentity(count: 2).get()
+    }
 
     // MARK: - Private methods
 

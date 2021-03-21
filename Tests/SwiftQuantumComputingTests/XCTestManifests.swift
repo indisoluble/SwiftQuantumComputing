@@ -135,6 +135,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(EuclideanSolverTests.allTests),
         testCase(TwoLevelDecompositionSolverFacadeTests.allTests),
         testCase(TwoLevelDecompositionSolver_GatesTests.allTests),
+        testCase(CosineSineDecompositionSolverTests.allTests),
         testCase(XorEquationSystemAdapterTests.allTests),
         testCase(XorEquationSystemBruteForceSolverTests.allTests),
         testCase(XorEquationSystemPreSimplificationSolverTests.allTests),
