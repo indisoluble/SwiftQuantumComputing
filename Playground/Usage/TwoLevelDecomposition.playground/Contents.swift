@@ -1,7 +1,9 @@
 import SwiftQuantumComputing // for macOS
 
-let factory = MainCircuitFactory()
+let circuitFactory = MainCircuitFactory()
 let drawer = MainDrawerFactory().makeDrawer()
+
+let solver = MainTwoLevelDecompositionSolverFactory().makeSolver()
 
 //: 1. Define gates
 let gates = [
@@ -19,12 +21,12 @@ let gates = [
 drawer.drawCircuit(gates).get()
 //: 3. Build circuit and measure how long it takes to get the statevector
 var start = CFAbsoluteTimeGetCurrent()
-factory.makeCircuit(gates: gates).statevector().get()
+circuitFactory.makeCircuit(gates: gates).statevector().get()
 var diff = CFAbsoluteTimeGetCurrent() - start
 print("Original circuit executed in \(diff) seconds")
 //: 4. Decompose gates into an equivalent sequence of fully controlled matrix gates and not gates
 start = CFAbsoluteTimeGetCurrent()
-let decomposition = TwoLevelDecompositionSolver.decomposeGates(gates).get()
+let decomposition = solver.decomposeGates(gates).get()
 diff = CFAbsoluteTimeGetCurrent() - start
 print("Original circuit decomposed in \(diff) seconds")
 //: 5. (Optional) Draw decomposition to see how it looks
@@ -33,6 +35,6 @@ drawer.drawCircuit(decomposition).get()
 //: Single qubit gates & fully controlled gates are faster to execute, however this
 //: descomposition produces a lot of them
 start = CFAbsoluteTimeGetCurrent()
-factory.makeCircuit(gates: decomposition).statevector().get()
+circuitFactory.makeCircuit(gates: decomposition).statevector().get()
 diff = CFAbsoluteTimeGetCurrent() - start
 print("Decomposed circuit executed in \(diff) seconds")
