@@ -26,12 +26,15 @@ import XCTest
 
 class TwoLevelDecompositionSolver_GatesTests: XCTestCase {
 
+    // MARK: - Properties
+
+    let sut = TwoLevelDecompositionSolverFacade(singleQubitGateDecomposer: DummySingleQubitGateDecompositionSolver())
+
     // MARK: - Tests
 
     func testEmptyList_decomposeGates_returnEmptyList() {
         // Then
-        XCTAssertEqual(try? TwoLevelDecompositionSolver.decomposeGates([]).get(),
-                       [])
+        XCTAssertEqual(try? sut.decomposeGates([]).get(), [])
     }
 
     func testGateThatThrowsError_decomposeGates_throwError() {
@@ -39,8 +42,8 @@ class TwoLevelDecompositionSolver_GatesTests: XCTestCase {
         let gate = Gate.matrix(matrix: .makeControlledNot(), inputs: [1])
 
         // Then
-        var error: TwoLevelDecompositionSolver.DecomposeGatesError?
-        if case .failure(let e) = TwoLevelDecompositionSolver.decomposeGates([gate]) {
+        var error: DecomposeGatesError?
+        if case .failure(let e) = sut.decomposeGates([gate]) {
             error = e
         }
         XCTAssertEqual(error,
@@ -55,12 +58,12 @@ class TwoLevelDecompositionSolver_GatesTests: XCTestCase {
                                gate: .matrix(matrix: .makeNot(), inputs: [0]))
         let qubitCount = 5
 
-        let decomposition = try! TwoLevelDecompositionSolver.decomposeGate(gate,
-                                                                           restrictedToCircuitQubitCount: qubitCount).get()
+        let decomposition = try! sut.decomposeGate(gate,
+                                                   restrictedToCircuitQubitCount: qubitCount).get()
 
         // When
-        let result = try? TwoLevelDecompositionSolver.decomposeGates([gate, gate],
-                                                                     restrictedToCircuitQubitCount: qubitCount).get()
+        let result = try? sut.decomposeGates([gate, gate],
+                                             restrictedToCircuitQubitCount: qubitCount).get()
 
         // Then
         XCTAssertEqual(result, decomposition + decomposition)
