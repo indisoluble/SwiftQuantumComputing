@@ -28,6 +28,6 @@ extension Complex where RealType == Double {
     // MARK: - Internal class methods
 
     static func euler(_ x: Double) -> Complex {
-        return Complex(cos(x), sin(x))
+        return Complex(Double.cos(x), Double.sin(x))
     }
 }
