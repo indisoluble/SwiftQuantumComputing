@@ -20,16 +20,29 @@
 
 import Foundation
 
+// MARK: - Errors
+
+/// Errors throwed by `TwoLevelDecompositionSolver.decomposeGates(:restrictedToCircuitQubitCount:)`
+public enum DecomposeGatesError: Error, Hashable {
+    /// Throwed if `gate` throws `error`
+    case gateThrowedError(gate: Gate, error: GateError)
+}
+
 // MARK: - Main body
 
 extension TwoLevelDecompositionSolver {
 
-    // MARK: - Public class methods
+    // MARK: - Public methods
 
-    /// Errors throwed by `TwoLevelDecompositionSolver.decomposeGates(:restrictedToCircuitQubitCount:)`
-    public enum DecomposeGatesError: Error, Hashable {
-        /// Throwed if `gate` throws `error`
-        case gateThrowedError(gate: Gate, error: GateError)
+    /**
+     Decompose `gate` into a sequence of fully controlled two-level matrix gates and not gates.
+
+     - Parameter gate: `Gate` instance to decompose.
+
+     - Returns: A sequence of `Gate` instances that replace the input `gate`. Or `GateError` error.
+     */
+    func decomposeGate(_ gate: Gate) -> Result<[Gate], GateError> {
+        return decomposeGate(gate, restrictedToCircuitQubitCount: [gate].qubitCount())
     }
 
     /**
@@ -41,8 +54,8 @@ extension TwoLevelDecompositionSolver {
 
      - Returns: A sequence of `Gate` instances equivalent to `gates`. Or `DecomposeGatesError` error.
      */
-    public static func decomposeGates(_ gates: [Gate],
-                                      restrictedToCircuitQubitCount qubitCount: Int? = nil) -> Result<[Gate], DecomposeGatesError> {
+    public func decomposeGates(_ gates: [Gate],
+                               restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], DecomposeGatesError> {
         var result: [Gate] = []
         for gate in gates {
             switch decomposeGate(gate, restrictedToCircuitQubitCount: qubitCount) {
@@ -54,5 +67,17 @@ extension TwoLevelDecompositionSolver {
         }
 
         return .success(result)
+    }
+
+    /**
+     Decompose one by one each instance in `gates` to produce an equivalent  sequence of
+     fully controlled two-level matrix gates and not gates.
+
+     - Parameter gates: `Gate` instances to decompose.
+
+     - Returns: A sequence of `Gate` instances equivalent to `gates`. Or `DecomposeGatesError` error.
+     */
+    public func decomposeGates(_ gates: [Gate]) -> Result<[Gate], DecomposeGatesError> {
+        return decomposeGates(gates, restrictedToCircuitQubitCount: gates.qubitCount())
     }
 }

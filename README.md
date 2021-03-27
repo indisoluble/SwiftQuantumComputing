@@ -138,13 +138,15 @@ Check full code in [Genetic.playground](https://github.com/indisoluble/SwiftQuan
 
 ### Two-level decomposition: Decompose any gate into an equivalent sequence faster to execute
 
-When it comes to get the statevector produced by a circuit, single-qubit gates & fully controlled matrix gates (i.e. controlled matrix gates where all inputs but one are controls) can be simulated faster. This algorithm decomposes any gate/s into an equivalent sequence of not gates and fully controlled gates. In some cases, the new sequence will be faster to execute than the original; although the gates in the new sequence are faster to execute, this algorithm produces a lot of them.
+When it comes to get the statevector produced by a circuit, single-qubit gates & fully controlled matrix gates (i.e. controlled matrix gates where all inputs but one are controls) can be simulated faster. This algorithm decomposes any gate/s into an equivalent sequence of not gates and fully controlled phase shifts, z-rotations, y-rotations & not gates. In some cases, the new sequence will be faster to execute than the original. Notice that although the gates in the new sequence are faster to execute, this algorithm produces a lot of them.
 
 ```swift
 import SwiftQuantumComputing // for macOS
 
-let factory = MainCircuitFactory()
+let circuitFactory = MainCircuitFactory()
 let drawer = MainDrawerFactory().makeDrawer()
+
+let solver = MainTwoLevelDecompositionSolverFactory().makeSolver()
 
 //: 1. Define gates
 let gates = [
@@ -162,12 +164,12 @@ let gates = [
 drawer.drawCircuit(gates).get()
 //: 3. Build circuit and measure how long it takes to get the statevector
 var start = CFAbsoluteTimeGetCurrent()
-factory.makeCircuit(gates: gates).statevector().get()
+circuitFactory.makeCircuit(gates: gates).statevector().get()
 var diff = CFAbsoluteTimeGetCurrent() - start
 print("Original circuit executed in \(diff) seconds")
 //: 4. Decompose gates into an equivalent sequence of fully controlled matrix gates and not gates
 start = CFAbsoluteTimeGetCurrent()
-let decomposition = TwoLevelDecompositionSolver.decomposeGates(gates).get()
+let decomposition = solver.decomposeGates(gates).get()
 diff = CFAbsoluteTimeGetCurrent() - start
 print("Original circuit decomposed in \(diff) seconds")
 //: 5. (Optional) Draw decomposition to see how it looks
@@ -176,7 +178,7 @@ drawer.drawCircuit(decomposition).get()
 //: Single qubit gates & fully controlled gates are faster to execute, however this
 //: descomposition produces a lot of them
 start = CFAbsoluteTimeGetCurrent()
-factory.makeCircuit(gates: decomposition).statevector().get()
+circuitFactory.makeCircuit(gates: decomposition).statevector().get()
 diff = CFAbsoluteTimeGetCurrent() - start
 print("Decomposed circuit executed in \(diff) seconds")
 ```
