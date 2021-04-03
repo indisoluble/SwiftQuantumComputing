@@ -27,6 +27,7 @@ struct DirectStatevectorTransformation {
 
     // MARK: - Private properties
 
+    private let filteringFactory: DirectStatevectorFilteringFactory
     private let indexingFactory: DirectStatevectorIndexingFactory
     private let maxConcurrency: Int
 
@@ -36,12 +37,14 @@ struct DirectStatevectorTransformation {
         case maxConcurrencyHasToBiggerThanZero
     }
 
-    init(indexingFactory: DirectStatevectorIndexingFactory,
+    init(filteringFactory: DirectStatevectorFilteringFactory,
+         indexingFactory: DirectStatevectorIndexingFactory,
          maxConcurrency: Int) throws {
         guard maxConcurrency > 0 else {
             throw InitError.maxConcurrencyHasToBiggerThanZero
         }
 
+        self.filteringFactory = filteringFactory
         self.indexingFactory = indexingFactory
         self.maxConcurrency = maxConcurrency
     }
@@ -54,29 +57,25 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
         let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
         let qubitCount = Int.log2(vector.count)
 
-        let gateMatrix: SimulatorControlledMatrix
+        let gateMatrix: SimulatorMatrix
+        let gateControlCount: Int
         let gateInputs: [Int]
         switch extractor.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
         case .success((let matrix, let inputs)):
-            gateMatrix = matrix
+            gateMatrix = matrix.controlledCountableMatrix
+            gateControlCount = matrix.controlCount
             gateInputs = inputs
         case .failure(let error):
             return .failure(error)
         }
 
-        let matrix = gateMatrix.controlledCountableMatrix
-        let controlCount = gateMatrix.controlCount
+        let controls = Array(gateInputs[0..<gateControlCount])
+        let filter = filteringFactory.makeFilter(gateControls: controls)
 
-        let controls = Array(gateInputs[0..<controlCount])
-        let inputs = Array(gateInputs[controlCount..<gateInputs.count])
-
-        var filter: Int? = nil
-        if controlCount > 0 {
-            filter = Int.mask(activatingBitsAt: controls)
-        }
-
+        let inputs = Array(gateInputs[gateControlCount..<gateInputs.count])
         let indexer = indexingFactory.makeGateIndexer(gateInputs: inputs)
-        let nextVector = apply(matrix: matrix,
+
+        let nextVector = apply(matrix: gateMatrix,
                                toStatevector: vector,
                                transformingIndexesWith: indexer,
                                selectingStatesWith: filter)
@@ -94,9 +93,9 @@ private extension DirectStatevectorTransformation {
     func apply(matrix: SimulatorMatrix,
                toStatevector vector: Vector,
                transformingIndexesWith indexer: DirectStatevectorIndexing,
-               selectingStatesWith filter: Int? = nil) -> Vector {
+               selectingStatesWith filter: DirectStatevectorFiltering) -> Vector {
         return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { vectorIndex in
-            if let filter = filter, vectorIndex & filter != filter {
+            if !filter.shouldCalculateStatevectorValueAtPosition(vectorIndex) {
                 return vector[vectorIndex]
             }
 
