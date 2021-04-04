@@ -75,9 +75,7 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
             filter = Int.mask(activatingBitsAt: controls)
         }
 
-        let indexer = (inputs.count == 1 ?
-                        indexingFactory.makeSingleQubitGateIndexer(gateInput: inputs[0]) :
-                        indexingFactory.makeMultiQubitGateIndexer(gateInputs: inputs))
+        let indexer = indexingFactory.makeGateIndexer(gateInputs: inputs)
         let nextVector = apply(matrix: matrix,
                                toStatevector: vector,
                                transformingIndexesWith: indexer,

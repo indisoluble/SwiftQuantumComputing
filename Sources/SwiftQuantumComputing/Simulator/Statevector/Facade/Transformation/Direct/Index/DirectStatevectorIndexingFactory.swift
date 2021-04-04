@@ -23,6 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol DirectStatevectorIndexingFactory {
-    func makeSingleQubitGateIndexer(gateInput: Int) -> DirectStatevectorIndexing
-    func makeMultiQubitGateIndexer(gateInputs: [Int]) -> DirectStatevectorIndexing
+    func makeGateIndexer(gateInputs: [Int]) -> DirectStatevectorIndexing
 }

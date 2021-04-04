@@ -84,6 +84,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let target = 0
         let factory = DirectStatevectorIndexingFactoryTestDouble()
+        factory.makeGateIndexerResult = DirectStatevectorSingleQubitGateIndexer(gateInput: target)
 
         let sut = try! DirectStatevectorTransformation(indexingFactory: factory, maxConcurrency: 1)
 
@@ -93,9 +94,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
         // Then
         XCTAssertEqual(result, oneQubitOneVector)
-        XCTAssertEqual(factory.makeSingleQubitGateIndexerCount, 1)
-        XCTAssertEqual(factory.lastMakeSingleQubitGateIndexerGateInput, target)
-        XCTAssertEqual(factory.makeMultiQubitGateIndexerCount, 0)
+        XCTAssertEqual(factory.makeGateIndexerCount, 1)
+        XCTAssertEqual(factory.lastMakeGateIndexerGateInputs, [target])
     }
 
     func testNotMatrixAndThreeQubitVector_apply_returnExpectedVector() {
@@ -122,6 +122,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let target = 1
         let factory = DirectStatevectorIndexingFactoryTestDouble()
+        factory.makeGateIndexerResult = DirectStatevectorSingleQubitGateIndexer(gateInput: target)
 
         let sut = try! DirectStatevectorTransformation(indexingFactory: factory, maxConcurrency: 1)
 
@@ -131,9 +132,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
         // Then
         XCTAssertEqual(result, threeQubitZeroVector)
-        XCTAssertEqual(factory.makeSingleQubitGateIndexerCount, 1)
-        XCTAssertEqual(factory.lastMakeSingleQubitGateIndexerGateInput, target)
-        XCTAssertEqual(factory.makeMultiQubitGateIndexerCount, 0)
+        XCTAssertEqual(factory.makeGateIndexerCount, 1)
+        XCTAssertEqual(factory.lastMakeGateIndexerGateInputs, [target])
     }
 
     func testControlledNotMatrixAndThreeQubitOneVector_apply_returnExpectedVector() {
@@ -245,6 +245,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let inputs = [0, 1]
         let factory = DirectStatevectorIndexingFactoryTestDouble()
+        factory.makeGateIndexerResult = DirectStatevectorMultiQubitGateIndexer(gateInputs: inputs)
 
         let sut = try! DirectStatevectorTransformation(indexingFactory: factory, maxConcurrency: 1)
 
@@ -254,9 +255,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
         // Then
         XCTAssertEqual(result, threeQubitZeroVector)
-        XCTAssertEqual(factory.makeSingleQubitGateIndexerCount, 0)
-        XCTAssertEqual(factory.makeMultiQubitGateIndexerCount, 1)
-        XCTAssertEqual(factory.lastMakeMultiQubitGateIndexerGateInputs, inputs)
+        XCTAssertEqual(factory.makeGateIndexerCount, 1)
+        XCTAssertEqual(factory.lastMakeGateIndexerGateInputs, inputs)
     }
 
     func testMultiqubitMatrixAndThreeQubitOneVector_apply_returnExpectedVector() {
