@@ -30,7 +30,7 @@ struct DirectStatevectorOracleFilter {
 
     // MARK: - Init methods
 
-    init(gateControls: [Int], truthTable: [[Bool]]) {
+    init(gateControls: [Int], truthTable: SimulatorOracleMatrix.TruthTable) {
         filters = DirectStatevectorOracleFilter.makeFilters(gateControls: gateControls,
                                                             truthTable: truthTable)
     }
