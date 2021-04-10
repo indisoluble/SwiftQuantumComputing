@@ -70,7 +70,8 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
         }
 
         let controls = Array(gateInputs[0..<gateControlCount])
-        let filter = filteringFactory.makeFilter(gateControls: controls)
+        let truthTable = [Array(repeating: true, count: gateControlCount)]
+        let filter = filteringFactory.makeFilter(gateControls: controls, truthTable: truthTable)
 
         let inputs = Array(gateInputs[gateControlCount..<gateInputs.count])
         let indexer = indexingFactory.makeGateIndexer(gateInputs: inputs)

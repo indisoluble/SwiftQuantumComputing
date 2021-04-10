@@ -27,7 +27,15 @@ struct DirectStatevectorFilteringFactoryAdapter {}
 // MARK: - DirectStatevectorFilteringFactory methods
 
 extension DirectStatevectorFilteringFactoryAdapter: DirectStatevectorFilteringFactory {
-    func makeFilter(gateControls: [Int]) -> DirectStatevectorFiltering {
-        return DirectStatevectorFilter(gateControls: gateControls)
+    func makeFilter(gateControls: [Int], truthTable: [[Bool]]) -> DirectStatevectorFiltering {
+        if truthTable.isEmpty {
+            return DirectStatevectorDummyFilter()
+        }
+
+        if truthTable.count == 1 && truthTable[0].allSatisfy({ $0 == true }) {
+            return DirectStatevectorControlledFilter(gateControls: gateControls)
+        }
+
+        return DirectStatevectorOracleFilter(gateControls: gateControls, truthTable: truthTable)
     }
 }

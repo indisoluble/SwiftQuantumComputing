@@ -1,5 +1,5 @@
 //
-//  DirectStatevectorFilterTests.swift
+//  DirectStatevectorControlledFilterTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 04/04/2021.
@@ -24,13 +24,13 @@ import XCTest
 
 // MARK: - Main body
 
-class DirectStatevectorFilterTests: XCTestCase {
+class DirectStatevectorControlledFilterTests: XCTestCase {
 
     // MARK: - Tests
 
     func testNoControlsAndAnyPosition_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
-        let sut = DirectStatevectorFilter(gateControls: [])
+        let sut = DirectStatevectorControlledFilter(gateControls: [])
 
         // Then
         XCTAssertTrue(Array(0..<8).allSatisfy { sut.shouldCalculateStatevectorValueAtPosition($0) })
@@ -38,7 +38,7 @@ class DirectStatevectorFilterTests: XCTestCase {
 
     func testControl2AndPosition4_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
-        let sut = DirectStatevectorFilter(gateControls: [2])
+        let sut = DirectStatevectorControlledFilter(gateControls: [2])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(4))
@@ -46,7 +46,7 @@ class DirectStatevectorFilterTests: XCTestCase {
 
     func testControl2AndPosition3_shouldCalculateStatevectorValueAtPosition_returnFalse() {
         // Given
-        let sut = DirectStatevectorFilter(gateControls: [2])
+        let sut = DirectStatevectorControlledFilter(gateControls: [2])
 
         // Then
         XCTAssertFalse(sut.shouldCalculateStatevectorValueAtPosition(3))
@@ -54,7 +54,7 @@ class DirectStatevectorFilterTests: XCTestCase {
 
     func testControl2And0AndPosition5_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
-        let sut = DirectStatevectorFilter(gateControls: [2, 0])
+        let sut = DirectStatevectorControlledFilter(gateControls: [2, 0])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(5))
@@ -62,7 +62,7 @@ class DirectStatevectorFilterTests: XCTestCase {
 
     func testControl2And0AndPosition4_shouldCalculateStatevectorValueAtPosition_returnFalse() {
         // Given
-        let sut = DirectStatevectorFilter(gateControls: [2, 0])
+        let sut = DirectStatevectorControlledFilter(gateControls: [2, 0])
 
         // Then
         XCTAssertFalse(sut.shouldCalculateStatevectorValueAtPosition(4))

@@ -1,8 +1,8 @@
 //
-//  DirectStatevectorFilter.swift
+//  DirectStatevectorDummyFilter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 04/04/2021.
+//  Created by Enrique de la Torre on 10/04/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,27 +22,12 @@ import Foundation
 
 // MARK: - Main body
 
-struct DirectStatevectorFilter {
-
-    // MARK: - Private properties
-
-    private let filter: Int?
-
-    // MARK: - Init methods
-
-    init(gateControls: [Int]) {
-        filter = (gateControls.isEmpty ? nil : Int.mask(activatingBitsAt: gateControls))
-    }
-}
+struct DirectStatevectorDummyFilter {}
 
 // MARK: - DirectStatevectorFiltering methods
 
-extension DirectStatevectorFilter: DirectStatevectorFiltering {
+extension DirectStatevectorDummyFilter: DirectStatevectorFiltering {
     func shouldCalculateStatevectorValueAtPosition(_ position: Int) -> Bool {
-        if let filter = filter {
-            return (position & filter) == filter
-        }
-
         return true
     }
 }
