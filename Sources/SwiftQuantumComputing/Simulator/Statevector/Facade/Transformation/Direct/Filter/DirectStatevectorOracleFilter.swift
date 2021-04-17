@@ -30,7 +30,7 @@ struct DirectStatevectorOracleFilter {
 
     // MARK: - Init methods
 
-    init(gateControls: [Int], truthTable: SimulatorOracleMatrix.TruthTable) {
+    init(gateControls: [Int], truthTable: [TruthTableEntry]) {
         filters = DirectStatevectorOracleFilter.makeFilters(gateControls: gateControls,
                                                             truthTable: truthTable)
     }
@@ -57,12 +57,12 @@ private extension DirectStatevectorOracleFilter {
 
     // MARK: - Private class methods
 
-    static func makeFilters(gateControls: [Int], truthTable: [[Bool]]) -> [Filter] {
-        return truthTable.map { truth -> Filter in
-            return zip(truth, gateControls).lazy.reduce((0, 0)) { (acc, control) -> Filter in
+    static func makeFilters(gateControls: [Int], truthTable: [TruthTableEntry]) -> [Filter] {
+        return truthTable.map { entry -> Filter in
+            return zip(entry.truth, gateControls).lazy.reduce((0, 0)) { (acc, control) -> Filter in
                 let mask = Int.mask(activatingBitAt: control.1)
 
-                return control.0 ? (acc.0 | mask, acc.1) : (acc.0, acc.1 | mask)
+                return control.0 == "1" ? (acc.0 | mask, acc.1) : (acc.0, acc.1 | mask)
             }
         }
     }

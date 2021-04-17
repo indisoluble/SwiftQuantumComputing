@@ -27,12 +27,13 @@ struct DirectStatevectorFilteringFactoryAdapter {}
 // MARK: - DirectStatevectorFilteringFactory methods
 
 extension DirectStatevectorFilteringFactoryAdapter: DirectStatevectorFilteringFactory {
-    func makeFilter(gateControls: [Int], truthTable: [[Bool]]) -> DirectStatevectorFiltering {
+    func makeFilter(gateControls: [Int],
+                    truthTable: [TruthTableEntry]) -> DirectStatevectorFiltering {
         if truthTable.isEmpty {
             return DirectStatevectorDummyFilter()
         }
 
-        if truthTable.count == 1 && truthTable[0].allSatisfy({ $0 == true }) {
+        if truthTable.count == 1 && truthTable[0].truth.allSatisfy({ $0 == "1" }) {
             return DirectStatevectorControlledFilter(gateControls: gateControls)
         }
 

@@ -23,5 +23,6 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol DirectStatevectorFilteringFactory {
-    func makeFilter(gateControls: [Int], truthTable: [[Bool]]) -> DirectStatevectorFiltering
+    func makeFilter(gateControls: [Int],
+                    truthTable: [TruthTableEntry]) -> DirectStatevectorFiltering
 }

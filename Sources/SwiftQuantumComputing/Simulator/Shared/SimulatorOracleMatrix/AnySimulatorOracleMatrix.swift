@@ -38,12 +38,8 @@ struct AnySimulatorOracleMatrix {
 // MARK: - SimulatorOracleMatrix methods
 
 extension AnySimulatorOracleMatrix: SimulatorOracleMatrix {
-    var truthTable: TruthTable {
+    var truthTable: [TruthTableEntry] {
         return matrix.truthTable
-    }
-
-    var controlCount_: Int {
-        return matrix.controlCount_
     }
 
     var controlledCountableMatrix_: SimulatorMatrixExtracting.SimulatorMatrixCountable {

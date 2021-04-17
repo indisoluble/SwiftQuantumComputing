@@ -26,8 +26,7 @@ struct SimulatorOracleMatrixAdapter {
 
     // MARK: - SimulatorOracleMatrix properties
 
-    let truthTable: TruthTable
-    let controlCount_: Int
+    let truthTable: [TruthTableEntry]
     let controlledCountableMatrix_: SimulatorMatrixExtracting.SimulatorMatrixCountable
 }
 

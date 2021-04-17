@@ -23,10 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorOracleMatrix {
-    typealias TruthTable = [[Bool]]
-
-    var truthTable: TruthTable { get }
-    var controlCount_: Int { get }
+    var truthTable: [TruthTableEntry] { get }
     var controlledCountableMatrix_: SimulatorMatrixExtracting.SimulatorMatrixCountable { get }
 }
 
@@ -39,12 +36,8 @@ extension SimulatorOracleMatrix {
 }
 
 extension SimulatorOracleMatrix where Self: SimulatorMatrixExtracting.SimulatorMatrixCountable {
-    var truthTable: TruthTable {
+    var truthTable: [TruthTableEntry] {
         return []
-    }
-
-    var controlCount_: Int {
-        return 0
     }
 
     var controlledCountableMatrix_: SimulatorMatrixExtracting.SimulatorMatrixCountable {

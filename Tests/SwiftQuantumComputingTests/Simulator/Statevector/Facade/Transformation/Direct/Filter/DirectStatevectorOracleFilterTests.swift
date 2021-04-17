@@ -26,6 +26,14 @@ import XCTest
 
 class DirectStatevectorOracleFilterTests: XCTestCase {
 
+    // MARK: - Properties
+
+    let trueEntry = try! TruthTableEntry(repeating: "1", count: 1)
+    let trueTwoEntry = try! TruthTableEntry(repeating: "1", count: 2)
+    let falseEntry = try! TruthTableEntry(repeating: "0", count: 1)
+    let falseTwoEntry = try! TruthTableEntry(repeating: "0", count: 2)
+    let falseTrueEntry = try! TruthTableEntry(truth: "01", truthCount: 2)
+
     // MARK: - Tests
 
     func testNoControlsNoTruthTableAndAnyPosition_shouldCalculateStatevectorValueAtPosition_returnFalse() {
@@ -38,7 +46,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2TruthTableTrueAndPosition4_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2], truthTable: [[true]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2], truthTable: [trueEntry])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(4))
@@ -46,7 +54,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2TruthTableTrueAndPosition3_shouldCalculateStatevectorValueAtPosition_returnFalse() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2], truthTable: [[true]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2], truthTable: [trueEntry])
 
         // Then
         XCTAssertFalse(sut.shouldCalculateStatevectorValueAtPosition(3))
@@ -54,7 +62,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2TruthTableFalseAndPosition4_shouldCalculateStatevectorValueAtPosition_returnFalse() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2], truthTable: [[false]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2], truthTable: [falseEntry])
 
         // Then
         XCTAssertFalse(sut.shouldCalculateStatevectorValueAtPosition(4))
@@ -62,7 +70,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2TruthTableFalseAndPosition10_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2], truthTable: [[false]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2], truthTable: [falseEntry])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(10))
@@ -70,7 +78,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2And0TruthTableTrueAndTrueAndPosition5_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [[true, true]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [trueTwoEntry])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(5))
@@ -78,7 +86,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2And0TruthTableTrueAndTrueAndPosition4_shouldCalculateStatevectorValueAtPosition_returnFalse() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [[true, true]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [trueTwoEntry])
 
         // Then
         XCTAssertFalse(sut.shouldCalculateStatevectorValueAtPosition(4))
@@ -86,7 +94,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2And0TruthTableFalseAndFalseAndPosition5_shouldCalculateStatevectorValueAtPosition_returnFalse() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [[false, false]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [falseTwoEntry])
 
         // Then
         XCTAssertFalse(sut.shouldCalculateStatevectorValueAtPosition(5))
@@ -94,7 +102,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2And0TruthTableFalseAndFalseAndPosition10_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [[false, false]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [falseTwoEntry])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(10))
@@ -102,7 +110,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2And0TruthTableFalseAndTrueAndPosition3_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [[false, true]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [falseTrueEntry])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(3))
@@ -110,7 +118,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2And0TruthTableFalseAndTrueAndPosition1_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [[false, true]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [falseTrueEntry])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(1))
@@ -118,7 +126,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2And0TruthTableFalseAndTrueAndPosition2_shouldCalculateStatevectorValueAtPosition_returnFalse() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [[false, true]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [falseTrueEntry])
 
         // Then
         XCTAssertFalse(sut.shouldCalculateStatevectorValueAtPosition(2))
@@ -126,7 +134,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
 
     func testControl2And0TruthTableFalseAndTrueAndPosition5_shouldCalculateStatevectorValueAtPosition_returnFalse() {
         // Given
-        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [[false, true]])
+        let sut = DirectStatevectorOracleFilter(gateControls: [2, 0], truthTable: [falseTrueEntry])
 
         // Then
         XCTAssertFalse(sut.shouldCalculateStatevectorValueAtPosition(5))
@@ -135,7 +143,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
     func testControl1And2And0TruthTableFalseAndTrueAndTrueAndPosition5_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
         let sut = DirectStatevectorOracleFilter(gateControls: [1, 2, 0],
-                                                truthTable: [[false, true, true]])
+                                                truthTable: [try! TruthTableEntry(truth: "011")])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(5))
@@ -144,7 +152,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
     func testControl1And2And0TruthTableFalseAndTrueAndFalseAndPosition5_shouldCalculateStatevectorValueAtPosition_returnFalse() {
         // Given
         let sut = DirectStatevectorOracleFilter(gateControls: [1, 2, 0],
-                                                truthTable: [[false, true, false]])
+                                                truthTable: [try! TruthTableEntry(truth: "010")])
 
         // Then
         XCTAssertFalse(sut.shouldCalculateStatevectorValueAtPosition(5))
@@ -153,7 +161,7 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
     func testControl1And2And0TruthTableFalseAndTrueAndFalseAndPosition4_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
         let sut = DirectStatevectorOracleFilter(gateControls: [1, 2, 0],
-                                                truthTable: [[false, true, false]])
+                                                truthTable: [try! TruthTableEntry(truth: "010")])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(4))
@@ -162,8 +170,8 @@ class DirectStatevectorOracleFilterTests: XCTestCase {
     func testControl1And2And0TwoTruthTablesAndPosition5_shouldCalculateStatevectorValueAtPosition_returnTrue() {
         // Given
         let sut = DirectStatevectorOracleFilter(gateControls: [1, 2, 0],
-                                                truthTable: [[false, true, false],
-                                                             [false, true, true]])
+                                                truthTable: [try! TruthTableEntry(truth: "010"),
+                                                             try! TruthTableEntry(truth: "011")])
 
         // Then
         XCTAssertTrue(sut.shouldCalculateStatevectorValueAtPosition(5))
