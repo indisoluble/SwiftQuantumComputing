@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol OracleSimulatorMatrixExtracting {
-    func extractOracleMatrix() -> Result<OracleSimulatorMatrix, GateError>
+    func extractOracleSimulatorMatrix() -> Result<OracleSimulatorMatrix, GateError>
 }

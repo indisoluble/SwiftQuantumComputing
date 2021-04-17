@@ -23,7 +23,7 @@ import Foundation
 // MARK: - OracleSimulatorMatrixExtracting methods
 
 extension FixedOracleGate: OracleSimulatorMatrixExtracting {
-    func extractOracleMatrix() -> Result<OracleSimulatorMatrix, GateError> {
+    func extractOracleSimulatorMatrix() -> Result<OracleSimulatorMatrix, GateError> {
         guard !controls.isEmpty else {
             return .failure(.gateControlsCanNotBeAnEmptyList)
         }
