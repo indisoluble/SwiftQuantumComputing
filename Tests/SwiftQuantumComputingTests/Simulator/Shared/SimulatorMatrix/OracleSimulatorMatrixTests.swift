@@ -55,35 +55,10 @@ class OracleSimulatorMatrixTests: XCTestCase {
                        try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)).get())
     }
 
-    func testControlCountBiggerThanZeroAndTruthTableWithEmptyValue_expandedRawMatrix_returnExpectedIdentity() {
-        // Given
-        let controlCount = 5
-        let matrix = OracleSimulatorMatrix(truthTable: [""],
-                                           controlCount: controlCount,
-                                           controlledCountableMatrix: notMatrix)
-
-        // Then
-        XCTAssertEqual(matrix.expandedRawMatrix(),
-                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)).get())
-    }
-
-    func testControlCountBiggerThanZeroAndNonSensicalTruthTable_expandedRawMatrix_returnExpectedIdentity() {
-        // Given
-        let truthTable = [" 01", "01a", "a01", "0a1", "0 1"]
-        let controlCount = 5
-        let matrix = OracleSimulatorMatrix(truthTable: truthTable,
-                                           controlCount: controlCount,
-                                           controlledCountableMatrix: notMatrix)
-
-        // Then
-        XCTAssertEqual(matrix.expandedRawMatrix(),
-                       try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)).get())
-    }
-
     func testControlCountBiggerThanZeroAndTruthTableOutOfRange_expandedRawMatrix_returnExpectedIdentity() {
         // Given
         let controlCount = 5
-        let truthTable = [String(repeating: "1", count: controlCount + 1)]
+        let truthTable = [try! TruthTableEntry(repeating: "1", count: controlCount + 1)]
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
                                            controlledCountableMatrix: notMatrix)
@@ -95,7 +70,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
 
     func testControlCountBiggerThanZeroNotMatrixAndTruthTableWithMoreBitsThanControlsButInRange_expandedRawMatrix_returnExpectedMatrix() {
         // Given
-        let truthTable = ["0000000001"]
+        let truthTable = [try! TruthTableEntry(truth: "0000000001")]
         let controlCount = 1
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
@@ -114,7 +89,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
 
     func testControlCountBiggerThanZeroNotMatrixAndTruthTableWithWithRepeatedCorrectValues_expandedRawMatrix_returnExpectedMatrix() {
         // Given
-        let truthTable = ["1", "1"]
+        let truthTable = [try! TruthTableEntry(truth: "1"), try! TruthTableEntry(truth: "1")]
         let controlCount = 1
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
@@ -133,7 +108,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
 
     func testValidControlCountNotMatrixAndTruthTable_expandedRawMatrix_returnExpectedMatrix() {
         // Given
-        let truthTable = ["01", "11"]
+        let truthTable = [try! TruthTableEntry(truth: "01"), try! TruthTableEntry(truth: "11")]
         let controlCount = 2
         let matrix = OracleSimulatorMatrix(truthTable: truthTable,
                                            controlCount: controlCount,
@@ -156,7 +131,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
 
     func testValidControlCountAnyValidMatrixAndTruthTable_expandedRawMatrix_returnExpectedMatrix() {
         // Given
-        let truthTable = ["01", "11"]
+        let truthTable = [try! TruthTableEntry(truth: "01"), try! TruthTableEntry(truth: "11")]
         let controlCount = 2
         let controlledMatrix = try! Matrix([
             [.zero, .one, .zero, .zero],
@@ -244,10 +219,6 @@ class OracleSimulatorMatrixTests: XCTestCase {
     static var allTests = [
         ("testControlCountBiggerThanZeroAndEmptyTruthTable_expandedRawMatrix_returnExpectedIdentity",
          testControlCountBiggerThanZeroAndEmptyTruthTable_expandedRawMatrix_returnExpectedIdentity),
-        ("testControlCountBiggerThanZeroAndTruthTableWithEmptyValue_expandedRawMatrix_returnExpectedIdentity",
-         testControlCountBiggerThanZeroAndTruthTableWithEmptyValue_expandedRawMatrix_returnExpectedIdentity),
-        ("testControlCountBiggerThanZeroAndNonSensicalTruthTable_expandedRawMatrix_returnExpectedIdentity",
-         testControlCountBiggerThanZeroAndNonSensicalTruthTable_expandedRawMatrix_returnExpectedIdentity),
         ("testControlCountBiggerThanZeroAndTruthTableOutOfRange_expandedRawMatrix_returnExpectedIdentity",
          testControlCountBiggerThanZeroAndTruthTableOutOfRange_expandedRawMatrix_returnExpectedIdentity),
         ("testControlCountBiggerThanZeroNotMatrixAndTruthTableWithMoreBitsThanControlsButInRange_expandedRawMatrix_returnExpectedMatrix",
