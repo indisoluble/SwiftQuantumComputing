@@ -54,26 +54,25 @@ struct DirectStatevectorTransformation {
 
 extension DirectStatevectorTransformation: StatevectorTransformation {
     func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, GateError> {
-        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
         let qubitCount = Int.log2(vector.count)
 
-        let gateMatrix: SimulatorMatrix
-        let gateControlCount: Int
         let gateInputs: [Int]
+        let gateMatrix: SimulatorMatrix
+        let gateTruthTable: [TruthTableEntry]
+        let gateControlCount: Int
         switch extractor.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
         case .success((let matrix, let inputs)):
-            gateMatrix = matrix.controlledCountableMatrix
-            gateControlCount = matrix.controlCount
             gateInputs = inputs
+            gateMatrix = matrix.controlledCountableMatrix_
+            gateTruthTable = matrix.truthTable
+            gateControlCount = matrix.controlCount_
         case .failure(let error):
             return .failure(error)
         }
 
         let controls = Array(gateInputs[0..<gateControlCount])
-        let truthTable = (gateControlCount > 0 ?
-                            [try! TruthTableEntry(repeating: "1", count: gateControlCount)] :
-                            [])
-        let filter = filteringFactory.makeFilter(gateControls: controls, truthTable: truthTable)
+        let filter = filteringFactory.makeFilter(gateControls: controls, truthTable: gateTruthTable)
 
         let inputs = Array(gateInputs[gateControlCount..<gateInputs.count])
         let indexer = indexingFactory.makeGateIndexer(gateInputs: inputs)
