@@ -34,6 +34,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(CSMRowByRowStatevectorTransformationTests.allTests),
         testCase(CSMElementByElementStatevectorTransformationTests.allTests),
         testCase(AnySimulatorControlledMatrix_MatrixCountableTests.allTests),
+        testCase(AnySimulatorOracleMatrix_MatrixCountableTests.allTests),
         testCase(StatevectorRegisterAdapterTests.allTests),
         testCase(StatevectorRegisterFactoryAdapterTests.allTests),
         testCase(StatevectorSimulatorFacadeTests.allTests),
