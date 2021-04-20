@@ -64,9 +64,9 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
         switch extractor.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
         case .success((let matrix, let inputs)):
             gateInputs = inputs
-            gateMatrix = matrix.controlledCountableMatrix_
+            gateMatrix = matrix.controlledCountableMatrix
             gateTruthTable = matrix.truthTable
-            gateControlCount = matrix.controlCount_
+            gateControlCount = matrix.controlCount
         case .failure(let error):
             return .failure(error)
         }

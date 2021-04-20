@@ -55,7 +55,7 @@ extension FixedOracleGate: SimulatorOracleMatrixAdapterExtracting {
             }
 
             return .success(SimulatorOracleMatrixAdapter(truthTable: finalEntries,
-                                                         controlledCountableMatrix_: matrix.controlledCountableMatrix_))
+                                                         controlledCountableMatrix: matrix.controlledCountableMatrix))
         }
     }
 }

@@ -27,14 +27,14 @@ struct SimulatorOracleMatrixAdapter {
     // MARK: - SimulatorOracleMatrix properties
 
     let truthTable: [TruthTableEntry]
-    let controlledCountableMatrix_: SimulatorMatrixExtracting.SimulatorMatrixCountable
+    let controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable
 
     // MARK: - Internal methods
 
     func expandedOracleMatrix() -> OracleSimulatorMatrix {
         return OracleSimulatorMatrix(truthTable: truthTable,
-                                     controlCount: controlCount_,
-                                     controlledCountableMatrix: controlledCountableMatrix_)
+                                     controlCount: controlCount,
+                                     controlledCountableMatrix: controlledCountableMatrix)
     }
 }
 

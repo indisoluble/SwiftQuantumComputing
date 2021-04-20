@@ -24,6 +24,6 @@ import Foundation
 
 extension AnySimulatorOracleMatrix: MatrixCountable {
     var count: Int {
-        return Int.pow(2, controlCount_) * controlledCountableMatrix_.count
+        return Int.pow(2, controlCount) * controlledCountableMatrix.count
     }
 }

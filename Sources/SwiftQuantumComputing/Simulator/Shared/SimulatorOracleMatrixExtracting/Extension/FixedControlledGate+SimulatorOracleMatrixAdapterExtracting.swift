@@ -38,7 +38,7 @@ extension FixedControlledGate: SimulatorOracleMatrixAdapterExtracting {
                                 matrix.truthTable.map { entry + $0 } )
 
             return .success(SimulatorOracleMatrixAdapter(truthTable: truthTable,
-                                                         controlledCountableMatrix_: matrix.controlledCountableMatrix_))
+                                                         controlledCountableMatrix: matrix.controlledCountableMatrix))
         }
     }
 }

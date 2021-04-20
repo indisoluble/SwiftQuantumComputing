@@ -24,13 +24,13 @@ import Foundation
 
 protocol SimulatorOracleMatrix {
     var truthTable: [TruthTableEntry] { get }
-    var controlledCountableMatrix_: SimulatorMatrixExtracting.SimulatorMatrixCountable { get }
+    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable { get }
 }
 
 // MARK: - SimulatorOracleMatrix default implementations
 
 extension SimulatorOracleMatrix {
-    var controlCount_: Int {
+    var controlCount: Int {
         return truthTable.first?.truth.count ?? 0
     }
 }
@@ -40,7 +40,7 @@ extension SimulatorOracleMatrix where Self: SimulatorMatrixExtracting.SimulatorM
         return []
     }
 
-    var controlledCountableMatrix_: SimulatorMatrixExtracting.SimulatorMatrixCountable {
+    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable {
         return self
     }
 }

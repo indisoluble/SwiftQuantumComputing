@@ -41,7 +41,7 @@ class AnySimulatorOracleMatrix_MatrixCountableTests: XCTestCase {
         let controlledMatrix = Matrix.makeNot()
         let entry = try! TruthTableEntry(repeating: "0", count: 1)
         let adapter = SimulatorOracleMatrixAdapter(truthTable: [entry],
-                                                   controlledCountableMatrix_: controlledMatrix)
+                                                   controlledCountableMatrix: controlledMatrix)
         let sut = AnySimulatorOracleMatrix(matrix: adapter)
 
         // Then
@@ -53,7 +53,7 @@ class AnySimulatorOracleMatrix_MatrixCountableTests: XCTestCase {
         let controlledMatrix = Matrix.makeNot()
         let entry = try! TruthTableEntry(repeating: "0", count: 2)
         let adapter = SimulatorOracleMatrixAdapter(truthTable: [entry],
-                                                   controlledCountableMatrix_: controlledMatrix)
+                                                   controlledCountableMatrix: controlledMatrix)
         let sut = AnySimulatorOracleMatrix(matrix: adapter)
 
         // Then
