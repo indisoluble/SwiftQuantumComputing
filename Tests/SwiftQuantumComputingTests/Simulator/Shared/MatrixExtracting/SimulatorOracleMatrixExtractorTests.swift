@@ -45,20 +45,6 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testGateControlledWithGateThatThrowException_extractComponents_throwException() {
-        // Given
-        let gate = Gate.controlled(gate: .matrix(matrix: nonUnitaryMatrix, inputs: [0]),
-                                   controls: [1])
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
-
-        // Then
-        var error: GateError?
-        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
-            error = e
-        }
-        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
-    }
-
     func testGateControlledWithEmptyControls_extractComponents_throwException() {
         // Given
         let gate = Gate.controlled(gate: .matrix(matrix: validMatrix, inputs: validInputs),
@@ -73,9 +59,10 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
     }
 
-    func testGateOracleWithEmptyControls_extractComponents_throwException() {
+    func testGateControlledWithGateThatThrowException_extractComponents_throwException() {
         // Given
-        let gate = Gate.oracle(truthTable: [""], controls: [], target: 0)
+        let gate = Gate.controlled(gate: .matrix(matrix: nonUnitaryMatrix, inputs: [0]),
+                                   controls: [1])
         let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
 
         // Then
@@ -83,7 +70,7 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
+        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
     }
 
     func testGateControlledWithNotGate_extractComponents_returnExpectedValues() {
@@ -150,18 +137,200 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
+    func testGateOracleWithEmptyControls_extractComponents_throwException() {
+        // Given
+        let gate = Gate.oracle(truthTable: [""], controls: [], target: 0)
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
+    }
+
+    func testGateOracleWithEmptyTruthTable_extractComponents_throwException() {
+        // Given
+        let gate = Gate.oracle(truthTable: [], controls: [1], target: 0)
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateTruthTableCanNotBeEmpty)
+    }
+
+    func testGateOracleWithoutEnoughControlsToRepresentTruthTable_extractComponents_throwException() {
+        // Given
+        let gate = Gate.oracle(truthTable: ["11"], controls: [1], target: 0)
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateTruthTableCanNotBeRepresentedWithGivenControlCount)
+    }
+
+    func testGateOracleWithEmptyStringInTruthTable_extractComponents_throwException() {
+        // Given
+        let gate = Gate.oracle(truthTable: [""], controls: [1], target: 0)
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes)
+    }
+
+    func testGateOracleWithNonValidEntryInTruthTable_extractComponents_throwException() {
+        // Given
+        let gate = Gate.oracle(truthTable: ["a"], controls: [1], target: 0)
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes)
+    }
+
+    func testGateOracleWithGateThatThrowException_extractComponents_throwException() {
+        // Given
+        let gate = Gate.oracle(truthTable: ["0"],
+                               controls: [1],
+                               gate: .matrix(matrix: nonUnitaryMatrix, inputs: [0]))
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
+    }
+
+
+
+
+
+
+
+
+
+    func testGateOracleWithNotGate_extractComponents_returnExpectedValues() {
+        // Given
+        let gate = Gate.oracle(truthTable: ["0", "1"], controls: [2], gate: .not(target: 1))
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+
+        // When
+        var matrix: AnySimulatorOracleMatrix?
+        var inputs: [Int]?
+        if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix?.controlCount, 1)
+        XCTAssertEqual(matrix?.truthTable,
+                       [try! TruthTableEntry(repeating: "0", count: 1),
+                        try! TruthTableEntry(repeating: "1", count: 1)])
+        XCTAssertEqual(matrix?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(matrix?.count, 4)
+        XCTAssertEqual(inputs, validInputs)
+    }
+
+    func testGateOracleWithNotGateAndTwoControls_extractComponents_returnExpectedValues() {
+        // Given
+        let gate = Gate.oracle(truthTable: ["1", "0", "10"],
+                               controls: [5, 2],
+                               gate: .not(target: 1))
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+
+        // When
+        var matrix: AnySimulatorOracleMatrix?
+        var inputs: [Int]?
+        if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix?.controlCount, 2)
+        XCTAssertEqual(matrix?.truthTable,
+                       [try! TruthTableEntry(truth: "01", truthCount: 2),
+                        try! TruthTableEntry(truth: "00", truthCount: 2),
+                        try! TruthTableEntry(truth: "10", truthCount: 2)])
+        XCTAssertEqual(matrix?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(matrix?.count, 8)
+        XCTAssertEqual(inputs, extendedValidInputs)
+    }
+
+    func testTwoGatesOracleWithNotGate_extractComponents_returnExpectedValues() {
+        // Given
+        let gate = Gate.oracle(truthTable: ["1", "10"],
+                               controls: [5, 0],
+                               gate: .oracle(truthTable: ["11", "1"],
+                                             controls: [2, 3],
+                                             gate: .not(target: 1)))
+        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+
+        // When
+        var matrix: AnySimulatorOracleMatrix?
+        var inputs: [Int]?
+        if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix?.controlCount, 4)
+        XCTAssertEqual(matrix?.truthTable,
+                       [try! TruthTableEntry(truth: "0111", truthCount: 4),
+                        try! TruthTableEntry(truth: "0101", truthCount: 4),
+                        try! TruthTableEntry(truth: "1011", truthCount: 4),
+                        try! TruthTableEntry(truth: "1001", truthCount: 4)])
+        XCTAssertEqual(matrix?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(matrix?.count, 32)
+        XCTAssertEqual(inputs, [5, 0, 2, 3, 1])
+    }
+
     static var allTests = [
-        ("testGateControlledWithGateThatThrowException_extractComponents_throwException",
-         testGateControlledWithGateThatThrowException_extractComponents_throwException),
         ("testGateControlledWithEmptyControls_extractComponents_throwException",
          testGateControlledWithEmptyControls_extractComponents_throwException),
-        ("testGateOracleWithEmptyControls_extractComponents_throwException",
-         testGateOracleWithEmptyControls_extractComponents_throwException),
+        ("testGateControlledWithGateThatThrowException_extractComponents_throwException",
+         testGateControlledWithGateThatThrowException_extractComponents_throwException),
         ("testGateControlledWithNotGate_extractComponents_returnExpectedValues",
          testGateControlledWithNotGate_extractComponents_returnExpectedValues),
         ("testGateControlledWithNotGateAndTwoControls_extractComponents_returnExpectedValues",
          testGateControlledWithNotGateAndTwoControls_extractComponents_returnExpectedValues),
         ("testTwoGatesControlledWithNotGate_extractComponents_returnExpectedValues",
-         testTwoGatesControlledWithNotGate_extractComponents_returnExpectedValues)
+         testTwoGatesControlledWithNotGate_extractComponents_returnExpectedValues),
+        ("testGateOracleWithEmptyControls_extractComponents_throwException",
+         testGateOracleWithEmptyControls_extractComponents_throwException),
+        ("testGateOracleWithEmptyTruthTable_extractComponents_throwException",
+         testGateOracleWithEmptyTruthTable_extractComponents_throwException),
+        ("testGateOracleWithoutEnoughControlsToRepresentTruthTable_extractComponents_throwException",
+         testGateOracleWithoutEnoughControlsToRepresentTruthTable_extractComponents_throwException),
+        ("testGateOracleWithEmptyStringInTruthTable_extractComponents_throwException",
+         testGateOracleWithEmptyStringInTruthTable_extractComponents_throwException),
+        ("testGateOracleWithNonValidEntryInTruthTable_extractComponents_throwException",
+         testGateOracleWithNonValidEntryInTruthTable_extractComponents_throwException),
+        ("testGateOracleWithGateThatThrowException_extractComponents_throwException",
+         testGateOracleWithGateThatThrowException_extractComponents_throwException),
+        ("testGateOracleWithNotGate_extractComponents_returnExpectedValues",
+         testGateOracleWithNotGate_extractComponents_returnExpectedValues),
+        ("testGateOracleWithNotGateAndTwoControls_extractComponents_returnExpectedValues",
+         testGateOracleWithNotGateAndTwoControls_extractComponents_returnExpectedValues),
+        ("testTwoGatesOracleWithNotGate_extractComponents_returnExpectedValues",
+         testTwoGatesOracleWithNotGate_extractComponents_returnExpectedValues)
     ]
 }

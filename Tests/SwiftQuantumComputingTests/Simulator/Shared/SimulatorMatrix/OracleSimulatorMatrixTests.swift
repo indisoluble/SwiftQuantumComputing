@@ -182,6 +182,15 @@ class OracleSimulatorMatrixTests: XCTestCase {
         XCTAssertEqual(matrix.expandedRawMatrix(), expectedMatrix)
     }
 
+    func testControlCountEqualToZero_expandedRawMatrix_returnExpectedIdentity() {
+        // Given
+        let matrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 0,
+                                           controlledCountableMatrix: twoByTwoMatrix)
+
+        // Then
+        XCTAssertEqual(matrix.expandedRawMatrix(), try! Matrix.makeIdentity(count: 2).get())
+    }
+
     func testTwoByTwoMatrixControlCountEqualToOneAndControlActivated_expandedRawMatrix_returnExpectedMatrix() {
         // Given
         let matrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
@@ -229,6 +238,8 @@ class OracleSimulatorMatrixTests: XCTestCase {
          testValidControlCountNotMatrixAndTruthTable_expandedRawMatrix_returnExpectedMatrix),
         ("testValidControlCountAnyValidMatrixAndTruthTable_expandedRawMatrix_returnExpectedMatrix",
          testValidControlCountAnyValidMatrixAndTruthTable_expandedRawMatrix_returnExpectedMatrix),
+        ("testControlCountEqualToZero_expandedRawMatrix_returnExpectedIdentity",
+         testControlCountEqualToZero_expandedRawMatrix_returnExpectedIdentity),
         ("testTwoByTwoMatrixControlCountEqualToOneAndControlActivated_expandedRawMatrix_returnExpectedMatrix",
          testTwoByTwoMatrixControlCountEqualToOneAndControlActivated_expandedRawMatrix_returnExpectedMatrix),
         ("testTwoByTwoMatrixControlCountEqualToTwoAndAllControlsActivated_expandedRawMatrix_returnExpectedMatrix",
