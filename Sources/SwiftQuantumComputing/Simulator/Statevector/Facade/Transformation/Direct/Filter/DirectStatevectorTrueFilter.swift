@@ -1,5 +1,5 @@
 //
-//  DirectStatevectorDummyFilter.swift
+//  DirectStatevectorTrueFilter.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 10/04/2021.
@@ -22,11 +22,11 @@ import Foundation
 
 // MARK: - Main body
 
-struct DirectStatevectorDummyFilter {}
+struct DirectStatevectorTrueFilter {}
 
 // MARK: - DirectStatevectorFiltering methods
 
-extension DirectStatevectorDummyFilter: DirectStatevectorFiltering {
+extension DirectStatevectorTrueFilter: DirectStatevectorFiltering {
     func shouldCalculateStatevectorValueAtPosition(_ position: Int) -> Bool {
         return true
     }

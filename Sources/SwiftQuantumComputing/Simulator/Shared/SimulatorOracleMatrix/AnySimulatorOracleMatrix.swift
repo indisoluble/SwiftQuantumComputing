@@ -42,6 +42,10 @@ extension AnySimulatorOracleMatrix: SimulatorOracleMatrix {
         return matrix.truthTable
     }
 
+    var controlCount: Int {
+        return matrix.controlCount
+    }
+
     var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable {
         return matrix.controlledCountableMatrix
     }

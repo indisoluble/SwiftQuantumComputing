@@ -29,8 +29,9 @@ struct DirectStatevectorFilteringFactoryAdapter {}
 extension DirectStatevectorFilteringFactoryAdapter: DirectStatevectorFilteringFactory {
     func makeFilter(gateControls: [Int],
                     truthTable: [TruthTableEntry]) -> DirectStatevectorFiltering {
-        if truthTable.isEmpty {
-            return DirectStatevectorDummyFilter()
+        if gateControls.isEmpty {
+            // Gate is not controlled, apply in all cases
+            return DirectStatevectorTrueFilter()
         }
 
         if truthTable.count == 1 && truthTable[0].truth.allSatisfy({ $0 == "1" }) {
