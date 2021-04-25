@@ -150,19 +150,6 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
     }
 
-    func testGateOracleWithEmptyTruthTable_extractComponents_throwException() {
-        // Given
-        let gate = Gate.oracle(truthTable: [], controls: [1], target: 0)
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
-
-        // Then
-        var error: GateError?
-        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
-            error = e
-        }
-        XCTAssertEqual(error, .gateTruthTableCanNotBeEmpty)
-    }
-
     func testGateOracleWithoutEnoughControlsToRepresentTruthTable_extractComponents_throwException() {
         // Given
         let gate = Gate.oracle(truthTable: ["11"], controls: [1], target: 0)
@@ -308,8 +295,6 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
          testTwoGatesControlledWithNotGate_extractComponents_returnExpectedValues),
         ("testGateOracleWithEmptyControls_extractComponents_throwException",
          testGateOracleWithEmptyControls_extractComponents_throwException),
-        ("testGateOracleWithEmptyTruthTable_extractComponents_throwException",
-         testGateOracleWithEmptyTruthTable_extractComponents_throwException),
         ("testGateOracleWithoutEnoughControlsToRepresentTruthTable_extractComponents_throwException",
          testGateOracleWithoutEnoughControlsToRepresentTruthTable_extractComponents_throwException),
         ("testGateOracleWithEmptyStringInTruthTable_extractComponents_throwException",

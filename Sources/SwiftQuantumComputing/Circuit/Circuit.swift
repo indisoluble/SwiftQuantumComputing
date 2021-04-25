@@ -41,8 +41,6 @@ public enum GateError: Error {
     /// Throwed when the number of rows in a matrix used to build a quantum gate is not a power of 2. A matrix has to
     /// handle all possible combinations for a given number of qubits which is (number of qubits)^2
     case gateMatrixRowCountHasToBeAPowerOfTwo
-    /// Throwed when a gate with an empty `truthTable` (empty list) is used in a circuit
-    case gateTruthTableCanNotBeEmpty
     /// Throwed when an entry in `truthTable` uses more qubits than are availble in `controls`
     case gateTruthTableCanNotBeRepresentedWithGivenControlCount
     /// Throwed when an entry in `truthTable` is either an emptry string or it is not composed only of 0's and 1's

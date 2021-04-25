@@ -28,10 +28,6 @@ extension FixedOracleGate: SimulatorOracleMatrixAdapterExtracting {
             return .failure(.gateControlsCanNotBeAnEmptyList)
         }
 
-        guard !truthTable.isEmpty else {
-            return .failure(.gateTruthTableCanNotBeEmpty)
-        }
-
         let entries: [TruthTableEntry]
         do {
             let truthCount = controls.count

@@ -310,7 +310,7 @@ class SimulatorMatrixExtractorTests: XCTestCase {
         if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateTruthTableCanNotBeEmpty)
+        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
     }
 
     func testGateOracleWithEmptyControls_extractComponents_throwException() {

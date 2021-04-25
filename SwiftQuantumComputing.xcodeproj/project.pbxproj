@@ -472,8 +472,8 @@
 		FF5C6F3025EA6DA00003DA0A /* StatevectorTransformationTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6F2E25EA6DA00003DA0A /* StatevectorTransformationTestDouble.swift */; };
 		FF5C6F3825EA75F30003DA0A /* SimulatorMatrixExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6F3725EA75F30003DA0A /* SimulatorMatrixExtractorTests.swift */; };
 		FF5C6F3925EA75F30003DA0A /* SimulatorMatrixExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5C6F3725EA75F30003DA0A /* SimulatorMatrixExtractorTests.swift */; };
-		FF5DDDA12621F59C00208A94 /* DirectStatevectorDummyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5DDDA02621F59C00208A94 /* DirectStatevectorDummyFilter.swift */; };
-		FF5DDDA22621F59C00208A94 /* DirectStatevectorDummyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5DDDA02621F59C00208A94 /* DirectStatevectorDummyFilter.swift */; };
+		FF5DDDA12621F59C00208A94 /* DirectStatevectorTrueFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5DDDA02621F59C00208A94 /* DirectStatevectorTrueFilter.swift */; };
+		FF5DDDA22621F59C00208A94 /* DirectStatevectorTrueFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5DDDA02621F59C00208A94 /* DirectStatevectorTrueFilter.swift */; };
 		FF5DDDA92621F7FA00208A94 /* DirectStatevectorControlledFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5DDDA82621F7FA00208A94 /* DirectStatevectorControlledFilter.swift */; };
 		FF5DDDAA2621F7FA00208A94 /* DirectStatevectorControlledFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5DDDA82621F7FA00208A94 /* DirectStatevectorControlledFilter.swift */; };
 		FF5DDDC0262202FA00208A94 /* DirectStatevectorOracleFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5DDDBF262202FA00208A94 /* DirectStatevectorOracleFilterTests.swift */; };
@@ -1290,7 +1290,7 @@
 		FF5920FE2221DB0400C86F6A /* MainGeneticPopulationReproductionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGeneticPopulationReproductionFactory.swift; sourceTree = "<group>"; };
 		FF5C6F2E25EA6DA00003DA0A /* StatevectorTransformationTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorTransformationTestDouble.swift; sourceTree = "<group>"; };
 		FF5C6F3725EA75F30003DA0A /* SimulatorMatrixExtractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorMatrixExtractorTests.swift; sourceTree = "<group>"; };
-		FF5DDDA02621F59C00208A94 /* DirectStatevectorDummyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectStatevectorDummyFilter.swift; sourceTree = "<group>"; };
+		FF5DDDA02621F59C00208A94 /* DirectStatevectorTrueFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectStatevectorTrueFilter.swift; sourceTree = "<group>"; };
 		FF5DDDA82621F7FA00208A94 /* DirectStatevectorControlledFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectStatevectorControlledFilter.swift; sourceTree = "<group>"; };
 		FF5DDDBF262202FA00208A94 /* DirectStatevectorOracleFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectStatevectorOracleFilterTests.swift; sourceTree = "<group>"; };
 		FF5DDDC8262224AD00208A94 /* SimulatorOracleMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorOracleMatrix.swift; sourceTree = "<group>"; };
@@ -3419,11 +3419,11 @@
 			isa = PBXGroup;
 			children = (
 				FF5DDDA82621F7FA00208A94 /* DirectStatevectorControlledFilter.swift */,
-				FF5DDDA02621F59C00208A94 /* DirectStatevectorDummyFilter.swift */,
 				FFC80867261A29F3000C695A /* DirectStatevectorFiltering.swift */,
 				FFC80889261A31F0000C695A /* DirectStatevectorFilteringFactory.swift */,
 				FFC80891261A321E000C695A /* DirectStatevectorFilteringFactoryAdapter.swift */,
 				FF2D3719261CE9D70031726B /* DirectStatevectorOracleFilter.swift */,
+				FF5DDDA02621F59C00208A94 /* DirectStatevectorTrueFilter.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -3995,7 +3995,7 @@
 				FF1EE62E24FAAC3F007DC99B /* MatrixGapUpPositionView.swift in Sources */,
 				FFEB6847256A80A3000EB0B2 /* SimpleInputPositionViewFactory.swift in Sources */,
 				FF9BBE60214EAABD00AD1F78 /* CircleView.swift in Sources */,
-				FF5DDDA12621F59C00208A94 /* DirectStatevectorDummyFilter.swift in Sources */,
+				FF5DDDA12621F59C00208A94 /* DirectStatevectorTrueFilter.swift in Sources */,
 				FF78EF5123B909C600BA53A1 /* XorEquationSystemAdapter.swift in Sources */,
 				FF3C36742558512A007F15C2 /* RotationPositionViewFactory.swift in Sources */,
 				FF9FBCD921C579CF0070D943 /* HadamardGate.swift in Sources */,
@@ -4691,7 +4691,7 @@
 				FFC95E32243A37960051F174 /* Double+RoundedToDecimalPlaces.swift in Sources */,
 				FFFEA1862222CE7300E6B45C /* MainGeneticPopulationCrossoverFactory.swift in Sources */,
 				FF9FBCDA21C579CF0070D943 /* HadamardGate.swift in Sources */,
-				FF5DDDA22621F59C00208A94 /* DirectStatevectorDummyFilter.swift in Sources */,
+				FF5DDDA22621F59C00208A94 /* DirectStatevectorTrueFilter.swift in Sources */,
 				FF9FBCD421C56C270070D943 /* ConfigurableGate.swift in Sources */,
 				FFD2EBB324FFE304002FCCB4 /* Gate+Oracle.swift in Sources */,
 				FF4BBE8124131980002B4FA6 /* ControlPositionView.swift in Sources */,
