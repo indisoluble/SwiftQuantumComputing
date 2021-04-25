@@ -217,14 +217,6 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         XCTAssertEqual(error, .gateMatrixIsNotUnitary)
     }
 
-
-
-
-
-
-
-
-
     func testGateOracleWithNotGate_extractComponents_returnExpectedValues() {
         // Given
         let gate = Gate.oracle(truthTable: ["0", "1"], controls: [2], gate: .not(target: 1))
