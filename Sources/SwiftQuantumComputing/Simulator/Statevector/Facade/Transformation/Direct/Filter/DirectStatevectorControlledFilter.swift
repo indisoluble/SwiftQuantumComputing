@@ -1,8 +1,8 @@
 //
-//  FixedControlledGate+SimulatorMatrixExtracting.swift
+//  DirectStatevectorControlledFilter.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/02/2021.
+//  Created by Enrique de la Torre on 10/04/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,15 +20,25 @@
 
 import Foundation
 
-// MARK: - SimulatorMatrixExtracting methods
+// MARK: - Main body
 
-extension FixedControlledGate: SimulatorMatrixExtracting {
-    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
-        switch extractOracleMatrixAdapter() {
-        case .success(let adapter):
-            return .success(adapter.expandedOracleMatrix())
-        case .failure(let error):
-            return .failure(error)
-        }
+struct DirectStatevectorControlledFilter {
+
+    // MARK: - Private properties
+
+    private let filter: Int
+
+    // MARK: - Init methods
+
+    init(gateControls: [Int]) {
+        filter = Int.mask(activatingBitsAt: gateControls)
+    }
+}
+
+// MARK: - DirectStatevectorFiltering methods
+
+extension DirectStatevectorControlledFilter: DirectStatevectorFiltering {
+    func shouldCalculateStatevectorValueAtPosition(_ position: Int) -> Bool {
+        return (position & filter) == filter
     }
 }

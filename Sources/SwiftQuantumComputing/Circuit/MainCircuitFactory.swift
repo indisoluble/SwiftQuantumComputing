@@ -113,9 +113,11 @@ private extension MainCircuitFactory {
         case .elementByElement(let maxConcurrency):
             transformation = try! CSMElementByElementStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         case .direct(let maxConcurrency):
+            let filteringFactory = DirectStatevectorFilteringFactoryAdapter()
             let indexingFactory = DirectStatevectorIndexingFactoryAdapter()
 
-            transformation = try! DirectStatevectorTransformation(indexingFactory: indexingFactory,
+            transformation = try! DirectStatevectorTransformation(filteringFactory: filteringFactory,
+                                                                  indexingFactory: indexingFactory,
                                                                   maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
         }
 
