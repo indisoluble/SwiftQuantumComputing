@@ -32,12 +32,21 @@ extension FixedControlledGate: SimulatorOracleMatrixAdapterExtracting {
         case .failure(let error):
             return .failure(error)
         case .success(let matrix):
+            let controlCount = controls.count + matrix.controlCount
+
             let entry = try! TruthTableEntry(repeating: "1", count: controls.count)
-            let truthTable = (matrix.truthTable.isEmpty ?
-                                [entry] :
-                                matrix.truthTable.map { entry + $0 } )
+
+            let truthTable: [TruthTableEntry]
+            if matrix.controlCount == 0 {
+                truthTable = [entry]
+            } else if matrix.truthTable.isEmpty {
+                truthTable = []
+            } else {
+                truthTable = matrix.truthTable.map { entry + $0 }
+            }
 
             return .success(SimulatorOracleMatrixAdapter(truthTable: truthTable,
+                                                         controlCount: controlCount,
                                                          controlledCountableMatrix: matrix.controlledCountableMatrix))
         }
     }

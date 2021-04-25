@@ -39,8 +39,10 @@ class AnySimulatorOracleMatrix_MatrixCountableTests: XCTestCase {
     func testNotMatrixAndTruthTableWithOneControl_matrixCount_returnExpectedValue() {
         // Given
         let controlledMatrix = Matrix.makeNot()
-        let entry = try! TruthTableEntry(repeating: "0", count: 1)
+        let count = 1
+        let entry = try! TruthTableEntry(repeating: "0", count: count)
         let adapter = SimulatorOracleMatrixAdapter(truthTable: [entry],
+                                                   controlCount: count,
                                                    controlledCountableMatrix: controlledMatrix)
         let sut = AnySimulatorOracleMatrix(matrix: adapter)
 
@@ -51,8 +53,10 @@ class AnySimulatorOracleMatrix_MatrixCountableTests: XCTestCase {
     func testNotMatrixAndTruthTableWithTwoControls_matrixCount_returnExpectedValue() {
         // Given
         let controlledMatrix = Matrix.makeNot()
-        let entry = try! TruthTableEntry(repeating: "0", count: 2)
+        let count = 2
+        let entry = try! TruthTableEntry(repeating: "0", count: count)
         let adapter = SimulatorOracleMatrixAdapter(truthTable: [entry],
+                                                   controlCount: count,
                                                    controlledCountableMatrix: controlledMatrix)
         let sut = AnySimulatorOracleMatrix(matrix: adapter)
 

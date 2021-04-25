@@ -28,10 +28,10 @@ extension FixedOracleGate: SimulatorOracleMatrixAdapterExtracting {
             return .failure(.gateControlsCanNotBeAnEmptyList)
         }
 
+        let truthCount = controls.count
+
         let entries: [TruthTableEntry]
         do {
-            let truthCount = controls.count
-
             entries = try truthTable.map { try TruthTableEntry(truth: $0, truthCount: truthCount) }
         } catch TruthTableEntry.InitError.truthCanNotBeRepresentedWithGivenTruthCount {
             return .failure(.gateTruthTableCanNotBeRepresentedWithGivenControlCount)
@@ -45,12 +45,19 @@ extension FixedOracleGate: SimulatorOracleMatrixAdapterExtracting {
         case .failure(let error):
             return .failure(error)
         case .success(let matrix):
-            var finalEntries = entries
-            if !matrix.truthTable.isEmpty {
+            let finalCount = truthCount + matrix.controlCount
+
+            let finalEntries: [TruthTableEntry]
+            if matrix.controlCount == 0 {
+                finalEntries = entries
+            } else if matrix.truthTable.isEmpty {
+                finalEntries = []
+            } else {
                 finalEntries = entries.lazy.flatMap { e in matrix.truthTable.lazy.map { e + $0 } }
             }
 
             return .success(SimulatorOracleMatrixAdapter(truthTable: finalEntries,
+                                                         controlCount: finalCount,
                                                          controlledCountableMatrix: matrix.controlledCountableMatrix))
         }
     }

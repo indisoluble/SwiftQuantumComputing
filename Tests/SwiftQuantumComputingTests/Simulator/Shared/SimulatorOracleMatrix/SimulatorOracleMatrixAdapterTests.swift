@@ -34,6 +34,7 @@ class SimulatorOracleMatrixAdapterTests: XCTestCase {
         let controlCount = 1
         let truthTable = [try! TruthTableEntry(repeating: "1", count: controlCount)]
         let sut = SimulatorOracleMatrixAdapter(truthTable: truthTable,
+                                               controlCount: controlCount,
                                                controlledCountableMatrix: controlledMatrix)
 
         // Then
