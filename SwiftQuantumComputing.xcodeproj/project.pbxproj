@@ -1421,7 +1421,6 @@
 		FF9BBE5D214E9A1E00AD1F78 /* MatrixGapNonePositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixGapNonePositionView.xib; sourceTree = "<group>"; };
 		FF9BBE5F214EAABD00AD1F78 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		FF9BBE7B214ECEDB00AD1F78 /* Gate+CircuitViewLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+CircuitViewLayerTests.swift"; sourceTree = "<group>"; };
-		FF9CE7EF238B18A90098E5C8 /* Drawer.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Drawer.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF9FBCD221C56C270070D943 /* ConfigurableGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableGate.swift; sourceTree = "<group>"; };
 		FF9FBCD821C579CF0070D943 /* HadamardGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HadamardGate.swift; sourceTree = "<group>"; };
 		FF9FBCDB21C57A160070D943 /* NotGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotGate.swift; sourceTree = "<group>"; };
@@ -1827,7 +1826,6 @@
 			children = (
 				FFD05D7F236614C900872BBA /* Circuit.playground */,
 				FF67E38A2441E2DE000CE560 /* ContinuedFractions.playground */,
-				FF9CE7EF238B18A90098E5C8 /* Drawer.playground */,
 				FF67E3892441DA94000CE560 /* EuclideanAlgorithm.playground */,
 				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
 				FF2B148E253A1A4F004E2E48 /* TwoLevelDecomposition.playground */,
