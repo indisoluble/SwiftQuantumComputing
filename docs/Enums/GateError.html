@@ -337,6 +337,33 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:21SwiftQuantumComputing9GateErrorO31gateControlsCanNotBeAnEmptyListyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/gateControlsCanNotBeAnEmptyList" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing9GateErrorO31gateControlsCanNotBeAnEmptyListyA2CmF">gateControlsCanNotBeAnEmptyList</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Throwed when a gate without <code>controls</code> is used in a circuit</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">gateControlsCanNotBeAnEmptyList</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:21SwiftQuantumComputing9GateErrorO026gateInputCountDoesNotMatchd11MatrixQubitH0yA2CmF"></a>
                     <a name="//apple_ref/swift/Element/gateInputCountDoesNotMatchGateMatrixQubitCount" class="dashAnchor"></a>
                     <a class="token" href="#/s:21SwiftQuantumComputing9GateErrorO026gateInputCountDoesNotMatchd11MatrixQubitH0yA2CmF">gateInputCountDoesNotMatchGateMatrixQubitCount</a>
@@ -500,9 +527,9 @@ handle all possible combinations for a given number of qubits which is (number o
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing9GateErrorO31gateControlsCanNotBeAnEmptyListyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/gateControlsCanNotBeAnEmptyList" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing9GateErrorO31gateControlsCanNotBeAnEmptyListyA2CmF">gateControlsCanNotBeAnEmptyList</a>
+                    <a name="/s:21SwiftQuantumComputing9GateErrorO54gateTruthTableCanNotBeRepresentedWithGivenControlCountyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/gateTruthTableCanNotBeRepresentedWithGivenControlCount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing9GateErrorO54gateTruthTableCanNotBeRepresentedWithGivenControlCountyA2CmF">gateTruthTableCanNotBeRepresentedWithGivenControlCount</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -510,14 +537,41 @@ handle all possible combinations for a given number of qubits which is (number o
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Throwed when a gate without <code>controls</code> is used in a circuit</p>
+                        <p>Throwed when an entry in <code>truthTable</code> uses more qubits than are availble in <code>controls</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">gateControlsCanNotBeAnEmptyList</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">gateTruthTableCanNotBeRepresentedWithGivenControlCount</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing9GateErrorO70gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnesyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing9GateErrorO70gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnesyA2CmF">gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Throwed when an entry in <code>truthTable</code> is either an emptry string or it is not composed only of 0&rsquo;s and 1&rsquo;s</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes</span></code></pre>
 
                         </div>
                       </div>
@@ -532,7 +586,7 @@ handle all possible combinations for a given number of qubits which is (number o
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-03-27)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-04-26)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

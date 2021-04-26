@@ -26,6 +26,8 @@ import Foundation
 public enum GateError: Error {
     /// Throwed when the number of qubits (informed or inferred) to create a circuit is 0
     case circuitQubitCountHasToBeBiggerThanZero
+    /// Throwed when a gate without `controls` is used in a circuit
+    case gateControlsCanNotBeAnEmptyList
     /// Throwed when a gate does not use as many qubits as its matrix is able to handle
     case gateInputCountDoesNotMatchGateMatrixQubitCount
     /// Throwed when a gate references one or more qubits that do not exist
@@ -39,8 +41,10 @@ public enum GateError: Error {
     /// Throwed when the number of rows in a matrix used to build a quantum gate is not a power of 2. A matrix has to
     /// handle all possible combinations for a given number of qubits which is (number of qubits)^2
     case gateMatrixRowCountHasToBeAPowerOfTwo
-    /// Throwed when a gate without `controls` is used in a circuit
-    case gateControlsCanNotBeAnEmptyList
+    /// Throwed when an entry in `truthTable` uses more qubits than are availble in `controls`
+    case gateTruthTableCanNotBeRepresentedWithGivenControlCount
+    /// Throwed when an entry in `truthTable` is either an emptry string or it is not composed only of 0's and 1's
+    case gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes
 }
 
 /// Errors throwed by `Circuit.statevector(withInitialStatevector:)`

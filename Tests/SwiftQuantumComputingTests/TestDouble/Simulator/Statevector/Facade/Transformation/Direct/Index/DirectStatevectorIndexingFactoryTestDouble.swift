@@ -28,30 +28,19 @@ final class DirectStatevectorIndexingFactoryTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var makeSingleQubitGateIndexerCount = 0
-    private (set) var lastMakeSingleQubitGateIndexerGateInput: Int?
-
-    private (set) var makeMultiQubitGateIndexerCount = 0
-    private (set) var lastMakeMultiQubitGateIndexerGateInputs: [Int]?
-    var makeMultiQubitGateIndexerResult = try! Vector([.one, .zero])
+    private (set) var makeGateIndexerCount = 0
+    private (set) var lastMakeGateIndexerGateInputs: [Int]?
+    var makeGateIndexerResult: DirectStatevectorIndexing = DirectStatevectorSingleQubitGateIndexer(gateInput: 0)
 }
 
 // MARK: - DirectStatevectorIndexingFactory methods
 
 extension DirectStatevectorIndexingFactoryTestDouble: DirectStatevectorIndexingFactory {
-    func makeSingleQubitGateIndexer(gateInput: Int) -> DirectStatevectorIndexing {
-        makeSingleQubitGateIndexerCount += 1
+    func makeGateIndexer(gateInputs: [Int]) -> DirectStatevectorIndexing {
+        makeGateIndexerCount += 1
 
-        lastMakeSingleQubitGateIndexerGateInput = gateInput
+        lastMakeGateIndexerGateInputs = gateInputs
 
-        return DirectStatevectorSingleQubitGateIndexer(gateInput: gateInput)
-    }
-
-    func makeMultiQubitGateIndexer(gateInputs: [Int]) -> DirectStatevectorIndexing {
-        makeMultiQubitGateIndexerCount += 1
-
-        lastMakeMultiQubitGateIndexerGateInputs = gateInputs
-
-        return DirectStatevectorMultiQubitGateIndexer(gateInputs: gateInputs)
+        return makeGateIndexerResult
     }
 }

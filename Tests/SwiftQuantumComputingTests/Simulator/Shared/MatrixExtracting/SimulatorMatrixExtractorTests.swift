@@ -66,6 +66,19 @@ class SimulatorMatrixExtractorTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException() {
+        // Given
+        let gate = Gate.matrix(matrix: validMatrix, inputs: [1, 1])
+        let extractor = SimulatorMatrixExtractor(extractor: gate)
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .gateInputsAreNotUnique)
+    }
+
     func testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException() {
         // Given
         let gate = Gate.controlled(gate: .matrix(matrix: nonPowerOfTwoSizeMatrix, inputs: [0]),
@@ -144,19 +157,6 @@ class SimulatorMatrixExtractorTests: XCTestCase {
             error = e
         }
         XCTAssertEqual(error, .gateInputCountDoesNotMatchGateMatrixQubitCount)
-    }
-
-    func testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException() {
-        // Given
-        let gate = Gate.matrix(matrix: validMatrix, inputs: [1, 1])
-        let extractor = SimulatorMatrixExtractor(extractor: gate)
-
-        // Then
-        var error: GateError?
-        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
-            error = e
-        }
-        XCTAssertEqual(error, .gateInputsAreNotUnique)
     }
 
     func testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extractComponents_throwException() {
@@ -461,6 +461,8 @@ class SimulatorMatrixExtractorTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException",
+         testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException),
         ("testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException",
          testGateControlledMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException),
         ("testGateMatrixWithNonPowerOfTwoSizeMatrix_extractComponents_throwException",
@@ -473,8 +475,6 @@ class SimulatorMatrixExtractorTests: XCTestCase {
          testGateMatrixWithValidMatrixAndMoreInputsThanGateTakes_extractComponents_throwException),
         ("testGateMatrixWithValidMatrixAndLessInputsThanGateTakes_extractComponents_throwException",
          testGateMatrixWithValidMatrixAndLessInputsThanGateTakes_extractComponents_throwException),
-        ("testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException",
-         testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException),
         ("testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extractComponents_throwException",
          testGateMatrixWithValidMatrixAndQubitCountEqualToZero_extractComponents_throwException),
         ("testGateMatrixWithValidMatrixAndSizeBiggerThanQubitCount_extractComponents_throwException",

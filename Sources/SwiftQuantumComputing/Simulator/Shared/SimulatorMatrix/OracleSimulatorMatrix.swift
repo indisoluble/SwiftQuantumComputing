@@ -37,7 +37,7 @@ struct OracleSimulatorMatrix {
 
     // MARK: - Internal init methods
 
-    init(truthTable: [String],
+    init(truthTable: [TruthTableEntry],
          controlCount: Int,
          controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable) {
         activatedSections = OracleSimulatorMatrix.truthTableAsInts(truthTable)
@@ -50,9 +50,11 @@ struct OracleSimulatorMatrix {
 
     init(equivalentToControlledGateWithControlCount controlCount: Int,
          controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable) {
-        let truth = String(repeating: "1", count: controlCount)
+        let truthTable = (controlCount > 0 ?
+                            [try! TruthTableEntry(repeating: "1", count: controlCount)] :
+                            [])
 
-        self.init(truthTable: [truth],
+        self.init(truthTable: truthTable,
                   controlCount: controlCount,
                   controlledCountableMatrix: controlledCountableMatrix)
     }
@@ -88,15 +90,11 @@ private extension OracleSimulatorMatrix {
 
     // MARK: - Private class methods
 
-    static func truthTableAsInts(_ truthTable: [String]) -> Set<Int> {
+    static func truthTableAsInts(_ truthTable: [TruthTableEntry]) -> Set<Int> {
         var result: Set<Int> = []
 
         for truth in truthTable {
-            guard let truthAsInt = Int(truth, radix: 2) else {
-                continue
-            }
-
-            result.update(with: truthAsInt)
+            result.update(with: Int(truth))
         }
 
         return result

@@ -24,7 +24,7 @@ import Foundation
 
 extension FixedControlledGate: SimulatorMatrixExtracting {
     func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
-        switch extractControlledMatrixAdapter() {
+        switch extractOracleMatrixAdapter() {
         case .success(let adapter):
             return .success(adapter.expandedOracleMatrix())
         case .failure(let error):
