@@ -154,6 +154,7 @@
 		FF1B2C72252CF7D800F22391 /* Int+ActivatedBits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B2C70252CF7D800F22391 /* Int+ActivatedBits.swift */; };
 		FF1B2C7E252CFF2800F22391 /* Int+ActivatedBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B2C7D252CFF2800F22391 /* Int+ActivatedBitsTests.swift */; };
 		FF1B2C7F252CFF2800F22391 /* Int+ActivatedBitsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1B2C7D252CFF2800F22391 /* Int+ActivatedBitsTests.swift */; };
+		FF1C540D263DC06D00743468 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = FF1C540C263DC06D00743468 /* ArgumentParser */; };
 		FF1CF5F1229C8C33003948F6 /* MainDrawerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1CF5F0229C8C33003948F6 /* MainDrawerFactory.swift */; };
 		FF1CF5F2229C8C33003948F6 /* MainDrawerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1CF5F0229C8C33003948F6 /* MainDrawerFactory.swift */; };
 		FF1CF5F4229C8D2B003948F6 /* DrawerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1CF5F3229C8D2B003948F6 /* DrawerFactory.swift */; };
@@ -1621,6 +1622,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF1C540D263DC06D00743468 /* ArgumentParser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3764,6 +3766,9 @@
 			dependencies = (
 			);
 			name = SQCMeasurePerformance;
+			packageProductDependencies = (
+				FF1C540C263DC06D00743468 /* ArgumentParser */,
+			);
 			productName = SQCMeasurePerformance;
 			productReference = FF8B9843263DBA7D004EDF4B /* SQCMeasurePerformance */;
 			productType = "com.apple.product-type.tool";
@@ -3849,6 +3854,7 @@
 			mainGroup = FF65E3AB211A181800AA0BD2;
 			packageReferences = (
 				FF938094260F7C76008DE9BD /* XCRemoteSwiftPackageReference "swift-numerics" */,
+				FF1C540B263DC06D00743468 /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
 			);
 			productRefGroup = FF65E3B6211A181900AA0BD2 /* Products */;
 			projectDirPath = "";
@@ -5356,6 +5362,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		FF1C540B263DC06D00743468 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
 		FF938094260F7C76008DE9BD /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-numerics.git";
@@ -5367,6 +5381,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FF1C540C263DC06D00743468 /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF1C540B263DC06D00743468 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
 		FF938095260F7C76008DE9BD /* ComplexModule */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FF938094260F7C76008DE9BD /* XCRemoteSwiftPackageReference "swift-numerics" */;

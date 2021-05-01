@@ -6,6 +6,10 @@ var dependencies: [Package.Dependency] = [
     .package(
         url: "https://github.com/apple/swift-numerics.git",
         .exact("0.1.0")
+    ),
+    .package(
+        url: "https://github.com/apple/swift-argument-parser",
+        .upToNextMinor(from: "0.4.0")
     )
 ]
 #if os(Linux)
@@ -52,7 +56,13 @@ let package = Package(
             ]
         ),
         .target(
-            name: "SQCMeasurePerformance"
+            name: "SQCMeasurePerformance",
+            dependencies: [
+                .product(
+                    name: "ArgumentParser",
+                    package: "swift-argument-parser"
+                )
+            ]
         ),
         .testTarget(
             name: "SwiftQuantumComputingTests",

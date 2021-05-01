@@ -49,6 +49,7 @@ Documentation for the project can be found [here](https://indisoluble.github.io/
 ## SwiftPM dependencies
 
 * [CBLAS-Linux](https://github.com/indisoluble/CBLAS-Linux) (only for Linux)
+* [Swift Argument Parser](https://github.com/apple/swift-argument-parser)
 * [Swift Numerics](https://github.com/apple/swift-numerics)
 
 ### Linux

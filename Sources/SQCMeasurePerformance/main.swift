@@ -18,7 +18,8 @@
 // limitations under the License.
 //
 
-import Foundation
+import ArgumentParser
 
-print("Hello, World!")
+struct SQCMeasurePerformance: ParsableCommand {}
 
+SQCMeasurePerformance.main()
