@@ -35,6 +35,12 @@ let package = Package(
             targets: [
                 "ExampleShorAlgorithm"
             ]
+        ),
+        .executable(
+            name: "sqc-measure-performance",
+            targets: [
+                "SQCMeasurePerformance"
+            ]
         )
     ],
     dependencies: dependencies,
@@ -56,6 +62,9 @@ let package = Package(
             dependencies: [
                 "SwiftQuantumComputing"
             ]
+        ),
+        .target(
+            name: "SQCMeasurePerformance"
         ),
         .testTarget(
             name: "SwiftQuantumComputingTests",
