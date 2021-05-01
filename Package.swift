@@ -31,12 +31,6 @@ let package = Package(
             ]
         ),
         .executable(
-            name: "ShorAlgorithm",
-            targets: [
-                "ExampleShorAlgorithm"
-            ]
-        ),
-        .executable(
             name: "sqc-measure-performance",
             targets: [
                 "SQCMeasurePerformance"
@@ -55,12 +49,6 @@ let package = Package(
             ],
             exclude: [
                 "Drawer"
-            ]
-        ),
-        .target(
-            name: "ExampleShorAlgorithm",
-            dependencies: [
-                "SwiftQuantumComputing"
             ]
         ),
         .target(

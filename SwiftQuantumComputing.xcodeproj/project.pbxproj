@@ -659,7 +659,6 @@
 		FF9301D9235CE01E008DD87E /* UnitaryGateTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9301D7235CE01E008DD87E /* UnitaryGateTestDouble.swift */; };
 		FF938096260F7C76008DE9BD /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF938095260F7C76008DE9BD /* ComplexModule */; };
 		FF93809D260F7C81008DE9BD /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF93809C260F7C81008DE9BD /* ComplexModule */; };
-		FF93809F260F7C8B008DE9BD /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF93809E260F7C8B008DE9BD /* ComplexModule */; };
 		FF94375024FAB0FA002BC06E /* MatrixGapDownPositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF1EE63724FAAF2E007DC99B /* MatrixGapDownPositionView.xib */; };
 		FF96F7C325D973EC0063E6F1 /* RawMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF96F7C225D973EC0063E6F1 /* RawMatrixExtracting.swift */; };
 		FF96F7C425D973EC0063E6F1 /* RawMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF96F7C225D973EC0063E6F1 /* RawMatrixExtracting.swift */; };
@@ -841,7 +840,6 @@
 		FFC1C5AA25B37EAD004A4445 /* DirectStatevectorMultiQubitGateIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC1C5A825B37EAD004A4445 /* DirectStatevectorMultiQubitGateIndexer.swift */; };
 		FFC234482516942C00A8D193 /* Matrix+Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC234472516942C00A8D193 /* Matrix+Rotation.swift */; };
 		FFC234492516942C00A8D193 /* Matrix+Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC234472516942C00A8D193 /* Matrix+Rotation.swift */; };
-		FFC331AA24B9FDD000A32FF8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC3318A24B9FBDB00A32FF8 /* main.swift */; };
 		FFC5964E2203AFB500151355 /* GeneticFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC5964D2203AFB500151355 /* GeneticFactory.swift */; };
 		FFC5964F2203AFB500151355 /* GeneticFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC5964D2203AFB500151355 /* GeneticFactory.swift */; };
 		FFC596512203B30D00151355 /* GeneticConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC596502203B30D00151355 /* GeneticConfiguration.swift */; };
@@ -1044,15 +1042,6 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		FF8B9841263DBA7D004EDF4B /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-		FFC3318D24B9FCA100A32FF8 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -1512,8 +1501,6 @@
 		FFBD4F38251FC0410038C786 /* Matrix+TransposedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+TransposedTests.swift"; sourceTree = "<group>"; };
 		FFC1C5A825B37EAD004A4445 /* DirectStatevectorMultiQubitGateIndexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectStatevectorMultiQubitGateIndexer.swift; sourceTree = "<group>"; };
 		FFC234472516942C00A8D193 /* Matrix+Rotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Matrix+Rotation.swift"; sourceTree = "<group>"; };
-		FFC3318A24B9FBDB00A32FF8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		FFC3318F24B9FCA100A32FF8 /* ExampleShorAlgorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ExampleShorAlgorithm; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFC5964D2203AFB500151355 /* GeneticFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticFactory.swift; sourceTree = "<group>"; };
 		FFC596502203B30D00151355 /* GeneticConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticConfiguration.swift; sourceTree = "<group>"; };
 		FFC59A05259D1374009AD238 /* SimulatorCircuitRowTestDouble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorCircuitRowTestDouble.swift; sourceTree = "<group>"; };
@@ -1650,14 +1637,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFBA23F521691E0F003E5727 /* SwiftQuantumComputing.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FFC3318C24B9FCA100A32FF8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FF93809F260F7C8B008DE9BD /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2547,7 +2526,6 @@
 				FF65E3BE211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests.xctest */,
 				FFBA23EC21691E0F003E5727 /* SwiftQuantumComputing.framework */,
 				FFBA23F421691E0F003E5727 /* SwiftQuantumComputing_macOSTests.xctest */,
-				FFC3318F24B9FCA100A32FF8 /* ExampleShorAlgorithm */,
 				FF8B9843263DBA7D004EDF4B /* SQCMeasurePerformance */,
 			);
 			name = Products;
@@ -3290,7 +3268,6 @@
 		FFB7F567227CD5E100DF2937 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				FFC3318924B9FBA200A32FF8 /* ExampleShorAlgorithm */,
 				FF8B9844263DBA7D004EDF4B /* SQCMeasurePerformance */,
 				FF64C321216902FD000C2ABD /* SwiftQuantumComputing */,
 				FF65E3B7211A181900AA0BD2 /* SwiftQuantumComputing_iOS */,
@@ -3422,14 +3399,6 @@
 				FF623F6A2454A6FD001A1224 /* DirectStatevectorTransformationTests.swift */,
 			);
 			path = Direct;
-			sourceTree = "<group>";
-		};
-		FFC3318924B9FBA200A32FF8 /* ExampleShorAlgorithm */ = {
-			isa = PBXGroup;
-			children = (
-				FFC3318A24B9FBDB00A32FF8 /* main.swift */,
-			);
-			path = ExampleShorAlgorithm;
 			sourceTree = "<group>";
 		};
 		FFC7A54325E1B7ED00E14581 /* SimulatorMatrixExtracting */ = {
@@ -3838,26 +3807,6 @@
 			productReference = FFBA23F421691E0F003E5727 /* SwiftQuantumComputing_macOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		FFC3318E24B9FCA100A32FF8 /* ExampleShorAlgorithm */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FFC3319324B9FCA100A32FF8 /* Build configuration list for PBXNativeTarget "ExampleShorAlgorithm" */;
-			buildPhases = (
-				FFC3318B24B9FCA100A32FF8 /* Sources */,
-				FFC3318C24B9FCA100A32FF8 /* Frameworks */,
-				FFC3318D24B9FCA100A32FF8 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ExampleShorAlgorithm;
-			packageProductDependencies = (
-				FF93809E260F7C8B008DE9BD /* ComplexModule */,
-			);
-			productName = ExampleShorAlgorithm;
-			productReference = FFC3318F24B9FCA100A32FF8 /* ExampleShorAlgorithm */;
-			productType = "com.apple.product-type.tool";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -3887,9 +3836,6 @@
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1020;
 					};
-					FFC3318E24B9FCA100A32FF8 = {
-						CreatedOnToolsVersion = 11.5;
-					};
 				};
 			};
 			buildConfigurationList = FF65E3AF211A181900AA0BD2 /* Build configuration list for PBXProject "SwiftQuantumComputing" */;
@@ -3912,7 +3858,6 @@
 				FF65E3BD211A181900AA0BD2 /* SwiftQuantumComputing_iOSTests */,
 				FFBA23EB21691E0F003E5727 /* SwiftQuantumComputing_macOS */,
 				FFBA23F321691E0F003E5727 /* SwiftQuantumComputing_macOSTests */,
-				FFC3318E24B9FCA100A32FF8 /* ExampleShorAlgorithm */,
 				FF8B9842263DBA7D004EDF4B /* SQCMeasurePerformance */,
 			);
 		};
@@ -4993,14 +4938,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FFC3318B24B9FCA100A32FF8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FFC331AA24B9FDD000A32FF8 /* main.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -5359,33 +5296,6 @@
 			};
 			name = Release;
 		};
-		FFC3319424B9FCA100A32FF8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		FFC3319524B9FCA100A32FF8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Automatic;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -5443,15 +5353,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FFC3319324B9FCA100A32FF8 /* Build configuration list for PBXNativeTarget "ExampleShorAlgorithm" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FFC3319424B9FCA100A32FF8 /* Debug */,
-				FFC3319524B9FCA100A32FF8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -5472,11 +5373,6 @@
 			productName = ComplexModule;
 		};
 		FF93809C260F7C81008DE9BD /* ComplexModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FF938094260F7C76008DE9BD /* XCRemoteSwiftPackageReference "swift-numerics" */;
-			productName = ComplexModule;
-		};
-		FF93809E260F7C8B008DE9BD /* ComplexModule */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FF938094260F7C76008DE9BD /* XCRemoteSwiftPackageReference "swift-numerics" */;
 			productName = ComplexModule;
