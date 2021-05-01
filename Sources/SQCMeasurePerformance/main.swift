@@ -20,6 +20,27 @@
 
 import ArgumentParser
 
-struct SQCMeasurePerformance: ParsableCommand {}
+enum Mode: String, ExpressibleByArgument {
+    case fullMatrix
+    case rowByRow
+    case elementByElement
+    case direct
+}
+
+enum Circuit: String, ExpressibleByArgument {
+    case hadamards
+    case halfHadamardsHalfNots
+    case controlledHadamards
+    case fullyControlledHadamards
+    case oracleHadamards
+}
+
+struct SQCMeasurePerformance: ParsableCommand {
+    @Option var mode = Mode.direct
+    @Option var concurrency = 1
+    @Option var qubitCount = 18
+    @Option var circuit = Circuit.fullyControlledHadamards
+    @Option var repeatCircuit = 1
+}
 
 SQCMeasurePerformance.main()
