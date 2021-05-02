@@ -19,6 +19,7 @@
 //
 
 import ArgumentParser
+import Foundation
 import SwiftQuantumComputing
 
 // MARK: - Types
@@ -115,11 +116,134 @@ struct SQCMeasurePerformance: ParsableCommand {
             throw ValidationError("Please specify a 'loop' of at least 1.")
         }
     }
+
+    mutating func run() throws {
+        let circuit = makeCircuit()
+
+        print("Executing \(repeatExecution) time/s circuit with \(qubitCount) qubit/s " +
+                "& \(circuit.gates.count) gates...\n")
+
+        let total = (1...repeatExecution).reduce(0.0) { (acc, idx) in
+            print("Execution \(idx): Starting...")
+
+            let start = DispatchTime.now()
+            _ = circuit.statevector()
+            let diff = seconds(since: start)
+
+            print("Execution \(idx): Ended in \(diff) seconds (\(diff / 60.0) minutes)")
+
+            return acc + diff
+        }
+
+        let avgDiff = total / Double(repeatExecution)
+        print("\nCircuit executed. Average time: \(avgDiff) seconds (\(avgDiff / 60.0) minutes)")
+    }
 }
 
 // MARK: - Private body
 
-private extension SQCMeasurePerformance {}
+private extension SQCMeasurePerformance {
+
+    // MARK: - Private methods
+
+    func seconds(since start: DispatchTime) -> Double {
+        let diff = DispatchTime.now().uptimeNanoseconds - start.uptimeNanoseconds
+
+        return Double(diff) / 1_000_000_000
+    }
+
+    func entangledStateGates() -> [Gate] {
+        print("Creating gates to compose initial entangled state...")
+        defer {
+            print("Gates created")
+        }
+
+        return [.hadamard(target: 0)] +
+            (1..<qubitCount).map { .controlledNot(target: $0, control: 0) }
+    }
+
+    func commonGates() -> [Gate] {
+        print("Creating \(circuit) 'gates'...")
+        defer {
+            print("Gates created")
+        }
+
+        let indexes = 0..<qubitCount
+
+        switch circuit {
+        case .hadamards:
+            return Gate.hadamard(targets: indexes)
+        case .halfHadamardsHalfNots:
+            let index = qubitCount / 2
+
+            return Gate.hadamard(targets: 0..<index) + Gate.not(targets: index..<qubitCount)
+        case .controlledHadamards:
+            return indexes.map { idx in
+                var control = qubitCount - idx - 1
+                if control == idx {
+                    control = 0
+                }
+
+                return .controlled(gate: .hadamard(target: idx),
+                                   controls: [control])
+            }
+        case .fullyControlledHadamards:
+            return indexes.map { idx in
+                return .controlled(gate: .hadamard(target: idx),
+                                   controls: indexes.filter { $0 != idx })
+            }
+        case .oracleHadamards:
+            let truthtable = [
+                String(repeating: "0", count: qubitCount - 1),
+                String(repeating: "1", count: qubitCount - 1)
+            ]
+
+            return indexes.map { idx in
+                return .oracle(truthTable: truthtable,
+                               controls: indexes.filter { $0 != idx },
+                               gate: .hadamard(target: idx))
+            }
+        }
+    }
+
+    func replicatedGates() -> [Gate] {
+        print("Replicating 'gates'...")
+        defer {
+            print("Gates replicated")
+        }
+
+        return Array(repeating: commonGates(), count: replicateCircuit).flatMap { $0 }
+    }
+
+    func makeFactory() -> CircuitFactory {
+        let config: MainCircuitFactory.StatevectorConfiguration
+        switch mode {
+        case .fullMatrix:
+            config = .fullMatrix
+        case .rowByRow:
+            config = .rowByRow(maxConcurrency: concurrency)
+        case .elementByElement:
+            config = .elementByElement(maxConcurrency: concurrency)
+        case .direct:
+            config = .direct(maxConcurrency: concurrency)
+        }
+
+        return MainCircuitFactory(statevectorConfiguration: config)
+    }
+
+    func makeCircuit() -> SwiftQuantumComputing.Circuit {
+        print("Creating circuit...")
+
+        let start = DispatchTime.now()
+        defer {
+            let diff = seconds(since: start)
+
+            print("Circuit created in \(diff) seconds (\(diff / 60.0) minutes)\n")
+        }
+
+        return makeFactory().makeCircuit(gates: entangledStateGates() + replicatedGates())
+    }
+}
 
 // MARK: - Launch
 
