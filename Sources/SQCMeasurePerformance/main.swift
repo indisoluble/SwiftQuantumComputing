@@ -19,6 +19,9 @@
 //
 
 import ArgumentParser
+import SwiftQuantumComputing
+
+// MARK: - Types
 
 enum Mode: String, CaseIterable, ExpressibleByArgument {
     case fullMatrix
@@ -35,7 +38,12 @@ enum Circuit: String, CaseIterable, ExpressibleByArgument {
     case oracleHadamards
 }
 
+// MARK: - Main body
+
 struct SQCMeasurePerformance: ParsableCommand {
+
+    // MARK: - Properties
+
     static var configuration = CommandConfiguration(
         abstract: "Calculate how long it takes to produce a statevector",
         discussion: """
@@ -69,6 +77,8 @@ struct SQCMeasurePerformance: ParsableCommand {
     @Option(name: [.customShort("l"), .customLong("loop")],
             help: "How many times the circuit is simulated to get an average execution time.")
     var repeatExecution = 1
+
+    // MARK: - Methods
 
     mutating func validate() throws {
         switch mode {
@@ -106,5 +116,11 @@ struct SQCMeasurePerformance: ParsableCommand {
         }
     }
 }
+
+// MARK: - Private body
+
+private extension SQCMeasurePerformance {}
+
+// MARK: - Launch
 
 SQCMeasurePerformance.main()

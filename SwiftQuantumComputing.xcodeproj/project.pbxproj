@@ -176,6 +176,7 @@
 		FF20146024965DD0007DAFFB /* CircuitStatevector+ProbabilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF20145E24965DD0007DAFFB /* CircuitStatevector+ProbabilitiesTests.swift */; };
 		FF20C75023EA238E00112724 /* CircuitSimulatorMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF20C74F23EA238E00112724 /* CircuitSimulatorMatrixTests.swift */; };
 		FF20C75123EA238E00112724 /* CircuitSimulatorMatrixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF20C74F23EA238E00112724 /* CircuitSimulatorMatrixTests.swift */; };
+		FF220B21263F1BC60069E9D6 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = FF220B20263F1BC60069E9D6 /* ComplexModule */; };
 		FF233730222AA7D400FD5301 /* MainGeneticPopulationMutationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF23372F222AA7D400FD5301 /* MainGeneticPopulationMutationTests.swift */; };
 		FF233731222AA7D400FD5301 /* MainGeneticPopulationMutationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF23372F222AA7D400FD5301 /* MainGeneticPopulationMutationTests.swift */; };
 		FF233735222AAD1200FD5301 /* GeneticCircuitMutationTestDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF233732222AACCB00FD5301 /* GeneticCircuitMutationTestDouble.swift */; };
@@ -1623,6 +1624,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF1C540D263DC06D00743468 /* ArgumentParser in Frameworks */,
+				FF220B21263F1BC60069E9D6 /* ComplexModule in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3768,6 +3770,7 @@
 			name = SQCMeasurePerformance;
 			packageProductDependencies = (
 				FF1C540C263DC06D00743468 /* ArgumentParser */,
+				FF220B20263F1BC60069E9D6 /* ComplexModule */,
 			);
 			productName = SQCMeasurePerformance;
 			productReference = FF8B9843263DBA7D004EDF4B /* SQCMeasurePerformance */;
@@ -5385,6 +5388,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FF1C540B263DC06D00743468 /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
 			productName = ArgumentParser;
+		};
+		FF220B20263F1BC60069E9D6 /* ComplexModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FF938094260F7C76008DE9BD /* XCRemoteSwiftPackageReference "swift-numerics" */;
+			productName = ComplexModule;
 		};
 		FF938095260F7C76008DE9BD /* ComplexModule */ = {
 			isa = XCSwiftPackageProductDependency;
