@@ -20,14 +20,14 @@
 
 import ArgumentParser
 
-enum Mode: String, ExpressibleByArgument {
+enum Mode: String, CaseIterable, ExpressibleByArgument {
     case fullMatrix
     case rowByRow
     case elementByElement
     case direct
 }
 
-enum Circuit: String, ExpressibleByArgument {
+enum Circuit: String, CaseIterable, ExpressibleByArgument {
     case hadamards
     case halfHadamardsHalfNots
     case controlledHadamards
@@ -36,11 +36,75 @@ enum Circuit: String, ExpressibleByArgument {
 }
 
 struct SQCMeasurePerformance: ParsableCommand {
-    @Option var mode = Mode.direct
-    @Option var concurrency = 1
-    @Option var qubitCount = 18
-    @Option var circuit = Circuit.fullyControlledHadamards
-    @Option var repeatCircuit = 1
+    static var configuration = CommandConfiguration(
+        abstract: "Calculate how long it takes to produce a statevector",
+        discussion: """
+            This application provides multiple configuration options, try
+            different values to check the performance of this quantum
+            circuit simulator in your computer.
+            """
+    )
+
+    @Option(name: .shortAndLong,
+            help: "Execution mode: \(Mode.allCases.map({ "\($0)" }).joined(separator: ", ")).")
+    var mode = Mode.direct
+
+    @Option(name: [.customShort("t"), .customLong("threads")],
+            help: "Maximum number of threads used by the simulator.")
+    var concurrency = 1
+
+    @Option(name: [.short, .customLong("qubits")],
+            help: "Number of qubits to be simulated.")
+    var qubitCount = 18
+
+    @Option(name: [.customShort("g"), .customLong("gates")],
+            help: ArgumentHelp("Set of gates that compose the circuit: " +
+                                "\(Circuit.allCases.map({ "\($0)" }).joined(separator: ", "))."))
+    var circuit = Circuit.fullyControlledHadamards
+
+    @Option(name: [.short, .customLong("replicate")],
+            help: "How many times 'gates' are replicated to compose a longer circuit.")
+    var replicateCircuit = 1
+
+    @Option(name: [.customShort("l"), .customLong("loop")],
+            help: "How many times the circuit is simulated to get an average execution time.")
+    var repeatExecution = 1
+
+    mutating func validate() throws {
+        switch mode {
+        case .fullMatrix:
+            guard concurrency == 1 else {
+                throw ValidationError(
+                    "'mode' \(mode) runs in a single thread, please set 'threads' to 1."
+                )
+            }
+        case .rowByRow, .elementByElement, .direct:
+            guard concurrency >= 1 else {
+                throw ValidationError("Please specify a number of 'threads' of at least 1.")
+            }
+        }
+
+        let minQubitCount: Int
+        switch circuit {
+        case .hadamards, .halfHadamardsHalfNots:
+            minQubitCount = 1
+        case .controlledHadamards, .fullyControlledHadamards, .oracleHadamards:
+            minQubitCount = 2
+        }
+        guard qubitCount >= minQubitCount else {
+            throw ValidationError(
+                "For \(circuit) 'gates', please specify at least \(minQubitCount) 'qubits'."
+            )
+        }
+
+        guard replicateCircuit >= 1 else {
+            throw ValidationError("Please specify a 'replicate' of at least 1.")
+        }
+
+        guard repeatExecution >= 1 else {
+            throw ValidationError("Please specify a 'loop' of at least 1.")
+        }
+    }
 }
 
 SQCMeasurePerformance.main()
