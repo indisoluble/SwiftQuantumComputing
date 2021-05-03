@@ -11,6 +11,16 @@
 
 Check code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground/Contents.swift).
 
+## Performance
+
+```zsh
+~/SwiftQuantumComputing % swift run sqc-measure-performance
+```
+
+Run this application to check the performance of this simulator in your computer. Execute `swift run sqc-measure-performance -h` to see all available options.
+
+Check code in [SQCMeasurePerformance/main.swift](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Sources/SQCMeasurePerformance/main.swift).
+
 ## Algorithms
 
 * Use a genetic algorithm to automatically generate a quantum circuit - Check example in [Genetic.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Genetic.playground/Contents.swift).
