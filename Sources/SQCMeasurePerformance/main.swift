@@ -79,6 +79,9 @@ struct SQCMeasurePerformance: ParsableCommand {
             help: "How many times the circuit is simulated to get an average execution time.")
     var repeatExecution = 1
 
+    @Flag(name: .shortAndLong, help: "Increase verbosity of informational output")
+    var printVerbose = false
+
     // MARK: - Methods
 
     mutating func validate() throws {
@@ -118,25 +121,24 @@ struct SQCMeasurePerformance: ParsableCommand {
     }
 
     mutating func run() throws {
-        let circuit = makeCircuit()
+        let result = makeCircuit()
 
         print("Executing \(repeatExecution) time/s circuit with \(qubitCount) qubit/s " +
-                "& \(circuit.gates.count) gates...\n")
+                "& \(result.gates.count) gates (entangled state + \(circuit))...\n")
 
         let total = (1...repeatExecution).reduce(0.0) { (acc, idx) in
-            print("Execution \(idx): Starting...")
+            print("Execution \(idx)...")
 
             let start = DispatchTime.now()
-            _ = circuit.statevector()
+            _ = result.statevector()
             let diff = seconds(since: start)
 
-            print("Execution \(idx): Ended in \(diff) seconds (\(diff / 60.0) minutes)")
+            verbose("Execution \(idx): Completed in \(diff) seconds")
 
             return acc + diff
         }
 
-        let avgDiff = total / Double(repeatExecution)
-        print("\nCircuit executed. Average time: \(avgDiff) seconds (\(avgDiff / 60.0) minutes)")
+        print("\nCircuit executed. Average time: \(total / Double(repeatExecution)) seconds")
     }
 }
 
@@ -152,10 +154,18 @@ private extension SQCMeasurePerformance {
         return Double(diff) / 1_000_000_000
     }
 
+    func verbose(_ msg: String) {
+        guard printVerbose else {
+            return
+        }
+
+        print(msg)
+    }
+
     func entangledStateGates() -> [Gate] {
-        print("Creating gates to compose initial entangled state...")
+        verbose("Creating gates to compose initial entangled state...")
         defer {
-            print("Gates created")
+            verbose("Gates created")
         }
 
         return [.hadamard(target: 0)] +
@@ -163,9 +173,9 @@ private extension SQCMeasurePerformance {
     }
 
     func commonGates() -> [Gate] {
-        print("Creating \(circuit) 'gates'...")
+        verbose("Creating \(circuit) 'gates'...")
         defer {
-            print("Gates created")
+            verbose("Gates created")
         }
 
         let indexes = 0..<qubitCount
@@ -207,9 +217,9 @@ private extension SQCMeasurePerformance {
     }
 
     func replicatedGates() -> [Gate] {
-        print("Replicating 'gates'...")
+        verbose("Replicating 'gates'...")
         defer {
-            print("Gates replicated")
+            verbose("Gates replicated")
         }
 
         return Array(repeating: commonGates(), count: replicateCircuit).flatMap { $0 }
@@ -232,13 +242,13 @@ private extension SQCMeasurePerformance {
     }
 
     func makeCircuit() -> SwiftQuantumComputing.Circuit {
-        print("Creating circuit...")
+        verbose("Creating circuit...")
 
         let start = DispatchTime.now()
         defer {
             let diff = seconds(since: start)
 
-            print("Circuit created in \(diff) seconds (\(diff / 60.0) minutes)\n")
+            verbose("Circuit created in \(diff) seconds\n")
         }
 
         return makeFactory().makeCircuit(gates: entangledStateGates() + replicatedGates())
