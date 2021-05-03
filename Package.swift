@@ -6,6 +6,10 @@ var dependencies: [Package.Dependency] = [
     .package(
         url: "https://github.com/apple/swift-numerics.git",
         .exact("0.1.0")
+    ),
+    .package(
+        url: "https://github.com/apple/swift-argument-parser",
+        .upToNextMinor(from: "0.4.0")
     )
 ]
 #if os(Linux)
@@ -31,9 +35,9 @@ let package = Package(
             ]
         ),
         .executable(
-            name: "ShorAlgorithm",
+            name: "sqc-measure-performance",
             targets: [
-                "ExampleShorAlgorithm"
+                "SQCMeasurePerformance"
             ]
         )
     ],
@@ -52,8 +56,12 @@ let package = Package(
             ]
         ),
         .target(
-            name: "ExampleShorAlgorithm",
+            name: "SQCMeasurePerformance",
             dependencies: [
+                .product(
+                    name: "ArgumentParser",
+                    package: "swift-argument-parser"
+                ),
                 "SwiftQuantumComputing"
             ]
         ),
