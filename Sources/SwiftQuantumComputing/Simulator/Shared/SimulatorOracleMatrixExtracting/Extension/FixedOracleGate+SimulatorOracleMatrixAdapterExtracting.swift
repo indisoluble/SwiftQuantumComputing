@@ -24,41 +24,8 @@ import Foundation
 
 extension FixedOracleGate: SimulatorOracleMatrixAdapterExtracting {
     func extractOracleMatrixAdapter() -> Result<SimulatorOracleMatrixAdapter, GateError> {
-        guard !controls.isEmpty else {
-            return .failure(.gateControlsCanNotBeAnEmptyList)
-        }
-
-        let truthCount = controls.count
-
-        let entries: [TruthTableEntry]
-        do {
-            entries = try truthTable.map { try TruthTableEntry(truth: $0, truthCount: truthCount) }
-        } catch TruthTableEntry.InitError.truthCanNotBeRepresentedWithGivenTruthCount {
-            return .failure(.gateTruthTableCanNotBeRepresentedWithGivenControlCount)
-        } catch TruthTableEntry.InitError.truthHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes {
-            return .failure(.gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes)
-        } catch {
-            fatalError("Unexpected error: \(error).")
-        }
-
-        switch gate.extractOracleMatrix() {
-        case .failure(let error):
-            return .failure(error)
-        case .success(let matrix):
-            let finalCount = truthCount + matrix.controlCount
-
-            let finalEntries: [TruthTableEntry]
-            if matrix.controlCount == 0 {
-                finalEntries = entries
-            } else if matrix.truthTable.isEmpty {
-                finalEntries = []
-            } else {
-                finalEntries = entries.lazy.flatMap { e in matrix.truthTable.lazy.map { e + $0 } }
-            }
-
-            return .success(SimulatorOracleMatrixAdapter(truthTable: finalEntries,
-                                                         controlCount: finalCount,
-                                                         controlledCountableMatrix: matrix.controlledCountableMatrix))
-        }
+        return SimulatorOracleMatrixAdapter.makeAdapter(controls: controls,
+                                                        truthTable: truthTable,
+                                                        extractor: gate)
     }
 }

@@ -37,6 +37,53 @@ struct SimulatorOracleMatrixAdapter {
                                      controlCount: controlCount,
                                      controlledCountableMatrix: controlledCountableMatrix)
     }
+
+    // MARK: - Internal class methods
+
+    static func makeAdapter(controls: [Int],
+                            truthTable: [String],
+                            extractor: SimulatorOracleMatrixExtracting) -> Result<SimulatorOracleMatrixAdapter, GateError> {
+        guard !controls.isEmpty else {
+            return .failure(.gateControlsCanNotBeAnEmptyList)
+        }
+
+        let truthCount = controls.count
+        let entries: [TruthTableEntry]
+        do {
+            entries = try truthTable.map { try TruthTableEntry(truth: $0, truthCount: truthCount) }
+        } catch TruthTableEntry.InitError.truthCanNotBeRepresentedWithGivenTruthCount {
+            return .failure(.gateTruthTableCanNotBeRepresentedWithGivenControlCount)
+        } catch TruthTableEntry.InitError.truthHasToBeANonEmptyStringComposedOnlyOfZerosAndOnes {
+            return .failure(.gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes)
+        } catch {
+            fatalError("Unexpected error: \(error).")
+        }
+
+        let extractedMatrix: SimulatorOracleMatrix
+        switch extractor.extractOracleMatrix() {
+        case .failure(let error):
+            return .failure(error)
+        case .success(let matrix):
+            extractedMatrix = matrix
+        }
+
+        let extractedCount = extractedMatrix.controlCount
+        let finalCount = truthCount + extractedCount
+
+        let extractedTruth = extractedMatrix.truthTable
+        let finalEntries: [TruthTableEntry]
+        if extractedCount == 0 {
+            finalEntries = entries
+        } else if extractedTruth.isEmpty {
+            finalEntries = []
+        } else {
+            finalEntries = entries.lazy.flatMap { e in extractedTruth.lazy.map { e + $0 } }
+        }
+
+        return .success(SimulatorOracleMatrixAdapter(truthTable: finalEntries,
+                                                     controlCount: finalCount,
+                                                     controlledCountableMatrix: extractedMatrix.controlledCountableMatrix))
+    }
 }
 
 // MARK: - SimulatorOracleMatrix methods

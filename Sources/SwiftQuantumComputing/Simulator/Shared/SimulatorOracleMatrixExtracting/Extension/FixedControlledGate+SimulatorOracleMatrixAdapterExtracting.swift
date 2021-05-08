@@ -24,30 +24,10 @@ import Foundation
 
 extension FixedControlledGate: SimulatorOracleMatrixAdapterExtracting {
     func extractOracleMatrixAdapter() -> Result<SimulatorOracleMatrixAdapter, GateError> {
-        guard !controls.isEmpty else {
-            return .failure(.gateControlsCanNotBeAnEmptyList)
-        }
+        let truthTable = [String(repeating: "1", count: controls.count)]
 
-        switch gate.extractOracleMatrix() {
-        case .failure(let error):
-            return .failure(error)
-        case .success(let matrix):
-            let controlCount = controls.count + matrix.controlCount
-
-            let entry = try! TruthTableEntry(repeating: "1", count: controls.count)
-
-            let truthTable: [TruthTableEntry]
-            if matrix.controlCount == 0 {
-                truthTable = [entry]
-            } else if matrix.truthTable.isEmpty {
-                truthTable = []
-            } else {
-                truthTable = matrix.truthTable.map { entry + $0 }
-            }
-
-            return .success(SimulatorOracleMatrixAdapter(truthTable: truthTable,
-                                                         controlCount: controlCount,
-                                                         controlledCountableMatrix: matrix.controlledCountableMatrix))
-        }
+        return SimulatorOracleMatrixAdapter.makeAdapter(controls: controls,
+                                                        truthTable: truthTable,
+                                                        extractor: gate)
     }
 }
