@@ -1,8 +1,8 @@
 //
-//  FixedControlledGate+SimulatorOracleMatrixAdapterExtracting.swift
+//  FixedControlledGate+SimulatorOracleMatrixAdapterFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/04/2021.
+//  Created by Enrique de la Torre on 08/05/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,14 +20,14 @@
 
 import Foundation
 
-// MARK: - SimulatorOracleMatrixExtracting methods
+// MARK: - SimulatorOracleMatrixAdapterFactory methods
 
-extension FixedControlledGate: SimulatorOracleMatrixAdapterExtracting {
-    func extractOracleMatrixAdapter() -> Result<SimulatorOracleMatrixAdapter, GateError> {
-        let truthTable = [String(repeating: "1", count: controls.count)]
+extension FixedControlledGate: SimulatorOracleMatrixAdapterFactory {
+    var extractor: SimulatorOracleMatrixExtracting {
+        return gate
+    }
 
-        return SimulatorOracleMatrixAdapter.makeAdapter(controls: controls,
-                                                        truthTable: truthTable,
-                                                        extractor: gate)
+    var truthTable: [String] {
+        return [String(repeating: "1", count: controls.count)]
     }
 }

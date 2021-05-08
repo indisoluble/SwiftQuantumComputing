@@ -1,8 +1,8 @@
 //
-//  SimulatorOracleMatrixAdapterExtracting.swift
+//  FixedOracleGate+SimulatorOracleMatrixAdapterFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 11/04/2021.
+//  Created by Enrique de la Torre on 08/05/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,10 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - SimulatorOracleMatrixAdapterFactory methods
 
-protocol SimulatorOracleMatrixAdapterExtracting {
-    func extractOracleMatrixAdapter() -> Result<SimulatorOracleMatrixAdapter, GateError>
+extension FixedOracleGate: SimulatorOracleMatrixAdapterFactory {
+    var extractor: SimulatorOracleMatrixExtracting {
+        return gate
+    }
 }
