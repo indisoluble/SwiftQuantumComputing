@@ -123,22 +123,27 @@ struct SQCMeasurePerformance: ParsableCommand {
     mutating func run() throws {
         let result = makeCircuit()
 
-        print("Executing \(repeatExecution) time/s circuit with \(qubitCount) qubit/s " +
-                "& \(result.gates.count) gates (entangled state + \(circuit))...\n")
+        print("""
+        Simulating circuit with:
+        - \(qubitCount) qubit/s
+        - \(result.gates.count) gates (entangled state + \(circuit))
+        - Up to \(concurrency) thread/s in \(mode) mode\n
+        """)
 
         let total = (1...repeatExecution).reduce(0.0) { (acc, idx) in
-            print("Execution \(idx)...")
+            print("Simulation \(idx) of \(repeatExecution)...")
 
             let start = DispatchTime.now()
             _ = result.statevector()
             let diff = seconds(since: start)
 
-            verbose("Execution \(idx): Completed in \(diff) seconds")
+            verbose("Simulation \(idx) of \(repeatExecution): Completed in \(diff) seconds")
 
             return acc + diff
         }
 
-        print("\nCircuit executed. Average time: \(total / Double(repeatExecution)) seconds")
+        print("\nSimulation completed. " +
+                "Average execution time: \(total / Double(repeatExecution)) seconds")
     }
 }
 
