@@ -1,8 +1,8 @@
 //
-//  FixedOracleGate+SimulatorOracleMatrixAdapterExtracting.swift
+//  SimulatorOracleMatrixAdapterFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/04/2021.
+//  Created by Enrique de la Torre on 08/05/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,25 @@
 
 import Foundation
 
-// MARK: - SimulatorOracleMatrixAdapterExtracting methods
+// MARK: - Protocol definition
 
-extension FixedOracleGate: SimulatorOracleMatrixAdapterExtracting {
-    func extractOracleMatrixAdapter() -> Result<SimulatorOracleMatrixAdapter, GateError> {
+protocol SimulatorOracleMatrixAdapterFactory {
+    var controls: [Int] { get }
+    var extractor: SimulatorOracleMatrixExtracting { get }
+    var truthTable: [String] { get }
+
+    func makeOracleMatrixAdapter() -> Result<SimulatorOracleMatrixAdapter, GateError>
+}
+
+// MARK: - SimulatorOracleMatrixAdapterFactory default implementations
+
+extension SimulatorOracleMatrixAdapterFactory {
+    func makeOracleMatrixAdapter() -> Result<SimulatorOracleMatrixAdapter, GateError> {
         guard !controls.isEmpty else {
             return .failure(.gateControlsCanNotBeAnEmptyList)
         }
 
         let truthCount = controls.count
-
         let entries: [TruthTableEntry]
         do {
             entries = try truthTable.map { try TruthTableEntry(truth: $0, truthCount: truthCount) }
@@ -41,24 +50,29 @@ extension FixedOracleGate: SimulatorOracleMatrixAdapterExtracting {
             fatalError("Unexpected error: \(error).")
         }
 
-        switch gate.extractOracleMatrix() {
+        let extractedMatrix: SimulatorOracleMatrix
+        switch extractor.extractOracleMatrix() {
         case .failure(let error):
             return .failure(error)
         case .success(let matrix):
-            let finalCount = truthCount + matrix.controlCount
-
-            let finalEntries: [TruthTableEntry]
-            if matrix.controlCount == 0 {
-                finalEntries = entries
-            } else if matrix.truthTable.isEmpty {
-                finalEntries = []
-            } else {
-                finalEntries = entries.lazy.flatMap { e in matrix.truthTable.lazy.map { e + $0 } }
-            }
-
-            return .success(SimulatorOracleMatrixAdapter(truthTable: finalEntries,
-                                                         controlCount: finalCount,
-                                                         controlledCountableMatrix: matrix.controlledCountableMatrix))
+            extractedMatrix = matrix
         }
+
+        let extractedCount = extractedMatrix.controlCount
+        let finalCount = truthCount + extractedCount
+
+        let extractedTruth = extractedMatrix.truthTable
+        let finalEntries: [TruthTableEntry]
+        if extractedCount == 0 {
+            finalEntries = entries
+        } else if extractedTruth.isEmpty {
+            finalEntries = []
+        } else {
+            finalEntries = entries.lazy.flatMap { e in extractedTruth.lazy.map { e + $0 } }
+        }
+
+        return .success(SimulatorOracleMatrixAdapter(truthTable: finalEntries,
+                                                     controlCount: finalCount,
+                                                     controlledCountableMatrix: extractedMatrix.controlledCountableMatrix))
     }
 }
