@@ -1,5 +1,5 @@
 //
-//  FixedControlledGate+SimulatorOracleMatrixAdapterExtractingTests.swift
+//  FixedControlledGate+SimulatorOracleMatrixAdapterFactoryTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 25/04/2021.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class FixedControlledGate_SimulatorOracleMatrixAdapterExtractingTests: XCTestCase {
+class FixedControlledGate_SimulatorOracleMatrixAdapterFactoryTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -35,37 +35,37 @@ class FixedControlledGate_SimulatorOracleMatrixAdapterExtractingTests: XCTestCas
 
     // MARK: - Tests
 
-    func testEmptyControls_extractOracleMatrixAdapter_throwException() {
+    func testEmptyControls_makeOracleMatrixAdapter_throwException() {
         // Given
         let sut = FixedControlledGate(gate: Gate.not(target: 0), controls: [])
 
         // Then
         var error: GateError?
-        if case .failure(let e) = sut.extractOracleMatrixAdapter() {
+        if case .failure(let e) = sut.makeOracleMatrixAdapter() {
             error = e
         }
         XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
     }
 
-    func testControlledGateThatThrowsError_extractOracleMatrixAdapter_throwException() {
+    func testControlledGateThatThrowsError_makeOracleMatrixAdapter_throwException() {
         // Given
         let sut = FixedControlledGate(gate: Gate.matrix(matrix: nonUnitaryMatrix, inputs: [0]),
                                       controls: [2])
 
         // Then
         var error: GateError?
-        if case .failure(let e) = sut.extractOracleMatrixAdapter() {
+        if case .failure(let e) = sut.makeOracleMatrixAdapter() {
             error = e
         }
         XCTAssertEqual(error, .gateMatrixIsNotUnitary)
     }
 
-    func testAnyControlledGate_extractOracleMatrixAdapter_returnExpectedResult() {
+    func testAnyControlledGate_makeOracleMatrixAdapter_returnExpectedResult() {
         // Given
         let sut = FixedControlledGate(gate: Gate.not(target: 0), controls: [2, 4, 5])
 
         // When
-        let result = try? sut.extractOracleMatrixAdapter().get()
+        let result = try? sut.makeOracleMatrixAdapter().get()
 
         // Then
         XCTAssertEqual(result?.controlCount, 3)
@@ -73,14 +73,14 @@ class FixedControlledGate_SimulatorOracleMatrixAdapterExtractingTests: XCTestCas
         XCTAssertEqual(result?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
     }
 
-    func testAnyControlledControlledGate_extractOracleMatrixAdapter_returnExpectedResult() {
+    func testAnyControlledControlledGate_makeOracleMatrixAdapter_returnExpectedResult() {
         // Given
         let sut = FixedControlledGate(gate: Gate.controlled(gate: Gate.not(target: 0),
                                                             controls: [5, 3]),
                                       controls: [2, 4])
 
         // When
-        let result = try? sut.extractOracleMatrixAdapter().get()
+        let result = try? sut.makeOracleMatrixAdapter().get()
 
         // Then
         XCTAssertEqual(result?.controlCount, 4)
@@ -88,7 +88,7 @@ class FixedControlledGate_SimulatorOracleMatrixAdapterExtractingTests: XCTestCas
         XCTAssertEqual(result?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
     }
 
-    func testControlledOracleGateWithEmptyTruthTable_extractOracleMatrixAdapter_returnExpectedResult() {
+    func testControlledOracleGateWithEmptyTruthTable_makeOracleMatrixAdapter_returnExpectedResult() {
         // Given
         let sut = FixedControlledGate(gate: Gate.oracle(truthTable: [],
                                                         controls: [5, 3],
@@ -96,7 +96,7 @@ class FixedControlledGate_SimulatorOracleMatrixAdapterExtractingTests: XCTestCas
                                       controls: [2, 4])
 
         // When
-        let result = try? sut.extractOracleMatrixAdapter().get()
+        let result = try? sut.makeOracleMatrixAdapter().get()
 
         // Then
         XCTAssertEqual(result?.controlCount, 4)
@@ -105,15 +105,15 @@ class FixedControlledGate_SimulatorOracleMatrixAdapterExtractingTests: XCTestCas
     }
 
     static var allTests = [
-        ("testEmptyControls_extractOracleMatrixAdapter_throwException",
-         testEmptyControls_extractOracleMatrixAdapter_throwException),
-        ("testControlledGateThatThrowsError_extractOracleMatrixAdapter_throwException",
-         testControlledGateThatThrowsError_extractOracleMatrixAdapter_throwException),
-        ("testAnyControlledGate_extractOracleMatrixAdapter_returnExpectedResult",
-         testAnyControlledGate_extractOracleMatrixAdapter_returnExpectedResult),
-        ("testAnyControlledControlledGate_extractOracleMatrixAdapter_returnExpectedResult",
-         testAnyControlledControlledGate_extractOracleMatrixAdapter_returnExpectedResult),
-        ("testControlledOracleGateWithEmptyTruthTable_extractOracleMatrixAdapter_returnExpectedResult",
-         testControlledOracleGateWithEmptyTruthTable_extractOracleMatrixAdapter_returnExpectedResult)
+        ("testEmptyControls_makeOracleMatrixAdapter_throwException",
+         testEmptyControls_makeOracleMatrixAdapter_throwException),
+        ("testControlledGateThatThrowsError_makeOracleMatrixAdapter_throwException",
+         testControlledGateThatThrowsError_makeOracleMatrixAdapter_throwException),
+        ("testAnyControlledGate_makeOracleMatrixAdapter_returnExpectedResult",
+         testAnyControlledGate_makeOracleMatrixAdapter_returnExpectedResult),
+        ("testAnyControlledControlledGate_makeOracleMatrixAdapter_returnExpectedResult",
+         testAnyControlledControlledGate_makeOracleMatrixAdapter_returnExpectedResult),
+        ("testControlledOracleGateWithEmptyTruthTable_makeOracleMatrixAdapter_returnExpectedResult",
+         testControlledOracleGateWithEmptyTruthTable_makeOracleMatrixAdapter_returnExpectedResult)
     ]
 }
