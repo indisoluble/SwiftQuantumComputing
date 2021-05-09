@@ -1,5 +1,5 @@
 //
-//  RawSimulatorMatrixFactory.swift
+//  FixedHadamardGate+RawMatrixFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/02/2021.
@@ -20,8 +20,21 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - RawMatrixFactory methods
 
-protocol RawSimulatorMatrixFactory {
-    func makeRawMatrix() -> Result<Matrix, GateError>
+extension FixedHadamardGate: RawMatrixFactory {
+    func makeRawMatrix() -> Result<Matrix, GateError> {
+        return .success(Constants.matrixHadamard)
+    }
+}
+
+// MARK: - Private body
+
+private extension FixedHadamardGate {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let matrixHadamard = Matrix.makeHadamard()
+    }
 }

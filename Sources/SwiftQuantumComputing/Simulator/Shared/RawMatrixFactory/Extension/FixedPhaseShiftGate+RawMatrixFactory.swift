@@ -1,5 +1,5 @@
 //
-//  FixedNotGate+RawSimulatorMatrixFactory.swift
+//  FixedPhaseShiftGate+RawMatrixFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/02/2021.
@@ -20,21 +20,10 @@
 
 import Foundation
 
-// MARK: - RawSimulatorMatrixFactory methods
+// MARK: - RawMatrixFactory methods
 
-extension FixedNotGate: RawSimulatorMatrixFactory {
+extension FixedPhaseShiftGate: RawMatrixFactory {
     func makeRawMatrix() -> Result<Matrix, GateError> {
-        return .success(Constants.matrixNot)
-    }
-}
-
-// MARK: - Private body
-
-private extension FixedNotGate {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let matrixNot = Matrix.makeNot()
+        return .success(Matrix.makePhaseShift(radians: radians))
     }
 }

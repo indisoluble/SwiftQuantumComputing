@@ -1,5 +1,5 @@
 //
-//  FixedPhaseShiftGate+RawSimulatorMatrixFactory.swift
+//  FixedMatrixGate+RawMatrixFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/02/2021.
@@ -20,10 +20,18 @@
 
 import Foundation
 
-// MARK: - RawSimulatorMatrixFactory methods
+// MARK: - RawMatrixFactory methods
 
-extension FixedPhaseShiftGate: RawSimulatorMatrixFactory {
+extension FixedMatrixGate: RawMatrixFactory {
     func makeRawMatrix() -> Result<Matrix, GateError> {
-        return .success(Matrix.makePhaseShift(radians: radians))
+        guard matrix.rowCount.isPowerOfTwo else {
+            return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
+        }
+        // Validate matrix before expanding it so the operation requires less time
+        guard matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance) else {
+            return .failure(.gateMatrixIsNotUnitary)
+        }
+
+        return .success(matrix)
     }
 }

@@ -30,7 +30,7 @@ protocol SimulatorMatrixExtracting {
 
 // MARK: - SimulatorMatrixExtracting default implementations
 
-extension SimulatorMatrixExtracting where Self: RawSimulatorMatrixFactory {
+extension SimulatorMatrixExtracting where Self: RawMatrixFactory {
     func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
         switch makeRawMatrix() {
         case .success(let matrix):

@@ -28,7 +28,7 @@ protocol SimulatorControlledMatrixExtracting {
 
 // MARK: - SimulatorControlledMatrixExtracting default implementations
 
-extension SimulatorControlledMatrixExtracting where Self: RawSimulatorMatrixFactory {
+extension SimulatorControlledMatrixExtracting where Self: RawMatrixFactory {
     func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
         switch makeRawMatrix() {
         case .success(let matrix):
