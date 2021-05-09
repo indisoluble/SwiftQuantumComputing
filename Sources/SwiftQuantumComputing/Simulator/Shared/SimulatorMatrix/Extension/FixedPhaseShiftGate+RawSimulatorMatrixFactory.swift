@@ -1,5 +1,5 @@
 //
-//  FixedPhaseShiftGate+RawMatrixExtracting.swift
+//  FixedPhaseShiftGate+RawSimulatorMatrixFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/02/2021.
@@ -20,10 +20,10 @@
 
 import Foundation
 
-// MARK: - RawMatrixExtracting methods
+// MARK: - RawSimulatorMatrixFactory methods
 
-extension FixedPhaseShiftGate: RawMatrixExtracting {
-    func extractRawMatrix() -> Result<Matrix, GateError> {
+extension FixedPhaseShiftGate: RawSimulatorMatrixFactory {
+    func makeRawMatrix() -> Result<Matrix, GateError> {
         return .success(Matrix.makePhaseShift(radians: radians))
     }
 }

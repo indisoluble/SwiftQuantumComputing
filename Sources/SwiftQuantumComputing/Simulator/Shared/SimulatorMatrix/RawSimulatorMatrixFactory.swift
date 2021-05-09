@@ -1,5 +1,5 @@
 //
-//  FixedNotGate+RawMatrixExtracting.swift
+//  RawSimulatorMatrixFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/02/2021.
@@ -20,21 +20,8 @@
 
 import Foundation
 
-// MARK: - RawMatrixExtracting methods
+// MARK: - Protocol definition
 
-extension FixedNotGate: RawMatrixExtracting {
-    func extractRawMatrix() -> Result<Matrix, GateError> {
-        return .success(Constants.matrixNot)
-    }
-}
-
-// MARK: - Private body
-
-private extension FixedNotGate {
-
-    // MARK: - Constants
-
-    enum Constants {
-        static let matrixNot = Matrix.makeNot()
-    }
+protocol RawSimulatorMatrixFactory {
+    func makeRawMatrix() -> Result<Matrix, GateError>
 }

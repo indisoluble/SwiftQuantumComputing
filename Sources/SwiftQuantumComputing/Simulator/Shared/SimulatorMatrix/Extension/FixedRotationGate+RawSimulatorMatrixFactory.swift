@@ -1,5 +1,5 @@
 //
-//  RawMatrixExtracting.swift
+//  FixedRotationGate+RawSimulatorMatrixFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/02/2021.
@@ -20,8 +20,10 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - RawSimulatorMatrixFactory methods
 
-protocol RawMatrixExtracting {
-    func extractRawMatrix() -> Result<Matrix, GateError>
+extension FixedRotationGate: RawSimulatorMatrixFactory {
+    func makeRawMatrix() -> Result<Matrix, GateError> {
+        return .success(Matrix.makeRotation(axis: axis, radians: radians))
+    }
 }
