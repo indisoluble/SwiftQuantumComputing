@@ -2277,10 +2277,10 @@
 			isa = PBXGroup;
 			children = (
 				FFB6A84F254DDD3200044E49 /* Extension */,
+				FF6B9EFF26483FD000D8C441 /* RawSimulatorMatrixFactory */,
 				FF72EE9E25DC69210092384F /* AnySimulatorMatrix.swift */,
 				FF976596246B2FF000376189 /* CircuitSimulatorMatrix.swift */,
 				FFB6A83A254DCBD000044E49 /* OracleSimulatorMatrix.swift */,
-				FF96F7C225D973EC0063E6F1 /* RawSimulatorMatrixFactory.swift */,
 				FF3EE35E254C922700D773F3 /* SimulatorMatrix.swift */,
 			);
 			path = SimulatorMatrix;
@@ -2436,10 +2436,9 @@
 			isa = PBXGroup;
 			children = (
 				FF5DDDD026222C5300208A94 /* Extension */,
+				FF6B9EFC26483F4A00D8C441 /* SimulatorControlledMatrixAdapter */,
 				FF5DDDE12622460800208A94 /* AnySimulatorControlledMatrix.swift */,
 				FF5DDDC8262224AD00208A94 /* SimulatorControlledMatrix.swift */,
-				FF5DDDD9262242F100208A94 /* SimulatorControlledMatrixAdapter.swift */,
-				FF5FB9A9264701260017F0A9 /* SimulatorControlledMatrixAdapterFactory.swift */,
 			);
 			path = SimulatorControlledMatrix;
 			sourceTree = "<group>";
@@ -2447,8 +2446,6 @@
 		FF5DDDD026222C5300208A94 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				FF5FB9AC2647054F0017F0A9 /* FixedControlledGate+SimulatorControlledMatrixAdapterFactory.swift */,
-				FF5FB9AF264705720017F0A9 /* FixedOracleGate+SimulatorControlledMatrixAdapterFactory.swift */,
 				FF5DDDD126222CA500208A94 /* Matrix+SimulatorControlledMatrix.swift */,
 			);
 			path = Extension;
@@ -2580,6 +2577,56 @@
 				FF4F8AAC222C140300A09D61 /* InitialPopulationProducerTestDouble.swift */,
 			);
 			path = Generate;
+			sourceTree = "<group>";
+		};
+		FF6B9EFC26483F4A00D8C441 /* SimulatorControlledMatrixAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				FF6B9EFD26483F8B00D8C441 /* Extension */,
+				FF5DDDD9262242F100208A94 /* SimulatorControlledMatrixAdapter.swift */,
+				FF5FB9A9264701260017F0A9 /* SimulatorControlledMatrixAdapterFactory.swift */,
+			);
+			path = SimulatorControlledMatrixAdapter;
+			sourceTree = "<group>";
+		};
+		FF6B9EFD26483F8B00D8C441 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FF5FB9AC2647054F0017F0A9 /* FixedControlledGate+SimulatorControlledMatrixAdapterFactory.swift */,
+				FF5FB9AF264705720017F0A9 /* FixedOracleGate+SimulatorControlledMatrixAdapterFactory.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FF6B9EFE26483FA600D8C441 /* SimulatorControlledMatrixAdapter */ = {
+			isa = PBXGroup;
+			children = (
+				FF5FB9B226470BA70017F0A9 /* Extension */,
+				FFA7680026321206006DA094 /* SimulatorControlledMatrixAdapterTests.swift */,
+			);
+			path = SimulatorControlledMatrixAdapter;
+			sourceTree = "<group>";
+		};
+		FF6B9EFF26483FD000D8C441 /* RawSimulatorMatrixFactory */ = {
+			isa = PBXGroup;
+			children = (
+				FF6B9F0026483FE000D8C441 /* Extension */,
+				FF96F7C225D973EC0063E6F1 /* RawSimulatorMatrixFactory.swift */,
+			);
+			path = RawSimulatorMatrixFactory;
+			sourceTree = "<group>";
+		};
+		FF6B9F0026483FE000D8C441 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FF8945DA259DFAD300F1EC1A /* Matrix */,
+				FF96F7D025D975300063E6F1 /* FixedHadamardGate+RawSimulatorMatrixFactory.swift */,
+				FF96F7D825D9754A0063E6F1 /* FixedMatrixGate+RawSimulatorMatrixFactory.swift */,
+				FF96F7E025D975770063E6F1 /* FixedNotGate+RawSimulatorMatrixFactory.swift */,
+				FF96F7E825D975910063E6F1 /* FixedPhaseShiftGate+RawSimulatorMatrixFactory.swift */,
+				FF96F7F025D9763E0063E6F1 /* FixedRotationGate+RawSimulatorMatrixFactory.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		FF6BE7D72624E1DA00469EDB /* Extension */ = {
@@ -3126,8 +3173,7 @@
 		FFA767FF26321198006DA094 /* SimulatorControlledMatrix */ = {
 			isa = PBXGroup;
 			children = (
-				FF5FB9B226470BA70017F0A9 /* Extension */,
-				FFA7680026321206006DA094 /* SimulatorControlledMatrixAdapterTests.swift */,
+				FF6B9EFE26483FA600D8C441 /* SimulatorControlledMatrixAdapter */,
 			);
 			path = SimulatorControlledMatrix;
 			sourceTree = "<group>";
@@ -3221,12 +3267,6 @@
 		FFB6A84F254DDD3200044E49 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				FF8945DA259DFAD300F1EC1A /* Matrix */,
-				FF96F7D025D975300063E6F1 /* FixedHadamardGate+RawSimulatorMatrixFactory.swift */,
-				FF96F7D825D9754A0063E6F1 /* FixedMatrixGate+RawSimulatorMatrixFactory.swift */,
-				FF96F7E025D975770063E6F1 /* FixedNotGate+RawSimulatorMatrixFactory.swift */,
-				FF96F7E825D975910063E6F1 /* FixedPhaseShiftGate+RawSimulatorMatrixFactory.swift */,
-				FF96F7F025D9763E0063E6F1 /* FixedRotationGate+RawSimulatorMatrixFactory.swift */,
 				FF766CA8254CBB6500342091 /* Matrix+SimulatorMatrix.swift */,
 			);
 			path = Extension;
