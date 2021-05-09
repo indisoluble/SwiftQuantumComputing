@@ -1,8 +1,8 @@
 //
-//  FixedControlledGate+SimulatorMatrixExtracting.swift
+//  AnySimulatorControlledMatrix+MatrixCountable.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/02/2021.
+//  Created by Enrique de la Torre on 18/04/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +20,10 @@
 
 import Foundation
 
-// MARK: - SimulatorMatrixExtracting methods
+// MARK: - MatrixCountable methods
 
-extension FixedControlledGate: SimulatorMatrixExtracting {}
+extension AnySimulatorControlledMatrix: MatrixCountable {
+    var count: Int {
+        return Int.pow(2, controlCount) * controlledCountableMatrix.count
+    }
+}

@@ -54,11 +54,11 @@ struct DirectStatevectorTransformation {
 
 extension DirectStatevectorTransformation: StatevectorTransformation {
     func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, GateError> {
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixComponentsExtractor(extractor: gate)
         let qubitCount = Int.log2(vector.count)
 
         let gateInputs: [Int]
-        let gateMatrix: SimulatorOracleMatrix
+        let gateMatrix: SimulatorControlledMatrix
         switch extractor.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
         case .success((let matrix, let inputs)):
             gateInputs = inputs

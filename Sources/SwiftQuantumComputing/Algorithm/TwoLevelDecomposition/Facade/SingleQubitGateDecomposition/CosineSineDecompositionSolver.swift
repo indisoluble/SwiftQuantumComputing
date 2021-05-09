@@ -29,7 +29,7 @@ struct CosineSineDecompositionSolver {}
 
 extension CosineSineDecompositionSolver: SingleQubitGateDecompositionSolver {
     func decomposeGate(_ gate: Gate) -> [Gate] {
-        let extractor = SimulatorMatrixExtractor(extractor: gate)
+        let extractor = SimulatorMatrixComponentsExtractor(extractor: gate)
 
         var matrix = try! extractor.extractMatrix().get().expandedRawMatrix()
         if matrix.isApproximatelyEqual(to: Constants.matrixIdentity,

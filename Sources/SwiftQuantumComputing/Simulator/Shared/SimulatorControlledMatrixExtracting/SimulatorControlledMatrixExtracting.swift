@@ -1,9 +1,9 @@
 //
-//  SimulatorMatrixExtracting.swift
+//  SimulatorControlledMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/11/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 11/04/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,16 +22,14 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimulatorMatrixExtracting {
-    typealias SimulatorMatrixCountable = SimulatorMatrix & MatrixCountable
-
-    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError>
+protocol SimulatorControlledMatrixExtracting {
+    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError>
 }
 
-// MARK: - SimulatorMatrixExtracting default implementations
+// MARK: - SimulatorControlledMatrixExtracting default implementations
 
-extension SimulatorMatrixExtracting where Self: RawMatrixFactory {
-    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
+extension SimulatorControlledMatrixExtracting where Self: RawMatrixFactory {
+    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
         switch makeRawMatrix() {
         case .success(let matrix):
             return .success(matrix)
@@ -41,11 +39,12 @@ extension SimulatorMatrixExtracting where Self: RawMatrixFactory {
     }
 }
 
-extension SimulatorMatrixExtracting where Self: SimulatorControlledMatrixAdapterFactory {
-    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
+
+extension SimulatorControlledMatrixExtracting where Self: SimulatorControlledMatrixAdapterFactory {
+    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
         switch makeControlledMatrixAdapter() {
         case .success(let adapter):
-            return .success(adapter.expandedOracleMatrix())
+            return .success(adapter)
         case .failure(let error):
             return .failure(error)
         }

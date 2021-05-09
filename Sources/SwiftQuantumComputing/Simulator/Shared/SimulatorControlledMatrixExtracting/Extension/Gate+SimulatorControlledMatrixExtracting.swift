@@ -1,8 +1,8 @@
 //
-//  FixedControlledGate+SimulatorMatrixExtracting.swift
+//  Gate+SimulatorControlledMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/02/2021.
+//  Created by Enrique de la Torre on 17/04/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +20,10 @@
 
 import Foundation
 
-// MARK: - SimulatorMatrixExtracting methods
+// MARK: - SimulatorControlledMatrixExtracting methods
 
-extension FixedControlledGate: SimulatorMatrixExtracting {}
+extension Gate: SimulatorControlledMatrixExtracting {
+    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
+        return gate.extractControlledMatrix()
+    }
+}

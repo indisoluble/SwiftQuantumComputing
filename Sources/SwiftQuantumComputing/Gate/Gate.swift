@@ -29,7 +29,7 @@ public struct Gate {
 
     typealias InternalGate = RawInputsExtracting &
         SimulatorMatrixExtracting &
-        SimulatorOracleMatrixExtracting &
+        SimulatorControlledMatrixExtracting &
         SimplifiedGateConvertible
 
     // MARK: - Internal properties
