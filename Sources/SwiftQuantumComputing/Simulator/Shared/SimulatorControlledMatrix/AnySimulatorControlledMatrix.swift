@@ -1,5 +1,5 @@
 //
-//  SimulatorOracleMatrix.swift
+//  AnySimulatorControlledMatrix.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 10/04/2021.
@@ -20,26 +20,34 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol SimulatorOracleMatrix {
-    var truthTable: [TruthTableEntry] { get }
-    var controlCount: Int { get }
-    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable { get }
+struct AnySimulatorControlledMatrix {
+
+    // MARK: - Private properties
+
+    private let matrix: SimulatorControlledMatrix
+
+    // MARK: - Internal init methods
+
+    init(matrix: SimulatorControlledMatrix) {
+        self.matrix = matrix
+    }
 }
 
-// MARK: - SimulatorOracleMatrix default implementations
+// MARK: - SimulatorControlledMatrix methods
 
-extension SimulatorOracleMatrix where Self: SimulatorMatrixExtracting.SimulatorMatrixCountable {
+extension AnySimulatorControlledMatrix: SimulatorControlledMatrix {
     var truthTable: [TruthTableEntry] {
-        return []
+        return matrix.truthTable
     }
 
     var controlCount: Int {
-        return 0
+        return matrix.controlCount
     }
 
     var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable {
-        return self
+        return matrix.controlledCountableMatrix
     }
 }
+

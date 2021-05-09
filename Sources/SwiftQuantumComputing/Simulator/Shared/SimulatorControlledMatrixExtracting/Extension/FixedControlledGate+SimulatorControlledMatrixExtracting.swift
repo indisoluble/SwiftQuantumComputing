@@ -1,8 +1,8 @@
 //
-//  AnySimulatorOracleMatrix+MatrixCountable.swift
+//  FixedControlledGate+SimulatorControlledMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 18/04/2021.
+//  Created by Enrique de la Torre on 17/04/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,6 @@
 
 import Foundation
 
-// MARK: - MatrixCountable methods
+// MARK: - SimulatorControlledMatrixExtracting methods
 
-extension AnySimulatorOracleMatrix: MatrixCountable {
-    var count: Int {
-        return Int.pow(2, controlCount) * controlledCountableMatrix.count
-    }
-}
+extension FixedControlledGate: SimulatorControlledMatrixExtracting {}

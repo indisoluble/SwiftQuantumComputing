@@ -1,5 +1,5 @@
 //
-//  AnySimulatorOracleMatrix+MatrixCountableTests.swift
+//  AnySimulatorControlledMatrix+MatrixCountableTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 18/04/2021.
@@ -24,13 +24,13 @@ import XCTest
 
 // MARK: - Main body
 
-class AnySimulatorOracleMatrix_MatrixCountableTests: XCTestCase {
+class AnySimulatorControlledMatrix_MatrixCountableTests: XCTestCase {
 
     // MARK: - Tests
 
     func testNotMatrix_matrixCount_returnExpectedValue() {
         // Given
-        let sut = AnySimulatorOracleMatrix(matrix: Matrix.makeNot())
+        let sut = AnySimulatorControlledMatrix(matrix: Matrix.makeNot())
 
         // Then
         XCTAssertEqual(sut.count, 2)
@@ -41,10 +41,10 @@ class AnySimulatorOracleMatrix_MatrixCountableTests: XCTestCase {
         let controlledMatrix = Matrix.makeNot()
         let count = 1
         let entry = try! TruthTableEntry(repeating: "0", count: count)
-        let adapter = SimulatorOracleMatrixAdapter(truthTable: [entry],
-                                                   controlCount: count,
-                                                   controlledCountableMatrix: controlledMatrix)
-        let sut = AnySimulatorOracleMatrix(matrix: adapter)
+        let adapter = SimulatorControlledMatrixAdapter(truthTable: [entry],
+                                                       controlCount: count,
+                                                       controlledCountableMatrix: controlledMatrix)
+        let sut = AnySimulatorControlledMatrix(matrix: adapter)
 
         // Then
         XCTAssertEqual(sut.count, 4)
@@ -55,10 +55,10 @@ class AnySimulatorOracleMatrix_MatrixCountableTests: XCTestCase {
         let controlledMatrix = Matrix.makeNot()
         let count = 2
         let entry = try! TruthTableEntry(repeating: "0", count: count)
-        let adapter = SimulatorOracleMatrixAdapter(truthTable: [entry],
-                                                   controlCount: count,
-                                                   controlledCountableMatrix: controlledMatrix)
-        let sut = AnySimulatorOracleMatrix(matrix: adapter)
+        let adapter = SimulatorControlledMatrixAdapter(truthTable: [entry],
+                                                       controlCount: count,
+                                                       controlledCountableMatrix: controlledMatrix)
+        let sut = AnySimulatorControlledMatrix(matrix: adapter)
 
         // Then
         XCTAssertEqual(sut.count, 8)

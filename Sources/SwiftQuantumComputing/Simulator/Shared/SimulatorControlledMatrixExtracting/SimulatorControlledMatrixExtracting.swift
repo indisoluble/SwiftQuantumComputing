@@ -1,5 +1,5 @@
 //
-//  SimulatorOracleMatrixExtracting.swift
+//  SimulatorControlledMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 11/04/2021.
@@ -22,14 +22,14 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimulatorOracleMatrixExtracting {
-    func extractOracleMatrix() -> Result<SimulatorOracleMatrix, GateError>
+protocol SimulatorControlledMatrixExtracting {
+    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError>
 }
 
-// MARK: - SimulatorOracleMatrixExtracting default implementations
+// MARK: - SimulatorControlledMatrixExtracting default implementations
 
-extension SimulatorOracleMatrixExtracting where Self: RawMatrixExtracting {
-    func extractOracleMatrix() -> Result<SimulatorOracleMatrix, GateError> {
+extension SimulatorControlledMatrixExtracting where Self: RawMatrixExtracting {
+    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
         switch extractRawMatrix() {
         case .success(let matrix):
             return .success(matrix)
@@ -40,9 +40,9 @@ extension SimulatorOracleMatrixExtracting where Self: RawMatrixExtracting {
 }
 
 
-extension SimulatorOracleMatrixExtracting where Self: SimulatorOracleMatrixAdapterFactory {
-    func extractOracleMatrix() -> Result<SimulatorOracleMatrix, GateError> {
-        switch makeOracleMatrixAdapter() {
+extension SimulatorControlledMatrixExtracting where Self: SimulatorControlledMatrixAdapterFactory {
+    func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
+        switch makeControlledMatrixAdapter() {
         case .success(let adapter):
             return .success(adapter)
         case .failure(let error):

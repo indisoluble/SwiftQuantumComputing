@@ -1,5 +1,5 @@
 //
-//  SimulatorOracleMatrixAdapterFactory.swift
+//  SimulatorControlledMatrixAdapterFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 08/05/2021.
@@ -22,18 +22,18 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimulatorOracleMatrixAdapterFactory {
+protocol SimulatorControlledMatrixAdapterFactory {
     var controls: [Int] { get }
-    var extractor: SimulatorOracleMatrixExtracting { get }
+    var extractor: SimulatorControlledMatrixExtracting { get }
     var truthTable: [String] { get }
 
-    func makeOracleMatrixAdapter() -> Result<SimulatorOracleMatrixAdapter, GateError>
+    func makeControlledMatrixAdapter() -> Result<SimulatorControlledMatrixAdapter, GateError>
 }
 
-// MARK: - SimulatorOracleMatrixAdapterFactory default implementations
+// MARK: - SimulatorControlledMatrixAdapterFactory default implementations
 
-extension SimulatorOracleMatrixAdapterFactory {
-    func makeOracleMatrixAdapter() -> Result<SimulatorOracleMatrixAdapter, GateError> {
+extension SimulatorControlledMatrixAdapterFactory {
+    func makeControlledMatrixAdapter() -> Result<SimulatorControlledMatrixAdapter, GateError> {
         guard !controls.isEmpty else {
             return .failure(.gateControlsCanNotBeAnEmptyList)
         }
@@ -50,8 +50,8 @@ extension SimulatorOracleMatrixAdapterFactory {
             fatalError("Unexpected error: \(error).")
         }
 
-        let extractedMatrix: SimulatorOracleMatrix
-        switch extractor.extractOracleMatrix() {
+        let extractedMatrix: SimulatorControlledMatrix
+        switch extractor.extractControlledMatrix() {
         case .failure(let error):
             return .failure(error)
         case .success(let matrix):
@@ -71,8 +71,8 @@ extension SimulatorOracleMatrixAdapterFactory {
             finalEntries = entries.lazy.flatMap { e in extractedTruth.lazy.map { e + $0 } }
         }
 
-        return .success(SimulatorOracleMatrixAdapter(truthTable: finalEntries,
-                                                     controlCount: finalCount,
-                                                     controlledCountableMatrix: extractedMatrix.controlledCountableMatrix))
+        return .success(SimulatorControlledMatrixAdapter(truthTable: finalEntries,
+                                                         controlCount: finalCount,
+                                                         controlledCountableMatrix: extractedMatrix.controlledCountableMatrix))
     }
 }

@@ -1,5 +1,5 @@
 //
-//  SimulatorOracleMatrixAdapterTests.swift
+//  SimulatorControlledMatrixAdapterTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 22/04/2021.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class SimulatorOracleMatrixAdapterTests: XCTestCase {
+class SimulatorControlledMatrixAdapterTests: XCTestCase {
 
     // MARK: - Tests
 
@@ -33,9 +33,9 @@ class SimulatorOracleMatrixAdapterTests: XCTestCase {
         let controlledMatrix = Matrix.makeNot()
         let controlCount = 1
         let truthTable = [try! TruthTableEntry(repeating: "1", count: controlCount)]
-        let sut = SimulatorOracleMatrixAdapter(truthTable: truthTable,
-                                               controlCount: controlCount,
-                                               controlledCountableMatrix: controlledMatrix)
+        let sut = SimulatorControlledMatrixAdapter(truthTable: truthTable,
+                                                   controlCount: controlCount,
+                                                   controlledCountableMatrix: controlledMatrix)
 
         // Then
         XCTAssertEqual(sut.expandedOracleMatrix().expandedRawMatrix(), Matrix.makeControlledNot())

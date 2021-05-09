@@ -1,5 +1,5 @@
 //
-//  SimulatorOracleMatrixExtractor.swift
+//  SimulatorControlledMatrixExtractor.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 17/04/2021.
@@ -22,11 +22,11 @@ import Foundation
 
 // MARK: - Main body
 
-struct SimulatorOracleMatrixExtractor {
+struct SimulatorControlledMatrixExtractor {
 
     // MARK: - Internal types
 
-    typealias InternalExtractor = SimulatorOracleMatrixExtracting & RawInputsExtracting
+    typealias InternalExtractor = SimulatorControlledMatrixExtracting & RawInputsExtracting
 
     // MARK: - Private properties
 
@@ -41,7 +41,7 @@ struct SimulatorOracleMatrixExtractor {
 
 // MARK: - RawInputsExtracting methods
 
-extension SimulatorOracleMatrixExtractor: RawInputsExtracting {
+extension SimulatorControlledMatrixExtractor: RawInputsExtracting {
     func extractRawInputs() -> [Int] {
         return extractor.extractRawInputs()
     }
@@ -49,11 +49,11 @@ extension SimulatorOracleMatrixExtractor: RawInputsExtracting {
 
 // MARK: - MatrixExtracting methods
 
-extension SimulatorOracleMatrixExtractor: MatrixExtracting {
-    func extractMatrix() -> Result<AnySimulatorOracleMatrix, GateError> {
-        switch extractor.extractOracleMatrix() {
+extension SimulatorControlledMatrixExtractor: MatrixExtracting {
+    func extractMatrix() -> Result<AnySimulatorControlledMatrix, GateError> {
+        switch extractor.extractControlledMatrix() {
         case .success(let matrix):
-            return .success(AnySimulatorOracleMatrix(matrix: matrix))
+            return .success(AnySimulatorControlledMatrix(matrix: matrix))
         case .failure(let error):
             return .failure(error)
         }

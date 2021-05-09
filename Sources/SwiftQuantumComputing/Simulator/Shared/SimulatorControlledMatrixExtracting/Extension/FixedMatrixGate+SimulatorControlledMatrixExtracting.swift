@@ -1,5 +1,5 @@
 //
-//  FixedRotationGate+SimulatorOracleMatrixExtracting.swift
+//  FixedMatrixGate+SimulatorControlledMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 11/04/2021.
@@ -20,6 +20,6 @@
 
 import Foundation
 
-// MARK: - SimulatorOracleMatrixExtracting methods
+// MARK: - SimulatorControlledMatrixExtracting methods
 
-extension FixedRotationGate: SimulatorOracleMatrixExtracting {}
+extension FixedMatrixGate: SimulatorControlledMatrixExtracting {}

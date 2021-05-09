@@ -1,5 +1,5 @@
 //
-//  SimulatorOracleMatrixExtractorTests.swift
+//  SimulatorControlledMatrixExtractorTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 22/04/2021.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class SimulatorOracleMatrixExtractorTests: XCTestCase {
+class SimulatorControlledMatrixExtractorTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -49,7 +49,7 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         // Given
         let gate = Gate.controlled(gate: .matrix(matrix: validMatrix, inputs: validInputs),
                                    controls: [])
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // Then
         var error: GateError?
@@ -63,7 +63,7 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         // Given
         let gate = Gate.controlled(gate: .matrix(matrix: nonUnitaryMatrix, inputs: [0]),
                                    controls: [1])
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // Then
         var error: GateError?
@@ -76,10 +76,10 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
     func testGateControlledWithNotGate_extractComponents_returnExpectedValues() {
         // Given
         let gate = Gate.controlled(gate: .not(target: 1), controls: [2])
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // When
-        var matrix: AnySimulatorOracleMatrix?
+        var matrix: AnySimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.matrix
@@ -97,10 +97,10 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
     func testGateControlledWithNotGateAndTwoControls_extractComponents_returnExpectedValues() {
         // Given
         let gate = Gate.controlled(gate: .not(target: 1), controls: [5, 2])
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // When
-        var matrix: AnySimulatorOracleMatrix?
+        var matrix: AnySimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix
@@ -119,10 +119,10 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         // Given
         let gate = Gate.controlled(gate: .controlled(gate: .not(target: 1), controls: [2]),
                                    controls: [5])
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // When
-        var matrix: AnySimulatorOracleMatrix?
+        var matrix: AnySimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix
@@ -140,7 +140,7 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
     func testGateOracleWithEmptyControls_extractComponents_throwException() {
         // Given
         let gate = Gate.oracle(truthTable: [""], controls: [], target: 0)
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // Then
         var error: GateError?
@@ -153,7 +153,7 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
     func testGateOracleWithoutEnoughControlsToRepresentTruthTable_extractComponents_throwException() {
         // Given
         let gate = Gate.oracle(truthTable: ["11"], controls: [1], target: 0)
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // Then
         var error: GateError?
@@ -166,7 +166,7 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
     func testGateOracleWithEmptyStringInTruthTable_extractComponents_throwException() {
         // Given
         let gate = Gate.oracle(truthTable: [""], controls: [1], target: 0)
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // Then
         var error: GateError?
@@ -179,7 +179,7 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
     func testGateOracleWithNonValidEntryInTruthTable_extractComponents_throwException() {
         // Given
         let gate = Gate.oracle(truthTable: ["a"], controls: [1], target: 0)
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // Then
         var error: GateError?
@@ -194,7 +194,7 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         let gate = Gate.oracle(truthTable: ["0"],
                                controls: [1],
                                gate: .matrix(matrix: nonUnitaryMatrix, inputs: [0]))
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // Then
         var error: GateError?
@@ -207,10 +207,10 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
     func testGateOracleWithNotGate_extractComponents_returnExpectedValues() {
         // Given
         let gate = Gate.oracle(truthTable: ["0", "1"], controls: [2], gate: .not(target: 1))
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // When
-        var matrix: AnySimulatorOracleMatrix?
+        var matrix: AnySimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             matrix = result.matrix
@@ -232,10 +232,10 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
         let gate = Gate.oracle(truthTable: ["1", "0", "10"],
                                controls: [5, 2],
                                gate: .not(target: 1))
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // When
-        var matrix: AnySimulatorOracleMatrix?
+        var matrix: AnySimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix
@@ -260,10 +260,10 @@ class SimulatorOracleMatrixExtractorTests: XCTestCase {
                                gate: .oracle(truthTable: ["11", "1"],
                                              controls: [2, 3],
                                              gate: .not(target: 1)))
-        let extractor = SimulatorOracleMatrixExtractor(extractor: gate)
+        let extractor = SimulatorControlledMatrixExtractor(extractor: gate)
 
         // When
-        var matrix: AnySimulatorOracleMatrix?
+        var matrix: AnySimulatorControlledMatrix?
         var inputs: [Int]?
         if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: extendedValidQubitCount) {
             matrix = result.matrix

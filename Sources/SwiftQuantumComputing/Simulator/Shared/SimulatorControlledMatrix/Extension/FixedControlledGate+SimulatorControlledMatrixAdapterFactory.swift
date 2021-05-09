@@ -1,5 +1,5 @@
 //
-//  FixedControlledGate+SimulatorOracleMatrixAdapterFactory.swift
+//  FixedControlledGate+SimulatorControlledMatrixAdapterFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 08/05/2021.
@@ -20,10 +20,10 @@
 
 import Foundation
 
-// MARK: - SimulatorOracleMatrixAdapterFactory methods
+// MARK: - SimulatorControlledMatrixAdapterFactory methods
 
-extension FixedControlledGate: SimulatorOracleMatrixAdapterFactory {
-    var extractor: SimulatorOracleMatrixExtracting {
+extension FixedControlledGate: SimulatorControlledMatrixAdapterFactory {
+    var extractor: SimulatorControlledMatrixExtracting {
         return gate
     }
 

@@ -41,9 +41,9 @@ extension SimulatorMatrixExtracting where Self: RawMatrixExtracting {
     }
 }
 
-extension SimulatorMatrixExtracting where Self: SimulatorOracleMatrixAdapterFactory {
+extension SimulatorMatrixExtracting where Self: SimulatorControlledMatrixAdapterFactory {
     func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
-        switch makeOracleMatrixAdapter() {
+        switch makeControlledMatrixAdapter() {
         case .success(let adapter):
             return .success(adapter.expandedOracleMatrix())
         case .failure(let error):
