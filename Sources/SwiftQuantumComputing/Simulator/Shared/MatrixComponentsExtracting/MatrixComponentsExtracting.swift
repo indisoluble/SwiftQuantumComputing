@@ -1,5 +1,5 @@
 //
-//  MatrixExtracting.swift
+//  MatrixComponentsExtracting.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 21/02/2021.
@@ -22,15 +22,15 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol MatrixExtracting {
+protocol MatrixComponentsExtracting {
     associatedtype ExtractedMatrix
 
     func extractMatrix() -> Result<ExtractedMatrix, GateError>
 }
 
-// MARK: - MatrixExtracting default implementations
+// MARK: - MatrixComponentsExtracting default implementations
 
-extension MatrixExtracting where Self: RawInputsExtracting, ExtractedMatrix: MatrixCountable {
+extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedMatrix: MatrixCountable {
     typealias Components = (matrix: ExtractedMatrix, inputs: [Int])
 
     func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
@@ -67,7 +67,7 @@ extension MatrixExtracting where Self: RawInputsExtracting, ExtractedMatrix: Mat
     }
 }
 
-extension MatrixExtracting where Self: RawInputsExtracting, ExtractedMatrix: MatrixCountable & SimulatorMatrix {
+extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedMatrix: MatrixCountable & SimulatorMatrix {
     func extractCircuitMatrix(restrictedToCircuitQubitCount qubitCount: Int) -> Result<CircuitSimulatorMatrix, GateError> {
         switch extractComponents(restrictedToCircuitQubitCount: qubitCount) {
         case .success((let baseMatrix, let inputs)):
@@ -82,7 +82,7 @@ extension MatrixExtracting where Self: RawInputsExtracting, ExtractedMatrix: Mat
 
 // MARK: - Private body
 
-private extension MatrixExtracting {
+private extension MatrixComponentsExtracting {
 
     // MARK: - Private methods
 

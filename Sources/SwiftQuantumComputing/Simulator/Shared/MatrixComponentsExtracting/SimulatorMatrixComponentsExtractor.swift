@@ -1,8 +1,8 @@
 //
-//  SimulatorControlledMatrixExtractor.swift
+//  SimulatorMatrixComponentsExtractor.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/04/2021.
+//  Created by Enrique de la Torre on 21/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,11 +22,11 @@ import Foundation
 
 // MARK: - Main body
 
-struct SimulatorControlledMatrixExtractor {
+struct SimulatorMatrixComponentsExtractor {
 
     // MARK: - Internal types
 
-    typealias InternalExtractor = SimulatorControlledMatrixExtracting & RawInputsExtracting
+    typealias InternalExtractor = SimulatorMatrixExtracting & RawInputsExtracting
 
     // MARK: - Private properties
 
@@ -41,7 +41,7 @@ struct SimulatorControlledMatrixExtractor {
 
 // MARK: - RawInputsExtracting methods
 
-extension SimulatorControlledMatrixExtractor: RawInputsExtracting {
+extension SimulatorMatrixComponentsExtractor: RawInputsExtracting {
     func extractRawInputs() -> [Int] {
         return extractor.extractRawInputs()
     }
@@ -49,11 +49,11 @@ extension SimulatorControlledMatrixExtractor: RawInputsExtracting {
 
 // MARK: - MatrixExtracting methods
 
-extension SimulatorControlledMatrixExtractor: MatrixExtracting {
-    func extractMatrix() -> Result<AnySimulatorControlledMatrix, GateError> {
-        switch extractor.extractControlledMatrix() {
+extension SimulatorMatrixComponentsExtractor: MatrixComponentsExtracting {
+    func extractMatrix() -> Result<AnySimulatorMatrix, GateError> {
+        switch extractor.extractSimulatorMatrix() {
         case .success(let matrix):
-            return .success(AnySimulatorControlledMatrix(matrix: matrix))
+            return .success(AnySimulatorMatrix(matrix: matrix))
         case .failure(let error):
             return .failure(error)
         }
