@@ -30,11 +30,22 @@ protocol SimulatorMatrixExtracting {
 
 // MARK: - SimulatorMatrixExtracting default implementations
 
-extension SimulatorMatrixExtracting where Self: RawMatrixExtracting {
+extension SimulatorMatrixExtracting where Self: RawMatrixFactory {
     func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
-        switch extractRawMatrix() {
+        switch makeRawMatrix() {
         case .success(let matrix):
             return .success(matrix)
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}
+
+extension SimulatorMatrixExtracting where Self: SimulatorControlledMatrixAdapterFactory {
+    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
+        switch makeControlledMatrixAdapter() {
+        case .success(let adapter):
+            return .success(adapter.expandedOracleMatrix())
         case .failure(let error):
             return .failure(error)
         }
