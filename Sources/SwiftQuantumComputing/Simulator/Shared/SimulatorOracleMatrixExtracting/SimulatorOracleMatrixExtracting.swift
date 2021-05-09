@@ -38,3 +38,15 @@ extension SimulatorOracleMatrixExtracting where Self: RawMatrixExtracting {
         }
     }
 }
+
+
+extension SimulatorOracleMatrixExtracting where Self: SimulatorOracleMatrixAdapterFactory {
+    func extractOracleMatrix() -> Result<SimulatorOracleMatrix, GateError> {
+        switch makeOracleMatrixAdapter() {
+        case .success(let adapter):
+            return .success(adapter)
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}

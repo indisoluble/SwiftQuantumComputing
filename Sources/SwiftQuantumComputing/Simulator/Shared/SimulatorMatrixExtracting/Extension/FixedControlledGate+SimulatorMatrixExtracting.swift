@@ -22,13 +22,4 @@ import Foundation
 
 // MARK: - SimulatorMatrixExtracting methods
 
-extension FixedControlledGate: SimulatorMatrixExtracting {
-    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
-        switch makeOracleMatrixAdapter() {
-        case .success(let adapter):
-            return .success(adapter.expandedOracleMatrix())
-        case .failure(let error):
-            return .failure(error)
-        }
-    }
-}
+extension FixedControlledGate: SimulatorMatrixExtracting {}
