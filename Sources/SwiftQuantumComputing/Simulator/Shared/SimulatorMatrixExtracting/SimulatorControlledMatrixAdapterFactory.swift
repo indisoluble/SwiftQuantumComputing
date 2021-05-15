@@ -26,8 +26,6 @@ protocol SimulatorControlledMatrixAdapterFactory {
     var controls: [Int] { get }
     var extractor: SimulatorControlledMatrixExtracting { get }
     var truthTable: [String] { get }
-
-    func makeControlledMatrixAdapter() -> Result<SimulatorControlledMatrixAdapter, GateError>
 }
 
 // MARK: - SimulatorControlledMatrixAdapterFactory default implementations
