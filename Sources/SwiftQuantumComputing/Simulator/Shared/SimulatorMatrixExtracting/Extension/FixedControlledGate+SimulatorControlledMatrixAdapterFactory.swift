@@ -1,8 +1,8 @@
 //
-//  FixedNotGate+SimulatorControlledMatrixExtracting.swift
+//  FixedControlledGate+SimulatorControlledMatrixAdapterFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 11/04/2021.
+//  Created by Enrique de la Torre on 08/05/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +20,22 @@
 
 import Foundation
 
+// MARK: - SimulatorControlledMatrixAdapterFactory methods
+
+extension FixedControlledGate: SimulatorControlledMatrixAdapterFactory {
+    var extractor: SimulatorControlledMatrixExtracting {
+        return gate
+    }
+
+    var truthTable: [String] {
+        return [String(repeating: "1", count: controls.count)]
+    }
+}
+
 // MARK: - SimulatorControlledMatrixExtracting methods
 
-extension FixedNotGate: SimulatorControlledMatrixExtracting {}
+extension FixedControlledGate: SimulatorControlledMatrixExtracting {}
+
+// MARK: - SimulatorMatrixExtracting methods
+
+extension FixedControlledGate: SimulatorMatrixExtracting {}

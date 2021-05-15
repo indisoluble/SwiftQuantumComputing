@@ -1,8 +1,8 @@
 //
-//  FixedOracleGate+SimulatorControlledMatrixAdapterFactory.swift
+//  FixedPhaseShiftGate+RawMatrixFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 08/05/2021.
+//  Created by Enrique de la Torre on 14/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,18 @@
 
 import Foundation
 
-// MARK: - SimulatorControlledMatrixAdapterFactory methods
+// MARK: - RawMatrixFactory methods
 
-extension FixedOracleGate: SimulatorControlledMatrixAdapterFactory {
-    var extractor: SimulatorControlledMatrixExtracting {
-        return gate
+extension FixedPhaseShiftGate: RawMatrixFactory {
+    func makeRawMatrix() -> Result<Matrix, GateError> {
+        return .success(Matrix.makePhaseShift(radians: radians))
     }
 }
+
+// MARK: - SimulatorControlledMatrixExtracting methods
+
+extension FixedPhaseShiftGate: SimulatorControlledMatrixExtracting {}
+
+// MARK: - SimulatorMatrixExtracting methods
+
+extension FixedPhaseShiftGate: SimulatorMatrixExtracting {}
