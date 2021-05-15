@@ -1,5 +1,5 @@
 //
-//  FixedRotationGate+RawMatrixFactory.swift
+//  FixedMatrixGate+RawMatrixFactory.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/02/2021.
@@ -22,8 +22,24 @@ import Foundation
 
 // MARK: - RawMatrixFactory methods
 
-extension FixedRotationGate: RawMatrixFactory {
+extension FixedMatrixGate: RawMatrixFactory {
     func makeRawMatrix() -> Result<Matrix, GateError> {
-        return .success(Matrix.makeRotation(axis: axis, radians: radians))
+        guard matrix.rowCount.isPowerOfTwo else {
+            return .failure(.gateMatrixRowCountHasToBeAPowerOfTwo)
+        }
+        // Validate matrix before expanding it so the operation requires less time
+        guard matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance) else {
+            return .failure(.gateMatrixIsNotUnitary)
+        }
+
+        return .success(matrix)
     }
 }
+
+// MARK: - SimulatorControlledMatrixExtracting methods
+
+extension FixedMatrixGate: SimulatorControlledMatrixExtracting {}
+
+// MARK: - SimulatorMatrixExtracting methods
+
+extension FixedMatrixGate: SimulatorMatrixExtracting {}

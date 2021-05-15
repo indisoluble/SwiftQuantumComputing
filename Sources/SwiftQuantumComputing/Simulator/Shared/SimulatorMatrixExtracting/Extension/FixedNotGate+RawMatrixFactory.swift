@@ -1,8 +1,8 @@
 //
-//  FixedHadamardGate+SimulatorMatrixExtracting.swift
+//  FixedNotGate+RawMatrixFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 07/02/2021.
+//  Created by Enrique de la Torre on 14/02/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +20,29 @@
 
 import Foundation
 
+// MARK: - RawMatrixFactory methods
+
+extension FixedNotGate: RawMatrixFactory {
+    func makeRawMatrix() -> Result<Matrix, GateError> {
+        return .success(Constants.matrixNot)
+    }
+}
+
+// MARK: - SimulatorControlledMatrixExtracting methods
+
+extension FixedNotGate: SimulatorControlledMatrixExtracting {}
+
 // MARK: - SimulatorMatrixExtracting methods
 
-extension FixedHadamardGate: SimulatorMatrixExtracting {}
+extension FixedNotGate: SimulatorMatrixExtracting {}
+
+// MARK: - Private body
+
+private extension FixedNotGate {
+
+    // MARK: - Constants
+
+    enum Constants {
+        static let matrixNot = Matrix.makeNot()
+    }
+}

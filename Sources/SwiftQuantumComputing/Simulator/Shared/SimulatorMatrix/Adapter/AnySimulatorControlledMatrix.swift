@@ -35,6 +35,14 @@ struct AnySimulatorControlledMatrix {
     }
 }
 
+// MARK: - MatrixCountable methods
+
+extension AnySimulatorControlledMatrix: MatrixCountable {
+    var count: Int {
+        return Int.pow(2, controlCount) * controlledCountableMatrix.count
+    }
+}
+
 // MARK: - SimulatorControlledMatrix methods
 
 extension AnySimulatorControlledMatrix: SimulatorControlledMatrix {
