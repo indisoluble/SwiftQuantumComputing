@@ -26,11 +26,14 @@ import XCTest
 
 class UnitaryGateFactoryAdapterTests: XCTestCase {
 
+    // MARK: - Properties
+
+    let adapter = UnitaryGateFactoryAdapter(transformation: CSMFullMatrixUnitaryTransformation())
+
     // MARK: - Tests
 
     func testGateThatThrowsError_makeUnitaryGate_throwError() {
         // Given
-        let adapter = UnitaryGateFactoryAdapter()
         let failingGate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
@@ -43,7 +46,6 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
 
     func testGateReturnsComponents_makeUnitaryGate_returnValue() {
         // Given
-        let adapter = UnitaryGateFactoryAdapter()
         let gate = Gate.hadamard(target: 0)
 
         // When

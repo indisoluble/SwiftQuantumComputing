@@ -1,9 +1,9 @@
 //
-//  UnitaryGateFactoryAdapter.swift
+//  UnitaryTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 17/10/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 06/06/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,31 +20,22 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-struct UnitaryGateFactoryAdapter {
-
-    // MARK: - Private properties
-
-    private let transformation: UnitaryTransformation
-
-    // MARK: - Internal init methods
-
-    init(transformation: UnitaryTransformation) {
-        self.transformation = transformation
-    }
+protocol UnitaryTransformation {
+    func apply(gate: Gate, toUnitary matrix: Matrix) -> Result<Matrix, GateError>
 }
 
-// MARK: - UnitaryGateFactory methods
+// MARK: - UnitaryTransformation default implementations
 
-extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
-    func makeUnitaryGate(qubitCount: Int, gate: Gate) -> Result<UnitaryGate, GateError> {
+extension UnitaryTransformation where Self: CircuitSimulatorMatrixUnitaryTransformation {
+    func apply(gate: Gate, toUnitary matrix: Matrix) -> Result<Matrix, GateError> {
         let extractor = SimulatorMatrixComponentsExtractor(extractor: gate)
+        let qubitCount = Int.log2(matrix.rowCount)
 
         switch extractor.extractCircuitMatrix(restrictedToCircuitQubitCount: qubitCount) {
         case .success(let circuitMatrix):
-            return .success(try! UnitaryGateAdapter(matrix: circuitMatrix.expandedRawMatrix(),
-                                                    transformation: transformation))
+            return .success(apply(circuitMatrix: circuitMatrix, toUnitary: matrix))
         case .failure(let error):
             return .failure(error)
         }

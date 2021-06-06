@@ -90,7 +90,10 @@ private extension MainCircuitFactory {
     // MARK: - Private methods
 
     func makeUnitarySimulator() -> UnitarySimulator {
-        return UnitarySimulatorFacade(gateFactory: UnitaryGateFactoryAdapter())
+        let transformation = CSMFullMatrixUnitaryTransformation()
+        let gateFactory = UnitaryGateFactoryAdapter(transformation: transformation)
+
+        return UnitarySimulatorFacade(gateFactory: gateFactory)
     }
 
     func makeStatevectorSimulator() -> StatevectorSimulator {
