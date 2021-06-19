@@ -1,8 +1,8 @@
 //
-//  CircuitSimulatorMatrix+SimulatorCircuitRow.swift
+//  CircuitSimulatorMatrix+Row.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 06/02/2021.
+//  Created by Enrique de la Torre on 19/06/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,9 +20,9 @@
 
 import Foundation
 
-// MARK: - SimulatorCircuitRow methods
+// MARK: - Main body
 
-extension CircuitSimulatorMatrix: SimulatorCircuitRow {
+extension CircuitSimulatorMatrix {
     subscript(row: Int) -> Vector {
         return try! Vector.makeVector(count: count, value: { self[row, $0] }).get()
     }
