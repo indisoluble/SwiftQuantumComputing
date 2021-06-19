@@ -56,7 +56,7 @@ public struct Matrix {
 
     // MARK: - Private properties
 
-    private let values: [Complex<Double>]
+    private let values: ArraySlice<Complex<Double>>
 
     // MARK: - Public init methods
 
@@ -107,7 +107,7 @@ public struct Matrix {
     private init(rowCount: Int, columnCount: Int, values: [Complex<Double>]) {
         self.rowCount = rowCount
         self.columnCount = columnCount
-        self.values = values
+        self.values = ArraySlice(values)
     }
 
     // MARK: - Internal methods
@@ -192,7 +192,7 @@ extension Matrix: Hashable {}
 // MARK: - Sequence methods
 
 extension Matrix: Sequence {
-    public typealias Iterator = Array<Complex<Double>>.Iterator
+    public typealias Iterator = ArraySlice<Complex<Double>>.Iterator
 
     /// Returns iterator that traverses the matrix by column
     public func makeIterator() -> Matrix.Iterator {
@@ -230,11 +230,12 @@ extension Matrix {
 
         let N = Int32(lhs.values.count)
         var alpha = Complex<Double>.one
-        let X = lhs.values
         let inc = Int32(1)
         var Y = Array(rhs.values)
 
-        cblas_zaxpy(N, &alpha, X, inc, &Y, inc)
+        lhs.values.withUnsafeBytes { X in
+            cblas_zaxpy(N, &alpha, X.baseAddress!, inc, &Y, inc)
+        }
 
         let matrix = Matrix(rowCount: lhs.rowCount, columnCount: lhs.columnCount, values: Y)
 
@@ -319,28 +320,30 @@ private extension Matrix {
         let n = (rhsTrans == CblasNoTrans ? rhs.columnCount : rhs.rowCount)
         let k = (lhsTrans == CblasNoTrans ? lhs.columnCount : lhs.rowCount)
         var alpha = Complex<Double>.one
-        var aBuffer = lhs.values
         let lda = lhs.rowCount
-        var bBuffer = rhs.values
         let ldb = rhs.rowCount
         var beta = Complex<Double>.zero
         var cBuffer = Array(repeating: Complex<Double>.zero, count: (m * n))
         let ldc = m
 
-        cblas_zgemm(CblasColMajor,
-                    lhsTrans,
-                    rhsTrans,
-                    Int32(m),
-                    Int32(n),
-                    Int32(k),
-                    &alpha,
-                    &aBuffer,
-                    Int32(lda),
-                    &bBuffer,
-                    Int32(ldb),
-                    &beta,
-                    &cBuffer,
-                    Int32(ldc))
+        lhs.values.withUnsafeBytes { aBuffer in
+            rhs.values.withUnsafeBytes { bBuffer in
+                cblas_zgemm(CblasColMajor,
+                            lhsTrans,
+                            rhsTrans,
+                            Int32(m),
+                            Int32(n),
+                            Int32(k),
+                            &alpha,
+                            aBuffer.baseAddress!,
+                            Int32(lda),
+                            bBuffer.baseAddress!,
+                            Int32(ldb),
+                            &beta,
+                            &cBuffer,
+                            Int32(ldc))
+            }
+        }
 
         return Matrix(rowCount: m, columnCount: n, values: cBuffer)
     }

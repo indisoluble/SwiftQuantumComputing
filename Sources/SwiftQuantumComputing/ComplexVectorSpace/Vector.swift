@@ -142,7 +142,7 @@ extension Vector: Hashable {}
 // MARK: - Sequence methods
 
 extension Vector: Sequence {
-    public typealias Iterator = Array<Complex<Double>>.Iterator
+    public typealias Iterator = ArraySlice<Complex<Double>>.Iterator
 
     public func makeIterator() -> Vector.Iterator {
         return matrix.makeIterator()
