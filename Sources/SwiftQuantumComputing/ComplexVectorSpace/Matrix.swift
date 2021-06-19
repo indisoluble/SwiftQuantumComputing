@@ -105,9 +105,13 @@ public struct Matrix {
     // MARK: - Private init methods
 
     private init(rowCount: Int, columnCount: Int, values: [Complex<Double>]) {
+        self.init(rowCount: rowCount, columnCount: columnCount, values: ArraySlice(values))
+    }
+
+    private init(rowCount: Int, columnCount: Int, values: ArraySlice<Complex<Double>>) {
         self.rowCount = rowCount
         self.columnCount = columnCount
-        self.values = ArraySlice(values)
+        self.values = values
     }
 
     // MARK: - Internal methods
@@ -132,6 +136,27 @@ public struct Matrix {
 
         matrix = Matrix.multiply(lhs: self, lhsTrans: CblasConjTrans, rhs: self)
         return matrix.isApproximatelyEqual(to: identity, absoluteTolerance: absoluteTolerance)
+    }
+
+    enum MakeSliceError: Error {
+        case startColumnOutOfRange
+        case columnCountOutOfRange
+    }
+
+    func makeSlice(startColumn: Int, columnCount: Int) -> Result<Matrix, MakeSliceError> {
+        guard startColumn >= 0 && startColumn < self.columnCount else {
+            return .failure(.startColumnOutOfRange)
+        }
+
+        guard columnCount > 0 && (startColumn + columnCount) <= self.columnCount else {
+            return .failure(.columnCountOutOfRange)
+        }
+
+        let startIndex = values.startIndex + (startColumn * rowCount)
+        let endIndex = startIndex + (columnCount * rowCount)
+        let slice = values[startIndex..<endIndex]
+
+        return .success(Matrix(rowCount: rowCount, columnCount: columnCount, values: slice))
     }
 
     // MARK: - Internal class methods

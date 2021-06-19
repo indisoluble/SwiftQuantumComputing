@@ -194,6 +194,84 @@ class MatrixTests: XCTestCase {
         XCTAssertTrue(matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance))
     }
 
+    func testNegativeStartColumn_makeSlice_throwException() {
+        // Then
+        var error: Matrix.MakeSliceError?
+        if case .failure(let e) = Matrix.makeNot().makeSlice(startColumn: -1, columnCount: 1) {
+            error = e
+        }
+        XCTAssertEqual(error, .startColumnOutOfRange)
+    }
+
+    func testStartColumEqualToColumnCount_makeSlice_throwException() {
+        // Then
+        var error: Matrix.MakeSliceError?
+        if case .failure(let e) = Matrix.makeNot().makeSlice(startColumn: 10, columnCount: 1) {
+            error = e
+        }
+        XCTAssertEqual(error, .startColumnOutOfRange)
+    }
+
+    func testZeroColumnCount_makeSlice_throwException() {
+        // Then
+        var error: Matrix.MakeSliceError?
+        if case .failure(let e) = Matrix.makeNot().makeSlice(startColumn: 0, columnCount: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .columnCountOutOfRange)
+    }
+
+    func testColumnCountOutOfRange_makeSlice_throwException() {
+        // Then
+        var error: Matrix.MakeSliceError?
+        if case .failure(let e) = Matrix.makeNot().makeSlice(startColumn: 1, columnCount: 2) {
+            error = e
+        }
+        XCTAssertEqual(error, .columnCountOutOfRange)
+    }
+
+    func testAllColumnsInAMatrix_makeSlice_returnSameMatrix() {
+        // Given
+        let matrix = Matrix.makeControlledNot()
+
+        // When
+        let otherMatrix = try! matrix.makeSlice(startColumn: 0,
+                                                columnCount: matrix.columnCount).get()
+
+        // Then
+        XCTAssertTrue(matrix.isApproximatelyEqual(to: otherMatrix,
+                                                  absoluteTolerance: SharedConstants.tolerance))
+    }
+
+    func testTwoColumnsInAMatrix_makeSlice_returnExpectedMatrix() {
+        // Given
+        let matrix = try! Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+
+        // When
+        let otherMatrix = try! matrix.makeSlice(startColumn: 1, columnCount: 2).get()
+
+        // Then
+        let expectedMatrix = try! Matrix([[2, 3], [6, 7], [10, 11]])
+
+        XCTAssertTrue(otherMatrix.isApproximatelyEqual(to: expectedMatrix,
+                                                       absoluteTolerance: SharedConstants.tolerance))
+    }
+
+    func testMatrixAlreadySliced_makeSlice_returnExpectedMatrix() {
+        // Given
+        let matrix = try! Matrix([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10],  [11, 12, 13, 14, 15]])
+        let firstSlice = try! matrix.makeSlice(startColumn: 1, columnCount: 3).get()
+
+        // When
+        let otherMatrix = try! firstSlice.makeSlice(startColumn: 1, columnCount: 1).get()
+
+        // Then
+        let expectedMatrix = try! Matrix([[3], [8], [13]])
+
+        XCTAssertTrue(otherMatrix.isApproximatelyEqual(to: expectedMatrix,
+                                                       absoluteTolerance: SharedConstants.tolerance))
+    }
+
     func testZeroRowCount_makeMatrix_throwException() {
         // Then
         var error: Matrix.MakeMatrixError?
@@ -507,6 +585,20 @@ class MatrixTests: XCTestCase {
          testSquareNonUnitaryMatrix_isApproximatelyUnitary_returnFalse),
         ("testUnitaryMatrix_isApproximatelyUnitary_returnTrue",
          testUnitaryMatrix_isApproximatelyUnitary_returnTrue),
+        ("testNegativeStartColumn_makeSlice_throwException",
+         testNegativeStartColumn_makeSlice_throwException),
+        ("testStartColumEqualToColumnCount_makeSlice_throwException",
+         testStartColumEqualToColumnCount_makeSlice_throwException),
+        ("testZeroColumnCount_makeSlice_throwException",
+         testZeroColumnCount_makeSlice_throwException),
+        ("testColumnCountOutOfRange_makeSlice_throwException",
+         testColumnCountOutOfRange_makeSlice_throwException),
+        ("testAllColumnsInAMatrix_makeSlice_returnSameMatrix",
+         testAllColumnsInAMatrix_makeSlice_returnSameMatrix),
+        ("testTwoColumnsInAMatrix_makeSlice_returnExpectedMatrix",
+         testTwoColumnsInAMatrix_makeSlice_returnExpectedMatrix),
+        ("testMatrixAlreadySliced_makeSlice_returnExpectedMatrix",
+         testMatrixAlreadySliced_makeSlice_returnExpectedMatrix),
         ("testZeroRowCount_makeMatrix_throwException",
          testZeroRowCount_makeMatrix_throwException),
         ("testZeroColumnCount_makeMatrix_throwException",
