@@ -24,6 +24,11 @@ import SwiftQuantumComputing
 
 // MARK: - Types
 
+enum Result: String, CaseIterable, ExpressibleByArgument {
+    case statevector
+    case unitary
+}
+
 enum Mode: String, CaseIterable, ExpressibleByArgument {
     case fullMatrix
     case rowByRow
@@ -46,13 +51,17 @@ struct SQCMeasurePerformance: ParsableCommand {
     // MARK: - Properties
 
     static var configuration = CommandConfiguration(
-        abstract: "Calculate how long it takes to produce a statevector",
+        abstract: "Calculate how long it takes to produce a statevector or an unitary",
         discussion: """
             This application provides multiple configuration options, try
             different values to check the performance of this quantum
             circuit simulator in your computer.
             """
     )
+
+    @Option(name: [.customShort("o"), .customLong("option")],
+            help: "Result type/option to produce: \(Result.allCases.map({ "\($0)" }).joined(separator: ", ")).")
+    var result = Result.statevector
 
     @Option(name: .shortAndLong,
             help: "Execution mode: \(Mode.allCases.map({ "\($0)" }).joined(separator: ", ")).")
@@ -85,11 +94,13 @@ struct SQCMeasurePerformance: ParsableCommand {
     // MARK: - Methods
 
     mutating func validate() throws {
-        switch mode {
-        case .fullMatrix, .rowByRow, .elementByElement, .direct:
-            guard concurrency >= 1 else {
-                throw ValidationError("Please specify a number of 'threads' of at least 1.")
-            }
+        if result == .unitary && mode != .fullMatrix {
+            throw ValidationError("Option \(result) can only be executed " +
+                                    "in mode \(Mode.fullMatrix).")
+        }
+
+        guard concurrency >= 1 else {
+            throw ValidationError("Please specify a number of 'threads' of at least 1.")
         }
 
         let minQubitCount: Int
@@ -115,20 +126,20 @@ struct SQCMeasurePerformance: ParsableCommand {
     }
 
     mutating func run() throws {
-        let result = makeCircuit()
+        let output = makeCircuit()
 
         print("""
         Simulating circuit with:
         - \(qubitCount) qubit/s
-        - \(result.gates.count) gates (entangled state + \(circuit))
-        - Up to \(concurrency) thread/s in \(mode) mode\n
+        - \(output.gates.count) gates (entangled state + \(circuit))
+        - Up to \(concurrency) thread/s in \(mode) mode to produce \(result)\n
         """)
 
         let total = (1...repeatExecution).reduce(0.0) { (acc, idx) in
             print("Simulation \(idx) of \(repeatExecution)...")
 
             let start = DispatchTime.now()
-            _ = result.statevector()
+            execute(output)
             let diff = seconds(since: start)
 
             verbose("Simulation \(idx) of \(repeatExecution): Completed in \(diff) seconds")
@@ -159,6 +170,15 @@ private extension SQCMeasurePerformance {
         }
 
         print(msg)
+    }
+
+    func execute(_ circuit: SwiftQuantumComputing.Circuit) {
+        switch result {
+        case .statevector:
+            _ = circuit.statevector()
+        case .unitary:
+            _ = circuit.unitary()
+        }
     }
 
     func entangledStateGates() -> [Gate] {
@@ -225,19 +245,22 @@ private extension SQCMeasurePerformance {
     }
 
     func makeFactory() -> CircuitFactory {
-        let config: MainCircuitFactory.StatevectorConfiguration
+        let unitConfig = MainCircuitFactory.UnitaryConfiguration.fullMatrix(maxConcurrency: concurrency)
+
+        let stateConfig: MainCircuitFactory.StatevectorConfiguration
         switch mode {
         case .fullMatrix:
-            config = .fullMatrix(maxConcurrency: concurrency)
+            stateConfig = .fullMatrix(maxConcurrency: concurrency)
         case .rowByRow:
-            config = .rowByRow(maxConcurrency: concurrency)
+            stateConfig = .rowByRow(maxConcurrency: concurrency)
         case .elementByElement:
-            config = .elementByElement(maxConcurrency: concurrency)
+            stateConfig = .elementByElement(maxConcurrency: concurrency)
         case .direct:
-            config = .direct(maxConcurrency: concurrency)
+            stateConfig = .direct(maxConcurrency: concurrency)
         }
 
-        return MainCircuitFactory(statevectorConfiguration: config)
+        return MainCircuitFactory(unitaryConfiguration: unitConfig,
+                                  statevectorConfiguration: stateConfig)
     }
 
     func makeCircuit() -> SwiftQuantumComputing.Circuit {
