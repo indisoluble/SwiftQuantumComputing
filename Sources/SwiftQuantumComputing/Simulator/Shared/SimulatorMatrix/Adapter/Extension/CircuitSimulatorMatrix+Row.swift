@@ -23,7 +23,25 @@ import Foundation
 // MARK: - Main body
 
 extension CircuitSimulatorMatrix {
-    subscript(row: Int) -> Vector {
-        return try! Vector.makeVector(count: count, value: { self[row, $0] }).get()
+    enum RowError: Error {
+        case indexOutOfRange
+        case passMaxConcurrencyBiggerThanZero
+    }
+
+    func row(_ index: Int, maxConcurrency: Int) -> Result<Vector, RowError> {
+        guard index >= 0 && index < count else {
+            return .failure(.indexOutOfRange)
+        }
+
+        switch Vector.makeVector(count: count,
+                                 maxConcurrency: maxConcurrency,
+                                 value: { self[index, $0] }) {
+        case .success(let vector):
+            return .success(vector)
+        case .failure(.passMaxConcurrencyBiggerThanZero):
+            return .failure(.passMaxConcurrencyBiggerThanZero)
+        case .failure(.passCountBiggerThanZero):
+            fatalError("Unexpected error.")
+        }
     }
 }

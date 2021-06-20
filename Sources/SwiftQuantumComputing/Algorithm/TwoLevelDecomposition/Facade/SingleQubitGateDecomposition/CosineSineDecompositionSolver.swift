@@ -31,7 +31,7 @@ extension CosineSineDecompositionSolver: SingleQubitGateDecompositionSolver {
     func decomposeGate(_ gate: Gate) -> [Gate] {
         let extractor = SimulatorMatrixComponentsExtractor(extractor: gate)
 
-        var matrix = try! extractor.extractMatrix().get().expandedRawMatrix()
+        var matrix = try! extractor.extractMatrix().get().expandedRawMatrix(maxConcurrency: 1).get()
         if matrix.isApproximatelyEqual(to: Constants.matrixIdentity,
                                        absoluteTolerance: SharedConstants.tolerance) {
             return []

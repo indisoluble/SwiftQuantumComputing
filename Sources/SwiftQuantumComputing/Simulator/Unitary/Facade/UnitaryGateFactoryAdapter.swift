@@ -26,11 +26,21 @@ struct UnitaryGateFactoryAdapter {
 
     // MARK: - Private properties
 
+    private let maxConcurrency: Int
     private let transformation: UnitaryTransformation
 
     // MARK: - Internal init methods
 
-    init(transformation: UnitaryTransformation) {
+    enum InitError: Error {
+        case maxConcurrencyHasToBiggerThanZero
+    }
+
+    init(maxConcurrency: Int, transformation: UnitaryTransformation) throws {
+        guard maxConcurrency > 0 else {
+            throw InitError.maxConcurrencyHasToBiggerThanZero
+        }
+
+        self.maxConcurrency = maxConcurrency
         self.transformation = transformation
     }
 }
@@ -43,8 +53,9 @@ extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
 
         switch extractor.extractCircuitMatrix(restrictedToCircuitQubitCount: qubitCount) {
         case .success(let circuitMatrix):
-            return .success(try! UnitaryGateAdapter(matrix: circuitMatrix.expandedRawMatrix(),
-                                                    transformation: transformation))
+            let matrix = try! circuitMatrix.expandedRawMatrix(maxConcurrency: maxConcurrency).get()
+
+            return .success(try! UnitaryGateAdapter(matrix: matrix, transformation: transformation))
         case .failure(let error):
             return .failure(error)
         }

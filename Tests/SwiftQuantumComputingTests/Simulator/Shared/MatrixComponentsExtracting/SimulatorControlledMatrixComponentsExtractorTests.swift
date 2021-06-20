@@ -89,7 +89,8 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         // Then
         XCTAssertEqual(matrix?.controlCount, 1)
         XCTAssertEqual(matrix?.truthTable, [try! TruthTableEntry(repeating: "1", count: 1)])
-        XCTAssertEqual(matrix?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(try? matrix?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeNot())
         XCTAssertEqual(matrix?.count, 4)
         XCTAssertEqual(inputs, validInputs)
     }
@@ -110,7 +111,8 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         // Then
         XCTAssertEqual(matrix?.controlCount, 2)
         XCTAssertEqual(matrix?.truthTable, [try! TruthTableEntry(repeating: "1", count: 2)])
-        XCTAssertEqual(matrix?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(try? matrix?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeNot())
         XCTAssertEqual(matrix?.count, 8)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
@@ -132,7 +134,8 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         // Then
         XCTAssertEqual(matrix?.controlCount, 2)
         XCTAssertEqual(matrix?.truthTable, [try! TruthTableEntry(repeating: "1", count: 2)])
-        XCTAssertEqual(matrix?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(try? matrix?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeNot())
         XCTAssertEqual(matrix?.count, 8)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
@@ -222,7 +225,8 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         XCTAssertEqual(matrix?.truthTable,
                        [try! TruthTableEntry(repeating: "0", count: 1),
                         try! TruthTableEntry(repeating: "1", count: 1)])
-        XCTAssertEqual(matrix?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(try? matrix?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeNot())
         XCTAssertEqual(matrix?.count, 4)
         XCTAssertEqual(inputs, validInputs)
     }
@@ -248,7 +252,8 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
                        [try! TruthTableEntry(truth: "01", truthCount: 2),
                         try! TruthTableEntry(truth: "00", truthCount: 2),
                         try! TruthTableEntry(truth: "10", truthCount: 2)])
-        XCTAssertEqual(matrix?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(try? matrix?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeNot())
         XCTAssertEqual(matrix?.count, 8)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
@@ -277,7 +282,8 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
                         try! TruthTableEntry(truth: "0101", truthCount: 4),
                         try! TruthTableEntry(truth: "1011", truthCount: 4),
                         try! TruthTableEntry(truth: "1001", truthCount: 4)])
-        XCTAssertEqual(matrix?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(try? matrix?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeNot())
         XCTAssertEqual(matrix?.count, 32)
         XCTAssertEqual(inputs, [5, 0, 2, 3, 1])
     }

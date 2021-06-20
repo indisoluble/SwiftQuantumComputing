@@ -86,13 +86,7 @@ struct SQCMeasurePerformance: ParsableCommand {
 
     mutating func validate() throws {
         switch mode {
-        case .fullMatrix:
-            guard concurrency == 1 else {
-                throw ValidationError(
-                    "'mode' \(mode) runs in a single thread, please set 'threads' to 1."
-                )
-            }
-        case .rowByRow, .elementByElement, .direct:
+        case .fullMatrix, .rowByRow, .elementByElement, .direct:
             guard concurrency >= 1 else {
                 throw ValidationError("Please specify a number of 'threads' of at least 1.")
             }
@@ -234,7 +228,7 @@ private extension SQCMeasurePerformance {
         let config: MainCircuitFactory.StatevectorConfiguration
         switch mode {
         case .fullMatrix:
-            config = .fullMatrix
+            config = .fullMatrix(maxConcurrency: concurrency)
         case .rowByRow:
             config = .rowByRow(maxConcurrency: concurrency)
         case .elementByElement:

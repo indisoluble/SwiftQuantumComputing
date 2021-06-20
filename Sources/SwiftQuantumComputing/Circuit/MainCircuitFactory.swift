@@ -27,13 +27,23 @@ public struct MainCircuitFactory {
 
     // MARK: - Public types
 
+    /// Define behaviour of `Circuit.unitary(withQubitCount:)`
+    public enum UnitaryConfiguration {
+        /// Each `Gate` is expanded into a `Matrix` and multiplied between them to get the unitary
+        /// that represents the entire circuit.  Expansion can be done in parallel with up to `maxConcurrency`
+        /// number of threads. If `maxConcurrency` is set to 1 or less, the whole process will be serial
+        case fullMatrix(maxConcurrency: Int = 1)
+    }
+
     /// Define behaviour of `Circuit.statevector(withInitialStatevector:)`
     public enum StatevectorConfiguration {
         /// Each `Gate` is expanded into a `Matrix` and applied to the current statevector
-        /// to get the final statevector. This configuration has the biggest memory footprint
-        case fullMatrix
+        /// to get the final statevector. Expansion can be done in parallel with up to `maxConcurrency`
+        /// number of threads. If `maxConcurrency` is set to 1 or less, the whole process will be serial.
+        /// This configuration has the biggest memory footprint
+        case fullMatrix(maxConcurrency: Int = 1)
         /// For each position of the next statevector, the corresponding row of the `Gate` is expanded
-        /// and applied as needed. This process can be done in parallel with up to `maxConcurrency`
+        /// and applied as needed. Expansion can be done in parallel with up to `maxConcurrency`
         /// number of threads. If `maxConcurrency` is set to 1 or less, the whole process will be serial.
         case rowByRow(maxConcurrency: Int = 1)
         /// For each position of the next statevector, element by element of the corresponding row
@@ -52,6 +62,7 @@ public struct MainCircuitFactory {
 
     // MARK: - Private properties
 
+    private let unitaryConfiguration: UnitaryConfiguration
     private let statevectorConfiguration: StatevectorConfiguration
 
     // MARK: - Public init methods
@@ -59,6 +70,10 @@ public struct MainCircuitFactory {
     /**
      Initialize a `MainCircuitFactory` instance.
 
+     - Parameter unitaryConfiguration:Defines how a unitary matrix is calculated. By default is set to
+     `UnitaryConfiguration.fullMatrix`, however the performance of each configuration depends on each
+     use case. It is recommended to try different configurations so see how long an execution takes and how much
+     memory is required.
      - Parameter statevectorConfiguration: Defines how a statevector is calculated. By default is set to
      `StatevectorConfiguration.direct`, however the performance of each configuration depends on each
      use case. It is recommended to try different configurations so see how long an execution takes and how much
@@ -66,7 +81,9 @@ public struct MainCircuitFactory {
 
      - Returns: A`MainCircuitFactory` instance.
      */
-    public init(statevectorConfiguration: StatevectorConfiguration = .direct()) {
+    public init(unitaryConfiguration: UnitaryConfiguration = .fullMatrix(),
+                statevectorConfiguration: StatevectorConfiguration = .direct()) {
+        self.unitaryConfiguration = unitaryConfiguration
         self.statevectorConfiguration = statevectorConfiguration
     }
 }
@@ -90,10 +107,19 @@ private extension MainCircuitFactory {
     // MARK: - Private methods
 
     func makeUnitarySimulator() -> UnitarySimulator {
-        let transformation = CSMFullMatrixUnitaryTransformation()
-        let gateFactory = UnitaryGateFactoryAdapter(transformation: transformation)
+        return UnitarySimulatorFacade(gateFactory: makeUnitaryGateFactory())
+    }
 
-        return UnitarySimulatorFacade(gateFactory: gateFactory)
+    func makeUnitaryGateFactory() -> UnitaryGateFactory {
+        let mc: Int
+        let transformation: UnitaryTransformation
+        switch unitaryConfiguration {
+        case .fullMatrix(let maxConcurrency):
+            mc = maxConcurrency > 0 ? maxConcurrency : 1
+            transformation = try! CSMFullMatrixUnitaryTransformation(maxConcurrency: mc)
+        }
+
+        return try! UnitaryGateFactoryAdapter(maxConcurrency: mc, transformation: transformation)
     }
 
     func makeStatevectorSimulator() -> StatevectorSimulator {
@@ -107,21 +133,29 @@ private extension MainCircuitFactory {
     }
 
     func makeStatevectorTransformation() -> StatevectorTransformation {
-        let transformation: StatevectorTransformation!
+        let transformation: StatevectorTransformation
         switch statevectorConfiguration {
-        case .fullMatrix:
-            transformation = CSMFullMatrixStatevectorTransformation()
+        case .fullMatrix(let maxConcurrency):
+            let mc = maxConcurrency > 0 ? maxConcurrency : 1
+
+            transformation = try! CSMFullMatrixStatevectorTransformation(maxConcurrency: mc)
         case .rowByRow(let maxConcurrency):
-            transformation = try! CSMRowByRowStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+            let mc = maxConcurrency > 0 ? maxConcurrency : 1
+
+            transformation = try! CSMRowByRowStatevectorTransformation(maxConcurrency: mc)
         case .elementByElement(let maxConcurrency):
-            transformation = try! CSMElementByElementStatevectorTransformation(maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+            let mc = maxConcurrency > 0 ? maxConcurrency : 1
+
+            transformation = try! CSMElementByElementStatevectorTransformation(maxConcurrency: mc)
         case .direct(let maxConcurrency):
+            let mc = maxConcurrency > 0 ? maxConcurrency : 1
+
             let filteringFactory = DirectStatevectorFilteringFactoryAdapter()
             let indexingFactory = DirectStatevectorIndexingFactoryAdapter()
 
             transformation = try! DirectStatevectorTransformation(filteringFactory: filteringFactory,
                                                                   indexingFactory: indexingFactory,
-                                                                  maxConcurrency: maxConcurrency > 0 ? maxConcurrency : 1)
+                                                                  maxConcurrency: mc)
         }
 
         return transformation

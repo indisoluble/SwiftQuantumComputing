@@ -29,6 +29,11 @@ class CSMFullMatrixStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testMaxConcurrencyEqualToZero_init_throwException() {
+        // Then
+        XCTAssertThrowsError(try CSMFullMatrixStatevectorTransformation(maxConcurrency: 0))
+    }
+
     func testMatrixFactoryReturnsMatrix_applying_returnValue() {
         // Given
         let vectorQubitCount = 1
@@ -36,7 +41,7 @@ class CSMFullMatrixStatevectorTransformationTests: XCTestCase {
         elements[0] = .one
 
         let vector = try! Vector(elements)
-        let adapter = CSMFullMatrixStatevectorTransformation()
+        let adapter = try! CSMFullMatrixStatevectorTransformation(maxConcurrency: 1)
 
         let circuitMatrix = CircuitSimulatorMatrix(qubitCount: vectorQubitCount,
                                                    baseMatrix: Matrix.makeNot(),
@@ -57,7 +62,7 @@ class CSMFullMatrixStatevectorTransformationTests: XCTestCase {
         elements[0] = .one
 
         let vector = try! Vector(elements)
-        let adapter = CSMFullMatrixStatevectorTransformation()
+        let adapter = try! CSMFullMatrixStatevectorTransformation(maxConcurrency: 2)
 
         let circuitMatrix = CircuitSimulatorMatrix(qubitCount: qubitCount,
                                                    baseMatrix: Matrix.makeNot(),
@@ -72,6 +77,8 @@ class CSMFullMatrixStatevectorTransformationTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testMaxConcurrencyEqualToZero_init_throwException",
+         testMaxConcurrencyEqualToZero_init_throwException),
         ("testMatrixFactoryReturnsMatrix_applying_returnValue",
          testMatrixFactoryReturnsMatrix_applying_returnValue),
         ("testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne",

@@ -28,7 +28,7 @@ class SimulatorControlledMatrixAdapterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testNotMatrixAndControlCountToOne_expandedMatrix_returnExpectedMatrix() {
+    func testMaxConcurrencyEqualToZero_expandedRawMatrix_throwException() {
         // Given
         let controlledMatrix = Matrix.makeNot()
         let controlCount = 1
@@ -38,11 +38,31 @@ class SimulatorControlledMatrixAdapterTests: XCTestCase {
                                                    controlledCountableMatrix: controlledMatrix)
 
         // Then
-        XCTAssertEqual(sut.expandedOracleMatrix().expandedRawMatrix(), Matrix.makeControlledNot())
+        var error: ExpandedRawMatrixError?
+        if case .failure(let e) = sut.expandedOracleMatrix().expandedRawMatrix(maxConcurrency: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .passMaxConcurrencyBiggerThanZero)
+    }
+
+    func testNotMatrixAndControlCountToOne_expandedRawMatrix_returnExpectedMatrix() {
+        // Given
+        let controlledMatrix = Matrix.makeNot()
+        let controlCount = 1
+        let truthTable = [try! TruthTableEntry(repeating: "1", count: controlCount)]
+        let sut = SimulatorControlledMatrixAdapter(truthTable: truthTable,
+                                                   controlCount: controlCount,
+                                                   controlledCountableMatrix: controlledMatrix)
+
+        // Then
+        XCTAssertEqual(try? sut.expandedOracleMatrix().expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeControlledNot())
     }
 
     static var allTests = [
-        ("testNotMatrixAndControlCountToOne_expandedMatrix_returnExpectedMatrix",
-         testNotMatrixAndControlCountToOne_expandedMatrix_returnExpectedMatrix)
+        ("testMaxConcurrencyEqualToZero_expandedRawMatrix_throwException",
+         testMaxConcurrencyEqualToZero_expandedRawMatrix_throwException),
+        ("testNotMatrixAndControlCountToOne_expandedRawMatrix_returnExpectedMatrix",
+         testNotMatrixAndControlCountToOne_expandedRawMatrix_returnExpectedMatrix)
     ]
 }

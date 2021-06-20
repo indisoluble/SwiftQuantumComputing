@@ -31,7 +31,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
     let adapter = try! DirectStatevectorTransformation(filteringFactory: DirectStatevectorFilteringFactoryAdapter(),
                                                        indexingFactory: DirectStatevectorIndexingFactoryAdapter(),
                                                        maxConcurrency: 1)
-    let scmAdapter = CSMFullMatrixStatevectorTransformation()
+    let scmAdapter = try! CSMFullMatrixStatevectorTransformation(maxConcurrency: 1)
 
     let threeQubitZeroVector = try! Vector([.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero])
     let threeQubitOneVector = try! Vector([.zero, .one, .zero, .zero, .zero, .zero, .zero, .zero])
@@ -67,8 +67,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero,
         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .one
     ])
-    let simulatorGateMultiqubitMatrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
-                                                              controlledCountableMatrix: Matrix.makeNot()).expandedRawMatrix()
+    let simulatorGateMultiqubitMatrix = try! OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
+                                                                   controlledCountableMatrix: Matrix.makeNot()).expandedRawMatrix(maxConcurrency: 1).get()
 
     // MARK: - Tests
 
@@ -388,8 +388,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
     func testOtherMultiqubitMatrixAndSevenQubitThreeVector_apply_returnExpectedVector() {
         // Given
         let matrix = try! Matrix([[.one, .zero], [.zero, .one]])
-        let simulatorGateMatrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
-                                                        controlledCountableMatrix: matrix).expandedRawMatrix()
+        let simulatorGateMatrix = try! OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
+                                                             controlledCountableMatrix: matrix).expandedRawMatrix(maxConcurrency: 1).get()
 
         // When
         let result = try! adapter.apply(gate: .matrix(matrix: simulatorGateMatrix, inputs: [2, 0]),
@@ -401,8 +401,8 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     func testThreeQubitMultiqubitMatrixAndElevenQubitFourVector_apply_returnExpectedVector() {
         // Given
-        let simulatorGateMatrix = OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 2,
-                                                        controlledCountableMatrix: Matrix.makeNot()).expandedRawMatrix()
+        let simulatorGateMatrix = try! OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 2,
+                                                             controlledCountableMatrix: Matrix.makeNot()).expandedRawMatrix(maxConcurrency: 1).get()
 
         // When
         let result = try! adapter.apply(gate: .matrix(matrix: simulatorGateMatrix, inputs: [3, 0, 2]),

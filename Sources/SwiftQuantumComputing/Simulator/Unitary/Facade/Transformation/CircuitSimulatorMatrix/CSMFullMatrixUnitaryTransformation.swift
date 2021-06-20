@@ -22,7 +22,26 @@ import Foundation
 
 // MARK: - Main body
 
-struct CSMFullMatrixUnitaryTransformation {}
+struct CSMFullMatrixUnitaryTransformation {
+
+    // MARK: - Private properties
+
+    private let maxConcurrency: Int
+
+    // MARK: - Internal init methods
+
+    enum InitError: Error {
+        case maxConcurrencyHasToBiggerThanZero
+    }
+
+    init(maxConcurrency: Int) throws {
+        guard maxConcurrency > 0 else {
+            throw InitError.maxConcurrencyHasToBiggerThanZero
+        }
+
+        self.maxConcurrency = maxConcurrency
+    }
+}
 
 // MARK: - UnitaryTransformation methods
 
@@ -32,6 +51,8 @@ extension CSMFullMatrixUnitaryTransformation: UnitaryTransformation {}
 
 extension CSMFullMatrixUnitaryTransformation: CircuitSimulatorMatrixUnitaryTransformation {
     func apply(circuitMatrix: CircuitSimulatorMatrix, toUnitary matrix: Matrix) -> Matrix {
-        return try! (circuitMatrix.expandedRawMatrix() * matrix).get()
+        let lhs = try! circuitMatrix.expandedRawMatrix(maxConcurrency: maxConcurrency).get()
+
+        return try! (lhs * matrix).get()
     }
 }

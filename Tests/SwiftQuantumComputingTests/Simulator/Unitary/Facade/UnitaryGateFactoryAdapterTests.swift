@@ -28,9 +28,19 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let adapter = UnitaryGateFactoryAdapter(transformation: CSMFullMatrixUnitaryTransformation())
+    let adapter = try! UnitaryGateFactoryAdapter(maxConcurrency: 1,
+                                                 transformation: try! CSMFullMatrixUnitaryTransformation(maxConcurrency: 1))
 
     // MARK: - Tests
+
+    func testMaxConcurrencyEqualToZero_init_throwException() {
+        // Given
+        let transformation = try! CSMFullMatrixUnitaryTransformation(maxConcurrency: 1)
+
+        // Then
+        XCTAssertThrowsError(try UnitaryGateFactoryAdapter(maxConcurrency: 0,
+                                                           transformation: transformation))
+    }
 
     func testGateThatThrowsError_makeUnitaryGate_throwError() {
         // Given
@@ -56,6 +66,8 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testMaxConcurrencyEqualToZero_init_throwException",
+         testMaxConcurrencyEqualToZero_init_throwException),
         ("testGateThatThrowsError_makeUnitaryGate_throwError",
          testGateThatThrowsError_makeUnitaryGate_throwError),
         ("testGateReturnsComponents_makeUnitaryGate_returnValue",

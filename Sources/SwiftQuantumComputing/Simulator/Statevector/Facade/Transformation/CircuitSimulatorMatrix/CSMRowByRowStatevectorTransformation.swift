@@ -51,8 +51,10 @@ extension CSMRowByRowStatevectorTransformation: StatevectorTransformation {}
 
 extension CSMRowByRowStatevectorTransformation: CircuitSimulatorMatrixStatevectorTransformation {
     func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector {
-        return try! Vector.makeVector(count: vector.count,
-                                      maxConcurrency: maxConcurrency,
-                                      value: { try! (matrix[$0] * vector).get() }).get()
+        return try! Vector.makeVector(count: vector.count, value: { idx in
+            let lhs = try! matrix.row(idx, maxConcurrency: maxConcurrency).get()
+
+            return try! (lhs * vector).get()
+        }).get()
     }
 }
