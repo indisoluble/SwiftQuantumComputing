@@ -29,9 +29,16 @@ class CSMRowByRowStatevectorTransformationTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testMaxConcurrencyEqualToZero_init_throwError() {
+    func testStatevectorCalculationConcurrencyEqualToZero_init_throwError() {
         // Then
-        XCTAssertThrowsError(try CSMRowByRowStatevectorTransformation(maxConcurrency: 0))
+        XCTAssertThrowsError(try CSMRowByRowStatevectorTransformation(statevectorCalculationConcurrency: 0,
+                                                                      rowExpansionConcurrency: 1))
+    }
+
+    func testRowExpansionConcurrencyEqualToZero_init_throwError() {
+        // Then
+        XCTAssertThrowsError(try CSMRowByRowStatevectorTransformation(statevectorCalculationConcurrency: 1,
+                                                                      rowExpansionConcurrency: 0))
     }
 
     func testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne() {
@@ -41,7 +48,8 @@ class CSMRowByRowStatevectorTransformationTests: XCTestCase {
         elements[0] = .one
 
         let vector = try! Vector(elements)
-        let adapter = try! CSMRowByRowStatevectorTransformation(maxConcurrency: 1)
+        let adapter = try! CSMRowByRowStatevectorTransformation(statevectorCalculationConcurrency: 1,
+                                                                rowExpansionConcurrency: 1)
 
         let circuitRow = CircuitSimulatorMatrix(qubitCount: qubitCount,
                                                 baseMatrix: Matrix.makeNot(),
@@ -56,8 +64,10 @@ class CSMRowByRowStatevectorTransformationTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testMaxConcurrencyEqualToZero_init_throwError",
-         testMaxConcurrencyEqualToZero_init_throwError),
+        ("testStatevectorCalculationConcurrencyEqualToZero_init_throwError",
+         testStatevectorCalculationConcurrencyEqualToZero_init_throwError),
+        ("testRowExpansionConcurrencyEqualToZero_init_throwError",
+         testRowExpansionConcurrencyEqualToZero_init_throwError),
         ("testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne",
          testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne)
     ]

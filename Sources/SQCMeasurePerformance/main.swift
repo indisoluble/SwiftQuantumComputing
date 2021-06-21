@@ -67,9 +67,13 @@ struct SQCMeasurePerformance: ParsableCommand {
             help: "Execution mode: \(Mode.allCases.map({ "\($0)" }).joined(separator: ", ")).")
     var mode = Mode.direct
 
-    @Option(name: [.customShort("t"), .customLong("threads")],
-            help: "Maximum number of threads used by the simulator.")
-    var concurrency = 1
+    @Option(name: [.customShort("u"), .customLong("calculations")],
+            help: "Maximum number of threads used to make calculations.")
+    var calculationConcurrency = 1
+
+    @Option(name: [.customShort("e"), .customLong("expansion")],
+            help: "Maximum number of threads used to expand rows & matrices.")
+    var expansionConcurrency = 1
 
     @Option(name: [.short, .customLong("qubits")],
             help: "Number of qubits to be simulated.")
@@ -99,8 +103,25 @@ struct SQCMeasurePerformance: ParsableCommand {
                                     "in mode \(Mode.fullMatrix).")
         }
 
-        guard concurrency >= 1 else {
-            throw ValidationError("Please specify a number of 'threads' of at least 1.")
+        guard calculationConcurrency >= 1 else {
+            throw ValidationError("Please specify a number of 'calculations' of at least 1.")
+        }
+
+        guard expansionConcurrency >= 1 else {
+            throw ValidationError("Please specify a number of 'expansion' of at least 1.")
+        }
+
+        switch mode {
+        case .direct, .elementByElement:
+            if expansionConcurrency > 1 {
+                throw ValidationError("Only valid expasion for mode \(mode) is 1.")
+            }
+        case .fullMatrix:
+            if calculationConcurrency > 1 {
+                throw ValidationError("Only valid calculations for mode \(mode) is 1.")
+            }
+        case .rowByRow:
+            break
         }
 
         let minQubitCount: Int
@@ -132,7 +153,7 @@ struct SQCMeasurePerformance: ParsableCommand {
         Simulating circuit with:
         - \(qubitCount) qubit/s
         - \(output.gates.count) gates (entangled state + \(circuit))
-        - Up to \(concurrency) thread/s in \(mode) mode to produce \(result)\n
+        - Up to \(calculationConcurrency * expansionConcurrency) thread/s in \(mode) mode to produce \(result)\n
         """)
 
         let total = (1...repeatExecution).reduce(0.0) { (acc, idx) in
@@ -245,18 +266,19 @@ private extension SQCMeasurePerformance {
     }
 
     func makeFactory() -> CircuitFactory {
-        let unitConfig = MainCircuitFactory.UnitaryConfiguration.fullMatrix(maxConcurrency: concurrency)
+        let unitConfig = MainCircuitFactory.UnitaryConfiguration.fullMatrix(maxConcurrency: expansionConcurrency)
 
         let stateConfig: MainCircuitFactory.StatevectorConfiguration
         switch mode {
         case .fullMatrix:
-            stateConfig = .fullMatrix(maxConcurrency: concurrency)
+            stateConfig = .fullMatrix(matrixExpansionConcurrency: expansionConcurrency)
         case .rowByRow:
-            stateConfig = .rowByRow(maxConcurrency: concurrency)
+            stateConfig = .rowByRow(statevectorCalculationConcurrency: calculationConcurrency,
+                                    rowExpansionConcurrency: expansionConcurrency)
         case .elementByElement:
-            stateConfig = .elementByElement(maxConcurrency: concurrency)
+            stateConfig = .elementByElement(statevectorCalculationConcurrency: calculationConcurrency)
         case .direct:
-            stateConfig = .direct(maxConcurrency: concurrency)
+            stateConfig = .direct(statevectorCalculationConcurrency: calculationConcurrency)
         }
 
         return MainCircuitFactory(unitaryConfiguration: unitConfig,

@@ -29,24 +29,24 @@ struct DirectStatevectorTransformation {
 
     private let filteringFactory: DirectStatevectorFilteringFactory
     private let indexingFactory: DirectStatevectorIndexingFactory
-    private let maxConcurrency: Int
+    private let statevectorCalculationConcurrency: Int
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case maxConcurrencyHasToBiggerThanZero
+        case statevectorCalculationConcurrencyHasToBiggerThanZero
     }
 
     init(filteringFactory: DirectStatevectorFilteringFactory,
          indexingFactory: DirectStatevectorIndexingFactory,
-         maxConcurrency: Int) throws {
-        guard maxConcurrency > 0 else {
-            throw InitError.maxConcurrencyHasToBiggerThanZero
+         statevectorCalculationConcurrency: Int) throws {
+        guard statevectorCalculationConcurrency > 0 else {
+            throw InitError.statevectorCalculationConcurrencyHasToBiggerThanZero
         }
 
         self.filteringFactory = filteringFactory
         self.indexingFactory = indexingFactory
-        self.maxConcurrency = maxConcurrency
+        self.statevectorCalculationConcurrency = statevectorCalculationConcurrency
     }
 }
 
@@ -94,7 +94,9 @@ private extension DirectStatevectorTransformation {
                toStatevector vector: Vector,
                transformingIndexesWith indexer: DirectStatevectorIndexing,
                selectingStatesWith filter: DirectStatevectorFiltering) -> Vector {
-        return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { vectorIndex in
+        let stcc = statevectorCalculationConcurrency
+
+        return try! Vector.makeVector(count: vector.count, maxConcurrency: stcc, value: { vectorIndex in
             if !filter.shouldCalculateStatevectorValueAtPosition(vectorIndex) {
                 return vector[vectorIndex]
             }
