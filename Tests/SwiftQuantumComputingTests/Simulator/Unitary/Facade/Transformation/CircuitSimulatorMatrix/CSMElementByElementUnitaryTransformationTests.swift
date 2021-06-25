@@ -1,8 +1,8 @@
 //
-//  CSMFullMatrixUnitaryTransformationTests.swift
+//  CSMElementByElementUnitaryTransformationTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 20/06/2021.
+//  Created by Enrique de la Torre on 26/06/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,18 +25,18 @@ import XCTest
 
 // MARK: - Main body
 
-class CSMFullMatrixUnitaryTransformationTests: XCTestCase {
+class CSMElementByElementUnitaryTransformationTests: XCTestCase {
 
     // MARK: - Tests
 
     func testMaxConcurrencyEqualToZero_init_throwException() {
         // Then
-        XCTAssertThrowsError(try CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 0))
+        XCTAssertThrowsError(try CSMElementByElementUnitaryTransformation(unitaryCalculationConcurrency: 0))
     }
 
     func testGivenHadamardAndNot_apply_returnExpectedMatrix() {
         // Given
-        let sut = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1)
+        let sut = try! CSMElementByElementUnitaryTransformation(unitaryCalculationConcurrency: 1)
         let circuitMatrix = CircuitSimulatorMatrix(qubitCount: 1,
                                                    baseMatrix: Matrix.makeNot(),
                                                    inputs: [0])

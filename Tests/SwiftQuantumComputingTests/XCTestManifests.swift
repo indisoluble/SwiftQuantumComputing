@@ -37,6 +37,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(StatevectorRegisterAdapterTests.allTests),
         testCase(StatevectorRegisterFactoryAdapterTests.allTests),
         testCase(StatevectorSimulatorFacadeTests.allTests),
+        testCase(CSMElementByElementUnitaryTransformationTests.allTests),
         testCase(CSMFullMatrixUnitaryTransformationTests.allTests),
         testCase(UnitaryGateAdapterTests.allTests),
         testCase(UnitaryGateFactoryAdapterTests.allTests),

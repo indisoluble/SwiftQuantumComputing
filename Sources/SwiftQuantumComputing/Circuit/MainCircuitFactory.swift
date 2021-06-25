@@ -29,10 +29,16 @@ public struct MainCircuitFactory {
 
     /// Define behaviour of `Circuit.unitary(withQubitCount:)`
     public enum UnitaryConfiguration {
-        /// Each `Gate` is expanded into a `Matrix` and multiplied between them to get the unitary
-        /// that represents the entire circuit.  Expansion can be done in parallel with up to `maxConcurrency`
-        /// number of threads. If `maxConcurrency` is set to 1 or less, the whole process will be serial
-        case fullMatrix(maxConcurrency: Int = 1)
+        /// To produce the unitary `Matrix` that represents the entire circuit, each `Gate` is expanded into a `Matrix`
+        /// and multiplied by the unitary `Matrix` calculated so far. Expansion can be done in parallel with up to
+        /// `matrixExpansionConcurrency` number of threads. If `matrixExpansionConcurrency` is set to 1
+        /// or less, the whole process will be serial
+        case fullMatrix(matrixExpansionConcurrency: Int = 1)
+        /// Each time a `Gate` is applied to the unitary `Matrix` calculated so far to get the next one, the positions in
+        /// each`Gate` are requested as needed to calculate each position on the new unitary. This process can be done
+        /// in parallel with up to `unitaryCalculationConcurrency` number of threads.
+        /// If `unitaryCalculationConcurrency` is set to 1 or less, the whole process will be serial.
+        case elementByElement(unitaryCalculationConcurrency: Int = 1)
     }
 
     /// Define behaviour of `Circuit.statevector(withInitialStatevector:)`
@@ -118,9 +124,12 @@ private extension MainCircuitFactory {
         let mc: Int
         let transformation: UnitaryTransformation
         switch unitaryConfiguration {
-        case .fullMatrix(let maxConcurrency):
-            mc = maxConcurrency > 0 ? maxConcurrency : 1
-            transformation = try! CSMFullMatrixUnitaryTransformation(maxConcurrency: mc)
+        case .fullMatrix(let matrixExpansionConcurrency):
+            mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
+            transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: mc)
+        case .elementByElement(let unitaryCalculationConcurrency):
+            mc = unitaryCalculationConcurrency > 0 ? unitaryCalculationConcurrency : 1
+            transformation = try! CSMElementByElementUnitaryTransformation(unitaryCalculationConcurrency: mc)
         }
 
         return try! UnitaryGateFactoryAdapter(maxConcurrency: mc, transformation: transformation)
