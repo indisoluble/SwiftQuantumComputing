@@ -98,9 +98,9 @@ struct SQCMeasurePerformance: ParsableCommand {
     // MARK: - Methods
 
     mutating func validate() throws {
-        if result == .unitary && mode != .fullMatrix {
+        guard result != .unitary || mode == .fullMatrix || mode == .elementByElement else {
             throw ValidationError("Option \(result) can only be executed " +
-                                    "in mode \(Mode.fullMatrix).")
+                                    "in mode \(Mode.fullMatrix) or \(Mode.elementByElement).")
         }
 
         guard calculationConcurrency >= 1 else {
@@ -266,18 +266,21 @@ private extension SQCMeasurePerformance {
     }
 
     func makeFactory() -> CircuitFactory {
-        let unitConfig = MainCircuitFactory.UnitaryConfiguration.fullMatrix(maxConcurrency: expansionConcurrency)
-
+        let unitConfig: MainCircuitFactory.UnitaryConfiguration
         let stateConfig: MainCircuitFactory.StatevectorConfiguration
         switch mode {
         case .fullMatrix:
+            unitConfig = .fullMatrix(matrixExpansionConcurrency: expansionConcurrency)
             stateConfig = .fullMatrix(matrixExpansionConcurrency: expansionConcurrency)
         case .rowByRow:
+            unitConfig = .fullMatrix(matrixExpansionConcurrency: expansionConcurrency)
             stateConfig = .rowByRow(statevectorCalculationConcurrency: calculationConcurrency,
                                     rowExpansionConcurrency: expansionConcurrency)
         case .elementByElement:
+            unitConfig = .elementByElement(unitaryCalculationConcurrency: calculationConcurrency)
             stateConfig = .elementByElement(statevectorCalculationConcurrency: calculationConcurrency)
         case .direct:
+            unitConfig = .elementByElement(unitaryCalculationConcurrency: calculationConcurrency)
             stateConfig = .direct(statevectorCalculationConcurrency: calculationConcurrency)
         }
 
