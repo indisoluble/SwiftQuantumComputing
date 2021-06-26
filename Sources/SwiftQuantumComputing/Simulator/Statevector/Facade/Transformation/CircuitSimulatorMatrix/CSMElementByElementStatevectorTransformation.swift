@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -54,9 +55,11 @@ extension CSMElementByElementStatevectorTransformation: CircuitSimulatorMatrixSt
         let stcc = statevectorCalculationConcurrency
 
         return try! Vector.makeVector(count: vector.count, maxConcurrency: stcc, value: { idx in
-            return vector.enumerated().reduce(.zero) { acc, val in
-                return acc + val.element * matrix[idx, val.offset]
+            var result = Complex<Double>.zero
+            for value in vector.enumerated() {
+                result += value.element * matrix[idx, value.offset]
             }
+            return result
         }).get()
     }
 }
