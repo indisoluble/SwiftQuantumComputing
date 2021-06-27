@@ -98,9 +98,8 @@ struct SQCMeasurePerformance: ParsableCommand {
     // MARK: - Methods
 
     mutating func validate() throws {
-        guard result != .unitary || mode == .fullMatrix || mode == .elementByElement else {
-            throw ValidationError("Option \(result) can only be executed " +
-                                    "in mode \(Mode.fullMatrix) or \(Mode.elementByElement).")
+        guard result != .unitary || mode != .direct else {
+            throw ValidationError("Option \(result) can not be executed in mode \(mode).")
         }
 
         guard calculationConcurrency >= 1 else {
@@ -273,7 +272,8 @@ private extension SQCMeasurePerformance {
             unitConfig = .fullMatrix(matrixExpansionConcurrency: expansionConcurrency)
             stateConfig = .fullMatrix(matrixExpansionConcurrency: expansionConcurrency)
         case .rowByRow:
-            unitConfig = .fullMatrix(matrixExpansionConcurrency: expansionConcurrency)
+            unitConfig = .rowByRow(unitaryCalculationConcurrency: calculationConcurrency,
+                                   rowExpansionConcurrency: expansionConcurrency)
             stateConfig = .rowByRow(statevectorCalculationConcurrency: calculationConcurrency,
                                     rowExpansionConcurrency: expansionConcurrency)
         case .elementByElement:
