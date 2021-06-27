@@ -31,13 +31,22 @@ public struct MainCircuitFactory {
     public enum UnitaryConfiguration {
         /// To produce the unitary `Matrix` that represents the entire circuit, each `Gate` is expanded into a `Matrix`
         /// and multiplied by the unitary `Matrix` calculated so far. Expansion can be done in parallel with up to
-        /// `matrixExpansionConcurrency` number of threads. If `matrixExpansionConcurrency` is set to 1
-        /// or less, the whole process will be serial
+        /// `matrixExpansionConcurrency` threads. If `matrixExpansionConcurrency` is set to 1 or less,
+        /// the whole process will be serial.
+        /// This configuration has the biggest memory footprint
         case fullMatrix(matrixExpansionConcurrency: Int = 1)
+        /// To apply a `Gate` to the unitary `Matrix` calculated so far to get the next one, the rows in `Gate` are
+        /// expanded only once. Each row can be expanded in parallel using up to `rowExpansionConcurrency`
+        /// threads. Then, each row is used to calculare the corresponding row in the next unitary `Matrix`.
+        /// Notice that up to `unitaryCalculationConcurrency` new rows can be calculated in parallel which
+        /// means that in a given moment there might be `unitaryCalculationConcurrency` *
+        /// `rowExpansionConcurrency` threats running simultaneously. If both `unitaryCalculationConcurrency`
+        /// and `rowExpansionConcurrency` are set to 1 or less, the whole process will be serial.
+        case rowByRow(unitaryCalculationConcurrency: Int = 1, rowExpansionConcurrency: Int = 1)
         /// Each time a `Gate` is applied to the unitary `Matrix` calculated so far to get the next one, the positions in
         /// each`Gate` are requested as needed to calculate each position on the new unitary. This process can be done
-        /// in parallel with up to `unitaryCalculationConcurrency` number of threads.
-        /// If `unitaryCalculationConcurrency` is set to 1 or less, the whole process will be serial.
+        /// in parallel with up to `unitaryCalculationConcurrency` threads.  If `unitaryCalculationConcurrency`
+        /// is set to 1 or less, the whole process will be serial.
         case elementByElement(unitaryCalculationConcurrency: Int = 1)
     }
 
@@ -45,15 +54,15 @@ public struct MainCircuitFactory {
     public enum StatevectorConfiguration {
         /// Each `Gate` is expanded into a `Matrix` and applied to the current statevector
         /// to get the next statevector. Expansion can be done in parallel with up to `matrixExpansionConcurrency`
-        /// number of threads. If `matrixExpansionConcurrency` is set to 1 or less, the whole process will be serial.
-        /// This configuration has the biggest memory footprint
+        /// threads. If `matrixExpansionConcurrency` is set to 1 or less, the whole process will be serial.
+        /// This configuration has the biggest memory footprint.
         case fullMatrix(matrixExpansionConcurrency: Int = 1)
         /// For each position of the next statevector, the corresponding row of the `Gate` is expanded
         /// and applied as needed. Positions in the next statevector can be calculated in parallel with up to
-        /// `statevectorCalculationConcurrency` number of threads. Also, row  expansion can be done in
-        /// parallel too with up to `rowExpansionConcurrency` number of threads. Therefore, this configuration
+        /// `statevectorCalculationConcurrency` threads. Also, row  expansion can be done in
+        /// parallel too with up to `rowExpansionConcurrency` threads. Therefore, this configuration
         /// uses as much as `statevectorCalculationConcurrency` * `rowExpansionConcurrency`
-        /// threads. If both `statevectorCalculationConcurrency` or `rowExpansionConcurrency` are
+        /// threads. If both `statevectorCalculationConcurrency` and `rowExpansionConcurrency` are
         /// set to 1 or less, the whole process will be serial.
         case rowByRow(statevectorCalculationConcurrency: Int = 1, rowExpansionConcurrency: Int = 1)
         /// For each position of the next statevector, element by element of the corresponding row
@@ -126,9 +135,18 @@ private extension MainCircuitFactory {
         switch unitaryConfiguration {
         case .fullMatrix(let matrixExpansionConcurrency):
             mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
+
             transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: mc)
+        case .rowByRow(let unitaryCalculationConcurrency, let rowExpansionConcurrency):
+            let ucc = unitaryCalculationConcurrency > 0 ? unitaryCalculationConcurrency : 1
+            let rec = rowExpansionConcurrency > 0 ? rowExpansionConcurrency : 1
+            mc = rec * ucc
+
+            transformation = try! CSMRowByRowUnitaryTransformation(unitaryCalculationConcurrency: ucc,
+                                                                   rowExpansionConcurrency: rec)
         case .elementByElement(let unitaryCalculationConcurrency):
             mc = unitaryCalculationConcurrency > 0 ? unitaryCalculationConcurrency : 1
+
             transformation = try! CSMElementByElementUnitaryTransformation(unitaryCalculationConcurrency: mc)
         }
 

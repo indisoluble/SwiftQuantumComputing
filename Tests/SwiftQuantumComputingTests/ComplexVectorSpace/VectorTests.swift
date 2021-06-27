@@ -43,6 +43,16 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(vector.count, elements.count)
     }
 
+    func testAnyVector_first_returnExpectedValue() {
+        // Given
+        let expectedValue = Complex<Double>(10, 10)
+        let elements: [Complex<Double>] = [expectedValue, .zero, .zero]
+        let vector = try! Vector(elements)
+
+        // Then
+        XCTAssertEqual(vector.first, expectedValue)
+    }
+
     func testAnyVector_squaredNorm_returnExpectedValue() {
         // Given
         let vector = try! Vector([Complex(1, 1), Complex(2, 2)])
@@ -271,6 +281,8 @@ class VectorTests: XCTestCase {
          testEmptyArray_init_throwException),
         ("testAnyVector_count_returnExpectedValue",
          testAnyVector_count_returnExpectedValue),
+        ("testAnyVector_first_returnExpectedValue",
+         testAnyVector_first_returnExpectedValue),
         ("testAnyVector_squaredNorm_returnExpectedValue",
          testAnyVector_squaredNorm_returnExpectedValue),
         ("testAnyVector_subscript_returnExpectedValue",
