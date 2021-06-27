@@ -208,6 +208,47 @@ public struct Matrix {
 
         return .success(matrix)
     }
+
+    static func makeMatrix(rowCount: Int,
+                           columnCount: Int,
+                           maxConcurrency: Int = 1,
+                           rowValues: (Int) -> Vector,
+                           customValue: (Int, Int, Vector) -> Complex<Double>) -> Result<Matrix, MakeMatrixError> {
+        guard rowCount > 0 else {
+            return .failure(.passRowCountBiggerThanZero)
+        }
+
+        guard columnCount > 0 else {
+            return .failure(.passColumnCountBiggerThanZero)
+        }
+
+        guard maxConcurrency > 0 else {
+            return .failure(.passMaxConcurrencyBiggerThanZero)
+        }
+
+        let count = rowCount * columnCount
+        let actualConcurrency = (maxConcurrency > rowCount ? rowCount : maxConcurrency)
+
+        let values: [Complex<Double>] = Array(unsafeUninitializedCapacity: count) { buffer, actualCount in
+            actualCount = count
+
+            let baseAddress = buffer.baseAddress!
+            DispatchQueue.concurrentPerform(iterations: actualConcurrency) { iteration in
+                for rowIndex in stride(from: iteration, to: rowCount, by: actualConcurrency) {
+                    let row = rowValues(rowIndex)
+
+                    for colIndex in 0..<columnCount {
+                        let actualAddress = baseAddress + colIndex * rowCount + rowIndex
+
+                        actualAddress.initialize(to: customValue(rowIndex, colIndex, row))
+                    }
+                }
+            }
+        }
+        let matrix = Matrix(rowCount: rowCount, columnCount: columnCount, values: values)
+
+        return .success(matrix)
+    }
 }
 
 // MARK: - Hashable methods
