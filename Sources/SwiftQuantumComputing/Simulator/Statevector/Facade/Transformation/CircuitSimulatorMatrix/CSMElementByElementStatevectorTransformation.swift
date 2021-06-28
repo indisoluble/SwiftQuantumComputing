@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
@@ -26,20 +27,20 @@ struct CSMElementByElementStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let maxConcurrency: Int
+    private let statevectorCalculationConcurrency: Int
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case maxConcurrencyHasToBiggerThanZero
+        case statevectorCalculationConcurrencyHasToBiggerThanZero
     }
 
-    init(maxConcurrency: Int) throws {
-        guard maxConcurrency > 0 else {
-            throw InitError.maxConcurrencyHasToBiggerThanZero
+    init(statevectorCalculationConcurrency: Int) throws {
+        guard statevectorCalculationConcurrency > 0 else {
+            throw InitError.statevectorCalculationConcurrencyHasToBiggerThanZero
         }
 
-        self.maxConcurrency = maxConcurrency
+        self.statevectorCalculationConcurrency = statevectorCalculationConcurrency
     }
 }
 
@@ -51,10 +52,14 @@ extension CSMElementByElementStatevectorTransformation: StatevectorTransformatio
 
 extension CSMElementByElementStatevectorTransformation: CircuitSimulatorMatrixStatevectorTransformation {
     func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector {
-        return try! Vector.makeVector(count: vector.count, maxConcurrency: maxConcurrency, value: { idx in
-            return vector.enumerated().reduce(.zero) { acc, val in
-                return acc + val.element * matrix[idx, val.offset]
+        let stcc = statevectorCalculationConcurrency
+
+        return try! Vector.makeVector(count: vector.count, maxConcurrency: stcc, value: { idx in
+            var result = Complex<Double>.zero
+            for value in vector.enumerated() {
+                result += value.element * matrix[idx, value.offset]
             }
+            return result
         }).get()
     }
 }

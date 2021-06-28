@@ -26,20 +26,27 @@ struct CSMRowByRowStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let maxConcurrency: Int
+    private let statevectorCalculationConcurrency: Int
+    private let rowExpansionConcurrency: Int
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case maxConcurrencyHasToBiggerThanZero
+        case statevectorCalculationConcurrencyHasToBiggerThanZero
+        case rowExpansionConcurrencyHasToBiggerThanZero
     }
 
-    init(maxConcurrency: Int) throws {
-        guard maxConcurrency > 0 else {
-            throw InitError.maxConcurrencyHasToBiggerThanZero
+    init(statevectorCalculationConcurrency: Int, rowExpansionConcurrency: Int) throws {
+        guard statevectorCalculationConcurrency > 0 else {
+            throw InitError.statevectorCalculationConcurrencyHasToBiggerThanZero
         }
 
-        self.maxConcurrency = maxConcurrency
+        guard rowExpansionConcurrency > 0 else {
+            throw InitError.rowExpansionConcurrencyHasToBiggerThanZero
+        }
+
+        self.statevectorCalculationConcurrency = statevectorCalculationConcurrency
+        self.rowExpansionConcurrency = rowExpansionConcurrency
     }
 }
 
@@ -51,8 +58,12 @@ extension CSMRowByRowStatevectorTransformation: StatevectorTransformation {}
 
 extension CSMRowByRowStatevectorTransformation: CircuitSimulatorMatrixStatevectorTransformation {
     func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector {
-        return try! Vector.makeVector(count: vector.count,
-                                      maxConcurrency: maxConcurrency,
-                                      value: { try! (matrix[$0] * vector).get() }).get()
+        let stcc = statevectorCalculationConcurrency
+
+        return try! Vector.makeVector(count: vector.count, maxConcurrency: stcc, value: { idx in
+            let lhs = try! matrix.row(idx, maxConcurrency: rowExpansionConcurrency).get()
+
+            return try! (lhs * vector).get()
+        }).get()
     }
 }

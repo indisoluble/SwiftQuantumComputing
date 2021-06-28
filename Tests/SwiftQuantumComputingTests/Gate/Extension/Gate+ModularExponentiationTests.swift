@@ -125,7 +125,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
                                                         modulus: modulus,
                                                         exponent: exponent,
                                                         inputs: inputs).get()
-        let circuit = MainCircuitFactory(statevectorConfiguration: .fullMatrix).makeCircuit(gates: gates)
+        let circuit = MainCircuitFactory(statevectorConfiguration: .fullMatrix()).makeCircuit(gates: gates)
         let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: "11001").get()
 
         // When

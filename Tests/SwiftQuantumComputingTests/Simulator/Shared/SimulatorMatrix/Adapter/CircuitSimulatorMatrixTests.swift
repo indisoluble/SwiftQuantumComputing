@@ -99,6 +99,20 @@ class CircuitSimulatorMatrixTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testMaxConcurrencyEqualToZero_expandedRawMatrix_throwException() {
+        // When
+        let sut = CircuitSimulatorMatrix(qubitCount: twoQubitCount,
+                                         baseMatrix: validMatrix,
+                                         inputs: validInputs)
+
+        // Then
+        var error: ExpandedRawMatrixError?
+        if case .failure(let e) = sut.expandedRawMatrix(maxConcurrency: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .passMaxConcurrencyBiggerThanZero)
+    }
+
     func testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix() {
         // When
         let sut = CircuitSimulatorMatrix(qubitCount: twoQubitCount,
@@ -106,7 +120,7 @@ class CircuitSimulatorMatrixTests: XCTestCase {
                                          inputs: validInputs)
 
         // Then
-        XCTAssertEqual(sut.expandedRawMatrix(), validMatrix)
+        XCTAssertEqual(try? sut.expandedRawMatrix(maxConcurrency: 1).get(), validMatrix)
     }
 
     func testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix() {
@@ -116,7 +130,7 @@ class CircuitSimulatorMatrixTests: XCTestCase {
                                          inputs: otherValidInputs)
 
         // Then
-        XCTAssertEqual(sut.expandedRawMatrix(), otherValidMatrix)
+        XCTAssertEqual(try? sut.expandedRawMatrix(maxConcurrency: 1).get(), otherValidMatrix)
     }
 
     func testSameQubitCountThatBaseMatrixAndInputsInReverseOrder_expandedRawMatrix_returnExpectedMatrix() {
@@ -126,7 +140,8 @@ class CircuitSimulatorMatrixTests: XCTestCase {
                                          inputs: validInputs.reversed())
 
         // Then
-        XCTAssertEqual(sut.expandedRawMatrix(), validMatrixWithReversedValidInputs)
+        XCTAssertEqual(try? sut.expandedRawMatrix(maxConcurrency: 1).get(),
+                       validMatrixWithReversedValidInputs)
     }
 
     func testNonContiguousInputs_expandedRawMatrix_returnExpectedMatrix() {
@@ -136,7 +151,8 @@ class CircuitSimulatorMatrixTests: XCTestCase {
                                          inputs: nonContiguousInputs)
 
         // Then
-        XCTAssertEqual(sut.expandedRawMatrix(), expectedThreeQubitMatrix)
+        XCTAssertEqual(try? sut.expandedRawMatrix(maxConcurrency: 1).get(),
+                       expectedThreeQubitMatrix)
     }
 
     func testNonContiguousInputs_subscriptRow_returnExpectedValues() {
@@ -147,7 +163,7 @@ class CircuitSimulatorMatrixTests: XCTestCase {
 
         // Then
         for row in 0..<expectedThreeQubitMatrix.rowCount {
-            let vector = sut[row]
+            let vector = try! sut.row(row, maxConcurrency: 1).get()
 
             for column in 0..<expectedThreeQubitMatrix.columnCount {
                 XCTAssertEqual(vector[column], expectedThreeQubitMatrix[row, column])
@@ -176,7 +192,7 @@ class CircuitSimulatorMatrixTests: XCTestCase {
                                          inputs: contiguousInputsButInTheMiddle)
 
         // Then
-        XCTAssertEqual(sut.expandedRawMatrix(), expectedFourQubitMatrix)
+        XCTAssertEqual(try? sut.expandedRawMatrix(maxConcurrency: 1).get(), expectedFourQubitMatrix)
     }
 
     func testContiguousInputsButInTheMiddle_subscriptRow_returnExpectedMatrix() {
@@ -187,7 +203,7 @@ class CircuitSimulatorMatrixTests: XCTestCase {
 
         // Then
         for row in 0..<expectedFourQubitMatrix.rowCount {
-            let vector = sut[row]
+            let vector = try! sut.row(row, maxConcurrency: 1).get()
 
             for column in 0..<expectedFourQubitMatrix.columnCount {
                 XCTAssertEqual(vector[column], expectedFourQubitMatrix[row, column])
@@ -210,6 +226,8 @@ class CircuitSimulatorMatrixTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testMaxConcurrencyEqualToZero_expandedRawMatrix_throwException",
+         testMaxConcurrencyEqualToZero_expandedRawMatrix_throwException),
         ("testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix",
          testSameQubitCountThatBaseMatrixAndInputsAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix),
         ("testSameQubitCountThatOtherBaseMatrixAndSingleInputAsExpectedByBaseMatrix_expandedRawMatrix_returnExpectedMatrix",

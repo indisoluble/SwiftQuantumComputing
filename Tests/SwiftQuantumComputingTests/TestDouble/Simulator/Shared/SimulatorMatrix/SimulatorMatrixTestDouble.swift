@@ -50,9 +50,9 @@ extension SimulatorMatrixTestDouble: SimulatorMatrix {
         return subscriptResult
     }
 
-    func expandedRawMatrix() -> Matrix {
+    func expandedRawMatrix(maxConcurrency: Int) -> Result<Matrix, ExpandedRawMatrixError> {
         expandedRawMatrixCount += 1
 
-        return expandedRawMatrixResult
+        return .success(expandedRawMatrixResult)
     }
 }

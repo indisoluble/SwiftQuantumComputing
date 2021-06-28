@@ -50,7 +50,7 @@ extension TwoLevelDecompositionSolverFacade: TwoLevelDecompositionSolver {
                 return .success(singleQubitGateDecomposer.decomposeGate(gate))
             }
 
-            gateMatrix = simulatorGateMatrix.expandedRawMatrix()
+            gateMatrix = try! simulatorGateMatrix.expandedRawMatrix(maxConcurrency: 1).get()
             gateInputs = simulatorInputs
         case .failure(let error):
             return .failure(error)

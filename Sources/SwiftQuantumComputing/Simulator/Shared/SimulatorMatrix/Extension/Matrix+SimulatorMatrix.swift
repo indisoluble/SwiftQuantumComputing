@@ -23,7 +23,11 @@ import Foundation
 // MARK: - SimulatorMatrix methods
 
 extension Matrix: SimulatorMatrix {
-    func expandedRawMatrix() -> Matrix {
-        return self
+    func expandedRawMatrix(maxConcurrency: Int) -> Result<Matrix, ExpandedRawMatrixError> {
+        guard maxConcurrency > 0 else {
+            return .failure(.passMaxConcurrencyBiggerThanZero)
+        }
+
+        return .success(self)
     }
 }

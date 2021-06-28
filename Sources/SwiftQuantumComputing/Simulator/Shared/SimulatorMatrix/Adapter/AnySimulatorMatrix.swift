@@ -51,7 +51,7 @@ extension AnySimulatorMatrix: SimulatorMatrix {
         return matrix[row, column]
     }
 
-    func expandedRawMatrix() -> Matrix {
-        return matrix.expandedRawMatrix()
+    func expandedRawMatrix(maxConcurrency: Int) -> Result<Matrix, ExpandedRawMatrixError> {
+        return matrix.expandedRawMatrix(maxConcurrency: maxConcurrency)
     }
 }

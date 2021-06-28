@@ -33,6 +33,11 @@ public struct Vector {
         return matrix.rowCount
     }
 
+    /// Returns first element
+    public var first: Complex<Double> {
+        return matrix.first
+    }
+
     /// Use [index] to access elements in the vector
     public subscript(index: Int) -> Complex<Double> {
         return matrix[index,0]
@@ -142,7 +147,7 @@ extension Vector: Hashable {}
 // MARK: - Sequence methods
 
 extension Vector: Sequence {
-    public typealias Iterator = Array<Complex<Double>>.Iterator
+    public typealias Iterator = ArraySlice<Complex<Double>>.Iterator
 
     public func makeIterator() -> Vector.Iterator {
         return matrix.makeIterator()

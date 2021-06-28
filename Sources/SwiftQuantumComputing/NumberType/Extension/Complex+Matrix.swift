@@ -27,13 +27,13 @@ extension Complex where RealType == Double {
 
     // MARK: - Internal init methods
 
-    enum InitError: Error {
+    enum InitMatrixError: Error {
         case use1x1Matrix
     }
 
     init(_ matrix: Matrix) throws {
         guard ((matrix.rowCount == 1) && (matrix.columnCount == 1)) else {
-            throw InitError.use1x1Matrix
+            throw InitMatrixError.use1x1Matrix
         }
 
         let complex = matrix.first

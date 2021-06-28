@@ -43,6 +43,21 @@ class OracleSimulatorMatrixTests: XCTestCase {
 
     // MARK: - Tests
 
+    func testMaxConcurrencyEqualToZero_expandedRawMatrix_throwException() {
+        // Given
+        let controlCount = 5
+        let matrix = OracleSimulatorMatrix(truthTable: [],
+                                           controlCount: controlCount,
+                                           controlledCountableMatrix: notMatrix)
+
+        // Then
+        var error: ExpandedRawMatrixError?
+        if case .failure(let e) = matrix.expandedRawMatrix(maxConcurrency: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .passMaxConcurrencyBiggerThanZero)
+    }
+
     func testControlCountBiggerThanZeroAndEmptyTruthTable_expandedRawMatrix_returnExpectedIdentity() {
         // Given
         let controlCount = 5
@@ -51,7 +66,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
                                            controlledCountableMatrix: notMatrix)
 
         // Then
-        XCTAssertEqual(matrix.expandedRawMatrix(),
+        XCTAssertEqual(try! matrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)).get())
     }
 
@@ -64,7 +79,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
                                            controlledCountableMatrix: notMatrix)
 
         // Then
-        XCTAssertEqual(matrix.expandedRawMatrix(),
+        XCTAssertEqual(try! matrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        try! Matrix.makeIdentity(count: Int.pow(2, controlCount + 1)).get())
     }
 
@@ -84,7 +99,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
             [.zero, .zero, .one, .zero]
         ]
         let expectedMatrix = try! Matrix(rows)
-        XCTAssertEqual(matrix.expandedRawMatrix(), expectedMatrix)
+        XCTAssertEqual(try! matrix.expandedRawMatrix(maxConcurrency: 1).get(), expectedMatrix)
     }
 
     func testControlCountBiggerThanZeroNotMatrixAndTruthTableWithWithRepeatedCorrectValues_expandedRawMatrix_returnExpectedMatrix() {
@@ -103,7 +118,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
             [.zero, .zero, .one, .zero]
         ]
         let expectedMatrix = try! Matrix(rows)
-        XCTAssertEqual(matrix.expandedRawMatrix(), expectedMatrix)
+        XCTAssertEqual(try! matrix.expandedRawMatrix(maxConcurrency: 1).get(), expectedMatrix)
     }
 
     func testValidControlCountNotMatrixAndTruthTable_expandedRawMatrix_returnExpectedMatrix() {
@@ -126,7 +141,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .one, .zero]
         ]
         let expectedMatrix = try! Matrix(rows)
-        XCTAssertEqual(matrix.expandedRawMatrix(), expectedMatrix)
+        XCTAssertEqual(try! matrix.expandedRawMatrix(maxConcurrency: 1).get(), expectedMatrix)
     }
 
     func testValidControlCountAnyValidMatrixAndTruthTable_expandedRawMatrix_returnExpectedMatrix() {
@@ -179,7 +194,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
              .zero, .zero, .zero, .zero, .one, .zero, .zero, .zero]
         ]
         let expectedMatrix = try! Matrix(rows)
-        XCTAssertEqual(matrix.expandedRawMatrix(), expectedMatrix)
+        XCTAssertEqual(try! matrix.expandedRawMatrix(maxConcurrency: 1).get(), expectedMatrix)
     }
 
     func testControlCountEqualToZero_expandedRawMatrix_returnExpectedIdentity() {
@@ -188,7 +203,8 @@ class OracleSimulatorMatrixTests: XCTestCase {
                                            controlledCountableMatrix: twoByTwoMatrix)
 
         // Then
-        XCTAssertEqual(matrix.expandedRawMatrix(), try! Matrix.makeIdentity(count: 2).get())
+        XCTAssertEqual(try! matrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       try! Matrix.makeIdentity(count: 2).get())
     }
 
     func testTwoByTwoMatrixControlCountEqualToOneAndControlActivated_expandedRawMatrix_returnExpectedMatrix() {
@@ -203,7 +219,7 @@ class OracleSimulatorMatrixTests: XCTestCase {
             [.zero, .zero, Complex(2), Complex(3)],
             [.zero, .zero, Complex(4), Complex(5)]
         ])
-        XCTAssertEqual(matrix.expandedRawMatrix(), expectedResult)
+        XCTAssertEqual(try! matrix.expandedRawMatrix(maxConcurrency: 1).get(), expectedResult)
     }
 
     func testTwoByTwoMatrixControlCountEqualToTwoAndAllControlsActivated_expandedRawMatrix_returnExpectedMatrix() {
@@ -222,10 +238,12 @@ class OracleSimulatorMatrixTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, Complex(2), Complex(3)],
             [.zero, .zero, .zero, .zero, .zero, .zero, Complex(4), Complex(5)]
         ])
-        XCTAssertEqual(matrix.expandedRawMatrix(), expectedResult)
+        XCTAssertEqual(try! matrix.expandedRawMatrix(maxConcurrency: 1).get(), expectedResult)
     }
 
     static var allTests = [
+        ("testMaxConcurrencyEqualToZero_expandedRawMatrix_throwException",
+         testMaxConcurrencyEqualToZero_expandedRawMatrix_throwException),
         ("testControlCountBiggerThanZeroAndEmptyTruthTable_expandedRawMatrix_returnExpectedIdentity",
          testControlCountBiggerThanZeroAndEmptyTruthTable_expandedRawMatrix_returnExpectedIdentity),
         ("testControlCountBiggerThanZeroAndTruthTableOutOfRange_expandedRawMatrix_returnExpectedIdentity",

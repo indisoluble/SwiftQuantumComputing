@@ -70,7 +70,8 @@ class FixedControlledGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCa
         // Then
         XCTAssertEqual(result?.controlCount, 3)
         XCTAssertEqual(result?.truthTable, [try! TruthTableEntry(repeating: "1", count: 3)])
-        XCTAssertEqual(result?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeNot())
     }
 
     func testAnyControlledControlledGate_makeControlledMatrixAdapter_returnExpectedResult() {
@@ -85,7 +86,8 @@ class FixedControlledGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCa
         // Then
         XCTAssertEqual(result?.controlCount, 4)
         XCTAssertEqual(result?.truthTable, [try! TruthTableEntry(repeating: "1", count: 4)])
-        XCTAssertEqual(result?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeNot())
     }
 
     func testControlledOracleGateWithEmptyTruthTable_makeControlledMatrixAdapter_returnExpectedResult() {
@@ -101,7 +103,8 @@ class FixedControlledGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCa
         // Then
         XCTAssertEqual(result?.controlCount, 4)
         XCTAssertEqual(result?.truthTable, [])
-        XCTAssertEqual(result?.controlledCountableMatrix.expandedRawMatrix(), Matrix.makeNot())
+        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+                       Matrix.makeNot())
     }
 
     static var allTests = [
