@@ -1,9 +1,9 @@
 //
-//  SimulatorCircuitRow.swift
+//  CircuitSimulatorMatrixUnitaryTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 30/12/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 06/06/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimulatorCircuitRow {
-    subscript(row: Int) -> Vector { get }
+protocol CircuitSimulatorMatrixUnitaryTransformation {
+    func apply(circuitMatrix: CircuitSimulatorMatrix, toUnitary matrix: Matrix) -> Matrix
 }

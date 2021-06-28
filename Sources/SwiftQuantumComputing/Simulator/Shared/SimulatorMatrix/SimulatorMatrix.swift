@@ -23,18 +23,30 @@ import Foundation
 
 // MARK: - Protocol definition
 
+enum ExpandedRawMatrixError: Error {
+    case passMaxConcurrencyBiggerThanZero
+}
+
 protocol SimulatorMatrix {
     subscript(row: Int, column: Int) -> Complex<Double> { get }
 
-    func expandedRawMatrix() -> Matrix
+    func expandedRawMatrix(maxConcurrency: Int) -> Result<Matrix, ExpandedRawMatrixError>
 }
 
 // MARK: - SimulatorMatrix default implementations
 
 extension SimulatorMatrix where Self: MatrixCountable {
-    func expandedRawMatrix() -> Matrix {
-        return try! Matrix.makeMatrix(rowCount: count,
-                                      columnCount: count,
-                                      value: { self[$0, $1] }).get()
+    func expandedRawMatrix(maxConcurrency: Int) -> Result<Matrix, ExpandedRawMatrixError> {
+        switch Matrix.makeMatrix(rowCount: count,
+                                 columnCount: count,
+                                 maxConcurrency: maxConcurrency,
+                                 value: { self[$0, $1] }) {
+        case .success(let matrix):
+            return .success(matrix)
+        case .failure(.passMaxConcurrencyBiggerThanZero):
+            return .failure(.passMaxConcurrencyBiggerThanZero)
+        case .failure(.passRowCountBiggerThanZero), .failure(.passColumnCountBiggerThanZero):
+            fatalError("Unexpected error.")
+        }
     }
 }

@@ -194,6 +194,84 @@ class MatrixTests: XCTestCase {
         XCTAssertTrue(matrix.isApproximatelyUnitary(absoluteTolerance: SharedConstants.tolerance))
     }
 
+    func testNegativeStartColumn_makeSlice_throwException() {
+        // Then
+        var error: Matrix.MakeSliceError?
+        if case .failure(let e) = Matrix.makeNot().makeSlice(startColumn: -1, columnCount: 1) {
+            error = e
+        }
+        XCTAssertEqual(error, .startColumnOutOfRange)
+    }
+
+    func testStartColumEqualToColumnCount_makeSlice_throwException() {
+        // Then
+        var error: Matrix.MakeSliceError?
+        if case .failure(let e) = Matrix.makeNot().makeSlice(startColumn: 10, columnCount: 1) {
+            error = e
+        }
+        XCTAssertEqual(error, .startColumnOutOfRange)
+    }
+
+    func testZeroColumnCount_makeSlice_throwException() {
+        // Then
+        var error: Matrix.MakeSliceError?
+        if case .failure(let e) = Matrix.makeNot().makeSlice(startColumn: 0, columnCount: 0) {
+            error = e
+        }
+        XCTAssertEqual(error, .columnCountOutOfRange)
+    }
+
+    func testColumnCountOutOfRange_makeSlice_throwException() {
+        // Then
+        var error: Matrix.MakeSliceError?
+        if case .failure(let e) = Matrix.makeNot().makeSlice(startColumn: 1, columnCount: 2) {
+            error = e
+        }
+        XCTAssertEqual(error, .columnCountOutOfRange)
+    }
+
+    func testAllColumnsInAMatrix_makeSlice_returnSameMatrix() {
+        // Given
+        let matrix = Matrix.makeControlledNot()
+
+        // When
+        let otherMatrix = try! matrix.makeSlice(startColumn: 0,
+                                                columnCount: matrix.columnCount).get()
+
+        // Then
+        XCTAssertTrue(matrix.isApproximatelyEqual(to: otherMatrix,
+                                                  absoluteTolerance: SharedConstants.tolerance))
+    }
+
+    func testTwoColumnsInAMatrix_makeSlice_returnExpectedMatrix() {
+        // Given
+        let matrix = try! Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+
+        // When
+        let otherMatrix = try! matrix.makeSlice(startColumn: 1, columnCount: 2).get()
+
+        // Then
+        let expectedMatrix = try! Matrix([[2, 3], [6, 7], [10, 11]])
+
+        XCTAssertTrue(otherMatrix.isApproximatelyEqual(to: expectedMatrix,
+                                                       absoluteTolerance: SharedConstants.tolerance))
+    }
+
+    func testMatrixAlreadySliced_makeSlice_returnExpectedMatrix() {
+        // Given
+        let matrix = try! Matrix([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10],  [11, 12, 13, 14, 15]])
+        let firstSlice = try! matrix.makeSlice(startColumn: 1, columnCount: 3).get()
+
+        // When
+        let otherMatrix = try! firstSlice.makeSlice(startColumn: 1, columnCount: 1).get()
+
+        // Then
+        let expectedMatrix = try! Matrix([[3], [8], [13]])
+
+        XCTAssertTrue(otherMatrix.isApproximatelyEqual(to: expectedMatrix,
+                                                       absoluteTolerance: SharedConstants.tolerance))
+    }
+
     func testZeroRowCount_makeMatrix_throwException() {
         // Then
         var error: Matrix.MakeMatrixError?
@@ -299,6 +377,151 @@ class MatrixTests: XCTestCase {
                                             value: { r, c -> Complex<Double> in
                                                 return Complex(Double(r), Double(c))
         }).get()
+
+        // Then
+        let expectedMatrix = try? Matrix([
+            [.zero, .i, Complex(imaginary: 2)],
+            [.one, Complex(1, 1), Complex(1, 2)]
+        ])
+
+        XCTAssertEqual(matrix, expectedMatrix)
+    }
+
+    func testZeroRowCount_makeMatrixByRow_throwException() {
+        // Then
+        var error: Matrix.MakeMatrixError?
+        if case .failure(let e) = Matrix.makeMatrix(rowCount: 0,
+                                                    columnCount: 1,
+                                                    rowValues: { _ in try! Vector([.zero])},
+                                                    customValue: { _, _, _ in .zero}) {
+            error = e
+        }
+        XCTAssertEqual(error, .passRowCountBiggerThanZero)
+    }
+
+    func testZeroColumnCount_makeMatrixByRow_throwException() {
+        // Then
+        var error: Matrix.MakeMatrixError?
+        if case .failure(let e) = Matrix.makeMatrix(rowCount: 1,
+                                                    columnCount: 0,
+                                                    rowValues: { _ in try! Vector([.zero])},
+                                                    customValue: { _, _, _ in .zero}) {
+            error = e
+        }
+        XCTAssertEqual(error, .passColumnCountBiggerThanZero)
+    }
+
+    func testZeroMaxConcurrency_makeMatrixByRow_throwException() {
+        // Then
+        var error: Matrix.MakeMatrixError?
+        if case .failure(let e) = Matrix.makeMatrix(rowCount: 1,
+                                                    columnCount: 1,
+                                                    maxConcurrency: 0,
+                                                    rowValues: { _ in try! Vector([.zero])},
+                                                    customValue: { _, _, _ in .zero}) {
+            error = e
+        }
+        XCTAssertEqual(error, .passMaxConcurrencyBiggerThanZero)
+    }
+
+    func testOneRowOneColumn_makeMatrixByRow_returnExpectedMatrix() {
+        // When
+        let matrix = try? Matrix.makeMatrix(rowCount: 1,
+                                            columnCount: 1,
+                                            rowValues: { _ in try! Vector([.one])},
+                                            customValue: { _, _, _ in .one}).get()
+
+        // Then
+        let expectedMatrix = try? Matrix([[.one]])
+
+        XCTAssertEqual(matrix, expectedMatrix)
+    }
+
+    func testAnyRowsAndColumns_makeMatrixByRow_returnExpectedMatrix() {
+        // When
+        let columnCount = 3
+        let matrix = try? Matrix.makeMatrix(rowCount: 2,
+                                            columnCount: columnCount,
+                                            rowValues: { r -> Vector in
+                                                let row = Array(repeating: Complex(Double(r)),
+                                                                count: columnCount)
+                                                return try! Vector(row)
+                                            },
+                                            customValue: { _, c, row -> Complex<Double> in
+                                                return row[c] + Complex(imaginary: Double(c))
+                                            }).get()
+
+        // Then
+        let expectedMatrix = try? Matrix([
+            [.zero, .i, Complex(imaginary: 2)],
+            [.one, Complex(1, 1), Complex(1, 2)]
+        ])
+
+        XCTAssertEqual(matrix, expectedMatrix)
+    }
+
+    func testEvenNumberOfElementsAndEvenMaxConcurrency_makeMatrixByRow_returnExpectedMatrix() {
+        // When
+        let columnCount = 3
+        let matrix = try? Matrix.makeMatrix(rowCount: 2,
+                                            columnCount: columnCount,
+                                            maxConcurrency: 2,
+                                            rowValues: { r -> Vector in
+                                                let row = Array(repeating: Complex(Double(r)),
+                                                                count: columnCount)
+                                                return try! Vector(row)
+                                            },
+                                            customValue: { _, c, row -> Complex<Double> in
+                                                return row[c] + Complex(imaginary: Double(c))
+                                            }).get()
+
+        // Then
+        let expectedMatrix = try? Matrix([
+            [.zero, .i, Complex(imaginary: 2)],
+            [.one, Complex(1, 1), Complex(1, 2)]
+        ])
+
+        XCTAssertEqual(matrix, expectedMatrix)
+    }
+
+    func testEvenNumberOfElementsAndOddMaxConcurrency_makeMatrixByRow_returnExpectedMatrix() {
+        // When
+        let columnCount = 3
+        let matrix = try? Matrix.makeMatrix(rowCount: 2,
+                                            columnCount: columnCount,
+                                            maxConcurrency: 3,
+                                            rowValues: { r -> Vector in
+                                                let row = Array(repeating: Complex(Double(r)),
+                                                                count: columnCount)
+                                                return try! Vector(row)
+                                            },
+                                            customValue: { _, c, row -> Complex<Double> in
+                                                return row[c] + Complex(imaginary: Double(c))
+                                            }).get()
+
+        // Then
+        let expectedMatrix = try? Matrix([
+            [.zero, .i, Complex(imaginary: 2)],
+            [.one, Complex(1, 1), Complex(1, 2)]
+        ])
+
+        XCTAssertEqual(matrix, expectedMatrix)
+    }
+
+    func testAnyRowsAndColumnsAndMaxConcurrencyBiggerThanNumberOfElements_makeMatrixByRow_returnExpectedMatrix() {
+        // When
+        let columnCount = 3
+        let matrix = try? Matrix.makeMatrix(rowCount: 2,
+                                            columnCount: columnCount,
+                                            maxConcurrency: 100,
+                                            rowValues: { r -> Vector in
+                                                let row = Array(repeating: Complex(Double(r)),
+                                                                count: columnCount)
+                                                return try! Vector(row)
+                                            },
+                                            customValue: { _, c, row -> Complex<Double> in
+                                                return row[c] + Complex(imaginary: Double(c))
+                                            }).get()
 
         // Then
         let expectedMatrix = try? Matrix([
@@ -507,6 +730,20 @@ class MatrixTests: XCTestCase {
          testSquareNonUnitaryMatrix_isApproximatelyUnitary_returnFalse),
         ("testUnitaryMatrix_isApproximatelyUnitary_returnTrue",
          testUnitaryMatrix_isApproximatelyUnitary_returnTrue),
+        ("testNegativeStartColumn_makeSlice_throwException",
+         testNegativeStartColumn_makeSlice_throwException),
+        ("testStartColumEqualToColumnCount_makeSlice_throwException",
+         testStartColumEqualToColumnCount_makeSlice_throwException),
+        ("testZeroColumnCount_makeSlice_throwException",
+         testZeroColumnCount_makeSlice_throwException),
+        ("testColumnCountOutOfRange_makeSlice_throwException",
+         testColumnCountOutOfRange_makeSlice_throwException),
+        ("testAllColumnsInAMatrix_makeSlice_returnSameMatrix",
+         testAllColumnsInAMatrix_makeSlice_returnSameMatrix),
+        ("testTwoColumnsInAMatrix_makeSlice_returnExpectedMatrix",
+         testTwoColumnsInAMatrix_makeSlice_returnExpectedMatrix),
+        ("testMatrixAlreadySliced_makeSlice_returnExpectedMatrix",
+         testMatrixAlreadySliced_makeSlice_returnExpectedMatrix),
         ("testZeroRowCount_makeMatrix_throwException",
          testZeroRowCount_makeMatrix_throwException),
         ("testZeroColumnCount_makeMatrix_throwException",
@@ -523,6 +760,22 @@ class MatrixTests: XCTestCase {
          testEvenNumberOfElementsAndOddMaxConcurrency_makeMatrix_returnExpectedMatrix),
         ("testAnyRowsAndColumnsAndMaxConcurrencyBiggerThanNumberOfElements_makeMatrix_returnExpectedMatrix",
          testAnyRowsAndColumnsAndMaxConcurrencyBiggerThanNumberOfElements_makeMatrix_returnExpectedMatrix),
+        ("testZeroRowCount_makeMatrixByRow_throwException",
+         testZeroRowCount_makeMatrixByRow_throwException),
+        ("testZeroColumnCount_makeMatrixByRow_throwException",
+         testZeroColumnCount_makeMatrixByRow_throwException),
+        ("testZeroMaxConcurrency_makeMatrixByRow_throwException",
+         testZeroMaxConcurrency_makeMatrixByRow_throwException),
+        ("testOneRowOneColumn_makeMatrixByRow_returnExpectedMatrix",
+         testOneRowOneColumn_makeMatrixByRow_returnExpectedMatrix),
+        ("testAnyRowsAndColumns_makeMatrixByRow_returnExpectedMatrix",
+         testAnyRowsAndColumns_makeMatrixByRow_returnExpectedMatrix),
+        ("testEvenNumberOfElementsAndEvenMaxConcurrency_makeMatrixByRow_returnExpectedMatrix",
+         testEvenNumberOfElementsAndEvenMaxConcurrency_makeMatrixByRow_returnExpectedMatrix),
+        ("testEvenNumberOfElementsAndOddMaxConcurrency_makeMatrixByRow_returnExpectedMatrix",
+         testEvenNumberOfElementsAndOddMaxConcurrency_makeMatrixByRow_returnExpectedMatrix),
+        ("testAnyRowsAndColumnsAndMaxConcurrencyBiggerThanNumberOfElements_makeMatrixByRow_returnExpectedMatrix",
+         testAnyRowsAndColumnsAndMaxConcurrencyBiggerThanNumberOfElements_makeMatrixByRow_returnExpectedMatrix),
         ("testMatricesWithDifferentRowCount_add_throwException",
          testMatricesWithDifferentRowCount_add_throwException),
         ("testMatricesWithDifferentColumnCount_add_throwException",

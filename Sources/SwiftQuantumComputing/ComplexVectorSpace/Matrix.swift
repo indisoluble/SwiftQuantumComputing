@@ -56,7 +56,7 @@ public struct Matrix {
 
     // MARK: - Private properties
 
-    private let values: [Complex<Double>]
+    private let values: ArraySlice<Complex<Double>>
 
     // MARK: - Public init methods
 
@@ -105,6 +105,10 @@ public struct Matrix {
     // MARK: - Private init methods
 
     private init(rowCount: Int, columnCount: Int, values: [Complex<Double>]) {
+        self.init(rowCount: rowCount, columnCount: columnCount, values: ArraySlice(values))
+    }
+
+    private init(rowCount: Int, columnCount: Int, values: ArraySlice<Complex<Double>>) {
         self.rowCount = rowCount
         self.columnCount = columnCount
         self.values = values
@@ -132,6 +136,27 @@ public struct Matrix {
 
         matrix = Matrix.multiply(lhs: self, lhsTrans: CblasConjTrans, rhs: self)
         return matrix.isApproximatelyEqual(to: identity, absoluteTolerance: absoluteTolerance)
+    }
+
+    enum MakeSliceError: Error {
+        case startColumnOutOfRange
+        case columnCountOutOfRange
+    }
+
+    func makeSlice(startColumn: Int, columnCount: Int) -> Result<Matrix, MakeSliceError> {
+        guard startColumn >= 0 && startColumn < self.columnCount else {
+            return .failure(.startColumnOutOfRange)
+        }
+
+        guard columnCount > 0 && (startColumn + columnCount) <= self.columnCount else {
+            return .failure(.columnCountOutOfRange)
+        }
+
+        let startIndex = values.startIndex + (startColumn * rowCount)
+        let endIndex = startIndex + (columnCount * rowCount)
+        let slice = values[startIndex..<endIndex]
+
+        return .success(Matrix(rowCount: rowCount, columnCount: columnCount, values: slice))
     }
 
     // MARK: - Internal class methods
@@ -183,6 +208,47 @@ public struct Matrix {
 
         return .success(matrix)
     }
+
+    static func makeMatrix(rowCount: Int,
+                           columnCount: Int,
+                           maxConcurrency: Int = 1,
+                           rowValues: (Int) -> Vector,
+                           customValue: (Int, Int, Vector) -> Complex<Double>) -> Result<Matrix, MakeMatrixError> {
+        guard rowCount > 0 else {
+            return .failure(.passRowCountBiggerThanZero)
+        }
+
+        guard columnCount > 0 else {
+            return .failure(.passColumnCountBiggerThanZero)
+        }
+
+        guard maxConcurrency > 0 else {
+            return .failure(.passMaxConcurrencyBiggerThanZero)
+        }
+
+        let count = rowCount * columnCount
+        let actualConcurrency = (maxConcurrency > rowCount ? rowCount : maxConcurrency)
+
+        let values: [Complex<Double>] = Array(unsafeUninitializedCapacity: count) { buffer, actualCount in
+            actualCount = count
+
+            let baseAddress = buffer.baseAddress!
+            DispatchQueue.concurrentPerform(iterations: actualConcurrency) { iteration in
+                for rowIndex in stride(from: iteration, to: rowCount, by: actualConcurrency) {
+                    let row = rowValues(rowIndex)
+
+                    for colIndex in 0..<columnCount {
+                        let actualAddress = baseAddress + colIndex * rowCount + rowIndex
+
+                        actualAddress.initialize(to: customValue(rowIndex, colIndex, row))
+                    }
+                }
+            }
+        }
+        let matrix = Matrix(rowCount: rowCount, columnCount: columnCount, values: values)
+
+        return .success(matrix)
+    }
 }
 
 // MARK: - Hashable methods
@@ -192,7 +258,7 @@ extension Matrix: Hashable {}
 // MARK: - Sequence methods
 
 extension Matrix: Sequence {
-    public typealias Iterator = Array<Complex<Double>>.Iterator
+    public typealias Iterator = ArraySlice<Complex<Double>>.Iterator
 
     /// Returns iterator that traverses the matrix by column
     public func makeIterator() -> Matrix.Iterator {
@@ -230,11 +296,12 @@ extension Matrix {
 
         let N = Int32(lhs.values.count)
         var alpha = Complex<Double>.one
-        let X = lhs.values
         let inc = Int32(1)
         var Y = Array(rhs.values)
 
-        cblas_zaxpy(N, &alpha, X, inc, &Y, inc)
+        lhs.values.withUnsafeBytes { X in
+            cblas_zaxpy(N, &alpha, X.baseAddress!, inc, &Y, inc)
+        }
 
         let matrix = Matrix(rowCount: lhs.rowCount, columnCount: lhs.columnCount, values: Y)
 
@@ -319,28 +386,30 @@ private extension Matrix {
         let n = (rhsTrans == CblasNoTrans ? rhs.columnCount : rhs.rowCount)
         let k = (lhsTrans == CblasNoTrans ? lhs.columnCount : lhs.rowCount)
         var alpha = Complex<Double>.one
-        var aBuffer = lhs.values
         let lda = lhs.rowCount
-        var bBuffer = rhs.values
         let ldb = rhs.rowCount
         var beta = Complex<Double>.zero
         var cBuffer = Array(repeating: Complex<Double>.zero, count: (m * n))
         let ldc = m
 
-        cblas_zgemm(CblasColMajor,
-                    lhsTrans,
-                    rhsTrans,
-                    Int32(m),
-                    Int32(n),
-                    Int32(k),
-                    &alpha,
-                    &aBuffer,
-                    Int32(lda),
-                    &bBuffer,
-                    Int32(ldb),
-                    &beta,
-                    &cBuffer,
-                    Int32(ldc))
+        lhs.values.withUnsafeBytes { aBuffer in
+            rhs.values.withUnsafeBytes { bBuffer in
+                cblas_zgemm(CblasColMajor,
+                            lhsTrans,
+                            rhsTrans,
+                            Int32(m),
+                            Int32(n),
+                            Int32(k),
+                            &alpha,
+                            aBuffer.baseAddress!,
+                            Int32(lda),
+                            bBuffer.baseAddress!,
+                            Int32(ldb),
+                            &beta,
+                            &cBuffer,
+                            Int32(ldc))
+            }
+        }
 
         return Matrix(rowCount: m, columnCount: n, values: cBuffer)
     }

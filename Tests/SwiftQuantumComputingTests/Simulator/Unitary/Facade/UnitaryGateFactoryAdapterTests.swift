@@ -26,11 +26,24 @@ import XCTest
 
 class UnitaryGateFactoryAdapterTests: XCTestCase {
 
+    // MARK: - Properties
+
+    let adapter = try! UnitaryGateFactoryAdapter(maxConcurrency: 1,
+                                                 transformation: try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1))
+
     // MARK: - Tests
+
+    func testMaxConcurrencyEqualToZero_init_throwException() {
+        // Given
+        let transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1)
+
+        // Then
+        XCTAssertThrowsError(try UnitaryGateFactoryAdapter(maxConcurrency: 0,
+                                                           transformation: transformation))
+    }
 
     func testGateThatThrowsError_makeUnitaryGate_throwError() {
         // Given
-        let adapter = UnitaryGateFactoryAdapter()
         let failingGate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
@@ -43,7 +56,6 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
 
     func testGateReturnsComponents_makeUnitaryGate_returnValue() {
         // Given
-        let adapter = UnitaryGateFactoryAdapter()
         let gate = Gate.hadamard(target: 0)
 
         // When
@@ -54,6 +66,8 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
     }
 
     static var allTests = [
+        ("testMaxConcurrencyEqualToZero_init_throwException",
+         testMaxConcurrencyEqualToZero_init_throwException),
         ("testGateThatThrowsError_makeUnitaryGate_throwError",
          testGateThatThrowsError_makeUnitaryGate_throwError),
         ("testGateReturnsComponents_makeUnitaryGate_returnValue",

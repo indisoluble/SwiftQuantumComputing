@@ -1,9 +1,9 @@
 //
-//  CSMFullMatrixStatevectorTransformation.swift
+//  CSMFullMatrixUnitaryTransformation.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 13/10/2019.
-//  Copyright © 2019 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 06/06/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct CSMFullMatrixStatevectorTransformation {
+struct CSMFullMatrixUnitaryTransformation {
 
     // MARK: - Private properties
 
@@ -43,16 +43,16 @@ struct CSMFullMatrixStatevectorTransformation {
     }
 }
 
-// MARK: - StatevectorTransformation methods
+// MARK: - UnitaryTransformation methods
 
-extension CSMFullMatrixStatevectorTransformation: StatevectorTransformation {}
+extension CSMFullMatrixUnitaryTransformation: UnitaryTransformation {}
 
-// MARK: - CircuitSimulatorMatrixStatevectorTransformation methods
+// MARK: - CircuitSimulatorMatrixUnitaryTransformation methods
 
-extension CSMFullMatrixStatevectorTransformation: CircuitSimulatorMatrixStatevectorTransformation {
-    func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector {
-        let lhs = try! matrix.expandedRawMatrix(maxConcurrency: matrixExpansionConcurrency).get()
+extension CSMFullMatrixUnitaryTransformation: CircuitSimulatorMatrixUnitaryTransformation {
+    func apply(circuitMatrix: CircuitSimulatorMatrix, toUnitary matrix: Matrix) -> Matrix {
+        let lhs = try! circuitMatrix.expandedRawMatrix(maxConcurrency: matrixExpansionConcurrency).get()
 
-        return try! (lhs * vector).get()
+        return try! (lhs * matrix).get()
     }
 }

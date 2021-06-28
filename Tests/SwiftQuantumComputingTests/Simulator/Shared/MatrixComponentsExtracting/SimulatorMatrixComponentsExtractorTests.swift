@@ -214,7 +214,7 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.expandedRawMatrix(), validMatrix)
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(), validMatrix)
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -234,7 +234,7 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.expandedRawMatrix(), singleQubitMatrix)
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(), singleQubitMatrix)
         XCTAssertEqual(inputs, [target])
     }
 
@@ -253,7 +253,7 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.expandedRawMatrix(), .makeHadamard())
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(), .makeHadamard())
         XCTAssertEqual(inputs, [target])
     }
 
@@ -273,7 +273,8 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.expandedRawMatrix(), .makePhaseShift(radians: radians))
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(),
+                       .makePhaseShift(radians: radians))
         XCTAssertEqual(inputs, [target])
     }
 
@@ -294,7 +295,8 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.expandedRawMatrix(), .makeRotation(axis: axis, radians: radians))
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(),
+                       .makeRotation(axis: axis, radians: radians))
         XCTAssertEqual(inputs, [target])
     }
 
@@ -342,7 +344,7 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.expandedRawMatrix(), oracleValidMatrix)
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(), oracleValidMatrix)
         XCTAssertEqual(inputs, validInputs)
     }
 
@@ -360,7 +362,8 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
         }
 
         // Then
-        XCTAssertEqual(matrix?.expandedRawMatrix(), oracleExtendedValidMatrix)
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(),
+                       oracleExtendedValidMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -391,7 +394,7 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         ])
 
-        XCTAssertEqual(matrix?.expandedRawMatrix(), expectedMatrix)
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(), expectedMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -423,7 +426,7 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         ])
 
-        XCTAssertEqual(matrix?.expandedRawMatrix(), expectedMatrix)
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(), expectedMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
@@ -456,7 +459,7 @@ class SimulatorMatrixComponentsExtractorTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         ])
 
-        XCTAssertEqual(matrix?.expandedRawMatrix(), expectedMatrix)
+        XCTAssertEqual(try? matrix?.expandedRawMatrix(maxConcurrency: 1).get(), expectedMatrix)
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 

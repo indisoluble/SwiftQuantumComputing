@@ -29,6 +29,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
+    let transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1)
     let gateInputs = [0]
     let gateMatrix = Matrix.makeHadamard()
     let simulatorMatrix = Matrix.makeHadamard()
@@ -42,7 +43,8 @@ class UnitaryGateAdapterTests: XCTestCase {
         let nonSquareMatrix = try! Matrix([[.zero, .one]])
 
         // Then
-        XCTAssertThrowsError(try UnitaryGateAdapter(matrix: nonSquareMatrix))
+        XCTAssertThrowsError(try UnitaryGateAdapter(matrix: nonSquareMatrix,
+                                                    transformation: transformation))
     }
 
     func testSquareMatrixWithNotPowerOfTwoRowCount_init_throwError() {
@@ -52,12 +54,14 @@ class UnitaryGateAdapterTests: XCTestCase {
                                                [.zero, .one, .one]])
 
         // Then
-        XCTAssertThrowsError(try UnitaryGateAdapter(matrix: notPowerOfTwoMatrix))
+        XCTAssertThrowsError(try UnitaryGateAdapter(matrix: notPowerOfTwoMatrix,
+                                                    transformation: transformation))
     }
 
     func testValidMatrix_init_returnValue() {
         // When
-        let result = try? UnitaryGateAdapter(matrix: simulatorMatrix)
+        let result = try? UnitaryGateAdapter(matrix: simulatorMatrix,
+                                             transformation: transformation)
 
         // Then
         XCTAssertNotNil(result)
@@ -66,7 +70,8 @@ class UnitaryGateAdapterTests: XCTestCase {
     func testNonUnitaryMatrix_unitary_throwError() {
         // Given
         let nonUnitaryMatrix = try! Matrix([[.zero, .one], [.zero, .zero]])
-        let adapter = try! UnitaryGateAdapter(matrix: nonUnitaryMatrix)
+        let adapter = try! UnitaryGateAdapter(matrix: nonUnitaryMatrix,
+                                              transformation: transformation)
 
         // Then
         var error: UnitaryMatrixError?
@@ -78,7 +83,8 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testValidMatrix_unitary_returnValue() {
         // Given
-        let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix)
+        let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix,
+                                              transformation: transformation)
 
         // When
         let result = try? adapter.unitary().get()
@@ -89,7 +95,8 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testGateThatThrowsError_applying_throwError() {
         // Given
-        let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix)
+        let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix,
+                                              transformation: transformation)
         let failingGate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
@@ -102,7 +109,8 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testGate_applying_returnValue() {
         // Given
-        let adapter = try! UnitaryGateAdapter(matrix: Matrix.makeNot())
+        let adapter = try! UnitaryGateAdapter(matrix: Matrix.makeNot(),
+                                              transformation: transformation)
         let gate = Gate.hadamard(target: 0)
 
         // When
@@ -116,7 +124,8 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     func testOtherGate_applying_returnValue() {
         // Given
-        let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix)
+        let adapter = try! UnitaryGateAdapter(matrix: simulatorMatrix,
+                                              transformation: transformation)
         let gate = Gate.not(target: 0)
 
         // When

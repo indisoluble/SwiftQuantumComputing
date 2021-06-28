@@ -27,8 +27,7 @@ struct UnitaryGateAdapter {
     // MARK: - Private properties
 
     private let matrix: Matrix
-
-    private let qubitCount: Int
+    private let transformation: UnitaryTransformation
 
     // MARK: - Internal init methods
 
@@ -37,7 +36,7 @@ struct UnitaryGateAdapter {
         case matrixRowCountHasToBeAPowerOfTwo
     }
 
-    init(matrix: Matrix) throws {
+    init(matrix: Matrix, transformation: UnitaryTransformation) throws {
         guard matrix.isSquare else {
             throw InitError.matrixIsNotSquare
         }
@@ -46,9 +45,8 @@ struct UnitaryGateAdapter {
             throw InitError.matrixRowCountHasToBeAPowerOfTwo
         }
 
-        qubitCount = Int.log2(matrix.rowCount)
-
         self.matrix = matrix
+        self.transformation = transformation
     }
 }
 
@@ -64,13 +62,11 @@ extension UnitaryGateAdapter: UnitaryGate {
     }
 
     func applying(_ gate: Gate) -> Result<UnitaryGate, GateError> {
-        let extractor = SimulatorMatrixComponentsExtractor(extractor: gate)
-
-        switch extractor.extractCircuitMatrix(restrictedToCircuitQubitCount: qubitCount) {
-        case .success(let circuitMatrix):
-            let nextMatrix = try! (circuitMatrix.expandedRawMatrix() * matrix).get()
-
-            return .success(try! UnitaryGateAdapter(matrix: nextMatrix))
+        switch transformation.apply(gate: gate, toUnitary: matrix) {
+        case .success(let nextMatrix):
+            let adapter = try! UnitaryGateAdapter(matrix: nextMatrix,
+                                                  transformation: transformation)
+            return .success(adapter)
         case .failure(let error):
             return .failure(error)
         }
