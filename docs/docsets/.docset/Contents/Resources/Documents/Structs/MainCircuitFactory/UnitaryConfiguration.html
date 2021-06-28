@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>TruthTable Structure Reference</title>
+    <title>UnitaryConfiguration Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/TruthTable" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/UnitaryConfiguration" class="dashAnchor"></a>
 
-    <a title="TruthTable Structure Reference"></a>
+    <a title="UnitaryConfiguration Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html"> Reference</a>
       <img class="carat" src="../../img/carat.png" />
-      TruthTable Structure Reference
+      UnitaryConfiguration Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -293,16 +293,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>TruthTable</h1>
+            <h1>UnitaryConfiguration</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TruthTable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">UnitaryConfiguration</span></code></pre>
 
                 </div>
               </div>
-            <p>A <code><a href="../../Structs/GeneticUseCase.html">GeneticUseCase</a></code> provides enough data to configure a circuit as well as the oracle gate inside the circuit.
-<code>TruthTable</code> provides the data for the latter</p>
+            <p>Define behaviour of <code><a href="../../Protocols/Circuit.html#/s:21SwiftQuantumComputing7CircuitP7unitary14withQubitCounts6ResultOyAA6MatrixVAA12UnitaryErrorOGSi_tF">Circuit.unitary(withQubitCount:)</a></code></p>
 
           </div>
         </section>
@@ -310,22 +309,13 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Public%20properties"></a>
-                <a name="//apple_ref/swift/Section/Public properties" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Public%20properties"></a>
-                  <h3 class="section-name"><p>Public properties</p>
-</h3>
-                </div>
-              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing14GeneticUseCaseV10TruthTableV5truthSaySSGvp"></a>
-                    <a name="//apple_ref/swift/Property/truth" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing14GeneticUseCaseV10TruthTableV5truthSaySSGvp">truth</a>
+                    <a name="/s:21SwiftQuantumComputing18MainCircuitFactoryV20UnitaryConfigurationO10fullMatrixyAESi_tcAEmF"></a>
+                    <a name="//apple_ref/swift/Element/fullMatrix(matrixExpansionConcurrency:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing18MainCircuitFactoryV20UnitaryConfigurationO10fullMatrixyAESi_tcAEmF">fullMatrix(matrixExpansionConcurrency:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -333,15 +323,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>List of qubit combinations for which the <code>control</code> in a <code><a href="../../Structs/Gate.html#/s:21SwiftQuantumComputing4GateV13controlledNot6target7controlACSi_SitFZ">Gate.controlledNot(target:control:)</a></code>
-is activated</p>
+                        <p>To produce the unitary <code><a href="../../Structs/Matrix.html">Matrix</a></code> that represents the entire circuit, each <code><a href="../../Structs/Gate.html">Gate</a></code> is expanded into a <code><a href="../../Structs/Matrix.html">Matrix</a></code>
+and multiplied by the unitary <code><a href="../../Structs/Matrix.html">Matrix</a></code> calculated so far. Expansion can be done in parallel with up to
+<code>matrixExpansionConcurrency</code> threads. If <code>matrixExpansionConcurrency</code> is set to 1 or less,
+the whole process will be serial.
+This configuration has the biggest memory footprint</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">truth</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">fullMatrix</span><span class="p">(</span><span class="nv">matrixExpansionConcurrency</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -351,9 +344,9 @@ is activated</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing14GeneticUseCaseV10TruthTableV10qubitCountSivp"></a>
-                    <a name="//apple_ref/swift/Property/qubitCount" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing14GeneticUseCaseV10TruthTableV10qubitCountSivp">qubitCount</a>
+                    <a name="/s:21SwiftQuantumComputing18MainCircuitFactoryV20UnitaryConfigurationO8rowByRowyAESi_SitcAEmF"></a>
+                    <a name="//apple_ref/swift/Element/rowByRow(unitaryCalculationConcurrency:rowExpansionConcurrency:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing18MainCircuitFactoryV20UnitaryConfigurationO8rowByRowyAESi_SitcAEmF">rowByRow(unitaryCalculationConcurrency:<wbr>rowExpansionConcurrency:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -361,14 +354,50 @@ is activated</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Total number of qubits for all qubits combinations in <code><a href="../../Structs/GeneticUseCase/TruthTable.html#/s:21SwiftQuantumComputing14GeneticUseCaseV10TruthTableV5truthSaySSGvp">truth</a></code></p>
+                        <p>To apply a <code><a href="../../Structs/Gate.html">Gate</a></code> to the unitary <code><a href="../../Structs/Matrix.html">Matrix</a></code> calculated so far to get the next one, the rows in <code><a href="../../Structs/Gate.html">Gate</a></code> are
+expanded only once. Each row can be expanded in parallel using up to <code>rowExpansionConcurrency</code>
+threads. Then, each row is used to calculare the corresponding row in the next unitary <code><a href="../../Structs/Matrix.html">Matrix</a></code>.
+Notice that up to <code>unitaryCalculationConcurrency</code> new rows can be calculated in parallel which
+means that in a given moment there might be <code>unitaryCalculationConcurrency</code> *
+<code>rowExpansionConcurrency</code> threats running simultaneously. If both <code>unitaryCalculationConcurrency</code>
+and <code>rowExpansionConcurrency</code> are set to 1 or less, the whole process will be serial.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">qubitCount</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">rowByRow</span><span class="p">(</span><span class="nv">unitaryCalculationConcurrency</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">rowExpansionConcurrency</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing18MainCircuitFactoryV20UnitaryConfigurationO16elementByElementyAESi_tcAEmF"></a>
+                    <a name="//apple_ref/swift/Element/elementByElement(unitaryCalculationConcurrency:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing18MainCircuitFactoryV20UnitaryConfigurationO16elementByElementyAESi_tcAEmF">elementByElement(unitaryCalculationConcurrency:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Each time a <code><a href="../../Structs/Gate.html">Gate</a></code> is applied to the unitary <code><a href="../../Structs/Matrix.html">Matrix</a></code> calculated so far to get the next one, the positions in
+each<code><a href="../../Structs/Gate.html">Gate</a></code> are requested as needed to calculate each position on the new unitary. This process can be done
+in parallel with up to <code>unitaryCalculationConcurrency</code> threads.  If <code>unitaryCalculationConcurrency</code>
+is set to 1 or less, the whole process will be serial.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">elementByElement</span><span class="p">(</span><span class="nv">unitaryCalculationConcurrency</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
