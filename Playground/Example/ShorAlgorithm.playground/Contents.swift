@@ -5,7 +5,7 @@ import SwiftQuantumComputing // for macOS
 let primes: Set<Int> = [3, 5]
 let maxConcurrency = 4
 
-let factory = MainCircuitFactory(statevectorConfiguration: .direct(maxConcurrency: maxConcurrency))
+let factory = MainCircuitFactory(statevectorConfiguration: .direct(statevectorCalculationConcurrency: maxConcurrency))
 let drawer = MainDrawerFactory().makeDrawer()
 
 let actualFactors = Array(primes).shuffled()[..<2]
