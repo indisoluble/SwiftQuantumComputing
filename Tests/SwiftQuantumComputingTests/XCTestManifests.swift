@@ -65,6 +65,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(Matrix_ConjugateTransposedTests.allTests),
         testCase(Matrix_ElementsTests.allTests),
         testCase(Matrix_IdentityTests.allTests),
+        testCase(Matrix_IsHermitianTests.allTests),
         testCase(Matrix_IsSquareTests.allTests),
         testCase(Matrix_PermutationTests.allTests),
         testCase(Matrix_QuantumFourierTransformTests.allTests),
