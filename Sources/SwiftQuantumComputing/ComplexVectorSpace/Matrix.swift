@@ -159,6 +159,104 @@ public struct Matrix {
         return .success(Matrix(rowCount: rowCount, columnCount: columnCount, values: slice))
     }
 
+    enum EigenvaluesError: Error {
+        case matrixIsNotHermitian
+        case unableToComputeEigenvalues
+    }
+
+    func eigenvalues() -> Result<[Double], EigenvaluesError> {
+        guard isHermitian else {
+            return .failure(.matrixIsNotHermitian)
+        }
+
+        // Copy matrix into a mutable array
+        let capacity = values.count
+        let tempA = UnsafeMutablePointer<Complex<Double>>.allocate(capacity: capacity)
+        defer {
+            tempA.deallocate()
+        }
+        values.withUnsafeBufferPointer { buffer in
+            tempA.initialize(from: buffer.baseAddress!, count: capacity)
+        }
+
+        // Prepare shared parameters
+        var jobz = Int8(("N" as Character).asciiValue!) // N: Compute eigenvalues only
+        var uplo = Int8(("L" as Character).asciiValue!) // L: Lower triangular part
+
+        var orderA = Int32(rowCount)
+        var leadingDimensionA = Int32(rowCount)
+        let matrixA = UnsafeMutableRawPointer(tempA).bindMemory(to: __CLPK_doublecomplex.self,
+                                                                capacity: capacity)
+
+        var info = Int32()
+        let result = Array<Double>(unsafeUninitializedCapacity: rowCount) { output, outputCount in
+            outputCount = rowCount
+
+            // Get optimal workspace
+            var optimalWorkLength = __CLPK_doublecomplex()
+            var optimalRWorkLength = Double()
+            var optimalIWorkLength = Int32()
+
+            var queryOptimalWorkLength = Int32(-1)
+            var queryOptimalRWorkLength = Int32(-1)
+            var queryOptimalIWorkLength = Int32(-1)
+            zheevd_(&jobz,
+                    &uplo,
+                    &orderA,
+                    matrixA,
+                    &leadingDimensionA,
+                    output.baseAddress,
+                    &optimalWorkLength,
+                    &queryOptimalWorkLength,
+                    &optimalRWorkLength,
+                    &queryOptimalRWorkLength,
+                    &optimalIWorkLength,
+                    &queryOptimalIWorkLength,
+                    &info)
+
+            // Prepare workspace
+            var workLength = Int32(optimalWorkLength.r)
+            let work = UnsafeMutablePointer<__CLPK_doublecomplex>.allocate(capacity: Int(workLength))
+            defer {
+                work.deallocate()
+            }
+
+            var rWorkLength = Int32(optimalRWorkLength)
+            let rWork = UnsafeMutablePointer<Double>.allocate(capacity: Int(rWorkLength))
+            defer {
+                rWork.deallocate()
+            }
+
+            var iWorkLength = optimalIWorkLength
+            let iWork = UnsafeMutablePointer<Int32>.allocate(capacity: Int(iWorkLength))
+            defer {
+                iWork.deallocate()
+            }
+
+            // Compute eigenvalues
+            zheevd_(&jobz,
+                    &uplo,
+                    &orderA,
+                    matrixA,
+                    &leadingDimensionA,
+                    output.baseAddress,
+                    work,
+                    &workLength,
+                    rWork,
+                    &rWorkLength,
+                    iWork,
+                    &iWorkLength,
+                    &info)
+        }
+
+        // Validate result
+        if (info != 0) {
+            return .failure(.unableToComputeEigenvalues)
+        }
+
+        return .success(result)
+    }
+
     // MARK: - Internal class methods
 
     enum MakeMatrixError: Error {
@@ -404,12 +502,12 @@ private extension Matrix {
                                 Int32(n),
                                 Int32(k),
                                 &alpha,
-                                aBuffer.baseAddress!,
+                                aBuffer.baseAddress,
                                 Int32(lda),
-                                bBuffer.baseAddress!,
+                                bBuffer.baseAddress,
                                 Int32(ldb),
                                 &beta,
-                                cBuffer.baseAddress!,
+                                cBuffer.baseAddress,
                                 Int32(ldc))
                 }
             }

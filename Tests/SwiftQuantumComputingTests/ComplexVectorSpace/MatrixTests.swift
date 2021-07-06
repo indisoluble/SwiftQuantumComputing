@@ -272,6 +272,79 @@ class MatrixTests: XCTestCase {
                                                        absoluteTolerance: SharedConstants.tolerance))
     }
 
+    func testNonHermitianMatrix_eigenvalues_throwException() {
+        // Given
+        let matrix = try! Matrix([
+            [.one, .zero, .zero],
+            [.one, Complex(2), .zero],
+            [Complex(2), Complex(3), Complex(3)]
+        ])
+
+        // Then
+        var error: Matrix.EigenvaluesError?
+        if case .failure(let e) = matrix.eigenvalues() {
+            error = e
+        }
+        XCTAssertEqual(error, .matrixIsNotHermitian)
+    }
+
+    func testAnyHermitianMatrices_eigenvalues_returnExpectedValues() {
+        // Given
+        let matrices: [(Matrix, [Double])] = [
+            (try! Matrix([[Complex(2), .one],
+                          [.one, Complex(2)]]),
+             [1.0, 3.0]),
+            (try! Matrix([[Complex(2), -.one],
+                          [-.one, Complex(2)]]),
+             [1.0, 3.0]),
+            (try! Matrix([[Complex(1), .zero, .zero],
+                          [.zero, Complex(2), .zero],
+                          [.zero, .zero, Complex(3)]]),
+             [1.0, 2.0, 3.0]),
+            (try! Matrix([[Complex(2), .zero, .zero],
+                          [.zero, Complex(3), Complex(4)],
+                          [.zero, Complex(4), Complex(9)]]),
+             [1.0, 2.0, 11.0]),
+            (try! Matrix([[Complex(2), .i, .zero],
+                          [-.i, Complex(2), .zero],
+                          [.zero, .zero, Complex(3)]]),
+             [1.0, 3.0, 3.0]),
+            (try! Matrix([[-.one, .zero, -2 * .i],
+                          [.zero, Complex(2), .zero],
+                          [2 * .i, .zero, -.one]]),
+             [-3.0, 1.0, 2.0])
+        ]
+
+        for (matrix, expectedValues) in matrices {
+            // When
+            let values = try? matrix.eigenvalues().get()
+
+            // Then
+            XCTAssertEqual(values, expectedValues)
+        }
+    }
+
+    func testAnyHermitianMatrices_eigenvalues_returnAlmostExpectedValues() {
+        // Given
+        let matrices: [(Matrix, [Double])] = [
+            (try! Matrix([[.one, -.one, .zero],
+                          [-.one, Complex(2), -.one],
+                          [.zero, -.one, .one]]),
+             [0.0, 1.0, 3.0])
+        ]
+
+        for (matrix, expectedValues) in matrices {
+            // When
+            let values = try! matrix.eigenvalues().get()
+
+            // Then
+            for (val, expectedVal) in zip(values, expectedValues) {
+                XCTAssertEqual(val, expectedVal, accuracy: SharedConstants.tolerance)
+            }
+        }
+    }
+
+
     func testZeroRowCount_makeMatrix_throwException() {
         // Then
         var error: Matrix.MakeMatrixError?
@@ -744,6 +817,12 @@ class MatrixTests: XCTestCase {
          testTwoColumnsInAMatrix_makeSlice_returnExpectedMatrix),
         ("testMatrixAlreadySliced_makeSlice_returnExpectedMatrix",
          testMatrixAlreadySliced_makeSlice_returnExpectedMatrix),
+        ("testNonHermitianMatrix_eigenvalues_throwException",
+         testNonHermitianMatrix_eigenvalues_throwException),
+        ("testAnyHermitianMatrices_eigenvalues_returnExpectedValues",
+         testAnyHermitianMatrices_eigenvalues_returnExpectedValues),
+        ("testAnyHermitianMatrices_eigenvalues_returnAlmostExpectedValues",
+         testAnyHermitianMatrices_eigenvalues_returnAlmostExpectedValues),
         ("testZeroRowCount_makeMatrix_throwException",
          testZeroRowCount_makeMatrix_throwException),
         ("testZeroColumnCount_makeMatrix_throwException",
