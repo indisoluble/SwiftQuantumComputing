@@ -32,7 +32,7 @@ extension Matrix {
         }
 
         for row in 0..<rowCount {
-            for column in 0..<columnCount {
+            for column in row..<columnCount {
                 if self[row, column] != self[column, row].conjugate {
                     return false
                 }

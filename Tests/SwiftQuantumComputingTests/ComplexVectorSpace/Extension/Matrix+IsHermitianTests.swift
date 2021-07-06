@@ -47,6 +47,30 @@ class Matrix_IsHermitianTests: XCTestCase {
         XCTAssertFalse(matrix.isHermitian)
     }
 
+    func testAlmostHermitianMatrix_isHermitian_returnFalse() {
+        // Given
+        let matrix = try! Matrix([
+            [.zero, Complex(1, -1), Complex(2, -3)],
+            [Complex(1, 1), .one, Complex(4, -5)],
+            [Complex(2, -3), Complex(4, 5), Complex(2)]
+        ])
+
+        // Then
+        XCTAssertFalse(matrix.isHermitian)
+    }
+
+    func testAnotherAlmostHermitianMatrix_isHermitian_returnFalse() {
+        // Given
+        let matrix = try! Matrix([
+            [.zero, Complex(1, -1), Complex(2, -3)],
+            [Complex(1, 1), .one, Complex(4, -5)],
+            [Complex(2, 3), Complex(4, 5), Complex(2, 1)]
+        ])
+
+        // Then
+        XCTAssertFalse(matrix.isHermitian)
+    }
+
     func testHermitianMatrix_isHermitian_returnTrue() {
         // Given
         let matrix = try! Matrix([
@@ -76,6 +100,10 @@ class Matrix_IsHermitianTests: XCTestCase {
          testNonSquareMatrix_isHermitian_returnFalse),
         ("testNonHermitianSquareMatrix_isHermitian_returnFalse",
          testNonHermitianSquareMatrix_isHermitian_returnFalse),
+        ("testAlmostHermitianMatrix_isHermitian_returnFalse",
+         testAlmostHermitianMatrix_isHermitian_returnFalse),
+        ("testAnotherAlmostHermitianMatrix_isHermitian_returnFalse",
+         testAnotherAlmostHermitianMatrix_isHermitian_returnFalse),
         ("testHermitianMatrix_isHermitian_returnTrue",
          testHermitianMatrix_isHermitian_returnTrue),
         ("testAnotherHermitianMatrix_isHermitian_returnTrue",
