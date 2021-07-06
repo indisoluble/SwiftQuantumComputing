@@ -389,28 +389,32 @@ private extension Matrix {
         let lda = lhs.rowCount
         let ldb = rhs.rowCount
         var beta = Complex<Double>.zero
-        var cBuffer = Array(repeating: Complex<Double>.zero, count: (m * n))
         let ldc = m
 
-        lhs.values.withUnsafeBytes { aBuffer in
-            rhs.values.withUnsafeBytes { bBuffer in
-                cblas_zgemm(CblasColMajor,
-                            lhsTrans,
-                            rhsTrans,
-                            Int32(m),
-                            Int32(n),
-                            Int32(k),
-                            &alpha,
-                            aBuffer.baseAddress!,
-                            Int32(lda),
-                            bBuffer.baseAddress!,
-                            Int32(ldb),
-                            &beta,
-                            &cBuffer,
-                            Int32(ldc))
+        let capacity = m * n
+        let values = Array<Complex<Double>>(unsafeUninitializedCapacity: capacity) { cBuffer, actualCount in
+            actualCount = capacity
+
+            lhs.values.withUnsafeBytes { aBuffer in
+                rhs.values.withUnsafeBytes { bBuffer in
+                    cblas_zgemm(CblasColMajor,
+                                lhsTrans,
+                                rhsTrans,
+                                Int32(m),
+                                Int32(n),
+                                Int32(k),
+                                &alpha,
+                                aBuffer.baseAddress!,
+                                Int32(lda),
+                                bBuffer.baseAddress!,
+                                Int32(ldb),
+                                &beta,
+                                cBuffer.baseAddress!,
+                                Int32(ldc))
+                }
             }
         }
 
-        return Matrix(rowCount: m, columnCount: n, values: cBuffer)
+        return Matrix(rowCount: m, columnCount: n, values: values)
     }
 }
