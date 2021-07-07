@@ -21,6 +21,7 @@
 #if os(Linux)
 
 import CBLAS_Linux
+import CLapacke_Linux
 
 #else
 
@@ -185,12 +186,22 @@ public struct Matrix {
 
         var orderA = Int32(rowCount)
         var leadingDimensionA = Int32(rowCount)
-        let matrixA = UnsafeMutableRawPointer(tempA).bindMemory(to: __CLPK_doublecomplex.self,
-                                                                capacity: capacity)
 
         var info = Int32()
+
         let result = Array<Double>(unsafeUninitializedCapacity: rowCount) { output, outputCount in
             outputCount = rowCount
+
+            #if os(Linux)
+
+            let matrixA = OpaquePointer(tempA)
+
+            info = LAPACKE_zheevd(LAPACK_COL_MAJOR, jobz, uplo, orderA, matrixA, leadingDimensionA, output.baseAddress)
+
+            #else
+
+            let matrixA = UnsafeMutableRawPointer(tempA).bindMemory(to: __CLPK_doublecomplex.self,
+                                                                    capacity: capacity)
 
             // Get optimal workspace
             var optimalWorkLength = __CLPK_doublecomplex()
@@ -247,6 +258,8 @@ public struct Matrix {
                     iWork,
                     &iWorkLength,
                     &info)
+
+            #endif
         }
 
         // Validate result
