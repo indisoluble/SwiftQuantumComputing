@@ -13,12 +13,16 @@ var dependencies: [Package.Dependency] = [
     )
 ]
 #if os(Linux)
-dependencies.append(
+dependencies += [
     .package(
         url: "https://github.com/indisoluble/CBLAS-Linux.git",
         .exact("1.0.0")
+    ),
+    .package(
+        url: "https://github.com/indisoluble/CLapacke-Linux.git",
+        .exact("1.0.1")
     )
-)
+]
 #endif
 
 let package = Package(
