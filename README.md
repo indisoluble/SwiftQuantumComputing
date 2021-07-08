@@ -59,17 +59,22 @@ Documentation for the project can be found [here](https://indisoluble.github.io/
 ## SwiftPM dependencies
 
 * [CBLAS-Linux](https://github.com/indisoluble/CBLAS-Linux) (only for Linux)
+* [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux) (only for Linux)
 * [Swift Argument Parser](https://github.com/apple/swift-argument-parser)
 * [Swift Numerics](https://github.com/apple/swift-numerics)
 
 ### Linux
 
-This package depends on [BLAS](http://www.netlib.org/blas/) if running on Linux, more exactly, [Ubuntu](https://www.ubuntu.com).
+This package depends on [BLAS](http://www.netlib.org/blas/) & [LAPACK](http://www.netlib.org/lapack/) if running on Linux, more exactly, [Ubuntu](https://www.ubuntu.com).
 
-This dependency is reflected in `Package.swift` with [CBLAS-Linux](https://github.com/indisoluble/CBLAS-Linux), which in turn expects to find the following file: `/usr/include/x86_64-linux-gnu/cblas-netlib.h`. So, after installing [BLAS](http://www.netlib.org/blas/) (in case it is not already there):
+These dependencies are reflected in `Package.swift` with:
+* [CBLAS-Linux](https://github.com/indisoluble/CBLAS-Linux), which in turn expects to find: `/usr/include/x86_64-linux-gnu/cblas-netlib.h`
+* [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux), which in turn expects to find: `/usr/include/lapacke.h`
+
+So, after installing [BLAS](http://www.netlib.org/blas/) & [LAPACK](http://www.netlib.org/lapack/) (in case they are not already there):
 
 ```
-sudo apt-get install libblas-dev
+sudo apt-get install libblas-dev liblapacke-dev
 ```
 
-Check `cblas-netlib.h` is in the expected location.
+Check `cblas-netlib.h` & `lapacke.h` are in the expected locations.
