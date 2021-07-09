@@ -90,6 +90,22 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix[1,1], expectedValue)
     }
 
+    func testAnySlice_subscript_returnExpectedValue() {
+        // Given
+        let expectedValue = Complex<Double>(10, 10)
+        let elements: [[Complex<Double>]] = [
+            [.zero, .zero, .zero, .zero],
+            [.zero, .zero, expectedValue, .zero],
+            [.zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero]
+        ]
+        let matrix = try! Matrix(elements)
+        let slice = try! matrix.makeSlice(startColumn: 1, columnCount: 2).get()
+
+        // Then
+        XCTAssertEqual(slice[1,1], expectedValue)
+    }
+
     func testAnyMatrix_loop_returnExpectedSequence() {
         // Given
         let elements: [[Complex<Double>]] = [
@@ -344,6 +360,20 @@ class MatrixTests: XCTestCase {
         }
     }
 
+    func testHermitianSlice_eigenvalues_returnExpectedValues() {
+        // Given
+        let matrix = try! Matrix([[.i, -.one, .zero, -2 * .i, .i],
+                                  [.i, .zero, Complex(2), .zero, .i],
+                                  [.i, 2 * .i, .zero, -.one, .i]])
+        let slice = try! matrix.makeSlice(startColumn: 1, columnCount: 3).get()
+
+        // When
+        let values = try? slice.eigenvalues().get()
+
+        // Then
+        let expectedValues = [-3.0, 1.0, 2.0]
+        XCTAssertEqual(values, expectedValues)
+    }
 
     func testZeroRowCount_makeMatrix_throwException() {
         // Then
@@ -787,6 +817,8 @@ class MatrixTests: XCTestCase {
          testAnyMatrix_first_returnExpectedValue),
         ("testAnyMatrix_subscript_returnExpectedValue",
          testAnyMatrix_subscript_returnExpectedValue),
+        ("testAnySlice_subscript_returnExpectedValue",
+         testAnySlice_subscript_returnExpectedValue),
         ("testMatricesWithDifferentNumberOfRows_isApproximatelyEqual_returnFalse",
          testMatricesWithDifferentNumberOfRows_isApproximatelyEqual_returnFalse),
         ("testMatricesWithDifferentNumberOfColumns_isApproximatelyEqual_returnFalse",
@@ -823,6 +855,8 @@ class MatrixTests: XCTestCase {
          testAnyHermitianMatrices_eigenvalues_returnExpectedValues),
         ("testAnyHermitianMatrices_eigenvalues_returnAlmostExpectedValues",
          testAnyHermitianMatrices_eigenvalues_returnAlmostExpectedValues),
+        ("testHermitianSlice_eigenvalues_returnExpectedValues",
+         testHermitianSlice_eigenvalues_returnExpectedValues),
         ("testZeroRowCount_makeMatrix_throwException",
          testZeroRowCount_makeMatrix_throwException),
         ("testZeroColumnCount_makeMatrix_throwException",

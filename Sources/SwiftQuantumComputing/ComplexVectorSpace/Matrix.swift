@@ -52,7 +52,7 @@ public struct Matrix {
 
     /// Use [row, column] to access elements in the matrix
     public subscript(row: Int, column: Int) -> Complex<Double> {
-        return values[(column * rowCount) + row]
+        return values[values.startIndex + (column * rowCount) + row]
     }
 
     // MARK: - Private properties
