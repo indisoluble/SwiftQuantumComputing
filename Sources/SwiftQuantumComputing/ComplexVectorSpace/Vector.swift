@@ -125,7 +125,7 @@ public struct Vector {
                              _ rhs: Vector) -> Result<Complex<Double>, InnerProductError> {
         switch Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix {
         case .success(let matrix):
-            return .success(try! Complex(matrix))
+            return .success(matrix.first)
         case .failure(.matricesDoNotHaveValidDimensions):
             return .failure(.vectorsDoNotHaveSameCount)
         }
