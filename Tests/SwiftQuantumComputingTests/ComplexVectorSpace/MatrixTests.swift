@@ -807,6 +807,80 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
+    func testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_adjointedMultiply_throwException() {
+        // Given
+        let complex = Complex<Double>.zero
+        let lhs = try! Matrix([[complex], [complex], [complex]])
+        let rhs = try! Matrix([[complex, complex, complex]])
+
+        // Then
+        var error: Matrix.ProductError?
+        if case .failure(let e) = lhs * Matrix.Transformation.adjointed(rhs) {
+            error = e
+        }
+        XCTAssertEqual(error, .matricesDoNotHaveValidDimensions)
+    }
+
+    func testMatrixWithRowCountEqualToRowCountInFirstMatrix_adjointedMultiply_returnExpectedMatrix() {
+        // Given
+        let lhsElements: [[Complex<Double>]] = [
+            [Complex(3, 2), .zero, Complex(5, -6)],
+            [.one, Complex(4, 2), .i]
+        ]
+        let lhs = try! Matrix(lhsElements)
+
+        let rhsElements: [[Complex<Double>]] = [
+            [Complex(5), .zero, Complex(7, 4)],
+            [Complex(2, 1), Complex(4, -5), Complex(2, -7)]
+        ]
+        let rhs = try! Matrix(rhsElements)
+
+        // When
+        let result = try? (lhs * Matrix.Transformation.adjointed(rhs)).get()
+
+        // Then
+        let expectedResult = try? Matrix([[Complex(26, -52), Complex(60, 24)],
+                                          [Complex(9, 7), Complex(1, 29)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_transposedMultiply_throwException() {
+        // Given
+        let complex = Complex<Double>.zero
+        let lhs = try! Matrix([[complex], [complex], [complex]])
+        let rhs = try! Matrix([[complex, complex, complex]])
+
+        // Then
+        var error: Matrix.ProductError?
+        if case .failure(let e) = lhs * Matrix.Transformation.transposed(rhs) {
+            error = e
+        }
+        XCTAssertEqual(error, .matricesDoNotHaveValidDimensions)
+    }
+
+    func testMatrixWithRowCountEqualToRowCountInFirstMatrix_transposedMultiply_returnExpectedMatrix() {
+        // Given
+        let lhsElements: [[Complex<Double>]] = [
+            [Complex(3, 2), .zero, Complex(5, -6)],
+            [.one, Complex(4, 2), .i]
+        ]
+        let lhs = try! Matrix(lhsElements)
+
+        let rhsElements: [[Complex<Double>]] = [
+            [Complex(5), .zero, Complex(7, -4)],
+            [Complex(2, -1), Complex(4, 5), Complex(2, 7)]
+        ]
+        let rhs = try! Matrix(rhsElements)
+
+        // When
+        let result = try? (lhs * Matrix.Transformation.transposed(rhs)).get()
+
+        // Then
+        let expectedResult = try? Matrix([[Complex(26, -52), Complex(60, 24)],
+                                          [Complex(9, 7), Complex(1, 29)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
     static var allTests = [
         ("testEmptyArray_init_throwException",
          testEmptyArray_init_throwException),
@@ -911,6 +985,14 @@ class MatrixTests: XCTestCase {
         ("testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_transposedMultiply_throwException",
          testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_transposedMultiply_throwException),
         ("testMatrixWithRowCountEqualToRowCountInSecondMatrix_transposedMultiply_returnExpectedMatrix",
-         testMatrixWithRowCountEqualToRowCountInSecondMatrix_transposedMultiply_returnExpectedMatrix)
+         testMatrixWithRowCountEqualToRowCountInSecondMatrix_transposedMultiply_returnExpectedMatrix),
+        ("testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_adjointedMultiply_throwException",
+         testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_adjointedMultiply_throwException),
+        ("testMatrixWithRowCountEqualToRowCountInFirstMatrix_adjointedMultiply_returnExpectedMatrix",
+         testMatrixWithRowCountEqualToRowCountInFirstMatrix_adjointedMultiply_returnExpectedMatrix),
+        ("testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_transposedMultiply_throwException",
+         testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_transposedMultiply_throwException),
+        ("testMatrixWithRowCountEqualToRowCountInFirstMatrix_transposedMultiply_returnExpectedMatrix",
+         testMatrixWithRowCountEqualToRowCountInFirstMatrix_transposedMultiply_returnExpectedMatrix)
     ]
 }

@@ -430,47 +430,35 @@ extension Matrix {
         return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, values: X)
     }
 
-    static func *(lhs: Matrix, rhs: Matrix) -> Result<Matrix, ProductError> {
-        return Transformation.none(lhs) * rhs
-    }
-
     enum ProductError: Error {
         case matricesDoNotHaveValidDimensions
     }
 
+    static func *(lhs: Matrix, rhs: Matrix) -> Result<Matrix, ProductError> {
+        return multiply(lhsTransformation: .none(lhs), rhsTransformation: .none(rhs))
+    }
+
     static func *(lhsTransformation: Transformation, rhs: Matrix) -> Result<Matrix, ProductError> {
-        var lhs: Matrix!
-        var lhsTrans = CblasNoTrans
-        var areDimensionsValid = false
+        return multiply(lhsTransformation: lhsTransformation, rhsTransformation: .none(rhs))
+    }
 
-        switch lhsTransformation {
-        case .none(let matrix):
-            lhs = matrix
-            lhsTrans = CblasNoTrans
-            areDimensionsValid = (matrix.columnCount == rhs.rowCount)
-        case .adjointed(let matrix):
-            lhs = matrix
-            lhsTrans = CblasConjTrans
-            areDimensionsValid = (matrix.rowCount == rhs.rowCount)
-        case .transposed(let matrix):
-            lhs = matrix
-            lhsTrans = CblasTrans
-            areDimensionsValid = (matrix.rowCount == rhs.rowCount)
-        }
-
-        guard areDimensionsValid else {
-            return .failure(.matricesDoNotHaveValidDimensions)
-        }
-
-        let matrix = Matrix.multiply(lhs: lhs, lhsTrans: lhsTrans, rhs: rhs)
-
-        return .success(matrix)
+    static func *(lhs: Matrix, rhsTransformation: Transformation) -> Result<Matrix, ProductError> {
+        return multiply(lhsTransformation: .none(lhs), rhsTransformation: rhsTransformation)
     }
 }
 
 // MARK: - Private body
 
 private extension Matrix {
+
+    // MARK: - Private types
+
+    enum Operand {
+        case left(_ transformation: Transformation)
+        case right(_ transformation: Transformation)
+    }
+
+    typealias Components = (matrix: Matrix, trans: CBLAS_TRANSPOSE, count: Int)
 
     // MARK: - Private class methods
 
@@ -487,6 +475,55 @@ private extension Matrix {
         }
 
         return elements
+    }
+
+    static func extractComponents(_ operand: Operand) -> Components {
+        let isLeftOperand: Bool
+        let transformation: Transformation
+        switch operand {
+        case .left(let value):
+            isLeftOperand = true
+            transformation = value
+        case .right(let value):
+            isLeftOperand = false
+            transformation = value
+        }
+
+        switch transformation {
+        case .none(let matrix):
+            return (
+                matrix,
+                CblasNoTrans,
+                isLeftOperand ? matrix.columnCount : matrix.rowCount
+            )
+        case .adjointed(let matrix):
+            return (
+                matrix,
+                CblasConjTrans,
+                isLeftOperand ? matrix.rowCount : matrix.columnCount
+            )
+        case .transposed(let matrix):
+            return (
+                matrix,
+                CblasTrans,
+                isLeftOperand ? matrix.rowCount : matrix.columnCount
+            )
+        }
+    }
+
+    static func multiply(lhsTransformation: Transformation,
+                         rhsTransformation: Transformation) -> Result<Matrix, ProductError> {
+        let (lhs, lhsTrans, lhsCount) = Matrix.extractComponents(.left(lhsTransformation))
+        let (rhs, rhsTrans, rhsCount) = Matrix.extractComponents(.right(rhsTransformation))
+
+        let areDimensionsValid = lhsCount == rhsCount
+        guard areDimensionsValid else {
+            return .failure(.matricesDoNotHaveValidDimensions)
+        }
+
+        let matrix = Matrix.multiply(lhs: lhs, lhsTrans: lhsTrans, rhs: rhs, rhsTrans: rhsTrans)
+
+        return .success(matrix)
     }
 
     static func multiply(lhs: Matrix,
