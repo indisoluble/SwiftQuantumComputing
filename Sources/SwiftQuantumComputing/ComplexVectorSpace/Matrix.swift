@@ -384,9 +384,34 @@ extension Matrix {
     // MARK: - Internal types
 
     enum Transformation {
+        typealias Components = (matrix: Matrix, trans: CBLAS_TRANSPOSE, count: Int)
+
         case none(_ matrix: Matrix)
         case adjointed(_ matrix: Matrix)
         case transposed(_ matrix: Matrix)
+
+        func multiplyComponents(isLeftOperand: Bool) -> Components {
+            switch self {
+            case .none(let matrix):
+                return (
+                    matrix,
+                    CblasNoTrans,
+                    isLeftOperand ? matrix.columnCount : matrix.rowCount
+                )
+            case .adjointed(let matrix):
+                return (
+                    matrix,
+                    CblasConjTrans,
+                    isLeftOperand ? matrix.rowCount : matrix.columnCount
+                )
+            case .transposed(let matrix):
+                return (
+                    matrix,
+                    CblasTrans,
+                    isLeftOperand ? matrix.rowCount : matrix.columnCount
+                )
+            }
+        }
     }
 
     // MARK: - Internal operators
@@ -439,25 +464,9 @@ extension Matrix {
     }
 
     static func *(lhsTransformation: Transformation, rhs: Matrix) -> Result<Matrix, ProductError> {
-        var lhs: Matrix!
-        var lhsTrans = CblasNoTrans
-        var areDimensionsValid = false
+        let (lhs, lhsTrans, lhsCount) = lhsTransformation.multiplyComponents(isLeftOperand: true)
 
-        switch lhsTransformation {
-        case .none(let matrix):
-            lhs = matrix
-            lhsTrans = CblasNoTrans
-            areDimensionsValid = (matrix.columnCount == rhs.rowCount)
-        case .adjointed(let matrix):
-            lhs = matrix
-            lhsTrans = CblasConjTrans
-            areDimensionsValid = (matrix.rowCount == rhs.rowCount)
-        case .transposed(let matrix):
-            lhs = matrix
-            lhsTrans = CblasTrans
-            areDimensionsValid = (matrix.rowCount == rhs.rowCount)
-        }
-
+        let areDimensionsValid = lhsCount == rhs.rowCount
         guard areDimensionsValid else {
             return .failure(.matricesDoNotHaveValidDimensions)
         }
