@@ -50,6 +50,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(MainCircuitStatevectorFactoryTests.allTests),
         testCase(Circuit_StatevectorTests.allTests),
         testCase(Circuit_UnitaryTests.allTests),
+        testCase(CircuitStatevector_CircuitDensityMatrixTests.allTests),
         testCase(CircuitStatevectorFactory_BitsTests.allTests),
         testCase(CircuitStatevector_GroupedProbabilitiesTests.allTests),
         testCase(CircuitStatevector_ProbabilitiesTests.allTests),
