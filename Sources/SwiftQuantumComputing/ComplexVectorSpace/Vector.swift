@@ -23,7 +23,7 @@ import Foundation
 
 // MARK: - Main body
 
-/// Swift representation of a complex vector
+/// Swift representation of a complex "column" vector
 public struct Vector {
 
     // MARK: - Public properties
@@ -62,26 +62,22 @@ public struct Vector {
     }
 
     /**
-     Initializes a new `Vector` instance with `elements`.
+     Initializes a new column `Vector` instance with `elements`.
 
      - Parameter elements: List of `Complex` values.
 
      - Throws: `Vector.InitError`.
 
-     - Returns: A new `Vector` instance.
+     - Returns: A new column `Vector` instance.
      */
     public init(_ elements: [Complex<Double>]) throws {
-        let rows = elements.map { [$0] }
-
-        var matrix: Matrix!
-        do {
-            matrix = try Matrix(rows)
-        } catch Matrix.InitError.doNotPassAnEmptyArray {
+        guard !elements.isEmpty else {
             throw InitError.doNotPassAnEmptyArray
-        } catch {
-            fatalError("Unexpected error: \(error).")
         }
 
+        let matrix = try! Matrix.makeMatrix(rowCount: elements.count,
+                                            columnCount: 1,
+                                            value: { row, _ in elements[row] }).get()
         self.init(matrix: matrix)
     }
 
@@ -125,7 +121,7 @@ public struct Vector {
                              _ rhs: Vector) -> Result<Complex<Double>, InnerProductError> {
         switch Matrix.Transformation.adjointed(lhs.matrix) * rhs.matrix {
         case .success(let matrix):
-            return .success(try! Complex(matrix))
+            return .success(matrix.first)
         case .failure(.matricesDoNotHaveValidDimensions):
             return .failure(.vectorsDoNotHaveSameCount)
         }
@@ -160,27 +156,29 @@ extension Vector {
 
     // MARK: - Internal types
 
-    enum VectorByVectorError: Error {
-        case vectorCountsDoNotMatch
+    enum Transformation {
+        case none(_ vector: Vector)
+        case adjointed(_ vector: Vector)
+        case transposed(_ vector: Vector)
     }
 
-    enum MatrixByVectorError: Error {
-        case matrixColumnCountDoesNotMatchVectorCount
-    }
+    // MARK: - Internal operators
 
     enum VectorByMatrixError: Error {
         case matrixRowCountDoesNotMatchVectorCount
     }
 
-    // MARK: - Internal operators
-
-    static func *(lhs: Vector, rhs: Vector) -> Result<Complex<Double>, VectorByVectorError> {
-        switch Matrix.Transformation.transposed(lhs.matrix) * rhs.matrix {
+    static func *(lhs: Vector, rhs: Matrix) -> Result<Vector, VectorByMatrixError> {
+        switch Matrix.Transformation.transposed(lhs.matrix) * rhs {
         case .success(let matrix):
-            return .success(matrix.first)
+            return .success(Vector(matrix: matrix.transposed()))
         case .failure(.matricesDoNotHaveValidDimensions):
-            return .failure(.vectorCountsDoNotMatch)
+            return .failure(.matrixRowCountDoesNotMatchVectorCount)
         }
+    }
+
+    enum MatrixByVectorError: Error {
+        case matrixColumnCountDoesNotMatchVectorCount
     }
 
     static func *(lhs: Matrix, rhs: Vector) -> Result<Vector, MatrixByVectorError> {
@@ -192,12 +190,43 @@ extension Vector {
         }
     }
 
-    static func *(lhs: Vector, rhs: Matrix) -> Result<Vector, VectorByMatrixError> {
-        switch Matrix.Transformation.transposed(lhs.matrix) * rhs {
+    enum VectorByVectorError: Error {
+        case vectorCountsDoNotMatch
+    }
+
+    static func *(lhs: Vector, rhs: Vector) -> Result<Complex<Double>, VectorByVectorError> {
+        switch Matrix.Transformation.transposed(lhs.matrix) * rhs.matrix {
         case .success(let matrix):
-            return .success(Vector(matrix: matrix.transposed()))
+            return .success(matrix.first)
         case .failure(.matricesDoNotHaveValidDimensions):
-            return .failure(.matrixRowCountDoesNotMatchVectorCount)
+            return .failure(.vectorCountsDoNotMatch)
+        }
+    }
+
+    static func *(lhs: Vector, rhsTransformation: Transformation) -> Result<Matrix, VectorByVectorError> {
+        switch lhs.matrix * matrixTransformation(rhsTransformation) {
+        case .success(let matrix):
+            return .success(matrix)
+        case .failure(.matricesDoNotHaveValidDimensions):
+            return .failure(.vectorCountsDoNotMatch)
+        }
+    }
+}
+
+// MARK: - Private body
+
+private extension Vector {
+
+    // MARK: - Private class methods
+
+    static func matrixTransformation(_ transformation: Transformation) -> Matrix.Transformation {
+        switch transformation {
+        case .none(let vector):
+            return .none(vector.matrix)
+        case .adjointed(let vector):
+            return .adjointed(vector.matrix)
+        case .transposed(let vector):
+            return .transposed(vector.matrix)
         }
     }
 }

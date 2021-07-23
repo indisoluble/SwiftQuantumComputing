@@ -21,6 +21,7 @@
 #if os(Linux)
 
 import CBLAS_Linux
+import CLapacke_Linux
 
 #else
 
@@ -51,7 +52,7 @@ public struct Matrix {
 
     /// Use [row, column] to access elements in the matrix
     public subscript(row: Int, column: Int) -> Complex<Double> {
-        return values[(column * rowCount) + row]
+        return values[values.startIndex + (column * rowCount) + row]
     }
 
     // MARK: - Private properties
@@ -157,6 +158,116 @@ public struct Matrix {
         let slice = values[startIndex..<endIndex]
 
         return .success(Matrix(rowCount: rowCount, columnCount: columnCount, values: slice))
+    }
+
+    enum EigenvaluesError: Error {
+        case matrixIsNotHermitian
+        case unableToComputeEigenvalues
+    }
+
+    func eigenvalues() -> Result<[Double], EigenvaluesError> {
+        guard isHermitian else {
+            return .failure(.matrixIsNotHermitian)
+        }
+
+        // Copy matrix into a mutable array
+        let capacity = values.count
+        let tempA = UnsafeMutablePointer<Complex<Double>>.allocate(capacity: capacity)
+        defer {
+            tempA.deallocate()
+        }
+        values.withUnsafeBufferPointer { buffer in
+            tempA.initialize(from: buffer.baseAddress!, count: capacity)
+        }
+
+        // Prepare shared parameters
+        var jobz = Int8(("N" as Character).asciiValue!) // N: Compute eigenvalues only
+        var uplo = Int8(("L" as Character).asciiValue!) // L: Lower triangular part
+
+        var orderA = Int32(rowCount)
+        var leadingDimensionA = Int32(rowCount)
+
+        var info = Int32()
+
+        let result = Array<Double>(unsafeUninitializedCapacity: rowCount) { output, outputCount in
+            outputCount = rowCount
+
+            #if os(Linux)
+
+            let matrixA = OpaquePointer(tempA)
+
+            info = LAPACKE_zheevd(LAPACK_COL_MAJOR, jobz, uplo, orderA, matrixA, leadingDimensionA, output.baseAddress)
+
+            #else
+
+            let matrixA = UnsafeMutableRawPointer(tempA).bindMemory(to: __CLPK_doublecomplex.self,
+                                                                    capacity: capacity)
+
+            // Get optimal workspace
+            var optimalWorkLength = __CLPK_doublecomplex()
+            var optimalRWorkLength = Double()
+            var optimalIWorkLength = Int32()
+
+            var queryOptimalWorkLength = Int32(-1)
+            var queryOptimalRWorkLength = Int32(-1)
+            var queryOptimalIWorkLength = Int32(-1)
+            zheevd_(&jobz,
+                    &uplo,
+                    &orderA,
+                    matrixA,
+                    &leadingDimensionA,
+                    output.baseAddress,
+                    &optimalWorkLength,
+                    &queryOptimalWorkLength,
+                    &optimalRWorkLength,
+                    &queryOptimalRWorkLength,
+                    &optimalIWorkLength,
+                    &queryOptimalIWorkLength,
+                    &info)
+
+            // Prepare workspace
+            var workLength = Int32(optimalWorkLength.r)
+            let work = UnsafeMutablePointer<__CLPK_doublecomplex>.allocate(capacity: Int(workLength))
+            defer {
+                work.deallocate()
+            }
+
+            var rWorkLength = Int32(optimalRWorkLength)
+            let rWork = UnsafeMutablePointer<Double>.allocate(capacity: Int(rWorkLength))
+            defer {
+                rWork.deallocate()
+            }
+
+            var iWorkLength = optimalIWorkLength
+            let iWork = UnsafeMutablePointer<Int32>.allocate(capacity: Int(iWorkLength))
+            defer {
+                iWork.deallocate()
+            }
+
+            // Compute eigenvalues
+            zheevd_(&jobz,
+                    &uplo,
+                    &orderA,
+                    matrixA,
+                    &leadingDimensionA,
+                    output.baseAddress,
+                    work,
+                    &workLength,
+                    rWork,
+                    &rWorkLength,
+                    iWork,
+                    &iWorkLength,
+                    &info)
+
+            #endif
+        }
+
+        // Validate result
+        if (info != 0) {
+            return .failure(.unableToComputeEigenvalues)
+        }
+
+        return .success(result)
     }
 
     // MARK: - Internal class methods
@@ -319,47 +430,35 @@ extension Matrix {
         return Matrix(rowCount: matrix.rowCount, columnCount: matrix.columnCount, values: X)
     }
 
-    static func *(lhs: Matrix, rhs: Matrix) -> Result<Matrix, ProductError> {
-        return Transformation.none(lhs) * rhs
-    }
-
     enum ProductError: Error {
         case matricesDoNotHaveValidDimensions
     }
 
+    static func *(lhs: Matrix, rhs: Matrix) -> Result<Matrix, ProductError> {
+        return multiply(lhsTransformation: .none(lhs), rhsTransformation: .none(rhs))
+    }
+
     static func *(lhsTransformation: Transformation, rhs: Matrix) -> Result<Matrix, ProductError> {
-        var lhs: Matrix!
-        var lhsTrans = CblasNoTrans
-        var areDimensionsValid = false
+        return multiply(lhsTransformation: lhsTransformation, rhsTransformation: .none(rhs))
+    }
 
-        switch lhsTransformation {
-        case .none(let matrix):
-            lhs = matrix
-            lhsTrans = CblasNoTrans
-            areDimensionsValid = (matrix.columnCount == rhs.rowCount)
-        case .adjointed(let matrix):
-            lhs = matrix
-            lhsTrans = CblasConjTrans
-            areDimensionsValid = (matrix.rowCount == rhs.rowCount)
-        case .transposed(let matrix):
-            lhs = matrix
-            lhsTrans = CblasTrans
-            areDimensionsValid = (matrix.rowCount == rhs.rowCount)
-        }
-
-        guard areDimensionsValid else {
-            return .failure(.matricesDoNotHaveValidDimensions)
-        }
-
-        let matrix = Matrix.multiply(lhs: lhs, lhsTrans: lhsTrans, rhs: rhs)
-
-        return .success(matrix)
+    static func *(lhs: Matrix, rhsTransformation: Transformation) -> Result<Matrix, ProductError> {
+        return multiply(lhsTransformation: .none(lhs), rhsTransformation: rhsTransformation)
     }
 }
 
 // MARK: - Private body
 
 private extension Matrix {
+
+    // MARK: - Private types
+
+    enum Operand {
+        case left(_ transformation: Transformation)
+        case right(_ transformation: Transformation)
+    }
+
+    typealias Components = (matrix: Matrix, trans: CBLAS_TRANSPOSE, count: Int)
 
     // MARK: - Private class methods
 
@@ -378,6 +477,55 @@ private extension Matrix {
         return elements
     }
 
+    static func extractComponents(_ operand: Operand) -> Components {
+        let isLeftOperand: Bool
+        let transformation: Transformation
+        switch operand {
+        case .left(let value):
+            isLeftOperand = true
+            transformation = value
+        case .right(let value):
+            isLeftOperand = false
+            transformation = value
+        }
+
+        switch transformation {
+        case .none(let matrix):
+            return (
+                matrix,
+                CblasNoTrans,
+                isLeftOperand ? matrix.columnCount : matrix.rowCount
+            )
+        case .adjointed(let matrix):
+            return (
+                matrix,
+                CblasConjTrans,
+                isLeftOperand ? matrix.rowCount : matrix.columnCount
+            )
+        case .transposed(let matrix):
+            return (
+                matrix,
+                CblasTrans,
+                isLeftOperand ? matrix.rowCount : matrix.columnCount
+            )
+        }
+    }
+
+    static func multiply(lhsTransformation: Transformation,
+                         rhsTransformation: Transformation) -> Result<Matrix, ProductError> {
+        let (lhs, lhsTrans, lhsCount) = Matrix.extractComponents(.left(lhsTransformation))
+        let (rhs, rhsTrans, rhsCount) = Matrix.extractComponents(.right(rhsTransformation))
+
+        let areDimensionsValid = lhsCount == rhsCount
+        guard areDimensionsValid else {
+            return .failure(.matricesDoNotHaveValidDimensions)
+        }
+
+        let matrix = Matrix.multiply(lhs: lhs, lhsTrans: lhsTrans, rhs: rhs, rhsTrans: rhsTrans)
+
+        return .success(matrix)
+    }
+
     static func multiply(lhs: Matrix,
                          lhsTrans: CBLAS_TRANSPOSE = CblasNoTrans,
                          rhs: Matrix,
@@ -389,28 +537,32 @@ private extension Matrix {
         let lda = lhs.rowCount
         let ldb = rhs.rowCount
         var beta = Complex<Double>.zero
-        var cBuffer = Array(repeating: Complex<Double>.zero, count: (m * n))
         let ldc = m
 
-        lhs.values.withUnsafeBytes { aBuffer in
-            rhs.values.withUnsafeBytes { bBuffer in
-                cblas_zgemm(CblasColMajor,
-                            lhsTrans,
-                            rhsTrans,
-                            Int32(m),
-                            Int32(n),
-                            Int32(k),
-                            &alpha,
-                            aBuffer.baseAddress!,
-                            Int32(lda),
-                            bBuffer.baseAddress!,
-                            Int32(ldb),
-                            &beta,
-                            &cBuffer,
-                            Int32(ldc))
+        let capacity = m * n
+        let values = Array<Complex<Double>>(unsafeUninitializedCapacity: capacity) { cBuffer, actualCount in
+            actualCount = capacity
+
+            lhs.values.withUnsafeBytes { aBuffer in
+                rhs.values.withUnsafeBytes { bBuffer in
+                    cblas_zgemm(CblasColMajor,
+                                lhsTrans,
+                                rhsTrans,
+                                Int32(m),
+                                Int32(n),
+                                Int32(k),
+                                &alpha,
+                                aBuffer.baseAddress,
+                                Int32(lda),
+                                bBuffer.baseAddress,
+                                Int32(ldb),
+                                &beta,
+                                cBuffer.baseAddress,
+                                Int32(ldc))
+                }
             }
         }
 
-        return Matrix(rowCount: m, columnCount: n, values: cBuffer)
+        return Matrix(rowCount: m, columnCount: n, values: values)
     }
 }
