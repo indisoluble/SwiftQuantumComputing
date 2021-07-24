@@ -1,9 +1,9 @@
 //
-//  StatevectorSimulator.swift
+//  DensityMatrixSimulatorFacade.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 12/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 24/07/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,9 +20,14 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol StatevectorSimulator {
-    func apply(circuit: [Gate],
-               to initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError>
+struct DensityMatrixSimulatorFacade {}
+
+// MARK: - DensityMatrixSimulator methods
+
+extension DensityMatrixSimulatorFacade: DensityMatrixSimulator {
+    func apply(circuit: [Gate], to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
+        return .failure(.gateThrowedError(gate: circuit.first!, error: .gateMatrixIsNotUnitary))
+    }
 }

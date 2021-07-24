@@ -129,7 +129,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: "11001").get()
 
         // When
-        let statevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+        let statevector = try! circuit.statevector(withInitialState: initialStatevector).get()
         let probs = try! statevector.summarizedProbabilities(byQubits: inputs).get()
 
         // Then
@@ -146,7 +146,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: "11001").get()
 
         // When
-        let statevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+        let statevector = try! circuit.statevector(withInitialState: initialStatevector).get()
         let probs = try! statevector.summarizedProbabilities(byQubits: inputs).get()
 
         // Then
@@ -163,7 +163,7 @@ class Gate_ModularExponentiationTests: XCTestCase {
         let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: "11001").get()
 
         // When
-        let statevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+        let statevector = try! circuit.statevector(withInitialState: initialStatevector).get()
         let probs = try! statevector.summarizedProbabilities(byQubits: inputs).get()
 
         // Then

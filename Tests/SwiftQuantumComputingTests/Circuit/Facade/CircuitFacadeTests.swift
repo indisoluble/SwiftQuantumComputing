@@ -29,10 +29,12 @@ class CircuitFacadeTests: XCTestCase {
     // MARK: - Properties
 
     let initialCircuitStatevector = CircuitStatevectorTestDouble()
+    let initialCircuitDensityMatrix = CircuitDensityMatrixTestDouble()
     let qubitCount = 2
     let gates = [Gate.hadamard(target: 0), Gate.not(target: 0)]
     let unitarySimulator = UnitarySimulatorTestDouble()
     let statevectorSimulator = StatevectorSimulatorTestDouble()
+    let densityMatrixSimulator = DensityMatrixSimulatorTestDouble()
 
     // MARK: - Tests
 
@@ -40,16 +42,17 @@ class CircuitFacadeTests: XCTestCase {
         // Given
         let facade = CircuitFacade(gates: gates,
                                    unitarySimulator: unitarySimulator,
-                                   statevectorSimulator: statevectorSimulator)
+                                   statevectorSimulator: statevectorSimulator,
+                                   densityMatrixSimulator: densityMatrixSimulator)
 
         let expectedResult = CircuitStatevectorTestDouble()
         statevectorSimulator.applyStateResult = expectedResult
 
         // When
-        let result = try? facade.statevector(withInitialStatevector: initialCircuitStatevector).get()
+        let result = try? facade.statevector(withInitialState: initialCircuitStatevector).get()
 
         // Then
-        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialStatevector
+        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialState
         let lastStatevectorGates = statevectorSimulator.lastApplyStateCircuit
 
         XCTAssertEqual(statevectorSimulator.applyStateCount, 1)
@@ -62,17 +65,18 @@ class CircuitFacadeTests: XCTestCase {
         // Given
         let facade = CircuitFacade(gates: gates,
                                    unitarySimulator: unitarySimulator,
-                                   statevectorSimulator: statevectorSimulator)
+                                   statevectorSimulator: statevectorSimulator,
+                                   densityMatrixSimulator: densityMatrixSimulator)
         statevectorSimulator.applyStateError = .resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 
         // When
         var error: StatevectorError?
-        if case .failure(let e) = facade.statevector(withInitialStatevector: initialCircuitStatevector) {
+        if case .failure(let e) = facade.statevector(withInitialState: initialCircuitStatevector) {
             error = e
         }
 
         // Then
-        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialStatevector
+        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialState
         let lastStatevectorGates = statevectorSimulator.lastApplyStateCircuit
 
         XCTAssertEqual(statevectorSimulator.applyStateCount, 1)
@@ -85,7 +89,8 @@ class CircuitFacadeTests: XCTestCase {
         // Given
         let facade = CircuitFacade(gates: gates,
                                    unitarySimulator: unitarySimulator,
-                                   statevectorSimulator: statevectorSimulator)
+                                   statevectorSimulator: statevectorSimulator,
+                                   densityMatrixSimulator: densityMatrixSimulator)
 
         let expectedResult = try! Matrix([[.zero, .one], [.one, .zero]])
         unitarySimulator.unitaryResult = expectedResult
@@ -107,7 +112,8 @@ class CircuitFacadeTests: XCTestCase {
         // Given
         let facade = CircuitFacade(gates: gates,
                                    unitarySimulator: unitarySimulator,
-                                   statevectorSimulator: statevectorSimulator)
+                                   statevectorSimulator: statevectorSimulator,
+                                   densityMatrixSimulator: densityMatrixSimulator)
         unitarySimulator.unitaryError = .resultingMatrixIsNotUnitary
 
         // When
@@ -126,6 +132,53 @@ class CircuitFacadeTests: XCTestCase {
         XCTAssertEqual(error, .resultingMatrixIsNotUnitary)
     }
 
+    func testAnyCircuit_densityMatrix_forwardCallToDensityMatrixSimulator() {
+        // Given
+        let facade = CircuitFacade(gates: gates,
+                                   unitarySimulator: unitarySimulator,
+                                   statevectorSimulator: statevectorSimulator,
+                                   densityMatrixSimulator: densityMatrixSimulator)
+
+        let expectedResult = CircuitDensityMatrixTestDouble()
+        densityMatrixSimulator.applyStateResult = expectedResult
+
+        // When
+        let result = try? facade.densityMatrix(withInitialState: initialCircuitDensityMatrix).get()
+
+        // Then
+        let lastApplyInitialDensityMatrix = densityMatrixSimulator.lastApplyStateInitialState
+        let lastDensityMatrixGates = densityMatrixSimulator.lastApplyStateCircuit
+
+        XCTAssertEqual(densityMatrixSimulator.applyStateCount, 1)
+        XCTAssertTrue(lastApplyInitialDensityMatrix as AnyObject? === initialCircuitDensityMatrix)
+        XCTAssertEqual(lastDensityMatrixGates, gates)
+        XCTAssertTrue(result as AnyObject? === expectedResult)
+    }
+
+    func testAnyCircuitAndStatevectorSimulatorThatThrowsError_densityMatrix_forwardCallToDensityMatrixSimulatorAndReturnError() {
+        // Given
+        let facade = CircuitFacade(gates: gates,
+                                   unitarySimulator: unitarySimulator,
+                                   statevectorSimulator: statevectorSimulator,
+                                   densityMatrixSimulator: densityMatrixSimulator)
+        densityMatrixSimulator.applyStateError = .resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
+
+        // When
+        var error: DensityMatrixError?
+        if case .failure(let e) = facade.densityMatrix(withInitialState: initialCircuitDensityMatrix) {
+            error = e
+        }
+
+        // Then
+        let lastApplyInitialDensityMatrix = densityMatrixSimulator.lastApplyStateInitialState
+        let lastDensityMatrixGates = densityMatrixSimulator.lastApplyStateCircuit
+
+        XCTAssertEqual(densityMatrixSimulator.applyStateCount, 1)
+        XCTAssertTrue(lastApplyInitialDensityMatrix as AnyObject? === initialCircuitDensityMatrix)
+        XCTAssertEqual(lastDensityMatrixGates, gates)
+        XCTAssertEqual(error, .resultingDensityMatrixEigenvaluesDoesNotAddUpToOne)
+    }
+
     static var allTests = [
         ("testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator",
          testAnyCircuit_circuitStatevector_forwardCallToStatevectorSimulator),
@@ -134,6 +187,10 @@ class CircuitFacadeTests: XCTestCase {
         ("testAnyCircuit_unitary_forwardCallToUnitarySimulator",
          testAnyCircuit_unitary_forwardCallToUnitarySimulator),
         ("testAnyCircuitAndUnitarySimulatorThatThrowsError_unitary_forwardCallToUnitarySimulatorAndReturnError",
-         testAnyCircuitAndUnitarySimulatorThatThrowsError_unitary_forwardCallToUnitarySimulatorAndReturnError)
+         testAnyCircuitAndUnitarySimulatorThatThrowsError_unitary_forwardCallToUnitarySimulatorAndReturnError),
+        ("testAnyCircuit_densityMatrix_forwardCallToDensityMatrixSimulator",
+         testAnyCircuit_densityMatrix_forwardCallToDensityMatrixSimulator),
+        ("testAnyCircuitAndStatevectorSimulatorThatThrowsError_densityMatrix_forwardCallToDensityMatrixSimulatorAndReturnError",
+         testAnyCircuitAndStatevectorSimulatorThatThrowsError_densityMatrix_forwardCallToDensityMatrixSimulatorAndReturnError)
     ]
 }

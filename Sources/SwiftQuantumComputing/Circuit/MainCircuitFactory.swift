@@ -115,7 +115,8 @@ extension MainCircuitFactory: CircuitFactory {
     public func makeCircuit(gates: [Gate]) -> Circuit {
         return CircuitFacade(gates: gates,
                              unitarySimulator: makeUnitarySimulator(),
-                             statevectorSimulator: makeStatevectorSimulator())
+                             statevectorSimulator: makeStatevectorSimulator(),
+                             densityMatrixSimulator: makeDensityMatrixSimulator())
     }
 }
 
@@ -192,5 +193,9 @@ private extension MainCircuitFactory {
         }
 
         return transformation
+    }
+
+    func makeDensityMatrixSimulator() -> DensityMatrixSimulator {
+        return DensityMatrixSimulatorFacade()
     }
 }

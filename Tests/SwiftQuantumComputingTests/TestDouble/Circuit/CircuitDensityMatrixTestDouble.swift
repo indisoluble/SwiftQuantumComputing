@@ -1,9 +1,9 @@
 //
-//  StatevectorSimulator.swift
+//  CircuitDensityMatrixTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 12/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 28/07/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,9 +20,24 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+@testable import SwiftQuantumComputing
 
-protocol StatevectorSimulator {
-    func apply(circuit: [Gate],
-               to initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError>
+// MARK: - Main body
+
+final class CircuitDensityMatrixTestDouble {
+
+    // MARK: - Internal properties
+
+    private (set) var densityMatrixCount = 0
+    var densityMatrixResult = Matrix.makeNot()
+}
+
+// MARK: - CircuitDensityMatrix methods
+
+extension CircuitDensityMatrixTestDouble: CircuitDensityMatrix {
+    var densityMatrix: Matrix {
+        densityMatrixCount += 1
+
+        return densityMatrixResult
+    }
 }

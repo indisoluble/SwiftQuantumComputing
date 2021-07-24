@@ -46,9 +46,9 @@ struct StatevectorSimulatorFacade {
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [Gate],
-               to initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
+               to initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
         StatevectorSimulatorFacade.logger.debug("Producing initial register...")
-        var register = registerFactory.makeRegister(state: initialStatevector)
+        var register = registerFactory.makeRegister(state: initialState)
 
         for (index, gate) in circuit.enumerated() {
             StatevectorSimulatorFacade.logger.debug("Applying gate: \(index + 1) of \(circuit.count)...")

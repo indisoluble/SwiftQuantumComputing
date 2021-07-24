@@ -1,9 +1,9 @@
 //
-//  StatevectorSimulatorTestDouble.swift
+//  DensityMatrixSimulatorTestDouble.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 21/12/2018.
-//  Copyright © 2018 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 24/07/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,22 +24,23 @@ import Foundation
 
 // MARK: - Main body
 
-final class StatevectorSimulatorTestDouble {
+final class DensityMatrixSimulatorTestDouble {
+
 
     // MARK: - Internal properties
 
     private (set) var applyStateCount = 0
     private (set) var lastApplyStateCircuit: [Gate]?
-    private (set) var lastApplyStateInitialState: CircuitStatevector?
-    var applyStateResult: CircuitStatevector?
-    var applyStateError = StatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
+    private (set) var lastApplyStateInitialState: CircuitDensityMatrix?
+    var applyStateResult: CircuitDensityMatrix?
+    var applyStateError = DensityMatrixError.gateThrowedError(gate: .not(target: 0),
+                                                              error: .gateInputsAreNotInBound)
 }
 
-// MARK: - StatevectorSimulator methods
+// MARK: - DensityMatrixSimulator methods
 
-extension StatevectorSimulatorTestDouble: StatevectorSimulator {
-    func apply(circuit: [Gate],
-               to initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
+extension DensityMatrixSimulatorTestDouble: DensityMatrixSimulator  {
+    func apply(circuit: [Gate], to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
         applyStateCount += 1
 
         lastApplyStateInitialState = initialState
@@ -52,4 +53,3 @@ extension StatevectorSimulatorTestDouble: StatevectorSimulator {
         return .failure(applyStateError)
     }
 }
-

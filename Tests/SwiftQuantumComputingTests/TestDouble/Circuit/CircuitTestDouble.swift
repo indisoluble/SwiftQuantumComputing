@@ -37,9 +37,15 @@ final class CircuitTestDouble {
     var unitaryError = UnitaryError.circuitCanNotBeAnEmptyList
 
     private (set) var circuitStatevectorCount = 0
-    private (set) var lastCircuitStatevectorInitialStatevector: CircuitStatevector?
+    private (set) var lastCircuitStatevectorInitialState: CircuitStatevector?
     var circuitStatevectorResult: CircuitStatevector?
     var circuitStatevectorError = StatevectorError.resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
+
+    private (set) var circuitDensityMatrixCount = 0
+    private (set) var lastCircuitDensityMatrixInitialState: CircuitDensityMatrix?
+    var circuitDensityMatrixResult: CircuitDensityMatrix?
+    var circuitDensityMatrixError = DensityMatrixError.gateThrowedError(gate: .not(target: 0),
+                                                                        error: .gateInputsAreNotInBound)
 }
 
 // MARK: - Circuit methods
@@ -63,15 +69,27 @@ extension CircuitTestDouble: Circuit {
         return .failure(unitaryError)
     }
 
-    func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
+    func statevector(withInitialState initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
         circuitStatevectorCount += 1
 
-        lastCircuitStatevectorInitialStatevector = initialStatevector
+        lastCircuitStatevectorInitialState = initialState
 
         if let statevectorResult = circuitStatevectorResult {
             return .success(statevectorResult)
         }
 
         return .failure(circuitStatevectorError)
+    }
+
+    func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
+        circuitDensityMatrixCount += 1
+
+        lastCircuitDensityMatrixInitialState = initialState
+
+        if let densityMatrixResult = circuitDensityMatrixResult {
+            return .success(densityMatrixResult)
+        }
+
+        return .failure(circuitDensityMatrixError)
     }
 }
