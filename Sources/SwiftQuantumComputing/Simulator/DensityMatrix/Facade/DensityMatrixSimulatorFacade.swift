@@ -22,12 +22,56 @@ import Foundation
 
 // MARK: - Main body
 
-struct DensityMatrixSimulatorFacade {}
+struct DensityMatrixSimulatorFacade {
+
+    // MARK: - Private properties
+
+    private let timeEvolutionFactory: DensityMatrixTimeEvolutionFactory
+    private let densityMatrixFactory: CircuitDensityMatrixFactory
+
+    // MARK: - Private class properties
+
+    private static let logger = Logger()
+
+    // MARK: - Internal init methods
+
+    init(timeEvolutionFactory: DensityMatrixTimeEvolutionFactory,
+         densityMatrixFactory: CircuitDensityMatrixFactory) {
+        self.timeEvolutionFactory = timeEvolutionFactory
+        self.densityMatrixFactory = densityMatrixFactory
+    }
+}
 
 // MARK: - DensityMatrixSimulator methods
 
 extension DensityMatrixSimulatorFacade: DensityMatrixSimulator {
     func apply(circuit: [Gate], to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
-        return .failure(.gateThrowedError(gate: circuit.first!, error: .gateMatrixIsNotUnitary))
+        DensityMatrixSimulatorFacade.logger.debug("Preparing time evolution...")
+        var evolution = timeEvolutionFactory.makeTimeEvolution(state: initialState)
+
+        for (index, gate) in circuit.enumerated() {
+            DensityMatrixSimulatorFacade.logger.debug("Applying gate: \(index + 1) of \(circuit.count)...")
+
+            switch evolution.applying(gate) {
+            case .success(let nextEvolution):
+                evolution = nextEvolution
+            case .failure(let error):
+                return .failure(.gateThrowedError(gate: gate, error: error))
+            }
+        }
+
+        DensityMatrixSimulatorFacade.logger.debug("Getting final state...")
+        switch densityMatrixFactory.makeDensityMatrix(matrix: evolution.state) {
+        case .success(let finalDensityMatrix):
+            return .success(finalDensityMatrix)
+        case .failure(.matrixEigenvaluesDoesNotAddUpToOne):
+            return .failure(.resultingDensityMatrixEigenvaluesDoesNotAddUpToOne)
+        case .failure(.matrixIsNotHermitian):
+            return .failure(.resultingDensityMatrixIsNotHermitian)
+        case .failure(.matrixWithNegativeEigenvalues):
+            return .failure(.resultingDensityMatrixWithNegativeEigenvalues)
+        case .failure(.unableToComputeMatrixEigenvalues):
+            return .failure(.unableToComputeresultingDensityMatrixEigenvalues)
+        }
     }
 }

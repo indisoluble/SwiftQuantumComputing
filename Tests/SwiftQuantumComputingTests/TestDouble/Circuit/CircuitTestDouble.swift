@@ -44,8 +44,7 @@ final class CircuitTestDouble {
     private (set) var circuitDensityMatrixCount = 0
     private (set) var lastCircuitDensityMatrixInitialState: CircuitDensityMatrix?
     var circuitDensityMatrixResult: CircuitDensityMatrix?
-    var circuitDensityMatrixError = DensityMatrixError.gateThrowedError(gate: .not(target: 0),
-                                                                        error: .gateInputsAreNotInBound)
+    var circuitDensityMatrixError = DensityMatrixError.resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
 }
 
 // MARK: - Circuit methods

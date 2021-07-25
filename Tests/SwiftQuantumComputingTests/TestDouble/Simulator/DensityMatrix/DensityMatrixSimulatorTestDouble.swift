@@ -26,15 +26,13 @@ import Foundation
 
 final class DensityMatrixSimulatorTestDouble {
 
-
     // MARK: - Internal properties
 
     private (set) var applyStateCount = 0
     private (set) var lastApplyStateCircuit: [Gate]?
     private (set) var lastApplyStateInitialState: CircuitDensityMatrix?
     var applyStateResult: CircuitDensityMatrix?
-    var applyStateError = DensityMatrixError.gateThrowedError(gate: .not(target: 0),
-                                                              error: .gateInputsAreNotInBound)
+    var applyStateError = DensityMatrixError.resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
 }
 
 // MARK: - DensityMatrixSimulator methods

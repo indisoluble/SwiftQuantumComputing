@@ -59,6 +59,15 @@ public enum StatevectorError: Error, Hashable {
 public enum DensityMatrixError: Error, Hashable {
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)
+    /// Throwed when the resulting density matrix is not a valid: its eigenvalues do not add to one
+    case resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
+    /// Throwed when the resulting density matrix is not a valid: it is not hermitian
+    case resultingDensityMatrixIsNotHermitian
+    /// Throwed when the resulting density matrix is not a valid: at least one of its eigenvalues is negative
+    case resultingDensityMatrixWithNegativeEigenvalues
+    /// Throwed if it was not possible to get the eigenvalues for the resulting density matrix
+    case unableToComputeresultingDensityMatrixEigenvalues
+
 }
 
 /// Errors throwed by `Circuit.unitary(withQubitCount:)`

@@ -196,6 +196,7 @@ private extension MainCircuitFactory {
     }
 
     func makeDensityMatrixSimulator() -> DensityMatrixSimulator {
-        return DensityMatrixSimulatorFacade()
+        return DensityMatrixSimulatorFacade(timeEvolutionFactory: DensityMatrixTimeEvolutionFactoryAdapter(),
+                                            densityMatrixFactory: MainCircuitDensityMatrixFactory())
     }
 }
