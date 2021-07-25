@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterTestDouble.swift
+//  StatevectorTimeEvolutionTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 20/12/2018.
@@ -24,7 +24,7 @@ import Foundation
 
 // MARK: - Main body
 
-final class StatevectorRegisterTestDouble {
+final class StatevectorTimeEvolutionTestDouble {
 
     // MARK: - Internal properties
 
@@ -33,18 +33,18 @@ final class StatevectorRegisterTestDouble {
 
     private (set) var simulatorApplyingCount = 0
     private (set) var lastSimulatorApplyingGate: Gate?
-    var simulatorApplyingResult: StatevectorRegisterTestDouble?
+    var simulatorApplyingResult: StatevectorTimeEvolutionTestDouble?
     var simulatorApplyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
 }
 
-extension StatevectorRegisterTestDouble: StatevectorRegister {
+extension StatevectorTimeEvolutionTestDouble: StatevectorTimeEvolution {
     func measure() -> Vector {
         measureCount += 1
 
         return measureResult
     }
 
-    func applying(_ gate: Gate) -> Result<StatevectorRegister, GateError> {
+    func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, GateError> {
         simulatorApplyingCount += 1
 
         lastSimulatorApplyingGate = gate

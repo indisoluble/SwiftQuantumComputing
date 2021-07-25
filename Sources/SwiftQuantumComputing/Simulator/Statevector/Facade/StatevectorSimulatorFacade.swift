@@ -26,7 +26,7 @@ struct StatevectorSimulatorFacade {
 
     // MARK: - Private properties
 
-    private let registerFactory: StatevectorRegisterFactory
+    private let timeEvolutionFactory: StatevectorTimeEvolutionFactory
     private let statevectorFactory: CircuitStatevectorFactory
 
     // MARK: - Private class properties
@@ -35,9 +35,9 @@ struct StatevectorSimulatorFacade {
 
     // MARK: - Internal init methods
 
-    init(registerFactory: StatevectorRegisterFactory,
+    init(timeEvolutionFactory: StatevectorTimeEvolutionFactory,
          statevectorFactory: CircuitStatevectorFactory) {
-        self.registerFactory = registerFactory
+        self.timeEvolutionFactory = timeEvolutionFactory
         self.statevectorFactory = statevectorFactory
     }
 }
@@ -48,21 +48,21 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [Gate],
                to initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
         StatevectorSimulatorFacade.logger.debug("Producing initial register...")
-        var register = registerFactory.makeRegister(state: initialState)
+        var evolution = timeEvolutionFactory.makeTimeEvolution(state: initialState)
 
         for (index, gate) in circuit.enumerated() {
             StatevectorSimulatorFacade.logger.debug("Applying gate: \(index + 1) of \(circuit.count)...")
 
-            switch register.applying(gate) {
-            case .success(let nextRegister):
-                register = nextRegister
+            switch evolution.applying(gate) {
+            case .success(let nextEvolution):
+                evolution = nextEvolution
             case .failure(let error):
                 return .failure(.gateThrowedError(gate: gate, error: error))
             }
         }
 
         StatevectorSimulatorFacade.logger.debug("Getting measurement...")
-        switch statevectorFactory.makeStatevector(vector: register.measure()) {
+        switch statevectorFactory.makeStatevector(vector: evolution.measure()) {
         case .success(let finalStateVector):
             return .success(finalStateVector)
         case .failure(.vectorAdditionOfSquareModulusIsNotEqualToOne):

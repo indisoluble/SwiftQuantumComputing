@@ -156,11 +156,11 @@ private extension MainCircuitFactory {
 
     func makeStatevectorSimulator() -> StatevectorSimulator {
         let transformation = makeStatevectorTransformation()
-        let registerFactory = StatevectorRegisterFactoryAdapter(transformation: transformation)
+        let timeEvolutionFactory = StatevectorTimeEvolutionFactoryAdapter(transformation: transformation)
 
         let statevectorFactory = MainCircuitStatevectorFactory()
 
-        return StatevectorSimulatorFacade(registerFactory: registerFactory,
+        return StatevectorSimulatorFacade(timeEvolutionFactory: timeEvolutionFactory,
                                           statevectorFactory: statevectorFactory)
     }
 

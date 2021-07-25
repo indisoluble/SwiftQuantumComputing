@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterAdapterTests.swift
+//  StatevectorTimeEvolutionAdapterTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 03/05/2020.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class StatevectorRegisterAdapterTests: XCTestCase {
+class StatevectorTimeEvolutionAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -40,14 +40,14 @@ class StatevectorRegisterAdapterTests: XCTestCase {
         let notPowerOfTwoVector = try! Vector([.zero, .zero, .one])
 
         // Then
-        XCTAssertThrowsError(try StatevectorRegisterAdapter(vector: notPowerOfTwoVector,
-                                                            transformation: transformation))
+        XCTAssertThrowsError(try StatevectorTimeEvolutionAdapter(vector: notPowerOfTwoVector,
+                                                                 transformation: transformation))
     }
 
     func testAnyVector_measure_returnValue() {
         // Given
-        let adapter = try! StatevectorRegisterAdapter(vector: oneQubitZeroVector,
-                                                      transformation: transformation)
+        let adapter = try! StatevectorTimeEvolutionAdapter(vector: oneQubitZeroVector,
+                                                           transformation: transformation)
 
         // When
         let result = adapter.measure()
@@ -58,8 +58,8 @@ class StatevectorRegisterAdapterTests: XCTestCase {
 
     func testValidVector_applying_forwardToTransformation() {
         // Given
-        let adapter = try! StatevectorRegisterAdapter(vector: threeQubitZeroVector,
-                                                      transformation: transformation)
+        let adapter = try! StatevectorTimeEvolutionAdapter(vector: threeQubitZeroVector,
+                                                           transformation: transformation)
 
         let controls = [1, 2]
         let target = 0

@@ -29,16 +29,16 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
     // MARK: - Properties
 
-    let registerFactory = StatevectorRegisterFactoryTestDouble()
+    let registerFactory = StatevectorTimeEvolutionFactoryTestDouble()
     let statevectorFactory = CircuitStatevectorFactoryTestDouble()
     let initialCircuitStatevector = CircuitStatevectorTestDouble()
-    let register = StatevectorRegisterTestDouble()
+    let register = StatevectorTimeEvolutionTestDouble()
     let firstGate = Gate.hadamard(target: 0)
-    let firstRegister = StatevectorRegisterTestDouble()
+    let firstRegister = StatevectorTimeEvolutionTestDouble()
     let secondGate = Gate.phaseShift(radians: 0, target: 0)
-    let secondRegister = StatevectorRegisterTestDouble()
+    let secondRegister = StatevectorTimeEvolutionTestDouble()
     let thirdGate = Gate.not(target: 0)
-    let thirdRegister = StatevectorRegisterTestDouble()
+    let thirdRegister = StatevectorTimeEvolutionTestDouble()
     let statevector = try! Vector([Complex(0.1), Complex(0.9)])
     let finalStateVector = CircuitStatevectorTestDouble()
 
@@ -46,10 +46,10 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
     func testRegisterFactoryReturnsRegisterAndEmptyCircuit_applyState_applyStatevectorOnInitialRegister() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
+        let simulator = StatevectorSimulatorFacade(timeEvolutionFactory: registerFactory,
                                                    statevectorFactory: statevectorFactory)
 
-        registerFactory.makeRegisterStateResult = register
+        registerFactory.makeTimeEvolutionStateResult = register
         register.measureResult = statevector
 
         statevectorFactory.makeStatevectorResult = finalStateVector
@@ -58,7 +58,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         let result = try? simulator.apply(circuit: [], to: initialCircuitStatevector).get()
 
         // Then
-        XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
+        XCTAssertEqual(registerFactory.makeTimeEvolutionStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 0)
         XCTAssertEqual(register.measureCount, 1)
         XCTAssertEqual(statevectorFactory.makeStatevectorCount, 1)
@@ -68,10 +68,10 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
     func testRegisterFactoryReturnsRegisterAndRegisterThrowsError_applyState_throwError() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
+        let simulator = StatevectorSimulatorFacade(timeEvolutionFactory: registerFactory,
                                                    statevectorFactory: statevectorFactory)
 
-        registerFactory.makeRegisterStateResult = register
+        registerFactory.makeTimeEvolutionStateResult = register
 
         // Then
         var error: StatevectorError?
@@ -82,7 +82,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(error,
                        .gateThrowedError(gate: firstGate,
                                          error: .circuitQubitCountHasToBeBiggerThanZero))
-        XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
+        XCTAssertEqual(registerFactory.makeTimeEvolutionStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         XCTAssertTrue(register.lastSimulatorApplyingGate == firstGate)
         XCTAssertEqual(register.measureCount, 0)
@@ -91,10 +91,10 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
     func testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegister_applyState_applyStatevectorOnExpectedRegister() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
+        let simulator = StatevectorSimulatorFacade(timeEvolutionFactory: registerFactory,
                                                    statevectorFactory: statevectorFactory)
 
-        registerFactory.makeRegisterStateResult = register
+        registerFactory.makeTimeEvolutionStateResult = register
         register.simulatorApplyingResult = firstRegister
         firstRegister.measureResult = statevector
 
@@ -104,7 +104,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         let result = try? simulator.apply(circuit: [firstGate], to: initialCircuitStatevector).get()
 
         // Then
-        XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
+        XCTAssertEqual(registerFactory.makeTimeEvolutionStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         XCTAssertTrue(register.lastSimulatorApplyingGate == firstGate)
         XCTAssertEqual(firstRegister.simulatorApplyingCount, 0)
@@ -116,10 +116,10 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
     func testRegisterFactoryReturnsRegisterAndRegisterReturnsAnotherRegisterAndStatevectorFactoryThrowsError_applyState_throwError() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
+        let simulator = StatevectorSimulatorFacade(timeEvolutionFactory: registerFactory,
                                                    statevectorFactory: statevectorFactory)
 
-        registerFactory.makeRegisterStateResult = register
+        registerFactory.makeTimeEvolutionStateResult = register
         register.simulatorApplyingResult = firstRegister
         firstRegister.measureResult = statevector
 
@@ -132,7 +132,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
             error = e
         }
         XCTAssertEqual(error, .resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne)
-        XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
+        XCTAssertEqual(registerFactory.makeTimeEvolutionStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         XCTAssertTrue(register.lastSimulatorApplyingGate == firstGate)
         XCTAssertEqual(firstRegister.simulatorApplyingCount, 0)
@@ -143,10 +143,10 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
     func testRegisterFactoryReturnsRegisterRegisterReturnsSecondRegisterButSecondThrowsError_applyState_throwError() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
+        let simulator = StatevectorSimulatorFacade(timeEvolutionFactory: registerFactory,
                                                    statevectorFactory: statevectorFactory)
 
-        registerFactory.makeRegisterStateResult = register
+        registerFactory.makeTimeEvolutionStateResult = register
         register.simulatorApplyingResult = firstRegister
         firstRegister.simulatorApplyingResult = secondRegister
 
@@ -159,7 +159,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(error,
                        .gateThrowedError(gate: thirdGate,
                                          error: .circuitQubitCountHasToBeBiggerThanZero))
-        XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
+        XCTAssertEqual(registerFactory.makeTimeEvolutionStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         XCTAssertTrue(register.lastSimulatorApplyingGate == firstGate)
         XCTAssertEqual(firstRegister.simulatorApplyingCount, 1)
@@ -174,10 +174,10 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
     func testRegisterFactoryReturnsRegisterAndRegistersDoTheSame_applyState_applyStatevectorOnExpectedRegister() {
         // Given
-        let simulator = StatevectorSimulatorFacade(registerFactory: registerFactory,
+        let simulator = StatevectorSimulatorFacade(timeEvolutionFactory: registerFactory,
                                                    statevectorFactory: statevectorFactory)
 
-        registerFactory.makeRegisterStateResult = register
+        registerFactory.makeTimeEvolutionStateResult = register
         register.simulatorApplyingResult = firstRegister
         firstRegister.simulatorApplyingResult = secondRegister
         secondRegister.simulatorApplyingResult = thirdRegister
@@ -190,7 +190,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
                                           to: initialCircuitStatevector).get()
 
         // Then
-        XCTAssertEqual(registerFactory.makeRegisterStateCount, 1)
+        XCTAssertEqual(registerFactory.makeTimeEvolutionStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         XCTAssertTrue(register.lastSimulatorApplyingGate == firstGate)
         XCTAssertEqual(firstRegister.simulatorApplyingCount, 1)

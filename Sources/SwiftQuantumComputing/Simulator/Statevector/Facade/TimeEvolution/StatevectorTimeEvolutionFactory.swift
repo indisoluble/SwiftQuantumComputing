@@ -1,9 +1,9 @@
 //
-//  StatevectorRegister.swift
+//  StatevectorTimeEvolutionFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 23/05/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 30/12/2018.
+//  Copyright © 2018 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol StatevectorRegister {
-    func measure() -> Vector
-    func applying(_ gate: Gate) -> Result<StatevectorRegister, GateError>
+protocol StatevectorTimeEvolutionFactory {
+    func makeTimeEvolution(state: CircuitStatevector) -> StatevectorTimeEvolution
 }

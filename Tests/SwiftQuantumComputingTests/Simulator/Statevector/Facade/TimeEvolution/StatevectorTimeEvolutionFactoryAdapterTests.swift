@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterFactoryAdapterTests.swift
+//  StatevectorTimeEvolutionFactoryAdapterTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 03/05/2020.
@@ -24,7 +24,7 @@ import XCTest
 
 // MARK: - Main body
 
-class StatevectorRegisterFactoryAdapterTests: XCTestCase {
+class StatevectorTimeEvolutionFactoryAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -32,22 +32,22 @@ class StatevectorRegisterFactoryAdapterTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyCircuitStateVector_makeRegister_returnValue() {
+    func testAnyCircuitStateVector_makeTimeEvolution_returnValue() {
         // Given
-        let adapter = StatevectorRegisterFactoryAdapter(transformation: transformation)
+        let adapter = StatevectorTimeEvolutionFactoryAdapter(transformation: transformation)
 
         let vector = try! Vector([.zero, .zero, .zero, .one])
         let statevector = try! CircuitStatevectorAdapter(statevector: vector)
 
         // When
-        let register = adapter.makeRegister(state: statevector)
+        let register = adapter.makeTimeEvolution(state: statevector)
 
         // Then
         XCTAssertEqual(register.measure(), vector)
     }
 
     static var allTests = [
-        ("testAnyCircuitStateVector_makeRegister_returnValue",
-         testAnyCircuitStateVector_makeRegister_returnValue)
+        ("testAnyCircuitStateVector_makeTimeEvolution_returnValue",
+         testAnyCircuitStateVector_makeTimeEvolution_returnValue)
     ]
 }

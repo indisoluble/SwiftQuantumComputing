@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterAdapter.swift
+//  StatevectorTimeEvolutionAdapter.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 03/05/2020.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct StatevectorRegisterAdapter {
+struct StatevectorTimeEvolutionAdapter {
 
     // MARK: - Private properties
 
@@ -45,18 +45,18 @@ struct StatevectorRegisterAdapter {
     }
 }
 
-// MARK: - StatevectorRegister methods
+// MARK: - StatevectorTimeEvolution methods
 
-extension StatevectorRegisterAdapter: StatevectorRegister {
+extension StatevectorTimeEvolutionAdapter: StatevectorTimeEvolution {
     func measure() -> Vector {
         return vector
     }
 
-    func applying(_ gate: Gate) -> Result<StatevectorRegister, GateError> {
+    func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, GateError> {
         switch transformation.apply(gate: gate, toStatevector: vector) {
         case .success(let nextVector):
-            let adapter = try! StatevectorRegisterAdapter(vector: nextVector,
-                                                          transformation: transformation)
+            let adapter = try! StatevectorTimeEvolutionAdapter(vector: nextVector,
+                                                               transformation: transformation)
             return .success(adapter)
         case .failure(let error):
             return .failure(error)

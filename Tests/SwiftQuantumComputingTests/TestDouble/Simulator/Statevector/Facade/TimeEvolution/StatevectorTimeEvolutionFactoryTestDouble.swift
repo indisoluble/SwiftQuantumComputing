@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterFactoryTestDouble.swift
+//  StatevectorTimeEvolutionFactoryTestDouble.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 30/12/2018.
@@ -24,23 +24,23 @@ import Foundation
 
 // MARK: - Main body
 
-final class StatevectorRegisterFactoryTestDouble {
+final class StatevectorTimeEvolutionFactoryTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var makeRegisterStateCount = 0
-    private (set) var lastMakeRegisterStateState: CircuitStatevector?
-    var makeRegisterStateResult = StatevectorRegisterTestDouble()
+    private (set) var makeTimeEvolutionStateCount = 0
+    private (set) var lastMakeTimeEvolutionStateState: CircuitStatevector?
+    var makeTimeEvolutionStateResult = StatevectorTimeEvolutionTestDouble()
 }
 
-// MARK: - StatevectorRegisterFactory methods
+// MARK: - StatevectorTimeEvolutionFactory methods
 
-extension StatevectorRegisterFactoryTestDouble: StatevectorRegisterFactory {
-    func makeRegister(state: CircuitStatevector) -> StatevectorRegister {
-        makeRegisterStateCount += 1
+extension StatevectorTimeEvolutionFactoryTestDouble: StatevectorTimeEvolutionFactory {
+    func makeTimeEvolution(state: CircuitStatevector) -> StatevectorTimeEvolution {
+        makeTimeEvolutionStateCount += 1
 
-        lastMakeRegisterStateState = state
+        lastMakeTimeEvolutionStateState = state
 
-        return makeRegisterStateResult
+        return makeTimeEvolutionStateResult
     }
 }

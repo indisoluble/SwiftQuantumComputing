@@ -1,5 +1,5 @@
 //
-//  StatevectorRegisterFactoryAdapter.swift
+//  StatevectorTimeEvolutionFactoryAdapter.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 03/05/2020.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Main body
 
-struct StatevectorRegisterFactoryAdapter {
+struct StatevectorTimeEvolutionFactoryAdapter {
 
     // MARK: - Private properties
 
@@ -35,11 +35,11 @@ struct StatevectorRegisterFactoryAdapter {
     }
 }
 
-// MARK: - StatevectorRegisterFactory methods
+// MARK: - StatevectorTimeEvolutionFactory methods
 
-extension StatevectorRegisterFactoryAdapter: StatevectorRegisterFactory {
-    func makeRegister(state: CircuitStatevector) -> StatevectorRegister {
-        return try! StatevectorRegisterAdapter(vector: state.statevector,
-                                               transformation: transformation)
+extension StatevectorTimeEvolutionFactoryAdapter: StatevectorTimeEvolutionFactory {
+    func makeTimeEvolution(state: CircuitStatevector) -> StatevectorTimeEvolution {
+        return try! StatevectorTimeEvolutionAdapter(vector: state.statevector,
+                                                    transformation: transformation)
     }
 }
