@@ -40,17 +40,17 @@ class StatevectorTimeEvolutionAdapterTests: XCTestCase {
         let notPowerOfTwoVector = try! Vector([.zero, .zero, .one])
 
         // Then
-        XCTAssertThrowsError(try StatevectorTimeEvolutionAdapter(vector: notPowerOfTwoVector,
+        XCTAssertThrowsError(try StatevectorTimeEvolutionAdapter(state: notPowerOfTwoVector,
                                                                  transformation: transformation))
     }
 
-    func testAnyVector_measure_returnValue() {
+    func testAnyVector_state_returnValue() {
         // Given
-        let adapter = try! StatevectorTimeEvolutionAdapter(vector: oneQubitZeroVector,
+        let adapter = try! StatevectorTimeEvolutionAdapter(state: oneQubitZeroVector,
                                                            transformation: transformation)
 
         // When
-        let result = adapter.measure()
+        let result = adapter.state
 
         // Then
         XCTAssertEqual(result, oneQubitZeroVector)
@@ -58,7 +58,7 @@ class StatevectorTimeEvolutionAdapterTests: XCTestCase {
 
     func testValidVector_applying_forwardToTransformation() {
         // Given
-        let adapter = try! StatevectorTimeEvolutionAdapter(vector: threeQubitZeroVector,
+        let adapter = try! StatevectorTimeEvolutionAdapter(state: threeQubitZeroVector,
                                                            transformation: transformation)
 
         let controls = [1, 2]
@@ -74,14 +74,14 @@ class StatevectorTimeEvolutionAdapterTests: XCTestCase {
         XCTAssertEqual(transformation.applyCount, 1)
         XCTAssertEqual(transformation.lastApplyGate, gate)
         XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
-        XCTAssertEqual(result?.measure(), threeQubitFourVector)
+        XCTAssertEqual(result?.state, threeQubitFourVector)
     }
 
     static var allTests = [
         ("testVectorWhichCountIsNotAPowerOfTwo_init_throwException",
          testVectorWhichCountIsNotAPowerOfTwo_init_throwException),
-        ("testAnyVector_measure_returnValue",
-         testAnyVector_measure_returnValue),
+        ("testAnyVector_state_returnValue",
+         testAnyVector_state_returnValue),
         ("testValidVector_applying_forwardToTransformation",
          testValidVector_applying_forwardToTransformation)
     ]

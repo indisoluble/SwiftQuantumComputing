@@ -50,7 +50,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
                                                    statevectorFactory: statevectorFactory)
 
         registerFactory.makeTimeEvolutionStateResult = register
-        register.measureResult = statevector
+        register.stateResult = statevector
 
         statevectorFactory.makeStatevectorResult = finalStateVector
 
@@ -60,7 +60,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         // Then
         XCTAssertEqual(registerFactory.makeTimeEvolutionStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 0)
-        XCTAssertEqual(register.measureCount, 1)
+        XCTAssertEqual(register.stateCount, 1)
         XCTAssertEqual(statevectorFactory.makeStatevectorCount, 1)
         XCTAssertEqual(statevectorFactory.lastMakeStatevectorVector, statevector)
         XCTAssertTrue(result as AnyObject? === finalStateVector)
@@ -85,7 +85,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(registerFactory.makeTimeEvolutionStateCount, 1)
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         XCTAssertTrue(register.lastSimulatorApplyingGate == firstGate)
-        XCTAssertEqual(register.measureCount, 0)
+        XCTAssertEqual(register.stateCount, 0)
         XCTAssertEqual(statevectorFactory.makeStatevectorCount, 0)
     }
 
@@ -96,7 +96,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
         registerFactory.makeTimeEvolutionStateResult = register
         register.simulatorApplyingResult = firstRegister
-        firstRegister.measureResult = statevector
+        firstRegister.stateResult = statevector
 
         statevectorFactory.makeStatevectorResult = finalStateVector
 
@@ -108,7 +108,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         XCTAssertTrue(register.lastSimulatorApplyingGate == firstGate)
         XCTAssertEqual(firstRegister.simulatorApplyingCount, 0)
-        XCTAssertEqual(firstRegister.measureCount, 1)
+        XCTAssertEqual(firstRegister.stateCount, 1)
         XCTAssertEqual(statevectorFactory.makeStatevectorCount, 1)
         XCTAssertEqual(statevectorFactory.lastMakeStatevectorVector, statevector)
         XCTAssertTrue(result as AnyObject? === finalStateVector)
@@ -121,7 +121,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
 
         registerFactory.makeTimeEvolutionStateResult = register
         register.simulatorApplyingResult = firstRegister
-        firstRegister.measureResult = statevector
+        firstRegister.stateResult = statevector
 
         statevectorFactory.makeStatevectorError = .vectorAdditionOfSquareModulusIsNotEqualToOne
 
@@ -136,7 +136,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertEqual(register.simulatorApplyingCount, 1)
         XCTAssertTrue(register.lastSimulatorApplyingGate == firstGate)
         XCTAssertEqual(firstRegister.simulatorApplyingCount, 0)
-        XCTAssertEqual(firstRegister.measureCount, 1)
+        XCTAssertEqual(firstRegister.stateCount, 1)
         XCTAssertEqual(statevectorFactory.makeStatevectorCount, 1)
         XCTAssertEqual(statevectorFactory.lastMakeStatevectorVector, statevector)
     }
@@ -166,9 +166,9 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertTrue(firstRegister.lastSimulatorApplyingGate == secondGate)
         XCTAssertEqual(secondRegister.simulatorApplyingCount, 1)
         XCTAssertTrue(secondRegister.lastSimulatorApplyingGate == thirdGate)
-        XCTAssertEqual(register.measureCount, 0)
-        XCTAssertEqual(firstRegister.measureCount, 0)
-        XCTAssertEqual(secondRegister.measureCount, 0)
+        XCTAssertEqual(register.stateCount, 0)
+        XCTAssertEqual(firstRegister.stateCount, 0)
+        XCTAssertEqual(secondRegister.stateCount, 0)
         XCTAssertEqual(statevectorFactory.makeStatevectorCount, 0)
     }
 
@@ -181,7 +181,7 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         register.simulatorApplyingResult = firstRegister
         firstRegister.simulatorApplyingResult = secondRegister
         secondRegister.simulatorApplyingResult = thirdRegister
-        thirdRegister.measureResult = statevector
+        thirdRegister.stateResult = statevector
 
         statevectorFactory.makeStatevectorResult = finalStateVector
 
@@ -197,10 +197,10 @@ class StatevectorSimulatorFacadeTests: XCTestCase {
         XCTAssertTrue(firstRegister.lastSimulatorApplyingGate == secondGate)
         XCTAssertEqual(secondRegister.simulatorApplyingCount, 1)
         XCTAssertTrue(secondRegister.lastSimulatorApplyingGate == thirdGate)
-        XCTAssertEqual(register.measureCount, 0)
-        XCTAssertEqual(firstRegister.measureCount, 0)
-        XCTAssertEqual(secondRegister.measureCount, 0)
-        XCTAssertEqual(thirdRegister.measureCount, 1)
+        XCTAssertEqual(register.stateCount, 0)
+        XCTAssertEqual(firstRegister.stateCount, 0)
+        XCTAssertEqual(secondRegister.stateCount, 0)
+        XCTAssertEqual(thirdRegister.stateCount, 1)
         XCTAssertEqual(statevectorFactory.makeStatevectorCount, 1)
         XCTAssertEqual(statevectorFactory.lastMakeStatevectorVector, statevector)
         XCTAssertTrue(result as AnyObject? === finalStateVector)

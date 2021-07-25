@@ -43,7 +43,7 @@ class StatevectorTimeEvolutionFactoryAdapterTests: XCTestCase {
         let register = adapter.makeTimeEvolution(state: statevector)
 
         // Then
-        XCTAssertEqual(register.measure(), vector)
+        XCTAssertEqual(register.state, vector)
     }
 
     static var allTests = [

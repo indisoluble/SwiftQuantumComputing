@@ -23,6 +23,7 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol StatevectorTimeEvolution {
-    func measure() -> Vector
+    var state: Vector { get }
+
     func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, GateError>
 }

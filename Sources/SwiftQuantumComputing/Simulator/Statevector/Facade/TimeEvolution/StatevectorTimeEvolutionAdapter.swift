@@ -24,23 +24,26 @@ import Foundation
 
 struct StatevectorTimeEvolutionAdapter {
 
+    // MARK: - StatevectorTimeEvolution properties
+
+    let state: Vector
+
     // MARK: - Private properties
 
-    private let vector: Vector
     private let transformation: StatevectorTransformation
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case vectorCountHasToBeAPowerOfTwo
+        case stateCountHasToBeAPowerOfTwo
     }
 
-    init(vector: Vector, transformation: StatevectorTransformation) throws {
-        guard vector.count.isPowerOfTwo else {
-            throw InitError.vectorCountHasToBeAPowerOfTwo
+    init(state: Vector, transformation: StatevectorTransformation) throws {
+        guard state.count.isPowerOfTwo else {
+            throw InitError.stateCountHasToBeAPowerOfTwo
         }
 
-        self.vector = vector
+        self.state = state
         self.transformation = transformation
     }
 }
@@ -48,14 +51,10 @@ struct StatevectorTimeEvolutionAdapter {
 // MARK: - StatevectorTimeEvolution methods
 
 extension StatevectorTimeEvolutionAdapter: StatevectorTimeEvolution {
-    func measure() -> Vector {
-        return vector
-    }
-
     func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, GateError> {
-        switch transformation.apply(gate: gate, toStatevector: vector) {
-        case .success(let nextVector):
-            let adapter = try! StatevectorTimeEvolutionAdapter(vector: nextVector,
+        switch transformation.apply(gate: gate, toStatevector: state) {
+        case .success(let nextState):
+            let adapter = try! StatevectorTimeEvolutionAdapter(state: nextState,
                                                                transformation: transformation)
             return .success(adapter)
         case .failure(let error):

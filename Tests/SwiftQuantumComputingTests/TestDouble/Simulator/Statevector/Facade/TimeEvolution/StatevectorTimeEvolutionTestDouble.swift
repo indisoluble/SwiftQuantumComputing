@@ -28,8 +28,8 @@ final class StatevectorTimeEvolutionTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var measureCount = 0
-    var measureResult = try! Vector([.zero, .one])
+    private (set) var stateCount = 0
+    var stateResult = try! Vector([.zero, .one])
 
     private (set) var simulatorApplyingCount = 0
     private (set) var lastSimulatorApplyingGate: Gate?
@@ -38,10 +38,10 @@ final class StatevectorTimeEvolutionTestDouble {
 }
 
 extension StatevectorTimeEvolutionTestDouble: StatevectorTimeEvolution {
-    func measure() -> Vector {
-        measureCount += 1
+    var state: Vector {
+        stateCount += 1
 
-        return measureResult
+        return stateResult
     }
 
     func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, GateError> {

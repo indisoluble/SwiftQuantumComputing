@@ -39,7 +39,7 @@ struct StatevectorTimeEvolutionFactoryAdapter {
 
 extension StatevectorTimeEvolutionFactoryAdapter: StatevectorTimeEvolutionFactory {
     func makeTimeEvolution(state: CircuitStatevector) -> StatevectorTimeEvolution {
-        return try! StatevectorTimeEvolutionAdapter(vector: state.statevector,
+        return try! StatevectorTimeEvolutionAdapter(state: state.statevector,
                                                     transformation: transformation)
     }
 }

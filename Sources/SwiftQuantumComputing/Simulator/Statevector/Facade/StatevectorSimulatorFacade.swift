@@ -47,7 +47,7 @@ struct StatevectorSimulatorFacade {
 extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [Gate],
                to initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
-        StatevectorSimulatorFacade.logger.debug("Producing initial register...")
+        StatevectorSimulatorFacade.logger.debug("Preparing time evolution...")
         var evolution = timeEvolutionFactory.makeTimeEvolution(state: initialState)
 
         for (index, gate) in circuit.enumerated() {
@@ -61,8 +61,8 @@ extension StatevectorSimulatorFacade: StatevectorSimulator {
             }
         }
 
-        StatevectorSimulatorFacade.logger.debug("Getting measurement...")
-        switch statevectorFactory.makeStatevector(vector: evolution.measure()) {
+        StatevectorSimulatorFacade.logger.debug("Getting final state...")
+        switch statevectorFactory.makeStatevector(vector: evolution.state) {
         case .success(let finalStateVector):
             return .success(finalStateVector)
         case .failure(.vectorAdditionOfSquareModulusIsNotEqualToOne):
