@@ -28,6 +28,10 @@ struct UnitarySimulatorFacade {
 
     private let gateFactory: UnitaryGateFactory
 
+    // MARK: - Private class properties
+
+    private static let logger = Logger()
+
     // MARK: - Internal init methods
 
     init(gateFactory: UnitaryGateFactory) {
@@ -43,6 +47,7 @@ extension UnitarySimulatorFacade: UnitarySimulator {
             return .failure(.circuitCanNotBeAnEmptyList)
         }
 
+        UnitarySimulatorFacade.logger.debug("Initializing unitary with gate: 1 of \(circuit.count)...")
         var unitaryGate: UnitaryGate
         switch gateFactory.makeUnitaryGate(qubitCount: qubitCount, gate: firstGate) {
         case .success(let nextGate):
@@ -51,7 +56,9 @@ extension UnitarySimulatorFacade: UnitarySimulator {
             return .failure(.gateThrowedError(gate: firstGate, error: error))
         }
 
-        for gate in circuit[1...] {
+        for (index, gate) in circuit[1...].enumerated() {
+            UnitarySimulatorFacade.logger.debug("Applying gate: \(index + 1) of \(circuit.count)...")
+
             switch unitaryGate.applying(gate) {
             case .success(let nextGate):
                 unitaryGate = nextGate
@@ -60,6 +67,7 @@ extension UnitarySimulatorFacade: UnitarySimulator {
             }
         }
 
+        UnitarySimulatorFacade.logger.debug("Getting final unitary")
         switch unitaryGate.unitary() {
         case .success(let matrix):
             return .success(matrix)
