@@ -27,12 +27,38 @@ struct DensityMatrixTimeEvolutionAdapter {
     // MARK: - DensityMatrixTimeEvolution properties
 
     let state: Matrix
+
+    // MARK: - Private properties
+
+    private let transformation: DensityMatrixTransformation
+
+    // MARK: - Internal init methods
+
+    enum InitError: Error {
+        case stateIsNotSquare
+    }
+
+    init(state: Matrix, transformation: DensityMatrixTransformation) throws {
+        guard state.isSquare else {
+            throw InitError.stateIsNotSquare
+        }
+
+        self.state = state
+        self.transformation = transformation
+    }
 }
 
 // MARK: - DensityMatrixTimeEvolution methods
 
 extension DensityMatrixTimeEvolutionAdapter: DensityMatrixTimeEvolution {
     func applying(_ gate: Gate) -> Result<DensityMatrixTimeEvolution, GateError> {
-        return .success(DensityMatrixTimeEvolutionAdapter(state: state))
+        switch transformation.apply(gate: gate, toDensityMatrix: state) {
+        case .success(let nextState):
+            let adapter = try! DensityMatrixTimeEvolutionAdapter(state: nextState,
+                                                                 transformation: transformation)
+            return .success(adapter)
+        case .failure(let error):
+            return .failure(error)
+        }
     }
 }

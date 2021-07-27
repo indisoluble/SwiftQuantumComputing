@@ -22,12 +22,24 @@ import Foundation
 
 // MARK: - Main body
 
-struct DensityMatrixTimeEvolutionFactoryAdapter {}
+struct DensityMatrixTimeEvolutionFactoryAdapter {
+
+    // MARK: - Private properties
+
+    private let transformation: DensityMatrixTransformation
+
+    // MARK: - Internal init methods
+
+    init(transformation: DensityMatrixTransformation) {
+        self.transformation = transformation
+    }
+}
 
 // MARK: - DensityMatrixTimeEvolutionFactory methods
 
 extension DensityMatrixTimeEvolutionFactoryAdapter: DensityMatrixTimeEvolutionFactory {
     func makeTimeEvolution(state: CircuitDensityMatrix) -> DensityMatrixTimeEvolution {
-        return DensityMatrixTimeEvolutionAdapter(state: state.densityMatrix)
+        return try! DensityMatrixTimeEvolutionAdapter(state: state.densityMatrix,
+                                                      transformation: transformation)
     }
 }

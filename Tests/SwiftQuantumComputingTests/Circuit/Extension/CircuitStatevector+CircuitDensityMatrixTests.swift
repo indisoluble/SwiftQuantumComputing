@@ -50,8 +50,50 @@ class CircuitStatevector_CircuitDensityMatrixTests: XCTestCase {
                                                           absoluteTolerance: SharedConstants.tolerance))
     }
 
+    func testOtherStatevector_densityMatrix_returnExpectedResult() {
+        // Given
+        let vector = try!  Vector([.one, .zero, .zero, .zero])
+        let statevector = try! MainCircuitStatevectorFactory().makeStatevector(vector: vector).get()
+
+        // When
+        let result = statevector.densityMatrix()
+
+        // Then
+        let expectedResult = try! Matrix([
+            [.one, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero]
+        ])
+        XCTAssertTrue(expectedResult.isApproximatelyEqual(to: result.densityMatrix,
+                                                          absoluteTolerance: SharedConstants.tolerance))
+    }
+
+    func testAnotherStatevector_densityMatrix_returnExpectedResult() {
+        // Given
+        let vector = try!  Vector([.zero, .one, .zero, .zero])
+        let statevector = try! MainCircuitStatevectorFactory().makeStatevector(vector: vector).get()
+
+        // When
+        let result = statevector.densityMatrix()
+
+        // Then
+        let expectedResult = try! Matrix([
+            [.zero, .zero, .zero, .zero],
+            [.zero, .one, .zero, .zero],
+            [.zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero]
+        ])
+        XCTAssertTrue(expectedResult.isApproximatelyEqual(to: result.densityMatrix,
+                                                          absoluteTolerance: SharedConstants.tolerance))
+    }
+
     static var allTests = [
         ("testAnyStatevector_densityMatrix_returnExpectedResult",
-         testAnyStatevector_densityMatrix_returnExpectedResult)
+         testAnyStatevector_densityMatrix_returnExpectedResult),
+        ("testOtherStatevector_densityMatrix_returnExpectedResult",
+         testOtherStatevector_densityMatrix_returnExpectedResult),
+        ("testAnotherStatevector_densityMatrix_returnExpectedResult",
+         testAnotherStatevector_densityMatrix_returnExpectedResult)
     ]
 }

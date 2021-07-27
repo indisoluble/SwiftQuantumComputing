@@ -23,5 +23,5 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol CircuitSimulatorMatrixDensityMatrixTransformation {
-    func apply(matrix: CircuitSimulatorMatrix, toDensityMatrix matrix: Matrix) -> Matrix
+    func apply(matrix: CircuitSimulatorMatrix, toDensityMatrix densityMatrix: Matrix) -> Matrix
 }

@@ -47,7 +47,7 @@ public enum GateError: Error {
     case gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes
 }
 
-/// Errors throwed by `Circuit.statevector(withInitialStatevector:)`
+/// Errors throwed by `Circuit.statevector(withInitialState:)`
 public enum StatevectorError: Error, Hashable {
     /// Throwed if `gate` throws `error`
     case gateThrowedError(gate: Gate, error: GateError)

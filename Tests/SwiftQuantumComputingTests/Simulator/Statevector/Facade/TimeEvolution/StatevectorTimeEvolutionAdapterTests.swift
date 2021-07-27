@@ -32,6 +32,7 @@ class StatevectorTimeEvolutionAdapterTests: XCTestCase {
     let oneQubitZeroVector = try! Vector([.one, .zero])
     let threeQubitZeroVector = try! Vector([.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero])
     let threeQubitFourVector = try! Vector([.zero, .zero, .zero, .zero, .one, .zero, .zero, .zero])
+    let gate = Gate.oracle(truthTable: ["00"], controls: [1, 2], gate: .not(target: 0))
 
     // MARK: - Tests
 
@@ -61,10 +62,6 @@ class StatevectorTimeEvolutionAdapterTests: XCTestCase {
         let adapter = try! StatevectorTimeEvolutionAdapter(state: threeQubitZeroVector,
                                                            transformation: transformation)
 
-        let controls = [1, 2]
-        let target = 0
-        let gate = Gate.oracle(truthTable: ["00"], controls: controls, gate: .not(target: target))
-
         transformation.applyResult = threeQubitFourVector
 
         // When
@@ -77,12 +74,33 @@ class StatevectorTimeEvolutionAdapterTests: XCTestCase {
         XCTAssertEqual(result?.state, threeQubitFourVector)
     }
 
+    func testValidVectorAndTransformationThatThrowsError_applying_throwError() {
+        // Given
+        let adapter = try! StatevectorTimeEvolutionAdapter(state: threeQubitZeroVector,
+                                                           transformation: transformation)
+
+        transformation.applyError = .gateMatrixIsNotUnitary
+
+        // Then
+        var error: GateError?
+        if case .failure(let e) = adapter.applying(gate) {
+            error = e
+        }
+
+        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
+        XCTAssertEqual(transformation.applyCount, 1)
+        XCTAssertEqual(transformation.lastApplyGate, gate)
+        XCTAssertEqual(transformation.lastApplyVector, threeQubitZeroVector)
+    }
+
     static var allTests = [
         ("testVectorWhichCountIsNotAPowerOfTwo_init_throwException",
          testVectorWhichCountIsNotAPowerOfTwo_init_throwException),
         ("testAnyVector_state_returnValue",
          testAnyVector_state_returnValue),
         ("testValidVector_applying_forwardToTransformation",
-         testValidVector_applying_forwardToTransformation)
+         testValidVector_applying_forwardToTransformation),
+        ("testValidVectorAndTransformationThatThrowsError_applying_throwError",
+         testValidVectorAndTransformationThatThrowsError_applying_throwError)
     ]
 }
