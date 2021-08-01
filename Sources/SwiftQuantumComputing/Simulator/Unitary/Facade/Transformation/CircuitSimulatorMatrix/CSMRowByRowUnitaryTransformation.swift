@@ -74,7 +74,7 @@ extension CSMRowByRowUnitaryTransformation: CircuitSimulatorMatrixUnitaryTransfo
                                         let column = try! matrix.makeSlice(startColumn: columnIndex,
                                                                            columnCount: 1).get()
 
-                                        return try! Complex((row * column).get())
+                                        return try! (row * column).get().first
                                       }).get()
     }
 }
