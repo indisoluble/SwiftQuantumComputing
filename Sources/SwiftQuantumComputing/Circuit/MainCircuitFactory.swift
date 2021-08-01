@@ -201,7 +201,7 @@ private extension MainCircuitFactory {
 
             transformation = try! DirectStatevectorTransformation(filteringFactory: filteringFactory,
                                                                   indexingFactory: indexingFactory,
-                                                                  statevectorCalculationConcurrency: stcc)
+                                                                  calculationConcurrency: stcc)
         }
 
         return transformation

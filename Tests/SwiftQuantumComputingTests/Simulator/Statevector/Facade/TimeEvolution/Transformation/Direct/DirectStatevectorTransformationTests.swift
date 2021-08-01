@@ -30,7 +30,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
     let adapter = try! DirectStatevectorTransformation(filteringFactory: DirectStatevectorFilteringFactoryAdapter(),
                                                        indexingFactory: DirectStatevectorIndexingFactoryAdapter(),
-                                                       statevectorCalculationConcurrency: 1)
+                                                       calculationConcurrency: 1)
     let scmAdapter = try! CSMFullMatrixStatevectorTransformation(matrixExpansionConcurrency: 1)
 
     let threeQubitZeroVector = try! Vector([.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero])
@@ -76,14 +76,14 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Then
         XCTAssertThrowsError(try DirectStatevectorTransformation(filteringFactory: DirectStatevectorFilteringFactoryAdapter(),
                                                                  indexingFactory: DirectStatevectorIndexingFactoryAdapter(),
-                                                                 statevectorCalculationConcurrency: 0))
+                                                                 calculationConcurrency: 0))
     }
 
     func testInvalidGate_apply_throwError() {
         // Given
         let sut = try! DirectStatevectorTransformation(filteringFactory: DirectStatevectorFilteringFactoryAdapter(),
                                                        indexingFactory: DirectStatevectorIndexingFactoryAdapter(),
-                                                       statevectorCalculationConcurrency: 1)
+                                                       calculationConcurrency: 1)
 
         let gate = Gate.controlledNot(target: 0, control: 0)
 
@@ -103,7 +103,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
         let sut = try! DirectStatevectorTransformation(filteringFactory: DirectStatevectorFilteringFactoryAdapter(),
                                                        indexingFactory: factory,
-                                                       statevectorCalculationConcurrency: 1)
+                                                       calculationConcurrency: 1)
 
         // When
         let result = try! sut.apply(gate: .not(target: target),
@@ -143,7 +143,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
         let sut = try! DirectStatevectorTransformation(filteringFactory: DirectStatevectorFilteringFactoryAdapter(),
                                                        indexingFactory: factory,
-                                                       statevectorCalculationConcurrency: 1)
+                                                       calculationConcurrency: 1)
 
         // When
         let result = try! sut.apply(gate: .controlledNot(target: target, control: 0),
@@ -301,7 +301,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
 
         let sut = try! DirectStatevectorTransformation(filteringFactory: DirectStatevectorFilteringFactoryAdapter(),
                                                        indexingFactory: factory,
-                                                       statevectorCalculationConcurrency: 1)
+                                                       calculationConcurrency: 1)
 
         // When
         let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix, inputs: inputs),
