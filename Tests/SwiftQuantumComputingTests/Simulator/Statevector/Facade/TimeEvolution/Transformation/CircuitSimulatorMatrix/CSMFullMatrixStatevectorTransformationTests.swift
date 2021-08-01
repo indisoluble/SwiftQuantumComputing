@@ -31,7 +31,7 @@ class CSMFullMatrixStatevectorTransformationTests: XCTestCase {
 
     func testMaxConcurrencyEqualToZero_init_throwException() {
         // Then
-        XCTAssertThrowsError(try CSMFullMatrixStatevectorTransformation(matrixExpansionConcurrency: 0))
+        XCTAssertThrowsError(try CSMFullMatrixStatevectorTransformation(expansionConcurrency: 0))
     }
 
     func testMatrixFactoryReturnsMatrix_applying_returnValue() {
@@ -41,7 +41,7 @@ class CSMFullMatrixStatevectorTransformationTests: XCTestCase {
         elements[0] = .one
 
         let vector = try! Vector(elements)
-        let adapter = try! CSMFullMatrixStatevectorTransformation(matrixExpansionConcurrency: 1)
+        let adapter = try! CSMFullMatrixStatevectorTransformation(expansionConcurrency: 1)
 
         let circuitMatrix = CircuitSimulatorMatrix(qubitCount: vectorQubitCount,
                                                    baseMatrix: Matrix.makeNot(),
@@ -62,7 +62,7 @@ class CSMFullMatrixStatevectorTransformationTests: XCTestCase {
         elements[0] = .one
 
         let vector = try! Vector(elements)
-        let adapter = try! CSMFullMatrixStatevectorTransformation(matrixExpansionConcurrency: 2)
+        let adapter = try! CSMFullMatrixStatevectorTransformation(expansionConcurrency: 2)
 
         let circuitMatrix = CircuitSimulatorMatrix(qubitCount: qubitCount,
                                                    baseMatrix: Matrix.makeNot(),

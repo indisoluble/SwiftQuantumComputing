@@ -31,14 +31,14 @@ class CSMRowByRowStatevectorTransformationTests: XCTestCase {
 
     func testStatevectorCalculationConcurrencyEqualToZero_init_throwError() {
         // Then
-        XCTAssertThrowsError(try CSMRowByRowStatevectorTransformation(statevectorCalculationConcurrency: 0,
-                                                                      rowExpansionConcurrency: 1))
+        XCTAssertThrowsError(try CSMRowByRowStatevectorTransformation(calculationConcurrency: 0,
+                                                                      expansionConcurrency: 1))
     }
 
     func testRowExpansionConcurrencyEqualToZero_init_throwError() {
         // Then
-        XCTAssertThrowsError(try CSMRowByRowStatevectorTransformation(statevectorCalculationConcurrency: 1,
-                                                                      rowExpansionConcurrency: 0))
+        XCTAssertThrowsError(try CSMRowByRowStatevectorTransformation(calculationConcurrency: 1,
+                                                                      expansionConcurrency: 0))
     }
 
     func testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne() {
@@ -48,8 +48,8 @@ class CSMRowByRowStatevectorTransformationTests: XCTestCase {
         elements[0] = .one
 
         let vector = try! Vector(elements)
-        let adapter = try! CSMRowByRowStatevectorTransformation(statevectorCalculationConcurrency: 1,
-                                                                rowExpansionConcurrency: 1)
+        let adapter = try! CSMRowByRowStatevectorTransformation(calculationConcurrency: 1,
+                                                                expansionConcurrency: 1)
 
         let circuitRow = CircuitSimulatorMatrix(qubitCount: qubitCount,
                                                 baseMatrix: Matrix.makeNot(),

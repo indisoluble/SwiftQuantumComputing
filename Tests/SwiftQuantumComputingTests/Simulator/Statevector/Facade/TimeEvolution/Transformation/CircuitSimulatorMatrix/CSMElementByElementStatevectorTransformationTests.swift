@@ -31,7 +31,7 @@ class CSMElementByElementStatevectorTransformationTests: XCTestCase {
 
     func testMaxConcurrencyEqualToZero_init_throwError() {
         // Then
-        XCTAssertThrowsError(try CSMElementByElementStatevectorTransformation(statevectorCalculationConcurrency: 0))
+        XCTAssertThrowsError(try CSMElementByElementStatevectorTransformation(calculationConcurrency: 0))
     }
 
     func testTwoQubitsRegisterInitializedToZeroAndNotMatrix_applyNotMatrixToLeastSignificantQubit_oneHasProbabilityOne() {
@@ -41,7 +41,7 @@ class CSMElementByElementStatevectorTransformationTests: XCTestCase {
         elements[0] = .one
 
         let vector = try! Vector(elements)
-        let adapter = try! CSMElementByElementStatevectorTransformation(statevectorCalculationConcurrency: 1)
+        let adapter = try! CSMElementByElementStatevectorTransformation(calculationConcurrency: 1)
 
         let circuitElement = CircuitSimulatorMatrix(qubitCount: qubitCount,
                                                     baseMatrix: Matrix.makeNot(),

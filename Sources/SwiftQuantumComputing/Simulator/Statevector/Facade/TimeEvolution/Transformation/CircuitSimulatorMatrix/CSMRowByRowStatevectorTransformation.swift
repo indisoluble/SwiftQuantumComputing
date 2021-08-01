@@ -26,27 +26,27 @@ struct CSMRowByRowStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let statevectorCalculationConcurrency: Int
-    private let rowExpansionConcurrency: Int
+    private let calculationConcurrency: Int
+    private let expansionConcurrency: Int
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case statevectorCalculationConcurrencyHasToBiggerThanZero
-        case rowExpansionConcurrencyHasToBiggerThanZero
+        case calculationConcurrencyHasToBiggerThanZero
+        case expansionConcurrencyHasToBiggerThanZero
     }
 
-    init(statevectorCalculationConcurrency: Int, rowExpansionConcurrency: Int) throws {
-        guard statevectorCalculationConcurrency > 0 else {
-            throw InitError.statevectorCalculationConcurrencyHasToBiggerThanZero
+    init(calculationConcurrency: Int, expansionConcurrency: Int) throws {
+        guard calculationConcurrency > 0 else {
+            throw InitError.calculationConcurrencyHasToBiggerThanZero
         }
 
-        guard rowExpansionConcurrency > 0 else {
-            throw InitError.rowExpansionConcurrencyHasToBiggerThanZero
+        guard expansionConcurrency > 0 else {
+            throw InitError.expansionConcurrencyHasToBiggerThanZero
         }
 
-        self.statevectorCalculationConcurrency = statevectorCalculationConcurrency
-        self.rowExpansionConcurrency = rowExpansionConcurrency
+        self.calculationConcurrency = calculationConcurrency
+        self.expansionConcurrency = expansionConcurrency
     }
 }
 
@@ -58,10 +58,10 @@ extension CSMRowByRowStatevectorTransformation: StatevectorTransformation {}
 
 extension CSMRowByRowStatevectorTransformation: CircuitSimulatorMatrixStatevectorTransformation {
     func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector {
-        let stcc = statevectorCalculationConcurrency
+        let stcc = calculationConcurrency
 
         return try! Vector.makeVector(count: vector.count, maxConcurrency: stcc, value: { idx in
-            let lhs = try! matrix.row(idx, maxConcurrency: rowExpansionConcurrency).get()
+            let lhs = try! matrix.row(idx, maxConcurrency: expansionConcurrency).get()
 
             return try! (lhs * vector).get()
         }).get()

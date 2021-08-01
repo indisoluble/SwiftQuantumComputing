@@ -26,20 +26,20 @@ struct CSMFullMatrixStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let matrixExpansionConcurrency: Int
+    private let expansionConcurrency: Int
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case matrixExpansionConcurrencyHasToBiggerThanZero
+        case expansionConcurrencyHasToBiggerThanZero
     }
 
-    init(matrixExpansionConcurrency: Int) throws {
-        guard matrixExpansionConcurrency > 0 else {
-            throw InitError.matrixExpansionConcurrencyHasToBiggerThanZero
+    init(expansionConcurrency: Int) throws {
+        guard expansionConcurrency > 0 else {
+            throw InitError.expansionConcurrencyHasToBiggerThanZero
         }
 
-        self.matrixExpansionConcurrency = matrixExpansionConcurrency
+        self.expansionConcurrency = expansionConcurrency
     }
 }
 
@@ -51,7 +51,7 @@ extension CSMFullMatrixStatevectorTransformation: StatevectorTransformation {}
 
 extension CSMFullMatrixStatevectorTransformation: CircuitSimulatorMatrixStatevectorTransformation {
     func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector {
-        let lhs = try! matrix.expandedRawMatrix(maxConcurrency: matrixExpansionConcurrency).get()
+        let lhs = try! matrix.expandedRawMatrix(maxConcurrency: expansionConcurrency).get()
 
         return try! (lhs * vector).get()
     }

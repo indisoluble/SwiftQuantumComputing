@@ -31,7 +31,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
     let adapter = try! DirectStatevectorTransformation(filteringFactory: DirectStatevectorFilteringFactoryAdapter(),
                                                        indexingFactory: DirectStatevectorIndexingFactoryAdapter(),
                                                        calculationConcurrency: 1)
-    let scmAdapter = try! CSMFullMatrixStatevectorTransformation(matrixExpansionConcurrency: 1)
+    let scmAdapter = try! CSMFullMatrixStatevectorTransformation(expansionConcurrency: 1)
 
     let threeQubitZeroVector = try! Vector([.one, .zero, .zero, .zero, .zero, .zero, .zero, .zero])
     let threeQubitOneVector = try! Vector([.zero, .one, .zero, .zero, .zero, .zero, .zero, .zero])

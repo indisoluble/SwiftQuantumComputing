@@ -182,17 +182,17 @@ private extension MainCircuitFactory {
         case .fullMatrix(let matrixExpansionConcurrency):
             let mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
 
-            transformation = try! CSMFullMatrixStatevectorTransformation(matrixExpansionConcurrency: mc)
+            transformation = try! CSMFullMatrixStatevectorTransformation(expansionConcurrency: mc)
         case .rowByRow(let statevectorCalculationConcurrency, let rowExpansionConcurrency):
             let stcc = statevectorCalculationConcurrency > 0 ? statevectorCalculationConcurrency : 1
             let rec = rowExpansionConcurrency > 0 ? rowExpansionConcurrency : 1
 
-            transformation = try! CSMRowByRowStatevectorTransformation(statevectorCalculationConcurrency: stcc,
-                                                                       rowExpansionConcurrency: rec)
+            transformation = try! CSMRowByRowStatevectorTransformation(calculationConcurrency: stcc,
+                                                                       expansionConcurrency: rec)
         case .elementByElement(let statevectorCalculationConcurrency):
             let mc = statevectorCalculationConcurrency > 0 ? statevectorCalculationConcurrency : 1
 
-            transformation = try! CSMElementByElementStatevectorTransformation(statevectorCalculationConcurrency: mc)
+            transformation = try! CSMElementByElementStatevectorTransformation(calculationConcurrency: mc)
         case .direct(let statevectorCalculationConcurrency):
             let stcc = statevectorCalculationConcurrency > 0 ? statevectorCalculationConcurrency : 1
 

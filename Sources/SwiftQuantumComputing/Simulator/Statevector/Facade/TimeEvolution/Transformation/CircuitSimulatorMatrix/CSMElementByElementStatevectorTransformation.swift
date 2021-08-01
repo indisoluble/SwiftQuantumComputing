@@ -27,20 +27,20 @@ struct CSMElementByElementStatevectorTransformation {
 
     // MARK: - Private properties
 
-    private let statevectorCalculationConcurrency: Int
+    private let calculationConcurrency: Int
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case statevectorCalculationConcurrencyHasToBiggerThanZero
+        case calculationConcurrencyHasToBiggerThanZero
     }
 
-    init(statevectorCalculationConcurrency: Int) throws {
-        guard statevectorCalculationConcurrency > 0 else {
-            throw InitError.statevectorCalculationConcurrencyHasToBiggerThanZero
+    init(calculationConcurrency: Int) throws {
+        guard calculationConcurrency > 0 else {
+            throw InitError.calculationConcurrencyHasToBiggerThanZero
         }
 
-        self.statevectorCalculationConcurrency = statevectorCalculationConcurrency
+        self.calculationConcurrency = calculationConcurrency
     }
 }
 
@@ -52,7 +52,7 @@ extension CSMElementByElementStatevectorTransformation: StatevectorTransformatio
 
 extension CSMElementByElementStatevectorTransformation: CircuitSimulatorMatrixStatevectorTransformation {
     func apply(matrix: CircuitSimulatorMatrix, toStatevector vector: Vector) -> Vector {
-        let stcc = statevectorCalculationConcurrency
+        let stcc = calculationConcurrency
 
         return try! Vector.makeVector(count: vector.count, maxConcurrency: stcc, value: { idx in
             var result = Complex<Double>.zero
