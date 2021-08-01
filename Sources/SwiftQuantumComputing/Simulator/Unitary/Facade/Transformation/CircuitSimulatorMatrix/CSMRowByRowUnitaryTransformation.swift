@@ -27,27 +27,27 @@ struct CSMRowByRowUnitaryTransformation {
 
     // MARK: - Private properties
 
-    private let unitaryCalculationConcurrency: Int
-    private let rowExpansionConcurrency: Int
+    private let calculationConcurrency: Int
+    private let expansionConcurrency: Int
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case rowExpansionConcurrencyHasToBiggerThanZero
-        case unitaryCalculationConcurrencyHasToBiggerThanZero
+        case expansionConcurrencyHasToBiggerThanZero
+        case calculationConcurrencyHasToBiggerThanZero
     }
 
-    init(unitaryCalculationConcurrency: Int, rowExpansionConcurrency: Int) throws {
-        guard unitaryCalculationConcurrency > 0 else {
-            throw InitError.unitaryCalculationConcurrencyHasToBiggerThanZero
+    init(calculationConcurrency: Int, expansionConcurrency: Int) throws {
+        guard calculationConcurrency > 0 else {
+            throw InitError.calculationConcurrencyHasToBiggerThanZero
         }
 
-        guard rowExpansionConcurrency > 0 else {
-            throw InitError.rowExpansionConcurrencyHasToBiggerThanZero
+        guard expansionConcurrency > 0 else {
+            throw InitError.expansionConcurrencyHasToBiggerThanZero
         }
 
-        self.unitaryCalculationConcurrency = unitaryCalculationConcurrency
-        self.rowExpansionConcurrency = rowExpansionConcurrency
+        self.calculationConcurrency = calculationConcurrency
+        self.expansionConcurrency = expansionConcurrency
     }
 }
 
@@ -60,8 +60,8 @@ extension CSMRowByRowUnitaryTransformation: UnitaryTransformation {}
 extension CSMRowByRowUnitaryTransformation: CircuitSimulatorMatrixUnitaryTransformation {
     func apply(circuitMatrix: CircuitSimulatorMatrix, toUnitary matrix: Matrix) -> Matrix {
         let count = circuitMatrix.count
-        let ucc = unitaryCalculationConcurrency
-        let rec = rowExpansionConcurrency
+        let ucc = calculationConcurrency
+        let rec = expansionConcurrency
 
         return try! Matrix.makeMatrix(rowCount: count,
                                       columnCount: count,

@@ -29,7 +29,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1)
+    let transformation = try! CSMFullMatrixUnitaryTransformation(expansionConcurrency: 1)
     let gateInputs = [0]
     let gateMatrix = Matrix.makeHadamard()
     let simulatorMatrix = Matrix.makeHadamard()

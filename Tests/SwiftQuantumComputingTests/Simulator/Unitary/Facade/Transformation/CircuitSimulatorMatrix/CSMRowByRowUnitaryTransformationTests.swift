@@ -31,20 +31,20 @@ class CSMRowByRowUnitaryTransformationTests: XCTestCase {
 
     func testUnitaryCalculationConcurrencyEqualToZero_init_throwException() {
         // Then
-        XCTAssertThrowsError(try CSMRowByRowUnitaryTransformation(unitaryCalculationConcurrency: 0,
-                                                                  rowExpansionConcurrency: 1))
+        XCTAssertThrowsError(try CSMRowByRowUnitaryTransformation(calculationConcurrency: 0,
+                                                                  expansionConcurrency: 1))
     }
 
     func testRowExpansionConcurrencyEqualToZero_init_throwException() {
         // Then
-        XCTAssertThrowsError(try CSMRowByRowUnitaryTransformation(unitaryCalculationConcurrency: 1,
-                                                                  rowExpansionConcurrency: 0))
+        XCTAssertThrowsError(try CSMRowByRowUnitaryTransformation(calculationConcurrency: 1,
+                                                                  expansionConcurrency: 0))
     }
 
     func testGivenHadamardAndNot_apply_returnExpectedMatrix() {
         // Given
-        let sut = try! CSMRowByRowUnitaryTransformation(unitaryCalculationConcurrency: 1,
-                                                        rowExpansionConcurrency: 1)
+        let sut = try! CSMRowByRowUnitaryTransformation(calculationConcurrency: 1,
+                                                        expansionConcurrency: 1)
         let circuitMatrix = CircuitSimulatorMatrix(qubitCount: 1,
                                                    baseMatrix: Matrix.makeNot(),
                                                    inputs: [0])

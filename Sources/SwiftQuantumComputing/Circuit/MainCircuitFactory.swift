@@ -149,18 +149,18 @@ private extension MainCircuitFactory {
         case .fullMatrix(let matrixExpansionConcurrency):
             mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
 
-            transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: mc)
+            transformation = try! CSMFullMatrixUnitaryTransformation(expansionConcurrency: mc)
         case .rowByRow(let unitaryCalculationConcurrency, let rowExpansionConcurrency):
             let ucc = unitaryCalculationConcurrency > 0 ? unitaryCalculationConcurrency : 1
             let rec = rowExpansionConcurrency > 0 ? rowExpansionConcurrency : 1
             mc = rec * ucc
 
-            transformation = try! CSMRowByRowUnitaryTransformation(unitaryCalculationConcurrency: ucc,
-                                                                   rowExpansionConcurrency: rec)
+            transformation = try! CSMRowByRowUnitaryTransformation(calculationConcurrency: ucc,
+                                                                   expansionConcurrency: rec)
         case .elementByElement(let unitaryCalculationConcurrency):
             mc = unitaryCalculationConcurrency > 0 ? unitaryCalculationConcurrency : 1
 
-            transformation = try! CSMElementByElementUnitaryTransformation(unitaryCalculationConcurrency: mc)
+            transformation = try! CSMElementByElementUnitaryTransformation(calculationConcurrency: mc)
         }
 
         return try! UnitaryGateFactoryAdapter(maxConcurrency: mc, transformation: transformation)
