@@ -81,11 +81,17 @@ public struct MainCircuitFactory {
 
     /// Define behaviour of `Circuit.densityMatrix(withInitialState:)`
     public enum DensityMatrixConfiguration {
-        /// Each `Gate` is expanded into a `Matrix` and applied to the current density matrix
-        /// to get the next density matrix. Expansion can be done in parallel with up to `matrixExpansionConcurrency`
-        /// threads. If `matrixExpansionConcurrency` is set to 1 or less, the whole process will be serial.
-        /// This configuration has the biggest memory footprint.
-        case fullMatrix(matrixExpansionConcurrency: Int = 1)
+        /// Each `Gate` is expanded into a `Matrix` before applying to the `CircuitDensityMatrix` for the entire circuit.
+        /// Matrix expansion is performed with up to `expansionConcurrency` threads.
+        /// If `expansionConcurrency` is 0 or less, it will be defaulted to 1.
+        /// This configuration has the biggest memory footprint but it is the fastest.
+        case matrix(expansionConcurrency: Int = 1)
+        /// To apply a `Gate` to the `CircuitDensityMatrix` for the entire circuit, up to `calculationConcurrency`
+        /// rows in the density matrix are calculated simultaneously.
+        /// When needed, rows in `Gate` will be expanded using up to `expansionConcurrency` threads, so at any
+        /// given moment there might be `calculationConcurrency` * `expansionConcurrency` threads running.
+        /// If `calculationConcurrency` or `expansionConcurrency` are set to 0 or less, they will be defaulted to 1.
+        case vector(calculationConcurrency: Int = 1, expansionConcurrency: Int = 1)
     }
 
     // MARK: - Private properties
@@ -112,7 +118,7 @@ public struct MainCircuitFactory {
      */
     public init(unitaryConfiguration: UnitaryConfiguration = .matrix(),
                 statevectorConfiguration: StatevectorConfiguration = .direct(),
-                densityMatrixConfiguration: DensityMatrixConfiguration = .fullMatrix()) {
+                densityMatrixConfiguration: DensityMatrixConfiguration = .matrix()) {
         self.unitaryConfiguration = unitaryConfiguration
         self.statevectorConfiguration = statevectorConfiguration
         self.densityMatrixConfiguration = densityMatrixConfiguration
@@ -220,10 +226,16 @@ private extension MainCircuitFactory {
     func makeDensityMatrixTransformation() -> DensityMatrixTransformation {
         let transformation: DensityMatrixTransformation
         switch densityMatrixConfiguration {
-        case .fullMatrix(let matrixExpansionConcurrency):
+        case .matrix(let matrixExpansionConcurrency):
             let mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
 
             transformation = try! CSMFullMatrixDensityMatrixTransformation(expansionConcurrency: mc)
+        case .vector(let densityCalculationConcurrency, let rowExpansionConcurrency):
+            let dcc = densityCalculationConcurrency > 0 ? densityCalculationConcurrency : 1
+            let rec = rowExpansionConcurrency > 0 ? rowExpansionConcurrency : 1
+
+            transformation = try! CSMRowByRowDensityMatrixTransformation(calculationConcurrency: dcc,
+                                                                         expansionConcurrency: rec)
         }
 
         return transformation
