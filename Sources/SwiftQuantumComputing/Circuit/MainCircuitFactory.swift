@@ -91,7 +91,7 @@ public struct MainCircuitFactory {
         /// When needed, rows in `Gate` will be expanded using up to `expansionConcurrency` threads, so at any
         /// given moment there might be `calculationConcurrency` * `expansionConcurrency` threads running.
         /// If `calculationConcurrency` or `expansionConcurrency` are set to 0 or less, they will be defaulted to 1.
-        case vector(calculationConcurrency: Int = 1, expansionConcurrency: Int = 1)
+        case row(calculationConcurrency: Int = 1, expansionConcurrency: Int = 1)
     }
 
     // MARK: - Private properties
@@ -230,7 +230,7 @@ private extension MainCircuitFactory {
             let mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
 
             transformation = try! CSMFullMatrixDensityMatrixTransformation(expansionConcurrency: mc)
-        case .vector(let densityCalculationConcurrency, let rowExpansionConcurrency):
+        case .row(let densityCalculationConcurrency, let rowExpansionConcurrency):
             let dcc = densityCalculationConcurrency > 0 ? densityCalculationConcurrency : 1
             let rec = rowExpansionConcurrency > 0 ? rowExpansionConcurrency : 1
 
