@@ -30,9 +30,9 @@ enum Result: String, CaseIterable, ExpressibleByArgument {
 }
 
 enum Mode: String, CaseIterable, ExpressibleByArgument {
-    case fullMatrix
-    case rowByRow
-    case elementByElement
+    case matrix
+    case row
+    case value
     case direct
 }
 
@@ -111,15 +111,15 @@ struct SQCMeasurePerformance: ParsableCommand {
         }
 
         switch mode {
-        case .direct, .elementByElement:
+        case .direct, .value:
             if expansionConcurrency > 1 {
                 throw ValidationError("Only valid expasion for mode \(mode) is 1.")
             }
-        case .fullMatrix:
+        case .matrix:
             if calculationConcurrency > 1 {
                 throw ValidationError("Only valid calculations for mode \(mode) is 1.")
             }
-        case .rowByRow:
+        case .row:
             break
         }
 
@@ -268,20 +268,20 @@ private extension SQCMeasurePerformance {
         let unitConfig: MainCircuitFactory.UnitaryConfiguration
         let stateConfig: MainCircuitFactory.StatevectorConfiguration
         switch mode {
-        case .fullMatrix:
-            unitConfig = .fullMatrix(matrixExpansionConcurrency: expansionConcurrency)
-            stateConfig = .fullMatrix(matrixExpansionConcurrency: expansionConcurrency)
-        case .rowByRow:
-            unitConfig = .rowByRow(unitaryCalculationConcurrency: calculationConcurrency,
-                                   rowExpansionConcurrency: expansionConcurrency)
-            stateConfig = .rowByRow(statevectorCalculationConcurrency: calculationConcurrency,
-                                    rowExpansionConcurrency: expansionConcurrency)
-        case .elementByElement:
-            unitConfig = .elementByElement(unitaryCalculationConcurrency: calculationConcurrency)
-            stateConfig = .elementByElement(statevectorCalculationConcurrency: calculationConcurrency)
+        case .matrix:
+            unitConfig = .matrix(expansionConcurrency: expansionConcurrency)
+            stateConfig = .matrix(expansionConcurrency: expansionConcurrency)
+        case .row:
+            unitConfig = .row(calculationConcurrency: calculationConcurrency,
+                              expansionConcurrency: expansionConcurrency)
+            stateConfig = .row(calculationConcurrency: calculationConcurrency,
+                               expansionConcurrency: expansionConcurrency)
+        case .value:
+            unitConfig = .value(calculationConcurrency: calculationConcurrency)
+            stateConfig = .value(calculationConcurrency: calculationConcurrency)
         case .direct:
-            unitConfig = .elementByElement(unitaryCalculationConcurrency: calculationConcurrency)
-            stateConfig = .direct(statevectorCalculationConcurrency: calculationConcurrency)
+            unitConfig = .value(calculationConcurrency: calculationConcurrency)
+            stateConfig = .direct(calculationConcurrency: calculationConcurrency)
         }
 
         return MainCircuitFactory(unitaryConfiguration: unitConfig,
