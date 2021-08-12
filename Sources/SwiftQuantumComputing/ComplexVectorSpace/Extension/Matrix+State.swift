@@ -1,9 +1,9 @@
 //
-//  Vector+State.swift
+//  Matrix+State.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 21/06/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 12/08/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,12 +18,11 @@
 // limitations under the License.
 //
 
-import ComplexModule
 import Foundation
 
 // MARK: - Main body
 
-extension Vector {
+extension Matrix {
 
     // MARK: - Internal class methods
 
@@ -32,7 +31,7 @@ extension Vector {
         case valueHasToBeContainedInQubits
     }
 
-    static func makeState(value: Int, qubitCount: Int) -> Result<Vector, MakeStateError> {
+    static func makeState(value: Int, qubitCount: Int) -> Result<Matrix, MakeStateError> {
         guard qubitCount > 0 else {
             return .failure(.qubitCountHasToBeBiggerThanZero)
         }
@@ -42,9 +41,10 @@ extension Vector {
             return .failure(.valueHasToBeContainedInQubits)
         }
 
-        var elements = Array(repeating: Complex<Double>.zero, count: count)
-        elements[value] = .one
+        let matrix = try! makeMatrix(rowCount: count, columnCount: count, value: { row, col in
+            return row == col && row == value ? .one : .zero
+        }).get()
 
-        return .success(try! Vector(elements))
+        return .success(matrix)
     }
 }
