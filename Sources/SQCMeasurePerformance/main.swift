@@ -25,6 +25,7 @@ import SwiftQuantumComputing
 // MARK: - Types
 
 enum Result: String, CaseIterable, ExpressibleByArgument {
+    case densityMatrix
     case statevector
     case unitary
 }
@@ -51,7 +52,7 @@ struct SQCMeasurePerformance: ParsableCommand {
     // MARK: - Properties
 
     static var configuration = CommandConfiguration(
-        abstract: "Calculate how long it takes to produce a statevector or an unitary",
+        abstract: "Calculate how long it takes to produce a statevector, unitary or density matrix",
         discussion: """
             This application provides multiple configuration options, try
             different values to check the performance of this quantum
@@ -98,7 +99,8 @@ struct SQCMeasurePerformance: ParsableCommand {
     // MARK: - Methods
 
     mutating func validate() throws {
-        guard result != .unitary || mode != .direct else {
+        guard !(result == .unitary && mode == .direct) &&
+                !(result == .densityMatrix && (mode == .value || mode == .direct)) else {
             throw ValidationError("Option \(result) can not be executed in mode \(mode).")
         }
 
@@ -194,6 +196,8 @@ private extension SQCMeasurePerformance {
 
     func execute(_ circuit: SwiftQuantumComputing.Circuit) {
         switch result {
+        case .densityMatrix:
+            _ = circuit.densityMatrix()
         case .statevector:
             _ = circuit.statevector()
         case .unitary:
@@ -267,25 +271,32 @@ private extension SQCMeasurePerformance {
     func makeFactory() -> CircuitFactory {
         let unitConfig: MainCircuitFactory.UnitaryConfiguration
         let stateConfig: MainCircuitFactory.StatevectorConfiguration
+        let densityConfig: MainCircuitFactory.DensityMatrixConfiguration
         switch mode {
         case .matrix:
             unitConfig = .matrix(expansionConcurrency: expansionConcurrency)
             stateConfig = .matrix(expansionConcurrency: expansionConcurrency)
+            densityConfig = .matrix(expansionConcurrency: expansionConcurrency)
         case .row:
             unitConfig = .row(calculationConcurrency: calculationConcurrency,
                               expansionConcurrency: expansionConcurrency)
             stateConfig = .row(calculationConcurrency: calculationConcurrency,
                                expansionConcurrency: expansionConcurrency)
+            densityConfig = .row(calculationConcurrency: calculationConcurrency,
+                                 expansionConcurrency: expansionConcurrency)
         case .value:
             unitConfig = .value(calculationConcurrency: calculationConcurrency)
             stateConfig = .value(calculationConcurrency: calculationConcurrency)
+            densityConfig = .matrix(expansionConcurrency: expansionConcurrency)
         case .direct:
-            unitConfig = .value(calculationConcurrency: calculationConcurrency)
+            unitConfig = .matrix(expansionConcurrency: expansionConcurrency)
             stateConfig = .direct(calculationConcurrency: calculationConcurrency)
+            densityConfig = .matrix(expansionConcurrency: expansionConcurrency)
         }
 
         return MainCircuitFactory(unitaryConfiguration: unitConfig,
-                                  statevectorConfiguration: stateConfig)
+                                  statevectorConfiguration: stateConfig,
+                                  densityMatrixConfiguration: densityConfig)
     }
 
     func makeCircuit() -> SwiftQuantumComputing.Circuit {
