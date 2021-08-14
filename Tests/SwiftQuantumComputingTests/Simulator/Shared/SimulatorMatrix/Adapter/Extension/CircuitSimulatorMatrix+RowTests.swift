@@ -79,6 +79,15 @@ class CircuitSimulatorMatrix_RowTests: XCTestCase {
         XCTAssertEqual(row, expectedResult)
     }
 
+    func testOtherValidParametersAndTransform_row_returnExpectedVector() {
+        // When
+        let row = try? sut.row(3, maxConcurrency: 2, transform: { $0 + .i }).get()
+
+        // Then
+        let expectedResult = try! Vector([.i, .i, .one + .i, .i])
+        XCTAssertEqual(row, expectedResult)
+    }
+
     static var allTests = [
         ("testIndexLessThanZero_row_throwException",
          testIndexLessThanZero_row_throwException),
@@ -89,6 +98,8 @@ class CircuitSimulatorMatrix_RowTests: XCTestCase {
         ("testValidParameters_row_returnExpectedVector",
          testValidParameters_row_returnExpectedVector),
         ("testOtherValidParameters_row_returnExpectedVector",
-         testOtherValidParameters_row_returnExpectedVector)
+         testOtherValidParameters_row_returnExpectedVector),
+        ("testOtherValidParametersAndTransform_row_returnExpectedVector",
+         testOtherValidParametersAndTransform_row_returnExpectedVector)
     ]
 }

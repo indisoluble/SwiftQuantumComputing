@@ -27,62 +27,78 @@ public struct MainCircuitFactory {
 
     // MARK: - Public types
 
-    /// Define behaviour of `Circuit.unitary(withQubitCount:)`
+    /// Define performance and memory footprint of `Circuit.unitary(withQubitCount:)`.
     public enum UnitaryConfiguration {
-        /// To produce the unitary `Matrix` that represents the entire circuit, each `Gate` is expanded into a `Matrix`
-        /// and multiplied by the unitary `Matrix` calculated so far. Expansion can be done in parallel with up to
-        /// `matrixExpansionConcurrency` threads. If `matrixExpansionConcurrency` is set to 1 or less,
-        /// the whole process will be serial.
-        /// This configuration has the biggest memory footprint
-        case fullMatrix(matrixExpansionConcurrency: Int = 1)
-        /// To apply a `Gate` to the unitary `Matrix` calculated so far to get the next one, the rows in `Gate` are
-        /// expanded only once. Each row can be expanded in parallel using up to `rowExpansionConcurrency`
-        /// threads. Then, each row is used to calculare the corresponding row in the next unitary `Matrix`.
-        /// Notice that up to `unitaryCalculationConcurrency` new rows can be calculated in parallel which
-        /// means that in a given moment there might be `unitaryCalculationConcurrency` *
-        /// `rowExpansionConcurrency` threats running simultaneously. If both `unitaryCalculationConcurrency`
-        /// and `rowExpansionConcurrency` are set to 1 or less, the whole process will be serial.
-        case rowByRow(unitaryCalculationConcurrency: Int = 1, rowExpansionConcurrency: Int = 1)
-        /// Each time a `Gate` is applied to the unitary `Matrix` calculated so far to get the next one, the positions in
-        /// each`Gate` are requested as needed to calculate each position on the new unitary. This process can be done
-        /// in parallel with up to `unitaryCalculationConcurrency` threads.  If `unitaryCalculationConcurrency`
-        /// is set to 1 or less, the whole process will be serial.
-        case elementByElement(unitaryCalculationConcurrency: Int = 1)
+        /// Each `Gate` is expanded into a `Matrix` before applying to the unitary `Matrix` for the entire circuit.
+        /// Matrix expansion is performed with up to `expansionConcurrency` threads.
+        /// If `expansionConcurrency` is 0 or less, it will be defaulted to 1.
+        /// This configuration has the biggest memory footprint but it is the fastest.
+        case matrix(expansionConcurrency: Int = 1)
+        /// To apply a `Gate` to the unitary `Matrix` for the entire circuit, up to `calculationConcurrency`
+        /// rows in the `Gate` are expanded at the same time and applied to the unitary as needed.
+        /// In turn, each row will be expanded with up to `expansionConcurrency` threads, so
+        /// `calculationConcurrency` * `expansionConcurrency` threads might be running concurrently
+        /// at any given moment.
+        /// If `calculationConcurrency` or `expansionConcurrency` are set to 0 or less, they will be defaulted to 1.
+        case row(calculationConcurrency: Int = 1, expansionConcurrency: Int = 1)
+        /// To apply a `Gate` to the unitary `Matrix` for the entire circuit, up to `calculationConcurrency` values
+        /// in the unitary are calculated simultaneously. Values in `Gate` are requested one by one and when needed.
+        /// If `calculationConcurrency` is 0 or less, it will be defaulted to 1.
+        /// This configuration is the slowest but it has the smallest memory footprint.
+        case value(calculationConcurrency: Int = 1)
     }
 
-    /// Define behaviour of `Circuit.statevector(withInitialStatevector:)`
+    /// Define performance and memory footprint of `Circuit.statevector(withInitialState:)`
     public enum StatevectorConfiguration {
-        /// Each `Gate` is expanded into a `Matrix` and applied to the current statevector
-        /// to get the next statevector. Expansion can be done in parallel with up to `matrixExpansionConcurrency`
-        /// threads. If `matrixExpansionConcurrency` is set to 1 or less, the whole process will be serial.
-        /// This configuration has the biggest memory footprint.
-        case fullMatrix(matrixExpansionConcurrency: Int = 1)
-        /// For each position of the next statevector, the corresponding row of the `Gate` is expanded
-        /// and applied as needed. Positions in the next statevector can be calculated in parallel with up to
-        /// `statevectorCalculationConcurrency` threads. Also, row  expansion can be done in
-        /// parallel too with up to `rowExpansionConcurrency` threads. Therefore, this configuration
-        /// uses as much as `statevectorCalculationConcurrency` * `rowExpansionConcurrency`
-        /// threads. If both `statevectorCalculationConcurrency` and `rowExpansionConcurrency` are
-        /// set to 1 or less, the whole process will be serial.
-        case rowByRow(statevectorCalculationConcurrency: Int = 1, rowExpansionConcurrency: Int = 1)
-        /// For each position of the next statevector, element by element of the corresponding row
-        /// in the `Gate` is calculated (on the fly) and applied as needed. This process can be done in
-        /// parallel with up to `statevectorCalculationConcurrency` number of threads.
-        /// If `statevectorCalculationConcurrency` is set to 1 or less, the whole process will be serial.
-        case elementByElement(statevectorCalculationConcurrency: Int = 1)
-        /// Similar to `StatevectorConfiguration.elementByElement` but instead of calculating
-        /// (on the fly) all positions in a row, only those that are needed (not zero) are generated. If each gate
-        /// only uses a few qubits in the circuit, this is the fastest option and it does not consume more memory
-        /// than `StatevectorConfiguration.elementByElement`. This process can be done in
-        /// parallel with up to `statevectorCalculationConcurrency` number of threads.
-        /// If `statevectorCalculationConcurrency` is set to 1 or less, the whole process will be serial.
-        case direct(statevectorCalculationConcurrency: Int = 1)
+        /// Each `Gate` is expanded into a `Matrix` before applying to the `CircuitStatevector` for the entire circuit.
+        /// Matrix expansion is performed with up to `expansionConcurrency` threads.
+        /// If `expansionConcurrency` is 0 or less, it will be defaulted to 1.
+        /// This configuration has the biggest memory footprint but it is faster than the others, except
+        /// `StatevectorConfiguration.direct`.
+        case matrix(expansionConcurrency: Int = 1)
+        /// To apply a `Gate` to the `CircuitStatevector` for the entire circuit, up to `calculationConcurrency`
+        /// rows in the `Gate` are expanded at the same time and applied to the statevector as needed.
+        /// In turn, each row will be expanded with up to `expansionConcurrency` threads, so
+        /// `calculationConcurrency` * `expansionConcurrency` threads might be running concurrently
+        /// at any given moment.
+        /// If `calculationConcurrency` or `expansionConcurrency` are set to 0 or less, they will be defaulted to 1.
+        case row(calculationConcurrency: Int = 1, expansionConcurrency: Int = 1)
+        /// To apply a `Gate` to the `CircuitStatevector` for the entire circuit, up to `calculationConcurrency`
+        /// values in the statevector are calculated simultaneously. Values in `Gate` are requested one by one
+        /// and when needed.
+        /// If `calculationConcurrency` is 0 or less, it will be defaulted to 1.
+        /// This configuration is the slowest but it has the smallest memory footprint.
+        case value(calculationConcurrency: Int = 1)
+        /// To apply a `Gate` to the `CircuitStatevector` for the entire circuit, up to `calculationConcurrency`
+        /// values in the statevector are calculated simultaneously.
+        /// If `calculationConcurrency` is 0 or less, it will be defaulted to 1.
+        /// It is similar to `StatevectorConfiguration.value` but instead of calculating
+        /// all positions in a `Gate`, only those that are needed (not zero) are generated.
+        /// If each gate only uses a few qubits in the circuit, this is the fastest option and its memory footprint is almost
+        /// identical to `StatevectorConfiguration.value`.
+        case direct(calculationConcurrency: Int = 1)
+    }
+
+    /// Define behaviour of `Circuit.densityMatrix(withInitialState:)`
+    public enum DensityMatrixConfiguration {
+        /// Each `Gate` is expanded into a `Matrix` before applying to the `CircuitDensityMatrix` for the entire circuit.
+        /// Matrix expansion is performed with up to `expansionConcurrency` threads.
+        /// If `expansionConcurrency` is 0 or less, it will be defaulted to 1.
+        /// This configuration has the biggest memory footprint but it is the fastest.
+        case matrix(expansionConcurrency: Int = 1)
+        /// To apply a `Gate` to the `CircuitDensityMatrix` for the entire circuit, up to `calculationConcurrency`
+        /// rows in the density matrix are calculated simultaneously.
+        /// When needed, rows in `Gate` will be expanded using up to `expansionConcurrency` threads, so at any
+        /// given moment there might be `calculationConcurrency` * `expansionConcurrency` threads running.
+        /// If `calculationConcurrency` or `expansionConcurrency` are set to 0 or less, they will be defaulted to 1.
+        case row(calculationConcurrency: Int = 1, expansionConcurrency: Int = 1)
     }
 
     // MARK: - Private properties
 
     private let unitaryConfiguration: UnitaryConfiguration
     private let statevectorConfiguration: StatevectorConfiguration
+    private let densityMatrixConfiguration: DensityMatrixConfiguration
 
     // MARK: - Public init methods
  
@@ -100,10 +116,12 @@ public struct MainCircuitFactory {
 
      - Returns: A`MainCircuitFactory` instance.
      */
-    public init(unitaryConfiguration: UnitaryConfiguration = .fullMatrix(),
-                statevectorConfiguration: StatevectorConfiguration = .direct()) {
+    public init(unitaryConfiguration: UnitaryConfiguration = .matrix(),
+                statevectorConfiguration: StatevectorConfiguration = .direct(),
+                densityMatrixConfiguration: DensityMatrixConfiguration = .matrix()) {
         self.unitaryConfiguration = unitaryConfiguration
         self.statevectorConfiguration = statevectorConfiguration
+        self.densityMatrixConfiguration = densityMatrixConfiguration
     }
 }
 
@@ -115,7 +133,8 @@ extension MainCircuitFactory: CircuitFactory {
     public func makeCircuit(gates: [Gate]) -> Circuit {
         return CircuitFacade(gates: gates,
                              unitarySimulator: makeUnitarySimulator(),
-                             statevectorSimulator: makeStatevectorSimulator())
+                             statevectorSimulator: makeStatevectorSimulator(),
+                             densityMatrixSimulator: makeDensityMatrixSimulator())
     }
 }
 
@@ -133,21 +152,21 @@ private extension MainCircuitFactory {
         let mc: Int
         let transformation: UnitaryTransformation
         switch unitaryConfiguration {
-        case .fullMatrix(let matrixExpansionConcurrency):
+        case .matrix(let matrixExpansionConcurrency):
             mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
 
-            transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: mc)
-        case .rowByRow(let unitaryCalculationConcurrency, let rowExpansionConcurrency):
+            transformation = try! CSMFullMatrixUnitaryTransformation(expansionConcurrency: mc)
+        case .row(let unitaryCalculationConcurrency, let rowExpansionConcurrency):
             let ucc = unitaryCalculationConcurrency > 0 ? unitaryCalculationConcurrency : 1
             let rec = rowExpansionConcurrency > 0 ? rowExpansionConcurrency : 1
             mc = rec * ucc
 
-            transformation = try! CSMRowByRowUnitaryTransformation(unitaryCalculationConcurrency: ucc,
-                                                                   rowExpansionConcurrency: rec)
-        case .elementByElement(let unitaryCalculationConcurrency):
+            transformation = try! CSMRowByRowUnitaryTransformation(calculationConcurrency: ucc,
+                                                                   expansionConcurrency: rec)
+        case .value(let unitaryCalculationConcurrency):
             mc = unitaryCalculationConcurrency > 0 ? unitaryCalculationConcurrency : 1
 
-            transformation = try! CSMElementByElementUnitaryTransformation(unitaryCalculationConcurrency: mc)
+            transformation = try! CSMElementByElementUnitaryTransformation(calculationConcurrency: mc)
         }
 
         return try! UnitaryGateFactoryAdapter(maxConcurrency: mc, transformation: transformation)
@@ -155,31 +174,31 @@ private extension MainCircuitFactory {
 
     func makeStatevectorSimulator() -> StatevectorSimulator {
         let transformation = makeStatevectorTransformation()
-        let registerFactory = StatevectorRegisterFactoryAdapter(transformation: transformation)
+        let timeEvolutionFactory = StatevectorTimeEvolutionFactoryAdapter(transformation: transformation)
 
         let statevectorFactory = MainCircuitStatevectorFactory()
 
-        return StatevectorSimulatorFacade(registerFactory: registerFactory,
+        return StatevectorSimulatorFacade(timeEvolutionFactory: timeEvolutionFactory,
                                           statevectorFactory: statevectorFactory)
     }
 
     func makeStatevectorTransformation() -> StatevectorTransformation {
         let transformation: StatevectorTransformation
         switch statevectorConfiguration {
-        case .fullMatrix(let matrixExpansionConcurrency):
+        case .matrix(let matrixExpansionConcurrency):
             let mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
 
-            transformation = try! CSMFullMatrixStatevectorTransformation(matrixExpansionConcurrency: mc)
-        case .rowByRow(let statevectorCalculationConcurrency, let rowExpansionConcurrency):
+            transformation = try! CSMFullMatrixStatevectorTransformation(expansionConcurrency: mc)
+        case .row(let statevectorCalculationConcurrency, let rowExpansionConcurrency):
             let stcc = statevectorCalculationConcurrency > 0 ? statevectorCalculationConcurrency : 1
             let rec = rowExpansionConcurrency > 0 ? rowExpansionConcurrency : 1
 
-            transformation = try! CSMRowByRowStatevectorTransformation(statevectorCalculationConcurrency: stcc,
-                                                                       rowExpansionConcurrency: rec)
-        case .elementByElement(let statevectorCalculationConcurrency):
+            transformation = try! CSMRowByRowStatevectorTransformation(calculationConcurrency: stcc,
+                                                                       expansionConcurrency: rec)
+        case .value(let statevectorCalculationConcurrency):
             let mc = statevectorCalculationConcurrency > 0 ? statevectorCalculationConcurrency : 1
 
-            transformation = try! CSMElementByElementStatevectorTransformation(statevectorCalculationConcurrency: mc)
+            transformation = try! CSMElementByElementStatevectorTransformation(calculationConcurrency: mc)
         case .direct(let statevectorCalculationConcurrency):
             let stcc = statevectorCalculationConcurrency > 0 ? statevectorCalculationConcurrency : 1
 
@@ -188,7 +207,35 @@ private extension MainCircuitFactory {
 
             transformation = try! DirectStatevectorTransformation(filteringFactory: filteringFactory,
                                                                   indexingFactory: indexingFactory,
-                                                                  statevectorCalculationConcurrency: stcc)
+                                                                  calculationConcurrency: stcc)
+        }
+
+        return transformation
+    }
+
+    func makeDensityMatrixSimulator() -> DensityMatrixSimulator {
+        let transformation = makeDensityMatrixTransformation()
+        let timeEvolutionFactory = DensityMatrixTimeEvolutionFactoryAdapter(transformation: transformation)
+
+        let densityMatrixFactory = MainCircuitDensityMatrixFactory()
+
+        return DensityMatrixSimulatorFacade(timeEvolutionFactory: timeEvolutionFactory,
+                                            densityMatrixFactory: densityMatrixFactory)
+    }
+
+    func makeDensityMatrixTransformation() -> DensityMatrixTransformation {
+        let transformation: DensityMatrixTransformation
+        switch densityMatrixConfiguration {
+        case .matrix(let matrixExpansionConcurrency):
+            let mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
+
+            transformation = try! CSMFullMatrixDensityMatrixTransformation(expansionConcurrency: mc)
+        case .row(let densityCalculationConcurrency, let rowExpansionConcurrency):
+            let dcc = densityCalculationConcurrency > 0 ? densityCalculationConcurrency : 1
+            let rec = rowExpansionConcurrency > 0 ? rowExpansionConcurrency : 1
+
+            transformation = try! CSMRowByRowDensityMatrixTransformation(calculationConcurrency: dcc,
+                                                                         expansionConcurrency: rec)
         }
 
         return transformation

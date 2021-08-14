@@ -29,13 +29,13 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
     // MARK: - Properties
 
     let adapter = try! UnitaryGateFactoryAdapter(maxConcurrency: 1,
-                                                 transformation: try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1))
+                                                 transformation: try! CSMFullMatrixUnitaryTransformation(expansionConcurrency: 1))
 
     // MARK: - Tests
 
     func testMaxConcurrencyEqualToZero_init_throwException() {
         // Given
-        let transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1)
+        let transformation = try! CSMFullMatrixUnitaryTransformation(expansionConcurrency: 1)
 
         // Then
         XCTAssertThrowsError(try UnitaryGateFactoryAdapter(maxConcurrency: 0,

@@ -32,15 +32,18 @@ struct CircuitFacade {
 
     private let unitarySimulator: UnitarySimulator
     private let statevectorSimulator: StatevectorSimulator
+    private let densityMatrixSimulator: DensityMatrixSimulator
 
     // MARK: - Internal init methods
 
     init(gates: [Gate],
          unitarySimulator: UnitarySimulator,
-         statevectorSimulator: StatevectorSimulator) {
+         statevectorSimulator: StatevectorSimulator,
+         densityMatrixSimulator: DensityMatrixSimulator) {
         self.gates = gates
         self.unitarySimulator = unitarySimulator
         self.statevectorSimulator = statevectorSimulator
+        self.densityMatrixSimulator = densityMatrixSimulator
     }
 }
 
@@ -59,7 +62,11 @@ extension CircuitFacade: Circuit {
         return unitarySimulator.unitary(with: gates, qubitCount: qubitCount)
     }
 
-    func statevector(withInitialStatevector initialStatevector: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
-        return statevectorSimulator.apply(circuit: gates, to: initialStatevector)
+    func statevector(withInitialState initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
+        return statevectorSimulator.apply(circuit: gates, to: initialState)
+    }
+
+    func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
+        return densityMatrixSimulator.apply(circuit: gates, to: initialState)
     }
 }

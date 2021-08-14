@@ -33,7 +33,8 @@ extension Matrix {
 
         for row in 0..<rowCount {
             for column in row..<columnCount {
-                if self[row, column] != self[column, row].conjugate {
+                if !self[row, column].isApproximatelyEqual(to: self[column, row].conjugate,
+                                                           absoluteTolerance: SharedConstants.tolerance) {
                     return false
                 }
             }

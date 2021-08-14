@@ -26,20 +26,20 @@ struct CSMFullMatrixUnitaryTransformation {
 
     // MARK: - Private properties
 
-    private let matrixExpansionConcurrency: Int
+    private let expansionConcurrency: Int
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case matrixExpansionConcurrencyHasToBiggerThanZero
+        case expansionConcurrencyHasToBiggerThanZero
     }
 
-    init(matrixExpansionConcurrency: Int) throws {
-        guard matrixExpansionConcurrency > 0 else {
-            throw InitError.matrixExpansionConcurrencyHasToBiggerThanZero
+    init(expansionConcurrency: Int) throws {
+        guard expansionConcurrency > 0 else {
+            throw InitError.expansionConcurrencyHasToBiggerThanZero
         }
 
-        self.matrixExpansionConcurrency = matrixExpansionConcurrency
+        self.expansionConcurrency = expansionConcurrency
     }
 }
 
@@ -51,7 +51,7 @@ extension CSMFullMatrixUnitaryTransformation: UnitaryTransformation {}
 
 extension CSMFullMatrixUnitaryTransformation: CircuitSimulatorMatrixUnitaryTransformation {
     func apply(circuitMatrix: CircuitSimulatorMatrix, toUnitary matrix: Matrix) -> Matrix {
-        let lhs = try! circuitMatrix.expandedRawMatrix(maxConcurrency: matrixExpansionConcurrency).get()
+        let lhs = try! circuitMatrix.expandedRawMatrix(maxConcurrency: expansionConcurrency).get()
 
         return try! (lhs * matrix).get()
     }
