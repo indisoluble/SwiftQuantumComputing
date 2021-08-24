@@ -27,19 +27,3 @@ protocol SimulatorControlledMatrix {
     var controlCount: Int { get }
     var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable { get }
 }
-
-// MARK: - SimulatorControlledMatrix default implementations
-
-extension SimulatorControlledMatrix where Self: SimulatorMatrixExtracting.SimulatorMatrixCountable {
-    var truthTable: [TruthTableEntry] {
-        return []
-    }
-
-    var controlCount: Int {
-        return 0
-    }
-
-    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable {
-        return self
-    }
-}
