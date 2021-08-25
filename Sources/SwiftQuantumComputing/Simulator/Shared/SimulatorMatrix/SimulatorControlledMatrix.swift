@@ -22,8 +22,16 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimulatorControlledMatrix {
+protocol SimulatorControlledMatrix: MatrixCountable {
     var truthTable: [TruthTableEntry] { get }
     var controlCount: Int { get }
     var controlledMatrix: SimulatorMatrix { get }
+}
+
+// MARK: - SimulatorControlledMatrix default implementations
+
+extension SimulatorControlledMatrix {
+    var count: Int {
+        return Int.pow(2, controlCount) * controlledMatrix.count
+    }
 }
