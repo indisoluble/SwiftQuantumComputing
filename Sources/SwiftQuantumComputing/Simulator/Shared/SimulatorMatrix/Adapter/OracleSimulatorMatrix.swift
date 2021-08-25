@@ -33,30 +33,28 @@ struct OracleSimulatorMatrix {
 
     private let activatedSections: Set<Int>
     private let controlledMatrixSize: Int
-    private let controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable
+    private let controlledMatrix: SimulatorMatrix
 
     // MARK: - Internal init methods
 
-    init(truthTable: [TruthTableEntry],
-         controlCount: Int,
-         controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable) {
+    init(truthTable: [TruthTableEntry], controlCount: Int, controlledMatrix: SimulatorMatrix) {
         activatedSections = OracleSimulatorMatrix.truthTableAsInts(truthTable)
 
-        controlledMatrixSize = controlledCountableMatrix.count
+        controlledMatrixSize = controlledMatrix.count
         count = Int.pow(2, controlCount) * controlledMatrixSize
 
-        self.controlledCountableMatrix = controlledCountableMatrix
+        self.controlledMatrix = controlledMatrix
     }
 
     init(equivalentToControlledGateWithControlCount controlCount: Int,
-         controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable) {
+         controlledMatrix: SimulatorMatrix) {
         let truthTable = (controlCount > 0 ?
                             [try! TruthTableEntry(repeating: "1", count: controlCount)] :
                             [])
 
         self.init(truthTable: truthTable,
                   controlCount: controlCount,
-                  controlledCountableMatrix: controlledCountableMatrix)
+                  controlledMatrix: controlledMatrix)
     }
 }
 
@@ -80,7 +78,7 @@ extension OracleSimulatorMatrix: SimulatorMatrix {
         }
 
         let sectionFirstPosition = section * controlledMatrixSize
-        return controlledCountableMatrix[row - sectionFirstPosition, column - sectionFirstPosition]
+        return controlledMatrix[row - sectionFirstPosition, column - sectionFirstPosition]
     }
 }
 

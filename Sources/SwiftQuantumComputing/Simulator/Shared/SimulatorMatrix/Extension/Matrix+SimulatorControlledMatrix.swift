@@ -31,7 +31,7 @@ extension Matrix: SimulatorControlledMatrix {
         return 0
     }
 
-    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable {
+    var controlledMatrix: SimulatorMatrix {
         return self
     }
 }

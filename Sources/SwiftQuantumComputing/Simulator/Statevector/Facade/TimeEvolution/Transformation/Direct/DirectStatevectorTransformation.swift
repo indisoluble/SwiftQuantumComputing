@@ -75,7 +75,7 @@ extension DirectStatevectorTransformation: StatevectorTransformation {
         let inputs = Array(gateInputs[controlCount..<gateInputs.count])
         let indexer = indexingFactory.makeGateIndexer(gateInputs: inputs)
 
-        let nextVector = apply(matrix: gateMatrix.controlledCountableMatrix,
+        let nextVector = apply(matrix: gateMatrix.controlledMatrix,
                                toStatevector: vector,
                                transformingIndexesWith: indexer,
                                selectingStatesWith: filter)

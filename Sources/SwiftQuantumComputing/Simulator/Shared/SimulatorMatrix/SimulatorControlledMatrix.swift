@@ -25,5 +25,5 @@ import Foundation
 protocol SimulatorControlledMatrix {
     var truthTable: [TruthTableEntry] { get }
     var controlCount: Int { get }
-    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable { get }
+    var controlledMatrix: SimulatorMatrix { get }
 }

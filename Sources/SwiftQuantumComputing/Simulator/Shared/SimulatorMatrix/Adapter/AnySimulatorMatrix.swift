@@ -27,11 +27,11 @@ struct AnySimulatorMatrix {
 
     // MARK: - Private properties
 
-    private let matrix: SimulatorMatrixExtracting.SimulatorMatrixCountable
+    private let matrix: SimulatorMatrix
 
     // MARK: - Internal init methods
 
-    init(matrix: SimulatorMatrixExtracting.SimulatorMatrixCountable) {
+    init(matrix: SimulatorMatrix) {
         self.matrix = matrix
     }
 }

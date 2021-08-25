@@ -70,7 +70,7 @@ class FixedControlledGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCa
         // Then
         XCTAssertEqual(result?.controlCount, 3)
         XCTAssertEqual(result?.truthTable, [try! TruthTableEntry(repeating: "1", count: 3)])
-        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+        XCTAssertEqual(try? result?.controlledMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        Matrix.makeNot())
     }
 
@@ -86,7 +86,7 @@ class FixedControlledGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCa
         // Then
         XCTAssertEqual(result?.controlCount, 4)
         XCTAssertEqual(result?.truthTable, [try! TruthTableEntry(repeating: "1", count: 4)])
-        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+        XCTAssertEqual(try? result?.controlledMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        Matrix.makeNot())
     }
 
@@ -103,7 +103,7 @@ class FixedControlledGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCa
         // Then
         XCTAssertEqual(result?.controlCount, 4)
         XCTAssertEqual(result?.truthTable, [])
-        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+        XCTAssertEqual(try? result?.controlledMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        Matrix.makeNot())
     }
 

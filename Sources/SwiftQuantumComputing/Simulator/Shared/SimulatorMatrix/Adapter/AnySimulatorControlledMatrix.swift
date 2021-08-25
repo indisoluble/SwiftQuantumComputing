@@ -39,7 +39,7 @@ struct AnySimulatorControlledMatrix {
 
 extension AnySimulatorControlledMatrix: MatrixCountable {
     var count: Int {
-        return Int.pow(2, controlCount) * controlledCountableMatrix.count
+        return Int.pow(2, controlCount) * controlledMatrix.count
     }
 }
 
@@ -54,8 +54,8 @@ extension AnySimulatorControlledMatrix: SimulatorControlledMatrix {
         return matrix.controlCount
     }
 
-    var controlledCountableMatrix: SimulatorMatrixExtracting.SimulatorMatrixCountable {
-        return matrix.controlledCountableMatrix
+    var controlledMatrix: SimulatorMatrix {
+        return matrix.controlledMatrix
     }
 }
 

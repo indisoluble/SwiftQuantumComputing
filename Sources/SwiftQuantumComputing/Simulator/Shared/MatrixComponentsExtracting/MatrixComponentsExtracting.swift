@@ -67,7 +67,7 @@ extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedM
     }
 }
 
-extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedMatrix: MatrixCountable & SimulatorMatrix {
+extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedMatrix: SimulatorMatrix {
     func extractCircuitMatrix(restrictedToCircuitQubitCount qubitCount: Int) -> Result<CircuitSimulatorMatrix, GateError> {
         switch extractComponents(restrictedToCircuitQubitCount: qubitCount) {
         case .success((let baseMatrix, let inputs)):

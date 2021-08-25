@@ -98,7 +98,7 @@ class FixedOracleGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCase {
         // Then
         XCTAssertEqual(result?.controlCount, 3)
         XCTAssertEqual(result?.truthTable, truthTable.map({ try! TruthTableEntry(truth: $0) }))
-        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+        XCTAssertEqual(try? result?.controlledMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        Matrix.makeNot())
     }
 
@@ -123,7 +123,7 @@ class FixedOracleGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCase {
 
         XCTAssertEqual(result?.controlCount, 4)
         XCTAssertEqual(result?.truthTable, truthTable)
-        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+        XCTAssertEqual(try? result?.controlledMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        Matrix.makeNot())
     }
 
@@ -141,7 +141,7 @@ class FixedOracleGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCase {
         // Then
         XCTAssertEqual(result?.controlCount, 4)
         XCTAssertEqual(result?.truthTable, [])
-        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+        XCTAssertEqual(try? result?.controlledMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        Matrix.makeNot())
     }
 
@@ -159,7 +159,7 @@ class FixedOracleGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCase {
         // Then
         XCTAssertEqual(result?.controlCount, 4)
         XCTAssertEqual(result?.truthTable, [])
-        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+        XCTAssertEqual(try? result?.controlledMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        Matrix.makeNot())
     }
 
@@ -177,7 +177,7 @@ class FixedOracleGate_SimulatorControlledMatrixAdapterFactoryTests: XCTestCase {
         // Then
         XCTAssertEqual(result?.controlCount, 4)
         XCTAssertEqual(result?.truthTable, [])
-        XCTAssertEqual(try? result?.controlledCountableMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
+        XCTAssertEqual(try? result?.controlledMatrix.expandedRawMatrix(maxConcurrency: 1).get(),
                        Matrix.makeNot())
     }
 

@@ -35,7 +35,7 @@ class SimulatorControlledMatrixAdapterTests: XCTestCase {
         let truthTable = [try! TruthTableEntry(repeating: "1", count: controlCount)]
         let sut = SimulatorControlledMatrixAdapter(truthTable: truthTable,
                                                    controlCount: controlCount,
-                                                   controlledCountableMatrix: controlledMatrix)
+                                                   controlledMatrix: controlledMatrix)
 
         // Then
         var error: ExpandedRawMatrixError?
@@ -52,7 +52,7 @@ class SimulatorControlledMatrixAdapterTests: XCTestCase {
         let truthTable = [try! TruthTableEntry(repeating: "1", count: controlCount)]
         let sut = SimulatorControlledMatrixAdapter(truthTable: truthTable,
                                                    controlCount: controlCount,
-                                                   controlledCountableMatrix: controlledMatrix)
+                                                   controlledMatrix: controlledMatrix)
 
         // Then
         XCTAssertEqual(try? sut.expandedOracleMatrix().expandedRawMatrix(maxConcurrency: 1).get(),
