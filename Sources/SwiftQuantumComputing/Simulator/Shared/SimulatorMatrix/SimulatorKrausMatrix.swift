@@ -22,6 +22,6 @@ import Foundation
 
 // MARK: - Protocol definition
 
-protocol SimulatorKrausMatrix {
+protocol SimulatorKrausMatrix: MatrixCountable {
     var matrices: [SimulatorMatrix] { get }
 }
