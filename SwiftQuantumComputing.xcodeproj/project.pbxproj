@@ -61,6 +61,8 @@
 		FF07258425CF2562001A07BF /* CircuitSimulatorMatrixStatevectorTransformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF07258225CF2562001A07BF /* CircuitSimulatorMatrixStatevectorTransformation.swift */; };
 		FF072EF921BD88C2002248AA /* StatevectorSimulatorFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF072EF821BD88C2002248AA /* StatevectorSimulatorFacade.swift */; };
 		FF072EFA21BD88C2002248AA /* StatevectorSimulatorFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF072EF821BD88C2002248AA /* StatevectorSimulatorFacade.swift */; };
+		FF07AA6A26D980490056FB9B /* SimulatorKrausMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF07AA6926D980490056FB9B /* SimulatorKrausMatrixExtracting.swift */; };
+		FF07AA6B26D980490056FB9B /* SimulatorKrausMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF07AA6926D980490056FB9B /* SimulatorKrausMatrixExtracting.swift */; };
 		FF09865F23A68D35009CEC4E /* Gate+OracleWithRangeInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF09865E23A68D35009CEC4E /* Gate+OracleWithRangeInputs.swift */; };
 		FF09866023A68D35009CEC4E /* Gate+OracleWithRangeInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF09865E23A68D35009CEC4E /* Gate+OracleWithRangeInputs.swift */; };
 		FF09866223A690E0009CEC4E /* Gate+OracleWithRangeInputsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF09866123A690E0009CEC4E /* Gate+OracleWithRangeInputsTests.swift */; };
@@ -699,6 +701,8 @@
 		FF9BBE5E214E9A1E00AD1F78 /* MatrixGapNonePositionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF9BBE5D214E9A1E00AD1F78 /* MatrixGapNonePositionView.xib */; };
 		FF9BBE60214EAABD00AD1F78 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE5F214EAABD00AD1F78 /* CircleView.swift */; };
 		FF9BBE7C214ECEDB00AD1F78 /* Gate+CircuitViewLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9BBE7B214ECEDB00AD1F78 /* Gate+CircuitViewLayerTests.swift */; };
+		FF9CA51226DABC2800756080 /* AnySimulatorKrausMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CA51126DABC2800756080 /* AnySimulatorKrausMatrix.swift */; };
+		FF9CA51326DABC2800756080 /* AnySimulatorKrausMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CA51126DABC2800756080 /* AnySimulatorKrausMatrix.swift */; };
 		FF9CBD592698CFD400C4986D /* CircuitDensityMatrixFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CBD582698CFD400C4986D /* CircuitDensityMatrixFactory.swift */; };
 		FF9CBD5A2698CFD400C4986D /* CircuitDensityMatrixFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CBD582698CFD400C4986D /* CircuitDensityMatrixFactory.swift */; };
 		FF9CBD5C2698D4A300C4986D /* CircuitDensityMatrixAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9CBD5B2698D4A300C4986D /* CircuitDensityMatrixAdapter.swift */; };
@@ -1134,6 +1138,7 @@
 		FF06CFB225D05BF00073B7FF /* Gate+SimulatorMatrixExtracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+SimulatorMatrixExtracting.swift"; sourceTree = "<group>"; };
 		FF07258225CF2562001A07BF /* CircuitSimulatorMatrixStatevectorTransformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitSimulatorMatrixStatevectorTransformation.swift; sourceTree = "<group>"; };
 		FF072EF821BD88C2002248AA /* StatevectorSimulatorFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatevectorSimulatorFacade.swift; sourceTree = "<group>"; };
+		FF07AA6926D980490056FB9B /* SimulatorKrausMatrixExtracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorKrausMatrixExtracting.swift; sourceTree = "<group>"; };
 		FF09865D23A6883C009CEC4E /* DeutschJozsaAlgorithm.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DeutschJozsaAlgorithm.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FF09865E23A68D35009CEC4E /* Gate+OracleWithRangeInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+OracleWithRangeInputs.swift"; sourceTree = "<group>"; };
 		FF09866123A690E0009CEC4E /* Gate+OracleWithRangeInputsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+OracleWithRangeInputsTests.swift"; sourceTree = "<group>"; };
@@ -1477,6 +1482,7 @@
 		FF9BBE5D214E9A1E00AD1F78 /* MatrixGapNonePositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixGapNonePositionView.xib; sourceTree = "<group>"; };
 		FF9BBE5F214EAABD00AD1F78 /* CircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		FF9BBE7B214ECEDB00AD1F78 /* Gate+CircuitViewLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Gate+CircuitViewLayerTests.swift"; sourceTree = "<group>"; };
+		FF9CA51126DABC2800756080 /* AnySimulatorKrausMatrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnySimulatorKrausMatrix.swift; sourceTree = "<group>"; };
 		FF9CBD582698CFD400C4986D /* CircuitDensityMatrixFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDensityMatrixFactory.swift; sourceTree = "<group>"; };
 		FF9CBD5B2698D4A300C4986D /* CircuitDensityMatrixAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircuitDensityMatrixAdapter.swift; sourceTree = "<group>"; };
 		FF9FBCD221C56C270070D943 /* ConfigurableGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableGate.swift; sourceTree = "<group>"; };
@@ -3390,6 +3396,7 @@
 				FF96F7C225D973EC0063E6F1 /* RawMatrixFactory.swift */,
 				FF5FB9A9264701260017F0A9 /* SimulatorControlledMatrixAdapterFactory.swift */,
 				FF170D6226233296008735E4 /* SimulatorControlledMatrixExtracting.swift */,
+				FF07AA6926D980490056FB9B /* SimulatorKrausMatrixExtracting.swift */,
 				FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */,
 			);
 			path = SimulatorMatrixExtracting;
@@ -3513,6 +3520,7 @@
 			children = (
 				FF79EA22267E863800A622C3 /* Extension */,
 				FF5DDDE12622460800208A94 /* AnySimulatorControlledMatrix.swift */,
+				FF9CA51126DABC2800756080 /* AnySimulatorKrausMatrix.swift */,
 				FF72EE9E25DC69210092384F /* AnySimulatorMatrix.swift */,
 				FF976596246B2FF000376189 /* CircuitSimulatorMatrix.swift */,
 				FFB6A83A254DCBD000044E49 /* OracleSimulatorMatrix.swift */,
@@ -4273,6 +4281,7 @@
 				FF2B45E1255C7E5300C17D87 /* FixedRotationGate.swift in Sources */,
 				FFCFBFB2266D5B3500704780 /* CSMFullMatrixUnitaryTransformation.swift in Sources */,
 				FF5FB9AD2647054F0017F0A9 /* FixedControlledGate+SimulatorControlledMatrixAdapterFactory.swift in Sources */,
+				FF9CA51226DABC2800756080 /* AnySimulatorKrausMatrix.swift in Sources */,
 				FFC80868261A29F3000C695A /* DirectStatevectorFiltering.swift in Sources */,
 				FF2D447321FA73B5002515EF /* ConfigurableGeneticGate.swift in Sources */,
 				FFEE80CB255838F8007AF0A7 /* PositionViewFactory.swift in Sources */,
@@ -4280,6 +4289,7 @@
 				FF3C363425584F4C007F15C2 /* QubitPositionViewFactory.swift in Sources */,
 				FF4BBE8024131980002B4FA6 /* ControlPositionView.swift in Sources */,
 				FF07258325CF2562001A07BF /* CircuitSimulatorMatrixStatevectorTransformation.swift in Sources */,
+				FF07AA6A26D980490056FB9B /* SimulatorKrausMatrixExtracting.swift in Sources */,
 				FFAF768D25602AB900AC7908 /* SimulatorMatrixExtracting.swift in Sources */,
 				FF2B45D9255C7E1900C17D87 /* FixedPhaseShiftGate.swift in Sources */,
 				FF9CBD5C2698D4A300C4986D /* CircuitDensityMatrixAdapter.swift in Sources */,
@@ -4662,6 +4672,7 @@
 				FF002BBE21FC8D3000E40C3A /* MainGeneticGatesRandomizer.swift in Sources */,
 				FFDDFE8A23590B6800683CF9 /* UnitaryGateFactoryAdapter.swift in Sources */,
 				FF251874256081B900565DAA /* FixedMatrixGate+CircuitViewLayerComponents.swift in Sources */,
+				FF07AA6B26D980490056FB9B /* SimulatorKrausMatrixExtracting.swift in Sources */,
 				FF915A00262B3E8400E5632F /* Gate+SimulatorControlledMatrixExtracting.swift in Sources */,
 				FF8379102471764D0051C2DC /* MainCircuitFactory.swift in Sources */,
 				FF97E4C221CABCF1008847FE /* CircuitViewDrawer.swift in Sources */,
@@ -4712,6 +4723,7 @@
 				FF9CBD5A2698CFD400C4986D /* CircuitDensityMatrixFactory.swift in Sources */,
 				FFF13511269B6DCC0014AB31 /* MainCircuitDensityMatrixFactory.swift in Sources */,
 				FF3EE360254C922700D773F3 /* SimulatorMatrix.swift in Sources */,
+				FF9CA51326DABC2800756080 /* AnySimulatorKrausMatrix.swift in Sources */,
 				FF2D371B261CE9D70031726B /* DirectStatevectorOracleFilter.swift in Sources */,
 				FFE7B1CB2693935900D75F39 /* Matrix+IsHermitian.swift in Sources */,
 				FFB5B558216A2F82009C59FC /* MatrixBottomPositionView.swift in Sources */,
