@@ -47,7 +47,7 @@ extension SimulatorControlledMatrixComponentsExtractor: RawInputsExtracting {
     }
 }
 
-// MARK: - MatrixExtracting methods
+// MARK: - MatrixComponentsExtracting methods
 
 extension SimulatorControlledMatrixComponentsExtractor: MatrixComponentsExtracting {
     func extractMatrix() -> Result<AnySimulatorControlledMatrix, GateError> {
