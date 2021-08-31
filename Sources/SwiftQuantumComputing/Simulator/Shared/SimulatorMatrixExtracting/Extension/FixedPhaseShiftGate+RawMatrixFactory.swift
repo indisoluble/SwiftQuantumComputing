@@ -32,6 +32,10 @@ extension FixedPhaseShiftGate: RawMatrixFactory {
 
 extension FixedPhaseShiftGate: SimulatorControlledMatrixExtracting {}
 
+// MARK: - SimulatorKrausMatrixExtracting methods
+
+extension FixedPhaseShiftGate: SimulatorKrausMatrixExtracting {}
+
 // MARK: - SimulatorMatrixExtracting methods
 
 extension FixedPhaseShiftGate: SimulatorMatrixExtracting {}

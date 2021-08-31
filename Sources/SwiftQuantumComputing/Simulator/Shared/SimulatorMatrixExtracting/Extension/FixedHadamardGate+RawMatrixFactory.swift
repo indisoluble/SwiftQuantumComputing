@@ -32,6 +32,10 @@ extension FixedHadamardGate: RawMatrixFactory {
 
 extension FixedHadamardGate: SimulatorControlledMatrixExtracting {}
 
+// MARK: - SimulatorKrausMatrixExtracting methods
+
+extension FixedHadamardGate: SimulatorKrausMatrixExtracting {}
+
 // MARK: - SimulatorMatrixExtracting methods
 
 extension FixedHadamardGate: SimulatorMatrixExtracting {}

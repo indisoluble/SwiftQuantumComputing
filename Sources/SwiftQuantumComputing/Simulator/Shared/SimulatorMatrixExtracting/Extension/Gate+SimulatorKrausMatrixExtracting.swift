@@ -1,8 +1,8 @@
 //
-//  FixedRotationGate+RawMatrixFactory.swift
+//  Gate+SimulatorKrausMatrixExtracting.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/02/2021.
+//  Created by Enrique de la Torre on 31/08/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,22 +20,10 @@
 
 import Foundation
 
-// MARK: - RawMatrixFactory methods
-
-extension FixedRotationGate: RawMatrixFactory {
-    func makeRawMatrix() -> Result<Matrix, GateError> {
-        return .success(Matrix.makeRotation(axis: axis, radians: radians))
-    }
-}
-
-// MARK: - SimulatorControlledMatrixExtracting methods
-
-extension FixedRotationGate: SimulatorControlledMatrixExtracting {}
-
 // MARK: - SimulatorKrausMatrixExtracting methods
 
-extension FixedRotationGate: SimulatorKrausMatrixExtracting {}
-
-// MARK: - SimulatorMatrixExtracting methods
-
-extension FixedRotationGate: SimulatorMatrixExtracting {}
+extension Gate: SimulatorKrausMatrixExtracting {
+    func extractKrausMatrix() -> Result<SimulatorKrausMatrix, GateError> {
+        return gate.extractKrausMatrix()
+    }
+}

@@ -40,6 +40,10 @@ extension FixedMatrixGate: RawMatrixFactory {
 
 extension FixedMatrixGate: SimulatorControlledMatrixExtracting {}
 
+// MARK: - SimulatorKrausMatrixExtracting methods
+
+extension FixedMatrixGate: SimulatorKrausMatrixExtracting {}
+
 // MARK: - SimulatorMatrixExtracting methods
 
 extension FixedMatrixGate: SimulatorMatrixExtracting {}

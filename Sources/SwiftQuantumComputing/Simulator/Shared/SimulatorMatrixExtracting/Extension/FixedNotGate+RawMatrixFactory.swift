@@ -32,6 +32,10 @@ extension FixedNotGate: RawMatrixFactory {
 
 extension FixedNotGate: SimulatorControlledMatrixExtracting {}
 
+// MARK: - SimulatorKrausMatrixExtracting methods
+
+extension FixedNotGate: SimulatorKrausMatrixExtracting {}
+
 // MARK: - SimulatorMatrixExtracting methods
 
 extension FixedNotGate: SimulatorMatrixExtracting {}

@@ -36,6 +36,10 @@ extension FixedControlledGate: SimulatorControlledMatrixAdapterFactory {
 
 extension FixedControlledGate: SimulatorControlledMatrixExtracting {}
 
+// MARK: - SimulatorKrausMatrixExtracting methods
+
+extension FixedControlledGate: SimulatorKrausMatrixExtracting {}
+
 // MARK: - SimulatorMatrixExtracting methods
 
 extension FixedControlledGate: SimulatorMatrixExtracting {}

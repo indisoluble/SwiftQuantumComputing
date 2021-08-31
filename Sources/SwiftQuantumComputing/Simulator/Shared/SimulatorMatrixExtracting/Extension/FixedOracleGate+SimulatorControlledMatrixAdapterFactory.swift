@@ -32,6 +32,10 @@ extension FixedOracleGate: SimulatorControlledMatrixAdapterFactory {
 
 extension FixedOracleGate: SimulatorControlledMatrixExtracting {}
 
+// MARK: - SimulatorKrausMatrixExtracting methods
+
+extension FixedOracleGate: SimulatorKrausMatrixExtracting {}
+
 // MARK: - SimulatorMatrixExtracting methods
 
 extension FixedOracleGate: SimulatorMatrixExtracting {}
