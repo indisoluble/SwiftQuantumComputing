@@ -147,6 +147,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(TruthTableEntryTests.allTests),
         testCase(Int_TruthTableEntryTests.allTests),
         testCase(TruthTableEntry_InitRepeatingTests.allTests),
+        testCase(SimulatorKrausMatrixComponentsExtractorTests.allTests),
         testCase(SimulatorMatrixComponentsExtractorTests.allTests),
         testCase(SimulatorControlledMatrixComponentsExtractorTests.allTests),
         testCase(SimulatorControlledMatrixAdapterTests.allTests),
