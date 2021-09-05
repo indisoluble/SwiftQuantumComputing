@@ -41,6 +41,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(DensityMatrixSimulatorFacadeTests.allTests),
         testCase(DensityMatrixTimeEvolutionAdapterTests.allTests),
         testCase(DensityMatrixTimeEvolutionFactoryAdapterTests.allTests),
+        testCase(DensityMatrixTransformationTests.allTests),
         testCase(CSMElementByElementUnitaryTransformationTests.allTests),
         testCase(CSMFullMatrixUnitaryTransformationTests.allTests),
         testCase(CSMRowByRowUnitaryTransformationTests.allTests),
