@@ -24,11 +24,17 @@ import Foundation
 
 struct FixedOracleGate {
 
+    // MARK: - Internal types
+
+    typealias InternalGate = RawInputsExtracting &
+        SimulatorControlledMatrixExtracting &
+        SimplifiedGateConvertible
+
     // MARK: - Internal properties
 
     let truthTable: [String]
     let controls: [Int]
-    let gate: Gate.InternalGate
+    let gate: InternalGate
 
     // MARK: - Private properties
 
@@ -36,14 +42,14 @@ struct FixedOracleGate {
 
     // MARK: - Internal init methods
 
-    init<T: Gate.InternalGate & Hashable>(truthTable: [String], controls: [Int], gate: T) {
+    init<T: InternalGate & Hashable>(truthTable: [String], controls: [Int], gate: T) {
         self.init(truthTable: truthTable,
                   controls: controls,
                   gate: gate,
                   gateHash: AnyHashable(gate))
     }
 
-    init(truthTable: [String], controls: [Int], gate: Gate.InternalGate, gateHash: AnyHashable) {
+    init(truthTable: [String], controls: [Int], gate: InternalGate, gateHash: AnyHashable) {
         self.truthTable = truthTable
         self.controls = controls
         self.gate = gate

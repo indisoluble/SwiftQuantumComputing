@@ -24,9 +24,15 @@ import Foundation
 
 struct FixedControlledGate {
 
+    // MARK: - Internal types
+
+    typealias InternalGate = RawInputsExtracting &
+        SimulatorControlledMatrixExtracting &
+        SimplifiedGateConvertible
+
     // MARK: - Internal properties
 
-    let gate: Gate.InternalGate
+    let gate: InternalGate
     let controls: [Int]
 
     // MARK: - Private properties
@@ -35,11 +41,11 @@ struct FixedControlledGate {
 
     // MARK: - Internal init methods
 
-    init<T: Gate.InternalGate & Hashable>(gate: T, controls: [Int]) {
+    init<T: InternalGate & Hashable>(gate: T, controls: [Int]) {
         self.init(gate: gate, gateHash: AnyHashable(gate), controls: controls)
     }
 
-    init(gate: Gate.InternalGate, gateHash: AnyHashable, controls: [Int]) {
+    init(gate: InternalGate, gateHash: AnyHashable, controls: [Int]) {
         self.gate = gate
         self.gateHash = gateHash
         self.controls = controls
