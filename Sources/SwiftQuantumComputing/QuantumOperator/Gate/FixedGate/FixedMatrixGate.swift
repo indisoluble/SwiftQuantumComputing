@@ -37,7 +37,7 @@ extension FixedMatrixGate: Hashable {}
 // MARK: - SimplifiedGateConvertible methods
 
 extension FixedMatrixGate: SimplifiedGateConvertible {
-    var simplified: SimplifiedGate {
+    var simplifiedGate: SimplifiedGate {
         return .matrix(matrix: matrix, inputs: inputs)
     }
 }

@@ -36,7 +36,7 @@ extension FixedNotGate: Hashable {}
 // MARK: - SimplifiedGateConvertible methods
 
 extension FixedNotGate: SimplifiedGateConvertible {
-    var simplified: SimplifiedGate {
+    var simplifiedGate: SimplifiedGate {
         return .not(target: target)
     }
 }

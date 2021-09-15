@@ -25,5 +25,5 @@ import Foundation
 /// A type with a simplified representation of a quantum gate
 public protocol SimplifiedGateConvertible {
     /// Simplified representation of the gate
-    var simplified: SimplifiedGate { get }
+    var simplifiedGate: SimplifiedGate { get }
 }

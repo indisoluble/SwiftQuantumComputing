@@ -37,7 +37,7 @@ extension FixedPhaseShiftGate: Hashable {}
 // MARK: - SimplifiedGateConvertible methods
 
 extension FixedPhaseShiftGate: SimplifiedGateConvertible {
-    var simplified: SimplifiedGate {
+    var simplifiedGate: SimplifiedGate {
         return .phaseShift(radians: radians, target: target)
     }
 }

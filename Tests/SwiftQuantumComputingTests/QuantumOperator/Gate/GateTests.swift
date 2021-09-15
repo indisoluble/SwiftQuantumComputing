@@ -129,7 +129,7 @@ class GateTests: XCTestCase {
         XCTAssertTrue(result.count == 2)
     }
 
-    func testAnyGate_simplified_returnExpectedSimplifiedGate() {
+    func testAnyGate_simplifiedGate_returnExpectedSimplifiedGate() {
         // Given
         let gates: [(Gate, SimplifiedGate)] = [
             (.controlled(gate: .not(target: 0), controls: [1]),
@@ -146,7 +146,7 @@ class GateTests: XCTestCase {
 
         // Then
         for (gate, simplified) in gates {
-            XCTAssertEqual(gate.simplified, simplified)
+            XCTAssertEqual(gate.simplifiedGate, simplified)
         }
     }
 
@@ -171,7 +171,7 @@ class GateTests: XCTestCase {
          testTwoGatesWithDifferentFixedGates_set_setCountIsTwo),
         ("testTwoGatesWithDifferentEmbeddedGates_set_setCountIsTwo",
          testTwoGatesWithDifferentEmbeddedGates_set_setCountIsTwo),
-        ("testAnyGate_simplified_returnExpectedSimplifiedGate",
-         testAnyGate_simplified_returnExpectedSimplifiedGate)
+        ("testAnyGate_simplifiedGate_returnExpectedSimplifiedGate",
+         testAnyGate_simplifiedGate_returnExpectedSimplifiedGate)
     ]
 }

@@ -36,7 +36,7 @@ extension FixedHadamardGate: Hashable {}
 // MARK: - SimplifiedGateConvertible methods
 
 extension FixedHadamardGate: SimplifiedGateConvertible {
-    var simplified: SimplifiedGate {
+    var simplifiedGate: SimplifiedGate {
         return .hadamard(target: target)
     }
 }

@@ -62,8 +62,8 @@ extension Gate: Hashable {
 // MARK: - SimplifiedGateConvertible methods
 
 extension Gate: SimplifiedGateConvertible {
-    /// Check `SimplifiedGateConvertible.simplified`
-    public var simplified: SimplifiedGate {
-        return gate.simplified
+    /// Check `SimplifiedGateConvertible.simplifiedGate`
+    public var simplifiedGate: SimplifiedGate {
+        return gate.simplifiedGate
     }
 }

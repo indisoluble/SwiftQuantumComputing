@@ -38,7 +38,7 @@ extension FixedRotationGate: Hashable {}
 // MARK: - SimplifiedGateConvertible methods
 
 extension FixedRotationGate: SimplifiedGateConvertible {
-    var simplified: SimplifiedGate {
+    var simplifiedGate: SimplifiedGate {
         return .rotation(axis: axis, radians: radians, target: target)
     }
 }
