@@ -64,11 +64,3 @@ extension FixedControlledGate: Hashable {
         gateHash.hash(into: &hasher)
     }
 }
-
-// MARK: - SimplifiedGateConvertible methods
-
-extension FixedControlledGate: SimplifiedGateConvertible {
-    var simplifiedGate: SimplifiedGate {
-        return .controlled(gate: gate.simplifiedGate, controls: controls)
-    }
-}

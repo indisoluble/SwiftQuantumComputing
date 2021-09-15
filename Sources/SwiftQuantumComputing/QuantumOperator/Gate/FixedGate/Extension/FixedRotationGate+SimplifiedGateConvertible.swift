@@ -1,9 +1,9 @@
 //
-//  FixedRotationGate.swift
+//  FixedRotationGate+SimplifiedGateConvertible.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 11/11/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 15/09/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,17 +20,10 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - SimplifiedGateConvertible methods
 
-struct FixedRotationGate  {
-
-    // MARK: - Internal properties
-
-    let axis: Gate.Axis
-    let radians: Double
-    let target: Int
+extension FixedRotationGate: SimplifiedGateConvertible {
+    var simplifiedGate: SimplifiedGate {
+        return .rotation(axis: axis, radians: radians, target: target)
+    }
 }
-
-// MARK: - Hashable methods
-
-extension FixedRotationGate: Hashable {}

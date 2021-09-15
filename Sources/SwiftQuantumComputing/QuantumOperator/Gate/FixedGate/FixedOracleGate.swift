@@ -72,11 +72,3 @@ extension FixedOracleGate: Hashable {
         gateHash.hash(into: &hasher)
     }
 }
-
-// MARK: - SimplifiedGateConvertible methods
-
-extension FixedOracleGate: SimplifiedGateConvertible {
-    var simplifiedGate: SimplifiedGate {
-        return .oracle(truthTable: truthTable, controls: controls, gate: gate.simplifiedGate)
-    }
-}

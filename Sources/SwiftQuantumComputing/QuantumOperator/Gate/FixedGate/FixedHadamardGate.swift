@@ -32,11 +32,3 @@ struct FixedHadamardGate  {
 // MARK: - Hashable methods
 
 extension FixedHadamardGate: Hashable {}
-
-// MARK: - SimplifiedGateConvertible methods
-
-extension FixedHadamardGate: SimplifiedGateConvertible {
-    var simplifiedGate: SimplifiedGate {
-        return .hadamard(target: target)
-    }
-}
