@@ -1,8 +1,8 @@
 //
-//  SimplifiedNoiseConvertible.swift
+//  SimplifiedNoise.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/09/2021.
+//  Created by Enrique de la Torre on 15/09/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,11 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Public types
 
-/// A type with a simplified representation of a noise operator
-public protocol SimplifiedNoiseConvertible {
-    /// Simplified representation of the noise operator
-    var simplified: SimplifiedNoise { get }
-}
+/// Simplified representation of a quantum noise operator. Use to easily identify the type of a quantum noise and its components
+public enum SimplifiedNoise {}
+
+// MARK: - Hashable methods
+
+extension SimplifiedNoise: Hashable {}
