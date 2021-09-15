@@ -55,21 +55,6 @@ public enum StatevectorError: Error, Hashable {
     case resultingStatevectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
-/// Errors throwed by `Circuit.densityMatrix(withInitialState:)`
-public enum DensityMatrixError: Error, Hashable {
-    /// Throwed if `gate` throws `error`
-    case gateThrowedError(gate: Gate, error: GateError)
-    /// Throwed when the resulting density matrix is not a valid: its eigenvalues do not add to one
-    case resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
-    /// Throwed when the resulting density matrix is not a valid: it is not hermitian
-    case resultingDensityMatrixIsNotHermitian
-    /// Throwed when the resulting density matrix is not a valid: at least one of its eigenvalues is negative
-    case resultingDensityMatrixWithNegativeEigenvalues
-    /// Throwed if it was not possible to get the eigenvalues for the resulting density matrix
-    case unableToComputeresultingDensityMatrixEigenvalues
-
-}
-
 /// Errors throwed by `Circuit.unitary(withQubitCount:)`
 public enum UnitaryError: Error, Hashable {
     /// Throwed when the circuit has no gate from which to produce an unitary matrix
@@ -105,14 +90,4 @@ public protocol Circuit {
      `StatevectorError` error.
      */
     func statevector(withInitialState initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError>
-
-    /**
-     Applies `gates` to `initialState` to produce a new density matrix.
-
-     - Parameter initialState: Used to initialized circuit to given state.
-
-     - Returns: Another `CircuitDensityMatrix` instance, result of applying `gates` to `initialState`. Or
-     `DensityMatrixError` error.
-     */
-    func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError>
 }

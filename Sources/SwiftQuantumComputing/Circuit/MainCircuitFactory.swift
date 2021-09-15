@@ -79,26 +79,10 @@ public struct MainCircuitFactory {
         case direct(calculationConcurrency: Int = 1)
     }
 
-    /// Define behaviour of `Circuit.densityMatrix(withInitialState:)`
-    public enum DensityMatrixConfiguration {
-        /// Each `Gate` is expanded into a `Matrix` before applying to the `CircuitDensityMatrix` for the entire circuit.
-        /// Matrix expansion is performed with up to `expansionConcurrency` threads.
-        /// If `expansionConcurrency` is 0 or less, it will be defaulted to 1.
-        /// This configuration has the biggest memory footprint but it is the fastest.
-        case matrix(expansionConcurrency: Int = 1)
-        /// To apply a `Gate` to the `CircuitDensityMatrix` for the entire circuit, up to `calculationConcurrency`
-        /// rows in the density matrix are calculated simultaneously.
-        /// When needed, rows in `Gate` will be expanded using up to `expansionConcurrency` threads, so at any
-        /// given moment there might be `calculationConcurrency` * `expansionConcurrency` threads running.
-        /// If `calculationConcurrency` or `expansionConcurrency` are set to 0 or less, they will be defaulted to 1.
-        case row(calculationConcurrency: Int = 1, expansionConcurrency: Int = 1)
-    }
-
     // MARK: - Private properties
 
     private let unitaryConfiguration: UnitaryConfiguration
     private let statevectorConfiguration: StatevectorConfiguration
-    private let densityMatrixConfiguration: DensityMatrixConfiguration
 
     // MARK: - Public init methods
  
@@ -106,7 +90,7 @@ public struct MainCircuitFactory {
      Initialize a `MainCircuitFactory` instance.
 
      - Parameter unitaryConfiguration:Defines how a unitary matrix is calculated. By default is set to
-     `UnitaryConfiguration.fullMatrix`, however the performance of each configuration depends on each
+     `UnitaryConfiguration.matrix`, however the performance of each configuration depends on each
      use case. It is recommended to try different configurations so see how long an execution takes and how much
      memory is required.
      - Parameter statevectorConfiguration: Defines how a statevector is calculated. By default is set to
@@ -117,11 +101,9 @@ public struct MainCircuitFactory {
      - Returns: A`MainCircuitFactory` instance.
      */
     public init(unitaryConfiguration: UnitaryConfiguration = .matrix(),
-                statevectorConfiguration: StatevectorConfiguration = .direct(),
-                densityMatrixConfiguration: DensityMatrixConfiguration = .matrix()) {
+                statevectorConfiguration: StatevectorConfiguration = .direct()) {
         self.unitaryConfiguration = unitaryConfiguration
         self.statevectorConfiguration = statevectorConfiguration
-        self.densityMatrixConfiguration = densityMatrixConfiguration
     }
 }
 
@@ -133,8 +115,7 @@ extension MainCircuitFactory: CircuitFactory {
     public func makeCircuit(gates: [Gate]) -> Circuit {
         return CircuitFacade(gates: gates,
                              unitarySimulator: makeUnitarySimulator(),
-                             statevectorSimulator: makeStatevectorSimulator(),
-                             densityMatrixSimulator: makeDensityMatrixSimulator())
+                             statevectorSimulator: makeStatevectorSimulator())
     }
 }
 
@@ -208,34 +189,6 @@ private extension MainCircuitFactory {
             transformation = try! DirectStatevectorTransformation(filteringFactory: filteringFactory,
                                                                   indexingFactory: indexingFactory,
                                                                   calculationConcurrency: stcc)
-        }
-
-        return transformation
-    }
-
-    func makeDensityMatrixSimulator() -> DensityMatrixSimulator {
-        let transformation = makeDensityMatrixTransformation()
-        let timeEvolutionFactory = DensityMatrixTimeEvolutionFactoryAdapter(transformation: transformation)
-
-        let densityMatrixFactory = MainCircuitDensityMatrixFactory()
-
-        return DensityMatrixSimulatorFacade(timeEvolutionFactory: timeEvolutionFactory,
-                                            densityMatrixFactory: densityMatrixFactory)
-    }
-
-    func makeDensityMatrixTransformation() -> DensityMatrixTransformation {
-        let transformation: DensityMatrixTransformation
-        switch densityMatrixConfiguration {
-        case .matrix(let matrixExpansionConcurrency):
-            let mc = matrixExpansionConcurrency > 0 ? matrixExpansionConcurrency : 1
-
-            transformation = try! CSMFullMatrixDensityMatrixTransformation(expansionConcurrency: mc)
-        case .row(let densityCalculationConcurrency, let rowExpansionConcurrency):
-            let dcc = densityCalculationConcurrency > 0 ? densityCalculationConcurrency : 1
-            let rec = rowExpansionConcurrency > 0 ? rowExpansionConcurrency : 1
-
-            transformation = try! CSMRowByRowDensityMatrixTransformation(calculationConcurrency: dcc,
-                                                                         expansionConcurrency: rec)
         }
 
         return transformation

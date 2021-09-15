@@ -1,8 +1,8 @@
 //
-//  Circuit+DensityMatrix.swift
+//  NoiseCircuitFactory.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 11/08/2021.
+//  Created by Enrique de la Torre on 16/09/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,17 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-extension Circuit {
+/// Factory to build `NoiseCircuit` instances
+public protocol NoiseCircuitFactory {
 
-    // MARK: - Public methods
+    /**
+     Builds `NoiseCircuit` instances.
 
-    public func densityMatrix(withFactory factory: CircuitDensityMatrixFactory = MainCircuitDensityMatrixFactory()) -> Result<CircuitDensityMatrix, DensityMatrixError> {
-        let initialState = try! Matrix.makeState(value: 0, qubitCount: gates.qubitCount()).get()
-        let initialDensityMatrix = try! factory.makeDensityMatrix(matrix: initialState).get()
+     - Parameter gates: Sequence of gates in the circuit to be built.
 
-        return densityMatrix(withInitialState: initialDensityMatrix)
-    }
+     - Returns: A `NoiseCircuit` instance.
+     */
+    func makeNoiseCircuit(gates: [Gate]) -> NoiseCircuit
 }

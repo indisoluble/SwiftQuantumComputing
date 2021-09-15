@@ -1,5 +1,5 @@
 //
-//  Circuit+DensityMatrixTests.swift
+//  NoiseCircuit+DensityMatrixTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 13/08/2021.
@@ -24,11 +24,11 @@ import XCTest
 
 // MARK: - Main body
 
-class Circuit_DensityMatrixTests: XCTestCase {
+class NoiseCircuit_DensityMatrixTests: XCTestCase {
 
     // MARK: - Properties
 
-    let circuit = CircuitTestDouble()
+    let circuit = NoiseCircuitTestDouble()
 
     // MARK: - Tests
 
