@@ -60,8 +60,8 @@ extension Noise: Hashable {
 // MARK: - SimplifiedNoiseConvertible methods
 
 extension Noise: SimplifiedNoiseConvertible {
-    /// Check `SimplifiedNoiseConvertible.simplified`
-    public var simplified: SimplifiedNoise {
-        return noise.simplified
+    /// Check `SimplifiedNoiseConvertible.simplifiedNoise`
+    public var simplifiedNoise: SimplifiedNoise {
+        return noise.simplifiedNoise
     }
 }

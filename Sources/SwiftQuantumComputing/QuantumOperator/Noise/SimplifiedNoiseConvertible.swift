@@ -25,5 +25,5 @@ import Foundation
 /// A type with a simplified representation of a noise operator
 public protocol SimplifiedNoiseConvertible {
     /// Simplified representation of the noise operator
-    var simplified: SimplifiedNoise { get }
+    var simplifiedNoise: SimplifiedNoise { get }
 }
