@@ -25,5 +25,5 @@ import Foundation
 /// A type with a simplified representation of a quantum operator
 public protocol SimplifiedQuantumOperatorConvertible {
     /// Simplified representation of the quantum operator
-    var simplified: SimplifiedQuantumOperator { get }
+    var simplifiedQuantumOperator: SimplifiedQuantumOperator { get }
 }

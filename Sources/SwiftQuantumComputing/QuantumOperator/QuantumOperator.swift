@@ -60,8 +60,8 @@ extension QuantumOperator: Hashable {
 // MARK: - SimplifiedQuantumOperatorConvertible methods
 
 extension QuantumOperator: SimplifiedQuantumOperatorConvertible {
-    /// Check `SimplifiedQuantumOperatorConvertible.simplified`
-    public var simplified: SimplifiedQuantumOperator {
-        return quantumOperator.simplified
+    /// Check `SimplifiedQuantumOperatorConvertible.simplifiedQuantumOperator`
+    public var simplifiedQuantumOperator: SimplifiedQuantumOperator {
+        return quantumOperator.simplifiedQuantumOperator
     }
 }
