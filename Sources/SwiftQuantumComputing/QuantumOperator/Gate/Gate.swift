@@ -58,29 +58,3 @@ extension Gate: Hashable {
         gateHash.hash(into: &hasher)
     }
 }
-
-// MARK: - SimplifiedGateConvertible methods
-
-extension Gate: SimplifiedGateConvertible {
-    /// Check `SimplifiedGateConvertible.simplifiedGate`
-    public var simplifiedGate: SimplifiedGate {
-        return gate.simplifiedGate
-    }
-}
-
-// MARK: - SimplifiedQuantumOperatorConvertible methods
-
-extension Gate: SimplifiedQuantumOperatorConvertible {
-    /// Check `SimplifiedQuantumOperatorConvertible.simplifiedQuantumOperator`
-    public var simplifiedQuantumOperator: SimplifiedQuantumOperator {
-        return .gate(operator: simplifiedGate)
-    }
-}
-
-// MARK: - QuantumOperatorConvertible methods
-
-extension Gate: QuantumOperatorConvertible {
-    public var quantumOperator: QuantumOperator {
-        return QuantumOperator(quantumOperator: self)
-    }
-}
