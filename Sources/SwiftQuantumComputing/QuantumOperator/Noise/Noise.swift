@@ -65,3 +65,12 @@ extension Noise: SimplifiedNoiseConvertible {
         return noise.simplifiedNoise
     }
 }
+
+// MARK: - SimplifiedQuantumOperatorConvertible methods
+
+extension Noise: SimplifiedQuantumOperatorConvertible {
+    /// Check `SimplifiedQuantumOperatorConvertible.simplifiedQuantumOperator`
+    public var simplifiedQuantumOperator: SimplifiedQuantumOperator {
+        return .noise(operator: simplifiedNoise)
+    }
+}
