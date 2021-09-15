@@ -34,7 +34,10 @@ public struct QuantumOperator {
     // MARK: - Internal properties
 
     let quantumOperator: InternalOperator
-    let quantumOperatorHash: AnyHashable
+
+    // MARK: - Private properties
+
+    private let quantumOperatorHash: AnyHashable
 
     // MARK: - Internal init methods
 
@@ -54,14 +57,5 @@ extension QuantumOperator: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         quantumOperatorHash.hash(into: &hasher)
-    }
-}
-
-// MARK: - SimplifiedQuantumOperatorConvertible methods
-
-extension QuantumOperator: SimplifiedQuantumOperatorConvertible {
-    /// Check `SimplifiedQuantumOperatorConvertible.simplifiedQuantumOperator`
-    public var simplifiedQuantumOperator: SimplifiedQuantumOperator {
-        return quantumOperator.simplifiedQuantumOperator
     }
 }
