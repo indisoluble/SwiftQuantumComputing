@@ -23,7 +23,12 @@ import Foundation
 // MARK: - Public types
 
 /// Simplified representation of a quantum operator. Use to easily identify the type of a quantum operator and its components
-public enum SimplifiedQuantumOperator {}
+public enum SimplifiedQuantumOperator {
+    /// Any `SimplifiedGate`
+    case gate(operator: SimplifiedGate)
+    /// Any `SimplifiedNoise` operator
+    case noise(operator: SimplifiedNoise)
+}
 
 // MARK: - Hashable methods
 

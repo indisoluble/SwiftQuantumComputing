@@ -67,3 +67,12 @@ extension Gate: SimplifiedGateConvertible {
         return gate.simplifiedGate
     }
 }
+
+// MARK: - SimplifiedQuantumOperatorConvertible methods
+
+extension Gate: SimplifiedQuantumOperatorConvertible {
+    /// Check `SimplifiedQuantumOperatorConvertible.simplifiedQuantumOperator`
+    public var simplifiedQuantumOperator: SimplifiedQuantumOperator {
+        return .gate(operator: simplifiedGate)
+    }
+}
