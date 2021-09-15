@@ -34,7 +34,10 @@ public struct Noise {
     // MARK: - Internal properties
 
     let noise: InternalNoise
-    let noiseHash: AnyHashable
+
+    // MARK: - Private properties
+
+    private let noiseHash: AnyHashable
 
     // MARK: - Internal init methods
 
@@ -54,31 +57,5 @@ extension Noise: Hashable {
 
     public func hash(into hasher: inout Hasher) {
         noiseHash.hash(into: &hasher)
-    }
-}
-
-// MARK: - SimplifiedNoiseConvertible methods
-
-extension Noise: SimplifiedNoiseConvertible {
-    /// Check `SimplifiedNoiseConvertible.simplifiedNoise`
-    public var simplifiedNoise: SimplifiedNoise {
-        return noise.simplifiedNoise
-    }
-}
-
-// MARK: - SimplifiedQuantumOperatorConvertible methods
-
-extension Noise: SimplifiedQuantumOperatorConvertible {
-    /// Check `SimplifiedQuantumOperatorConvertible.simplifiedQuantumOperator`
-    public var simplifiedQuantumOperator: SimplifiedQuantumOperator {
-        return .noise(operator: simplifiedNoise)
-    }
-}
-
-// MARK: - QuantumOperatorConvertible methods
-
-extension Noise: QuantumOperatorConvertible {
-    public var quantumOperator: QuantumOperator {
-        return QuantumOperator(quantumOperator: self)
     }
 }
