@@ -1065,6 +1065,8 @@
 		FFF0E12026F2450900AFC209 /* SimplifiedNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF0E11E26F2450900AFC209 /* SimplifiedNoise.swift */; };
 		FFF0E12226F245EA00AFC209 /* SimplifiedQuantumOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF0E12126F245EA00AFC209 /* SimplifiedQuantumOperator.swift */; };
 		FFF0E12326F245EA00AFC209 /* SimplifiedQuantumOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF0E12126F245EA00AFC209 /* SimplifiedQuantumOperator.swift */; };
+		FFF0E12526F247CD00AFC209 /* QuantumOperatorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF0E12426F247CD00AFC209 /* QuantumOperatorConvertible.swift */; };
+		FFF0E12626F247CD00AFC209 /* QuantumOperatorConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF0E12426F247CD00AFC209 /* QuantumOperatorConvertible.swift */; };
 		FFF13510269B6DCC0014AB31 /* MainCircuitDensityMatrixFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF1350F269B6DCC0014AB31 /* MainCircuitDensityMatrixFactory.swift */; };
 		FFF13511269B6DCC0014AB31 /* MainCircuitDensityMatrixFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF1350F269B6DCC0014AB31 /* MainCircuitDensityMatrixFactory.swift */; };
 		FFF3929C23AFCCB300470C58 /* String+IsBitActivated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF3929B23AFCCB200470C58 /* String+IsBitActivated.swift */; };
@@ -1701,6 +1703,7 @@
 		FFF0E11B26F243A700AFC209 /* SimplifiedGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplifiedGate.swift; sourceTree = "<group>"; };
 		FFF0E11E26F2450900AFC209 /* SimplifiedNoise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplifiedNoise.swift; sourceTree = "<group>"; };
 		FFF0E12126F245EA00AFC209 /* SimplifiedQuantumOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplifiedQuantumOperator.swift; sourceTree = "<group>"; };
+		FFF0E12426F247CD00AFC209 /* QuantumOperatorConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantumOperatorConvertible.swift; sourceTree = "<group>"; };
 		FFF1350F269B6DCC0014AB31 /* MainCircuitDensityMatrixFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCircuitDensityMatrixFactory.swift; sourceTree = "<group>"; };
 		FFF3929B23AFCCB200470C58 /* String+IsBitActivated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsBitActivated.swift"; sourceTree = "<group>"; };
 		FFF3929E23AFD84000470C58 /* String+IsBitActivatedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+IsBitActivatedTests.swift"; sourceTree = "<group>"; };
@@ -3407,6 +3410,7 @@
 				FFF697F021BF23C7004AE4C2 /* Gate */,
 				FFBB94FD26EFB81200D09774 /* Noise */,
 				FFBB950A26EFC8F700D09774 /* QuantumOperator.swift */,
+				FFF0E12426F247CD00AFC209 /* QuantumOperatorConvertible.swift */,
 				FFF0E12126F245EA00AFC209 /* SimplifiedQuantumOperator.swift */,
 				FFADC45B26F13C340011EFAA /* SimplifiedQuantumOperatorConvertible.swift */,
 			);
@@ -4204,6 +4208,7 @@
 				FF96F7D925D9754A0063E6F1 /* FixedMatrixGate+RawMatrixFactory.swift in Sources */,
 				FF5DDDE22622460800208A94 /* AnySimulatorControlledMatrix.swift in Sources */,
 				FF002BC621FCA37600E40C3A /* SimpleGeneticGateFactory.swift in Sources */,
+				FFF0E12526F247CD00AFC209 /* QuantumOperatorConvertible.swift in Sources */,
 				FF39339D245EDBBD000E93D4 /* StatevectorTimeEvolutionAdapter.swift in Sources */,
 				FF410F3B221F588300D257EE /* GeneticPopulationCrossover.swift in Sources */,
 				FFA842392376102F00C76C81 /* Gate+QubitCount.swift in Sources */,
@@ -4902,6 +4907,7 @@
 				FF8BA57126C5AF3B00609D6F /* Matrix+State.swift in Sources */,
 				FF20145D24964F93007DAFFB /* CircuitStatevector+Probabilities.swift in Sources */,
 				FFA4C5282401BF0A00985289 /* EuclideanSolver.swift in Sources */,
+				FFF0E12626F247CD00AFC209 /* QuantumOperatorConvertible.swift in Sources */,
 				FFADC45A26F1319B0011EFAA /* SimplifiedNoiseConvertible.swift in Sources */,
 				FFA50BB02357BAEE00BA9BAC /* UnitarySimulator.swift in Sources */,
 				FFB09CC024465B1F00C098C3 /* Vector+IsAdditionOfSquareModulusApproximatelyEqualToOne.swift in Sources */,
