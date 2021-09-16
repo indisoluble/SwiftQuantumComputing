@@ -52,11 +52,11 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         let extractor = SimulatorControlledMatrixComponentsExtractor(extractor: gate)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
+        XCTAssertEqual(error, .gateError(error: .gateControlsCanNotBeAnEmptyList))
     }
 
     func testGateControlledWithGateThatThrowException_extractComponents_throwException() {
@@ -66,11 +66,11 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         let extractor = SimulatorControlledMatrixComponentsExtractor(extractor: gate)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
+        XCTAssertEqual(error, .gateError(error: .gateMatrixIsNotUnitary))
     }
 
     func testGateControlledWithNotGate_extractComponents_returnExpectedValues() {
@@ -146,11 +146,11 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         let extractor = SimulatorControlledMatrixComponentsExtractor(extractor: gate)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateControlsCanNotBeAnEmptyList)
+        XCTAssertEqual(error, .gateError(error: .gateControlsCanNotBeAnEmptyList))
     }
 
     func testGateOracleWithoutEnoughControlsToRepresentTruthTable_extractComponents_throwException() {
@@ -159,11 +159,12 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         let extractor = SimulatorControlledMatrixComponentsExtractor(extractor: gate)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateTruthTableCanNotBeRepresentedWithGivenControlCount)
+        XCTAssertEqual(error,
+                       .gateError(error: .gateTruthTableCanNotBeRepresentedWithGivenControlCount))
     }
 
     func testGateOracleWithEmptyStringInTruthTable_extractComponents_throwException() {
@@ -172,11 +173,12 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         let extractor = SimulatorControlledMatrixComponentsExtractor(extractor: gate)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes)
+        XCTAssertEqual(error,
+                       .gateError(error: .gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes))
     }
 
     func testGateOracleWithNonValidEntryInTruthTable_extractComponents_throwException() {
@@ -185,11 +187,12 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         let extractor = SimulatorControlledMatrixComponentsExtractor(extractor: gate)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes)
+        XCTAssertEqual(error,
+                       .gateError(error: .gateTruthTableEntriesHaveToBeNonEmptyStringsComposedOnlyOfZerosAndOnes))
     }
 
     func testGateOracleWithGateThatThrowException_extractComponents_throwException() {
@@ -200,11 +203,11 @@ class SimulatorControlledMatrixComponentsExtractorTests: XCTestCase {
         let extractor = SimulatorControlledMatrixComponentsExtractor(extractor: gate)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
             error = e
         }
-        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
+        XCTAssertEqual(error, .gateError(error: .gateMatrixIsNotUnitary))
     }
 
     func testGateOracleWithNotGate_extractComponents_returnExpectedValues() {

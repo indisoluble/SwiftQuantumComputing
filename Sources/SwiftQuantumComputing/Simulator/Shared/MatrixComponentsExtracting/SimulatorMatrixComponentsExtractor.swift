@@ -50,12 +50,12 @@ extension SimulatorMatrixComponentsExtractor: RawInputsExtracting {
 // MARK: - MatrixComponentsExtracting methods
 
 extension SimulatorMatrixComponentsExtractor: MatrixComponentsExtracting {
-    func extractMatrix() -> Result<AnySimulatorMatrix, GateError> {
+    func extractMatrix() -> Result<AnySimulatorMatrix, QuantumOperatorError> {
         switch extractor.extractSimulatorMatrix() {
         case .success(let matrix):
             return .success(AnySimulatorMatrix(matrix: matrix))
         case .failure(let error):
-            return .failure(error)
+            return .failure(.gateError(error: error))
         }
     }
 }

@@ -25,7 +25,7 @@ import Foundation
 /// Errors throwed by `Circuit.densityMatrix(withInitialState:)`
 public enum DensityMatrixError: Error, Hashable {
     /// Throwed if `gate` throws `error`
-    case gateThrowedError(gate: Gate, error: GateError)
+    case gateThrowedError(gate: Gate, error: QuantumOperatorError)
     /// Throwed when the resulting density matrix is not a valid: its eigenvalues do not add to one
     case resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
     /// Throwed when the resulting density matrix is not a valid: it is not hermitian

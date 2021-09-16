@@ -35,7 +35,7 @@ final class UnitaryGateTestDouble {
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: Gate?
     var applyingResult: UnitaryGateTestDouble?
-    var applyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
+    var applyingError = QuantumOperatorError.circuitQubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - UnitaryGate methods
@@ -51,7 +51,7 @@ extension UnitaryGateTestDouble: UnitaryGate {
         return .failure(unitaryError)
     }
 
-    func applying(_ gate: Gate) -> Result<UnitaryGate, GateError> {
+    func applying(_ gate: Gate) -> Result<UnitaryGate, QuantumOperatorError> {
         applyingCount += 1
 
         lastApplyingGate = gate

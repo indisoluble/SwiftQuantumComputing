@@ -88,11 +88,11 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let gate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = sut.apply(gate: gate, toStatevector: oneQubitZeroVector) {
             error = e
         }
-        XCTAssertEqual(error, .gateInputsAreNotUnique)
+        XCTAssertEqual(error, .operatorInputsAreNotUnique)
     }
 
     func testNotMatrixAndOneQubitVector_apply_returnExpectedVector() {

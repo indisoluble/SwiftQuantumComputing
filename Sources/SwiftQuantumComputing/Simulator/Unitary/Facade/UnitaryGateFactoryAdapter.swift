@@ -48,7 +48,7 @@ struct UnitaryGateFactoryAdapter {
 // MARK: - UnitaryGateFactory methods
 
 extension UnitaryGateFactoryAdapter: UnitaryGateFactory {
-    func makeUnitaryGate(qubitCount: Int, gate: Gate) -> Result<UnitaryGate, GateError> {
+    func makeUnitaryGate(qubitCount: Int, gate: Gate) -> Result<UnitaryGate, QuantumOperatorError> {
         let extractor = SimulatorMatrixComponentsExtractor(extractor: gate)
 
         switch extractor.extractCircuitMatrix(restrictedToCircuitQubitCount: qubitCount) {

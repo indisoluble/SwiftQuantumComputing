@@ -122,11 +122,11 @@ class DensityMatrixTransformationTests: XCTestCase {
         let gate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = sut.apply(gate: gate, toDensityMatrix: oneQubitZeroMatrix) {
             error = e
         }
-        XCTAssertEqual(error, .gateInputsAreNotUnique)
+        XCTAssertEqual(error, .operatorInputsAreNotUnique)
     }
 
     func testNotMatrixAndOneQubitMatrix_apply_returnExpectedMatrix() {

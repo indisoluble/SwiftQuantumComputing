@@ -53,7 +53,7 @@ struct DirectStatevectorTransformation {
 // MARK: - StatevectorTransformation methods
 
 extension DirectStatevectorTransformation: StatevectorTransformation {
-    func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, GateError> {
+    func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, QuantumOperatorError> {
         let extractor = SimulatorControlledMatrixComponentsExtractor(extractor: gate)
         let qubitCount = Int.log2(vector.count)
 

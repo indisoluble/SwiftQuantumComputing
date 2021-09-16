@@ -34,7 +34,7 @@ final class StatevectorTimeEvolutionTestDouble {
     private (set) var simulatorApplyingCount = 0
     private (set) var lastSimulatorApplyingGate: Gate?
     var simulatorApplyingResult: StatevectorTimeEvolutionTestDouble?
-    var simulatorApplyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
+    var simulatorApplyingError = QuantumOperatorError.circuitQubitCountHasToBeBiggerThanZero
 }
 
 extension StatevectorTimeEvolutionTestDouble: StatevectorTimeEvolution {
@@ -44,7 +44,7 @@ extension StatevectorTimeEvolutionTestDouble: StatevectorTimeEvolution {
         return stateResult
     }
 
-    func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, GateError> {
+    func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, QuantumOperatorError> {
         simulatorApplyingCount += 1
 
         lastSimulatorApplyingGate = gate

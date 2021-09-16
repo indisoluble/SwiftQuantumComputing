@@ -23,7 +23,7 @@ import Foundation
 // MARK: - SimulatorKrausMatrixExtracting methods
 
 extension Gate: SimulatorKrausMatrixExtracting {
-    func extractKrausMatrix() -> Result<SimulatorKrausMatrix, GateError> {
+    func extractKrausMatrix() -> Result<SimulatorKrausMatrix, QuantumOperatorError> {
         return gate.extractKrausMatrix()
     }
 }

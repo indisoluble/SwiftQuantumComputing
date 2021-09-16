@@ -50,7 +50,7 @@ extension SimulatorKrausMatrixComponentsExtractor: RawInputsExtracting {
 // MARK: - MatrixComponentsExtracting methods
 
 extension SimulatorKrausMatrixComponentsExtractor: MatrixComponentsExtracting {
-    func extractMatrix() -> Result<AnySimulatorKrausMatrix, GateError> {
+    func extractMatrix() -> Result<AnySimulatorKrausMatrix, QuantumOperatorError> {
         switch extractor.extractKrausMatrix() {
         case .success(let matrix):
             return .success(AnySimulatorKrausMatrix(matrix: matrix))

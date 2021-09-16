@@ -79,15 +79,15 @@ class DensityMatrixTimeEvolutionAdapterTests: XCTestCase {
         let adapter = try! DensityMatrixTimeEvolutionAdapter(state: otherMatrix,
                                                              transformation: transformation)
 
-        transformation.applyError = .gateMatrixIsNotUnitary
+        transformation.applyError = .gateError(error: .gateMatrixIsNotUnitary)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = adapter.applying(gate) {
             error = e
         }
 
-        XCTAssertEqual(error, .gateMatrixIsNotUnitary)
+        XCTAssertEqual(error, .gateError(error: .gateMatrixIsNotUnitary))
         XCTAssertEqual(transformation.applyCount, 1)
         XCTAssertEqual(transformation.lastApplyGate, gate)
         XCTAssertEqual(transformation.lastApplyDensityMatrix, otherMatrix)

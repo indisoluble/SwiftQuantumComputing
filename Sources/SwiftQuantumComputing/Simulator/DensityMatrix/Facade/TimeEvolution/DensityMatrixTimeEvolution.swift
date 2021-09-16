@@ -25,5 +25,5 @@ import Foundation
 protocol DensityMatrixTimeEvolution {
     var state: Matrix { get }
 
-    func applying(_ gate: Gate) -> Result<DensityMatrixTimeEvolution, GateError>
+    func applying(_ gate: Gate) -> Result<DensityMatrixTimeEvolution, QuantumOperatorError>
 }

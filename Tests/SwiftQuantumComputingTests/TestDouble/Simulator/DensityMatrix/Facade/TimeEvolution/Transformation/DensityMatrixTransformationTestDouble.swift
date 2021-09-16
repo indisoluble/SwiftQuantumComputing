@@ -32,13 +32,13 @@ final class DensityMatrixTransformationTestDouble {
     private (set) var lastApplyGate: Gate?
     private (set) var lastApplyDensityMatrix: Matrix?
     var applyResult: Matrix?
-    var applyError = GateError.circuitQubitCountHasToBeBiggerThanZero
+    var applyError = QuantumOperatorError.circuitQubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - DensityMatrixTransformation methods
 
 extension DensityMatrixTransformationTestDouble: DensityMatrixTransformation {
-    func apply(gate: Gate, toDensityMatrix matrix: Matrix) -> Result<Matrix, GateError> {
+    func apply(gate: Gate, toDensityMatrix matrix: Matrix) -> Result<Matrix, QuantumOperatorError> {
         applyCount += 1
 
         lastApplyGate = gate

@@ -47,11 +47,11 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         let failingGate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = adapter.makeUnitaryGate(qubitCount: 1, gate: failingGate) {
             error = e
         }
-        XCTAssertEqual(error, .gateInputsAreNotUnique)
+        XCTAssertEqual(error, .operatorInputsAreNotUnique)
     }
 
     func testGateReturnsComponents_makeUnitaryGate_returnValue() {

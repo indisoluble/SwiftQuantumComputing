@@ -23,18 +23,18 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorKrausMatrixExtracting {
-    func extractKrausMatrix() -> Result<SimulatorKrausMatrix, GateError>
+    func extractKrausMatrix() -> Result<SimulatorKrausMatrix, QuantumOperatorError>
 }
 
 // MARK: - SimulatorKrausMatrixExtracting default implementations
 
 extension SimulatorKrausMatrixExtracting where Self: SimulatorMatrixExtracting {
-    func extractKrausMatrix() -> Result<SimulatorKrausMatrix, GateError> {
+    func extractKrausMatrix() -> Result<SimulatorKrausMatrix, QuantumOperatorError> {
         switch extractSimulatorMatrix() {
         case .success(let matrix):
             return .success(AnySimulatorKrausMatrix(matrix: matrix))
         case .failure(let error):
-            return .failure(error)
+            return .failure(.gateError(error: error))
         }
     }
 }

@@ -34,7 +34,7 @@ final class DensityMatrixTimeEvolutionTestDouble {
     private (set) var applyingCount = 0
     private (set) var lastApplyingGate: Gate?
     var applyingResult: DensityMatrixTimeEvolution?
-    var applyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
+    var applyingError = QuantumOperatorError.circuitQubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - DensityMatrixTimeEvolution methods
@@ -46,7 +46,7 @@ extension DensityMatrixTimeEvolutionTestDouble: DensityMatrixTimeEvolution {
         return stateResult
     }
 
-    func applying(_ gate: Gate) -> Result<DensityMatrixTimeEvolution, GateError> {
+    func applying(_ gate: Gate) -> Result<DensityMatrixTimeEvolution, QuantumOperatorError> {
         applyingCount += 1
 
         lastApplyingGate = gate

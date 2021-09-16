@@ -32,13 +32,13 @@ final class StatevectorTransformationTestDouble {
     private (set) var lastApplyGate: Gate?
     private (set) var lastApplyVector: Vector?
     var applyResult: Vector?
-    var applyError = GateError.gateControlsCanNotBeAnEmptyList
+    var applyError = QuantumOperatorError.gateError(error: .gateControlsCanNotBeAnEmptyList)
 }
 
 // MARK: - StatevectorTransformation methods
 
 extension StatevectorTransformationTestDouble: StatevectorTransformation {
-    func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, GateError> {
+    func apply(gate: Gate, toStatevector vector: Vector) -> Result<Vector, QuantumOperatorError> {
         applyCount += 1
 
         lastApplyGate = gate

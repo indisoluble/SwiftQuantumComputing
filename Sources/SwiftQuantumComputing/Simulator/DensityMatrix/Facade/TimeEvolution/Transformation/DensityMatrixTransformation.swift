@@ -23,13 +23,13 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol DensityMatrixTransformation {
-    func apply(gate: Gate, toDensityMatrix matrix: Matrix) -> Result<Matrix, GateError>
+    func apply(gate: Gate, toDensityMatrix matrix: Matrix) -> Result<Matrix, QuantumOperatorError>
 }
 
 // MARK: - DensityMatrixTransformation default implementations
 
 extension DensityMatrixTransformation where Self: CircuitSimulatorMatrixDensityMatrixTransformation {
-    func apply(gate: Gate, toDensityMatrix matrix: Matrix) -> Result<Matrix, GateError> {
+    func apply(gate: Gate, toDensityMatrix matrix: Matrix) -> Result<Matrix, QuantumOperatorError> {
         let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: gate)
         let qubitCount = Int.log2(matrix.rowCount)
 

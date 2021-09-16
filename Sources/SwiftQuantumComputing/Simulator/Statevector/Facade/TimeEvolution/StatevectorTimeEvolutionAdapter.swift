@@ -51,7 +51,7 @@ struct StatevectorTimeEvolutionAdapter {
 // MARK: - StatevectorTimeEvolution methods
 
 extension StatevectorTimeEvolutionAdapter: StatevectorTimeEvolution {
-    func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, GateError> {
+    func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, QuantumOperatorError> {
         switch transformation.apply(gate: gate, toStatevector: state) {
         case .success(let nextState):
             let adapter = try! StatevectorTimeEvolutionAdapter(state: nextState,

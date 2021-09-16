@@ -39,7 +39,7 @@ struct TwoLevelDecompositionSolverFacade {
 
 extension TwoLevelDecompositionSolverFacade: TwoLevelDecompositionSolver {
     func decomposeGate(_ gate: Gate,
-                       restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], GateError> {
+                       restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], QuantumOperatorError> {
         let extractor = SimulatorMatrixComponentsExtractor(extractor: gate)
 
         var gateMatrix: Matrix
