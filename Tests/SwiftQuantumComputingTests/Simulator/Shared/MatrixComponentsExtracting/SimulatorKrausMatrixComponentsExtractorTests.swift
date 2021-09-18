@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -28,6 +29,11 @@ class SimulatorKrausMatrixComponentsExtractorTests: XCTestCase {
 
     // MARK: - Properties
 
+    let nonSquareMatrix = try! Matrix([
+        [.zero, .zero],
+        [.zero, .zero],
+        [.zero, .zero]
+    ])
     let nonPowerOfTwoSizeMatrix = try! Matrix([
         [.zero, .zero, .zero],
         [.zero, .zero, .zero],
@@ -58,6 +64,12 @@ class SimulatorKrausMatrixComponentsExtractorTests: XCTestCase {
         [.zero, .zero, .zero, .zero, .zero, .one, .zero, .zero],
         [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .one],
         [.zero, .zero, .zero, .zero, .zero, .zero, .one, .zero],
+    ])
+    let validNoiseMatrix = try! Matrix([
+        [Complex(0.5), .zero, .zero, .zero],
+        [.zero, Complex(0.5), .zero, .zero],
+        [.zero, .zero, Complex(0.5), .zero],
+        [.zero, .zero, .zero, Complex(0.5)]
     ])
     let validQubitCount = 3
     let extendedValidQubitCount = 6
@@ -480,6 +492,138 @@ class SimulatorKrausMatrixComponentsExtractorTests: XCTestCase {
         XCTAssertEqual(inputs, extendedValidInputs)
     }
 
+    func testNoiseMatricesWithEmptyMatrices_extractComponents_throwException() {
+        // Given
+        let noise = Noise.matrices(matrices: [], inputs: [0])
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // Then
+        var error: QuantumOperatorError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .noiseError(error: .noiseMatricesCanNotBeAnEmptyList))
+    }
+
+    func testNoiseMatricesWithFirstMatrixNotSquare_extractComponents_throwException() {
+        // Given
+        let noise = Noise.matrices(matrices: [nonSquareMatrix], inputs: [0])
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // Then
+        var error: QuantumOperatorError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .noiseError(error: .noiseMatricesAreNotSquare))
+    }
+
+    func testNoiseMatricesWithFirstMatrixSizeNotPowerOfTwo_extractComponents_throwException() {
+        // Given
+        let noise = Noise.matrices(matrices: [nonPowerOfTwoSizeMatrix], inputs: [0])
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // Then
+        var error: QuantumOperatorError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .noiseError(error: .noiseMatricesRowCountHasToBeAPowerOfTwo))
+    }
+
+    func testNoiseMatricesWithOneNonUnitaryMatrix_extractComponents_throwException() {
+        // Given
+        let noise = Noise.matrices(matrices: [nonUnitaryMatrix], inputs: [0])
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // Then
+        var error: QuantumOperatorError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .noiseError(error: .noiseMatricesDoNotSatisfyIdentity))
+    }
+
+    func testNoiseMatricesWithOneUnitaryMatrix_extractComponents_returnExpectedValues() {
+        // Given
+        let noise = Noise.matrices(matrices: [validMatrix], inputs: validInputs)
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // When
+        var matrix: SimulatorKrausMatrix?
+        var inputs: [Int]?
+        if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix?.matrices.count, 1)
+        XCTAssertEqual(try? matrix?.matrices.first?.expandedRawMatrix(maxConcurrency: 1).get(),
+                       validMatrix)
+        XCTAssertEqual(inputs, validInputs)
+    }
+
+    func testNoiseMatricesWithSecondMatrixNotSquare_extractComponents_throwException() {
+        // Given
+        let noise = Noise.matrices(matrices: [validMatrix, nonSquareMatrix], inputs: validInputs)
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // Then
+        var error: QuantumOperatorError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .noiseError(error: .noiseMatricesAreNotSquare))
+    }
+
+    func testNoiseMatricesWithMatricesWithDifferentSizes_extractComponents_throwException() {
+        // Given
+        let noise = Noise.matrices(matrices: [oracleValidMatrix, oracleExtendedValidMatrix],
+                                   inputs: validInputs)
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // Then
+        var error: QuantumOperatorError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .noiseError(error: .noiseMatricesDoNotHaveSameRowCount))
+    }
+
+    func testNoiseMatricesWithMatricesThatDoNotSatisfyIdentity_extractComponents_throwException() {
+        // Given
+        let noise = Noise.matrices(matrices: [validMatrix, validMatrix], inputs: validInputs)
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // Then
+        var error: QuantumOperatorError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .noiseError(error: .noiseMatricesDoNotSatisfyIdentity))
+    }
+
+    func testNoiseMatricesWithMatricesThatSatisfyIdentity_extractComponents_returnExpectedValues() {
+        // Given
+        let matrices = [validNoiseMatrix, validNoiseMatrix, validNoiseMatrix, validNoiseMatrix]
+        let noise = Noise.matrices(matrices: matrices, inputs: validInputs)
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // When
+        var matrix: SimulatorKrausMatrix?
+        var inputs: [Int]?
+        if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
+
+        // Then
+        XCTAssertEqual(matrix?.matrices.count, matrices.count)
+        XCTAssertTrue(zip(matrix!.matrices, matrices).allSatisfy({ try! $0.0.expandedRawMatrix(maxConcurrency: 1).get() == $0.1 }))
+        XCTAssertEqual(inputs, validInputs)
+    }
+
     static var allTests = [
         ("testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException",
          testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException),
@@ -524,6 +668,24 @@ class SimulatorKrausMatrixComponentsExtractorTests: XCTestCase {
         ("testGateControlledWithGateOracleWithNotGate_extractComponents_returnExpectedValues",
          testGateControlledWithGateOracleWithNotGate_extractComponents_returnExpectedValues),
         ("testGateOracleWithGateOracleWithNotGate_extractComponents_returnExpectedValues",
-         testGateOracleWithGateOracleWithNotGate_extractComponents_returnExpectedValues)
+         testGateOracleWithGateOracleWithNotGate_extractComponents_returnExpectedValues),
+        ("testNoiseMatricesWithEmptyMatrices_extractComponents_throwException",
+         testNoiseMatricesWithEmptyMatrices_extractComponents_throwException),
+        ("testNoiseMatricesWithFirstMatrixNotSquare_extractComponents_throwException",
+         testNoiseMatricesWithFirstMatrixNotSquare_extractComponents_throwException),
+        ("testNoiseMatricesWithFirstMatrixSizeNotPowerOfTwo_extractComponents_throwException",
+         testNoiseMatricesWithFirstMatrixSizeNotPowerOfTwo_extractComponents_throwException),
+        ("testNoiseMatricesWithOneNonUnitaryMatrix_extractComponents_throwException",
+         testNoiseMatricesWithOneNonUnitaryMatrix_extractComponents_throwException),
+        ("testNoiseMatricesWithOneUnitaryMatrix_extractComponents_returnExpectedValues",
+         testNoiseMatricesWithOneUnitaryMatrix_extractComponents_returnExpectedValues),
+        ("testNoiseMatricesWithSecondMatrixNotSquare_extractComponents_throwException",
+         testNoiseMatricesWithSecondMatrixNotSquare_extractComponents_throwException),
+        ("testNoiseMatricesWithMatricesWithDifferentSizes_extractComponents_throwException",
+         testNoiseMatricesWithMatricesWithDifferentSizes_extractComponents_throwException),
+        ("testNoiseMatricesWithMatricesThatDoNotSatisfyIdentity_extractComponents_throwException",
+         testNoiseMatricesWithMatricesThatDoNotSatisfyIdentity_extractComponents_throwException),
+        ("testNoiseMatricesWithMatricesThatSatisfyIdentity_extractComponents_returnExpectedValues",
+         testNoiseMatricesWithMatricesThatSatisfyIdentity_extractComponents_returnExpectedValues)
     ]
 }

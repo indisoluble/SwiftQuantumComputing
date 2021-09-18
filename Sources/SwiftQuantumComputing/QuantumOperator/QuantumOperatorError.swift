@@ -28,6 +28,8 @@ public enum QuantumOperatorError: Error, Hashable {
     case circuitQubitCountHasToBeBiggerThanZero
     /// Throwed when the `Gate` used to create the `QuantumOperator` is not valid
     case gateError(error: GateError)
+    /// Throwed when the `Noise` operator used to create the `QuantumOperator` is not valid
+    case noiseError(error: NoiseError)
     /// Throwed when an operator does not use as many qubits as its matrix is able to handle
     case operatorInputCountDoesNotMatchOperatorMatrixQubitCount
     /// Throwed when an operator references one or more qubits that do not exist

@@ -71,7 +71,7 @@ extension DensityMatrixSimulatorFacade: DensityMatrixSimulator {
         case .failure(.matrixWithNegativeEigenvalues):
             return .failure(.resultingDensityMatrixWithNegativeEigenvalues)
         case .failure(.unableToComputeMatrixEigenvalues):
-            return .failure(.unableToComputeresultingDensityMatrixEigenvalues)
+            return .failure(.unableToComputeResultingDensityMatrixEigenvalues)
         }
     }
 }

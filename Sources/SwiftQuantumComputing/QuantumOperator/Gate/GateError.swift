@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 /// Errors throwed  while acting on a `Gate` in a `Circuit`
-public enum GateError: Error {
+public enum GateError: Error, Hashable {
     /// Throwed when a gate without `controls` is used in a circuit
     case gateControlsCanNotBeAnEmptyList
     /// Throwed when the matrix provided by a gate is not unitary

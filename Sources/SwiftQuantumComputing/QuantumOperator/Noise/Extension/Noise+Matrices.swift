@@ -1,8 +1,8 @@
 //
-//  SimplifiedNoise.swift
+//  Noise+Matrices.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/09/2021.
+//  Created by Enrique de la Torre on 20/09/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,14 +20,16 @@
 
 import Foundation
 
-// MARK: - Public types
+// MARK: - Main body
 
-/// Simplified representation of a quantum noise operator. Use to easily identify the type of a quantum noise and its components
-public enum SimplifiedNoise {
-    /// Quantum noise built with `matrices` and any number of `inputs`
-    case matrices(matrices: [Matrix], inputs: [Int])
+extension Noise {
+
+    // MARK: - Public class methods
+
+    /// Returns a generic noise operator built with `matrices` and any number of `inputs`.
+    /// All `matrices` should accept the same number of `inputs` and the addition of the adjointed `matrices`
+    /// by themselves should be equal to identity matrix
+    public static func matrices(matrices: [Matrix], inputs: [Int]) -> Noise {
+        return Noise(noise: FixedMatricesNoise(matrices: matrices, inputs: inputs))
+    }
 }
-
-// MARK: - Hashable methods
-
-extension SimplifiedNoise: Hashable {}
