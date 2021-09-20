@@ -29,14 +29,15 @@ class NoiseCircuitFacadeTests: XCTestCase {
     // MARK: - Properties
 
     let initialCircuitDensityMatrix = CircuitDensityMatrixTestDouble()
-    let gates = [Gate.hadamard(target: 0), Gate.not(target: 0)]
+    let quantumOperators = [Gate.hadamard(target: 0).quantumOperator,
+                            Gate.not(target: 0).quantumOperator]
     let densityMatrixSimulator = DensityMatrixSimulatorTestDouble()
     
     // MARK: - Tests
 
     func testAnyCircuit_densityMatrix_forwardCallToDensityMatrixSimulator() {
         // Given
-        let facade = NoiseCircuitFacade(gates: gates,
+        let facade = NoiseCircuitFacade(quantumOperators: quantumOperators,
                                         densityMatrixSimulator: densityMatrixSimulator)
 
         let expectedResult = CircuitDensityMatrixTestDouble()
@@ -47,17 +48,17 @@ class NoiseCircuitFacadeTests: XCTestCase {
 
         // Then
         let lastApplyInitialDensityMatrix = densityMatrixSimulator.lastApplyStateInitialState
-        let lastDensityMatrixGates = densityMatrixSimulator.lastApplyStateCircuit
+        let lastDensityMatrixQuantumOperators = densityMatrixSimulator.lastApplyStateCircuit
 
         XCTAssertEqual(densityMatrixSimulator.applyStateCount, 1)
         XCTAssertTrue(lastApplyInitialDensityMatrix as AnyObject? === initialCircuitDensityMatrix)
-        XCTAssertEqual(lastDensityMatrixGates, gates)
+        XCTAssertEqual(lastDensityMatrixQuantumOperators, quantumOperators)
         XCTAssertTrue(result as AnyObject? === expectedResult)
     }
 
     func testAnyCircuitAndStatevectorSimulatorThatThrowsError_densityMatrix_forwardCallToDensityMatrixSimulatorAndReturnError() {
         // Given
-        let facade = NoiseCircuitFacade(gates: gates,
+        let facade = NoiseCircuitFacade(quantumOperators: quantumOperators,
                                         densityMatrixSimulator: densityMatrixSimulator)
         densityMatrixSimulator.applyStateError = .resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
 
@@ -69,11 +70,11 @@ class NoiseCircuitFacadeTests: XCTestCase {
 
         // Then
         let lastApplyInitialDensityMatrix = densityMatrixSimulator.lastApplyStateInitialState
-        let lastDensityMatrixGates = densityMatrixSimulator.lastApplyStateCircuit
+        let lastDensityMatrixQuantumOperators = densityMatrixSimulator.lastApplyStateCircuit
 
         XCTAssertEqual(densityMatrixSimulator.applyStateCount, 1)
         XCTAssertTrue(lastApplyInitialDensityMatrix as AnyObject? === initialCircuitDensityMatrix)
-        XCTAssertEqual(lastDensityMatrixGates, gates)
+        XCTAssertEqual(lastDensityMatrixQuantumOperators, quantumOperators)
         XCTAssertEqual(error, .resultingDensityMatrixEigenvaluesDoesNotAddUpToOne)
     }
 

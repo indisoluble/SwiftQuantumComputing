@@ -23,6 +23,6 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol DensityMatrixSimulator {
-    func apply(circuit: [Gate],
+    func apply(circuit: [QuantumOperator],
                to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError>
 }

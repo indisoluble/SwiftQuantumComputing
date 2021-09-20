@@ -51,8 +51,8 @@ struct DensityMatrixTimeEvolutionAdapter {
 // MARK: - DensityMatrixTimeEvolution methods
 
 extension DensityMatrixTimeEvolutionAdapter: DensityMatrixTimeEvolution {
-    func applying(_ gate: Gate) -> Result<DensityMatrixTimeEvolution, QuantumOperatorError> {
-        switch transformation.apply(gate: gate, toDensityMatrix: state) {
+    func applying(_ quantumOperator: QuantumOperator) -> Result<DensityMatrixTimeEvolution, QuantumOperatorError> {
+        switch transformation.apply(quantumOperator: quantumOperator, toDensityMatrix: state) {
         case .success(let nextState):
             let adapter = try! DensityMatrixTimeEvolutionAdapter(state: nextState,
                                                                  transformation: transformation)

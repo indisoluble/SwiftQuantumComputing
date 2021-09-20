@@ -26,8 +26,17 @@ extension NoiseCircuit {
 
     // MARK: - Public methods
 
+    /**
+     Applies `quantumOperators` to an initial state set to 0 to produce a new density matrix.
+
+     - Parameter factory: Used to produce the initial state set to 0.
+
+     - Returns: Another `CircuitDensityMatrix` instance, result of applying `quantumOperators` to 0. Or
+     `DensityMatrixError` error.
+     */
     public func densityMatrix(withFactory factory: CircuitDensityMatrixFactory = MainCircuitDensityMatrixFactory()) -> Result<CircuitDensityMatrix, DensityMatrixError> {
-        let initialState = try! Matrix.makeState(value: 0, qubitCount: gates.qubitCount()).get()
+        let initialState = try! Matrix.makeState(value: 0,
+                                                 qubitCount: quantumOperators.qubitCount()).get()
         let initialDensityMatrix = try! factory.makeDensityMatrix(matrix: initialState).get()
 
         return densityMatrix(withInitialState: initialDensityMatrix)

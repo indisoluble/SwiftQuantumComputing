@@ -28,9 +28,9 @@ public protocol NoiseCircuitFactory {
     /**
      Builds `NoiseCircuit` instances.
 
-     - Parameter gates: Sequence of gates in the circuit to be built.
+     - Parameter quantumOperators: Sequence of quantum operators in the circuit to be built.
 
      - Returns: A `NoiseCircuit` instance.
      */
-    func makeNoiseCircuit(gates: [Gate]) -> NoiseCircuit
+    func makeNoiseCircuit(quantumOperators: [QuantumOperator]) -> NoiseCircuit
 }

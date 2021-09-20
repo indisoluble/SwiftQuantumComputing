@@ -34,7 +34,7 @@ class NoiseCircuit_DensityMatrixTests: XCTestCase {
 
     func testEmptyCircuit_densityMatrix_produceExpectedMatrix() {
         // Given
-        circuit.gatesResult = []
+        circuit.quantumOperatorsResult = []
 
         // When
         _ = circuit.densityMatrix()
@@ -42,7 +42,7 @@ class NoiseCircuit_DensityMatrixTests: XCTestCase {
         // Then
         let expectedInitialDensityMatrix = try! Matrix([[.one, .zero], [.zero, .zero]])
 
-        XCTAssertEqual(circuit.gatesCount, 1)
+        XCTAssertEqual(circuit.quantumOperatorsCount, 1)
         XCTAssertEqual(circuit.circuitDensityMatrixCount, 1)
         XCTAssertEqual(circuit.lastCircuitDensityMatrixInitialState?.densityMatrix,
                        expectedInitialDensityMatrix)
@@ -50,9 +50,9 @@ class NoiseCircuit_DensityMatrixTests: XCTestCase {
 
     func testCircuitWithKnownQubitCount_densityMatrix_produceExpectedMatrix() {
         // Given
-        let gates = [Gate.not(target: 0), Gate.hadamard(target: 2)]
+        let gates = [Gate.not(target: 0).quantumOperator, Gate.hadamard(target: 2).quantumOperator]
 
-        circuit.gatesResult = gates
+        circuit.quantumOperatorsResult = gates
 
         // When
         _ = circuit.densityMatrix()
@@ -69,7 +69,7 @@ class NoiseCircuit_DensityMatrixTests: XCTestCase {
             [.zero, .zero, .zero, .zero, .zero, .zero, .zero, .zero]
         ])
 
-        XCTAssertEqual(circuit.gatesCount, 1)
+        XCTAssertEqual(circuit.quantumOperatorsCount, 1)
         XCTAssertEqual(circuit.circuitDensityMatrixCount, 1)
         XCTAssertEqual(circuit.lastCircuitDensityMatrixInitialState?.densityMatrix,
                        expectedInitialDensityMatrix)

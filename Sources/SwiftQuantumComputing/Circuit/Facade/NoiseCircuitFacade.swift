@@ -26,7 +26,7 @@ struct NoiseCircuitFacade {
 
     // MARK: - Circuit properties
 
-    let gates: [Gate]
+    let quantumOperators: [QuantumOperator]
 
     // MARK: - Private properties
 
@@ -34,8 +34,8 @@ struct NoiseCircuitFacade {
 
     // MARK: - Internal init methods
 
-    init(gates: [Gate], densityMatrixSimulator: DensityMatrixSimulator) {
-        self.gates = gates
+    init(quantumOperators: [QuantumOperator], densityMatrixSimulator: DensityMatrixSimulator) {
+        self.quantumOperators = quantumOperators
         self.densityMatrixSimulator = densityMatrixSimulator
     }
 }
@@ -44,7 +44,7 @@ struct NoiseCircuitFacade {
 
 extension NoiseCircuitFacade: CustomStringConvertible {
     var description: String {
-        return gates.description
+        return quantumOperators.description
     }
 }
 
@@ -52,6 +52,6 @@ extension NoiseCircuitFacade: CustomStringConvertible {
 
 extension NoiseCircuitFacade: NoiseCircuit {
     func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
-        return densityMatrixSimulator.apply(circuit: gates, to: initialState)
+        return densityMatrixSimulator.apply(circuit: quantumOperators, to: initialState)
     }
 }

@@ -32,7 +32,9 @@ class DensityMatrixTimeEvolutionAdapterTests: XCTestCase {
     let anyMatrix = Matrix.makeNot()
     let otherMatrix = Matrix.makeHadamard()
     let anotherMatrix = try! Matrix.makeIdentity(count: 2).get()
-    let gate = Gate.oracle(truthTable: ["00"], controls: [1, 2], gate: .not(target: 0))
+    let quantumOperator = Gate.oracle(truthTable: ["00"],
+                                      controls: [1, 2],
+                                      gate: .not(target: 0)).quantumOperator
 
     // MARK: - Tests
 
@@ -65,11 +67,11 @@ class DensityMatrixTimeEvolutionAdapterTests: XCTestCase {
         transformation.applyResult = anotherMatrix
 
         // When
-        let result = try? adapter.applying(gate).get()
+        let result = try? adapter.applying(quantumOperator).get()
 
         // Then
         XCTAssertEqual(transformation.applyCount, 1)
-        XCTAssertEqual(transformation.lastApplyGate, gate)
+        XCTAssertEqual(transformation.lastApplyQuantumOperator, quantumOperator)
         XCTAssertEqual(transformation.lastApplyDensityMatrix, otherMatrix)
         XCTAssertEqual(result?.state, anotherMatrix)
     }
@@ -83,13 +85,13 @@ class DensityMatrixTimeEvolutionAdapterTests: XCTestCase {
 
         // Then
         var error: QuantumOperatorError?
-        if case .failure(let e) = adapter.applying(gate) {
+        if case .failure(let e) = adapter.applying(quantumOperator) {
             error = e
         }
 
         XCTAssertEqual(error, .gateError(error: .gateMatrixIsNotUnitary))
         XCTAssertEqual(transformation.applyCount, 1)
-        XCTAssertEqual(transformation.lastApplyGate, gate)
+        XCTAssertEqual(transformation.lastApplyQuantumOperator, quantumOperator)
         XCTAssertEqual(transformation.lastApplyDensityMatrix, otherMatrix)
     }
 

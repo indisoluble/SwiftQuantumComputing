@@ -1,8 +1,8 @@
 //
-//  DensityMatrixTimeEvolution.swift
+//  NoiseCircuitFactory+QuantumOperatorConvertible.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 25/07/2021.
+//  Created by Enrique de la Torre on 20/09/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,20 @@
 
 import Foundation
 
-// MARK: - Protocol definition
+// MARK: - Main body
 
-protocol DensityMatrixTimeEvolution {
-    var state: Matrix { get }
+extension NoiseCircuitFactory {
 
-    func applying(_ quantumOperator: QuantumOperator) -> Result<DensityMatrixTimeEvolution, QuantumOperatorError>
+    // MARK: - Public methods
+
+    /**
+     Builds `NoiseCircuit` instances.
+
+     - Parameter quantumOperators: Sequence of quantum operators in the circuit to be built.
+
+     - Returns: A `NoiseCircuit` instance.
+     */
+    func makeNoiseCircuit(quantumOperators: [QuantumOperatorConvertible]) -> NoiseCircuit {
+        return makeNoiseCircuit(quantumOperators: quantumOperators.map({ $0.quantumOperator }))
+    }
 }

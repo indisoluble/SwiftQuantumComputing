@@ -67,8 +67,8 @@ public struct MainNoiseCircuitFactory {
 
 extension MainNoiseCircuitFactory: NoiseCircuitFactory {
     /// Check `CircuitFactory.makeNoiseCircuit(gates:)`
-    public func makeNoiseCircuit(gates: [Gate]) -> NoiseCircuit {
-        return NoiseCircuitFacade(gates: gates,
+    public func makeNoiseCircuit(quantumOperators: [QuantumOperator]) -> NoiseCircuit {
+        return NoiseCircuitFacade(quantumOperators: quantumOperators,
                                   densityMatrixSimulator: makeDensityMatrixSimulator())
     }
 }

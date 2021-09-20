@@ -24,8 +24,8 @@ import Foundation
 
 /// Errors throwed by `Circuit.densityMatrix(withInitialState:)`
 public enum DensityMatrixError: Error, Hashable {
-    /// Throwed if `gate` throws `error`
-    case gateThrowedError(gate: Gate, error: QuantumOperatorError)
+    /// Throwed if `operator` throws `error`
+    case operatorThrowedError(operator: QuantumOperator, error: QuantumOperatorError)
     /// Throwed when the resulting density matrix is not a valid: its eigenvalues do not add to one
     case resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
     /// Throwed when the resulting density matrix is not a valid: it is not hermitian
@@ -41,8 +41,8 @@ public enum DensityMatrixError: Error, Hashable {
 
 /// A quantum circuit with noise
 public protocol NoiseCircuit {
-    /// Gates in the circuit
-    var gates: [Gate] { get }
+    /// Quantum operators in the circuit
+    var quantumOperators: [QuantumOperator] { get }
 
     /**
      Applies `gates` to `initialState` to produce a new density matrix.

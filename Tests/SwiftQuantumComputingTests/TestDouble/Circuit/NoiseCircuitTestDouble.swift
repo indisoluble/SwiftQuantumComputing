@@ -28,8 +28,8 @@ final class NoiseCircuitTestDouble {
 
     // MARK: - Internal properties
 
-    private (set) var gatesCount = 0
-    var gatesResult: [Gate] = []
+    private (set) var quantumOperatorsCount = 0
+    var quantumOperatorsResult: [QuantumOperator] = []
 
     private (set) var circuitDensityMatrixCount = 0
     private (set) var lastCircuitDensityMatrixInitialState: CircuitDensityMatrix?
@@ -40,10 +40,10 @@ final class NoiseCircuitTestDouble {
 // MARK: - NoiseCircuit methods
 
 extension NoiseCircuitTestDouble: NoiseCircuit {
-    var gates: [Gate] {
-        gatesCount += 1
+    var quantumOperators: [QuantumOperator] {
+        quantumOperatorsCount += 1
 
-        return gatesResult
+        return quantumOperatorsResult
     }
 
     func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {

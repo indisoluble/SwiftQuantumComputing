@@ -119,11 +119,12 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testInvalidGate_apply_throwError() {
         // Given
-        let gate = Gate.controlledNot(target: 0, control: 0)
+        let quantumOperator = Gate.controlledNot(target: 0, control: 0).quantumOperator
 
         // Then
         var error: QuantumOperatorError?
-        if case .failure(let e) = sut.apply(gate: gate, toDensityMatrix: oneQubitZeroMatrix) {
+        if case .failure(let e) = sut.apply(quantumOperator: quantumOperator,
+                                            toDensityMatrix: oneQubitZeroMatrix) {
             error = e
         }
         XCTAssertEqual(error, .operatorInputsAreNotUnique)
@@ -131,7 +132,7 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testNotMatrixAndOneQubitMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .not(target: 0),
+        let result = try! sut.apply(quantumOperator: Gate.not(target: 0).quantumOperator,
                                     toDensityMatrix: oneQubitZeroMatrix).get()
 
         // Then
@@ -140,7 +141,7 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testNotMatrixAndThreeQubitMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .not(target: 2),
+        let result = try! sut.apply(quantumOperator: Gate.not(target: 2).quantumOperator,
                                     toDensityMatrix: threeQubitZeroMatrix).get()
 
         // Then
@@ -149,9 +150,10 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testTwoNotMatricesAndThreeQubitMatrix_apply_returnExpectedMatrix() {
         // When
-        var result = try! sut.apply(gate: .not(target: 2),
+        var result = try! sut.apply(quantumOperator: Gate.not(target: 2).quantumOperator,
                                     toDensityMatrix: threeQubitZeroMatrix).get()
-        result = try! sut.apply(gate: .not(target: 0), toDensityMatrix: result).get()
+        result = try! sut.apply(quantumOperator: Gate.not(target: 0).quantumOperator,
+                                toDensityMatrix: result).get()
 
         // Then
         XCTAssertEqual(result, threeQubitFiveMatrix)
@@ -159,7 +161,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testControlledNotMatrixAndThreeQubitZeroMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .controlledNot(target: 1, control: 0),
+        let result = try! sut.apply(quantumOperator: Gate.controlledNot(target: 1,
+                                                                        control: 0).quantumOperator,
                                     toDensityMatrix: threeQubitZeroMatrix).get()
 
         // Then
@@ -168,7 +171,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testControlledNotMatrixAndThreeQubitOneMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .controlledNot(target: 1, control: 0),
+        let result = try! sut.apply(quantumOperator: Gate.controlledNot(target: 1,
+                                                                        control: 0).quantumOperator,
                                     toDensityMatrix: threeQubitOneMatrix).get()
 
         // Then
@@ -177,7 +181,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testControlledNotMatrixAndThreeQubitTwoMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .controlledNot(target: 1, control: 0),
+        let result = try! sut.apply(quantumOperator: Gate.controlledNot(target: 1,
+                                                                        control: 0).quantumOperator,
                                     toDensityMatrix: threeQubitTwoMatrix).get()
 
         // Then
@@ -186,7 +191,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testControlledNotMatrixAndThreeQubitThreeMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .controlledNot(target: 1, control: 0),
+        let result = try! sut.apply(quantumOperator: Gate.controlledNot(target: 1,
+                                                                        control: 0).quantumOperator,
                                     toDensityMatrix: threeQubitThreeMatrix).get()
 
         // Then
@@ -195,7 +201,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testControlledNotMatrixThreeQubitThreeMatrixAndOtherInputs_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .controlledNot(target: 2, control: 1),
+        let result = try! sut.apply(quantumOperator: Gate.controlledNot(target: 2,
+                                                                        control: 1).quantumOperator,
                                     toDensityMatrix: threeQubitThreeMatrix).get()
 
         // Then
@@ -204,7 +211,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testControlledNotMatrixFourQubitOneMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .controlledNot(target: 0, control: 2),
+        let result = try! sut.apply(quantumOperator: Gate.controlledNot(target: 0,
+                                                                        control: 2).quantumOperator,
                                     toDensityMatrix: threeQubitFourMatrix).get()
 
         // Then
@@ -213,7 +221,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testControlledNotMatrixAndFiveQubitThreeMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .controlledNot(target: 0, control: 2),
+        let result = try! sut.apply(quantumOperator: Gate.controlledNot(target: 0,
+                                                                        control: 2).quantumOperator,
                                     toDensityMatrix: threeQubitFiveMatrix).get()
 
         // Then
@@ -222,7 +231,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testControlledNotMatrixAndSevenQubitThreeMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .controlledNot(target: 0, control: 2),
+        let result = try! sut.apply(quantumOperator: Gate.controlledNot(target: 0,
+                                                                        control: 2).quantumOperator,
                                     toDensityMatrix: threeQubitSevenMatrix).get()
 
         // Then
@@ -231,7 +241,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testControlledNotMatrixSevenQubitThreeMatrixAndOtherInputs_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .controlledNot(target: 2, control: 1),
+        let result = try! sut.apply(quantumOperator: Gate.controlledNot(target: 2,
+                                                                        control: 1).quantumOperator,
                                     toDensityMatrix: threeQubitSevenMatrix).get()
 
         // Then
@@ -243,9 +254,9 @@ class DensityMatrixTransformationTests: XCTestCase {
         let matrix = try! Matrix([[.one, .zero], [.zero, .one]])
 
         // When
-        let result = try! sut.apply(gate: .controlled(gate: .matrix(matrix: matrix,
-                                                                    inputs: [0]),
-                                                      controls: [2]),
+        let result = try! sut.apply(quantumOperator: Gate.controlled(gate: .matrix(matrix: matrix,
+                                                                                   inputs: [0]),
+                                                                     controls: [2]).quantumOperator,
                                     toDensityMatrix: threeQubitSevenMatrix).get()
 
         // Then
@@ -254,8 +265,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testMultiqubitMatrixAndThreeQubitZeroMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix,
-                                                  inputs: [0, 1]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMultiqubitMatrix,
+                                                                 inputs: [0, 1]).quantumOperator,
                                     toDensityMatrix: threeQubitZeroMatrix).get()
 
         // Then
@@ -264,8 +275,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testMultiqubitMatrixAndThreeQubitOneMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix,
-                                                  inputs: [0, 1]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMultiqubitMatrix,
+                                                                 inputs: [0, 1]).quantumOperator,
                                     toDensityMatrix: threeQubitOneMatrix).get()
 
         // Then
@@ -274,8 +285,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testMultiqubitMatrixAndThreeQubitTwoMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix,
-                                                  inputs: [0, 1]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMultiqubitMatrix,
+                                                                 inputs: [0, 1]).quantumOperator,
                                     toDensityMatrix: threeQubitTwoMatrix).get()
 
         // Then
@@ -284,8 +295,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testMultiqubitMatrixAndThreeQubitThreeMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix,
-                                                  inputs: [0, 1]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMultiqubitMatrix,
+                                                                 inputs: [0, 1]).quantumOperator,
                                     toDensityMatrix: threeQubitThreeMatrix).get()
 
         // Then
@@ -294,8 +305,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testMultiqubitMatrixThreeQubitThreeMatrixAndOtherInputs_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix,
-                                                  inputs: [1, 2]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMultiqubitMatrix,
+                                                                 inputs: [1, 2]).quantumOperator,
                                     toDensityMatrix: threeQubitThreeMatrix).get()
 
         // Then
@@ -304,8 +315,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testMultiqubitMatrixFourQubitOneMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix,
-                                                  inputs: [2, 0]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMultiqubitMatrix,
+                                                                 inputs: [2, 0]).quantumOperator,
                                     toDensityMatrix: threeQubitFourMatrix).get()
 
         // Then
@@ -314,8 +325,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testMultiqubitMatrixAndFiveQubitThreeMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix,
-                                                  inputs: [2, 0]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMultiqubitMatrix,
+                                                                 inputs: [2, 0]).quantumOperator,
                                     toDensityMatrix: threeQubitFiveMatrix).get()
 
         // Then
@@ -324,8 +335,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testMultiqubitMatrixAndSevenQubitThreeMatrix_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix,
-                                                  inputs: [2, 0]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMultiqubitMatrix,
+                                                                 inputs: [2, 0]).quantumOperator,
                                     toDensityMatrix: threeQubitSevenMatrix).get()
 
         // Then
@@ -334,8 +345,8 @@ class DensityMatrixTransformationTests: XCTestCase {
 
     func testMultiqubitMatrixSevenQubitThreeMatrixAndOtherInputs_apply_returnExpectedMatrix() {
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMultiqubitMatrix,
-                                                  inputs: [1, 2]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMultiqubitMatrix,
+                                                                 inputs: [1, 2]).quantumOperator,
                                     toDensityMatrix: threeQubitSevenMatrix).get()
 
         // Then
@@ -349,7 +360,8 @@ class DensityMatrixTransformationTests: XCTestCase {
                                                              controlledMatrix: matrix).expandedRawMatrix(maxConcurrency: 1).get()
 
         // When
-        let result = try! sut.apply(gate: .matrix(matrix: simulatorGateMatrix, inputs: [2, 0]),
+        let result = try! sut.apply(quantumOperator: Gate.matrix(matrix: simulatorGateMatrix,
+                                                                 inputs: [2, 0]).quantumOperator,
                                     toDensityMatrix: threeQubitSevenMatrix).get()
 
         // Then
