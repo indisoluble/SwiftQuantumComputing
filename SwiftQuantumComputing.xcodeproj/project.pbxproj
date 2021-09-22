@@ -807,6 +807,8 @@
 		FFAE2F4126FB91140049FF46 /* FixedBitFlipNoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F3F26FB91140049FF46 /* FixedBitFlipNoiseTests.swift */; };
 		FFAE2F4326FB9E850049FF46 /* NoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F4226FB9E850049FF46 /* NoiseTests.swift */; };
 		FFAE2F4426FB9E850049FF46 /* NoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F4226FB9E850049FF46 /* NoiseTests.swift */; };
+		FFAE2F4626FBB4B50049FF46 /* QuantumOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F4526FBB4B50049FF46 /* QuantumOperatorTests.swift */; };
+		FFAE2F4726FBB4B50049FF46 /* QuantumOperatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F4526FBB4B50049FF46 /* QuantumOperatorTests.swift */; };
 		FFAF768D25602AB900AC7908 /* SimulatorMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */; };
 		FFAF768E25602AB900AC7908 /* SimulatorMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */; };
 		FFAFC3FC2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FB2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift */; };
@@ -1640,6 +1642,7 @@
 		FFAE2F3A26FB5D900049FF46 /* FixedBitFlipNoise+SimplifiedNoiseConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FixedBitFlipNoise+SimplifiedNoiseConvertible.swift"; sourceTree = "<group>"; };
 		FFAE2F3F26FB91140049FF46 /* FixedBitFlipNoiseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedBitFlipNoiseTests.swift; sourceTree = "<group>"; };
 		FFAE2F4226FB9E850049FF46 /* NoiseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseTests.swift; sourceTree = "<group>"; };
+		FFAE2F4526FBB4B50049FF46 /* QuantumOperatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantumOperatorTests.swift; sourceTree = "<group>"; };
 		FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorMatrixExtracting.swift; sourceTree = "<group>"; };
 		FFAFC3FB2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+QuotientAndRemainderWithDivisionType.swift"; sourceTree = "<group>"; };
 		FFAFC3FE24030B0F00B97BC9 /* Int+QuotientAndRemainderWithDivisionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+QuotientAndRemainderWithDivisionTypeTests.swift"; sourceTree = "<group>"; };
@@ -3636,6 +3639,7 @@
 			children = (
 				FF18358121EA358C003E2F04 /* Gate */,
 				FFAE2F3D26FB90710049FF46 /* Noise */,
+				FFAE2F4526FBB4B50049FF46 /* QuantumOperatorTests.swift */,
 			);
 			path = QuantumOperator;
 			sourceTree = "<group>";
@@ -5052,6 +5056,7 @@
 				FFF8E3C726B3430D007E9E2D /* DensityMatrixTimeEvolutionFactoryTestDouble.swift in Sources */,
 				FF263DD4269E15B20020A76B /* MainCircuitDensityMatrixFactoryTests.swift in Sources */,
 				FF411CB52529EA860047A0CD /* Vector+EliminationMatrixTests.swift in Sources */,
+				FFAE2F4626FBB4B50049FF46 /* QuantumOperatorTests.swift in Sources */,
 				FF47CFE1262A2E6400F20BE6 /* TruthTableEntry+InitRepeatingTests.swift in Sources */,
 				FFEB607F23F87A7100F4FAA1 /* Matrix+IdentityTests.swift in Sources */,
 				FFA4C52B2401C70100985289 /* EuclideanSolverTests.swift in Sources */,
@@ -5643,6 +5648,7 @@
 				FFF8E3C826B3430D007E9E2D /* DensityMatrixTimeEvolutionFactoryTestDouble.swift in Sources */,
 				FF263DD5269E15B20020A76B /* MainCircuitDensityMatrixFactoryTests.swift in Sources */,
 				FF411CB62529EA860047A0CD /* Vector+EliminationMatrixTests.swift in Sources */,
+				FFAE2F4726FBB4B50049FF46 /* QuantumOperatorTests.swift in Sources */,
 				FF47CFE2262A2E6400F20BE6 /* TruthTableEntry+InitRepeatingTests.swift in Sources */,
 				FFEB608023F87A7100F4FAA1 /* Matrix+IdentityTests.swift in Sources */,
 				FFA4C52C2401C70100985289 /* EuclideanSolverTests.swift in Sources */,

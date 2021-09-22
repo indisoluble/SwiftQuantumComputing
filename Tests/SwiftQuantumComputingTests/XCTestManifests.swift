@@ -115,6 +115,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(GateTests.allTests),
         testCase(FixedBitFlipNoiseTests.allTests),
         testCase(NoiseTests.allTests),
+        testCase(QuantumOperatorTests.allTests),
         testCase(MainGeneticCircuitEvaluatorTests.allTests),
         testCase(MainGeneticUseCaseEvaluatorTests.allTests),
         testCase(ControlledGateTests.allTests),
