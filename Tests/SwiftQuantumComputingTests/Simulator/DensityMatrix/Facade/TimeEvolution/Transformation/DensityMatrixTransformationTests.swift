@@ -18,6 +18,7 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import XCTest
 
 @testable import SwiftQuantumComputing
@@ -368,6 +369,38 @@ class DensityMatrixTransformationTests: XCTestCase {
         XCTAssertEqual(result, threeQubitSevenMatrix)
     }
 
+    func testZeroPercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix() {
+        // When
+        let result = try! sut.apply(quantumOperator: Noise.bitFlip(probability: 0,
+                                                                   target: 0).quantumOperator,
+                                    toDensityMatrix: oneQubitZeroMatrix).get()
+
+        // Then
+        XCTAssertEqual(result, oneQubitZeroMatrix)
+    }
+
+    func test100PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix() {
+        // When
+        let result = try! sut.apply(quantumOperator: Noise.bitFlip(probability: 1,
+                                                                   target: 0).quantumOperator,
+                                    toDensityMatrix: oneQubitZeroMatrix).get()
+
+        // Then
+        XCTAssertEqual(result, oneQubitOneMatrix)
+    }
+
+    func test70PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix() {
+        // When
+        let result = try! sut.apply(quantumOperator: Noise.bitFlip(probability: 0.7,
+                                                                   target: 0).quantumOperator,
+                                    toDensityMatrix: oneQubitZeroMatrix).get()
+
+        // Then
+        let expectedResult = try! Matrix([[Complex(0.3), .zero], [.zero, Complex(0.7)]])
+        XCTAssertTrue(result.isApproximatelyEqual(to: expectedResult,
+                                                  absoluteTolerance: SharedConstants.tolerance))
+    }
+
     static var allTests = [
         ("testInvalidGate_apply_throwError",
          testInvalidGate_apply_throwError),
@@ -416,6 +449,12 @@ class DensityMatrixTransformationTests: XCTestCase {
         ("testMultiqubitMatrixSevenQubitThreeMatrixAndOtherInputs_apply_returnExpectedMatrix",
          testMultiqubitMatrixSevenQubitThreeMatrixAndOtherInputs_apply_returnExpectedMatrix),
         ("testOtherMultiqubitMatrixAndSevenQubitThreeMatrix_apply_returnExpectedMatrix",
-         testOtherMultiqubitMatrixAndSevenQubitThreeMatrix_apply_returnExpectedMatrix)
+         testOtherMultiqubitMatrixAndSevenQubitThreeMatrix_apply_returnExpectedMatrix),
+        ("testZeroPercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix",
+         testZeroPercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix),
+        ("test100PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix",
+         test100PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix),
+        ("test70PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix",
+         test70PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix)
     ]
 }

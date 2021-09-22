@@ -1,8 +1,8 @@
 //
-//  SimplifiedNoise.swift
+//  FixedBitFlipNoise+RawInputsExtracting.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 15/09/2021.
+//  Created by Enrique de la Torre on 22/09/2021.
 //  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,16 +20,10 @@
 
 import Foundation
 
-// MARK: - Public types
+// MARK: - RawInputsExtracting methods
 
-/// Simplified representation of a quantum noise operator. Use to easily identify the type of a quantum noise and its components
-public enum SimplifiedNoise {
-    /// Noise channel that applies a bit flip to `target` with given `probability`
-    case bitFlip(probability: Double, target: Int)
-    /// Noise channel that applies `matrices` to any number of `inputs`
-    case matrices(matrices: [Matrix], inputs: [Int])
+extension FixedBitFlipNoise: RawInputsExtracting {
+    func extractRawInputs() -> [Int] {
+        return [target]
+    }
 }
-
-// MARK: - Hashable methods
-
-extension SimplifiedNoise: Hashable {}

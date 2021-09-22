@@ -26,7 +26,7 @@ extension Noise {
 
     // MARK: - Public class methods
 
-    /// Returns a generic noise operator built with `matrices` and any number of `inputs`.
+    /// Returns a generic noise channel that applies `matrices` to any number of `inputs`.
     /// All `matrices` should accept the same number of `inputs` and the addition of the adjointed `matrices`
     /// by themselves should be equal to identity matrix
     public static func matrices(matrices: [Matrix], inputs: [Int]) -> Noise {

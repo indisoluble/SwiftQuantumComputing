@@ -34,4 +34,6 @@ public enum NoiseError: Error, Hashable {
     case noiseMatricesDoNotSatisfyIdentity
     /// Throwed when the number of rows in any matrix used to build a noise operator is not a power of 2
     case noiseMatricesRowCountHasToBeAPowerOfTwo
+    /// Throwed when the noise probability is not between [0...1]
+    case noiseProbabilityHasToBeBetweenZeroAndOne
 }
