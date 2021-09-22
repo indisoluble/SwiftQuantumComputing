@@ -805,6 +805,8 @@
 		FFAE2F3C26FB5D900049FF46 /* FixedBitFlipNoise+SimplifiedNoiseConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F3A26FB5D900049FF46 /* FixedBitFlipNoise+SimplifiedNoiseConvertible.swift */; };
 		FFAE2F4026FB91140049FF46 /* FixedBitFlipNoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F3F26FB91140049FF46 /* FixedBitFlipNoiseTests.swift */; };
 		FFAE2F4126FB91140049FF46 /* FixedBitFlipNoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F3F26FB91140049FF46 /* FixedBitFlipNoiseTests.swift */; };
+		FFAE2F4326FB9E850049FF46 /* NoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F4226FB9E850049FF46 /* NoiseTests.swift */; };
+		FFAE2F4426FB9E850049FF46 /* NoiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE2F4226FB9E850049FF46 /* NoiseTests.swift */; };
 		FFAF768D25602AB900AC7908 /* SimulatorMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */; };
 		FFAF768E25602AB900AC7908 /* SimulatorMatrixExtracting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */; };
 		FFAFC3FC2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAFC3FB2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift */; };
@@ -1637,6 +1639,7 @@
 		FFAE2F3726FB55900049FF46 /* FixedBitFlipNoise+SimulatorKrausMatrixExtracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FixedBitFlipNoise+SimulatorKrausMatrixExtracting.swift"; sourceTree = "<group>"; };
 		FFAE2F3A26FB5D900049FF46 /* FixedBitFlipNoise+SimplifiedNoiseConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FixedBitFlipNoise+SimplifiedNoiseConvertible.swift"; sourceTree = "<group>"; };
 		FFAE2F3F26FB91140049FF46 /* FixedBitFlipNoiseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedBitFlipNoiseTests.swift; sourceTree = "<group>"; };
+		FFAE2F4226FB9E850049FF46 /* NoiseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseTests.swift; sourceTree = "<group>"; };
 		FFAF768C25602AB900AC7908 /* SimulatorMatrixExtracting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulatorMatrixExtracting.swift; sourceTree = "<group>"; };
 		FFAFC3FB2402FAC500B97BC9 /* Int+QuotientAndRemainderWithDivisionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+QuotientAndRemainderWithDivisionType.swift"; sourceTree = "<group>"; };
 		FFAFC3FE24030B0F00B97BC9 /* Int+QuotientAndRemainderWithDivisionTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+QuotientAndRemainderWithDivisionTypeTests.swift"; sourceTree = "<group>"; };
@@ -3330,6 +3333,7 @@
 			isa = PBXGroup;
 			children = (
 				FFAE2F3E26FB90830049FF46 /* FixedNoise */,
+				FFAE2F4226FB9E850049FF46 /* NoiseTests.swift */,
 			);
 			path = Noise;
 			sourceTree = "<group>";
@@ -5027,6 +5031,7 @@
 				FF24312D22137CF000D7388E /* ConfigurableGeneticGateTests.swift in Sources */,
 				FFED6909212F2DE600D46D68 /* CircuitFacadeTests.swift in Sources */,
 				FF6FC828248D3CB10082738A /* GeneticConfigurationTests.swift in Sources */,
+				FFAE2F4326FB9E850049FF46 /* NoiseTests.swift in Sources */,
 				FFE1A95A222339B900A2F285 /* GeneticCircuitScoreTestDouble.swift in Sources */,
 				FFE20D372422C7820056678B /* Rational+MagnitudeTests.swift in Sources */,
 				FF3933A3245EE5C0000E93D4 /* StatevectorTimeEvolutionAdapterTests.swift in Sources */,
@@ -5617,6 +5622,7 @@
 				FFE1A96722234C2700A2F285 /* GeneticCircuitEvaluatorFactoryTestDouble.swift in Sources */,
 				FF24312E22137CF000D7388E /* ConfigurableGeneticGateTests.swift in Sources */,
 				FF6FC829248D3CB10082738A /* GeneticConfigurationTests.swift in Sources */,
+				FFAE2F4426FB9E850049FF46 /* NoiseTests.swift in Sources */,
 				FF46EDC0216924510044C3CA /* ComplexTests.swift in Sources */,
 				FFE20D382422C7820056678B /* Rational+MagnitudeTests.swift in Sources */,
 				FF3933A4245EE5C0000E93D4 /* StatevectorTimeEvolutionAdapterTests.swift in Sources */,

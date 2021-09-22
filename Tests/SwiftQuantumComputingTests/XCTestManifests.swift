@@ -114,6 +114,7 @@ public func allTests() -> [XCTestCaseEntry] {
         testCase(FixedOracleGateTests.allTests),
         testCase(GateTests.allTests),
         testCase(FixedBitFlipNoiseTests.allTests),
+        testCase(NoiseTests.allTests),
         testCase(MainGeneticCircuitEvaluatorTests.allTests),
         testCase(MainGeneticUseCaseEvaluatorTests.allTests),
         testCase(ControlledGateTests.allTests),
