@@ -6,7 +6,7 @@ func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircuit,
     var evolvedGates = evolvedCircuit.gates
 
     if let oracleAt = evolvedCircuit.oracleAt {
-        if case .oracle(_, let controls, let gate) = evolvedGates[oracleAt].simplified,
+        if case .oracle(_, let controls, let gate) = evolvedGates[oracleAt].simplifiedGate,
            case .not(let target) = gate {
             evolvedGates[oracleAt] = Gate.oracle(truthTable: useCase.truthTable.truth,
                                                  controls: controls,
