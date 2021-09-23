@@ -45,6 +45,9 @@ enum Circuit: String, CaseIterable, ExpressibleByArgument {
     case oracleHadamards
 }
 
+typealias Circuits = (circuit: SwiftQuantumComputing.Circuit,
+                      noise: SwiftQuantumComputing.NoiseCircuit)
+
 // MARK: - Main body
 
 struct SQCMeasurePerformance: ParsableCommand {
@@ -148,12 +151,12 @@ struct SQCMeasurePerformance: ParsableCommand {
     }
 
     mutating func run() throws {
-        let output = makeCircuit()
+        let output = makeCircuits()
 
         print("""
         Simulating circuit with:
         - \(qubitCount) qubit/s
-        - \(output.gates.count) gates (entangled state + \(circuit))
+        - \(output.circuit.gates.count) gates (entangled state + \(circuit))
         - Up to \(calculationConcurrency * expansionConcurrency) thread/s in \(mode) mode to produce \(result)\n
         """)
 
@@ -194,14 +197,14 @@ private extension SQCMeasurePerformance {
         print(msg)
     }
 
-    func execute(_ circuit: SwiftQuantumComputing.Circuit) {
+    func execute(_ circuits: Circuits) {
         switch result {
         case .densityMatrix:
-            _ = circuit.densityMatrix()
+            _ = circuits.noise.densityMatrix()
         case .statevector:
-            _ = circuit.statevector()
+            _ = circuits.circuit.statevector()
         case .unitary:
-            _ = circuit.unitary()
+            _ = circuits.circuit.unitary()
         }
     }
 
@@ -268,10 +271,10 @@ private extension SQCMeasurePerformance {
         return Array(repeating: commonGates(), count: replicateCircuit).flatMap { $0 }
     }
 
-    func makeFactory() -> CircuitFactory {
+    func makeFactories() -> (CircuitFactory, NoiseCircuitFactory) {
         let unitConfig: MainCircuitFactory.UnitaryConfiguration
         let stateConfig: MainCircuitFactory.StatevectorConfiguration
-        let densityConfig: MainCircuitFactory.DensityMatrixConfiguration
+        let densityConfig: MainNoiseCircuitFactory.DensityMatrixConfiguration
         switch mode {
         case .matrix:
             unitConfig = .matrix(expansionConcurrency: expansionConcurrency)
@@ -294,13 +297,15 @@ private extension SQCMeasurePerformance {
             densityConfig = .matrix(expansionConcurrency: expansionConcurrency)
         }
 
-        return MainCircuitFactory(unitaryConfiguration: unitConfig,
-                                  statevectorConfiguration: stateConfig,
-                                  densityMatrixConfiguration: densityConfig)
+        let circuitFactory = MainCircuitFactory(unitaryConfiguration: unitConfig,
+                                                statevectorConfiguration: stateConfig)
+        let noiseCircuitFactory = MainNoiseCircuitFactory(densityMatrixConfiguration: densityConfig)
+
+        return (circuitFactory, noiseCircuitFactory)
     }
 
-    func makeCircuit() -> SwiftQuantumComputing.Circuit {
-        verbose("Creating circuit...")
+    func makeCircuits() -> Circuits {
+        verbose("Creating circuits...")
 
         let start = DispatchTime.now()
         defer {
@@ -309,7 +314,13 @@ private extension SQCMeasurePerformance {
             verbose("Circuit created in \(diff) seconds\n")
         }
 
-        return makeFactory().makeCircuit(gates: entangledStateGates() + replicatedGates())
+        let (factory, noiseFactory) = makeFactories()
+        let gates = entangledStateGates() + replicatedGates()
+
+        let circuit = factory.makeCircuit(gates: gates)
+        let noiseCircuit = noiseFactory.makeNoiseCircuit(quantumOperators: gates)
+
+        return (circuit, noiseCircuit)
     }
 }
 
