@@ -39,7 +39,6 @@ extension SimulatorControlledMatrixExtracting where Self: RawMatrixFactory {
     }
 }
 
-
 extension SimulatorControlledMatrixExtracting where Self: SimulatorControlledMatrixAdapterFactory {
     func extractControlledMatrix() -> Result<SimulatorControlledMatrix, GateError> {
         switch makeControlledMatrixAdapter() {

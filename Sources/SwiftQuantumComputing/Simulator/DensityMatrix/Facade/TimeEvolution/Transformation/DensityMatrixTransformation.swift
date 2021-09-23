@@ -23,22 +23,42 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol DensityMatrixTransformation {
-    func apply(gate: Gate, toDensityMatrix matrix: Matrix) -> Result<Matrix, GateError>
+    func apply(quantumOperator: QuantumOperator,
+               toDensityMatrix matrix: Matrix) -> Result<Matrix, QuantumOperatorError>
 }
 
 // MARK: - DensityMatrixTransformation default implementations
 
 extension DensityMatrixTransformation where Self: CircuitSimulatorMatrixDensityMatrixTransformation {
-    func apply(gate: Gate, toDensityMatrix matrix: Matrix) -> Result<Matrix, GateError> {
-        let extractor = SimulatorMatrixComponentsExtractor(extractor: gate)
+    func apply(quantumOperator: QuantumOperator,
+               toDensityMatrix matrix: Matrix) -> Result<Matrix, QuantumOperatorError> {
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: quantumOperator)
         let qubitCount = Int.log2(matrix.rowCount)
 
-        switch extractor.extractCircuitMatrix(restrictedToCircuitQubitCount: qubitCount) {
-        case .success(let circuitMatrix):
-            return .success(apply(matrix: circuitMatrix, toDensityMatrix: matrix))
+        let krausInputs: [Int]
+        let krausMatrix: SimulatorKrausMatrix
+        switch extractor.extractComponents(restrictedToCircuitQubitCount: qubitCount) {
+        case .success((let gateMatrix, let gateInputs)):
+            krausInputs = gateInputs
+            krausMatrix = gateMatrix
         case .failure(let error):
             return .failure(error)
         }
+
+        let firstOperand = krausMatrix.matrices[0]
+        let firstCircuitMatrix = CircuitSimulatorMatrix(qubitCount: qubitCount,
+                                                        baseMatrix: firstOperand,
+                                                        inputs: krausInputs)
+        let firstResult = apply(matrix: firstCircuitMatrix, toDensityMatrix: matrix)
+
+        let finalResult = krausMatrix.matrices[1...].reduce(firstResult) { result, nextOperand in
+            let circuitMatrix = CircuitSimulatorMatrix(qubitCount: qubitCount,
+                                                       baseMatrix: nextOperand,
+                                                       inputs: krausInputs)
+
+            return try! (result + apply(matrix: circuitMatrix, toDensityMatrix: matrix)).get()
+        }
+
+        return .success(finalResult)
     }
 }
-

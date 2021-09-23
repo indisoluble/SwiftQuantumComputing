@@ -29,19 +29,20 @@ final class DensityMatrixTransformationTestDouble {
     // MARK: - Internal properties
 
     private (set) var applyCount = 0
-    private (set) var lastApplyGate: Gate?
+    private (set) var lastApplyQuantumOperator: QuantumOperator?
     private (set) var lastApplyDensityMatrix: Matrix?
     var applyResult: Matrix?
-    var applyError = GateError.circuitQubitCountHasToBeBiggerThanZero
+    var applyError = QuantumOperatorError.circuitQubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - DensityMatrixTransformation methods
 
 extension DensityMatrixTransformationTestDouble: DensityMatrixTransformation {
-    func apply(gate: Gate, toDensityMatrix matrix: Matrix) -> Result<Matrix, GateError> {
+    func apply(quantumOperator: QuantumOperator,
+               toDensityMatrix matrix: Matrix) -> Result<Matrix, QuantumOperatorError> {
         applyCount += 1
 
-        lastApplyGate = gate
+        lastApplyQuantumOperator = quantumOperator
         lastApplyDensityMatrix = matrix
 
         if let applyResult = applyResult {

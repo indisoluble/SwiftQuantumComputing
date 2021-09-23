@@ -43,7 +43,7 @@ class AnySimulatorControlledMatrix_MatrixCountableTests: XCTestCase {
         let entry = try! TruthTableEntry(repeating: "0", count: count)
         let adapter = SimulatorControlledMatrixAdapter(truthTable: [entry],
                                                        controlCount: count,
-                                                       controlledCountableMatrix: controlledMatrix)
+                                                       controlledMatrix: controlledMatrix)
         let sut = AnySimulatorControlledMatrix(matrix: adapter)
 
         // Then
@@ -57,7 +57,7 @@ class AnySimulatorControlledMatrix_MatrixCountableTests: XCTestCase {
         let entry = try! TruthTableEntry(repeating: "0", count: count)
         let adapter = SimulatorControlledMatrixAdapter(truthTable: [entry],
                                                        controlCount: count,
-                                                       controlledCountableMatrix: controlledMatrix)
+                                                       controlledMatrix: controlledMatrix)
         let sut = AnySimulatorControlledMatrix(matrix: adapter)
 
         // Then

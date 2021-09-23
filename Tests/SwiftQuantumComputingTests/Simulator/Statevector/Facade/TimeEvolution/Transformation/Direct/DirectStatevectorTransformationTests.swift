@@ -68,7 +68,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         .zero, .zero, .zero, .zero, .zero, .zero, .zero, .one
     ])
     let simulatorGateMultiqubitMatrix = try! OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
-                                                                   controlledCountableMatrix: Matrix.makeNot()).expandedRawMatrix(maxConcurrency: 1).get()
+                                                                   controlledMatrix: Matrix.makeNot()).expandedRawMatrix(maxConcurrency: 1).get()
 
     // MARK: - Tests
 
@@ -88,11 +88,11 @@ class DirectStatevectorTransformationTests: XCTestCase {
         let gate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = sut.apply(gate: gate, toStatevector: oneQubitZeroVector) {
             error = e
         }
-        XCTAssertEqual(error, .gateInputsAreNotUnique)
+        XCTAssertEqual(error, .operatorInputsAreNotUnique)
     }
 
     func testNotMatrixAndOneQubitVector_apply_returnExpectedVector() {
@@ -389,7 +389,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
         // Given
         let matrix = try! Matrix([[.one, .zero], [.zero, .one]])
         let simulatorGateMatrix = try! OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 1,
-                                                             controlledCountableMatrix: matrix).expandedRawMatrix(maxConcurrency: 1).get()
+                                                             controlledMatrix: matrix).expandedRawMatrix(maxConcurrency: 1).get()
 
         // When
         let result = try! adapter.apply(gate: .matrix(matrix: simulatorGateMatrix, inputs: [2, 0]),
@@ -402,7 +402,7 @@ class DirectStatevectorTransformationTests: XCTestCase {
     func testThreeQubitMultiqubitMatrixAndElevenQubitFourVector_apply_returnExpectedVector() {
         // Given
         let simulatorGateMatrix = try! OracleSimulatorMatrix(equivalentToControlledGateWithControlCount: 2,
-                                                             controlledCountableMatrix: Matrix.makeNot()).expandedRawMatrix(maxConcurrency: 1).get()
+                                                             controlledMatrix: Matrix.makeNot()).expandedRawMatrix(maxConcurrency: 1).get()
 
         // When
         let result = try! adapter.apply(gate: .matrix(matrix: simulatorGateMatrix, inputs: [3, 0, 2]),

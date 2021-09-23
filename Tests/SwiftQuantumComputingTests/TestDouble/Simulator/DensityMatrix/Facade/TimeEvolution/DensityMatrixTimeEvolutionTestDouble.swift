@@ -32,9 +32,9 @@ final class DensityMatrixTimeEvolutionTestDouble {
     var stateResult = Matrix.makeNot()
 
     private (set) var applyingCount = 0
-    private (set) var lastApplyingGate: Gate?
+    private (set) var lastApplyingQuantumOperator: QuantumOperator?
     var applyingResult: DensityMatrixTimeEvolution?
-    var applyingError = GateError.circuitQubitCountHasToBeBiggerThanZero
+    var applyingError = QuantumOperatorError.circuitQubitCountHasToBeBiggerThanZero
 }
 
 // MARK: - DensityMatrixTimeEvolution methods
@@ -46,10 +46,10 @@ extension DensityMatrixTimeEvolutionTestDouble: DensityMatrixTimeEvolution {
         return stateResult
     }
 
-    func applying(_ gate: Gate) -> Result<DensityMatrixTimeEvolution, GateError> {
+    func applying(_ quantumOperator: QuantumOperator) -> Result<DensityMatrixTimeEvolution, QuantumOperatorError> {
         applyingCount += 1
 
-        lastApplyingGate = gate
+        lastApplyingQuantumOperator = quantumOperator
 
         if let applyResult = applyingResult {
             return .success(applyResult)

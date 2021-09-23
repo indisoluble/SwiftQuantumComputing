@@ -47,15 +47,15 @@ extension SimulatorControlledMatrixComponentsExtractor: RawInputsExtracting {
     }
 }
 
-// MARK: - MatrixExtracting methods
+// MARK: - MatrixComponentsExtracting methods
 
 extension SimulatorControlledMatrixComponentsExtractor: MatrixComponentsExtracting {
-    func extractMatrix() -> Result<AnySimulatorControlledMatrix, GateError> {
+    func extractMatrix() -> Result<AnySimulatorControlledMatrix, QuantumOperatorError> {
         switch extractor.extractControlledMatrix() {
         case .success(let matrix):
             return .success(AnySimulatorControlledMatrix(matrix: matrix))
         case .failure(let error):
-            return .failure(error)
+            return .failure(.gateError(error: error))
         }
     }
 }

@@ -25,7 +25,7 @@ import Foundation
 /// Errors throwed by `TwoLevelDecompositionSolver.decomposeGates(:restrictedToCircuitQubitCount:)`
 public enum DecomposeGatesError: Error, Hashable {
     /// Throwed if `gate` throws `error`
-    case gateThrowedError(gate: Gate, error: GateError)
+    case gateThrowedError(gate: Gate, error: QuantumOperatorError)
 }
 
 // MARK: - Main body
@@ -39,9 +39,9 @@ extension TwoLevelDecompositionSolver {
 
      - Parameter gate: `Gate` instance to decompose.
 
-     - Returns: A sequence of `Gate` instances that replace the input `gate`. Or `GateError` error.
+     - Returns: A sequence of `Gate` instances that replace the input `gate`. Or `QuantumOperatorError` error.
      */
-    func decomposeGate(_ gate: Gate) -> Result<[Gate], GateError> {
+    func decomposeGate(_ gate: Gate) -> Result<[Gate], QuantumOperatorError> {
         return decomposeGate(gate, restrictedToCircuitQubitCount: [gate].qubitCount())
     }
 

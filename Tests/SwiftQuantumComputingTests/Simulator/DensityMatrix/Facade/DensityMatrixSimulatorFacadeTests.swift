@@ -33,11 +33,11 @@ class DensityMatrixSimulatorFacadeTests: XCTestCase {
     let densityMatrixFactory = CircuitDensityMatrixFactoryTestDouble()
     let initialCircuitDensityMatrix = CircuitDensityMatrixTestDouble()
     let evolution = DensityMatrixTimeEvolutionTestDouble()
-    let firstGate = Gate.hadamard(target: 0)
+    let firstOperator = Gate.hadamard(target: 0).quantumOperator
     let firstEvolution = DensityMatrixTimeEvolutionTestDouble()
-    let secondGate = Gate.phaseShift(radians: 0, target: 0)
+    let secondOperator = Gate.phaseShift(radians: 0, target: 0).quantumOperator
     let secondEvolution = DensityMatrixTimeEvolutionTestDouble()
-    let thirdGate = Gate.not(target: 0)
+    let thirdOperator = Gate.not(target: 0).quantumOperator
     let thirdEvolution = DensityMatrixTimeEvolutionTestDouble()
     let densityMatrix = Matrix.makeNot()
     let finalDensityMatrix = CircuitDensityMatrixTestDouble()
@@ -75,16 +75,16 @@ class DensityMatrixSimulatorFacadeTests: XCTestCase {
 
         // Then
         var error: DensityMatrixError?
-        if case .failure(let e) = simulator.apply(circuit: [firstGate],
+        if case .failure(let e) = simulator.apply(circuit: [firstOperator],
                                                   to: initialCircuitDensityMatrix) {
             error = e
         }
         XCTAssertEqual(error,
-                       .gateThrowedError(gate: firstGate,
-                                         error: .circuitQubitCountHasToBeBiggerThanZero))
+                       .operatorThrowedError(operator: firstOperator,
+                                             error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(evolutionFactory.makeTimeEvolutionCount, 1)
         XCTAssertEqual(evolution.applyingCount, 1)
-        XCTAssertTrue(evolution.lastApplyingGate == firstGate)
+        XCTAssertTrue(evolution.lastApplyingQuantumOperator == firstOperator)
         XCTAssertEqual(evolution.stateCount, 0)
         XCTAssertEqual(densityMatrixFactory.makeDensityMatrixCount, 0)
     }
@@ -101,12 +101,13 @@ class DensityMatrixSimulatorFacadeTests: XCTestCase {
         densityMatrixFactory.makeDensityMatrixResult = finalDensityMatrix
 
         // When
-        let result = try? simulator.apply(circuit: [firstGate], to: initialCircuitDensityMatrix).get()
+        let result = try? simulator.apply(circuit: [firstOperator],
+                                          to: initialCircuitDensityMatrix).get()
 
         // Then
         XCTAssertEqual(evolutionFactory.makeTimeEvolutionCount, 1)
         XCTAssertEqual(evolution.applyingCount, 1)
-        XCTAssertTrue(evolution.lastApplyingGate == firstGate)
+        XCTAssertTrue(evolution.lastApplyingQuantumOperator == firstOperator)
         XCTAssertEqual(firstEvolution.applyingCount, 0)
         XCTAssertEqual(firstEvolution.stateCount, 1)
         XCTAssertEqual(densityMatrixFactory.makeDensityMatrixCount, 1)
@@ -127,14 +128,14 @@ class DensityMatrixSimulatorFacadeTests: XCTestCase {
 
         // Then
         var error: DensityMatrixError?
-        if case .failure(let e) = simulator.apply(circuit: [firstGate],
+        if case .failure(let e) = simulator.apply(circuit: [firstOperator],
                                                   to: initialCircuitDensityMatrix) {
             error = e
         }
         XCTAssertEqual(error, .resultingDensityMatrixEigenvaluesDoesNotAddUpToOne)
         XCTAssertEqual(evolutionFactory.makeTimeEvolutionCount, 1)
         XCTAssertEqual(evolution.applyingCount, 1)
-        XCTAssertTrue(evolution.lastApplyingGate == firstGate)
+        XCTAssertTrue(evolution.lastApplyingQuantumOperator == firstOperator)
         XCTAssertEqual(firstEvolution.applyingCount, 0)
         XCTAssertEqual(firstEvolution.stateCount, 1)
         XCTAssertEqual(densityMatrixFactory.makeDensityMatrixCount, 1)
@@ -152,20 +153,22 @@ class DensityMatrixSimulatorFacadeTests: XCTestCase {
 
         // Then
         var error: DensityMatrixError?
-        if case .failure(let e) = simulator.apply(circuit: [firstGate, secondGate, thirdGate],
+        if case .failure(let e) = simulator.apply(circuit: [firstOperator,
+                                                            secondOperator,
+                                                            thirdOperator],
                                                   to: initialCircuitDensityMatrix) {
             error = e
         }
         XCTAssertEqual(error,
-                       .gateThrowedError(gate: thirdGate,
-                                         error: .circuitQubitCountHasToBeBiggerThanZero))
+                       .operatorThrowedError(operator: thirdOperator,
+                                             error: .circuitQubitCountHasToBeBiggerThanZero))
         XCTAssertEqual(evolutionFactory.makeTimeEvolutionCount, 1)
         XCTAssertEqual(evolution.applyingCount, 1)
-        XCTAssertTrue(evolution.lastApplyingGate == firstGate)
+        XCTAssertTrue(evolution.lastApplyingQuantumOperator == firstOperator)
         XCTAssertEqual(firstEvolution.applyingCount, 1)
-        XCTAssertTrue(firstEvolution.lastApplyingGate == secondGate)
+        XCTAssertTrue(firstEvolution.lastApplyingQuantumOperator == secondOperator)
         XCTAssertEqual(secondEvolution.applyingCount, 1)
-        XCTAssertTrue(secondEvolution.lastApplyingGate == thirdGate)
+        XCTAssertTrue(secondEvolution.lastApplyingQuantumOperator == thirdOperator)
         XCTAssertEqual(evolution.stateCount, 0)
         XCTAssertEqual(firstEvolution.stateCount, 0)
         XCTAssertEqual(secondEvolution.stateCount, 0)
@@ -186,17 +189,19 @@ class DensityMatrixSimulatorFacadeTests: XCTestCase {
         densityMatrixFactory.makeDensityMatrixResult = finalDensityMatrix
 
         // When
-        let result = try? simulator.apply(circuit: [firstGate, secondGate, thirdGate],
+        let result = try? simulator.apply(circuit: [firstOperator,
+                                                    secondOperator,
+                                                    thirdOperator],
                                           to: initialCircuitDensityMatrix).get()
 
         // Then
         XCTAssertEqual(evolutionFactory.makeTimeEvolutionCount, 1)
         XCTAssertEqual(evolution.applyingCount, 1)
-        XCTAssertTrue(evolution.lastApplyingGate == firstGate)
+        XCTAssertTrue(evolution.lastApplyingQuantumOperator == firstOperator)
         XCTAssertEqual(firstEvolution.applyingCount, 1)
-        XCTAssertTrue(firstEvolution.lastApplyingGate == secondGate)
+        XCTAssertTrue(firstEvolution.lastApplyingQuantumOperator == secondOperator)
         XCTAssertEqual(secondEvolution.applyingCount, 1)
-        XCTAssertTrue(secondEvolution.lastApplyingGate == thirdGate)
+        XCTAssertTrue(secondEvolution.lastApplyingQuantumOperator == thirdOperator)
         XCTAssertEqual(evolution.stateCount, 0)
         XCTAssertEqual(firstEvolution.stateCount, 0)
         XCTAssertEqual(secondEvolution.stateCount, 0)

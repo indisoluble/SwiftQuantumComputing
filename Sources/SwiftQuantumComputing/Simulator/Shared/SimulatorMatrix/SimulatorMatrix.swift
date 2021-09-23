@@ -27,7 +27,7 @@ enum ExpandedRawMatrixError: Error {
     case passMaxConcurrencyBiggerThanZero
 }
 
-protocol SimulatorMatrix {
+protocol SimulatorMatrix: MatrixCountable {
     subscript(row: Int, column: Int) -> Complex<Double> { get }
 
     func expandedRawMatrix(maxConcurrency: Int) -> Result<Matrix, ExpandedRawMatrixError>
@@ -35,7 +35,7 @@ protocol SimulatorMatrix {
 
 // MARK: - SimulatorMatrix default implementations
 
-extension SimulatorMatrix where Self: MatrixCountable {
+extension SimulatorMatrix {
     func expandedRawMatrix(maxConcurrency: Int) -> Result<Matrix, ExpandedRawMatrixError> {
         switch Matrix.makeMatrix(rowCount: count,
                                  columnCount: count,

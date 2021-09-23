@@ -45,18 +45,19 @@ struct DensityMatrixSimulatorFacade {
 // MARK: - DensityMatrixSimulator methods
 
 extension DensityMatrixSimulatorFacade: DensityMatrixSimulator {
-    func apply(circuit: [Gate], to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
+    func apply(circuit: [QuantumOperator],
+               to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
         DensityMatrixSimulatorFacade.logger.debug("Preparing time evolution...")
         var evolution = timeEvolutionFactory.makeTimeEvolution(state: initialState)
 
-        for (index, gate) in circuit.enumerated() {
-            DensityMatrixSimulatorFacade.logger.debug("Applying gate: \(index + 1) of \(circuit.count)...")
+        for (index, quantumOperator) in circuit.enumerated() {
+            DensityMatrixSimulatorFacade.logger.debug("Applying operator: \(index + 1) of \(circuit.count)...")
 
-            switch evolution.applying(gate) {
+            switch evolution.applying(quantumOperator) {
             case .success(let nextEvolution):
                 evolution = nextEvolution
             case .failure(let error):
-                return .failure(.gateThrowedError(gate: gate, error: error))
+                return .failure(.operatorThrowedError(operator: quantumOperator, error: error))
             }
         }
 
@@ -71,7 +72,7 @@ extension DensityMatrixSimulatorFacade: DensityMatrixSimulator {
         case .failure(.matrixWithNegativeEigenvalues):
             return .failure(.resultingDensityMatrixWithNegativeEigenvalues)
         case .failure(.unableToComputeMatrixEigenvalues):
-            return .failure(.unableToComputeresultingDensityMatrixEigenvalues)
+            return .failure(.unableToComputeResultingDensityMatrixEigenvalues)
         }
     }
 }

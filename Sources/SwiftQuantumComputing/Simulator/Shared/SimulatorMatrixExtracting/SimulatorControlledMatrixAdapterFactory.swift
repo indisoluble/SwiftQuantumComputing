@@ -71,6 +71,6 @@ extension SimulatorControlledMatrixAdapterFactory {
 
         return .success(SimulatorControlledMatrixAdapter(truthTable: finalEntries,
                                                          controlCount: finalCount,
-                                                         controlledCountableMatrix: extractedMatrix.controlledCountableMatrix))
+                                                         controlledMatrix: extractedMatrix.controlledMatrix))
     }
 }

@@ -39,11 +39,11 @@ class TwoLevelDecompositionSolverFacadeTests: XCTestCase {
         let gateWithRepeatedInputs = Gate.matrix(matrix: Matrix.makeNot(), inputs: [0, 0])
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = dummySut.decomposeGate(gateWithRepeatedInputs) {
             error = e
         }
-        XCTAssertEqual(error, .gateInputsAreNotUnique)
+        XCTAssertEqual(error, .operatorInputsAreNotUnique)
     }
 
     func testSingleQubitGate_decomposeGate_returnSameGate() {

@@ -65,7 +65,7 @@ class UnitarySimulatorFacadeTests: XCTestCase {
         }
         XCTAssertEqual(error,
                        .gateThrowedError(gate: firstSimulatorGate,
-                                         error: .gateMatrixHandlesMoreQubitsThatCircuitActuallyHas))
+                                         error: .operatorHandlesMoreQubitsThanCircuitActuallyHas))
         XCTAssertEqual(gateFactory.makeGateCount, 1)
         XCTAssertEqual(gateFactory.lastMakeUnitaryGateQubitCount, qubitCount)
         XCTAssertEqual(gateFactory.lastMakeUnitaryGateGate, firstSimulatorGate)

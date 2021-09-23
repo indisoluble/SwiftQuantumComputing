@@ -25,7 +25,7 @@ import Foundation
 protocol MatrixComponentsExtracting {
     associatedtype ExtractedMatrix
 
-    func extractMatrix() -> Result<ExtractedMatrix, GateError>
+    func extractMatrix() -> Result<ExtractedMatrix, QuantumOperatorError>
 }
 
 // MARK: - MatrixComponentsExtracting default implementations
@@ -33,10 +33,10 @@ protocol MatrixComponentsExtracting {
 extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedMatrix: MatrixCountable {
     typealias Components = (matrix: ExtractedMatrix, inputs: [Int])
 
-    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, GateError> {
+    func extractComponents(restrictedToCircuitQubitCount qubitCount: Int) -> Result<Components, QuantumOperatorError> {
         let inputs = extractRawInputs()
         guard areInputsUnique(inputs) else {
-            return .failure(.gateInputsAreNotUnique)
+            return .failure(.operatorInputsAreNotUnique)
         }
 
         let matrix: ExtractedMatrix
@@ -48,7 +48,7 @@ extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedM
         }
 
         guard doesInputCountMatchMatrixQubitCount(inputs, matrix: matrix) else {
-            return .failure(.gateInputCountDoesNotMatchGateMatrixQubitCount)
+            return .failure(.operatorInputCountDoesNotMatchOperatorMatrixQubitCount)
         }
 
         guard qubitCount > 0 else {
@@ -56,19 +56,19 @@ extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedM
         }
 
         guard doesMatrixFitInCircuit(matrix, qubitCount: qubitCount) else {
-            return .failure(.gateMatrixHandlesMoreQubitsThatCircuitActuallyHas)
+            return .failure(.operatorHandlesMoreQubitsThanCircuitActuallyHas)
         }
 
         guard areInputsInBound(inputs, qubitCount: qubitCount) else {
-            return .failure(.gateInputsAreNotInBound)
+            return .failure(.operatorInputsAreNotInBound)
         }
 
         return .success((matrix, inputs))
     }
 }
 
-extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedMatrix: MatrixCountable & SimulatorMatrix {
-    func extractCircuitMatrix(restrictedToCircuitQubitCount qubitCount: Int) -> Result<CircuitSimulatorMatrix, GateError> {
+extension MatrixComponentsExtracting where Self: RawInputsExtracting, ExtractedMatrix: SimulatorMatrix {
+    func extractCircuitMatrix(restrictedToCircuitQubitCount qubitCount: Int) -> Result<CircuitSimulatorMatrix, QuantumOperatorError> {
         switch extractComponents(restrictedToCircuitQubitCount: qubitCount) {
         case .success((let baseMatrix, let inputs)):
             return .success(CircuitSimulatorMatrix(qubitCount: qubitCount,

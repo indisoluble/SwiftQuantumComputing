@@ -25,5 +25,5 @@ import Foundation
 protocol StatevectorTimeEvolution {
     var state: Vector { get }
 
-    func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, GateError>
+    func applying(_ gate: Gate) -> Result<StatevectorTimeEvolution, QuantumOperatorError>
 }
