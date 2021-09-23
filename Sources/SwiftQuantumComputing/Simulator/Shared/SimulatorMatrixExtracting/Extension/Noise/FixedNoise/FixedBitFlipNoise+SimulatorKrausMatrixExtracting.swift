@@ -30,8 +30,8 @@ extension FixedBitFlipNoise: SimulatorKrausMatrixExtracting {
         }
 
         return .success(AnySimulatorKrausMatrix(matrices: [
-            try! Complex(sqrt(1.0 - probability)) * .makeIdentity(count: 2).get(),
-            Complex(sqrt(probability)) * .makeNot()
+            try! Complex(sqrt(1.0 - probability)) * Matrix.makeIdentity(count: 2).get(),
+            Complex(sqrt(probability)) * Matrix.makeNot()
         ]))
     }
 }
