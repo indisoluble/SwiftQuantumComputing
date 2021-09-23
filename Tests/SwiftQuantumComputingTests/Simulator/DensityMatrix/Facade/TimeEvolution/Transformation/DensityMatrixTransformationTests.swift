@@ -401,6 +401,25 @@ class DensityMatrixTransformationTests: XCTestCase {
                                                   absoluteTolerance: SharedConstants.tolerance))
     }
 
+    func test35PercentPhaseDampingPlusTwoHadamardsAndOneQubitMatrix_apply_returnExpectedMatrix() {
+        // When
+        var result = try! sut.apply(quantumOperator: Gate.hadamard(target: 0).quantumOperator,
+                                    toDensityMatrix: oneQubitZeroMatrix).get()
+        result = try! sut.apply(quantumOperator: Noise.phaseDamping(probability: 0.35,
+                                                                    target: 0).quantumOperator,
+                                toDensityMatrix: result).get()
+        result = try! sut.apply(quantumOperator: Gate.hadamard(target: 0).quantumOperator,
+                                toDensityMatrix: result).get()
+
+        // Then
+        let expectedResult = try! Matrix([
+            [Complex(0.903112887), .zero], [.zero, Complex(0.096887112)]
+        ])
+        XCTAssertTrue(result.isApproximatelyEqual(to: expectedResult,
+                                                  absoluteTolerance: SharedConstants.tolerance))
+    }
+
+
     static var allTests = [
         ("testInvalidGate_apply_throwError",
          testInvalidGate_apply_throwError),
@@ -455,6 +474,8 @@ class DensityMatrixTransformationTests: XCTestCase {
         ("test100PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix",
          test100PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix),
         ("test70PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix",
-         test70PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix)
+         test70PercentBitFlipAndOneQubitMatrix_apply_returnExpectedMatrix),
+        ("test35PercentPhaseDampingPlusTwoHadamardsAndOneQubitMatrix_apply_returnExpectedMatrix",
+         test35PercentPhaseDampingPlusTwoHadamardsAndOneQubitMatrix_apply_returnExpectedMatrix)
     ]
 }

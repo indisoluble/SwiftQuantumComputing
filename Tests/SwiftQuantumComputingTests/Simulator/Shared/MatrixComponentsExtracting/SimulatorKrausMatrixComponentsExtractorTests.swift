@@ -683,6 +683,59 @@ class SimulatorKrausMatrixComponentsExtractorTests: XCTestCase {
         XCTAssertEqual(inputs, [target])
     }
 
+    func testNoisePhaseDampingWithNegativeProbability_extractComponents_throwException() {
+        // Given
+        let noise = Noise.phaseDamping(probability: -0.1, target: 0)
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // Then
+        var error: QuantumOperatorError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .noiseError(error: .noiseProbabilityHasToBeBetweenZeroAndOne))
+    }
+
+    func testNoisePhaseDampingWithProbabilityAboveOne_extractComponents_throwException() {
+        // Given
+        let noise = Noise.phaseDamping(probability: 1.1, target: 0)
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // Then
+        var error: QuantumOperatorError?
+        if case .failure(let e) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            error = e
+        }
+        XCTAssertEqual(error, .noiseError(error: .noiseProbabilityHasToBeBetweenZeroAndOne))
+    }
+
+    func testNoisePhaseDampingWithValidProbability_extractComponents_returnExpectedValues() {
+        // Given
+        let probability = 0.3
+        let target = 2
+
+        let noise = Noise.phaseDamping(probability: probability, target: target)
+        let extractor = SimulatorKrausMatrixComponentsExtractor(extractor: noise)
+
+        // When
+        var matrix: SimulatorKrausMatrix?
+        var inputs: [Int]?
+        if case .success(let result) = extractor.extractComponents(restrictedToCircuitQubitCount: validQubitCount) {
+            matrix = result.matrix
+            inputs = result.inputs
+        }
+
+        // Then
+        let matrices = [
+            try! Matrix([[.one, .zero], [.zero, Complex(sqrt(1.0 - probability))]]),
+            try! Matrix([[.zero, .zero], [.zero, Complex(sqrt(probability))]]),
+        ]
+
+        XCTAssertEqual(matrix?.matrices.count, matrices.count)
+        XCTAssertTrue(zip(matrix!.matrices, matrices).allSatisfy({ try! $0.0.expandedRawMatrix(maxConcurrency: 1).get() == $0.1 }))
+        XCTAssertEqual(inputs, [target])
+    }
+
     static var allTests = [
         ("testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException",
          testGateMatrixWithValidMatrixAndRepeatedInputs_extractComponents_throwException),
@@ -751,6 +804,12 @@ class SimulatorKrausMatrixComponentsExtractorTests: XCTestCase {
         ("testNoiseBitFlipWithProbabilityAboveOne_extractComponents_throwException",
          testNoiseBitFlipWithProbabilityAboveOne_extractComponents_throwException),
         ("testNoiseBitFlipWithValidProbability_extractComponents_returnExpectedValues",
-         testNoiseBitFlipWithValidProbability_extractComponents_returnExpectedValues)
+         testNoiseBitFlipWithValidProbability_extractComponents_returnExpectedValues),
+        ("testNoisePhaseDampingWithNegativeProbability_extractComponents_throwException",
+         testNoisePhaseDampingWithNegativeProbability_extractComponents_throwException),
+        ("testNoisePhaseDampingWithProbabilityAboveOne_extractComponents_throwException",
+         testNoisePhaseDampingWithProbabilityAboveOne_extractComponents_throwException),
+        ("testNoisePhaseDampingWithValidProbability_extractComponents_returnExpectedValues",
+         testNoisePhaseDampingWithValidProbability_extractComponents_returnExpectedValues)
     ]
 }
