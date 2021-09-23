@@ -1676,6 +1676,7 @@
 		FFB22778241E80AD00AC64AD /* Rational.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rational.swift; sourceTree = "<group>"; };
 		FFB2277B241E880000AC64AD /* RationalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RationalTests.swift; sourceTree = "<group>"; };
 		FFB2277E241EB37900AC64AD /* Rational+CustomStringConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rational+CustomStringConvertible.swift"; sourceTree = "<group>"; };
+		FFB4F06526FD1FE500D8FC2B /* NoiseCircuit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = NoiseCircuit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		FFB5610E268758BD00BA50AF /* CSMElementByElementUnitaryTransformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSMElementByElementUnitaryTransformationTests.swift; sourceTree = "<group>"; };
 		FFB5B556216A2EB6009C59FC /* MatrixBottomPositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixBottomPositionView.xib; sourceTree = "<group>"; };
 		FFB5B559216A2FBA009C59FC /* MatrixMiddlePositionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MatrixMiddlePositionView.xib; sourceTree = "<group>"; };
@@ -2029,6 +2030,7 @@
 				FF67E38A2441E2DE000CE560 /* ContinuedFractions.playground */,
 				FF67E3892441DA94000CE560 /* EuclideanAlgorithm.playground */,
 				FF4C1DFF220CEED70088CD3F /* Genetic.playground */,
+				FFB4F06526FD1FE500D8FC2B /* NoiseCircuit.playground */,
 				FF2B148E253A1A4F004E2E48 /* TwoLevelDecomposition.playground */,
 				FF8E49C223CA76AD00C8FD48 /* XorGaussianElimination.playground */,
 			);

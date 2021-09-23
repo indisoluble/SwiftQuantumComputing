@@ -33,7 +33,7 @@ extension NoiseCircuitFactory {
 
      - Returns: A `NoiseCircuit` instance.
      */
-    func makeNoiseCircuit(quantumOperators: [QuantumOperatorConvertible]) -> NoiseCircuit {
+    public func makeNoiseCircuit(quantumOperators: [QuantumOperatorConvertible]) -> NoiseCircuit {
         return makeNoiseCircuit(quantumOperators: quantumOperators.map({ $0.quantumOperator }))
     }
 }
