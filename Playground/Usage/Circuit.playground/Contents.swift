@@ -19,6 +19,7 @@ let circuit = MainCircuitFactory().makeCircuit(gates: gates)
 //: 4. Use the quantum circuit
 let result = circuit.statevector().get()
 print("Statevector: \(result)\n")
+print("Density matrix: \(result.densityMatrix())\n")
 print("Probabilities: \(result.probabilities())\n")
 print("Summarized probabilities: \(result.summarizedProbabilities())\n")
 let grpProbs = result.groupedProbabilities(byQubits: [1, 0],

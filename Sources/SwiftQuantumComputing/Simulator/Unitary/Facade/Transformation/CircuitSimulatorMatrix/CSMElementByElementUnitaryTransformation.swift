@@ -27,20 +27,20 @@ struct CSMElementByElementUnitaryTransformation {
 
     // MARK: - Private properties
 
-    private let unitaryCalculationConcurrency: Int
+    private let calculationConcurrency: Int
 
     // MARK: - Internal init methods
 
     enum InitError: Error {
-        case unitaryCalculationConcurrencyHasToBiggerThanZero
+        case calculationConcurrencyHasToBiggerThanZero
     }
 
-    init(unitaryCalculationConcurrency: Int) throws {
-        guard unitaryCalculationConcurrency > 0 else {
-            throw InitError.unitaryCalculationConcurrencyHasToBiggerThanZero
+    init(calculationConcurrency: Int) throws {
+        guard calculationConcurrency > 0 else {
+            throw InitError.calculationConcurrencyHasToBiggerThanZero
         }
 
-        self.unitaryCalculationConcurrency = unitaryCalculationConcurrency
+        self.calculationConcurrency = calculationConcurrency
     }
 }
 
@@ -53,7 +53,7 @@ extension CSMElementByElementUnitaryTransformation: UnitaryTransformation {}
 extension CSMElementByElementUnitaryTransformation: CircuitSimulatorMatrixUnitaryTransformation {
     func apply(circuitMatrix: CircuitSimulatorMatrix, toUnitary matrix: Matrix) -> Matrix {
         let count = circuitMatrix.count
-        let ucc = unitaryCalculationConcurrency
+        let ucc = calculationConcurrency
 
         return try! Matrix.makeMatrix(rowCount: count, columnCount: count, maxConcurrency: ucc, value: { row, col in
             var result = Complex<Double>.zero

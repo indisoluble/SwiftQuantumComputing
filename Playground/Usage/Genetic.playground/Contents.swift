@@ -6,7 +6,7 @@ func configureEvolvedGates(in evolvedCircuit: GeneticFactory.EvolvedCircuit,
     var evolvedGates = evolvedCircuit.gates
 
     if let oracleAt = evolvedCircuit.oracleAt {
-        if case .oracle(_, let controls, let gate) = evolvedGates[oracleAt].simplified,
+        if case .oracle(_, let controls, let gate) = evolvedGates[oracleAt].simplifiedGate,
            case .not(let target) = gate {
             evolvedGates[oracleAt] = Gate.oracle(truthTable: useCase.truthTable.truth,
                                                  controls: controls,
@@ -28,7 +28,7 @@ func drawCircuit(with evolvedGates: [Gate], useCase: GeneticUseCase) -> SQCView 
 func probabilities(in evolvedGates: [Gate], useCase: GeneticUseCase) -> [String: Double] {
     let circuit = MainCircuitFactory().makeCircuit(gates: evolvedGates)
     let initialStatevector = try! MainCircuitStatevectorFactory().makeStatevector(bits: useCase.circuit.input).get()
-    let finalStatevector = try! circuit.statevector(withInitialStatevector: initialStatevector).get()
+    let finalStatevector = try! circuit.statevector(withInitialState: initialStatevector).get()
 
     return finalStatevector.summarizedProbabilities()
 }

@@ -48,7 +48,7 @@ class TwoLevelDecompositionSolver_GatesTests: XCTestCase {
         }
         XCTAssertEqual(error,
                        .gateThrowedError(gate: gate,
-                                         error: .gateInputCountDoesNotMatchGateMatrixQubitCount))
+                                         error: .operatorInputCountDoesNotMatchOperatorMatrixQubitCount))
     }
 
     func testSameGateTwice_decomposeGates_returnExpectedDecomposition() {

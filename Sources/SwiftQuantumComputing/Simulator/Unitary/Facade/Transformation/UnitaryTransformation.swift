@@ -23,13 +23,13 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol UnitaryTransformation {
-    func apply(gate: Gate, toUnitary matrix: Matrix) -> Result<Matrix, GateError>
+    func apply(gate: Gate, toUnitary matrix: Matrix) -> Result<Matrix, QuantumOperatorError>
 }
 
 // MARK: - UnitaryTransformation default implementations
 
 extension UnitaryTransformation where Self: CircuitSimulatorMatrixUnitaryTransformation {
-    func apply(gate: Gate, toUnitary matrix: Matrix) -> Result<Matrix, GateError> {
+    func apply(gate: Gate, toUnitary matrix: Matrix) -> Result<Matrix, QuantumOperatorError> {
         let extractor = SimulatorMatrixComponentsExtractor(extractor: gate)
         let qubitCount = Int.log2(matrix.rowCount)
 

@@ -38,6 +38,6 @@ extension Circuit {
         let initialState = try! Vector.makeState(value: 0, qubitCount: gates.qubitCount()).get()
         let initialStatevector = try! factory.makeStatevector(vector: initialState).get()
 
-        return statevector(withInitialStatevector: initialStatevector)
+        return statevector(withInitialState: initialStatevector)
     }
 }

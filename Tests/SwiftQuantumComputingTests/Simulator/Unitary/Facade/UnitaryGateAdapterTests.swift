@@ -29,7 +29,7 @@ class UnitaryGateAdapterTests: XCTestCase {
 
     // MARK: - Properties
 
-    let transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1)
+    let transformation = try! CSMFullMatrixUnitaryTransformation(expansionConcurrency: 1)
     let gateInputs = [0]
     let gateMatrix = Matrix.makeHadamard()
     let simulatorMatrix = Matrix.makeHadamard()
@@ -100,11 +100,11 @@ class UnitaryGateAdapterTests: XCTestCase {
         let failingGate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = adapter.applying(failingGate) {
             error = e
         }
-        XCTAssertEqual(error, .gateInputsAreNotUnique)
+        XCTAssertEqual(error, .operatorInputsAreNotUnique)
     }
 
     func testGate_applying_returnValue() {

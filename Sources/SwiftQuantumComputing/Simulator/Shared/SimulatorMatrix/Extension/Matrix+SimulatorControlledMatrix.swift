@@ -22,4 +22,16 @@ import Foundation
 
 // MARK: - SimulatorControlledMatrix methods
 
-extension Matrix: SimulatorControlledMatrix {}
+extension Matrix: SimulatorControlledMatrix {
+    var truthTable: [TruthTableEntry] {
+        return []
+    }
+
+    var controlCount: Int {
+        return 0
+    }
+
+    var controlledMatrix: SimulatorMatrix {
+        return self
+    }
+}

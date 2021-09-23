@@ -34,8 +34,8 @@ public protocol TwoLevelDecompositionSolver {
      - Parameter gate: `Gate` instance to decompose.
      - Parameter qubitCount: Number of qubits in the circuit.
 
-     - Returns: A sequence of `Gate` instances that replace the input `gate`. Or `GateError` error.
+     - Returns: A sequence of `Gate` instances that replace the input `gate`. Or `QuantumOperatorError` error.
      */
     func decomposeGate(_ gate: Gate,
-                       restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], GateError>
+                       restrictedToCircuitQubitCount qubitCount: Int) -> Result<[Gate], QuantumOperatorError>
 }

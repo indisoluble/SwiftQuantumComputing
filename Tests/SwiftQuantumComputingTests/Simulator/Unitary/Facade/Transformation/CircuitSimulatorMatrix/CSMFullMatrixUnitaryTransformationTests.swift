@@ -31,12 +31,12 @@ class CSMFullMatrixUnitaryTransformationTests: XCTestCase {
 
     func testMaxConcurrencyEqualToZero_init_throwException() {
         // Then
-        XCTAssertThrowsError(try CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 0))
+        XCTAssertThrowsError(try CSMFullMatrixUnitaryTransformation(expansionConcurrency: 0))
     }
 
     func testGivenHadamardAndNot_apply_returnExpectedMatrix() {
         // Given
-        let sut = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1)
+        let sut = try! CSMFullMatrixUnitaryTransformation(expansionConcurrency: 1)
         let circuitMatrix = CircuitSimulatorMatrix(qubitCount: 1,
                                                    baseMatrix: Matrix.makeNot(),
                                                    inputs: [0])

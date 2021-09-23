@@ -61,7 +61,7 @@ extension UnitaryGateAdapter: UnitaryGate {
         return .success(matrix)
     }
 
-    func applying(_ gate: Gate) -> Result<UnitaryGate, GateError> {
+    func applying(_ gate: Gate) -> Result<UnitaryGate, QuantumOperatorError> {
         switch transformation.apply(gate: gate, toUnitary: matrix) {
         case .success(let nextMatrix):
             let adapter = try! UnitaryGateAdapter(matrix: nextMatrix,

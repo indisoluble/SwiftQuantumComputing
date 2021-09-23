@@ -211,6 +211,91 @@ class VectorTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
+    func testTwoVectorWithSameDimensionsAndNoTransformation_multiply_throwException() {
+        // Given
+        let lhs = try! Vector([.zero, .zero])
+        let rhs = try! Vector([.zero, .zero])
+
+        // Then
+        var error: Vector.VectorByVectorError?
+        if case .failure(let e) = lhs * Vector.Transformation.none(rhs) {
+            error = e
+        }
+        XCTAssertEqual(error, .vectorCountsDoNotMatch)
+    }
+
+    func testOneVectorAnotherVectorWithOneValueAndNoTransformation_multiply_returnExpectedValue() {
+        // Given
+        let lhs = try! Vector([.zero, .one, Complex(2), Complex(3, -3)])
+        let rhs = try! Vector([Complex(-1, -1)])
+
+        // When
+        let result = try? (lhs * Vector.Transformation.none(rhs)).get()
+
+        // Then
+        let expectedResult = try! Matrix([[.zero],
+                                          [Complex(-1, -1)],
+                                          [Complex(-2, -2)],
+                                          [Complex(-6)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testTwoVectorWithSameDimensions_transposedMultiply_returnExpectedValue() {
+        // Given
+        let lhs = try! Vector([.zero, .one])
+        let rhs = try! Vector([Complex(2), Complex(3)])
+
+        // When
+        let result = try? (lhs * Vector.Transformation.transposed(rhs)).get()
+
+        // Then
+        let expectedResult = try! Matrix([[.zero, .zero],
+                                          [Complex(2), Complex(3)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testTwoVectorWithDifferentDimensions_transposedMultiply_returnExpectedValue() {
+        // Given
+        let lhs = try! Vector([Complex(3, 2), Complex(-5, 1)])
+        let rhs = try! Vector([Complex(2, -4), .one, Complex(3)])
+
+        // When
+        let result = try? (lhs * Vector.Transformation.transposed(rhs)).get()
+
+        // Then
+        let expectedResult = try! Matrix([[Complex(14, -8), Complex(3, 2), Complex(9, 6)],
+                                          [Complex(-6, 22), Complex(-5, 1), Complex(-15, 3)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testTwoVectorWithSameDimensions_adjointedMultiply_returnExpectedValue() {
+        // Given
+        let lhs = try! Vector([.zero, .one])
+        let rhs = try! Vector([Complex(2), .i])
+
+        // When
+        let result = try? (lhs * Vector.Transformation.adjointed(rhs)).get()
+
+        // Then
+        let expectedResult = try! Matrix([[.zero, .zero],
+                                          [Complex(2), -.i]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testTwoVectorWithDifferentDimensions_adjointedMultiply_returnExpectedValue() {
+        // Given
+        let lhs = try! Vector([Complex(3, 2), Complex(-5, 1)])
+        let rhs = try! Vector([Complex(2, 4), .one, Complex(3)])
+
+        // When
+        let result = try? (lhs * Vector.Transformation.adjointed(rhs)).get()
+
+        // Then
+        let expectedResult = try! Matrix([[Complex(14, -8), Complex(3, 2), Complex(9, 6)],
+                                          [Complex(-6, 22), Complex(-5, 1), Complex(-15, 3)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
     func testMatrixWithColumnCountDifferentThanRowCountInVector_multiplyMatrixByVector_throwException() {
         // Given
         let lhs = try! Matrix([[Complex.zero, Complex.zero]])
@@ -307,6 +392,18 @@ class VectorTests: XCTestCase {
          testTwoVectorWithDifferentDimensions_multiply_throwException),
         ("testTwoVector_multiply_returnExpectedValue",
          testTwoVector_multiply_returnExpectedValue),
+        ("testTwoVectorWithSameDimensionsAndNoTransformation_multiply_throwException",
+         testTwoVectorWithSameDimensionsAndNoTransformation_multiply_throwException),
+        ("testOneVectorAnotherVectorWithOneValueAndNoTransformation_multiply_returnExpectedValue",
+         testOneVectorAnotherVectorWithOneValueAndNoTransformation_multiply_returnExpectedValue),
+        ("testTwoVectorWithSameDimensions_transposedMultiply_returnExpectedValue",
+         testTwoVectorWithSameDimensions_transposedMultiply_returnExpectedValue),
+        ("testTwoVectorWithDifferentDimensions_transposedMultiply_returnExpectedValue",
+         testTwoVectorWithDifferentDimensions_transposedMultiply_returnExpectedValue),
+        ("testTwoVectorWithSameDimensions_adjointedMultiply_returnExpectedValue",
+         testTwoVectorWithSameDimensions_adjointedMultiply_returnExpectedValue),
+        ("testTwoVectorWithDifferentDimensions_adjointedMultiply_returnExpectedValue",
+         testTwoVectorWithDifferentDimensions_adjointedMultiply_returnExpectedValue),
         ("testMatrixWithColumnCountDifferentThanRowCountInVector_multiplyMatrixByVector_throwException",
          testMatrixWithColumnCountDifferentThanRowCountInVector_multiplyMatrixByVector_throwException),
         ("testMatrixWithColumnCountEqualToRowCountInVector_multiplyMatrixByVector_returnExpectedVector",

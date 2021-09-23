@@ -7,9 +7,32 @@
 
 ## Usage
 
+### Circuit
+
 ![Usage](https://raw.githubusercontent.com/indisoluble/SwiftQuantumComputing/master/Images/Usage.jpg)
 
 Check code in [Circuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/Circuit.playground/Contents.swift).
+
+### Circuit with noise
+
+```swift
+import SwiftQuantumComputing // for macOS
+//: 1. Compose a list of quantum gates & noises
+let quantumOperators: [QuantumOperatorConvertible] = [
+    Gate.hadamard(target: 0),
+    Noise.bitFlip(probability: 0.35, target: 0),
+    Gate.phaseShift(radians: 0.25, target: 2),
+    Noise.phaseDamping(probability: 0.75, target: 2),
+    Gate.controlled(gate: .hadamard(target: 1), controls: [2, 0]),
+    Noise.bitFlip(probability: 0.8, target: 1)
+]
+//: 2. Build a quantum circuit with noise using the list
+let circuit = MainNoiseCircuitFactory().makeNoiseCircuit(quantumOperators: quantumOperators)
+//: 3. Use the quantum circuit with noise
+print("Density matrix:: \(circuit.densityMatrix().get())\n")
+```
+
+Check code in [NoiseCircuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/NoiseCircuit.playground/Contents.swift).
 
 ## Performance
 
@@ -59,17 +82,22 @@ Documentation for the project can be found [here](https://indisoluble.github.io/
 ## SwiftPM dependencies
 
 * [CBLAS-Linux](https://github.com/indisoluble/CBLAS-Linux) (only for Linux)
+* [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux) (only for Linux)
 * [Swift Argument Parser](https://github.com/apple/swift-argument-parser)
 * [Swift Numerics](https://github.com/apple/swift-numerics)
 
 ### Linux
 
-This package depends on [BLAS](http://www.netlib.org/blas/) if running on Linux, more exactly, [Ubuntu](https://www.ubuntu.com).
+This package depends on [BLAS](http://www.netlib.org/blas/) & [LAPACK](http://www.netlib.org/lapack/) if running on Linux, more exactly, [Ubuntu](https://www.ubuntu.com).
 
-This dependency is reflected in `Package.swift` with [CBLAS-Linux](https://github.com/indisoluble/CBLAS-Linux), which in turn expects to find the following file: `/usr/include/x86_64-linux-gnu/cblas-netlib.h`. So, after installing [BLAS](http://www.netlib.org/blas/) (in case it is not already there):
+These dependencies are reflected in `Package.swift` with:
+* [CBLAS-Linux](https://github.com/indisoluble/CBLAS-Linux), which in turn expects to find: `/usr/include/x86_64-linux-gnu/cblas-netlib.h`
+* [CLapacke-Linux](https://github.com/indisoluble/CLapacke-Linux), which in turn expects to find: `/usr/include/lapacke.h`
+
+So, after installing [BLAS](http://www.netlib.org/blas/) & [LAPACK](http://www.netlib.org/lapack/) (in case they are not already there):
 
 ```
-sudo apt-get install libblas-dev
+sudo apt-get install libblas-dev liblapacke-dev
 ```
 
-Check `cblas-netlib.h` is in the expected location.
+Check `cblas-netlib.h` & `lapacke.h` are in the expected locations.

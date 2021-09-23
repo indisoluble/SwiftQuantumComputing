@@ -23,15 +23,13 @@ import Foundation
 // MARK: - Protocol definition
 
 protocol SimulatorMatrixExtracting {
-    typealias SimulatorMatrixCountable = SimulatorMatrix & MatrixCountable
-
-    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError>
+    func extractSimulatorMatrix() -> Result<SimulatorMatrix, GateError>
 }
 
 // MARK: - SimulatorMatrixExtracting default implementations
 
 extension SimulatorMatrixExtracting where Self: RawMatrixFactory {
-    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
+    func extractSimulatorMatrix() -> Result<SimulatorMatrix, GateError> {
         switch makeRawMatrix() {
         case .success(let matrix):
             return .success(matrix)
@@ -42,7 +40,7 @@ extension SimulatorMatrixExtracting where Self: RawMatrixFactory {
 }
 
 extension SimulatorMatrixExtracting where Self: SimulatorControlledMatrixAdapterFactory {
-    func extractSimulatorMatrix() -> Result<SimulatorMatrixCountable, GateError> {
+    func extractSimulatorMatrix() -> Result<SimulatorMatrix, GateError> {
         switch makeControlledMatrixAdapter() {
         case .success(let adapter):
             return .success(adapter.expandedOracleMatrix())

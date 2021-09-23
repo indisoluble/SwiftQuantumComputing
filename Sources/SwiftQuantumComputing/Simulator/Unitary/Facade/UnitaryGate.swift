@@ -30,5 +30,5 @@ enum UnitaryMatrixError: Error {
 
 protocol UnitaryGate {
     func unitary() -> Result<Matrix, UnitaryMatrixError>
-    func applying(_ gate: Gate) -> Result<UnitaryGate, GateError>
+    func applying(_ gate: Gate) -> Result<UnitaryGate, QuantumOperatorError>
 }

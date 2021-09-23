@@ -29,13 +29,13 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
     // MARK: - Properties
 
     let adapter = try! UnitaryGateFactoryAdapter(maxConcurrency: 1,
-                                                 transformation: try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1))
+                                                 transformation: try! CSMFullMatrixUnitaryTransformation(expansionConcurrency: 1))
 
     // MARK: - Tests
 
     func testMaxConcurrencyEqualToZero_init_throwException() {
         // Given
-        let transformation = try! CSMFullMatrixUnitaryTransformation(matrixExpansionConcurrency: 1)
+        let transformation = try! CSMFullMatrixUnitaryTransformation(expansionConcurrency: 1)
 
         // Then
         XCTAssertThrowsError(try UnitaryGateFactoryAdapter(maxConcurrency: 0,
@@ -47,11 +47,11 @@ class UnitaryGateFactoryAdapterTests: XCTestCase {
         let failingGate = Gate.controlledNot(target: 0, control: 0)
 
         // Then
-        var error: GateError?
+        var error: QuantumOperatorError?
         if case .failure(let e) = adapter.makeUnitaryGate(qubitCount: 1, gate: failingGate) {
             error = e
         }
-        XCTAssertEqual(error, .gateInputsAreNotUnique)
+        XCTAssertEqual(error, .operatorInputsAreNotUnique)
     }
 
     func testGateReturnsComponents_makeUnitaryGate_returnValue() {

@@ -90,6 +90,22 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix[1,1], expectedValue)
     }
 
+    func testAnySlice_subscript_returnExpectedValue() {
+        // Given
+        let expectedValue = Complex<Double>(10, 10)
+        let elements: [[Complex<Double>]] = [
+            [.zero, .zero, .zero, .zero],
+            [.zero, .zero, expectedValue, .zero],
+            [.zero, .zero, .zero, .zero],
+            [.zero, .zero, .zero, .zero]
+        ]
+        let matrix = try! Matrix(elements)
+        let slice = try! matrix.makeSlice(startColumn: 1, columnCount: 2).get()
+
+        // Then
+        XCTAssertEqual(slice[1,1], expectedValue)
+    }
+
     func testAnyMatrix_loop_returnExpectedSequence() {
         // Given
         let elements: [[Complex<Double>]] = [
@@ -270,6 +286,96 @@ class MatrixTests: XCTestCase {
 
         XCTAssertTrue(otherMatrix.isApproximatelyEqual(to: expectedMatrix,
                                                        absoluteTolerance: SharedConstants.tolerance))
+    }
+
+    func testNonHermitianMatrix_eigenvalues_throwException() {
+        // Given
+        let matrix = try! Matrix([
+            [.one, .zero, .zero],
+            [.one, Complex(2), .zero],
+            [Complex(2), Complex(3), Complex(3)]
+        ])
+
+        // Then
+        var error: Matrix.EigenvaluesError?
+        if case .failure(let e) = matrix.eigenvalues() {
+            error = e
+        }
+        XCTAssertEqual(error, .matrixIsNotHermitian)
+    }
+
+    func testAnyHermitianMatrices_eigenvalues_returnExpectedValues() {
+        // Given
+        let matrices: [(Matrix, [Double])] = [
+            (try! Matrix([[Complex(2), .one],
+                          [.one, Complex(2)]]),
+             [1.0, 3.0]),
+            (try! Matrix([[Complex(2), -.one],
+                          [-.one, Complex(2)]]),
+             [1.0, 3.0]),
+            (try! Complex(1.0 / 3.0) * Matrix([[Complex(2), -.one],
+                                               [-.one, .one]]),
+             [0.5 - sqrt(5) / 6.0, 0.5 + sqrt(5) / 6.0]),
+            (try! Matrix([[Complex(1), .zero, .zero],
+                          [.zero, Complex(2), .zero],
+                          [.zero, .zero, Complex(3)]]),
+             [1.0, 2.0, 3.0]),
+            (try! Matrix([[Complex(2), .zero, .zero],
+                          [.zero, Complex(3), Complex(4)],
+                          [.zero, Complex(4), Complex(9)]]),
+             [1.0, 2.0, 11.0]),
+            (try! Matrix([[Complex(2), .i, .zero],
+                          [-.i, Complex(2), .zero],
+                          [.zero, .zero, Complex(3)]]),
+             [1.0, 3.0, 3.0]),
+            (try! Matrix([[-.one, .zero, -2 * .i],
+                          [.zero, Complex(2), .zero],
+                          [2 * .i, .zero, -.one]]),
+             [-3.0, 1.0, 2.0])
+        ]
+
+        for (matrix, expectedValues) in matrices {
+            // When
+            let values = try? matrix.eigenvalues().get()
+
+            // Then
+            XCTAssertEqual(values, expectedValues)
+        }
+    }
+
+    func testAnyHermitianMatrices_eigenvalues_returnAlmostExpectedValues() {
+        // Given
+        let matrices: [(Matrix, [Double])] = [
+            (try! Matrix([[.one, -.one, .zero],
+                          [-.one, Complex(2), -.one],
+                          [.zero, -.one, .one]]),
+             [0.0, 1.0, 3.0])
+        ]
+
+        for (matrix, expectedValues) in matrices {
+            // When
+            let values = try! matrix.eigenvalues().get()
+
+            // Then
+            for (val, expectedVal) in zip(values, expectedValues) {
+                XCTAssertEqual(val, expectedVal, accuracy: SharedConstants.tolerance)
+            }
+        }
+    }
+
+    func testHermitianSlice_eigenvalues_returnExpectedValues() {
+        // Given
+        let matrix = try! Matrix([[.i, -.one, .zero, -2 * .i, .i],
+                                  [.i, .zero, Complex(2), .zero, .i],
+                                  [.i, 2 * .i, .zero, -.one, .i]])
+        let slice = try! matrix.makeSlice(startColumn: 1, columnCount: 3).get()
+
+        // When
+        let values = try? slice.eigenvalues().get()
+
+        // Then
+        let expectedValues = [-3.0, 1.0, 2.0]
+        XCTAssertEqual(values, expectedValues)
     }
 
     func testZeroRowCount_makeMatrix_throwException() {
@@ -701,6 +807,80 @@ class MatrixTests: XCTestCase {
         XCTAssertEqual(result, expectedResult)
     }
 
+    func testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_adjointedMultiply_throwException() {
+        // Given
+        let complex = Complex<Double>.zero
+        let lhs = try! Matrix([[complex], [complex], [complex]])
+        let rhs = try! Matrix([[complex, complex, complex]])
+
+        // Then
+        var error: Matrix.ProductError?
+        if case .failure(let e) = lhs * Matrix.Transformation.adjointed(rhs) {
+            error = e
+        }
+        XCTAssertEqual(error, .matricesDoNotHaveValidDimensions)
+    }
+
+    func testMatrixWithRowCountEqualToRowCountInFirstMatrix_adjointedMultiply_returnExpectedMatrix() {
+        // Given
+        let lhsElements: [[Complex<Double>]] = [
+            [Complex(3, 2), .zero, Complex(5, -6)],
+            [.one, Complex(4, 2), .i]
+        ]
+        let lhs = try! Matrix(lhsElements)
+
+        let rhsElements: [[Complex<Double>]] = [
+            [Complex(5), .zero, Complex(7, 4)],
+            [Complex(2, 1), Complex(4, -5), Complex(2, -7)]
+        ]
+        let rhs = try! Matrix(rhsElements)
+
+        // When
+        let result = try? (lhs * Matrix.Transformation.adjointed(rhs)).get()
+
+        // Then
+        let expectedResult = try? Matrix([[Complex(26, -52), Complex(60, 24)],
+                                          [Complex(9, 7), Complex(1, 29)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
+    func testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_transposedMultiply_throwException() {
+        // Given
+        let complex = Complex<Double>.zero
+        let lhs = try! Matrix([[complex], [complex], [complex]])
+        let rhs = try! Matrix([[complex, complex, complex]])
+
+        // Then
+        var error: Matrix.ProductError?
+        if case .failure(let e) = lhs * Matrix.Transformation.transposed(rhs) {
+            error = e
+        }
+        XCTAssertEqual(error, .matricesDoNotHaveValidDimensions)
+    }
+
+    func testMatrixWithRowCountEqualToRowCountInFirstMatrix_transposedMultiply_returnExpectedMatrix() {
+        // Given
+        let lhsElements: [[Complex<Double>]] = [
+            [Complex(3, 2), .zero, Complex(5, -6)],
+            [.one, Complex(4, 2), .i]
+        ]
+        let lhs = try! Matrix(lhsElements)
+
+        let rhsElements: [[Complex<Double>]] = [
+            [Complex(5), .zero, Complex(7, -4)],
+            [Complex(2, -1), Complex(4, 5), Complex(2, 7)]
+        ]
+        let rhs = try! Matrix(rhsElements)
+
+        // When
+        let result = try? (lhs * Matrix.Transformation.transposed(rhs)).get()
+
+        // Then
+        let expectedResult = try? Matrix([[Complex(26, -52), Complex(60, 24)],
+                                          [Complex(9, 7), Complex(1, 29)]])
+        XCTAssertEqual(result, expectedResult)
+    }
+
     static var allTests = [
         ("testEmptyArray_init_throwException",
          testEmptyArray_init_throwException),
@@ -714,6 +894,8 @@ class MatrixTests: XCTestCase {
          testAnyMatrix_first_returnExpectedValue),
         ("testAnyMatrix_subscript_returnExpectedValue",
          testAnyMatrix_subscript_returnExpectedValue),
+        ("testAnySlice_subscript_returnExpectedValue",
+         testAnySlice_subscript_returnExpectedValue),
         ("testMatricesWithDifferentNumberOfRows_isApproximatelyEqual_returnFalse",
          testMatricesWithDifferentNumberOfRows_isApproximatelyEqual_returnFalse),
         ("testMatricesWithDifferentNumberOfColumns_isApproximatelyEqual_returnFalse",
@@ -744,6 +926,14 @@ class MatrixTests: XCTestCase {
          testTwoColumnsInAMatrix_makeSlice_returnExpectedMatrix),
         ("testMatrixAlreadySliced_makeSlice_returnExpectedMatrix",
          testMatrixAlreadySliced_makeSlice_returnExpectedMatrix),
+        ("testNonHermitianMatrix_eigenvalues_throwException",
+         testNonHermitianMatrix_eigenvalues_throwException),
+        ("testAnyHermitianMatrices_eigenvalues_returnExpectedValues",
+         testAnyHermitianMatrices_eigenvalues_returnExpectedValues),
+        ("testAnyHermitianMatrices_eigenvalues_returnAlmostExpectedValues",
+         testAnyHermitianMatrices_eigenvalues_returnAlmostExpectedValues),
+        ("testHermitianSlice_eigenvalues_returnExpectedValues",
+         testHermitianSlice_eigenvalues_returnExpectedValues),
         ("testZeroRowCount_makeMatrix_throwException",
          testZeroRowCount_makeMatrix_throwException),
         ("testZeroColumnCount_makeMatrix_throwException",
@@ -795,6 +985,14 @@ class MatrixTests: XCTestCase {
         ("testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_transposedMultiply_throwException",
          testMatrixWithRowCountDifferentThanRowCountInSecondMatrix_transposedMultiply_throwException),
         ("testMatrixWithRowCountEqualToRowCountInSecondMatrix_transposedMultiply_returnExpectedMatrix",
-         testMatrixWithRowCountEqualToRowCountInSecondMatrix_transposedMultiply_returnExpectedMatrix)
+         testMatrixWithRowCountEqualToRowCountInSecondMatrix_transposedMultiply_returnExpectedMatrix),
+        ("testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_adjointedMultiply_throwException",
+         testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_adjointedMultiply_throwException),
+        ("testMatrixWithRowCountEqualToRowCountInFirstMatrix_adjointedMultiply_returnExpectedMatrix",
+         testMatrixWithRowCountEqualToRowCountInFirstMatrix_adjointedMultiply_returnExpectedMatrix),
+        ("testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_transposedMultiply_throwException",
+         testMatrixWithRowCountDifferentThanRowCountInFirstMatrix_transposedMultiply_throwException),
+        ("testMatrixWithRowCountEqualToRowCountInFirstMatrix_transposedMultiply_returnExpectedMatrix",
+         testMatrixWithRowCountEqualToRowCountInFirstMatrix_transposedMultiply_returnExpectedMatrix)
     ]
 }

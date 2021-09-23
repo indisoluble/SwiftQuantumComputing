@@ -46,10 +46,10 @@ class CircuitFacadeTests: XCTestCase {
         statevectorSimulator.applyStateResult = expectedResult
 
         // When
-        let result = try? facade.statevector(withInitialStatevector: initialCircuitStatevector).get()
+        let result = try? facade.statevector(withInitialState: initialCircuitStatevector).get()
 
         // Then
-        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialStatevector
+        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialState
         let lastStatevectorGates = statevectorSimulator.lastApplyStateCircuit
 
         XCTAssertEqual(statevectorSimulator.applyStateCount, 1)
@@ -67,12 +67,12 @@ class CircuitFacadeTests: XCTestCase {
 
         // When
         var error: StatevectorError?
-        if case .failure(let e) = facade.statevector(withInitialStatevector: initialCircuitStatevector) {
+        if case .failure(let e) = facade.statevector(withInitialState: initialCircuitStatevector) {
             error = e
         }
 
         // Then
-        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialStatevector
+        let lastApplyInitialStatevector = statevectorSimulator.lastApplyStateInitialState
         let lastStatevectorGates = statevectorSimulator.lastApplyStateCircuit
 
         XCTAssertEqual(statevectorSimulator.applyStateCount, 1)

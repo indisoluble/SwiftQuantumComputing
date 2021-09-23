@@ -46,7 +46,7 @@ class Circuit_StatevectorTests: XCTestCase {
 
         XCTAssertEqual(circuit.gatesCount, 1)
         XCTAssertEqual(circuit.circuitStatevectorCount, 1)
-        XCTAssertEqual(circuit.lastCircuitStatevectorInitialStatevector?.statevector,
+        XCTAssertEqual(circuit.lastCircuitStatevectorInitialState?.statevector,
                        expectedInitialStatevector)
     }
 
@@ -67,7 +67,7 @@ class Circuit_StatevectorTests: XCTestCase {
 
         XCTAssertEqual(circuit.gatesCount, 1)
         XCTAssertEqual(circuit.circuitStatevectorCount, 1)
-        XCTAssertEqual(circuit.lastCircuitStatevectorInitialStatevector?.statevector,
+        XCTAssertEqual(circuit.lastCircuitStatevectorInitialState?.statevector,
                        expectedInitialStatevector)
     }
 

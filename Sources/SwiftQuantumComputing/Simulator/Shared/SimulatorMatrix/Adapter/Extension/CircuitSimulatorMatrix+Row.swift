@@ -18,24 +18,29 @@
 // limitations under the License.
 //
 
+import ComplexModule
 import Foundation
 
 // MARK: - Main body
 
 extension CircuitSimulatorMatrix {
+    typealias TransformRowValue = (Complex<Double>) -> Complex<Double>
+
     enum RowError: Error {
         case indexOutOfRange
         case passMaxConcurrencyBiggerThanZero
     }
 
-    func row(_ index: Int, maxConcurrency: Int) -> Result<Vector, RowError> {
+    func row(_ index: Int,
+             maxConcurrency: Int,
+             transform: TransformRowValue = { $0 }) -> Result<Vector, RowError> {
         guard index >= 0 && index < count else {
             return .failure(.indexOutOfRange)
         }
 
         switch Vector.makeVector(count: count,
                                  maxConcurrency: maxConcurrency,
-                                 value: { self[index, $0] }) {
+                                 value: { transform(self[index, $0]) }) {
         case .success(let vector):
             return .success(vector)
         case .failure(.passMaxConcurrencyBiggerThanZero):
