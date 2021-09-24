@@ -70,6 +70,7 @@ Documentation for the project can be found [here](https://indisoluble.github.io/
 
 ## References
 
+* [Amazon Braket Default Simulator](https://github.com/aws/amazon-braket-default-simulator-python)
 * [Automatic Quantum Computer Programming: A Genetic Programming Approach](https://www.amazon.com/Automatic-Quantum-Computer-Programming-Approach/dp/038736496X)
 * [Continued Fractions and the Euclidean Algorithm](https://www.math.u-bordeaux.fr/~pjaming/M1/exposes/MA2.pdf)
 * [Decomposition of unitary matrices and quantum gates](https://arxiv.org/abs/1210.7366)
