@@ -46,5 +46,5 @@ public protocol CircuitDensityMatrixFactory {
 
      - Returns: A `CircuitDensityMatrix` instance. Or `MakeDensityMatrixError` error.
      */
-    func makeDensityMatrix(matrix: Matrix) -> Result<CircuitDensityMatrix, MakeDensityMatrixError>
+    func makeDensityMatrix(matrix: Matrix) -> Result<CircuitDensityMatrix & CircuitProbabilities, MakeDensityMatrixError>
 }

@@ -30,14 +30,14 @@ final class CircuitDensityMatrixFactoryTestDouble {
 
     private (set) var makeDensityMatrixCount = 0
     private (set) var lastMakeDensityMatrixMatrix: Matrix?
-    var makeDensityMatrixResult: CircuitDensityMatrix?
+    var makeDensityMatrixResult: (CircuitDensityMatrix & CircuitProbabilities)?
     var makeDensityMatrixError = MakeDensityMatrixError.matrixIsNotHermitian
 }
 
 // MARK: - CircuitDensityMatrixFactory methods
 
 extension CircuitDensityMatrixFactoryTestDouble: CircuitDensityMatrixFactory {
-    func makeDensityMatrix(matrix: Matrix) -> Result<CircuitDensityMatrix, MakeDensityMatrixError> {
+    func makeDensityMatrix(matrix: Matrix) -> Result<CircuitDensityMatrix & CircuitProbabilities, MakeDensityMatrixError> {
         makeDensityMatrixCount += 1
 
         lastMakeDensityMatrixMatrix = matrix

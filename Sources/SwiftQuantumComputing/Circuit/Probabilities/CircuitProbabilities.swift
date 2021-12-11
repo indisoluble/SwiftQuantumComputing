@@ -42,3 +42,10 @@ extension CircuitProbabilities where Self: CircuitStatevector {
         return statevector.map { $0.lengthSquared }
     }
 }
+
+extension CircuitProbabilities where Self: CircuitDensityMatrix {
+    /// Check `CircuitProbabilities.probabilities()`
+    func probabilities() -> [Double] {
+        return (0..<densityMatrix.rowCount).lazy.map { densityMatrix[$0, $0].length }
+    }
+}

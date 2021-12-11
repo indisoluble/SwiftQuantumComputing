@@ -52,5 +52,5 @@ public protocol NoiseCircuit {
      - Returns: Another `CircuitDensityMatrix` instance, result of applying `gates` to `initialState`. Or
      `DensityMatrixError` error.
      */
-    func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError>
+    func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix & CircuitProbabilities, DensityMatrixError>
 }

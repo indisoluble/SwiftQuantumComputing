@@ -57,8 +57,59 @@ class CircuitProbabilitiesTests: XCTestCase {
         }
     }
 
+    func testAnyCircuitDensityMatrix_probabilities_returnExpectedProbabilities() {
+        // Given
+        circuitStatevector.statevectorResult = try! Vector([
+            .zero, Complex(1 / sqrt(2)), .zero, Complex(imaginary: 1 / sqrt(2))
+        ])
+
+        // When
+        let result = circuitStatevector.densityMatrix().probabilities()
+
+        // Then
+        let expectedResult = [
+            Double(0),
+            1.0 / 2.0,
+            Double(0),
+            1.0 / 2.0
+        ]
+
+        for (value, expectedValue) in zip(result, expectedResult) {
+            XCTAssertEqual(value, expectedValue, accuracy: SharedConstants.tolerance)
+        }
+    }
+
+    func testNoiseCircuit_probabilities_returnExpectedProbabilities() {
+        // Given
+        let operators: [QuantumOperatorConvertible] = [
+            Gate.hadamard(target: 0),
+            Gate.controlledNot(target: 1, control: 0),
+            Noise.bitFlip(probability: 1.0 / 4.0, target: 0)
+        ]
+        let circuit = MainNoiseCircuitFactory().makeNoiseCircuit(quantumOperators: operators)
+
+        // When
+        let result = try! circuit.densityMatrix().get().probabilities()
+
+        // Then
+        let expectedResult = [
+            3.0 / 8.0,
+            1.0 / 8.0,
+            1.0 / 8.0,
+            3.0 / 8.0
+        ]
+
+        for (value, expectedValue) in zip(result, expectedResult) {
+            XCTAssertEqual(value, expectedValue, accuracy: SharedConstants.tolerance)
+        }
+    }
+
     static var allTests = [
         ("testAnyCircuitStatevector_probabilities_returnExpectedProbabilities",
-         testAnyCircuitStatevector_probabilities_returnExpectedProbabilities)
+         testAnyCircuitStatevector_probabilities_returnExpectedProbabilities),
+        ("testAnyCircuitDensityMatrix_probabilities_returnExpectedProbabilities",
+         testAnyCircuitDensityMatrix_probabilities_returnExpectedProbabilities),
+        ("testNoiseCircuit_probabilities_returnExpectedProbabilities",
+         testNoiseCircuit_probabilities_returnExpectedProbabilities)
     ]
 }

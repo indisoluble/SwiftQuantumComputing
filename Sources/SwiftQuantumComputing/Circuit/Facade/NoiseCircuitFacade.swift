@@ -51,7 +51,7 @@ extension NoiseCircuitFacade: CustomStringConvertible {
 // MARK: - NoiseCircuit methods
 
 extension NoiseCircuitFacade: NoiseCircuit {
-    func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
+    func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix & CircuitProbabilities, DensityMatrixError> {
         return densityMatrixSimulator.apply(circuit: quantumOperators, to: initialState)
     }
 }
