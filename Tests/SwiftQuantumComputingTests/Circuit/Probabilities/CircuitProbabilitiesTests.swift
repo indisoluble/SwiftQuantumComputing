@@ -1,5 +1,5 @@
 //
-//  CircuitStatevector+ProbabilitiesTests.swift
+//  CircuitProbabilitiesTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 14/06/2020.
@@ -25,7 +25,7 @@ import XCTest
 
 // MARK: - Main body
 
-class CircuitStatevector_ProbabilitiesTests: XCTestCase {
+class CircuitProbabilitiesTests: XCTestCase {
 
     // MARK: - Properties
 

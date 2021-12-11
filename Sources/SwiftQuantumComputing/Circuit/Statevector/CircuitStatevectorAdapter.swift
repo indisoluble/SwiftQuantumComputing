@@ -51,3 +51,7 @@ struct CircuitStatevectorAdapter {
 // MARK: - CircuitStatevector methods
 
 extension CircuitStatevectorAdapter: CircuitStatevector {}
+
+// MARK: - CircuitProbabilities methods
+
+extension CircuitStatevectorAdapter: CircuitProbabilities {}

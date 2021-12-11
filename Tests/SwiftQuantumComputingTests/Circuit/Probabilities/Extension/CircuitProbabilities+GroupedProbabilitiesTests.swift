@@ -1,5 +1,5 @@
 //
-//  CircuitStatevector+GroupedProbabilitiesTests.swift
+//  CircuitProbabilities+GroupedProbabilitiesTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/06/2020.
@@ -25,7 +25,7 @@ import XCTest
 
 // MARK: - Main body
 
-class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
+class CircuitProbabilities_GroupedProbabilitiesTests: XCTestCase {
 
     // MARK: - Properties
 
@@ -43,8 +43,8 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
     // MARK: - Auxiliar methods
 
-    func assertEqualGroupedProbabilities(_ one: [String: CircuitStatevector.GroupedProb],
-                                         _ other: [String: CircuitStatevector.GroupedProb]) {
+    func assertEqualGroupedProbabilities(_ one: [String: CircuitProbabilities.GroupedProb],
+                                         _ other: [String: CircuitProbabilities.GroupedProb]) {
         let accuracy = (1.0 / Foundation.pow(10.0, 6))
 
         let groupOneKeys = Set(one.keys)
@@ -123,7 +123,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
+            let expectedResult: [String: CircuitProbabilities.GroupedProb] = [
                 "0": (2.0 / 3.0, ["0": 1.0]),
                 "1": (1.0 / 3.0, ["0": 1.0])
             ]
@@ -144,7 +144,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
+            let expectedResult: [String: CircuitProbabilities.GroupedProb] = [
                 "0": (1.0, ["0": 2.0 / 3.0, "1": 1.0 / 3.0])
             ]
             assertEqualGroupedProbabilities(result, expectedResult)
@@ -163,7 +163,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
+            let expectedResult: [String: CircuitProbabilities.GroupedProb] = [
                 "0": (2.0 / 3.0, [:]),
                 "1": (1.0 / 3.0, [:])
             ]
@@ -185,7 +185,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
+            let expectedResult: [String: CircuitProbabilities.GroupedProb] = [
                 "0": (1.0, ["0": 0.7, "1": 0.3])
             ]
             assertEqualGroupedProbabilities(result, expectedResult)
@@ -206,7 +206,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
 
         XCTAssertNotNil(result)
         if let result = result {
-            let expectedResult: [String: CircuitStatevector.GroupedProb] = [
+            let expectedResult: [String: CircuitProbabilities.GroupedProb] = [
                 "0": (1.0, ["0": 1.0])
             ]
             assertEqualGroupedProbabilities(result, expectedResult)
@@ -218,7 +218,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
         circuitStatevector.statevectorResult = finalStateVector
 
         // Then
-        var result: [String: CircuitStatevector.GroupedProb]?
+        var result: [String: CircuitProbabilities.GroupedProb]?
         if case .success(let probs) = circuitStatevector.groupedProbabilities(byQubits: [0],
                                                                               summarizedByQubits: (1..<3)) {
             result = probs
@@ -231,7 +231,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
         circuitStatevector.statevectorResult = finalStateVector
 
         // Then
-        var result: [String: CircuitStatevector.GroupedProb]?
+        var result: [String: CircuitProbabilities.GroupedProb]?
         if case .success(let probs) = circuitStatevector.groupedProbabilities(byQubits: [0],
                                                                               summarizedByQubits: (1...2)) {
             result = probs
@@ -244,7 +244,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
         circuitStatevector.statevectorResult = finalStateVector
 
         // Then
-        var result: [String: CircuitStatevector.GroupedProb]?
+        var result: [String: CircuitProbabilities.GroupedProb]?
         if case .success(let probs) = circuitStatevector.groupedProbabilities(byQubits: (1..<3),
                                                                               summarizedByQubits: [0]) {
             result = probs
@@ -257,7 +257,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
         circuitStatevector.statevectorResult = finalStateVector
 
         // Then
-        var result: [String: CircuitStatevector.GroupedProb]?
+        var result: [String: CircuitProbabilities.GroupedProb]?
         if case .success(let probs) = circuitStatevector.groupedProbabilities(byQubits: (0..<1),
                                                                               summarizedByQubits: (1..<3)) {
             result = probs
@@ -270,7 +270,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
         circuitStatevector.statevectorResult = finalStateVector
 
         // Then
-        var result: [String: CircuitStatevector.GroupedProb]?
+        var result: [String: CircuitProbabilities.GroupedProb]?
         if case .success(let probs) = circuitStatevector.groupedProbabilities(byQubits: (0..<1),
                                                                               summarizedByQubits: (1...2)) {
             result = probs
@@ -283,7 +283,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
         circuitStatevector.statevectorResult = finalStateVector
 
         // Then
-        var result: [String: CircuitStatevector.GroupedProb]?
+        var result: [String: CircuitProbabilities.GroupedProb]?
         if case .success(let probs) = circuitStatevector.groupedProbabilities(byQubits: (1...2),
                                                                               summarizedByQubits: [0]) {
             result = probs
@@ -296,7 +296,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
         circuitStatevector.statevectorResult = finalStateVector
 
         // Then
-        var result: [String: CircuitStatevector.GroupedProb]?
+        var result: [String: CircuitProbabilities.GroupedProb]?
         if case .success(let probs) = circuitStatevector.groupedProbabilities(byQubits: (1...2),
                                                                               summarizedByQubits: (0..<1)) {
             result = probs
@@ -309,7 +309,7 @@ class CircuitStatevector_GroupedProbabilitiesTests: XCTestCase {
         circuitStatevector.statevectorResult = finalStateVector
 
         // Then
-        var result: [String: CircuitStatevector.GroupedProb]?
+        var result: [String: CircuitProbabilities.GroupedProb]?
         if case .success(let probs) = circuitStatevector.groupedProbabilities(byQubits: (1...2),
                                                                               summarizedByQubits: (0...0)) {
             result = probs

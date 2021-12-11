@@ -64,5 +64,5 @@ public protocol Circuit {
      - Returns: Another `CircuitStatevector` instance, result of applying `gates` to `initialState`. Or
      `StatevectorError` error.
      */
-    func statevector(withInitialState initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError>
+    func statevector(withInitialState initialState: CircuitStatevector) -> Result<CircuitStatevector & CircuitProbabilities, StatevectorError>
 }

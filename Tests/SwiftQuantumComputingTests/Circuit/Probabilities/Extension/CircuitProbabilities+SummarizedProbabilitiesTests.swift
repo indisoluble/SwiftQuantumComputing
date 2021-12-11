@@ -1,5 +1,5 @@
 //
-//  CircuitStatevector+SummarizedProbabilitiesTests.swift
+//  CircuitProbabilities+SummarizedProbabilitiesTests.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 17/06/2020.
@@ -25,7 +25,7 @@ import XCTest
 
 // MARK: - Main body
 
-class CircuitStatevector_SummarizedProbabilitiesTests: XCTestCase {
+class CircuitProbabilities_SummarizedProbabilitiesTests: XCTestCase {
 
     // MARK: - Properties
 

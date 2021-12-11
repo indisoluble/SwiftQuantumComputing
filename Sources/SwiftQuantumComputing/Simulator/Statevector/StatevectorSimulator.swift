@@ -24,5 +24,5 @@ import Foundation
 
 protocol StatevectorSimulator {
     func apply(circuit: [Gate],
-               to initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError>
+               to initialState: CircuitStatevector) -> Result<CircuitStatevector & CircuitProbabilities, StatevectorError>
 }

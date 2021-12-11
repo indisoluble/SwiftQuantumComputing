@@ -43,5 +43,5 @@ public protocol CircuitStatevectorFactory {
 
      - Returns: A `CircuitStatevector` instance. Or `MakeStatevectorError` error.
      */
-    func makeStatevector(vector: Vector) -> Result<CircuitStatevector, MakeStatevectorError>
+    func makeStatevector(vector: Vector) -> Result<CircuitStatevector & CircuitProbabilities, MakeStatevectorError>
 }
