@@ -31,7 +31,7 @@ final class DensityMatrixSimulatorTestDouble {
     private (set) var applyStateCount = 0
     private (set) var lastApplyStateCircuit: [QuantumOperator]?
     private (set) var lastApplyStateInitialState: CircuitDensityMatrix?
-    var applyStateResult: (CircuitDensityMatrix & CircuitProbabilities)?
+    var applyStateResult: CircuitDensityMatrix?
     var applyStateError = DensityMatrixError.resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
 }
 
@@ -39,7 +39,7 @@ final class DensityMatrixSimulatorTestDouble {
 
 extension DensityMatrixSimulatorTestDouble: DensityMatrixSimulator  {
     func apply(circuit: [QuantumOperator],
-               to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix & CircuitProbabilities, DensityMatrixError> {
+               to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
         applyStateCount += 1
 
         lastApplyStateInitialState = initialState

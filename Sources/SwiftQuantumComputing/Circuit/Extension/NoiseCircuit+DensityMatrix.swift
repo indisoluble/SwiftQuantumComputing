@@ -34,7 +34,7 @@ extension NoiseCircuit {
      - Returns: Another `CircuitDensityMatrix` instance, result of applying `quantumOperators` to 0. Or
      `DensityMatrixError` error.
      */
-    public func densityMatrix(withFactory factory: CircuitDensityMatrixFactory = MainCircuitDensityMatrixFactory()) -> Result<CircuitDensityMatrix & CircuitProbabilities, DensityMatrixError> {
+    public func densityMatrix(withFactory factory: CircuitDensityMatrixFactory = MainCircuitDensityMatrixFactory()) -> Result<CircuitDensityMatrix, DensityMatrixError> {
         let initialState = try! Matrix.makeState(value: 0,
                                                  qubitCount: quantumOperators.qubitCount()).get()
         let initialDensityMatrix = try! factory.makeDensityMatrix(matrix: initialState).get()

@@ -33,7 +33,7 @@ final class NoiseCircuitTestDouble {
 
     private (set) var circuitDensityMatrixCount = 0
     private (set) var lastCircuitDensityMatrixInitialState: CircuitDensityMatrix?
-    var circuitDensityMatrixResult: (CircuitDensityMatrix & CircuitProbabilities)?
+    var circuitDensityMatrixResult: CircuitDensityMatrix?
     var circuitDensityMatrixError = DensityMatrixError.resultingDensityMatrixEigenvaluesDoesNotAddUpToOne
 }
 
@@ -46,7 +46,7 @@ extension NoiseCircuitTestDouble: NoiseCircuit {
         return quantumOperatorsResult
     }
 
-    func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix & CircuitProbabilities, DensityMatrixError> {
+    func densityMatrix(withInitialState initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
         circuitDensityMatrixCount += 1
 
         lastCircuitDensityMatrixInitialState = initialState

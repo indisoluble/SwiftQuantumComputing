@@ -23,7 +23,16 @@ import Foundation
 // MARK: - Protocol definition
 
 /// A circuit density matrix
-public protocol CircuitDensityMatrix {
+public protocol CircuitDensityMatrix: CircuitProbabilities {
     /// State of a quantum circuit expressed as a `Matrix` of `Complex` numbers
     var densityMatrix: Matrix { get }
+}
+
+// MARK: - CircuitProbabilities default implementations
+
+extension CircuitDensityMatrix {
+    /// Check `CircuitProbabilities.probabilities()`
+    func probabilities() -> [Double] {
+        return (0..<densityMatrix.rowCount).lazy.map { densityMatrix[$0, $0].length }
+    }
 }

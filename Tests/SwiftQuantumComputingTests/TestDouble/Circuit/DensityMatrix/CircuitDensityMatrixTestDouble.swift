@@ -41,7 +41,3 @@ extension CircuitDensityMatrixTestDouble: CircuitDensityMatrix {
         return densityMatrixResult
     }
 }
-
-// MARK: - CircuitProbabilities methods
-
-extension CircuitDensityMatrixTestDouble: CircuitProbabilities {}

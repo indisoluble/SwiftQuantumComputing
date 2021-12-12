@@ -34,7 +34,7 @@ extension Circuit {
      - Returns: Another `CircuitStatevector` instance, result of applying `gates` to 0. Or
      `StatevectorError` error.
      */
-    public func statevector(withFactory factory: CircuitStatevectorFactory = MainCircuitStatevectorFactory()) -> Result<CircuitStatevector & CircuitProbabilities, StatevectorError> {
+    public func statevector(withFactory factory: CircuitStatevectorFactory = MainCircuitStatevectorFactory()) -> Result<CircuitStatevector, StatevectorError> {
         let initialState = try! Vector.makeState(value: 0, qubitCount: gates.qubitCount()).get()
         let initialStatevector = try! factory.makeStatevector(vector: initialState).get()
 

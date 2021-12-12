@@ -46,7 +46,7 @@ struct StatevectorSimulatorFacade {
 
 extension StatevectorSimulatorFacade: StatevectorSimulator {
     func apply(circuit: [Gate],
-               to initialState: CircuitStatevector) -> Result<CircuitStatevector & CircuitProbabilities, StatevectorError> {
+               to initialState: CircuitStatevector) -> Result<CircuitStatevector, StatevectorError> {
         StatevectorSimulatorFacade.logger.debug("Preparing time evolution...")
         var evolution = timeEvolutionFactory.makeTimeEvolution(state: initialState)
 

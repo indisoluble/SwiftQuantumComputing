@@ -46,7 +46,7 @@ struct DensityMatrixSimulatorFacade {
 
 extension DensityMatrixSimulatorFacade: DensityMatrixSimulator {
     func apply(circuit: [QuantumOperator],
-               to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix & CircuitProbabilities, DensityMatrixError> {
+               to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError> {
         DensityMatrixSimulatorFacade.logger.debug("Preparing time evolution...")
         var evolution = timeEvolutionFactory.makeTimeEvolution(state: initialState)
 

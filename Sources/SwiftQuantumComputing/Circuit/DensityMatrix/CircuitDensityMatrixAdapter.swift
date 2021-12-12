@@ -68,7 +68,3 @@ struct CircuitDensityMatrixAdapter {
 // MARK: - CircuitDensityMatrix methods
 
 extension CircuitDensityMatrixAdapter: CircuitDensityMatrix {}
-
-// MARK: - CircuitProbabilities methods
-
-extension CircuitDensityMatrixAdapter: CircuitProbabilities {}

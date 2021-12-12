@@ -24,5 +24,5 @@ import Foundation
 
 protocol DensityMatrixSimulator {
     func apply(circuit: [QuantumOperator],
-               to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix & CircuitProbabilities, DensityMatrixError>
+               to initialState: CircuitDensityMatrix) -> Result<CircuitDensityMatrix, DensityMatrixError>
 }

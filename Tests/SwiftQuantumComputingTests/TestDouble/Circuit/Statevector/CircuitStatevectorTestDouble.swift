@@ -41,7 +41,3 @@ extension CircuitStatevectorTestDouble: CircuitStatevector {
         return statevectorResult
     }
 }
-
-// MARK: - CircuitProbabilities methods
-
-extension CircuitStatevectorTestDouble: CircuitProbabilities {}

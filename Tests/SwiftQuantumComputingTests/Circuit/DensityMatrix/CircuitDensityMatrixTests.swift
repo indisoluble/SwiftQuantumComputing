@@ -1,9 +1,9 @@
 //
-//  CircuitProbabilitiesTests.swift
+//  CircuitDensityMatrixTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/06/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 12/12/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,40 +25,13 @@ import XCTest
 
 // MARK: - Main body
 
-class CircuitProbabilitiesTests: XCTestCase {
-
-    // MARK: - Properties
-
-    let circuitStatevector = CircuitStatevectorTestDouble()
+class CircuitDensityMatrixTests: XCTestCase {
 
     // MARK: - Tests
 
-    func testAnyCircuitStatevector_probabilities_returnExpectedProbabilities() {
-        // Given
-        circuitStatevector.statevectorResult = try! Vector([
-            .zero, Complex(1 / sqrt(2)), .zero, Complex(imaginary: 1 / sqrt(2))
-        ])
-
-        // When
-        let result = circuitStatevector.probabilities()
-
-        // Then
-        XCTAssertEqual(circuitStatevector.statevectorCount, 1)
-
-        let expectedResult = [
-            Double(0),
-            1.0 / 2.0,
-            Double(0),
-            1.0 / 2.0
-        ]
-
-        for (value, expectedValue) in zip(result, expectedResult) {
-            XCTAssertEqual(value, expectedValue, accuracy: SharedConstants.tolerance)
-        }
-    }
-
     func testAnyCircuitDensityMatrix_probabilities_returnExpectedProbabilities() {
         // Given
+        let circuitStatevector = CircuitStatevectorTestDouble()
         circuitStatevector.statevectorResult = try! Vector([
             .zero, Complex(1 / sqrt(2)), .zero, Complex(imaginary: 1 / sqrt(2))
         ])
@@ -105,8 +78,6 @@ class CircuitProbabilitiesTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testAnyCircuitStatevector_probabilities_returnExpectedProbabilities",
-         testAnyCircuitStatevector_probabilities_returnExpectedProbabilities),
         ("testAnyCircuitDensityMatrix_probabilities_returnExpectedProbabilities",
          testAnyCircuitDensityMatrix_probabilities_returnExpectedProbabilities),
         ("testNoiseCircuit_probabilities_returnExpectedProbabilities",

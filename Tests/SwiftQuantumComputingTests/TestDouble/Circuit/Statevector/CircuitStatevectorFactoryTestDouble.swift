@@ -30,14 +30,14 @@ final class CircuitStatevectorFactoryTestDouble {
 
     private (set) var makeStatevectorCount = 0
     private (set) var lastMakeStatevectorVector: Vector?
-    var makeStatevectorResult: (CircuitStatevector & CircuitProbabilities)?
+    var makeStatevectorResult: CircuitStatevector?
     var makeStatevectorError = MakeStatevectorError.vectorAdditionOfSquareModulusIsNotEqualToOne
 }
 
 // MARK: - CircuitStatevectorFactory methods
 
 extension CircuitStatevectorFactoryTestDouble: CircuitStatevectorFactory {
-    func makeStatevector(vector: Vector) -> Result<CircuitStatevector & CircuitProbabilities, MakeStatevectorError> {
+    func makeStatevector(vector: Vector) -> Result<CircuitStatevector, MakeStatevectorError> {
         makeStatevectorCount += 1
 
         lastMakeStatevectorVector = vector

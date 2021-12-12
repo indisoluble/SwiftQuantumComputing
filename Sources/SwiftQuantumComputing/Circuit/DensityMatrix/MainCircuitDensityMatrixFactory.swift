@@ -33,7 +33,7 @@ public struct MainCircuitDensityMatrixFactory {
 
 extension MainCircuitDensityMatrixFactory: CircuitDensityMatrixFactory {
     /// Check `CircuitDensityMatrixFactory.makeDensityMatrix(matrix::)`
-    public func makeDensityMatrix(matrix: Matrix) -> Result<CircuitDensityMatrix & CircuitProbabilities, MakeDensityMatrixError> {
+    public func makeDensityMatrix(matrix: Matrix) -> Result<CircuitDensityMatrix, MakeDensityMatrixError> {
         do {
             return .success(try CircuitDensityMatrixAdapter(densityMatrix: matrix))
         } catch CircuitDensityMatrixAdapter.InitError.eigenvaluesDoesNotAddUpToOne {

@@ -33,19 +33,3 @@ public protocol CircuitProbabilities {
      */
     func probabilities() -> [Double]
 }
-
-// MARK: - CircuitProbabilities default implementations
-
-extension CircuitProbabilities where Self: CircuitStatevector {
-    /// Check `CircuitProbabilities.probabilities()`
-    func probabilities() -> [Double] {
-        return statevector.map { $0.lengthSquared }
-    }
-}
-
-extension CircuitProbabilities where Self: CircuitDensityMatrix {
-    /// Check `CircuitProbabilities.probabilities()`
-    func probabilities() -> [Double] {
-        return (0..<densityMatrix.rowCount).lazy.map { densityMatrix[$0, $0].length }
-    }
-}

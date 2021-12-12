@@ -31,7 +31,7 @@ extension CircuitStatevector {
 
      - Returns: A `CircuitDensityMatrix` instance.
      */
-    public func densityMatrix() -> CircuitDensityMatrix & CircuitProbabilities {
+    public func densityMatrix() -> CircuitDensityMatrix {
         let factory = MainCircuitDensityMatrixFactory()
         let matrix = try! (statevector * Vector.Transformation.adjointed(statevector)).get()
 

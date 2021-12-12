@@ -34,7 +34,7 @@ public struct MainCircuitStatevectorFactory {
 extension MainCircuitStatevectorFactory: CircuitStatevectorFactory {
 
     /// Check `CircuitStatevectorFactory.makeStatevector(vector:)`
-    public func makeStatevector(vector: Vector) -> Result<CircuitStatevector & CircuitProbabilities, MakeStatevectorError> {
+    public func makeStatevector(vector: Vector) -> Result<CircuitStatevector, MakeStatevectorError> {
         do {
             return .success(try CircuitStatevectorAdapter(statevector: vector))
         } catch CircuitStatevectorAdapter.InitError.statevectorAdditionOfSquareModulusIsNotEqualToOne {
