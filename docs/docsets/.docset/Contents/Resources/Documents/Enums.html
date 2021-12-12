@@ -144,6 +144,9 @@
                 <a class="nav-group-task-link" href="Protocols/CircuitFactory.html">CircuitFactory</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/CircuitProbabilities.html">CircuitProbabilities</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/CircuitStatevector.html">CircuitStatevector</a>
               </li>
               <li class="nav-group-task">
@@ -537,34 +540,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21SwiftQuantumComputing20MakeStatevectorErrorO"></a>
-                    <a name="//apple_ref/swift/Enum/MakeStatevectorError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21SwiftQuantumComputing20MakeStatevectorErrorO">MakeStatevectorError</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Errors throwed by <code><a href="Protocols/CircuitStatevectorFactory.html#/s:21SwiftQuantumComputing25CircuitStatevectorFactoryP04makeE06vectors6ResultOyAA0dE0_pAA04MakeE5ErrorOGAA6VectorV_tF">CircuitStatevectorFactory.makeStatevector(vector:)</a></code></p>
-
-                        <a href="Enums/MakeStatevectorError.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MakeStatevectorError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:21SwiftQuantumComputing25GroupedProbabilitiesErrorO"></a>
                     <a name="//apple_ref/swift/Enum/GroupedProbabilitiesError" class="dashAnchor"></a>
                     <a class="token" href="#/s:21SwiftQuantumComputing25GroupedProbabilitiesErrorO">GroupedProbabilitiesError</a>
@@ -576,7 +551,7 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Errors throwed by
-<code><a href="Protocols/CircuitStatevector.html#/s:21SwiftQuantumComputing18CircuitStatevectorPAAE20groupedProbabilities8byQubits012summarizedByI030roundingSummaryToDecimalPlacess6ResultOySDySSSd11probability_SDySSSdG7summarytGAA07GroupedG5ErrorOGSaySiG_AQSiSgtF">CircuitStatevector.groupedProbabilities(byQubits:summarizedByQubits:roundingSummaryToDecimalPlaces:)</a></code>.</p>
+<code><a href="Protocols/CircuitProbabilities.html#/s:21SwiftQuantumComputing20CircuitProbabilitiesPAAE07groupedE08byQubits012summarizedByH030roundingSummaryToDecimalPlacess6ResultOySDySSSd11probability_SDySSSdG7summarytGAA07GroupedE5ErrorOGSaySiG_AQSiSgtF">CircuitProbabilities.groupedProbabilities(byQubits:summarizedByQubits:roundingSummaryToDecimalPlaces:)</a></code>.</p>
 
                         <a href="Enums/GroupedProbabilitiesError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -604,7 +579,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors throwed by <code><a href="Protocols/CircuitStatevector.html#/s:21SwiftQuantumComputing18CircuitStatevectorPAAE23summarizedProbabilities8byQubitss6ResultOySDySSSdGAA010SummarizedG5ErrorOGSaySiG_tF">CircuitStatevector.summarizedProbabilities(byQubits:)</a></code>.</p>
+                        <p>Errors throwed by <code><a href="Protocols/CircuitProbabilities.html#/s:21SwiftQuantumComputing20CircuitProbabilitiesPAAE010summarizedE08byQubitss6ResultOySDySSSdGAA010SummarizedE5ErrorOGSaySiG_tF">CircuitProbabilities.summarizedProbabilities(byQubits:)</a></code>.</p>
 
                         <a href="Enums/SummarizedProbabilitiesError.html" class="slightly-smaller">See more</a>
                       </div>
@@ -613,6 +588,34 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SummarizedProbabilitiesError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21SwiftQuantumComputing20MakeStatevectorErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/MakeStatevectorError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21SwiftQuantumComputing20MakeStatevectorErrorO">MakeStatevectorError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Errors throwed by <code><a href="Protocols/CircuitStatevectorFactory.html#/s:21SwiftQuantumComputing25CircuitStatevectorFactoryP04makeE06vectors6ResultOyAA0dE0_pAA04MakeE5ErrorOGAA6VectorV_tF">CircuitStatevectorFactory.makeStatevector(vector:)</a></code></p>
+
+                        <a href="Enums/MakeStatevectorError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">MakeStatevectorError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
 
                         </div>
                       </div>
@@ -919,7 +922,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-09-24)</p>
+      <p>&copy; 2021 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2021-12-12)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
