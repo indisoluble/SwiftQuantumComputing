@@ -1,9 +1,9 @@
 //
-//  CircuitStatevector+ProbabilitiesTests.swift
+//  CircuitStatevectorTests.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/06/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 12/12/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,16 +25,13 @@ import XCTest
 
 // MARK: - Main body
 
-class CircuitStatevector_ProbabilitiesTests: XCTestCase {
-
-    // MARK: - Properties
-
-    let circuitStatevector = CircuitStatevectorTestDouble()
+class CircuitStatevectorTests: XCTestCase {
 
     // MARK: - Tests
 
     func testAnyCircuitStatevector_probabilities_returnExpectedProbabilities() {
         // Given
+        let circuitStatevector = CircuitStatevectorTestDouble()
         circuitStatevector.statevectorResult = try! Vector([
             .zero, Complex(1 / sqrt(2)), .zero, Complex(imaginary: 1 / sqrt(2))
         ])

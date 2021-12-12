@@ -24,11 +24,11 @@ gates += Gate.oracle(truthTable: makeSimonTruthTable(secret: secret),
                      targets: 0..<bitCount)
 gates += Gate.hadamard(targets: bitCount..<2*bitCount)
 
-MainDrawerFactory().makeDrawer().drawCircuit(gates).get()
+try MainDrawerFactory().makeDrawer().drawCircuit(gates).get()
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
-let state = circuit.statevector().get()
-let probabilities = state.summarizedProbabilities(byQubits: (bitCount..<2*bitCount).reversed()).get()
+let state = try circuit.statevector().get()
+let probabilities = try state.summarizedProbabilities(byQubits: (bitCount..<2*bitCount).reversed()).get()
 
 let allZeros = String(repeating: "0", count: bitCount)
 

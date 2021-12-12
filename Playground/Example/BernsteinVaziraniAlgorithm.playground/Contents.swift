@@ -17,11 +17,11 @@ gates += [Gate.oracle(truthTable: makeBernsteinVaziraniTruthTable(secret: secret
                       target: 0)]
 gates += Gate.hadamard(targets: 1...secret.count)
 
-MainDrawerFactory().makeDrawer().drawCircuit(gates).get()
+try MainDrawerFactory().makeDrawer().drawCircuit(gates).get()
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
-let statevector = circuit.statevector().get()
-let probabilities = statevector.summarizedProbabilities(byQubits: (1...secret.count).reversed()).get()
+let statevector = try circuit.statevector().get()
+let probabilities = try statevector.summarizedProbabilities(byQubits: (1...secret.count).reversed()).get()
 
 let foundSecret = probabilities.keys.first!
 

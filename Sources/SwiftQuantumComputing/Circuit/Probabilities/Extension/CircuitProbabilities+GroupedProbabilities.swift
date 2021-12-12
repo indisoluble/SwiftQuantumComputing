@@ -1,5 +1,5 @@
 //
-//  CircuitStatevector+GroupedProbabilities.swift
+//  CircuitProbabilities+GroupedProbabilities.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 15/06/2020.
@@ -23,7 +23,7 @@ import Foundation
 // MARK: - Errors
 
 /// Errors throwed by
-/// `CircuitStatevector.groupedProbabilities(byQubits:summarizedByQubits:roundingSummaryToDecimalPlaces:)`.
+/// `CircuitProbabilities.groupedProbabilities(byQubits:summarizedByQubits:roundingSummaryToDecimalPlaces:)`.
 public enum GroupedProbabilitiesError: Error, Hashable {
     /// Throwed when `groupQubits` does not specify any qubit, i.e. it is empty
     case groupQubitsCanNotBeAnEmptyList
@@ -35,12 +35,12 @@ public enum GroupedProbabilitiesError: Error, Hashable {
 
 // MARK: - Main body
 
-extension CircuitStatevector {
+extension CircuitProbabilities {
 
     // MARK: - Public types
 
     /// Check value returned by
-    /// `CircuitStatevector.groupedProbabilities(byQubits:summarizedByQubits:roundingSummaryToDecimalPlaces:)`.
+    /// `CircuitProbabilities.groupedProbabilities(byQubits:summarizedByQubits:roundingSummaryToDecimalPlaces:)`.
     public typealias GroupedProb = (probability: Double, summary: [String: Double])
 
     // MARK: - Public methods
@@ -315,7 +315,7 @@ extension CircuitStatevector {
 
 // MARK: - Private body
 
-private extension CircuitStatevector {
+private extension CircuitProbabilities {
 
     // MARK: - Private class methods
 

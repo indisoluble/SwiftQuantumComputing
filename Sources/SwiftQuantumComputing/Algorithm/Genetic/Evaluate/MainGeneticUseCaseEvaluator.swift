@@ -61,7 +61,7 @@ extension MainGeneticUseCaseEvaluator: GeneticUseCaseEvaluator {
         let circuit = circuitFactory.makeCircuit(gates: gates)
         let initialStatevector = try! statevectorFactory.makeStatevector(bits: useCase.circuit.input).get()
 
-        var statevector: CircuitStatevector!
+        var statevector: CircuitProbabilities!
         switch circuit.statevector(withInitialState: initialStatevector) {
         case .success(let state):
             statevector = state
