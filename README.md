@@ -29,7 +29,9 @@ let quantumOperators: [QuantumOperatorConvertible] = [
 //: 2. Build a quantum circuit with noise using the list
 let circuit = MainNoiseCircuitFactory().makeNoiseCircuit(quantumOperators: quantumOperators)
 //: 3. Use the quantum circuit with noise
-print("Density matrix:: \(circuit.densityMatrix().get())\n")
+let result = try circuit.densityMatrix().get()
+print("Density matrix: \(result)\n")
+print("Probabilities: \(result.probabilities())\n")
 ```
 
 Check code in [NoiseCircuit.playground](https://github.com/indisoluble/SwiftQuantumComputing/tree/master/Playground/Usage/NoiseCircuit.playground/Contents.swift).

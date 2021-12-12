@@ -17,7 +17,7 @@ let qubitCount = 3 * n
 
 print("Build Quantum Fourier Transformation gate with \(qubitCount - n) inputs")
 let start = CFAbsoluteTimeGetCurrent()
-let fourierGate = Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(),
+let fourierGate = try Gate.makeQuantumFourierTransform(inputs:(n..<qubitCount).reversed(),
                                                    inverse: true).get()
 let diff = CFAbsoluteTimeGetCurrent() - start
 print("Gate built in \(diff) seconds (\(diff / 60.0) minutes)\n")
@@ -39,26 +39,26 @@ for base in (2..<input).shuffled() {
 
     print("Build modular exponentiation for base \(base) & modulus \(input) with quantum gates")
     var start = CFAbsoluteTimeGetCurrent()
-    let modExpGates = Gate.makeModularExponentiation(base: base,
-                                                     modulus: input,
-                                                     exponent: (n..<qubitCount).reversed(),
-                                                     inputs: (0..<n).reversed()).get()
+    let modExpGates = try Gate.makeModularExponentiation(base: base,
+                                                         modulus: input,
+                                                         exponent: (n..<qubitCount).reversed(),
+                                                         inputs: (0..<n).reversed()).get()
     var diff = CFAbsoluteTimeGetCurrent() - start
     print("Gates built in \(diff) seconds (\(diff / 60.0) minutes)")
 
     print("Build quantum circuit with \(qubitCount) qubits, base \(base) & modulus \(input)")
     start = CFAbsoluteTimeGetCurrent()
     let gates = [notGate] + hadamardGates + modExpGates + [fourierGate]
-    drawer.drawCircuit(gates).get()
+    try drawer.drawCircuit(gates).get()
     let circuit = factory.makeCircuit(gates: gates)
     diff = CFAbsoluteTimeGetCurrent() - start
     print("Circuit built in \(diff) seconds (\(diff / 60.0) minutes)")
 
     print("Run quantum circuit with \(qubitCount) qubits & \(circuit.gates.count) gates")
     start = CFAbsoluteTimeGetCurrent()
-    let state = circuit.statevector().get()
-    let probs = state.groupedProbabilities(byQubits: (0..<n).reversed(),
-                                           summarizedByQubits: (n..<qubitCount).reversed()).get()
+    let state = try circuit.statevector().get()
+    let probs = try state.groupedProbabilities(byQubits: (0..<n).reversed(),
+                                               summarizedByQubits: (n..<qubitCount).reversed()).get()
     diff = CFAbsoluteTimeGetCurrent() - start
     print("Execution completed in \(diff) seconds (\(diff / 60.0) minutes)")
 
@@ -70,10 +70,10 @@ for base in (2..<input).shuffled() {
     print("Use top measurement \(topMeasure) to find a candidate period")
     let y = Int(topMeasure, radix: 2)!
     let Q = Int(Foundation.pow(Double(2), Double(2 * n)))
-    let value = Rational(numerator: y, denominator: Q)
-    let limit = Rational(numerator: 1, denominator: 2 * Q)
-    let aprox = ContinuedFractionsSolver.findApproximation(of: value,
-                                                           differenceBelowOrEqual: limit).get()
+    let value = try Rational(numerator: y, denominator: Q)
+    let limit = try Rational(numerator: 1, denominator: 2 * Q)
+    let aprox = try ContinuedFractionsSolver.findApproximation(of: value,
+                                                               differenceBelowOrEqual: limit).get()
 
     let period = aprox.denominator
     print("Validating candidate period: \(period)")

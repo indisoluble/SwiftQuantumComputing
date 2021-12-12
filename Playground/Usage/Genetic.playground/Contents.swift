@@ -33,28 +33,28 @@ func probabilities(in evolvedGates: [Gate], useCase: GeneticUseCase) -> [String:
     return finalStatevector.summarizedProbabilities()
 }
 //: 1. Define a configuration for the genetic algorithm
-let config = GeneticConfiguration(depth: (1..<50),
-                                  generationCount: 2000,
-                                  populationSize: (2500..<6500),
-                                  tournamentSize: 7,
-                                  mutationProbability: 0.2,
-                                  threshold: 0.48,
-                                  errorProbability: 0.000000000000001)
+let config = try GeneticConfiguration(depth: (1..<50),
+                                      generationCount: 2000,
+                                      populationSize: (2500..<6500),
+                                      tournamentSize: 7,
+                                      mutationProbability: 0.2,
+                                      threshold: 0.48,
+                                      errorProbability: 0.000000000000001)
 //: 2. Also the uses cases, i.e. the circuit outputs you want to get
 //:    when the oracle is configured with the different truth tables
 let cases = [
-    GeneticUseCase(emptyTruthTableQubitCount: 1, circuitOutput: "00"),
-    GeneticUseCase(truthTable: ["0", "1"], circuitOutput: "00"),
-    GeneticUseCase(truthTable: ["0"], circuitOutput: "10"),
-    GeneticUseCase(truthTable: ["1"], circuitOutput: "10")
+    try GeneticUseCase(emptyTruthTableQubitCount: 1, circuitOutput: "00"),
+    try GeneticUseCase(truthTable: ["0", "1"], circuitOutput: "00"),
+    try GeneticUseCase(truthTable: ["0"], circuitOutput: "10"),
+    try GeneticUseCase(truthTable: ["1"], circuitOutput: "10")
 ]
 //: 3. And which gates can be used to find a solution
 let gates: [ConfigurableGate] = [HadamardGate(), NotGate()]
 //: 4. Now, run the genetic algorithm to find/evolve a circuit that solves
 //:    the problem modeled with the use cases
-let evolvedCircuit = MainGeneticFactory().evolveCircuit(configuration: config,
-                                                        useCases: cases,
-                                                        gates: gates).get()
+let evolvedCircuit = try MainGeneticFactory().evolveCircuit(configuration: config,
+                                                            useCases: cases,
+                                                            gates: gates).get()
 print("Solution found. Fitness score: \(evolvedCircuit.eval)")
 
 for useCase in cases {

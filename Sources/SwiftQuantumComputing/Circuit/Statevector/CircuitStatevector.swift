@@ -23,7 +23,16 @@ import Foundation
 // MARK: - Protocol definition
 
 /// A quantum circuit state
-public protocol CircuitStatevector {
+public protocol CircuitStatevector: CircuitProbabilities {
     /// State of a quantum circuit expressed as a `Vector` of `Complex` numbers
     var statevector: Vector { get }
+}
+
+// MARK: - CircuitProbabilities default implementations
+
+extension CircuitStatevector {
+    /// Check `CircuitProbabilities.probabilities()`
+    func probabilities() -> [Double] {
+        return statevector.map { $0.lengthSquared }
+    }
 }

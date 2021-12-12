@@ -1,9 +1,9 @@
 //
-//  CircuitStatevector+Probabilities.swift
+//  CircuitProbabilities.swift
 //  SwiftQuantumComputing
 //
-//  Created by Enrique de la Torre on 14/06/2020.
-//  Copyright © 2020 Enrique de la Torre. All rights reserved.
+//  Created by Enrique de la Torre on 11/12/2021.
+//  Copyright © 2021 Enrique de la Torre. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,11 +20,10 @@
 
 import Foundation
 
-// MARK: - Main body
+// MARK: - Protocol definition
 
-extension CircuitStatevector {
-
-    // MARK: - Public methods
+/// Probabilities of each possible combinations of qubits
+public protocol CircuitProbabilities {
 
     /**
      Returns the probabilities of each possible combinations of qubits.
@@ -32,7 +31,5 @@ extension CircuitStatevector {
      - Returns: A list in which each position represents a qubit combination and the value in a position the probability of
      such combination.
      */
-    public func probabilities() -> [Double] {
-        return statevector.map { $0.lengthSquared }
-    }
+    func probabilities() -> [Double]
 }

@@ -1,5 +1,5 @@
 //
-//  CircuitStatevector+SummarizedProbabilities.swift
+//  CircuitProbabilities+SummarizedProbabilities.swift
 //  SwiftQuantumComputing
 //
 //  Created by Enrique de la Torre on 17/06/2020.
@@ -22,7 +22,7 @@ import Foundation
 
 // MARK: - Errors
 
-/// Errors throwed by `CircuitStatevector.summarizedProbabilities(byQubits:)`.
+/// Errors throwed by `CircuitProbabilities.summarizedProbabilities(byQubits:)`.
 public enum SummarizedProbabilitiesError: Error, Hashable {
     /// Throwed when `qubits` references a qubit that does not exist in the circuit
     case qubitsAreNotInsideBounds
@@ -34,7 +34,7 @@ public enum SummarizedProbabilitiesError: Error, Hashable {
 
 // MARK: - Main body
 
-extension CircuitStatevector {
+extension CircuitProbabilities {
 
     // MARK: - Public methods
 

@@ -13,15 +13,15 @@ for _ in 0..<times {
                           target: 0)]
 
     // Inversion about mean
-    gates += [Gate.makeInversionAboutMean(inputs: (1...element.count).reversed()).get()]
+    gates += [try Gate.makeInversionAboutMean(inputs: (1...element.count).reversed()).get()]
 }
 
-MainDrawerFactory().makeDrawer().drawCircuit(gates).get()
+try MainDrawerFactory().makeDrawer().drawCircuit(gates).get()
 
 let circuit = MainCircuitFactory().makeCircuit(gates: gates)
-let statevector = circuit.statevector().get()
+let statevector = try circuit.statevector().get()
 
-let probabilities = statevector.summarizedProbabilities(byQubits: (1...element.count).reversed()).get()
+let probabilities = try statevector.summarizedProbabilities(byQubits: (1...element.count).reversed()).get()
 
 let (foundElement, _) = probabilities.max { $0.value < $1.value }!
 
